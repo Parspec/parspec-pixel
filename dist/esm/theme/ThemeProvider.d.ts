@@ -11,4 +11,4 @@ declare module '@mui/material/styles' {
         };
     }
 }
-export declare const ThemeProvider: React.FC<PropsWithChildren>;
+export declare const ThemeProvider: React.FC<PropsWithChildren<{}>>;

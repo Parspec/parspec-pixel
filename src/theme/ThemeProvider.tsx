@@ -59,6 +59,6 @@ const theme = createTheme({
     }
 });
 
-export const ThemeProvider: React.FC<PropsWithChildren> = (props) => {
+export const ThemeProvider: React.FC<PropsWithChildren<{}>> = (props) => {
     return <MUIThemeProvider theme={theme}>{props.children}</MUIThemeProvider>;
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import { jsx as _jsx } from "react/jsx-runtime";
 import { createTheme, ThemeProvider as MUIThemeProvider } from '@mui/material/styles';
 const theme = createTheme({
     spacing: 4,
@@ -25,6 +25,6 @@ const theme = createTheme({
     }
 });
 export const ThemeProvider = (props) => {
-    return React.createElement(MUIThemeProvider, { theme: theme }, props.children);
+    return _jsx(MUIThemeProvider, Object.assign({ theme: theme }, { children: props.children }), void 0);
 };
 //# sourceMappingURL=ThemeProvider.js.map

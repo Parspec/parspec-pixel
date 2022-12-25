@@ -1,12 +1,9 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ThemeProvider = void 0;
-const react_1 = __importDefault(require("react"));
+const jsx_runtime_1 = require("react/jsx-runtime");
 const styles_1 = require("@mui/material/styles");
-const theme = (0, styles_1.createTheme)({
+const theme = styles_1.createTheme({
     spacing: 4,
     status: {
         error: '#F43F5E',
@@ -31,7 +28,7 @@ const theme = (0, styles_1.createTheme)({
     }
 });
 const ThemeProvider = (props) => {
-    return react_1.default.createElement(styles_1.ThemeProvider, { theme: theme }, props.children);
+    return jsx_runtime_1.jsx(styles_1.ThemeProvider, Object.assign({ theme: theme }, { children: props.children }), void 0);
 };
 exports.ThemeProvider = ThemeProvider;
 //# sourceMappingURL=ThemeProvider.js.map

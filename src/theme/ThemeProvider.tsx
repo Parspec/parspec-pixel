@@ -26,32 +26,42 @@ declare module '@mui/material/styles' {
     //     darker?: string;
     // }
 
-    interface ThemeOptions {
-        status: {
-            error: React.CSSProperties['color'];
-            success: React.CSSProperties['color'];
-        };
-    }
+    // interface ThemeOptions {
+    //     status: {
+    //         error: React.CSSProperties['color'];
+    //         success: React.CSSProperties['color'];
+    //     };
+    // }
 }
 
 const theme = createTheme({
     spacing: 4,
-    status: {
-        error: '#F43F5E',
-        success: '#2DD4DE'
-    },
     shape: {
         borderRadius: 0
     },
+    typography: {
+        button: {
+            textTransform: 'none'
+        }
+    },
     palette: {
         primary: {
-            main: '#FFA72B'
-            // dark: '#FFA72B',
-            // light: '#FFA72B',
-            // contrastText: '#FFA72B'
+            main: '#FFA72B',
+            dark: '#e89827',
+            light: '#ffc471',
+            contrastText: '#091535'
         },
         secondary: {
-            main: '#6467F2'
+            main: '#091535',
+            dark: '#060f26',
+            light: '#5a6278',
+            contrastText: '#ffffff'
+        },
+        success: {
+            main: '#2dd4de'
+        },
+        error: {
+            main: '#F43F5E'
         },
         tertiary: {
             main: '#091535'

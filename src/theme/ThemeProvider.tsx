@@ -40,6 +40,9 @@ const theme = createTheme({
         error: '#F43F5E',
         success: '#2DD4DE'
     },
+    shape: {
+        borderRadius: 0
+    },
     palette: {
         primary: {
             main: '#FFA72B'
@@ -48,10 +51,10 @@ const theme = createTheme({
             // contrastText: '#FFA72B'
         },
         secondary: {
-            main: '#091535'
+            main: '#6467F2'
         },
         tertiary: {
-            main: '#6467F2'
+            main: '#091535'
         },
         neutral: {
             main: '#5E667D'

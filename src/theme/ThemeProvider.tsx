@@ -36,9 +36,9 @@ declare module '@mui/material/styles' {
 
 const theme = createTheme({
     spacing: 4,
-    shape: {
-        borderRadius: 0
-    },
+    // shape: {
+    //     borderRadius: 0
+    // },
     typography: {
         button: {
             textTransform: 'none'

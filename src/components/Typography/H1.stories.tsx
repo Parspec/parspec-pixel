@@ -6,9 +6,6 @@ import {Typography} from './';
 export default {
     title: 'Typography/H1',
     component: Typography.H1,
-    argTypes: {
-    // color: { control: 'color' },
-    },
 } as ComponentMeta<typeof Typography.H1>;
 
 const Template: ComponentStory<typeof Typography.H1> = (args) => (
@@ -18,6 +15,9 @@ const Template: ComponentStory<typeof Typography.H1> = (args) => (
 export const h1 = Template.bind({});
 h1.args = {
   children: 'Some Text',
-  color: 'primary.light'
+  color: 'primary',
+  textTransform: 'uppercase',
+  lineHeight: 2,
+  letterSpacing: 5,
 };
 

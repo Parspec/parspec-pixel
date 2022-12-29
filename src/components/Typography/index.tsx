@@ -1,26 +1,31 @@
 import {default as MUITypography, TypographyProps as MUITypographyProps } from '@mui/material/Typography';
+import { ThemeProvider } from '../../theme/ThemeProvider';
 
 export interface TypographyProps extends Pick<MUITypographyProps,"color" | "fontWeight" | "textTransform" | "lineHeight" | "letterSpacing" | "fontSize">{
-  color: 'primary' | "primary.light" | 'secondary';
+  color: 'primary' | "primary.main" | "primary.dark" | "primary.light" | "primary.contrastText" | 'secondary' | "secondary.main" | "secondary.dark" | "secondary.light" | "secondary.contrastText" ;
 };
 
 export interface HeadingTypographyProps extends Omit<TypographyProps, "fontWeight" | "fontSize">{
   variant: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-  color: 'primary' | 'primary.light' | 'secondary';
 }; 
 
 export interface BodyTypographyProps extends TypographyProps{
   variant: "BodyBig" | "BodyMedium" | "BodySmall" | "BodyXS"; 
-  color: 'primary' | 'secondary';
 };
 
-const Heading: React.FC<HeadingTypographyProps> = (props) => (<MUITypography {...props}/>) 
+const Heading: React.FC<HeadingTypographyProps> = (props) => (
+  <ThemeProvider>
+    <MUITypography {...props}/>
+  </ThemeProvider>
+) 
 const BodyT: React.FC<BodyTypographyProps> = (props) => { 
     let propsCopy = JSON.parse(JSON.stringify(props));
     delete propsCopy['variant'];
-    return (<MUITypography 
-      {...propsCopy}
-    />);
+    return (
+      <ThemeProvider>
+        <MUITypography {...propsCopy} />
+      </ThemeProvider>
+    );
 }
  
 export const H1: React.FC<Omit<HeadingTypographyProps,"variant">> = (props) => <Heading {...props} variant="h1" />; 

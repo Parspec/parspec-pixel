@@ -5,9 +5,6 @@ import {Typography} from './';
 export default {
     title: 'Typography/BodyXS',
     component: Typography.BodyXS,
-    argTypes: {
-    color: { control: 'color' },
-    },
 } as ComponentMeta<typeof Typography.BodyXS>;
 
 const Template: ComponentStory<typeof Typography.BodyXS> = (args) => (
@@ -16,5 +13,10 @@ const Template: ComponentStory<typeof Typography.BodyXS> = (args) => (
 
 export const bodyXS = Template.bind({});
 bodyXS.args = {
-  children: 'Some Text'
+  children: 'Some Text',
+  color: 'primary',
+  textTransform: 'uppercase',
+  lineHeight: 2,
+  letterSpacing: 5,
+  fontWeight: 1000,
 };

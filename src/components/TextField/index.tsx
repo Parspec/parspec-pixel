@@ -3,7 +3,7 @@ import { default as MUITextField, TextFieldProps as MUITextFieldProps } from '@m
 
 import { ThemeProvider } from '../../theme/ThemeProvider';
 
-export interface TextFieldProps extends Omit<MUITextFieldProps, 'margin' | 'classes'> {
+export interface TextFieldProps extends Omit<MUITextFieldProps, 'margin' | 'classes' | 'sx'> {
     variant: 'standard' | 'outlined' | 'filled';
     color: 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning';
     error: boolean;

@@ -14,10 +14,7 @@ const Template: ComponentStory<typeof Typography.H6> = (args) => (
 export const h6 = Template.bind({});
 
 h6.args = {
-  children: 'Some Text',
-  color: 'primary',
-  textTransform: 'uppercase',
-  lineHeight: 2,
-  letterSpacing: 5,
+  children: 'h6 heading',
+  textTransform: 'capitalize',
 };
 

@@ -13,10 +13,6 @@ const Template: ComponentStory<typeof Typography.BodyXS> = (args) => (
 
 export const bodyXS = Template.bind({});
 bodyXS.args = {
-  children: 'Some Text',
-  color: 'primary',
-  textTransform: 'uppercase',
-  lineHeight: 2,
-  letterSpacing: 5,
-  fontWeight: 1000,
+  children: 'Body Extra Small',
+  textTransform: 'capitalize',
 };

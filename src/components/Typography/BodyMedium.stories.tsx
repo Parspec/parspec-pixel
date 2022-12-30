@@ -13,10 +13,6 @@ const Template: ComponentStory<typeof Typography.BodyMedium> = (args) => (
 
 export const bodyMedium = Template.bind({});
 bodyMedium.args = {
-  children: 'Some Text',
-  color: 'primary',
-  textTransform: 'uppercase',
-  lineHeight: 2,
-  letterSpacing: 5,
-  fontWeight: 1000,
+  children: 'Body Medium',
+  textTransform: 'capitalize',
 };

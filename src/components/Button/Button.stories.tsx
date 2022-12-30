@@ -2,7 +2,6 @@ import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import { Button } from './';
-// import { ThemeProvider } from '../../theme/ThemeProvider';
 
 export default {
     title: 'Button',

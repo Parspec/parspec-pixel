@@ -14,10 +14,7 @@ const Template: ComponentStory<typeof Typography.H4> = (args) => (
 export const h4 = Template.bind({});
 
 h4.args = {
-  children: 'Some Text',
-  color: 'primary',
-  textTransform: 'uppercase',
-  lineHeight: 2,
-  letterSpacing: 5,
+  children: 'h4 headline',
+  textTransform: 'capitalize',
 };
 

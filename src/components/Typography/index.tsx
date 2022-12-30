@@ -11,7 +11,7 @@ export interface BodyTypographyProps extends Omit<TypographyProps, "variant">{};
 const Heading: React.FC<HeadingTypographyProps> = (props) => (
     <MUITypography {...props}/>
 ) 
-const BodyT: React.FC<BodyTypographyProps> = (props) => { 
+const BodyText: React.FC<BodyTypographyProps> = (props) => { 
     return (
         <MUITypography {...props} />
     );
@@ -24,15 +24,15 @@ export const H4: React.FC<Omit<HeadingTypographyProps,"variant">> = (props) => <
 export const H5: React.FC<Omit<HeadingTypographyProps,"variant">> = (props) => <Heading {...props} variant="h5" />; 
 export const H6: React.FC<Omit<HeadingTypographyProps,"variant">> = (props) => <Heading {...props} variant="h6" />; 
 
-export const BodyBig: React.FC<Omit<BodyTypographyProps, "fontSize" | "letterSpacing" | "lineHeight">> = (props) => <BodyT {...props} fontSize={"18px"} letterSpacing={"0.15px"} lineHeight={"28px"}/>; 
-export const BodyMedium: React.FC<Omit<BodyTypographyProps, "fontSize" | "letterSpacing" | "lineHeight">> = (props) => <BodyT {...props} fontSize={"16px"} letterSpacing={"0.44px"} lineHeight={"24px"}/>; 
-export const BodySmall: React.FC<Omit<BodyTypographyProps, "fontSize" | "letterSpacing" | "lineHeight">> = (props) => <BodyT {...props} fontSize={"14px"} letterSpacing={"0.25px"} lineHeight={"16px"}/>; 
-export const BodyXS: React.FC<Omit<BodyTypographyProps, "fontSize" | "letterSpacing" | "lineHeight">> = (props) => <BodyT {...props} fontSize={"12px"} lineHeight={"15px"}/>; 
+export const BodyBig: React.FC<Omit<BodyTypographyProps, "fontSize" | "letterSpacing" | "lineHeight">> = (props) => <BodyText {...props} fontSize={"18px"} letterSpacing={"0.15px"} lineHeight={"28px"}/>; 
+export const BodyMedium: React.FC<Omit<BodyTypographyProps, "fontSize" | "letterSpacing" | "lineHeight">> = (props) => <BodyText {...props} fontSize={"16px"} letterSpacing={"0.44px"} lineHeight={"24px"}/>; 
+export const BodySmall: React.FC<Omit<BodyTypographyProps, "fontSize" | "letterSpacing" | "lineHeight">> = (props) => <BodyText {...props} fontSize={"14px"} letterSpacing={"0.25px"} lineHeight={"16px"}/>; 
+export const BodyXS: React.FC<Omit<BodyTypographyProps, "fontSize" | "letterSpacing" | "lineHeight">> = (props) => <BodyText {...props} fontSize={"12px"} lineHeight={"15px"}/>; 
 
 Heading.defaultProps = {
   color: 'secondary',
 }
-BodyT.defaultProps = {
+BodyText.defaultProps = {
   color: 'secondary',
   fontWeight: 400
 }

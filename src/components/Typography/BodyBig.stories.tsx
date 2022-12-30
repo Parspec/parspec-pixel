@@ -5,6 +5,9 @@ import {Typography} from './';
 export default {
     title: 'Typography/BodyBig',
     component: Typography.BodyBig,
+    argTypes: {
+      fontWeight: { type: 'number' }
+    }
 } as ComponentMeta<typeof Typography.BodyBig>;
 
 const Template: ComponentStory<typeof Typography.BodyBig> = (args) => (

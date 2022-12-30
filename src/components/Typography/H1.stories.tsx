@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-// import H1 from './H1';
+
 import {Typography} from './';
 
 export default {

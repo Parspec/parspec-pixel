@@ -40,6 +40,7 @@ const theme = createTheme({
     //     borderRadius: 0
     // },
     typography: {
+        fontFamily: 'Inter',
         button: {
             textTransform: 'none'
         }

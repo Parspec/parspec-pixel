@@ -18,15 +18,13 @@ export interface RadioGroupProps extends MUIRadioGroupProps {
     name: string;
 }
 
-export const RadioGroup: React.FC<RadioGroupProps> = ({ options, title, ...rest }) => {
-    return (
-        <>
-            <FormLabel>{title}</FormLabel>
-            <MUIRadioGroup {...rest}>
-                {options.map((item, index) => {
-                    return <FormControlLabel key={index} value={item.value} control={<Radio />} label={item.displayText} />;
-                })}
-            </MUIRadioGroup>
-        </>
-    );
-};
+export const RadioGroup: React.FC<RadioGroupProps> = ({ options, title, ...rest }) => (
+    <>
+        <FormLabel>{title}</FormLabel>
+        <MUIRadioGroup {...rest}>
+            {options.map((item, index) => (
+                <FormControlLabel key={index} value={item.value} control={<Radio />} label={item.displayText} />
+            ))}
+        </MUIRadioGroup>
+    </>
+);

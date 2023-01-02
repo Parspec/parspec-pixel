@@ -1,6 +1,5 @@
 import React from 'react';
 import { default as MUIButton, ButtonProps as MUIButtonProps } from '@mui/material/Button';
-// import { Box } from '../Box';
 
 export interface ButtonProps extends Omit<MUIButtonProps, 'classes'> {
     color: 'primary' | 'secondary';

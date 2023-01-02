@@ -2,7 +2,7 @@ import React from 'react';
 import { default as MUIButton, ButtonProps as MUIButtonProps } from '@mui/material/Button';
 
 export interface ButtonProps extends Omit<MUIButtonProps, 'classes'> {
-    color: 'primary' | 'secondary';
+    color?: 'primary' | 'secondary';
 }
 
 export const Button: React.FunctionComponent<ButtonProps> = ({ disabled, ...rest }) => {

@@ -1,7 +1,7 @@
 import {default as MUITypography, TypographyProps as MUITypographyProps } from '@mui/material/Typography';
 
-interface TypographyProps extends Pick<MUITypographyProps,"color" | "fontWeight" | "textTransform" | "variant" | "fontSize" | "letterSpacing" | "lineHeight">{
-  color: 'primary' | 'secondary';
+interface TypographyProps extends Pick<MUITypographyProps,"color" | "fontWeight" | "textTransform" | "variant" | "fontSize" | "letterSpacing" | "lineHeight" | "children">{
+  color?: 'primary' | 'secondary';
 };
 
 export interface HeadingTypographyProps extends Omit<TypographyProps, "variant" | "fontSize" | "letterSpacing" | "lineHeight" | "fontWeight">{}; 

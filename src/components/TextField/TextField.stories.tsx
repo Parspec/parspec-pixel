@@ -3,8 +3,6 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import { TextField } from './index';
 
-import { ThemeProvider } from '../../theme/ThemeProvider';
-
 export default {
     title: 'TextField',
     component: TextField,
@@ -12,17 +10,12 @@ export default {
 } as ComponentMeta<typeof TextField>;
 
 const Template: ComponentStory<typeof TextField> = (args) => {
-    return (
-        <ThemeProvider>
-            <TextField {...args} />
-        </ThemeProvider>
-    );
+    return <TextField {...args} />;
 };
 
 export const standard = Template.bind({});
 
 standard.args = {
-    color: 'primary',
     variant: 'standard'
 };
 

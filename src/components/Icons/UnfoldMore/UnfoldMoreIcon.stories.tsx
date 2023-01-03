@@ -1,14 +1,14 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { CloseIcon } from './';
+import { UnfoldMoreIcon } from '.';
 
 export default {
-    title: 'Icons/CloseIcon',
-    component: CloseIcon,
-} as ComponentMeta<typeof CloseIcon>;
+    title: 'Icons/UnfoldMore',
+    component: UnfoldMoreIcon,
+} as ComponentMeta<typeof UnfoldMoreIcon>;
 
-const Template: ComponentStory<typeof CloseIcon> = (args) => (
-        <CloseIcon {...args} />
+const Template: ComponentStory<typeof UnfoldMoreIcon> = (args) => (
+        <UnfoldMoreIcon {...args} />
 );
 
 export const Small = Template.bind({});
@@ -26,7 +26,4 @@ Large.args = {
   fontSize: 'large'
 };
 
-export const Custom = Template.bind({});
-Custom.args = { 
-  fontSize: '50px'
-};
+export const Default = Template.bind({});

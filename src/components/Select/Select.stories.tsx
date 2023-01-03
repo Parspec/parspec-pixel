@@ -18,7 +18,7 @@ const Template: ComponentStory<typeof Select> = (args) => {
     const [selectedValue, setSelectedValue] = useState('');
 
     const handleOnChange = (event: SelectChangeEvent) => {
-        setSelectedValue(() => event.target.value);
+        setSelectedValue(event.target.value as string);
     };
 
     return (
@@ -36,6 +36,21 @@ select.args = {
         { value: 20, displayText: 'Twenty' },
         { value: 30, displayText: 'Thirty' }
     ],
-    title: 'Age',
-    labelId: 'demo-simple-select-label'
+    label: 'Age',
+    labelId: 'demo-simple-select-label',
+    id: 'demo-simple-select'
+};
+
+export const selectAutoWidth = Template.bind({});
+
+selectAutoWidth.args = {
+    options: [
+        { value: 20, displayText: 'Twenty' },
+        { value: 21, displayText: 'Twenty one' },
+        { value: 22, displayText: 'Twenty one and a half' }
+    ],
+    label: 'Numbers',
+    labelId: 'demo-simple-select-autowidth-label',
+    id: 'demo-simple-select-autowidth',
+    autoWidth: true
 };

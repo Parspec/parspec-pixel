@@ -12,15 +12,16 @@ interface SelectMenuOption {
 }
 
 export interface SelectProps extends Omit<MUISelectProps, 'classes' | 'sx'> {
-    title: string;
+    label: string;
     options: SelectMenuOption[];
     labelId: string;
+    id: string;
 }
 
-export const Select: React.FC<SelectProps> = ({ labelId, options, title, ...rest }) => (
+export const Select: React.FC<SelectProps> = ({ id, labelId, options, label, ...rest }) => (
     <>
-        <InputLabel id={labelId}>{title}</InputLabel>
-        <MUISelect {...rest} labelId={labelId}>
+        <InputLabel id={labelId}>{label}</InputLabel>
+        <MUISelect {...rest} labelId={labelId} label={label} id={id}>
             {options.map((item, index) => (
                 <MenuItem key={index} value={item.value}>
                     {item.displayText}

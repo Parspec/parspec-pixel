@@ -1,20 +1,40 @@
-import React from 'react';
-import { default as MUIDialog, DialogProps } from '@mui/material/Dialog';
+import {default as MUIModal, ModalProps as MUIModalProps } from '@mui/material/Modal';
+import { Box } from '../Box';
 
-// import {Button as MUIButton} from '../Button'
+import { 
+  ModalFooterStyle,
+  ModalBodyStyle, 
+  ModalContainerStyle, 
+  ModalHeaderStyle
+} from './ModalStyles';
 
+export interface ModalProps extends Pick<MUIModalProps, "open" | "onClose" | "aria-labelledby" | "aria-describedby" | "children" >{
+  openModal: boolean;
+  header?: React.ReactNode;
+  footer?: React.ReactNode;
+}
 
-export const Modal: React.FunctionComponent<DialogProps> = (props) => {
-    // console.log("Props====>",props)
-    return <MUIDialog {...props}>
+export const Modal: React.FC<ModalProps> = (props) => {
+  return (
+      <MUIModal
+        open={props?.openModal}
+        onClose={props?.onClose}
+        aria-labelledby={props?.['aria-labelledby']}
+        aria-describedby={props?.['aria-describedby']}
+      >
+        <Box sx={ModalContainerStyle}>
+            <ModalHeaderStyle>
+              {props?.header}
+            </ModalHeaderStyle>
 
-    {/* <MUIButton color='primary' onClick={()=> {clicked()}}>Primary</MUIButton> */}
+            <ModalBodyStyle>
+              {props?.children}
+            </ModalBodyStyle>
 
-    </MUIDialog>
-};
-
-
-// function clicked(){
-//     alert("Helloooo");
-    
-// }
+            <ModalFooterStyle>
+              {props?.footer}
+            </ModalFooterStyle>
+        </Box>
+      </MUIModal>
+  );
+}

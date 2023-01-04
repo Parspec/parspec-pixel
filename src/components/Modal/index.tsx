@@ -8,33 +8,36 @@ import {
   ModalHeaderStyle
 } from './ModalStyles';
 
-export interface ModalProps extends Pick<MUIModalProps, "open" | "onClose" | "aria-labelledby" | "aria-describedby" | "children" >{
-  openModal: boolean;
+export interface ModalProps extends Pick<MUIModalProps, "open" | "onClose" | "children" >{
   header?: React.ReactNode;
   footer?: React.ReactNode;
 }
 
-export const Modal: React.FC<ModalProps> = (props) => {
+export const Modal: React.FC<ModalProps> = ({open, onClose, children, header, footer}) => {
   return (
       <MUIModal
-        open={props?.openModal}
-        onClose={props?.onClose}
-        aria-labelledby={props?.['aria-labelledby']}
-        aria-describedby={props?.['aria-describedby']}
+        open={open}
+        onClose={onClose}
       >
         <Box sx={ModalContainerStyle}>
             <ModalHeaderStyle>
-              {props?.header}
+              {header}
             </ModalHeaderStyle>
 
             <ModalBodyStyle>
-              {props?.children}
+              {children}
             </ModalBodyStyle>
 
             <ModalFooterStyle>
-              {props?.footer}
+              {footer}
             </ModalFooterStyle>
         </Box>
       </MUIModal>
   );
 }
+
+Modal.defaultProps = {
+  header: <></>,
+  footer: <></>,
+  children: <></>
+};

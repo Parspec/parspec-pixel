@@ -4,7 +4,7 @@ import { TextField } from '../TextField/index';
 
 import { ChipTypeMap } from '@mui/material/Chip';
 
-import { default as MUIAutocomplete, AutocompleteProps as MUIAutocompleteProps } from '@mui/material/Autocomplete';
+import { default as MUIAutocomplete, AutocompleteProps as MUIAutocompleteProps, createFilterOptions } from '@mui/material/Autocomplete';
 
 export interface AutocompleteProps<
     T,
@@ -15,8 +15,8 @@ export interface AutocompleteProps<
 > extends Omit<MUIAutocompleteProps<T, Multiple, DisableClearable, FreeSolo, ChipComponent>, 'classes' | 'sx'> {
     id: string;
     label: string | null;
-    variant: 'outlined' | 'filled' | 'standard';
-    color: 'error' | 'primary' | 'secondary' | 'info' | 'success' | 'warning';
+    variant?: 'outlined' | 'filled' | 'standard';
+    color?: 'error' | 'primary' | 'secondary' | 'info' | 'success' | 'warning';
 }
 
 export const Autocomplete = <T, Multiple extends boolean | undefined = undefined, DisableClearable extends boolean | undefined = undefined, FreeSolo extends boolean | undefined = undefined>(
@@ -39,9 +39,9 @@ export const AsyncAutocomplete = <T, Multiple extends boolean | undefined = unde
             renderInput={(params) => (
                 <TextField
                     {...params}
-                    color={color}
+                    color={color || 'primary'}
                     label={label}
-                    variant={variant}
+                    variant={variant || 'outlined'}
                     InputProps={{
                         ...params.InputProps,
                         endAdornment: (
@@ -56,3 +56,4 @@ export const AsyncAutocomplete = <T, Multiple extends boolean | undefined = unde
         />
     );
 };
+export { createFilterOptions };

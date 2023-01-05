@@ -4,7 +4,12 @@ import { default as MUITextField, TextFieldProps as MUITextFieldProps } from '@m
 export interface TextFieldProps extends Omit<MUITextFieldProps, 'margin' | 'classes' | 'sx'> {
     variant: 'standard' | 'outlined' | 'filled';
     color: 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning';
-    error: boolean;
+    error?: boolean;
 }
 
 export const TextField: React.FC<TextFieldProps> = (props) => <MUITextField {...props} />;
+
+TextField.defaultProps = {
+    variant: 'outlined',
+    color: 'secondary'
+};

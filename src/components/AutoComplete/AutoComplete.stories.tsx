@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import { topFilms as top100Films } from './topfilm';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import { Autocomplete } from './index';
 
 export default {
-    title: 'Autocomplete',
+    title: 'Autocomplete/Autocomplete',
     component: Autocomplete,
     argTypes: {
         onChange: { action: 'onChange' },
@@ -14,76 +15,61 @@ export default {
     }
 } as ComponentMeta<typeof Autocomplete>;
 
-interface AutocompleteOption {
-    label: string;
-}
-
 const Template: ComponentStory<typeof Autocomplete> = (args) => {
-    const [value, setValue] = useState<AutocompleteOption | null>(null);
-    const handleInputChange = (event: any, newValue: AutocompleteOption | null) => {
-        setValue(newValue);
-        console.log(value, newValue);
+    const [inputValue, setInputValue] = useState('');
+
+    const handleInputChange = (event: any, newInputValue: React.SetStateAction<string>) => {
+        setInputValue(newInputValue);
     };
-    return <Autocomplete {...args} value={value} onInputChange={handleInputChange} />;
+
+    /**
+     * 'value' state represents the value selected by the user, for instance when pressing Enter.
+     *
+     * 'inputValue' state represents the value displayed in the textbox.
+     */
+
+    return <Autocomplete {...args} inputValue={inputValue} onInputChange={handleInputChange} />;
 };
 
-const top10Films = [
-    { label: 'The Shawshank Redemption', year: 1994 },
-    { label: 'The Godfather', year: 1972 },
-    { label: 'The Godfather: Part II', year: 1974 },
-    { label: 'The Dark Knight', year: 2008 },
-    { label: '12 Angry Men', year: 1957 },
-    { label: "Schindler's List", year: 1993 },
-    { label: 'Pulp Fiction', year: 1994 },
-    {
-        label: 'The Lord of the Rings: The Return of the King',
-        year: 2003
-    },
-    { label: 'The Good, the Bad and the Ugly', year: 1966 },
-    { label: 'Fight Club', year: 1999 }
-];
+const groupedOptions = top100Films.map((option) => {
+    const firstLetter = option.title[0].toUpperCase();
+    return {
+        firstLetter: /[0-9]/.test(firstLetter) ? '0-9' : firstLetter,
+        ...option
+    };
+});
 
-export const basic = Template.bind({});
+export const autoComplete = Template.bind({});
 
-basic.args = {
-    options: top10Films.map((item) => item.label),
-    id: 'basic-demo',
-    disablePortal: true,
-    label: 'Movies'
+autoComplete.args = {
+    options: top100Films.map((item) => item.title),
+    id: 'autocomplete-demo',
+    label: 'Movies',
+    color: 'secondary',
+    variant: 'outlined'
 };
 
-export const disableOnSelect = Template.bind({});
+export const groupBy = Template.bind({});
 
-disableOnSelect.args = {
-    options: ['awesome', 'i am awesome', 'i am the coolest'],
-    id: 'disableonselect-demo',
-    label: 'disableOnSelect',
-    disableCloseOnSelect: true
+groupBy.args = {
+    options: groupedOptions.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter)),
+    groupBy: (option: { firstLetter: string }) => option.firstLetter,
+    getOptionLabel: (option: { title: string }) => option.title,
+    id: 'grouped-demo',
+    label: 'GroupBy',
+    color: 'secondary',
+    variant: 'outlined'
 };
 
-export const clearOnEscape = Template.bind({});
+export const multiSelect = Template.bind({});
 
-clearOnEscape.args = {
-    options: ['Twenty', 'Twenty one', 'Twenty one and half '],
-    id: 'clearonescape-demo',
-    label: 'clearOnEscape',
-    clearOnEscape: true
-};
-
-export const disableListWrap = Template.bind({});
-
-disableListWrap.args = {
-    options: top10Films.map((item) => item.label),
-    id: 'disablelistwrap-demo',
-    label: 'disableListWrap',
-    disableListWrap: true
-};
-
-export const selectOnFocus = Template.bind({});
-
-selectOnFocus.args = {
-    options: top10Films.map((item) => item.label),
-    id: 'selectonfocus-demo',
-    label: 'selectOnFocus',
-    selectOnFocus: true
+multiSelect.args = {
+    id: 'multiselect-demo',
+    label: 'MultiSelect',
+    color: 'primary',
+    variant: 'outlined',
+    multiple: true,
+    options: top100Films,
+    getOptionLabel: (option: { title: string }) => option.title,
+    defaultValue: [top100Films[0]]
 };

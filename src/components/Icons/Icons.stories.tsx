@@ -1,26 +1,19 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { AllIcons } from '.';
+import { Icon } from '.';
 
 export default {
-    title: 'Icons',
-    component: AllIcons,
-} as ComponentMeta<typeof AllIcons>;
+    title: 'Icon',
+    component: Icon,
+} as ComponentMeta<typeof Icon>;
 
-const Template: ComponentStory<typeof AllIcons> = (args) => (
-        <AllIcons {...args} />
+const Template: ComponentStory<typeof Icon> = (args) => (
+        <Icon {...args} />
 );
 
-export const AllSmall = Template.bind({});
-AllSmall.args = { 
-  fontSize: 'small'
-};
-export const AllMedium = Template.bind({});
-AllMedium.args = { 
+export const CloseIcon = Template.bind({});
+CloseIcon.args = { 
+  name: 'Close',
   fontSize: 'medium'
-};
-export const AllLarge = Template.bind({});
-AllLarge.args = { 
-  fontSize: 'large'
 };
 

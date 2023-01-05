@@ -1,36 +1,17 @@
-import { CloseIcon } from "./Close";
-import { SearchIcon } from "./Search";
-import { UnfoldMoreIcon } from "./UnfoldMore";
-import { DragIndicatorIcon } from "./DragIndicator";
-import { Box } from "../Box";
-import { Grid } from "../Grid";
+import * as MUIIcons from '@mui/icons-material/';
 
-export interface IconsType{
+interface IconProps{
   fontSize?: "large" | "medium" | "small" | undefined;
+  name: "Close" | "UnfoldMore" | "Search" | "DragIndicator";
 }
 
-export const icons = [
-  {icon: CloseIcon, name: "CloseIcon"},
-  {icon: SearchIcon, name: "SearchIcon"},
-  {icon: UnfoldMoreIcon, name: "UnfoldMoreIcon"},
-  {icon: DragIndicatorIcon, name: "DragIndicatorIcon"},
-]
-
-export const AllIcons: React.FC<IconsType> = (props) => {
-  return(
-    <Grid container>
-      {
-      icons.map((Element)=>
-        <Grid item xs={4} sm={3} md={2} gap={5}>
-          <>
-          <Element.icon {...props}/>
-          <Box>{`${Element.name}`}</Box>
-          </>
-        </Grid>
-      )
-      }
-    </Grid>
-  );
+export const Icon: React.FC<IconProps> = ({name, fontSize}) => {
+  const SelectedIcon = MUIIcons[name as keyof typeof MUIIcons]
+  return (
+    <SelectedIcon fontSize={fontSize} />
+  )
 }
 
-export * as Icons from ".";
+Icon.defaultProps={
+  fontSize: "medium",
+}

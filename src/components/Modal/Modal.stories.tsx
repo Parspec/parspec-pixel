@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import {Modal} from './';
 import {Header} from './Header';
@@ -14,20 +14,24 @@ export default {
 } as ComponentMeta<typeof Modal>;
 
 const Template: ComponentStory<typeof Modal> = (args) => {
-  const [openModal, setOpenModal] = useState(false);  
+  
+  const [openModal, setOpenModal] = useState(args.open);  
+  useEffect(()=>{setOpenModal(args.open)},[args.open]);
+  
   const onClose = () => setOpenModal(false); 
   const openModalFunction = () => setOpenModal(true);
-
+  const header = <Header title="New BOM" onClose={onClose} />;
+  const footer = <Footer onReject={onClose} onAccept={onClose}/>;
   return (
           <>
             <Button color='primary' variant='contained' onClick={openModalFunction}>
               Open Modal
             </Button>
             <Modal  
-              onClose={onClose}
-              header={args.header}
-              footer={args.footer}
-              open={openModal || args.open}
+              onClose={args.onClose}
+              header={args.header || header}
+              footer={args.footer || footer}
+              open={openModal}
               children={args.children}
             />
           </>
@@ -36,15 +40,13 @@ const Template: ComponentStory<typeof Modal> = (args) => {
 
 export const defaultModal = Template.bind({});
 defaultModal.args = {
-    open: true,
+    open: false,
     children: 'Size of Modal Body is flexible, set height and width of children prop element',
-    header: <Header title="New BOM" onClose={()=>{}} />,
-    footer: <Footer onReject={()=>{}} onAccept={()=>{}}/>
 };
 
 export const customFooter = Template.bind({});
 customFooter.args = {
-    open: true,
+    open: false,
     children: 
       <Box height={"220px"} width={"400px"}>
         <BodyBig>

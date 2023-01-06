@@ -10,5 +10,6 @@ export const Button: React.FunctionComponent<ButtonProps> = ({ disabled, ...rest
 };
 
 Button.defaultProps = {
-    color: 'primary'
+    color: 'primary',
+    variant: 'contained'
 };

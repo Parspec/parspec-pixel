@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import {Modal} from './';
 import {Header} from './Header';
@@ -6,6 +6,7 @@ import {Footer} from './Footer';
 import { Button } from '../Button';
 import { Box } from '../Box';
 import { BodyBig } from '../Typography';
+import { Typography } from '../Typography';
 
 export default {
     title: 'Modal',
@@ -13,23 +14,25 @@ export default {
 } as ComponentMeta<typeof Modal>;
 
 const Template: ComponentStory<typeof Modal> = (args) => {
-  const [openModal, setOpenModal] = useState(false);  
+  
+  const [openModal, setOpenModal] = useState(args.open);  
+  useEffect(()=>{setOpenModal(args.open)},[args.open]);
+  
   const onClose = () => setOpenModal(false); 
   const openModalFunction = () => setOpenModal(true);
   const header = <Header title="New BOM" onClose={onClose} />;
-  const footer = <Footer onReject={onClose}/>;
-
+  const footer = <Footer onReject={onClose} onAccept={onClose}/>;
   return (
           <>
             <Button color='primary' variant='contained' onClick={openModalFunction}>
               Open Modal
             </Button>
             <Modal  
-              onClose={onClose}
-              header={header}
-              footer={footer}
-              {...args}
-              openModal={openModal} 
+              onClose={args.onClose}
+              header={args.header || header}
+              footer={args.footer || footer}
+              open={openModal}
+              children={args.children}
             />
           </>
   )
@@ -37,16 +40,22 @@ const Template: ComponentStory<typeof Modal> = (args) => {
 
 export const defaultModal = Template.bind({});
 defaultModal.args = {
-    children: 'Size of Modal Body is flexible, set height and width of children prop element'
+    open: false,
+    children: 'Size of Modal Body is flexible, set height and width of children prop element',
 };
 
 export const customFooter = Template.bind({});
 customFooter.args = {
+    open: false,
     children: 
       <Box height={"220px"} width={"400px"}>
         <BodyBig>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi optio aspernatur culpa quis nihil laudantium atque at perspiciatis, dignissimos alias est ab nemo dolorem, nobis temporibus? Nemo vero consequuntur ab iure soluta, beatae veniam? Voluptate, explicabo cumque architecto, harum aut nisi vero nemo quisquam est ratione inventore! Molestiae, doloribus dolore.
         </BodyBig>
+      </Box>,
+    header:
+      <Box textAlign={"center"} >
+      <Typography.BodyBig fontWeight={1000}>Custom Modal</Typography.BodyBig>
       </Box>,
     footer: 
     <Box textAlign={"right"}>

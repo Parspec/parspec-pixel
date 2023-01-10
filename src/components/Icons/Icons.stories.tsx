@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import * as PixelIcons from '.';
+import {PixelIcons} from './index';
 import {Grid} from '../Grid';
 import {Box} from '../Box'
 
@@ -11,7 +11,6 @@ export default {
 
 const Template: ComponentStory<any> = (args) => {
     
- 
     return (
       Array.isArray(args.icons) ? (
           <Grid container>

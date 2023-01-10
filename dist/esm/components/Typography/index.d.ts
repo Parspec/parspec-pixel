@@ -1,22 +1,12 @@
 /// <reference types="react" />
 import { TypographyProps as MUITypographyProps } from '@mui/material/Typography';
-interface TypographyProps extends Pick<MUITypographyProps, "color" | "fontWeight" | "textTransform" | "variant" | "fontSize" | "letterSpacing" | "lineHeight"> {
-    color: 'primary' | 'secondary';
+interface TypographyProps extends Pick<MUITypographyProps, 'color' | 'fontWeight' | 'textTransform' | 'variant' | 'fontSize' | 'letterSpacing' | 'lineHeight'> {
+    color?: 'primary' | 'secondary';
 }
-export interface HeadingTypographyProps extends Omit<TypographyProps, "variant" | "fontSize" | "letterSpacing" | "lineHeight" | "fontWeight"> {
+export interface HeadingTypographyProps extends Omit<TypographyProps, 'variant' | 'fontSize' | 'letterSpacing' | 'lineHeight' | 'fontWeight'> {
 }
-export interface BodyTypographyProps extends Omit<TypographyProps, "variant" | "fontSize" | "letterSpacing" | "lineHeight"> {
+export interface BodyTypographyProps extends Omit<TypographyProps, 'variant' | 'fontSize' | 'letterSpacing' | 'lineHeight'> {
 }
-export declare const H1: React.FC<HeadingTypographyProps>;
-export declare const H2: React.FC<HeadingTypographyProps>;
-export declare const H3: React.FC<HeadingTypographyProps>;
-export declare const H4: React.FC<HeadingTypographyProps>;
-export declare const H5: React.FC<HeadingTypographyProps>;
-export declare const H6: React.FC<HeadingTypographyProps>;
-export declare const BodyBig: React.FC<BodyTypographyProps>;
-export declare const BodyMedium: React.FC<BodyTypographyProps>;
-export declare const BodySmall: React.FC<BodyTypographyProps>;
-export declare const BodyXS: React.FC<BodyTypographyProps>;
 export declare const Typography: {
     H1: import("react").FC<HeadingTypographyProps>;
     H2: import("react").FC<HeadingTypographyProps>;

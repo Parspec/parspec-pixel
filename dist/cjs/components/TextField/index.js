@@ -8,4 +8,8 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const TextField_1 = __importDefault(require("@mui/material/TextField"));
 const TextField = (props) => jsx_runtime_1.jsx(TextField_1.default, Object.assign({}, props), void 0);
 exports.TextField = TextField;
+exports.TextField.defaultProps = {
+    variant: 'outlined',
+    color: 'primary'
+};
 //# sourceMappingURL=index.js.map

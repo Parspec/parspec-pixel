@@ -1,6 +1,6 @@
 import { default as MUITypography, TypographyProps as MUITypographyProps } from '@mui/material/Typography';
 
-interface TypographyProps extends Pick<MUITypographyProps, 'color' | 'fontWeight' | 'textTransform' | 'variant' | 'fontSize' | 'letterSpacing' | 'lineHeight' | 'children'> {
+interface TypographyProps extends Omit<MUITypographyProps, 'color'> {
     color?: 'primary' | 'secondary';
 }
 

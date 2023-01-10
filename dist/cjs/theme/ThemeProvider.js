@@ -43,6 +43,11 @@ const theme = styles_1.createTheme({
     },
     palette: {
         action: {},
+        text: {
+            primary: '#091535',
+            secondary: '#ffffff',
+            disabled: '#ffc471'
+        },
         primary: {
             main: '#FFA72B',
             dark: '#e89827',

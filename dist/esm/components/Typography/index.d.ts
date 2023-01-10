@@ -1,6 +1,6 @@
 /// <reference types="react" />
 import { TypographyProps as MUITypographyProps } from '@mui/material/Typography';
-interface TypographyProps extends Pick<MUITypographyProps, 'color' | 'fontWeight' | 'textTransform' | 'variant' | 'fontSize' | 'letterSpacing' | 'lineHeight' | 'children'> {
+interface TypographyProps extends Omit<MUITypographyProps, 'color'> {
     color?: 'primary' | 'secondary';
 }
 export interface HeadingTypographyProps extends Omit<TypographyProps, 'variant' | 'fontSize' | 'letterSpacing' | 'lineHeight' | 'fontWeight'> {

@@ -1,5 +1,5 @@
 import { IconStyle } from "./ModalStyles"
-import { Icon } from "../Icons"
+import {PixelIcons} from "../Icons"
 import { Typography } from "../Typography"
 import { HeaderContentStyle } from "./ModalStyles"
 
@@ -18,7 +18,7 @@ export const Header: React.FC<HeaderProps>= (props) => {
           {props?.title}
         </Typography.BodyBig>
         <IconStyle onClick={props?.onClose}>
-          <Icon name="Close" fontSize="small"/>
+          <PixelIcons.CloseIcon fontSize="small"/>
         </IconStyle>
       </HeaderContentStyle>      
   )

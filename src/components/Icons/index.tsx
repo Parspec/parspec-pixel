@@ -1,17 +1,21 @@
-import * as MUIIcons from '@mui/icons-material/';
+import { CloseIcon } from "./CloseIcon";
+import { DragIndicatorIcon } from "./DragIndicatorIcon";
+import { ParspecLogoIcon } from "./ParspecLogoIcon";
+import { SearchIcon } from "./SearchIcon";
+import { TrendingUpIcon } from "./TrendingUpIcon";
+import { UnfoldMoreIcon } from "./UnfoldMore";
 
-interface IconProps{
-  fontSize?: "large" | "medium" | "small" | undefined;
-  name: "Close" | "UnfoldMore" | "Search" | "DragIndicator";
+export interface IconProps{
+  fontSize: "large" | "medium" | "small";
 }
 
-export const Icon: React.FC<IconProps> = ({name, fontSize}) => {
-  const SelectedIcon = MUIIcons[name as keyof typeof MUIIcons]
-  return (
-    <SelectedIcon fontSize={fontSize} />
-  )
-}
+export const PixelIcons = {
+  CloseIcon,
+  DragIndicatorIcon,
+  ParspecLogoIcon,
+  SearchIcon,
+  TrendingUpIcon,
+  UnfoldMoreIcon,
+};
 
-Icon.defaultProps={
-  fontSize: "medium",
-}
+

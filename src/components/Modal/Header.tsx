@@ -15,7 +15,7 @@ export const Header: React.FC<HeaderProps>= (props) => {
           textTransform={"capitalize"} 
           fontWeight={600}
         >
-          {props?.title}
+          {props.title}
         </Typography.BodyBig>
         <IconStyle onClick={props?.onClose}>
           <CloseIcon fontSize="small"/>

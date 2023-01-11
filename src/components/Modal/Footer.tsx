@@ -15,16 +15,16 @@ export const Footer: React.FC<FooterProps>= (props) => {
         <Button 
           color="secondary" 
           variant="outlined"
-          onClick={props?.onReject}
+          onClick={props.onReject}
           >
-          {props?.cancelButtonLabel}
+          {props.cancelButtonLabel}
         </Button>
         <Button 
           color="primary" 
           variant="contained"
-          onClick={props?.onAccept} 
+          onClick={props.onAccept} 
           >
-          {props?.continueButtonLabel}
+          {props.continueButtonLabel}
         </Button>
       </FooterContentStyle>      
   )
@@ -32,5 +32,7 @@ export const Footer: React.FC<FooterProps>= (props) => {
 
 Footer.defaultProps = {
   cancelButtonLabel: "Cancel",
-  continueButtonLabel: "Continue"
+  continueButtonLabel: "Submit",
+  onAccept: () => {},
+  onReject: () => {}
 }

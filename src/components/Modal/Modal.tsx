@@ -5,7 +5,7 @@ import {
   ModalBodyStyle, 
   ModalContainerStyle, 
   ModalHeaderStyle
-} from '.';
+} from './ModalStyles';
 
 export interface ModalProps extends Pick<MUIModalProps, "open" | "onClose" | "children" >{
   header?: React.ReactNode;

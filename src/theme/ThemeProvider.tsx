@@ -1,39 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 import { createTheme, ThemeProvider as MUIThemeProvider } from '@mui/material/styles';
 
-declare module '@mui/material/styles' {
-    // interface Theme {
-    //     status: {
-    //         danger: React.CSSProperties['color'];
-    //         success: React.CSSProperties['color'];
-    //     };
-    // }
-
-    // interface Palette {
-    //     neutral: Palette['primary'];
-    // }
-
-    interface PaletteOptions {
-        neutral: PaletteOptions['primary'];
-        tertiary: PaletteOptions['primary'];
-    }
-
-    // interface PaletteColor {
-    //     darker?: string;
-    // }
-
-    // interface SimplePaletteColorOptions {
-    //     darker?: string;
-    // }
-
-    // interface ThemeOptions {
-    //     status: {
-    //         error: React.CSSProperties['color'];
-    //         success: React.CSSProperties['color'];
-    //     };
-    // }
-}
-
 const theme = createTheme({
     spacing: 4,
     // shape: {
@@ -47,6 +14,11 @@ const theme = createTheme({
     },
     palette: {
         action: {},
+        text: {
+            primary: '#091535',
+            secondary: '#ffffff',
+            disabled: '#ffc471'
+        },
         primary: {
             main: '#FFA72B',
             dark: '#e89827',
@@ -56,7 +28,7 @@ const theme = createTheme({
         secondary: {
             main: '#091535',
             dark: '#060f26',
-            light: '#5a6278',
+            light: '#B3B6C0',
             contrastText: '#ffffff'
         },
         success: {
@@ -66,7 +38,7 @@ const theme = createTheme({
             main: '#F43F5E'
         },
         tertiary: {
-            main: '#091535'
+            main: '#6467F2'
         },
         neutral: {
             main: '#5E667D'

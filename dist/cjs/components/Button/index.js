@@ -19,7 +19,7 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const Button_1 = __importDefault(require("@mui/material/Button"));
 const Button = (_a) => {
     var { disabled } = _a, rest = __rest(_a, ["disabled"]);
-    return jsx_runtime_1.jsx(Button_1.default, Object.assign({ sx: disabled ? { opacity: 0.5 } : {} }, rest), void 0);
+    return (0, jsx_runtime_1.jsx)(Button_1.default, Object.assign({ sx: disabled ? { opacity: 0.5 } : {} }, rest));
 };
 exports.Button = Button;
 exports.Button.defaultProps = {

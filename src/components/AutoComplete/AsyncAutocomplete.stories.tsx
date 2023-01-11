@@ -9,9 +9,8 @@ export default {
     component: AsyncAutocomplete,
     argTypes: {
         onChange: { action: 'onChange' },
-        onClose: { action: 'onClose' },
-        onHighlightChange: { action: 'onHighlightChange' },
-        onInputChange: { action: 'onInputChange' }
+        onOpen: { action: 'onClose' },
+        onClose: { action: 'onHighlightChange' }
     }
 } as ComponentMeta<typeof AsyncAutocomplete>;
 
@@ -28,7 +27,7 @@ const sleep = (delay = 0) => {
 
 const Template: ComponentStory<typeof AsyncAutocomplete> = (args) => {
     const [open, setOpen] = useState(false);
-    const [options, setOptions] = useState<readonly Film[]>([]);
+    const [options, setOptions] = useState<Film[]>([]);
     const loading = open && options.length === 0;
 
     useEffect(() => {
@@ -67,6 +66,9 @@ const Template: ComponentStory<typeof AsyncAutocomplete> = (args) => {
             onClose={() => {
                 setOpen(false);
             }}
+            onChange={(event, value) => {
+                console.log('This is the value selected', value);
+            }}
             options={options}
             loading={loading}
         />
@@ -76,13 +78,10 @@ const Template: ComponentStory<typeof AsyncAutocomplete> = (args) => {
 export const asyncAutoComplete = Template.bind({});
 
 asyncAutoComplete.args = {
-    options: topFilms.map((item) => item.title),
+    options: topFilms,
     id: 'asynchronous-demo',
-
     label: 'Asynchronous',
     color: 'secondary',
     variant: 'outlined',
-    isOptionEqualToValue: (option: { title: string }, value: { title: string }) => option.title === value.title,
-
-    getOptionLabel: (option: { title: string }) => option.title
+    loadersize: 20
 };

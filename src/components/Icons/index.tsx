@@ -9,7 +9,7 @@ export interface IconProps{
   fontSize: "large" | "medium" | "small";
 }
 
-export const PixelIcons = {
+export const Icons = {
   CloseIcon,
   DragIndicatorIcon,
   ParspecLogoIcon,

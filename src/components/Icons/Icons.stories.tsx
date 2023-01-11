@@ -1,13 +1,13 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import {PixelIcons} from './index';
+import {Icons} from './index';
 import {Grid} from '../Grid';
 import {Box} from '../Box'
 
 export default {
     title: 'Icon',
-    component: PixelIcons.SearchIcon,
-} as ComponentMeta<typeof PixelIcons.SearchIcon>;
+    component: Icons.SearchIcon,
+} as ComponentMeta<typeof Icons.SearchIcon>;
 
 const Template: ComponentStory<any> = (args) => {
     
@@ -34,19 +34,19 @@ const Template: ComponentStory<any> = (args) => {
 export const AllIcons = Template.bind({});
 AllIcons.args = { 
   icons: [
-    {icon:PixelIcons.ParspecLogoIcon, name: "ParspecLogoIcon"},
-    {icon:PixelIcons.TrendingUpIcon, name: "TrendingUpIcon"},
-    {icon:PixelIcons.SearchIcon, name: "SearchIcon"},
-    {icon:PixelIcons.UnfoldMoreIcon, name: "UnfoldMoreIcon"},
-    {icon:PixelIcons.CloseIcon, name: "CloseIcon"},
-    {icon:PixelIcons.DragIndicatorIcon, name: "DragIndicatorIcon"},
+    {icon:Icons.ParspecLogoIcon, name: "ParspecLogoIcon"},
+    {icon:Icons.TrendingUpIcon, name: "TrendingUpIcon"},
+    {icon:Icons.SearchIcon, name: "SearchIcon"},
+    {icon:Icons.UnfoldMoreIcon, name: "UnfoldMoreIcon"},
+    {icon:Icons.CloseIcon, name: "CloseIcon"},
+    {icon:Icons.DragIndicatorIcon, name: "DragIndicatorIcon"},
    ],
   fontSize: 'medium'
 };
 
 export const ParspecLogoIcon = Template.bind({});
 ParspecLogoIcon.args = { 
-  icons: PixelIcons.ParspecLogoIcon,
+  icons: Icons.ParspecLogoIcon,
   fontSize: 'large'
 };
 

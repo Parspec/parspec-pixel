@@ -3,33 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ThemeProvider = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const styles_1 = require("@mui/material/styles");
-// declare module '@mui/material/styles' {
-//     // interface Theme {
-//     //     status: {
-//     //         danger: React.CSSProperties['color'];
-//     //         success: React.CSSProperties['color'];
-//     //     };
-//     // }
-//     // interface Palette {
-//     //     neutral: Palette['primary'];
-//     // }
-//     interface PaletteOptions {
-//         neutral: PaletteOptions['primary'];
-//         tertiary: PaletteOptions['primary'];
-//     }
-//     // interface PaletteColor {
-//     //     darker?: string;
-//     // }
-//     // interface SimplePaletteColorOptions {
-//     //     darker?: string;
-//     // }
-//     // interface ThemeOptions {
-//     //     status: {
-//     //         error: React.CSSProperties['color'];
-//     //         success: React.CSSProperties['color'];
-//     //     };
-//     // }
-// }
 const theme = styles_1.createTheme({
     spacing: 4,
     // shape: {

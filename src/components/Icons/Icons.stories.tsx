@@ -1,13 +1,13 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import {Icons} from './index';
+import {ParspecLogoIcon,TrendingUpIcon,SearchIcon,UnfoldMoreIcon,CloseIcon,DragIndicatorIcon} from './index';
 import {Grid} from '../Grid';
 import {Box} from '../Box'
 
 export default {
-    title: 'Icon',
-    component: Icons.SearchIcon,
-} as ComponentMeta<typeof Icons.SearchIcon>;
+    title: 'Icons',
+    component: SearchIcon,
+} as ComponentMeta<typeof SearchIcon>;
 
 const Template: ComponentStory<any> = (args) => {
     
@@ -16,15 +16,16 @@ const Template: ComponentStory<any> = (args) => {
           <Grid container>
           {
             args.icons.map((element)=>{ 
-              return <Grid item xs={4} sm={3} md={2} gap={5} >
-                <>
-                <element.icon fontSize={args.fontSize} />
-                <Box>{element.name}</Box>
-                </>
-              </Grid>
-              }
-            ) 
-            }
+              return (
+                <Grid item xs={4} sm={3} md={2} gap={5} >
+                  <>
+                  <element.icon fontSize={args.fontSize} />
+                  <Box>{element.name}</Box>
+                  </>
+                </Grid>
+              )
+            }) 
+          }
           </Grid>
         ) : 
         (<args.icons fontSize={args.fontSize} />)
@@ -34,19 +35,19 @@ const Template: ComponentStory<any> = (args) => {
 export const AllIcons = Template.bind({});
 AllIcons.args = { 
   icons: [
-    {icon:Icons.ParspecLogoIcon, name: "ParspecLogoIcon"},
-    {icon:Icons.TrendingUpIcon, name: "TrendingUpIcon"},
-    {icon:Icons.SearchIcon, name: "SearchIcon"},
-    {icon:Icons.UnfoldMoreIcon, name: "UnfoldMoreIcon"},
-    {icon:Icons.CloseIcon, name: "CloseIcon"},
-    {icon:Icons.DragIndicatorIcon, name: "DragIndicatorIcon"},
+    {icon:ParspecLogoIcon, name: "ParspecLogoIcon"},
+    {icon:TrendingUpIcon, name: "TrendingUpIcon"},
+    {icon:SearchIcon, name: "SearchIcon"},
+    {icon:UnfoldMoreIcon, name: "UnfoldMoreIcon"},
+    {icon:CloseIcon, name: "CloseIcon"},
+    {icon:DragIndicatorIcon, name: "DragIndicatorIcon"},
    ],
   fontSize: 'medium'
 };
 
-export const ParspecLogoIcon = Template.bind({});
-ParspecLogoIcon.args = { 
-  icons: Icons.ParspecLogoIcon,
+export const ParspecLogo = Template.bind({});
+ParspecLogo.args = { 
+  icons: ParspecLogoIcon,
   fontSize: 'large'
 };
 

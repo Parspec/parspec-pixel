@@ -1,20 +1,67 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { createTheme, ThemeProvider as MUIThemeProvider } from '@mui/material/styles';
+// declare module '@mui/material/styles' {
+//     // interface Theme {
+//     //     status: {
+//     //         danger: React.CSSProperties['color'];
+//     //         success: React.CSSProperties['color'];
+//     //     };
+//     // }
+//     // interface Palette {
+//     //     neutral: Palette['primary'];
+//     // }
+//     interface PaletteOptions {
+//         neutral: PaletteOptions['primary'];
+//         tertiary: PaletteOptions['primary'];
+//     }
+//     // interface PaletteColor {
+//     //     darker?: string;
+//     // }
+//     // interface SimplePaletteColorOptions {
+//     //     darker?: string;
+//     // }
+//     // interface ThemeOptions {
+//     //     status: {
+//     //         error: React.CSSProperties['color'];
+//     //         success: React.CSSProperties['color'];
+//     //     };
+//     // }
+// }
 const theme = createTheme({
     spacing: 4,
-    status: {
-        error: '#F43F5E',
-        success: '#2DD4DE'
+    // shape: {
+    //     borderRadius: 0
+    // },
+    typography: {
+        fontFamily: 'Inter',
+        button: {
+            textTransform: 'none'
+        }
     },
     palette: {
+        action: {},
+        text: {
+            primary: '#091535',
+            secondary: '#ffffff',
+            disabled: '#ffc471'
+        },
         primary: {
-            main: '#FFA72B'
-            // dark: '#FFA72B',
-            // light: '#FFA72B',
-            // contrastText: '#FFA72B'
+            main: '#FFA72B',
+            dark: '#e89827',
+            light: '#ffc471',
+            contrastText: '#091535'
         },
         secondary: {
-            main: '#091535'
+            main: '#091535',
+            dark: '#060f26',
+            light: '#B3B6C0',
+            contrastText: '#ffffff'
+        },
+        success: {
+            main: '#2dd4de'
+        },
+        error: {
+            main: '#F43F5E'
         },
         tertiary: {
             main: '#6467F2'

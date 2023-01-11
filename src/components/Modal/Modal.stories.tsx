@@ -5,7 +5,6 @@ import {Header} from './Header';
 import {Footer} from './Footer';
 import { Button } from '../Button';
 import { Box } from '../Box';
-import { BodyBig } from '../Typography';
 import { Typography } from '../Typography';
 
 export default {
@@ -41,21 +40,23 @@ const Template: ComponentStory<typeof Modal> = (args) => {
 export const defaultModal = Template.bind({});
 defaultModal.args = {
     open: false,
-    children: 'Size of Modal Body is flexible, set height and width of children prop element',
+    children: <Typography.BodySmall>
+      'Size of Modal Body is flexible, set height and width of children prop element',
+    </Typography.BodySmall>,
 };
 
 export const customFooter = Template.bind({});
 customFooter.args = {
     open: false,
     children: 
-      <Box height={"220px"} width={"400px"}>
-        <BodyBig>
+      <Box height={"120px"} width={"400px"}>
+        <Typography.BodySmall>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi optio aspernatur culpa quis nihil laudantium atque at perspiciatis, dignissimos alias est ab nemo dolorem, nobis temporibus? Nemo vero consequuntur ab iure soluta, beatae veniam? Voluptate, explicabo cumque architecto, harum aut nisi vero nemo quisquam est ratione inventore! Molestiae, doloribus dolore.
-        </BodyBig>
+        </Typography.BodySmall>
       </Box>,
     header:
       <Box textAlign={"center"} >
-      <Typography.BodyBig fontWeight={1000}>Custom Modal</Typography.BodyBig>
+      <Typography.BodyMedium>Custom Modal</Typography.BodyMedium>
       </Box>,
     footer: 
     <Box textAlign={"right"}>

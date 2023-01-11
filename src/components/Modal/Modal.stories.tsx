@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import {Modal, Header, Footer} from './';
-
 import { Button } from '../Button';
 import { Box } from '../Box';
 import { Typography } from '../Typography';

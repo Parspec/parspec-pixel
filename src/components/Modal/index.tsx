@@ -8,6 +8,11 @@ import {
   ModalHeaderStyle
 } from './ModalStyles';
 
+import { Footer, FooterProps } from './Footer';
+import { Header, HeaderProps } from './Header';
+
+export {Footer, FooterProps, Header, HeaderProps};
+
 export interface ModalProps extends Pick<MUIModalProps, "open" | "onClose" | "children" >{
   header?: React.ReactNode;
   footer?: React.ReactNode;

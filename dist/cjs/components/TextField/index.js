@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TextField = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const TextField_1 = __importDefault(require("@mui/material/TextField"));
-const TextField = (props) => jsx_runtime_1.jsx(TextField_1.default, Object.assign({}, props), void 0);
+const TextField = (props) => (0, jsx_runtime_1.jsx)(TextField_1.default, Object.assign({}, props));
 exports.TextField = TextField;
 exports.TextField.defaultProps = {
     variant: 'outlined',

@@ -3,34 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ThemeProvider = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const styles_1 = require("@mui/material/styles");
-// declare module '@mui/material/styles' {
-//     // interface Theme {
-//     //     status: {
-//     //         danger: React.CSSProperties['color'];
-//     //         success: React.CSSProperties['color'];
-//     //     };
-//     // }
-//     // interface Palette {
-//     //     neutral: Palette['primary'];
-//     // }
-//     interface PaletteOptions {
-//         neutral: PaletteOptions['primary'];
-//         tertiary: PaletteOptions['primary'];
-//     }
-//     // interface PaletteColor {
-//     //     darker?: string;
-//     // }
-//     // interface SimplePaletteColorOptions {
-//     //     darker?: string;
-//     // }
-//     // interface ThemeOptions {
-//     //     status: {
-//     //         error: React.CSSProperties['color'];
-//     //         success: React.CSSProperties['color'];
-//     //     };
-//     // }
-// }
-const theme = styles_1.createTheme({
+const theme = (0, styles_1.createTheme)({
     spacing: 4,
     // shape: {
     //     borderRadius: 0
@@ -75,7 +48,7 @@ const theme = styles_1.createTheme({
     }
 });
 const ThemeProvider = (props) => {
-    return jsx_runtime_1.jsx(styles_1.ThemeProvider, Object.assign({ theme: theme }, { children: props.children }), void 0);
+    return (0, jsx_runtime_1.jsx)(styles_1.ThemeProvider, Object.assign({ theme: theme }, { children: props.children }));
 };
 exports.ThemeProvider = ThemeProvider;
 //# sourceMappingURL=ThemeProvider.js.map

@@ -1,11 +1,6 @@
 import {default as MUIModal, ModalProps as MUIModalProps } from '@mui/material/Modal';
 import { Box } from '../Box';
-import { 
-  ModalFooterStyle,
-  ModalBodyStyle, 
-  ModalContainerStyle, 
-  ModalHeaderStyle
-} from './ModalStyles';
+import { ModalContainerStyle } from './ModalStyles';
 
 export interface ModalProps extends Pick<MUIModalProps, "open" | "onClose" | "children" >{
   header?: React.ReactNode;
@@ -19,15 +14,28 @@ export const Modal: React.FC<ModalProps> = ({open, onClose, children, header, fo
         onClose={onClose}
       >
         <Box sx={ModalContainerStyle}>
-            <Box sx={ModalHeaderStyle}>
+            <Box 
+              width='100%'
+              pt={5} 
+              pb={2} 
+            >
               {header}
             </Box>
 
-            <Box sx={ModalBodyStyle}>
+            <Box
+              width='100%'
+              pt={1} 
+              pb={1}
+            >
               {children}
             </Box>
 
-            <Box sx={ModalFooterStyle}>
+            <Box
+              width='100%'
+              mt='auto'
+              pt={5} 
+              pb={2}
+            >
               {footer}
             </Box>
         </Box>

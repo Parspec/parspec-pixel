@@ -1,7 +1,6 @@
 
 import { Box } from "../Box";
 import { Button } from "../Button"
-import { FooterContentStyle } from "./ModalStyles"
 
 export interface FooterProps {
   onAccept?: ()=>void;
@@ -12,7 +11,11 @@ export interface FooterProps {
 
 export const Footer: React.FC<FooterProps>= (props) => {
   return (
-      <Box sx={FooterContentStyle}>
+      <Box  
+      display='flex'
+      justifyContent='end'
+      gap={1}
+      >
         <Button 
           color="secondary" 
           variant="outlined"

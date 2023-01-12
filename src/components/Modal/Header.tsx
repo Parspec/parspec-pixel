@@ -1,6 +1,5 @@
 import {CloseIcon} from "../Icons"
 import { Typography } from "../Typography"
-import { HeaderContentStyle } from "./ModalStyles"
 import { IconButton } from "@mui/material";
 import { Box } from "../Box";
 
@@ -11,7 +10,11 @@ export interface HeaderProps {
 
 export const Header: React.FC<HeaderProps>= (props) => {
   return (
-      <Box sx={HeaderContentStyle}>
+      <Box 
+        display='flex'
+        justifyContent='space-between'
+        alignItems='center'
+      >
         <Typography.BodyBig 
           textTransform={"capitalize"} 
           fontWeight={600}

@@ -8,6 +8,6 @@ export default {
     argTypes: { onUpload: { action: 'onUpload' } }
 } as ComponentMeta<typeof FileSelector>;
 
-const Template: ComponentStory<typeof FileSelector> = (args) => <FileSelector />;
+const Template: ComponentStory<typeof FileSelector> = (args) => <FileSelector url="" error="Wrong format" />;
 
 export const Primary = Template.bind({});

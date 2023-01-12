@@ -1,61 +1,43 @@
-import { Avatar } from '@mui/material';
+import { Avatar, IconButton } from '@mui/material';
 import { Box } from '../Box';
 import { Typography } from '../Typography';
 import { useDropzone } from 'react-dropzone';
 import { useCallback, useState } from 'react';
-
-const fileFormats = {
-    '.png': 'image/png',
-    '.jpeg': 'image/jpeg',
-    '.jpg': 'image/jpeg',
-    '.doc': 'application/msword',
-    '.docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-    '.pdf': 'application/pdf'
-};
-
-const getAcceptedFormats = (formats: string[]) => {
-    let acceptedFormats = {} as any;
-    formats.forEach((format: string) => {
-        let key = fileFormats[format as keyof typeof fileFormats];
-        if (key) {
-            acceptedFormats[key] = [format];
-        }
-    });
-    return acceptedFormats;
-};
+import { DeleteIcon } from '../Icons';
+import { getAcceptedFormats } from './fileFormats';
 
 const FileSelector = ({
     maxFiles = 1,
     acceptedFormats = [],
     onUpload,
     uploadFile = true,
-    url
+    url,
+    error,
+    helperText
 }: {
     maxFiles?: number;
     acceptedFormats?: string[];
-    onUpload: () => {};
-    uploadFile: boolean;
+    onUpload?: () => {};
+    uploadFile?: boolean;
     url: string;
+    error?: string;
+    helperText?: string;
 }) => {
     const [files, setFiles] = useState([]);
 
     const onDrop = useCallback((acceptedFiles: any) => {
-        // Do something with the files
         setFiles(acceptedFiles);
-        console.log('accepted filtes', acceptedFiles);
     }, []);
 
-    let dropzoneProps = { onDrop, maxFiles, accept: {} };
-
-    if (acceptedFormats.length) {
-        dropzoneProps.accept = getAcceptedFormats(acceptedFormats);
-    }
+    const onDelete = (file: { name: string }) => {
+        setFiles((old) => old.filter((item: { name: string }) => item.name !== file.name));
+    };
 
     const { getRootProps, getInputProps } = useDropzone({
-        ...dropzoneProps
+        onDrop,
+        maxFiles,
+        accept: acceptedFormats.length ? getAcceptedFormats(acceptedFormats) : {}
     });
-
-    console.log('files', files);
 
     return (
         <>
@@ -73,13 +55,26 @@ const FileSelector = ({
             ) : (
                 <Box>
                     {files.map((file: { name: string; size: number }) => (
-                        <Box display="flex" justifyContent="space-between">
+                        <Box display="flex" justifyContent="space-between" alignItems="flex-start">
                             <Box>
                                 <Typography.BodySmall fontWeight={600}>{file.name}</Typography.BodySmall>
                                 <Typography.BodySmall>{(file.size / 1000).toFixed(2)} kb</Typography.BodySmall>
                             </Box>
+                            <IconButton onClick={() => onDelete(file)} size="small">
+                                <DeleteIcon />
+                            </IconButton>
                         </Box>
                     ))}
+                </Box>
+            )}
+            {error && (
+                <Box mt={1}>
+                    <Typography.BodySmall>{error}</Typography.BodySmall>
+                </Box>
+            )}
+            {helperText && (
+                <Box mt={2}>
+                    <Typography.BodySmall color="secondary">{helperText}</Typography.BodySmall>
                 </Box>
             )}
         </>

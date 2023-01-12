@@ -1,6 +1,3 @@
-import { Box } from '../Box';
-import { styled } from '@mui/system';
-
 export const ModalContainerStyle = {
     position: 'absolute' as 'absolute',
     top: '50%',

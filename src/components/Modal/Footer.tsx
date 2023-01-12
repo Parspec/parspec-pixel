@@ -1,4 +1,5 @@
 
+import { Box } from "../Box";
 import { Button } from "../Button"
 import { FooterContentStyle } from "./ModalStyles"
 
@@ -11,7 +12,7 @@ export interface FooterProps {
 
 export const Footer: React.FC<FooterProps>= (props) => {
   return (
-      <FooterContentStyle>
+      <Box sx={FooterContentStyle}>
         <Button 
           color="secondary" 
           variant="outlined"
@@ -26,7 +27,7 @@ export const Footer: React.FC<FooterProps>= (props) => {
           >
           {props.continueButtonLabel}
         </Button>
-      </FooterContentStyle>      
+      </Box>      
   )
 }
 

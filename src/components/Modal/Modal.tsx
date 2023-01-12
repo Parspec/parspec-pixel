@@ -19,17 +19,17 @@ export const Modal: React.FC<ModalProps> = ({open, onClose, children, header, fo
         onClose={onClose}
       >
         <Box sx={ModalContainerStyle}>
-            <ModalHeaderStyle>
+            <Box sx={ModalHeaderStyle}>
               {header}
-            </ModalHeaderStyle>
+            </Box>
 
-            <ModalBodyStyle>
+            <Box sx={ModalBodyStyle}>
               {children}
-            </ModalBodyStyle>
+            </Box>
 
-            <ModalFooterStyle>
+            <Box sx={ModalFooterStyle}>
               {footer}
-            </ModalFooterStyle>
+            </Box>
         </Box>
       </MUIModal>
   );

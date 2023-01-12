@@ -14,40 +14,33 @@ export const ModalContainerStyle = {
     pr: 6
 };
 
-export const ModalHeaderStyle = styled(Box)`
-    width: 100%;
-    padding: 20px 0px 10px 0px;
-`;
-export const HeaderContentStyle = styled(Box)`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-`;
+export const ModalHeaderStyle = {
+    width: '100%',
+    pt: 5,
+    pb: 2
+};
 
-export const IconStyle = styled(Box)`
-    font-size: inherit;
-    color: secondary;
-    cursor: pointer;
-    &:hover {
-        transform: scale(1.1);
-        transition: all 0.1s ease-in;
-    }
-`;
+export const HeaderContentStyle = {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+};
 
-export const ModalBodyStyle = styled(Box)`
-    width: 100%;
-    padding: 5px 0px;
-`;
+export const ModalBodyStyle = {
+    width: '100%',
+    pt: 1,
+    pb: 1
+};
 
-export const ModalFooterStyle = styled(Box)`
-    width: 100%;
-    margin-top: auto;
-    padding-top: 20px;
-    padding-bottom: 10px;
-`;
+export const ModalFooterStyle = {
+    width: '100%',
+    mt: 'auto',
+    pt: 5,
+    pb: 2
+};
 
-export const FooterContentStyle = styled(Box)`
-    display: flex;
-    justify-content: end;
-    gap: 5px;
-`;
+export const FooterContentStyle = {
+    display: 'flex',
+    justifyContent: 'end',
+    gap: 1
+};

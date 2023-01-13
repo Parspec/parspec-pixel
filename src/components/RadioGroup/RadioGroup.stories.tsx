@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-
-import { RadioGroup } from './index';
+import { RadioGroup } from './';
 
 export default {
     title: 'RadioGroup',
@@ -12,7 +10,7 @@ export default {
     }
 } as ComponentMeta<typeof RadioGroup>;
 
-const Template: ComponentStory<typeof RadioGroup> = (args) => {
+const Template: ComponentStory<typeof RadioGroup> = ({ children, ...args }) => {
     const [selectedValue, setSelectedValue] = useState('');
 
     const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,7 +19,7 @@ const Template: ComponentStory<typeof RadioGroup> = (args) => {
 
     return (
         <RadioGroup {...args} onChange={handleOnChange} value={selectedValue}>
-            {args.children && args.children}
+            {children && children}
         </RadioGroup>
     );
 };
@@ -36,7 +34,7 @@ radioGroupRow.args = {
         { value: 'male', displayText: 'Male' },
         { value: 'other', displayText: 'Other' }
     ],
-    title: 'Gender'
+    label: 'Gender'
 };
 
 export const radioGroupColumn = Template.bind({});
@@ -48,5 +46,5 @@ radioGroupColumn.args = {
         { value: 'orange', displayText: 'Orange' },
         { value: 'mango', displayText: 'Mango' }
     ],
-    title: 'Fruits'
+    label: 'Fruits'
 };

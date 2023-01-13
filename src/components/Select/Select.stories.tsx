@@ -11,26 +11,22 @@ export default {
     }
 } as ComponentMeta<typeof Select>;
 
-const Template: ComponentStory<typeof Select> = ({ children, ...args }) => {
+const Template: ComponentStory<typeof Select> = (args) => {
     const [selectedValue, setSelectedValue] = useState('');
 
     const handleOnChange = (event: any) => {
         setSelectedValue(event.target.value as string);
     };
 
-    return (
-        <Select {...args} onChange={handleOnChange} value={selectedValue}>
-            {children && children}
-        </Select>
-    );
+    return <Select {...args} onChange={handleOnChange} value={selectedValue} />;
 };
 
 export const select = Template.bind({});
 
 const options = [
-    { value: 10, displayText: 'Ten' },
-    { value: 20, displayText: 'Twenty' },
-    { value: 30, displayText: 'Thirty' }
+    { value: 10, label: 'Ten' },
+    { value: 20, label: 'Twenty' },
+    { value: 30, label: 'Thirty' }
 ];
 
 select.args = {

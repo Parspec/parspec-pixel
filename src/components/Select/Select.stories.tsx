@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { Select, SelectChangeEvent } from './index';
+import { Select } from './index';
+
+const log = console.log;
 
 export default {
     title: 'Select',
@@ -17,8 +19,9 @@ export default {
 const Template: ComponentStory<typeof Select> = (args) => {
     const [selectedValue, setSelectedValue] = useState('');
 
-    const handleOnChange = (event: SelectChangeEvent) => {
+    const handleOnChange = (event: any) => {
         setSelectedValue(event.target.value as string);
+        log(selectedValue);
     };
 
     return (
@@ -30,27 +33,17 @@ const Template: ComponentStory<typeof Select> = (args) => {
 
 export const select = Template.bind({});
 
+const options = [
+    { value: 10, displayText: 'Ten' },
+    { value: 20, displayText: 'Twenty' },
+    { value: 30, displayText: 'Thirty' }
+];
+
 select.args = {
-    options: [
-        { value: 10, displayText: 'Ten' },
-        { value: 20, displayText: 'Twenty' },
-        { value: 30, displayText: 'Thirty' }
-    ],
+    options: options,
     label: 'Age',
     labelId: 'demo-simple-select-label',
-    id: 'demo-simple-select'
-};
-
-export const selectAutoWidth = Template.bind({});
-
-selectAutoWidth.args = {
-    options: [
-        { value: 20, displayText: 'Twenty' },
-        { value: 21, displayText: 'Twenty one' },
-        { value: 22, displayText: 'Twenty one and a half' }
-    ],
-    label: 'Numbers',
-    labelId: 'demo-simple-select-autowidth-label',
-    id: 'demo-simple-select-autowidth',
-    autoWidth: true
+    id: 'demo-simple-select',
+    autoWidth: true,
+    defaultValue: options[Math.floor(Math.random() * options.length)]['value']
 };

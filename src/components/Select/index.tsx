@@ -4,7 +4,7 @@ import InputLabel from '@mui/material/InputLabel';
 
 import MenuItem from '@mui/material/MenuItem';
 
-import { default as MUISelect, SelectProps as MUISelectProps, SelectChangeEvent } from '@mui/material/Select';
+import { default as MUISelect, SelectProps as MUISelectProps } from '@mui/material/Select';
 
 interface SelectMenuOption {
     value: string | number;
@@ -30,5 +30,3 @@ export const Select: React.FC<SelectProps> = ({ id, labelId, options, label, ...
         </MUISelect>
     </>
 );
-
-export { SelectChangeEvent };

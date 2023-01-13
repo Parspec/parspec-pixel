@@ -26,3 +26,8 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({ options, label, name, ..
         </MUIRadioGroup>
     </>
 );
+
+RadioGroup.defaultProps = {
+    label: 'Radio Group',
+    name: 'radio-group-name-control'
+};

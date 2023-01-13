@@ -7,7 +7,7 @@ import { Radio } from '../Radio';
 
 interface FormLabelParams {
     value: string;
-    displayText: string;
+    label: string;
 }
 
 export interface RadioGroupProps extends MUIRadioGroupProps {
@@ -21,7 +21,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({ options, label, name, ..
         <FormLabel>{label}</FormLabel>
         <MUIRadioGroup {...rest} name={name}>
             {options.map((item, index) => (
-                <FormControlLabel key={index} value={item.value} control={<Radio />} label={item.displayText} />
+                <FormControlLabel key={index} value={item.value} control={<Radio />} label={item.label} />
             ))}
         </MUIRadioGroup>
     </>

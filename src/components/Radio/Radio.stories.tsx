@@ -1,7 +1,7 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { Radio } from './index';
+import { Radio } from './';
 
 export default {
     title: 'Radio',
@@ -9,9 +9,7 @@ export default {
     argTypes: { onChange: { action: 'onChange' } }
 } as ComponentMeta<typeof Radio>;
 
-const Template: ComponentStory<typeof Radio> = (args) => {
-    return <Radio {...args} />;
-};
+const Template: ComponentStory<typeof Radio> = (args) => <Radio {...args} />;
 
 export const radio = Template.bind({});
 

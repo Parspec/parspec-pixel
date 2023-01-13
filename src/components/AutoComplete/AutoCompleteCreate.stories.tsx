@@ -2,7 +2,7 @@ import React from 'react';
 import { topFilms as top100Films } from './topfilm';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { AutocompleteCreate } from './index';
+import { AutocompleteCreate } from './';
 
 export default {
     title: 'Autocomplete/AutocompleteCreate',
@@ -12,16 +12,14 @@ export default {
     }
 } as ComponentMeta<typeof AutocompleteCreate>;
 
-const Template: ComponentStory<typeof AutocompleteCreate> = (args) => {
-    return (
-        <AutocompleteCreate
-            {...args}
-            onChange={(e: React.SyntheticEvent, newValue) => {
-                console.log(`Value i recieved ...`, newValue);
-            }}
-        />
-    );
-};
+const Template: ComponentStory<typeof AutocompleteCreate> = (args) => (
+    <AutocompleteCreate
+        {...args}
+        onChange={(e: React.SyntheticEvent, newValue) => {
+            console.log(newValue);
+        }}
+    />
+);
 
 export const autoCompleteCreate = Template.bind({});
 

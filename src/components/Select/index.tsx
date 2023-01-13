@@ -5,7 +5,7 @@ import { default as MUISelect, SelectProps as MUISelectProps } from '@mui/materi
 
 interface SelectMenuOption {
     value: string | number;
-    displayText: string;
+    label: string;
 }
 
 export interface SelectProps extends Omit<MUISelectProps, 'classes' | 'sx'> {
@@ -21,7 +21,7 @@ export const Select: React.FC<SelectProps> = ({ id, labelId, options, label, ...
         <MUISelect {...rest} labelId={labelId} label={label} id={id}>
             {options.map((item, index) => (
                 <MenuItem key={index} value={item.value}>
-                    {item.displayText}
+                    {item.label}
                 </MenuItem>
             ))}
         </MUISelect>
@@ -31,9 +31,9 @@ export const Select: React.FC<SelectProps> = ({ id, labelId, options, label, ...
 Select.defaultProps = {
     label: 'Select',
     options: [
-        { value: 10, displayText: 'Ten' },
-        { value: 20, displayText: 'Twenty' },
-        { value: 30, displayText: 'Thirty' }
+        { value: 10, label: 'Ten' },
+        { value: 20, label: 'Twenty' },
+        { value: 30, label: 'Thirty' }
     ],
     labelId: 'demo-simple-select-label',
     id: 'demo-simple-select'

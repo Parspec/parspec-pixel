@@ -1,76 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { topFilms } from './topfilm';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { AsyncAutocomplete } from './index';
+import { AsyncAutocomplete } from './';
 
 export default {
     title: 'Autocomplete/AsyncAutocomplete',
     component: AsyncAutocomplete,
     argTypes: {
-        onChange: { action: 'onChange' },
-        onOpen: { action: 'onClose' },
-        onClose: { action: 'onHighlightChange' }
+        onChange: { action: 'onChange' }
     }
 } as ComponentMeta<typeof AsyncAutocomplete>;
 
-interface Film {
-    title: string;
-    year: number;
-}
-
-const sleep = (delay = 0) => {
+const simulatingAsynchronous = () => {
     return new Promise((resolve) => {
-        setTimeout(resolve, delay);
+        setTimeout(() => {
+            resolve(topFilms);
+        }, 800);
     });
 };
 
 const Template: ComponentStory<typeof AsyncAutocomplete> = (args) => {
-    const [open, setOpen] = useState(false);
-    const [options, setOptions] = useState<Film[]>([]);
-    const loading = open && options.length === 0;
-
-    useEffect(() => {
-        let active = true;
-
-        if (!loading) {
-            return undefined;
-        }
-
-        (async () => {
-            await sleep(1e3);
-
-            if (active) {
-                setOptions([...topFilms]);
-            }
-        })();
-
-        return () => {
-            active = false;
-        };
-    }, [loading]);
-
-    useEffect(() => {
-        if (!open) {
-            setOptions([]);
-        }
-    }, [open]);
-
     return (
         <AsyncAutocomplete
             {...args}
-            open={open}
-            onOpen={() => {
-                setOpen(true);
-            }}
-            onClose={() => {
-                setOpen(false);
-            }}
             onChange={(event, value) => {
-                console.log('This is the value selected', value);
+                console.log(value);
             }}
-            options={options}
-            loading={loading}
         />
     );
 };
@@ -78,10 +34,10 @@ const Template: ComponentStory<typeof AsyncAutocomplete> = (args) => {
 export const asyncAutoComplete = Template.bind({});
 
 asyncAutoComplete.args = {
-    options: topFilms,
     id: 'asynchronous-demo',
     label: 'Asynchronous',
     color: 'secondary',
     variant: 'outlined',
-    loadersize: 20
+    loadersize: 20,
+    asyncFunc: simulatingAsynchronous
 };

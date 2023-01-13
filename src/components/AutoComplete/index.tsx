@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import { TextField } from '../TextField/index';
 
@@ -22,12 +22,9 @@ type AutoCompleteCreateProps<T> = AutocompleteProps<T> & {
     addontext?: string | null;
 };
 
-type AsyncAutocompleteProps<T> = AutocompleteProps<T> & {
-    loading: boolean;
-    open: boolean;
-    onOpen: () => void;
-    onClose: () => void;
-    loadersize: number;
+type AsyncAutocompleteProps<T> = Omit<AutocompleteProps<T>, 'options'> & {
+    loadersize?: number;
+    asyncFunc: () => Promise<OptionType[]>;
 };
 
 const AutocompleteCreate = <T,>(props: AutoCompleteCreateProps<T>): React.ReactElement => {
@@ -122,7 +119,39 @@ const Autocomplete = <T,>(props: AutocompleteProps<T>): React.ReactElement => {
 };
 
 const AsyncAutocomplete = <T,>(props: AsyncAutocompleteProps<T>): React.ReactElement => {
-    const { id, label, color, variant, onChange, loading, options, loadersize } = props;
+    const { id, label, color, variant, onChange, loadersize, asyncFunc } = props;
+
+    const [open, setOpen] = useState(false);
+    const [options, setOptions] = useState<OptionType[]>([]);
+
+    const loading = open && options.length === 0;
+
+    useEffect(() => {
+        let active = true;
+
+        if (!loading) {
+            return undefined;
+        }
+
+        (async () => {
+            const result = await asyncFunc();
+
+            if (active) {
+                setOptions([...result]);
+            }
+        })();
+
+        return () => {
+            active = false;
+        };
+    }, [loading]);
+
+    useEffect(() => {
+        if (!open) {
+            setOptions([]);
+        }
+    }, [open]);
+
     const handleOnChange = (event: React.SyntheticEvent, newValue: any) => {
         onChange(event, newValue);
     };
@@ -132,9 +161,13 @@ const AsyncAutocomplete = <T,>(props: AsyncAutocompleteProps<T>): React.ReactEle
             {...props}
             id={id}
             options={options}
-            open={props.open ? true : false}
-            onOpen={props.onOpen}
-            onClose={props.onClose}
+            open={open}
+            onOpen={() => {
+                setOpen(true);
+            }}
+            onClose={() => {
+                setOpen(false);
+            }}
             onChange={handleOnChange}
             isOptionEqualToValue={(option: any, value: any) => option.title === value.title}
             getOptionLabel={(option: any) => option.title}
@@ -148,7 +181,7 @@ const AsyncAutocomplete = <T,>(props: AsyncAutocompleteProps<T>): React.ReactEle
                         ...params.InputProps,
                         endAdornment: (
                             <React.Fragment>
-                                {loading ? <CircularProgress color="inherit" size={loadersize} /> : null}
+                                {loading ? <CircularProgress color="inherit" size={loadersize || 20} /> : null}
                                 {params.InputProps.endAdornment}
                             </React.Fragment>
                         )

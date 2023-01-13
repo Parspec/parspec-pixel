@@ -7,7 +7,7 @@ exports.Box = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const Box_1 = __importDefault(require("@mui/material/Box"));
 const Box = (props) => {
-    return jsx_runtime_1.jsx(Box_1.default, Object.assign({}, props), void 0);
+    return (0, jsx_runtime_1.jsx)(Box_1.default, Object.assign({}, props));
 };
 exports.Box = Box;
 //# sourceMappingURL=index.js.map

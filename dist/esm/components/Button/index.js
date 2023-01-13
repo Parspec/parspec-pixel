@@ -13,7 +13,7 @@ import { jsx as _jsx } from "react/jsx-runtime";
 import { default as MUIButton } from '@mui/material/Button';
 export const Button = (_a) => {
     var { disabled } = _a, rest = __rest(_a, ["disabled"]);
-    return _jsx(MUIButton, Object.assign({ sx: disabled ? { opacity: 0.5 } : {} }, rest), void 0);
+    return _jsx(MUIButton, Object.assign({ sx: disabled ? { opacity: 0.5 } : {} }, rest));
 };
 Button.defaultProps = {
     color: 'primary',

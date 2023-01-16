@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { ParspecLogoIcon, TrendingUpIcon, SearchIcon, UnfoldMoreIcon, CloseIcon, DragIndicatorIcon, DeleteIcon } from './index';
+import { ParspecLogoIcon, TrendingUpIcon, SearchIcon, UnfoldMoreIcon, CloseIcon, DragIndicatorIcon, DeleteIcon, UploadIcon } from './index';
 import { Grid } from '../Grid';
 import { Box } from '../Box';
 
@@ -37,7 +37,8 @@ AllIcons.args = {
         { icon: UnfoldMoreIcon, name: 'UnfoldMoreIcon' },
         { icon: CloseIcon, name: 'CloseIcon' },
         { icon: DragIndicatorIcon, name: 'DragIndicatorIcon' },
-        { icon: DeleteIcon, name: 'DeleteIcon' }
+        { icon: DeleteIcon, name: 'DeleteIcon' },
+        { icon: UploadIcon, name: 'UploadIcon' }
     ],
     fontSize: 'medium'
 };

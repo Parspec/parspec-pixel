@@ -24,6 +24,5 @@ export const checkbox = Template.bind({});
 
 checkbox.args = {
     label: 'Apple',
-    size: 'medium',
-    ariaLabel: 'checkbox-demo'
+    size: 'medium'
 };

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { RadioGroup } from './';
+import { Box } from '@mui/material';
 
 export default {
     title: 'RadioGroup',
@@ -26,7 +27,7 @@ radioGroupRow.args = {
     name: 'test-feature-1',
     row: true,
     options: [
-        { value: 'female', label: 'Female' },
+        { value: 'female', label: 'Female', helper: <Box>Hello</Box> },
         { value: 'male', label: 'Male' },
         { value: 'other', label: 'Other' }
     ],

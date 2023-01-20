@@ -7,17 +7,13 @@ export interface ButtonProps extends Omit<MUIButtonProps, 'classes'> {
     isLoading?: boolean;
 }
 
-const spinColor = {
-    primary: 'secondary',
-    secondary: 'primary'
-};
-
-export const Button: React.FunctionComponent<ButtonProps> = ({ disabled, isLoading, ...rest }) => {
+export const Button: React.FunctionComponent<ButtonProps> = ({ disabled, isLoading, color, ...rest }) => {
     return (
         <MUIButton
             {...rest}
+            color={color}
             sx={disabled || isLoading ? { opacity: 0.5, pointerEvents: 'none' } : {}}
-            startIcon={isLoading ? <CircularProgressIcon color={rest.variant === 'contained' ? (spinColor[rest.color!] as typeof rest.color) : 'inherit'} size="1rem" /> : null}
+            startIcon={isLoading ? <CircularProgressIcon color={'inherit'} size="1rem" /> : null}
         />
     );
 };

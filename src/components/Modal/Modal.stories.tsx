@@ -33,11 +33,11 @@ const Template: ComponentStory<typeof Modal> = (args) => {
 export const defaultModal = Template.bind({});
 defaultModal.args = {
     open: false,
-    children: <BodySmall>'Size of Modal Body is flexible, set height and width of children prop element',</BodySmall>
+    children: <BodySmall>'Size of Modal Body is flexible, set height and width of children prop element, Passing isLoading prop to footer will disable the buttons'</BodySmall>
 };
 
-export const customFooter = Template.bind({});
-customFooter.args = {
+export const customHeaderFooter = Template.bind({});
+customHeaderFooter.args = {
     open: false,
     children: (
         <Box height={'120px'} width={'400px'}>

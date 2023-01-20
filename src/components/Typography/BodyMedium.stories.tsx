@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { Typography } from './';
+import { BodyMedium } from './';
 
 export default {
     title: 'Typography/BodyMedium',

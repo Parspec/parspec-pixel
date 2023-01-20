@@ -26,5 +26,6 @@ Footer.defaultProps = {
     cancelButtonLabel: 'Cancel',
     continueButtonLabel: 'Submit',
     onAccept: () => {},
-    onReject: () => {}
+    onReject: () => {},
+    isLoading: false
 };

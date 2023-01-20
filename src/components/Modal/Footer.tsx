@@ -11,7 +11,7 @@ export interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ onAccept, onReject, cancelButtonLabel, continueButtonLabel, isLoading }) => {
     return (
-        <Box display="flex" justifyContent="end" gap={1}>
+        <Box display="flex" justifyContent="end" gap={2}>
             <Button color="secondary" variant="outlined" onClick={onReject}>
                 {cancelButtonLabel}
             </Button>

@@ -8,7 +8,14 @@ export interface ButtonProps extends Omit<MUIButtonProps, 'classes'> {
 }
 
 export const Button: React.FunctionComponent<ButtonProps> = ({ disabled, isLoading, ...rest }) => {
-    return <MUIButton sx={disabled ? { opacity: 0.5, pointerEvents: 'none' } : {}} startIcon={isLoading ? <CircularProgressIcon size="1rem" /> : null} disabled={isLoading || disabled} {...rest} />;
+    return (
+        <MUIButton
+            sx={disabled || isLoading ? { opacity: 0.5, pointerEvents: 'none' } : {}}
+            startIcon={isLoading ? <CircularProgressIcon color="secondary" size="1rem" /> : null}
+            disabled={disabled}
+            {...rest}
+        />
+    );
 };
 
 Button.defaultProps = {

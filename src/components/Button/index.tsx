@@ -20,5 +20,6 @@ export const Button: React.FunctionComponent<ButtonProps> = ({ disabled, isLoadi
 
 Button.defaultProps = {
     color: 'primary',
-    variant: 'contained'
+    variant: 'contained',
+    isLoading: false
 };

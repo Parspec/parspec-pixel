@@ -19,7 +19,7 @@ const Template: ComponentStory<typeof Modal> = (args) => {
     const onClose = () => setOpenModal(false);
     const openModalFunction = () => setOpenModal(true);
     const header = <Header title="New BOM" onClose={onClose} />;
-    const footer = <Footer onReject={onClose} onAccept={onClose} />;
+    const footer = <Footer onReject={onClose} onAccept={onClose} isLoading />;
     return (
         <>
             <Button color="primary" variant="contained" onClick={openModalFunction}>
@@ -33,7 +33,9 @@ const Template: ComponentStory<typeof Modal> = (args) => {
 export const defaultModal = Template.bind({});
 defaultModal.args = {
     open: false,
-    children: <BodySmall>'Size of Modal Body is flexible, set height and width of children prop element, Passing isLoading prop to footer will disable the buttons'</BodySmall>
+    children: (
+        <BodySmall>'Size of Modal Body is flexible, set height and width of children prop element, passing isLoading prop to footer will disable the buttons with an added spinner icon'</BodySmall>
+    )
 };
 
 export const customHeaderFooter = Template.bind({});

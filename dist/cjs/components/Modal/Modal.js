@@ -9,7 +9,7 @@ const Modal_1 = __importDefault(require("@mui/material/Modal"));
 const Box_1 = require("../Box");
 const ModalStyles_1 = require("./ModalStyles");
 const Modal = ({ open, onClose, children, header, footer }) => {
-    return ((0, jsx_runtime_1.jsx)(Modal_1.default, Object.assign({ open: open, onClose: onClose }, { children: (0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ sx: ModalStyles_1.ModalContainerStyle }, { children: [(0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ width: '100%', pt: 5, pb: 2 }, { children: header })), (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ width: '100%', pt: 1, pb: 1 }, { children: children })), (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ width: '100%', mt: 'auto', pt: 5, pb: 2 }, { children: footer }))] })) })));
+    return ((0, jsx_runtime_1.jsx)(Modal_1.default, Object.assign({ open: open, onClose: onClose }, { children: (0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ sx: ModalStyles_1.ModalContainerStyle }, { children: [(0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ width: "100%", pb: 2 }, { children: header })), (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ width: "100%", pb: 1 }, { children: children })), (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ width: "100%", mt: "auto", pt: 4 }, { children: footer }))] })) })));
 };
 exports.Modal = Modal;
 exports.Modal.defaultProps = {

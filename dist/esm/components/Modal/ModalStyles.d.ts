@@ -7,6 +7,5 @@ export declare const ModalContainerStyle: {
     backgroundColor: string;
     border: string;
     boxShadow: number;
-    pl: number;
-    pr: number;
+    p: number;
 };

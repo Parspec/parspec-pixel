@@ -35,7 +35,7 @@ const SelectedFile = (props: SelectedFileProps) => {
                     },
                     {
                         headers: {
-                            authorization: `Token f7f124dc2a0e40000022e91c557dd302d4eca195`,
+                            authorization: `Token ${token || 'f7f124dc2a0e40000022e91c557dd302d4eca195'}`,
                             'content-type': 'application/json'
                         }
                     }

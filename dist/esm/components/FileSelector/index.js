@@ -1,7 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { Avatar } from '@mui/material';
 import { Box } from '../Box';
-import { Typography } from '../Typography';
+import { BodySmall } from '../Typography';
 import { useDropzone } from 'react-dropzone';
 import { useCallback, useEffect, useState } from 'react';
 import { getAcceptedFormats } from './fileFormats';
@@ -57,7 +57,7 @@ const FileSelector = ({ maxFiles = 1, acceptedFormats = [], onUpload, uploadFile
         maxFiles,
         accept: acceptedFormats.length ? getAcceptedFormats(acceptedFormats) : {}
     });
-    return (_jsxs(_Fragment, { children: [!files.length ? (_jsxs("div", Object.assign({}, getRootProps(), { children: [_jsx("input", Object.assign({}, getInputProps())), _jsxs(Box, Object.assign({ p: 6, bgcolor: "#f3f5fa", width: 1, borderRadius: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", sx: { cursor: 'pointer' } }, { children: [_jsx(Typography.BodySmall, { children: "Drag and drop files here, or:" }), _jsx(Box, Object.assign({ mt: 6, mb: 3 }, { children: _jsx(Avatar, { children: _jsx(UploadIcon, {}) }) })), _jsx(Typography.BodySmall, { children: "Browse" })] }))] }))) : (_jsx(Box, { children: files.map((file, index) => (_jsx(SelectedFile, { file: file, onDelete: onDelete, url: url, index: index, handleResults: handleResults }, file.name))) })), error && (_jsx(Box, Object.assign({ mt: 1 }, { children: _jsx(Typography.BodySmall, Object.assign({ color: "error" }, { children: error })) }))), helperText && (_jsx(Box, Object.assign({ mt: 2 }, { children: _jsx(Typography.BodySmall, Object.assign({ color: "secondary" }, { children: helperText })) })))] }));
+    return (_jsxs(_Fragment, { children: [!files.length ? (_jsxs("div", Object.assign({}, getRootProps(), { children: [_jsx("input", Object.assign({}, getInputProps())), _jsxs(Box, Object.assign({ p: 6, bgcolor: "#f3f5fa", width: 1, borderRadius: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", sx: { cursor: 'pointer' } }, { children: [_jsx(BodySmall, { children: "Drag and drop files here, or:" }), _jsx(Box, Object.assign({ mt: 6, mb: 3 }, { children: _jsx(Avatar, { children: _jsx(UploadIcon, {}) }) })), _jsx(BodySmall, { children: "Browse" })] }))] }))) : (_jsx(Box, { children: files.map((file, index) => (_jsx(SelectedFile, { file: file, onDelete: onDelete, url: url, index: index, handleResults: handleResults }, file.name))) })), error && (_jsx(Box, Object.assign({ mt: 1 }, { children: _jsx(BodySmall, Object.assign({ color: "error" }, { children: error })) }))), helperText && (_jsx(Box, Object.assign({ mt: 2 }, { children: _jsx(BodySmall, Object.assign({ color: "secondary" }, { children: helperText })) })))] }));
 };
 export default FileSelector;
 //# sourceMappingURL=index.js.map

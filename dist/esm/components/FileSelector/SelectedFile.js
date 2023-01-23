@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { IconButton } from '@mui/material';
 import { Box } from '../Box';
-import { Typography } from '../Typography';
+import { BodySmall } from '../Typography';
 import { DeleteIcon } from '../Icons';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -59,7 +59,7 @@ const SelectedFile = (props) => {
         // if (progress !== 1) controller.abort();
         onDelete(file);
     };
-    return (_jsxs(Box, Object.assign({ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }, { children: [_jsxs(Box, { children: [_jsx(Typography.BodySmall, Object.assign({ fontWeight: 600 }, { children: file.name })), _jsxs(Typography.BodySmall, { children: [(file.size / 1000).toFixed(2), " kb"] })] }), _jsx(Box, Object.assign({ ml: "auto", mr: 2 }, { children: _jsx(ProgressBar, { progress: progress }) })), _jsx(IconButton, Object.assign({ onClick: handleDelete, size: "small" }, { children: _jsx(DeleteIcon, {}) }))] })));
+    return (_jsxs(Box, Object.assign({ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }, { children: [_jsxs(Box, { children: [_jsx(BodySmall, Object.assign({ fontWeight: 600 }, { children: file.name })), _jsxs(BodySmall, { children: [(file.size / 1000).toFixed(2), " kb"] })] }), _jsx(Box, Object.assign({ ml: "auto", mr: 2 }, { children: _jsx(ProgressBar, { progress: progress }) })), _jsx(IconButton, Object.assign({ onClick: handleDelete, size: "small" }, { children: _jsx(DeleteIcon, {}) }))] })));
 };
 export default SelectedFile;
 //# sourceMappingURL=SelectedFile.js.map

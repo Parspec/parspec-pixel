@@ -9,7 +9,7 @@ import { Box } from '../Box';
 interface FormLabelParams {
     value: string;
     label: string;
-    helper: ReactNode;
+    helper?: ReactNode;
 }
 
 export interface RadioGroupProps extends MUIRadioGroupProps {

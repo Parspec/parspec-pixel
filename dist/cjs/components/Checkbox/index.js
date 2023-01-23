@@ -14,18 +14,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Button = void 0;
+exports.Checkbox = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
-const Button_1 = __importDefault(require("@mui/material/Button"));
-const Icons_1 = require("../Icons");
-const Button = (_a) => {
-    var { disabled, isLoading, color } = _a, rest = __rest(_a, ["disabled", "isLoading", "color"]);
-    return ((0, jsx_runtime_1.jsx)(Button_1.default, Object.assign({}, rest, { color: color, sx: disabled || isLoading ? { opacity: 0.5, pointerEvents: 'none' } : {}, startIcon: isLoading ? (0, jsx_runtime_1.jsx)(Icons_1.CircularProgressIcon, { color: 'inherit', size: "1rem" }) : null })));
+const Checkbox_1 = __importDefault(require("@mui/material/Checkbox"));
+const FormControlLabel_1 = __importDefault(require("@mui/material/FormControlLabel"));
+const Checkbox = (_a) => {
+    var { label, size } = _a, rest = __rest(_a, ["label", "size"]);
+    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: (0, jsx_runtime_1.jsx)(FormControlLabel_1.default, { control: (0, jsx_runtime_1.jsx)(Checkbox_1.default, Object.assign({}, rest, { size: size })), label: label }) }));
 };
-exports.Button = Button;
-exports.Button.defaultProps = {
-    color: 'primary',
-    variant: 'contained',
-    isLoading: false
+exports.Checkbox = Checkbox;
+exports.Checkbox.defaultProps = {
+    size: 'medium'
 };
 //# sourceMappingURL=index.js.map

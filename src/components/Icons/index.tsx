@@ -8,3 +8,4 @@ export {
     Delete as DeleteIcon,
     CloudUpload as UploadIcon
 } from '@mui/icons-material';
+export { CircularProgress as CircularProgressIcon } from '@mui/material';

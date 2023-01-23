@@ -1,6 +1,6 @@
 import { Avatar } from '@mui/material';
 import { Box } from '../Box';
-import { Typography } from '../Typography';
+import { BodySmall } from '../Typography';
 import { useDropzone } from 'react-dropzone';
 import { useCallback, useEffect, useState } from 'react';
 import { getAcceptedFormats } from './fileFormats';
@@ -84,13 +84,13 @@ const FileSelector = ({
                 <div {...getRootProps()}>
                     <input {...getInputProps()} />
                     <Box p={6} bgcolor="#f3f5fa" width={1} borderRadius={1} display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ cursor: 'pointer' }}>
-                        <Typography.BodySmall>Drag and drop files here, or:</Typography.BodySmall>
+                        <BodySmall>Drag and drop files here, or:</BodySmall>
                         <Box mt={6} mb={3}>
                             <Avatar>
                                 <UploadIcon />
                             </Avatar>
                         </Box>
-                        <Typography.BodySmall>Browse</Typography.BodySmall>
+                        <BodySmall>Browse</BodySmall>
                     </Box>
                 </div>
             ) : (
@@ -102,12 +102,12 @@ const FileSelector = ({
             )}
             {error && (
                 <Box mt={1}>
-                    <Typography.BodySmall color="error">{error}</Typography.BodySmall>
+                    <BodySmall color="error">{error}</BodySmall>
                 </Box>
             )}
             {helperText && (
                 <Box mt={2}>
-                    <Typography.BodySmall color="secondary">{helperText}</Typography.BodySmall>
+                    <BodySmall color="secondary">{helperText}</BodySmall>
                 </Box>
             )}
         </>

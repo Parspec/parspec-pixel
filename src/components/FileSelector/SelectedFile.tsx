@@ -1,6 +1,6 @@
 import { IconButton } from '@mui/material';
 import { Box } from '../Box';
-import { Typography } from '../Typography';
+import { BodySmall } from '../Typography';
 import { DeleteIcon } from '../Icons';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -68,8 +68,8 @@ const SelectedFile = (props: SelectedFileProps) => {
     return (
         <Box display="flex" justifyContent="space-between" alignItems="flex-start">
             <Box>
-                <Typography.BodySmall fontWeight={600}>{file.name}</Typography.BodySmall>
-                <Typography.BodySmall>{(file.size / 1000).toFixed(2)} kb</Typography.BodySmall>
+                <BodySmall fontWeight={600}>{file.name}</BodySmall>
+                <BodySmall>{(file.size / 1000).toFixed(2)} kb</BodySmall>
             </Box>
             <Box ml="auto" mr={2}>
                 <ProgressBar progress={progress} />

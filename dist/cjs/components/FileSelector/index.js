@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.FileSelector = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const material_1 = require("@mui/material");
 const Box_1 = require("../Box");
@@ -64,5 +65,5 @@ const FileSelector = ({ maxFiles = 1, acceptedFormats = [], onUpload, uploadFile
     });
     return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [!files.length ? ((0, jsx_runtime_1.jsxs)("div", Object.assign({}, getRootProps(), { children: [(0, jsx_runtime_1.jsx)("input", Object.assign({}, getInputProps())), (0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ p: 6, bgcolor: "#f3f5fa", width: 1, borderRadius: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", sx: { cursor: 'pointer' } }, { children: [(0, jsx_runtime_1.jsx)(Typography_1.BodySmall, { children: "Drag and drop files here, or:" }), (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ mt: 6, mb: 3 }, { children: (0, jsx_runtime_1.jsx)(material_1.Avatar, { children: (0, jsx_runtime_1.jsx)(Icons_1.UploadIcon, {}) }) })), (0, jsx_runtime_1.jsx)(Typography_1.BodySmall, { children: "Browse" })] }))] }))) : ((0, jsx_runtime_1.jsx)(Box_1.Box, { children: files.map((file, index) => ((0, jsx_runtime_1.jsx)(SelectedFile_1.default, { file: file, onDelete: onDelete, url: url, index: index, handleResults: handleResults }, file.name))) })), error && ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ mt: 1 }, { children: (0, jsx_runtime_1.jsx)(Typography_1.BodySmall, Object.assign({ color: "error" }, { children: error })) }))), helperText && ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ mt: 2 }, { children: (0, jsx_runtime_1.jsx)(Typography_1.BodySmall, Object.assign({ color: "secondary" }, { children: helperText })) })))] }));
 };
-exports.default = FileSelector;
+exports.FileSelector = FileSelector;
 //# sourceMappingURL=index.js.map

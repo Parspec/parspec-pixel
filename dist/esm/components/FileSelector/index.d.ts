@@ -1,5 +1,5 @@
 /// <reference types="react" />
-declare const FileSelector: ({ maxFiles, acceptedFormats, onUpload, uploadFile, url, error, helperText, onSelect }: {
+export declare const FileSelector: ({ maxFiles, acceptedFormats, onUpload, uploadFile, url, error, helperText, onSelect }: {
     maxFiles?: number | undefined;
     acceptedFormats?: string[] | undefined;
     onUpload?: ((args: {}[]) => void) | undefined;
@@ -9,4 +9,3 @@ declare const FileSelector: ({ maxFiles, acceptedFormats, onUpload, uploadFile, 
     helperText?: string | undefined;
     onSelect?: ((args: {}[]) => void) | undefined;
 }) => JSX.Element;
-export default FileSelector;

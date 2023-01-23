@@ -22,4 +22,5 @@ __exportStar(require("./Typography"), exports);
 __exportStar(require("./TextField"), exports);
 __exportStar(require("./Icons"), exports);
 __exportStar(require("./Checkbox"), exports);
+__exportStar(require("./FileSelector"), exports);
 //# sourceMappingURL=index.js.map

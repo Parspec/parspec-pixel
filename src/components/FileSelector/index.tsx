@@ -7,7 +7,7 @@ import { getAcceptedFormats } from './fileFormats';
 import SelectedFile from './SelectedFile';
 import { UploadIcon } from '../Icons';
 
-const FileSelector = ({
+export const FileSelector = ({
     maxFiles = 1,
     acceptedFormats = [],
     onUpload,
@@ -113,5 +113,3 @@ const FileSelector = ({
         </>
     );
 };
-
-export default FileSelector;

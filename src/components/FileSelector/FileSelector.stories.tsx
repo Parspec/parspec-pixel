@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import FileSelector from './index';
+import { FileSelector } from './index';
 
 export default {
     title: 'File Selector',

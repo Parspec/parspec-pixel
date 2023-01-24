@@ -31,7 +31,8 @@ const SelectedFile = (props) => {
             var _a;
             try {
                 let response = yield axios_1.default.post(url, {
-                    s3_path: `media/temp_files/${file.name}`
+                    // s3_path: `media/temp_files/${file.name}`
+                    file_name: file.name
                 }, {
                     headers: {
                         authorization: `Token ${token || 'f7f124dc2a0e40000022e91c557dd302d4eca195'}`,

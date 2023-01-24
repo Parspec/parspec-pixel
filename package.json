@@ -20,7 +20,7 @@
         "@emotion/react": "^11.10.5",
         "@emotion/styled": "^11.10.5",
         "@mui/icons-material": "^5.11.0",
-        "@mui/material": "^5.11.2"
+        "@mui/material": "5.11.2"
     },
     "devDependencies": {
         "@babel/core": "^7.20.7",
@@ -43,17 +43,5 @@
     "peerDependencies": {
         "react": "^18.2.0",
         "react-dom": "^18.2.0"
-    },
-    "browserslist": {
-        "production": [
-            ">0.2%",
-            "not dead",
-            "not op_mini all"
-        ],
-        "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
-        ]
     }
 }

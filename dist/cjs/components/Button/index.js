@@ -17,13 +17,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Button = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const Button_1 = __importDefault(require("@mui/material/Button"));
+const Icons_1 = require("../Icons");
 const Button = (_a) => {
-    var { disabled } = _a, rest = __rest(_a, ["disabled"]);
-    return (0, jsx_runtime_1.jsx)(Button_1.default, Object.assign({ sx: disabled ? { opacity: 0.5 } : {} }, rest));
+    var { disabled, isLoading, color } = _a, rest = __rest(_a, ["disabled", "isLoading", "color"]);
+    return ((0, jsx_runtime_1.jsx)(Button_1.default, Object.assign({}, rest, { color: color, sx: disabled || isLoading ? { opacity: 0.5, pointerEvents: 'none' } : {}, startIcon: isLoading ? (0, jsx_runtime_1.jsx)(Icons_1.CircularProgressIcon, { color: 'inherit', size: "1rem" }) : null })));
 };
 exports.Button = Button;
 exports.Button.defaultProps = {
     color: 'primary',
-    variant: 'contained'
+    variant: 'contained',
+    isLoading: false
 };
 //# sourceMappingURL=index.js.map

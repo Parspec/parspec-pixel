@@ -31,7 +31,8 @@ const SelectedFile = (props: SelectedFileProps) => {
                 let response = await axios.post(
                     url,
                     {
-                        s3_path: `media/temp_files/${file.name}`
+                        // s3_path: `media/temp_files/${file.name}`
+                        file_name: file.name
                     },
                     {
                         headers: {

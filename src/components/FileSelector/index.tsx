@@ -96,7 +96,7 @@ export const FileSelector = ({
             ) : (
                 <Box>
                     {files.map((file: { name: string; size: number }, index: number) => (
-                        <SelectedFile key={file.name} file={file} onDelete={onDelete} url={url} index={index} handleResults={handleResults} />
+                        <SelectedFile key={file.name} file={file} onDelete={onDelete} url={url} index={index} handleResults={handleResults} uploadFile={uploadFile} />
                     ))}
                 </Box>
             )}

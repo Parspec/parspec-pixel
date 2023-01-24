@@ -15,10 +15,11 @@ type SelectedFileProps = {
     url: string;
     index: number;
     handleResults: (data: {}, index: number) => void;
+    uploadFile: boolean;
 };
 
 const SelectedFile = (props: SelectedFileProps) => {
-    const { file, onDelete, url, handleResults, index } = props;
+    const { file, onDelete, url, handleResults, index, uploadFile } = props;
     const [progress, setProgress] = useState(0);
 
     // const controller = new AbortController();
@@ -26,7 +27,7 @@ const SelectedFile = (props: SelectedFileProps) => {
 
     useEffect(() => {
         const token = localStorage.getItem('token');
-        const uploadFile = async () => {
+        const onUpload = async () => {
             try {
                 let response = await axios.post(
                     url,
@@ -55,7 +56,8 @@ const SelectedFile = (props: SelectedFileProps) => {
                 if (err?.message !== 'canceled') return handleResults({ file, error: err.message }, index);
             }
         };
-        uploadFile();
+        if (uploadFile) onUpload();
+        else handleResults({ file, progress: 100 }, index);
         return () => {
             if (progress !== 1) source.cancel();
         };
@@ -72,12 +74,16 @@ const SelectedFile = (props: SelectedFileProps) => {
                 <BodySmall fontWeight={600}>{file.name}</BodySmall>
                 <BodySmall>{(file.size / 1000).toFixed(2)} kb</BodySmall>
             </Box>
-            <Box ml="auto" mr={2}>
-                <ProgressBar progress={progress} />
+            <Box ml="auto" display="flex">
+                {uploadFile ? (
+                    <Box mr={2}>
+                        <ProgressBar progress={progress} />
+                    </Box>
+                ) : null}
+                <IconButton onClick={handleDelete} size="small">
+                    <DeleteIcon />
+                </IconButton>
             </Box>
-            <IconButton onClick={handleDelete} size="small">
-                <DeleteIcon />
-            </IconButton>
         </Box>
     );
 };

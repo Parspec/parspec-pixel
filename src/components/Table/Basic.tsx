@@ -1,14 +1,13 @@
-import * as React from 'react';
+import React from 'react';
 import { PaginationState, getSortedRowModel, getCoreRowModel, getPaginationRowModel, useReactTable, SortingState, ColumnDef, RowData } from '@tanstack/react-table';
 import { TableContainer } from '../TableContainer';
 import { LeftTable } from './LeftTable';
-import { RightTable } from './RightTable';
 import { CenterTable } from './CenterTable';
 import Pagination from './Pagination';
-import { defaultData, IndeterminateCheckbox, Person } from './utils';
+
 import { Box } from '../Box';
-import { DragDropContext } from 'react-beautiful-dnd';
-import { useCallback } from 'react';
+import { DragDropContext, OnDragEndResponder } from 'react-beautiful-dnd';
+import { TextField } from '../TextField';
 
 declare module '@tanstack/react-table' {
     interface TableMeta<TData extends RowData> {
@@ -17,7 +16,7 @@ declare module '@tanstack/react-table' {
 }
 
 // Give our default column cell renderer editing superpowers!
-const defaultColumn: Partial<ColumnDef<Person>> = {
+const defaultColumn: Partial<ColumnDef<any>> = {
     cell: ({ getValue, row: { index }, column: { id }, table }) => {
         const initialValue = getValue();
         // We need to keep and update the state of the cell normally
@@ -33,74 +32,41 @@ const defaultColumn: Partial<ColumnDef<Person>> = {
             setValue(initialValue);
         }, [initialValue]);
 
-        return <input value={value as string} onChange={(e) => setValue(e.target.value)} onBlur={onBlur} />;
+        return <TextField value={value as string} onChange={(e) => setValue(e.target.value)} onBlur={onBlur} />;
     }
 };
 
-export function Basic() {
+export type Person = {
+    select: boolean;
+    firstName: string;
+    lastName: string;
+    age: number;
+    visits: number;
+    status: string;
+    progress: number;
+};
+
+interface BasicProps {
+    defaultData: any;
+    columns: ColumnDef<any>[];
+    pinnedColumnKeys?: string[];
+}
+
+export const Basic: React.FC<BasicProps> = (props) => {
     const [sorting, setSorting] = React.useState<SortingState>([]);
     const [pagination, setPagination] = React.useState<PaginationState>({
-        pageSize: 4,
+        pageSize: 10,
         pageIndex: 0
     });
     const [rowSelection, setRowSelection] = React.useState({});
-    const [data, setData] = React.useState(() => [...defaultData]);
+    const [data, setData] = React.useState(() => [...props.defaultData]);
     const [columnPinning, setColumnPinning] = React.useState({});
-    const columns = React.useMemo<ColumnDef<Person>[]>(
-        () => [
-            {
-                id: 'select',
-                header: ({ table }) => (
-                    <IndeterminateCheckbox
-                        {...{
-                            checked: table.getIsAllRowsSelected(),
-                            indeterminate: table.getIsSomeRowsSelected(),
-                            onChange: table.getToggleAllRowsSelectedHandler()
-                        }}
-                    />
-                ),
-                cell: ({ row }: any) => (
-                    <IndeterminateCheckbox
-                        {...{
-                            checked: row.getIsSelected(),
-                            indeterminate: row.getIsSomeSelected(),
-                            onChange: row.getToggleSelectedHandler()
-                        }}
-                    />
-                )
-            },
-            {
-                accessorKey: 'firstName',
-                header: () => <span>First Name</span>
-            },
-            {
-                accessorKey: 'lastName',
-                header: () => <span>Last Name</span>
-            },
-            {
-                accessorKey: 'age',
-                header: () => 'Age'
-            },
-            {
-                accessorKey: 'visits',
-                header: () => <span>Visits</span>
-            },
-            {
-                accessorKey: 'status',
-                header: 'Status'
-            },
-            {
-                accessorKey: 'progress',
-                header: 'Profile Progress'
-            }
-        ],
-        []
-    );
+    const columns = React.useMemo(() => props.columns, []);
 
     const table = useReactTable({
         data,
         columns,
-        //defaultColumn,
+        defaultColumn,
         state: {
             sorting,
             pagination,
@@ -134,32 +100,29 @@ export function Basic() {
         debugColumns: true
     });
 
-    const handleDragEnd = (e: any) => {
+    const handleDragEnd: OnDragEndResponder = (e) => {
         if (!e.destination) return;
         let tempData = Array.from(data);
         let [source_data] = tempData.splice(e.source.index, 1);
         tempData.splice(e.destination.index, 0, source_data);
         setData(tempData);
-        console.log(data, '\n', tempData);
     };
 
     return (
         <Box height={'100vh'} width={'100vw'} overflow={'scroll'}>
-            <Box maxHeight={'80vh'}>
-                <DragDropContext onDragEnd={handleDragEnd}>
-                    <TableContainer>
-                        <>
-                            <Box display={'flex'}>
-                                <LeftTable table={table} />
-                                <CenterTable table={table} />
-                                {/* <RightTable table={table} /> */}
-                            </Box>
-                        </>
-                    </TableContainer>
-                </DragDropContext>
-            </Box>
-
-            <Pagination pagination={pagination} table={table} />
+            <DragDropContext onDragEnd={handleDragEnd}>
+                <TableContainer>
+                    <>
+                        <Box display={'flex'}>
+                            {props.pinnedColumnKeys && <LeftTable table={table} />}
+                            <CenterTable table={table} pinnedColumnKeys={props.pinnedColumnKeys} />
+                        </Box>
+                        <Box textAlign={'center'} marginTop={8}>
+                            <Pagination pagination={pagination} table={table} />
+                        </Box>
+                    </>
+                </TableContainer>
+            </DragDropContext>
         </Box>
     );
-}
+};

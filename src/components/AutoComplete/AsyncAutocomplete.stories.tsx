@@ -34,8 +34,7 @@ export const asyncAutoComplete = Template.bind({});
 asyncAutoComplete.args = {
     id: 'asynchronous-demo',
     label: 'Asynchronous',
-    color: 'secondary',
-    variant: 'outlined',
+    optionlabelkeyname: 'title',
     loadersize: 20,
-    asyncFunc: simulatingAsynchronous
+    asyncfunc: simulatingAsynchronous
 };

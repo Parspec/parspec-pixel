@@ -6,3 +6,5 @@ export * from './Typography';
 export * from './TextField';
 export * from './Icons';
 export * from './AutoComplete';
+export * from './Checkbox';
+export * from './Chip';

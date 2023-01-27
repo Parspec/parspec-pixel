@@ -8,9 +8,10 @@ export interface TextFieldProps extends Omit<MUITextFieldProps, 'margin' | 'clas
     label?: string;
 }
 
-export const TextField: React.FC<TextFieldProps> = ({ label, ...args }) => <MUITextField label={label ? label : ''} {...args} />;
+export const TextField: React.FC<TextFieldProps> = ({ label, ...args }) => <MUITextField label={label} {...args} />;
 
 TextField.defaultProps = {
     variant: 'outlined',
-    color: 'primary'
+    color: 'primary',
+    label: ''
 };

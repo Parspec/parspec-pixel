@@ -3,6 +3,7 @@ import { topFilms as top100Films } from './topfilm';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import { Autocomplete } from './';
+import { TrendingUpRounded } from '@mui/icons-material';
 
 export default {
     title: 'Autocomplete/Autocomplete',
@@ -27,8 +28,7 @@ autoComplete.args = {
     options: top100Films,
     id: 'autocomplete-demo',
     label: 'Movies',
-    color: 'secondary',
-    variant: 'outlined'
+    optionlabelkeyname: 'title'
 };
 
 export const multiSelect = Template.bind({});
@@ -36,9 +36,17 @@ export const multiSelect = Template.bind({});
 multiSelect.args = {
     id: 'multiselect-demo',
     label: 'MultiSelect',
-    color: 'primary',
-    variant: 'outlined',
     multiple: true,
     options: top100Films,
-    defaultValue: [top100Films[0]]
+    optionlabelkeyname: 'title'
+};
+
+export const freeSolo = Template.bind({});
+
+freeSolo.args = {
+    options: top100Films,
+    id: 'autocomplete-demo',
+    label: 'Movies',
+    optionlabelkeyname: 'title',
+    freeSolo: true
 };

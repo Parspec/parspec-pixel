@@ -14,9 +14,10 @@ import { default as MUIRadioGroup } from '@mui/material/RadioGroup';
 import FormLabel from '@mui/material/FormLabel';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { Radio } from '../Radio';
+import { Box } from '../Box';
 export const RadioGroup = (_a) => {
     var { options, label, name } = _a, rest = __rest(_a, ["options", "label", "name"]);
-    return (_jsxs(_Fragment, { children: [_jsx(FormLabel, { children: label }), _jsx(MUIRadioGroup, Object.assign({}, rest, { name: name }, { children: options.map((item, index) => (_jsx(FormControlLabel, { value: item.value, control: _jsx(Radio, {}), label: item.label }, index))) }))] }));
+    return (_jsxs(_Fragment, { children: [_jsx(FormLabel, { children: label }), _jsx(MUIRadioGroup, Object.assign({}, rest, { name: name }, { children: options.map((item, index) => (_jsxs(_Fragment, { children: [_jsx(FormControlLabel, { value: item.value, control: _jsx(Radio, {}), label: item.label }, index), item.helper && !rest.row && _jsx(Box, Object.assign({ ml: 8 }, { children: item.helper }))] }))) }))] }));
 };
 RadioGroup.defaultProps = {
     label: 'Radio Group',

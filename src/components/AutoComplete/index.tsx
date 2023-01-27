@@ -1,125 +1,57 @@
 import React, { useState, useEffect } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
-import { TextField } from '../TextField/index';
+import { TextField } from '../TextField';
 
-import { default as MUIAutocomplete, createFilterOptions } from '@mui/material/Autocomplete';
+import { default as MUIAutocomplete } from '@mui/material/Autocomplete';
 
 interface OptionType {
-    title: string;
-    inputValue?: string;
+    [index: string]: string;
 }
 
-type AutocompleteProps<T> = {
+type AutocompleteProps = {
     id: string;
     label: string;
-    options: T[];
+    optionlabelkeyname: string;
+    options: OptionType[];
     color?: 'error' | 'primary' | 'secondary' | 'info' | 'success' | 'warning';
     variant?: 'outlined' | 'filled' | 'standard';
     onChange: (event: React.SyntheticEvent, inputText: OptionType | null) => void;
 };
 
-type AutoCompleteCreateProps<T> = AutocompleteProps<T> & {
-    addontext?: string | null;
-};
-
-type AsyncAutocompleteProps<T> = Omit<AutocompleteProps<T>, 'options'> & {
+type AsyncAutocompleteProps = Omit<AutocompleteProps, 'options'> & {
     loadersize?: number;
-    asyncFunc: () => Promise<OptionType[]>;
+    asyncfunc: () => Promise<OptionType[]>;
 };
 
-const AutocompleteCreate = <T,>(props: AutoCompleteCreateProps<T>): React.ReactElement => {
-    const { id, label, color, variant, addontext, onChange } = props;
-
-    const [inputText, setInputText] = useState<OptionType | null>(null);
-
-    const handleOnChange = (event: React.SyntheticEvent, newValue: any) => {
-        if (typeof newValue === 'string') {
-            setInputText({
-                title: newValue
-            });
-        } else if (newValue && newValue.inputValue) {
-            setInputText({
-                title: newValue.inputValue
-            });
-        } else {
-            setInputText(newValue);
-        }
-
+const Autocomplete: React.FC<AutocompleteProps> = (props) => {
+    const { id, label, color, variant, onChange, optionlabelkeyname } = props;
+    const handleOnChange = (event: React.SyntheticEvent, newValue: OptionType | null) => {
         onChange(event, newValue);
     };
-
-    const getOptionLabelHandler = (option: any): string => {
-        if (typeof option === 'string') {
-            return option;
-        }
-
-        if (option.inputValue) {
-            return option.inputValue;
-        }
-
-        return option.title;
-    };
-
-    const filterOptionHandler = (options: any, params: any) => {
-        const filter = createFilterOptions();
-        let filtered = filter(options, params),
-            isExisting: boolean | undefined;
-
-        const { inputValue } = params;
-
-        if (inputValue) {
-            isExisting = options.some((option: any) => inputValue === option.title);
-
-            if (inputValue !== '' && !isExisting) {
-                filtered.push({
-                    inputValue,
-                    title: `${inputValue} ${addontext}`
-                });
-            }
-        }
-
-        if (inputText && inputText.title) return filtered.filter((item: any) => item.title.toLowerCase().startsWith(inputText.title.toLocaleLowerCase()));
-
-        return filtered;
-    };
-
-    const renderOptionHandler = (args: any, option: any) => <li {...args}>{option.title}</li>;
-
     return (
         <MUIAutocomplete
             {...props}
             id={id}
-            filterOptions={filterOptionHandler}
-            getOptionLabel={getOptionLabelHandler}
-            renderOption={renderOptionHandler}
-            freeSolo
-            value={inputText}
             onChange={handleOnChange}
-            renderInput={(params) => {
-                return <TextField {...params} variant={variant} color={color} label={label} />;
+            getOptionLabel={(option: OptionType | string): string => {
+                if (typeof option === 'object') {
+                    return `${option[optionlabelkeyname]}`;
+                }
+
+                return option;
             }}
-        />
-    );
-};
-
-const Autocomplete = <T,>(props: AutocompleteProps<T>): React.ReactElement => {
-    const { id, label, color, variant, onChange } = props;
-    const handleOnChange = (event: React.SyntheticEvent, newValue: any) => {
-        onChange(event, newValue);
-    };
-    return (
-        <MUIAutocomplete
-            {...props}
-            id={id}
-            onChange={handleOnChange}
-            getOptionLabel={(option: any) => option.title}
             renderInput={(params) => <TextField {...params} variant={variant} color={color} label={label} />}
         />
     );
 };
 
-const AsyncAutocomplete = <T,>(props: AsyncAutocompleteProps<T>): React.ReactElement => {
-    const { id, label, color, variant, onChange, loadersize, asyncFunc } = props;
+Autocomplete.defaultProps = {
+    color: 'primary',
+    variant: 'outlined'
+};
+
+const AsyncAutocomplete: React.FC<AsyncAutocompleteProps> = (props) => {
+    const { id, label, color, variant, onChange, loadersize, asyncfunc, optionlabelkeyname } = props;
 
     const [open, setOpen] = useState(false);
     const [options, setOptions] = useState<OptionType[]>([]);
@@ -134,7 +66,7 @@ const AsyncAutocomplete = <T,>(props: AsyncAutocompleteProps<T>): React.ReactEle
         }
 
         (async () => {
-            const result = await asyncFunc();
+            const result = await asyncfunc();
 
             if (active) {
                 setOptions([...result]);
@@ -152,7 +84,7 @@ const AsyncAutocomplete = <T,>(props: AsyncAutocompleteProps<T>): React.ReactEle
         }
     }, [open]);
 
-    const handleOnChange = (event: React.SyntheticEvent, newValue: any) => {
+    const handleOnChange = (event: React.SyntheticEvent, newValue: OptionType | null) => {
         onChange(event, newValue);
     };
 
@@ -169,8 +101,8 @@ const AsyncAutocomplete = <T,>(props: AsyncAutocompleteProps<T>): React.ReactEle
                 setOpen(false);
             }}
             onChange={handleOnChange}
-            isOptionEqualToValue={(option: any, value: any) => option.title === value.title}
-            getOptionLabel={(option: any) => option.title}
+            isOptionEqualToValue={(option: OptionType, value: OptionType) => option[optionlabelkeyname] === value[optionlabelkeyname]}
+            getOptionLabel={(option: OptionType): string => `${option[optionlabelkeyname]}`}
             renderInput={(params) => (
                 <TextField
                     {...params}
@@ -181,7 +113,7 @@ const AsyncAutocomplete = <T,>(props: AsyncAutocompleteProps<T>): React.ReactEle
                         ...params.InputProps,
                         endAdornment: (
                             <React.Fragment>
-                                {loading ? <CircularProgress color="inherit" size={loadersize || 20} /> : null}
+                                {loading ? <CircularProgress color="inherit" size={loadersize} /> : null}
                                 {params.InputProps.endAdornment}
                             </React.Fragment>
                         )
@@ -192,4 +124,10 @@ const AsyncAutocomplete = <T,>(props: AsyncAutocompleteProps<T>): React.ReactEle
     );
 };
 
-export { AutocompleteCreate, Autocomplete, AsyncAutocomplete };
+AsyncAutocomplete.defaultProps = {
+    color: 'primary',
+    variant: 'outlined',
+    loadersize: 20
+};
+
+export { Autocomplete, AsyncAutocomplete };

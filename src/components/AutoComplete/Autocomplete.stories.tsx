@@ -3,7 +3,6 @@ import { topFilms as top100Films } from './topfilm';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import { Autocomplete } from './';
-import { TrendingUpRounded } from '@mui/icons-material';
 
 export default {
     title: 'Autocomplete/Autocomplete',

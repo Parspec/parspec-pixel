@@ -1,4 +1,4 @@
-import React from 'react';
+/// <reference types="react" />
 import { ButtonProps as MUIButtonProps } from '@mui/material/Button';
 export interface ButtonProps extends Omit<MUIButtonProps, 'classes'> {
     color?: 'primary' | 'secondary';

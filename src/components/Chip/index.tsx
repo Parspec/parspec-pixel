@@ -1,4 +1,3 @@
-import React from 'react';
 import { default as MUIChip, ChipProps as MUIChipProps } from '@mui/material/Chip';
 
 export interface ChipProps extends Omit<MUIChipProps, 'classes' | 'sx'> {

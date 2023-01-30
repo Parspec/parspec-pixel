@@ -1,11 +1,9 @@
 import React from 'react';
 import { default as MUIRadioGroup, RadioGroupProps as MUIRadioGroupProps } from '@mui/material/RadioGroup';
-
 import FormLabel from '@mui/material/FormLabel';
-
-import { Radio } from '../Radio/index';
-
 import FormControlLabel from '@mui/material/FormControlLabel';
+
+import { Radio } from '../Radio';
 
 interface FormLabelParams {
     value: string;
@@ -13,15 +11,15 @@ interface FormLabelParams {
 }
 
 export interface RadioGroupProps extends MUIRadioGroupProps {
-    title: string;
+    label: string;
     options: FormLabelParams[];
     name: string;
 }
 
-export const RadioGroup: React.FC<RadioGroupProps> = ({ options, title, ...rest }) => (
+export const RadioGroup: React.FC<RadioGroupProps> = ({ options, label, name, ...rest }) => (
     <>
-        <FormLabel>{title}</FormLabel>
-        <MUIRadioGroup {...rest}>
+        <FormLabel>{label}</FormLabel>
+        <MUIRadioGroup {...rest} name={name}>
             {options.map((item, index) => (
                 <FormControlLabel key={index} value={item.value} control={<Radio />} label={item.displayText} />
             ))}

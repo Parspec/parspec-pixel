@@ -1,32 +1,26 @@
 import React, { useState } from 'react';
-
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { Select } from './index';
-
-const log = console.log;
+import { Select } from './';
 
 export default {
     title: 'Select',
     component: Select,
     argTypes: {
-        onChange: { action: 'onChange' },
-        onClose: { action: 'onClose' },
-        onOpen: { action: 'onOpen' }
+        onChange: { action: 'onChange' }
     }
 } as ComponentMeta<typeof Select>;
 
-const Template: ComponentStory<typeof Select> = (args) => {
+const Template: ComponentStory<typeof Select> = ({ children, ...args }) => {
     const [selectedValue, setSelectedValue] = useState('');
 
     const handleOnChange = (event: any) => {
         setSelectedValue(event.target.value as string);
-        log(selectedValue);
     };
 
     return (
         <Select {...args} onChange={handleOnChange} value={selectedValue}>
-            {args.children && args.children}
+            {children && children}
         </Select>
     );
 };
@@ -45,5 +39,5 @@ select.args = {
     labelId: 'demo-simple-select-label',
     id: 'demo-simple-select',
     autoWidth: true,
-    defaultValue: options[Math.floor(Math.random() * options.length)]['value']
+    defaultValue: 10
 };

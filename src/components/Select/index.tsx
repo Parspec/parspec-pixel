@@ -1,9 +1,5 @@
-import React from 'react';
-
 import InputLabel from '@mui/material/InputLabel';
-
 import MenuItem from '@mui/material/MenuItem';
-
 import { default as MUISelect, SelectProps as MUISelectProps } from '@mui/material/Select';
 
 interface SelectMenuOption {
@@ -30,3 +26,14 @@ export const Select: React.FC<SelectProps> = ({ id, labelId, options, label, ...
         </MUISelect>
     </>
 );
+
+Select.defaultProps = {
+    label: 'Select',
+    options: [
+        { value: 10, displayText: 'Ten' },
+        { value: 20, displayText: 'Twenty' },
+        { value: 30, displayText: 'Thirty' }
+    ],
+    labelId: 'demo-simple-select-label',
+    id: 'demo-simple-select'
+};

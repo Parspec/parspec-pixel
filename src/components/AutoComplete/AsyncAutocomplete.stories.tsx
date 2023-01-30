@@ -1,7 +1,7 @@
 import React from 'react';
+import { topFilms } from './topfilm';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { topFilms } from './topfilm';
 import { AsyncAutocomplete } from './';
 
 export default {

@@ -4,7 +4,10 @@ import FormLabel from '@mui/material/FormLabel';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
 import { Radio } from '../Radio';
+<<<<<<< HEAD
 import { Box } from '../Box';
+=======
+>>>>>>> 12c7931 (..)
 
 interface FormLabelParams {
     value: string;

@@ -2,41 +2,50 @@ import { flexRender, Table } from '@tanstack/react-table';
 import { Box } from '../Box';
 import { UnfoldMoreIcon, ArrowUpwardIcon, ArrowDownwardIcon } from '../Icons';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
-import styled from '@emotion/styled';
-import { Table as MUITable, TableBody, TableCell, TableFooter, TableHead, TableRow } from '@mui/material';
-
-const TdStyled = styled.td`
-    padding: 16px;
-    margin: 16px;
-`;
+import { Table as MUITable, TableBody, TableCell, TableHead, TableRow } from './';
+import React from 'react';
+import { BodyMedium } from '../Typography';
 
 interface CenterTableProps {
     table: Table<any>;
-    pinnedColumnKeys?: string[];
 }
-export const CenterTable: React.FC<CenterTableProps> = ({ table, pinnedColumnKeys }) => {
+export const CenterTable: React.FC<CenterTableProps> = ({ table }) => {
     return (
         <MUITable>
             <TableHead>
                 {table.getCenterHeaderGroups().map((headerGroup) => (
                     <TableRow key={headerGroup.id}>
-                        {headerGroup.headers.map((header) => (
-                            <TableCell key={header.id} colSpan={header.colSpan}>
-                                {header.isPlaceholder ? null : (
-                                    <>
-                                        <Box component={'span'} style={header.column.getCanSort() ? { cursor: 'pointer' } : {}} onClick={header.column.getToggleSortingHandler()}>
-                                            {flexRender(header.column.columnDef.header, header.getContext())}
-                                            {{
-                                                asc: <ArrowUpwardIcon fontSize="small" />,
-                                                desc: <ArrowDownwardIcon fontSize="small" />
-                                            }[header.column.getIsSorted() as string] ??
-                                                (header.column.getCanSort() && <UnfoldMoreIcon fontSize="small" />)}
-                                        </Box>
-                                        {!header.isPlaceholder && header.column.getCanPin() && pinnedColumnKeys?.includes(header.column.id) ? header.column.pin('left') : null}
-                                    </>
-                                )}
-                            </TableCell>
-                        ))}
+                        <>
+                            {headerGroup.headers.map((header) => (
+                                <TableCell
+                                    component={'th'}
+                                    style={header.column.id === 'select' || header.column.id === 'drag' ? { width: '10px', padding: 0 } : {}}
+                                    key={header.id}
+                                    colSpan={header.colSpan}
+                                >
+                                    {header.isPlaceholder ? null : (
+                                        <>
+                                            {header.column.id !== 'drag' && (
+                                                <Box
+                                                    component={'span'}
+                                                    style={header.column.getCanSort() ? { cursor: 'pointer', display: 'flex', gap: 4, alignItems: 'center' } : {}}
+                                                    onClick={header.column.getToggleSortingHandler()}
+                                                >
+                                                    <BodyMedium fontWeight={600} width={'max-content'}>
+                                                        {flexRender(header.column.columnDef.header, header.getContext())}
+                                                    </BodyMedium>
+                                                    {{
+                                                        asc: <ArrowUpwardIcon fontSize="small" />,
+                                                        desc: <ArrowDownwardIcon fontSize="small" />
+                                                    }[header.column.getIsSorted() as string] ??
+                                                        (header.column.getCanSort() && <UnfoldMoreIcon fontSize="small" />)}
+                                                </Box>
+                                            )}
+                                        </>
+                                    )}
+                                </TableCell>
+                            ))}
+                        </>
                     </TableRow>
                 ))}
             </TableHead>
@@ -48,11 +57,15 @@ export const CenterTable: React.FC<CenterTableProps> = ({ table, pinnedColumnKey
                             return (
                                 <Draggable key={idx} draggableId={row.id} index={idx}>
                                     {(provided, snapshot) => (
-                                        <TableRow ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                        <TableRow ref={provided.innerRef} {...provided.draggableProps}>
                                             {row.getCenterVisibleCells().map((cell) => {
                                                 return (
-                                                    <TableCell key={cell.id}>
-                                                        <Box>{flexRender(cell.column.columnDef.cell, cell.getContext())}</Box>
+                                                    <TableCell
+                                                        key={cell.id}
+                                                        {...(cell.column.id === 'drag' ? { ...provided.dragHandleProps } : {})}
+                                                        style={cell.column.id === 'select' || cell.column.id === 'drag' ? { width: '10px', padding: 0 } : {}}
+                                                    >
+                                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                                     </TableCell>
                                                 );
                                             })}

@@ -2,18 +2,18 @@ import { flexRender, Table } from '@tanstack/react-table';
 import { Box } from '../Box';
 import { UnfoldMoreIcon, ArrowUpwardIcon, ArrowDownwardIcon } from '../Icons';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
-import { Table as MUITable, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
+import { Table as MUITable, TableBody, TableCell, TableHead, TableRow } from './';
 import { BodyMedium } from '../Typography';
 
-interface LeftTableProps {
+interface RightTableProps {
     table: Table<any>;
 }
 
-export const LeftTable: React.FC<LeftTableProps> = ({ table }) => {
+export const RightTable: React.FC<RightTableProps> = ({ table }) => {
     return (
-        <MUITable style={{ width: 'max-content', borderRight: '1px solid grey' }}>
+        <MUITable style={{ width: 'max-content', borderLeft: '1px solid grey' }}>
             <TableHead style={{ width: 'max-content' }}>
-                {table?.getLeftHeaderGroups()?.map((headerGroup) => (
+                {table?.getRightHeaderGroups()?.map((headerGroup) => (
                     <TableRow key={headerGroup.id}>
                         {headerGroup.headers.map((header) => (
                             <TableCell
@@ -47,7 +47,7 @@ export const LeftTable: React.FC<LeftTableProps> = ({ table }) => {
                     </TableRow>
                 ))}
             </TableHead>
-            <Droppable droppableId="droppable-2">
+            <Droppable droppableId="droppable-3">
                 {(provided, snapshot) => (
                     <TableBody ref={provided.innerRef} {...provided.droppableProps}>
                         {provided.placeholder}
@@ -56,7 +56,7 @@ export const LeftTable: React.FC<LeftTableProps> = ({ table }) => {
                                 <Draggable key={idx} draggableId={row.id} index={idx}>
                                     {(provided, snapshot) => (
                                         <TableRow key={row.id} ref={provided.innerRef} {...provided.draggableProps}>
-                                            {row.getLeftVisibleCells().map((cell) => {
+                                            {row.getRightVisibleCells().map((cell) => {
                                                 return (
                                                     <>
                                                         <TableCell

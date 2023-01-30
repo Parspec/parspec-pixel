@@ -6,3 +6,4 @@ export * from './Typography';
 export * from './TextField';
 export * from './Icons';
 export * from './RadioGroup';
+export * from './Checkbox';

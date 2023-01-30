@@ -1,4 +1,3 @@
-import React from 'react';
 import { default as MUIButton, ButtonProps as MUIButtonProps } from '@mui/material/Button';
 import { CircularProgressIcon } from '../Icons';
 

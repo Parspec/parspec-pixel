@@ -7,5 +7,3 @@ export const topFilms = [
     { title: "Schindler's List", year: 1993 },
     { title: 'Full Metal Jacket', year: 1987 }
 ];
-
-topFilms;

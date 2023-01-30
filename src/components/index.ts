@@ -5,4 +5,8 @@ export * from './Modal';
 export * from './Typography';
 export * from './TextField';
 export * from './Icons';
+export * from './AutoComplete';
 export * from './Checkbox';
+export * from './Chip';
+export * from './Select';
+export * from './Grid';

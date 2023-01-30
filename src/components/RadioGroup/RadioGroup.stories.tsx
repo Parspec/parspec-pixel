@@ -11,7 +11,7 @@ export default {
     }
 } as ComponentMeta<typeof RadioGroup>;
 
-const Template: ComponentStory<typeof RadioGroup> = (args) => {
+const Template: ComponentStory<typeof RadioGroup> = ({ children, ...args }) => {
     const [selectedValue, setSelectedValue] = useState('');
 
     const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {

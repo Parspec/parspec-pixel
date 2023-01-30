@@ -16,7 +16,8 @@ const Template: ComponentStory<typeof TextField> = (args) => {
 export const standard = Template.bind({});
 
 standard.args = {
-    variant: 'standard'
+    variant: 'standard',
+    label: 'Standard'
 };
 
 export const multiline = Template.bind({});
@@ -25,26 +26,30 @@ multiline.args = {
     multiline: true,
     rows: 4,
     maxRows: 10,
-    variant: 'outlined'
+    variant: 'outlined',
+    label: 'Multiline'
 };
 
 export const disabled = Template.bind({});
 
 disabled.args = {
     disabled: true,
-    placeholder: 'this is disabled text'
+    placeholder: 'this is disabled text',
+    label: 'Disabled'
 };
 
 export const required = Template.bind({});
 
 required.args = {
     required: true,
-    placeholder: 'required field'
+    placeholder: 'required field',
+    label: 'Required'
 };
 
 export const error = Template.bind({});
 
 error.args = {
     error: true,
-    placeholder: 'hello world'
+    placeholder: 'hello world',
+    label: 'Error'
 };

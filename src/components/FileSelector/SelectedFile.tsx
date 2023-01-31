@@ -15,14 +15,12 @@ type SelectedFileProps = {
     url: string;
     index: number;
     handleResults: (data: {}, index: number) => void;
-    uploadFile: boolean;
 };
 
 const SelectedFile = (props: SelectedFileProps) => {
-    const { file, onDelete, url, handleResults, index, uploadFile } = props;
+    const { file, onDelete, url, handleResults, index } = props;
     const [progress, setProgress] = useState(0);
 
-    // const controller = new AbortController();
     let source = axios.CancelToken.source();
 
     useEffect(() => {
@@ -32,7 +30,6 @@ const SelectedFile = (props: SelectedFileProps) => {
                 let response = await axios.post(
                     url,
                     {
-                        // s3_path: `media/temp_files/${file.name}`
                         file_name: file.name
                     },
                     {
@@ -56,7 +53,7 @@ const SelectedFile = (props: SelectedFileProps) => {
                 if (err?.message !== 'canceled') return handleResults({ file, error: err.message }, index);
             }
         };
-        if (uploadFile) onUpload();
+        if (url) onUpload();
         else handleResults({ file, progress: 100 }, index);
         return () => {
             if (progress !== 1) source.cancel();
@@ -64,7 +61,6 @@ const SelectedFile = (props: SelectedFileProps) => {
     }, []);
 
     const handleDelete = () => {
-        // if (progress !== 1) controller.abort();
         onDelete(file);
     };
 
@@ -75,7 +71,7 @@ const SelectedFile = (props: SelectedFileProps) => {
                 <BodySmall>{(file.size / 1000).toFixed(2)} kb</BodySmall>
             </Box>
             <Box ml="auto" display="flex">
-                {uploadFile ? (
+                {url ? (
                     <Box mr={2}>
                         <ProgressBar progress={progress} />
                     </Box>

@@ -1,40 +1,38 @@
+import { useCallback, useEffect, useState } from 'react';
+import { useDropzone } from 'react-dropzone';
 import { Avatar } from '@mui/material';
 import { Box } from '../Box';
 import { BodySmall } from '../Typography';
-import { useDropzone } from 'react-dropzone';
-import { useCallback, useEffect, useState } from 'react';
+import { UploadIcon } from '../Icons';
 import { getAcceptedFormats } from './fileFormats';
 import SelectedFile from './SelectedFile';
-import { UploadIcon } from '../Icons';
 
 export const FileSelector = ({
-    maxFiles = 1,
-    acceptedFormats = [],
+    maxFiles,
+    acceptedFormats,
     onUpload,
-    uploadFile = true,
     url,
     error,
     helperText,
     onSelect
 }: {
-    maxFiles?: number;
-    acceptedFormats?: string[];
-    onUpload?: (args: {}[]) => void;
-    uploadFile?: boolean;
+    maxFiles: number;
+    acceptedFormats: string[];
+    onUpload: (args: File[]) => void;
     url: string;
-    error?: string;
-    helperText?: string;
-    onSelect?: (args: {}[]) => void;
+    error: string;
+    helperText: string;
+    onSelect: (args: File[]) => void;
 }) => {
     const [files, setFiles] = useState([]);
     const [result, setResults] = useState([]);
 
     //To give the information of selected files to the main component.
     useEffect(() => {
-        if (onSelect) onSelect(files);
+        onSelect(files);
         if (!files.length) {
             setResults([]);
-            if (onUpload) onUpload([]);
+            onUpload([]);
         }
     }, [files]);
 
@@ -43,11 +41,11 @@ export const FileSelector = ({
         if (files.length) {
             let uploadedFiles = result.filter((file) => file);
             if (uploadedFiles.length === files.length) {
-                if (onUpload) onUpload(uploadedFiles);
+                onUpload(uploadedFiles);
             }
             if (files.length < uploadedFiles.length) {
                 let uploadedData = uploadedFiles.filter((item: { file: { name: string } }) => files.map((file: { name: string }) => file.name).includes(item.file.name));
-                if (onUpload) onUpload(uploadedData);
+                onUpload(uploadedData);
             }
         }
     }, [result]);
@@ -96,7 +94,7 @@ export const FileSelector = ({
             ) : (
                 <Box>
                     {files.map((file: { name: string; size: number }, index: number) => (
-                        <SelectedFile key={file.name} file={file} onDelete={onDelete} url={url} index={index} handleResults={handleResults} uploadFile={uploadFile} />
+                        <SelectedFile key={file.name} file={file} onDelete={onDelete} url={url} index={index} handleResults={handleResults} />
                     ))}
                 </Box>
             )}
@@ -112,4 +110,14 @@ export const FileSelector = ({
             )}
         </>
     );
+};
+
+FileSelector.defaultProps = {
+    maxFiles: 1,
+    acceptedFormats: [],
+    onUpload: () => {},
+    error: '',
+    helperText: '',
+    onSelect: () => {},
+    url: ''
 };

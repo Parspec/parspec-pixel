@@ -10,13 +10,22 @@ import { DragDropContext, OnDragEndResponder } from 'react-beautiful-dnd';
 interface PixelTableProps {
     defaultData: any;
     columns: ColumnDef<any>[];
-    leftPinnedColumnKeys?: string[];
-    rightPinnedColumnKeys?: string[];
+    leftPinnedColumnKeys: string[];
+    rightPinnedColumnKeys: string[];
     pagination: boolean;
     pageSize: number;
+    sortableColumnIds: string[];
 }
 
-export const PixelTable: React.FC<PixelTableProps> = ({ defaultData, columns: propsColumns, leftPinnedColumnKeys, rightPinnedColumnKeys, pagination: paginationRequired, pageSize }) => {
+export const PixelTable: React.FC<PixelTableProps> = ({
+    defaultData,
+    columns: propsColumns,
+    leftPinnedColumnKeys,
+    rightPinnedColumnKeys,
+    pagination: paginationRequired,
+    pageSize,
+    sortableColumnIds
+}) => {
     useEffect(() => {
         if (!paginationRequired) {
             setPagination({ pageSize: defaultData.length, pageIndex: 0 });
@@ -74,11 +83,11 @@ export const PixelTable: React.FC<PixelTableProps> = ({ defaultData, columns: pr
             <DragDropContext onDragEnd={handleDragEnd}>
                 <>
                     <Box display={'flex'}>
-                        {leftPinnedColumnKeys && <LeftTable table={table} />}
+                        {leftPinnedColumnKeys.length > 0 && <LeftTable table={table} sortableColumnIds={sortableColumnIds} />}
                         <Box overflow={'auto'} width="100%">
-                            <CenterTable table={table} />
+                            <CenterTable table={table} sortableColumnIds={sortableColumnIds} />
                         </Box>
-                        {rightPinnedColumnKeys && <RightTable table={table} />}
+                        {rightPinnedColumnKeys.length > 0 && <RightTable table={table} sortableColumnIds={sortableColumnIds} />}
                     </Box>
                     {paginationRequired && (
                         <Box textAlign={'center'} marginTop={8}>
@@ -93,5 +102,8 @@ export const PixelTable: React.FC<PixelTableProps> = ({ defaultData, columns: pr
 
 PixelTable.defaultProps = {
     pagination: true,
-    pageSize: 10
+    pageSize: 10,
+    sortableColumnIds: [''],
+    leftPinnedColumnKeys: [],
+    rightPinnedColumnKeys: []
 };

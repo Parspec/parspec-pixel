@@ -12,6 +12,11 @@ export {
     ArrowCircleLeft as ArrowCircleLeftIcon,
     ArrowCircleRight as ArrowCircleRightIcon,
     ArrowUpward as ArrowUpwardIcon,
-    ArrowDownward as ArrowDownwardIcon
+    ArrowDownward as ArrowDownwardIcon,
+    CheckCircleOutline as CheckCircleOutlineIcon,
+    PanTool as PanToolIcon,
+    Add as AddIcon,
+    Remove as RemoveIcon,
+    Edit as EditIcon
 } from '@mui/icons-material';
 export { CircularProgress as CircularProgressIcon } from '@mui/material';

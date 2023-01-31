@@ -76,10 +76,13 @@ const columns: ColumnDef<Person>[] = [
         header: 'Profile Progress'
     }
 ];
+
+const sortableColumnIds = ['firstName', 'age'];
 export const basic = Template.bind({});
 basic.args = {
     defaultData,
-    columns
+    columns,
+    sortableColumnIds
 };
 
 const columnsFrozen: ColumnDef<Person>[] = [
@@ -133,12 +136,13 @@ const columnsFrozen: ColumnDef<Person>[] = [
         header: 'Profile Progress'
     }
 ];
-const leftPinnedColumnKeys = ['select', 'drag', 'firstName'];
+const leftPinnedColumnKeys = ['select', 'drag', 'firstName', 'status', 'age'];
 const rightPinnedColumnKeys = ['lastName'];
 export const frozenColumns = Template.bind({});
 frozenColumns.args = {
     defaultData,
     columns: columnsFrozen,
     leftPinnedColumnKeys,
-    rightPinnedColumnKeys
+    rightPinnedColumnKeys,
+    sortableColumnIds
 };

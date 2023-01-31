@@ -7,11 +7,12 @@ import { BodyMedium } from '../Typography';
 
 interface LeftTableProps {
     table: Table<any>;
+    sortableColumnIds: string[];
 }
 
-export const LeftTable: React.FC<LeftTableProps> = ({ table }) => {
+export const LeftTable: React.FC<LeftTableProps> = ({ table, sortableColumnIds }) => {
     return (
-        <MUITable style={{ width: 'max-content', borderRight: '1px solid grey' }}>
+        <MUITable style={{ borderRight: '1px solid grey' }}>
             <TableHead style={{ width: 'max-content' }}>
                 {table?.getLeftHeaderGroups()?.map((headerGroup) => (
                     <TableRow key={headerGroup.id}>
@@ -27,17 +28,25 @@ export const LeftTable: React.FC<LeftTableProps> = ({ table }) => {
                                         {header.column.id !== 'drag' && (
                                             <Box
                                                 component={'span'}
-                                                style={header.column.getCanSort() ? { cursor: 'pointer', display: 'flex', gap: 4, alignItems: 'center' } : {}}
-                                                onClick={header.column.getToggleSortingHandler()}
+                                                style={
+                                                    sortableColumnIds.includes(header.column.id) && header.column.getCanSort()
+                                                        ? { cursor: 'pointer', display: 'flex', gap: 4, alignItems: 'center' }
+                                                        : {}
+                                                }
+                                                onClick={sortableColumnIds.includes(header.column.id) ? header.column.getToggleSortingHandler() : () => {}}
                                             >
-                                                <BodyMedium fontWeight={600} width={'max-content'}>
-                                                    {flexRender(header.column.columnDef.header, header.getContext())}
-                                                </BodyMedium>
-                                                {{
-                                                    asc: <ArrowUpwardIcon fontSize="small" />,
-                                                    desc: <ArrowDownwardIcon fontSize="small" />
-                                                }[header.column.getIsSorted() as string] ??
-                                                    (header.column.getCanSort() && <UnfoldMoreIcon fontSize="small" />)}
+                                                <>
+                                                    <BodyMedium fontWeight={600} width={'max-content'}>
+                                                        {flexRender(header.column.columnDef.header, header.getContext())}
+                                                    </BodyMedium>
+                                                    {sortableColumnIds.includes(header.column.id)
+                                                        ? {
+                                                              asc: <ArrowUpwardIcon fontSize="small" />,
+                                                              desc: <ArrowDownwardIcon fontSize="small" />
+                                                          }[header.column.getIsSorted() as string] ??
+                                                          (header.column.getCanSort() && <UnfoldMoreIcon fontSize="small" />)
+                                                        : null}
+                                                </>
                                             </Box>
                                         )}
                                     </>
@@ -64,7 +73,7 @@ export const LeftTable: React.FC<LeftTableProps> = ({ table }) => {
                                                             {...(cell.column.id === 'drag' ? { ...provided.dragHandleProps } : {})}
                                                             style={cell.column.id === 'select' || cell.column.id === 'drag' ? { width: '10px', padding: 0 } : {}}
                                                         >
-                                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                                            <BodyMedium width={'max-content'}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</BodyMedium>
                                                         </TableCell>
                                                     </>
                                                 );

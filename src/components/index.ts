@@ -8,3 +8,4 @@ export * from './Icons';
 export * from './Checkbox';
 export * from './Grid';
 export * from './Table';
+export * from './IconButton';

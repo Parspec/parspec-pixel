@@ -23,15 +23,13 @@ const ProgressBar_1 = __importDefault(require("../ProgressBar"));
 const SelectedFile = (props) => {
     const { file, onDelete, url, handleResults, index } = props;
     const [progress, setProgress] = (0, react_1.useState)(0);
-    // const controller = new AbortController();
     let source = axios_1.default.CancelToken.source();
     (0, react_1.useEffect)(() => {
         const token = localStorage.getItem('token');
-        const uploadFile = () => __awaiter(void 0, void 0, void 0, function* () {
+        const onUpload = () => __awaiter(void 0, void 0, void 0, function* () {
             var _a;
             try {
                 let response = yield axios_1.default.post(url, {
-                    // s3_path: `media/temp_files/${file.name}`
                     file_name: file.name
                 }, {
                     headers: {
@@ -55,17 +53,19 @@ const SelectedFile = (props) => {
                     return handleResults({ file, error: err.message }, index);
             }
         });
-        uploadFile();
+        if (url)
+            onUpload();
+        else
+            handleResults({ file, progress: 100 }, index);
         return () => {
             if (progress !== 1)
                 source.cancel();
         };
     }, []);
     const handleDelete = () => {
-        // if (progress !== 1) controller.abort();
         onDelete(file);
     };
-    return ((0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }, { children: [(0, jsx_runtime_1.jsxs)(Box_1.Box, { children: [(0, jsx_runtime_1.jsx)(Typography_1.BodySmall, Object.assign({ fontWeight: 600 }, { children: file.name })), (0, jsx_runtime_1.jsxs)(Typography_1.BodySmall, { children: [(file.size / 1000).toFixed(2), " kb"] })] }), (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ ml: "auto", mr: 2 }, { children: (0, jsx_runtime_1.jsx)(ProgressBar_1.default, { progress: progress }) })), (0, jsx_runtime_1.jsx)(material_1.IconButton, Object.assign({ onClick: handleDelete, size: "small" }, { children: (0, jsx_runtime_1.jsx)(Icons_1.DeleteIcon, {}) }))] })));
+    return ((0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }, { children: [(0, jsx_runtime_1.jsxs)(Box_1.Box, { children: [(0, jsx_runtime_1.jsx)(Typography_1.BodySmall, Object.assign({ fontWeight: 600 }, { children: file.name })), (0, jsx_runtime_1.jsxs)(Typography_1.BodySmall, { children: [(file.size / 1000).toFixed(2), " kb"] })] }), (0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ ml: "auto", display: "flex" }, { children: [url ? ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ mr: 2 }, { children: (0, jsx_runtime_1.jsx)(ProgressBar_1.default, { progress: progress }) }))) : null, (0, jsx_runtime_1.jsx)(material_1.IconButton, Object.assign({ onClick: handleDelete, size: "small" }, { children: (0, jsx_runtime_1.jsx)(Icons_1.DeleteIcon, {}) }))] }))] })));
 };
 exports.default = SelectedFile;
 //# sourceMappingURL=SelectedFile.js.map

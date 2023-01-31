@@ -18,15 +18,13 @@ import ProgressBar from '../ProgressBar';
 const SelectedFile = (props) => {
     const { file, onDelete, url, handleResults, index } = props;
     const [progress, setProgress] = useState(0);
-    // const controller = new AbortController();
     let source = axios.CancelToken.source();
     useEffect(() => {
         const token = localStorage.getItem('token');
-        const uploadFile = () => __awaiter(void 0, void 0, void 0, function* () {
+        const onUpload = () => __awaiter(void 0, void 0, void 0, function* () {
             var _a;
             try {
                 let response = yield axios.post(url, {
-                    // s3_path: `media/temp_files/${file.name}`
                     file_name: file.name
                 }, {
                     headers: {
@@ -50,17 +48,19 @@ const SelectedFile = (props) => {
                     return handleResults({ file, error: err.message }, index);
             }
         });
-        uploadFile();
+        if (url)
+            onUpload();
+        else
+            handleResults({ file, progress: 100 }, index);
         return () => {
             if (progress !== 1)
                 source.cancel();
         };
     }, []);
     const handleDelete = () => {
-        // if (progress !== 1) controller.abort();
         onDelete(file);
     };
-    return (_jsxs(Box, Object.assign({ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }, { children: [_jsxs(Box, { children: [_jsx(BodySmall, Object.assign({ fontWeight: 600 }, { children: file.name })), _jsxs(BodySmall, { children: [(file.size / 1000).toFixed(2), " kb"] })] }), _jsx(Box, Object.assign({ ml: "auto", mr: 2 }, { children: _jsx(ProgressBar, { progress: progress }) })), _jsx(IconButton, Object.assign({ onClick: handleDelete, size: "small" }, { children: _jsx(DeleteIcon, {}) }))] })));
+    return (_jsxs(Box, Object.assign({ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }, { children: [_jsxs(Box, { children: [_jsx(BodySmall, Object.assign({ fontWeight: 600 }, { children: file.name })), _jsxs(BodySmall, { children: [(file.size / 1000).toFixed(2), " kb"] })] }), _jsxs(Box, Object.assign({ ml: "auto", display: "flex" }, { children: [url ? (_jsx(Box, Object.assign({ mr: 2 }, { children: _jsx(ProgressBar, { progress: progress }) }))) : null, _jsx(IconButton, Object.assign({ onClick: handleDelete, size: "small" }, { children: _jsx(DeleteIcon, {}) }))] }))] })));
 };
 export default SelectedFile;
 //# sourceMappingURL=SelectedFile.js.map

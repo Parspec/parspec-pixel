@@ -22,18 +22,18 @@ const Template: ComponentStory<typeof Autocomplete> = (args) => (
     />
 );
 
-export const autoComplete = Template.bind({});
+export const Basic = Template.bind({});
 
-autoComplete.args = {
+Basic.args = {
     options: top100Films,
     id: 'autocomplete-demo',
     label: 'Movies',
     optionlabelkeyname: 'title'
 };
 
-export const multiSelect = Template.bind({});
+export const MultiSelect = Template.bind({});
 
-multiSelect.args = {
+MultiSelect.args = {
     id: 'multiselect-demo',
     label: 'MultiSelect',
     multiple: true,
@@ -41,9 +41,9 @@ multiSelect.args = {
     optionlabelkeyname: 'title'
 };
 
-export const freeSolo = Template.bind({});
+export const AutocompleteWithCreateOption = Template.bind({});
 
-freeSolo.args = {
+AutocompleteWithCreateOption.args = {
     options: top100Films,
     id: 'autocomplete-demo',
     label: 'Movies',

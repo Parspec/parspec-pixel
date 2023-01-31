@@ -1,5 +1,5 @@
 import { useState, useEffect, Fragment } from 'react';
-import CircularProgress from '@mui/material/CircularProgress';
+import { CircularProgress } from '../CircularProgress';
 import { TextField } from '../TextField';
 
 import { default as MUIAutocomplete } from '@mui/material/Autocomplete';
@@ -113,7 +113,7 @@ const AsyncAutocomplete: React.FC<AsyncAutocompleteProps> = (props) => {
                         ...params.InputProps,
                         endAdornment: (
                             <Fragment>
-                                {loading ? <CircularProgress color="inherit" size={loadersize} /> : null}
+                                {loading ? <CircularProgress size={loadersize} /> : null}
                                 {params.InputProps.endAdornment}
                             </Fragment>
                         )

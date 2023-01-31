@@ -8,3 +8,4 @@ export * from './Icons';
 export * from './Checkbox';
 export * from './Chip';
 export * from './AutoComplete';
+export * from './CircularProgress';

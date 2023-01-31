@@ -23,4 +23,7 @@ __exportStar(require("./TextField"), exports);
 __exportStar(require("./Icons"), exports);
 __exportStar(require("./Checkbox"), exports);
 __exportStar(require("./FileSelector"), exports);
+__exportStar(require("./AutoComplete"), exports);
+__exportStar(require("./CircularProgress"), exports);
+__exportStar(require("./Chip"), exports);
 //# sourceMappingURL=index.js.map

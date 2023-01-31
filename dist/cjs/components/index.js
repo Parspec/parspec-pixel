@@ -26,4 +26,5 @@ __exportStar(require("./FileSelector"), exports);
 __exportStar(require("./AutoComplete"), exports);
 __exportStar(require("./CircularProgress"), exports);
 __exportStar(require("./Chip"), exports);
+__exportStar(require("./Select"), exports);
 //# sourceMappingURL=index.js.map

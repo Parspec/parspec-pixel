@@ -22,7 +22,6 @@
         "@emotion/styled": "^11.10.5",
         "@mui/icons-material": "^5.11.0",
         "@mui/material": "5.11.2",
-        "axios": "^1.2.6",
         "react-dropzone": "^14.2.3"
     },
     "devDependencies": {
@@ -45,7 +44,8 @@
     },
     "peerDependencies": {
         "react": "^18.2.0",
-        "react-dom": "^18.2.0"
+        "react-dom": "^18.2.0",
+        "axios": "^1.2.6"
     },
     "browserslist": {
         "production": [

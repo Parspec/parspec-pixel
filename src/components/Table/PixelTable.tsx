@@ -13,19 +13,10 @@ interface PixelTableProps {
     leftPinnedColumnKeys: string[];
     rightPinnedColumnKeys: string[];
     pagination: boolean;
-    pageSize: number;
     sortableColumnIds: string[];
 }
 
-export const PixelTable: React.FC<PixelTableProps> = ({
-    defaultData,
-    columns: propsColumns,
-    leftPinnedColumnKeys,
-    rightPinnedColumnKeys,
-    pagination: paginationRequired,
-    pageSize,
-    sortableColumnIds
-}) => {
+export const PixelTable: React.FC<PixelTableProps> = ({ defaultData, columns: propsColumns, leftPinnedColumnKeys, rightPinnedColumnKeys, pagination: paginationRequired, sortableColumnIds }) => {
     useEffect(() => {
         if (!paginationRequired) {
             setPagination({ pageSize: defaultData.length, pageIndex: 0 });
@@ -34,7 +25,7 @@ export const PixelTable: React.FC<PixelTableProps> = ({
 
     const [sorting, setSorting] = React.useState<SortingState>([]);
     const [pagination, setPagination] = React.useState<PaginationState>({
-        pageSize,
+        pageSize: 10,
         pageIndex: 0
     });
     const [rowSelection, setRowSelection] = React.useState({});
@@ -102,7 +93,6 @@ export const PixelTable: React.FC<PixelTableProps> = ({
 
 PixelTable.defaultProps = {
     pagination: true,
-    pageSize: 10,
     sortableColumnIds: [''],
     leftPinnedColumnKeys: [],
     rightPinnedColumnKeys: []

@@ -1,8 +1,10 @@
 import { Box } from '../Box';
-import { KeyboardArrowLeftIcon, FirstPageIcon, KeyboardArrowRightIcon, LastPageIcon } from '../Icons';
-import { IconButton } from '../IconButton';
+import { KeyboardArrowLeftIcon, KeyboardArrowRightIcon } from '../Icons';
 import { BodyMedium } from '../Typography';
 import { PaginationState, Table } from '@tanstack/react-table';
+import { IconButton } from '../IconButton';
+
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 interface PaginationProps {
     pagination: PaginationState;
@@ -10,35 +12,38 @@ interface PaginationProps {
 }
 
 const Pagination: React.FC<PaginationProps> = ({ pagination, table }) => {
-    const startIndex = (pagination.pageSize * pagination.pageIndex + 1).toLocaleString();
-    const endIndex = (pagination.pageSize * pagination.pageIndex + table.getRowModel().rows.length).toLocaleString();
-    const totalRows = Object.keys(table.getRowModel().rowsById).length.toLocaleString();
     return (
-        <Box>
-            <>
-                <BodyMedium display={'inline'} mr={8}>
-                    <b>{startIndex}</b>
-                    {' to '}
-                    <b>{endIndex}</b>
-                    {' of '}
-                    <b>{totalRows}</b>
-                </BodyMedium>
-                <IconButton onClick={() => table.setPageIndex(0)} disabled={!table.getCanPreviousPage()}>
-                    <FirstPageIcon fontSize="small" />
-                </IconButton>
+        <Box display={'flex'} justifyContent="space-between" alignItems="center" pl={12} pr={12}>
+            <Box display={'flex'} gap={2} alignItems="center">
                 <IconButton onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
                     <KeyboardArrowLeftIcon fontSize="small" />
                 </IconButton>
                 <BodyMedium display={'inline'}>
-                    Page <Box component={'strong'}>{table.getState().pagination.pageIndex + 1} </Box> of <Box component={'strong'}>{table.getPageCount()}</Box>
+                    <IconButton sx={{ borderRadius: '100%' }}>
+                        <BodyMedium>{pagination.pageIndex + 1}</BodyMedium>
+                    </IconButton>
                 </BodyMedium>
-                <IconButton onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
+                <IconButton style={{ borderRadius: 10 }} onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
                     <KeyboardArrowRightIcon fontSize="small" />
                 </IconButton>
-                <IconButton onClick={() => table.setPageIndex(table.getPageCount() - 1)} disabled={!table.getCanNextPage()}>
-                    <LastPageIcon fontSize="small" />
-                </IconButton>
-            </>
+            </Box>
+            <Box width={'100px'}>
+                <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Show</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={table.getState().pagination.pageSize}
+                        label="Show"
+                        size="small"
+                        onChange={(e) => table.setPageSize(Number(e.target.value))}
+                    >
+                        <MenuItem value={10}>10</MenuItem>
+                        <MenuItem value={20}>20</MenuItem>
+                        <MenuItem value={30}>30</MenuItem>
+                    </Select>
+                </FormControl>
+            </Box>
         </Box>
     );
 };

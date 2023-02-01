@@ -18,12 +18,7 @@ export const CenterTable: React.FC<CenterTableProps> = ({ table, sortableColumnI
                     <TableRow key={headerGroup.id}>
                         <>
                             {headerGroup.headers.map((header) => (
-                                <TableCell
-                                    component={'th'}
-                                    style={header.column.id === 'select' || header.column.id === 'drag' ? { width: '10px', padding: 0 } : {}}
-                                    key={header.id}
-                                    colSpan={header.colSpan}
-                                >
+                                <TableCell component={'th'} padding={header.column.id === 'select' ? 'checkbox' : 'normal'} style={{ border: '1px solid' }} key={header.id} colSpan={header.colSpan}>
                                     {header.isPlaceholder ? null : (
                                         <>
                                             {header.column.id !== 'drag' && (
@@ -69,8 +64,9 @@ export const CenterTable: React.FC<CenterTableProps> = ({ table, sortableColumnI
                                                 return (
                                                     <TableCell
                                                         key={cell.id}
+                                                        padding={cell.column.id === 'select' || cell.column.id === 'drag' ? 'checkbox' : 'normal'}
                                                         {...(cell.column.id === 'drag' ? { ...provided.dragHandleProps } : {})}
-                                                        style={cell.column.id === 'select' || cell.column.id === 'drag' ? { width: '10px', padding: 0 } : {}}
+                                                        style={{ border: '1px solid' }}
                                                     >
                                                         <BodyMedium width={'max-content'}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</BodyMedium>
                                                     </TableCell>

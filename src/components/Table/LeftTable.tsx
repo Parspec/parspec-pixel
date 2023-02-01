@@ -17,12 +17,7 @@ export const LeftTable: React.FC<LeftTableProps> = ({ table, sortableColumnIds }
                 {table?.getLeftHeaderGroups()?.map((headerGroup) => (
                     <TableRow key={headerGroup.id}>
                         {headerGroup.headers.map((header) => (
-                            <TableCell
-                                component={'th'}
-                                style={header.column.id === 'select' || header.column.id === 'drag' ? { width: '10px', padding: 0 } : {}}
-                                key={header.id}
-                                colSpan={header.colSpan}
-                            >
+                            <TableCell padding={header.column.id === 'select' ? 'checkbox' : 'normal'} component={'th'} style={{ border: '1px solid' }} key={header.id} colSpan={header.colSpan}>
                                 {header.isPlaceholder ? null : (
                                     <>
                                         {header.column.id !== 'drag' && (
@@ -69,9 +64,10 @@ export const LeftTable: React.FC<LeftTableProps> = ({ table, sortableColumnIds }
                                                 return (
                                                     <>
                                                         <TableCell
+                                                            padding={cell.column.id === 'select' || cell.column.id === 'drag' ? 'checkbox' : 'normal'}
                                                             key={cell.id}
                                                             {...(cell.column.id === 'drag' ? { ...provided.dragHandleProps } : {})}
-                                                            style={cell.column.id === 'select' || cell.column.id === 'drag' ? { width: '10px', padding: 0 } : {}}
+                                                            style={{ border: '1px solid' }}
                                                         >
                                                             <BodyMedium width={'max-content'}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</BodyMedium>
                                                         </TableCell>

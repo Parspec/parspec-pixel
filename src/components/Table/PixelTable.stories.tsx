@@ -6,6 +6,7 @@ import { Checkbox } from '../Checkbox';
 import { DragIndicatorIcon } from '../Icons';
 import { Box } from '../Box';
 import { Person, defaultData } from './dummyData';
+import { BodyMedium } from '../Typography';
 
 export default {
     title: 'Table',
@@ -21,20 +22,20 @@ const columns: ColumnDef<Person>[] = [
         accessorKey: 'drag',
         header: () => <></>,
         cell: () => (
-            <Box component="span" display={'flex'} alignItems="center">
-                <DragIndicatorIcon fontSize="small" style={{ margin: 0, padding: 0 }} />
+            <Box ml={3}>
+                <DragIndicatorIcon fontSize="small" />
             </Box>
         )
     },
     {
-        id: 'select',
+        accessorKey: 'select',
         header: ({ table }) => (
             <Checkbox
                 {...{
                     checked: table.getIsAllRowsSelected(),
                     indeterminate: table.getIsSomeRowsSelected(),
                     onChange: table.getToggleAllRowsSelectedHandler(),
-                    style: { margin: 0, padding: 0 },
+                    style: { margin: 0 },
                     label: ''
                 }}
             />
@@ -45,7 +46,7 @@ const columns: ColumnDef<Person>[] = [
                     checked: row.getIsSelected(),
                     indeterminate: row.getIsSomeSelected(),
                     onChange: row.getToggleSelectedHandler(),
-                    style: { margin: 0, padding: 0 },
+                    style: { margin: 0 },
                     label: ''
                 }}
             />
@@ -94,7 +95,7 @@ const columnsFrozen: ColumnDef<Person>[] = [
                     checked: table.getIsAllRowsSelected(),
                     indeterminate: table.getIsSomeRowsSelected(),
                     onChange: table.getToggleAllRowsSelectedHandler(),
-                    style: { margin: 0, padding: 0 },
+                    style: { margin: 0 },
                     label: ''
                 }}
             />
@@ -105,7 +106,7 @@ const columnsFrozen: ColumnDef<Person>[] = [
                     checked: row.getIsSelected(),
                     indeterminate: row.getIsSomeSelected(),
                     onChange: row.getToggleSelectedHandler(),
-                    style: { margin: 0, padding: 0 },
+                    style: { margin: 0 },
                     label: ''
                 }}
             />

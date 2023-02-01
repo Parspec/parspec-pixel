@@ -9,7 +9,7 @@ type AutocompleteProps = {
     options: OptionType[];
     color?: 'error' | 'primary' | 'secondary' | 'info' | 'success' | 'warning';
     variant?: 'outlined' | 'filled' | 'standard';
-    onChange: (event: React.SyntheticEvent, inputText: OptionType | null) => void;
+    onChange: (event: React.SyntheticEvent) => void;
 };
 type AsyncAutocompleteProps = Omit<AutocompleteProps, 'options'> & {
     loadersize?: number;

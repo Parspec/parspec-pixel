@@ -15,7 +15,8 @@ import { default as MUIAutocomplete } from '@mui/material/Autocomplete';
 const Autocomplete = (props) => {
     const { id, label, color, variant, onChange, optionlabelkeyname } = props;
     const handleOnChange = (event, newValue) => {
-        onChange(event, newValue);
+        event.target = Object.assign(Object.assign({}, event.target), { value: { newValue } });
+        onChange(event);
     };
     return (_jsx(MUIAutocomplete, Object.assign({}, props, { id: id, onChange: handleOnChange, getOptionLabel: (option) => {
             if (typeof option === 'object') {
@@ -54,7 +55,8 @@ const AsyncAutocomplete = (props) => {
         }
     }, [open]);
     const handleOnChange = (event, newValue) => {
-        onChange(event, newValue);
+        event.target = Object.assign(Object.assign({}, event.target), { value: { newValue } });
+        onChange(event);
     };
     return (_jsx(MUIAutocomplete, Object.assign({}, props, { id: id, options: options, open: open, onOpen: () => {
             setOpen(true);

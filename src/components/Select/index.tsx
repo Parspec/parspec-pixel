@@ -1,5 +1,6 @@
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
 import { default as MUISelect, SelectProps as MUISelectProps } from '@mui/material/Select';
 
 interface SelectMenuOption {
@@ -12,18 +13,21 @@ export interface SelectProps extends Omit<MUISelectProps, 'classes' | 'sx'> {
     options: SelectMenuOption[];
     labelId: string;
     id: string;
+    fullwidth?: boolean;
 }
 
-export const Select: React.FC<SelectProps> = ({ id, labelId, options, label, ...rest }) => (
+export const Select: React.FC<SelectProps> = ({ id, labelId, fullwidth, options, label, ...rest }) => (
     <>
-        <InputLabel id={labelId}>{label}</InputLabel>
-        <MUISelect {...rest} labelId={labelId} label={label} id={id}>
-            {options.map((item, index) => (
-                <MenuItem key={index} value={item.value}>
-                    {item.label}
-                </MenuItem>
-            ))}
-        </MUISelect>
+        <FormControl fullWidth={fullwidth}>
+            <InputLabel id={labelId}>{label}</InputLabel>
+            <MUISelect {...rest} labelId={labelId} label={label} id={id}>
+                {options.map((item, index) => (
+                    <MenuItem key={index} value={item.value}>
+                        {item.label}
+                    </MenuItem>
+                ))}
+            </MUISelect>
+        </FormControl>
     </>
 );
 
@@ -35,5 +39,6 @@ Select.defaultProps = {
         { value: 30, label: 'Thirty' }
     ],
     labelId: 'demo-simple-select-label',
-    id: 'demo-simple-select'
+    id: 'demo-simple-select',
+    fullwidth: true
 };

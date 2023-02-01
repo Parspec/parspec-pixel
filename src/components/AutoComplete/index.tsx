@@ -88,7 +88,7 @@ const AsyncAutocomplete: React.FC<AsyncAutocompleteProps> = (props) => {
     }, [open]);
 
     const handleOnChange = (event: any, newValue: OptionType | null) => {
-        event.target = { ...event.target, value: { newValue } };
+        event.target = { ...event.target, value: newValue };
         onChange(event);
     };
 

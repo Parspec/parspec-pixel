@@ -19,9 +19,9 @@ const CircularProgress_1 = require("../CircularProgress");
 const TextField_1 = require("../TextField");
 const Autocomplete_1 = __importDefault(require("@mui/material/Autocomplete"));
 const Autocomplete = (props) => {
-    const { id, label, color, variant, onChange, optionlabelkeyname } = props;
+    const { id, label, color, variant, onChange, optionlabelkeyname, freesolo } = props;
     const handleOnChange = (event, newValue) => {
-        event.target = Object.assign(Object.assign({}, event.target), { value: { newValue } });
+        event.target = Object.assign(Object.assign({}, event.target), { value: newValue });
         onChange(event);
     };
     return ((0, jsx_runtime_1.jsx)(Autocomplete_1.default, Object.assign({}, props, { id: id, onChange: handleOnChange, getOptionLabel: (option) => {
@@ -29,7 +29,7 @@ const Autocomplete = (props) => {
                 return `${option[optionlabelkeyname]}`;
             }
             return option;
-        }, renderInput: (params) => (0, jsx_runtime_1.jsx)(TextField_1.TextField, Object.assign({}, params, { variant: variant, color: color, label: label })) })));
+        }, freeSolo: freesolo ? true : false, renderInput: (params) => (0, jsx_runtime_1.jsx)(TextField_1.TextField, Object.assign({}, params, { variant: variant, color: color, label: label })) })));
 };
 exports.Autocomplete = Autocomplete;
 Autocomplete.defaultProps = {
@@ -62,7 +62,7 @@ const AsyncAutocomplete = (props) => {
         }
     }, [open]);
     const handleOnChange = (event, newValue) => {
-        event.target = Object.assign(Object.assign({}, event.target), { value: { newValue } });
+        event.target = Object.assign(Object.assign({}, event.target), { value: newValue });
         onChange(event);
     };
     return ((0, jsx_runtime_1.jsx)(Autocomplete_1.default, Object.assign({}, props, { id: id, options: options, open: open, onOpen: () => {

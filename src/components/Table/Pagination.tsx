@@ -13,8 +13,8 @@ interface PaginationProps {
 
 const Pagination: React.FC<PaginationProps> = ({ pagination, table }) => {
     return (
-        <Box display={'flex'} justifyContent="space-between" alignItems="center" pl={12} pr={12}>
-            <Box display={'flex'} gap={2} alignItems="center">
+        <Box display={'flex'} justifyContent="space-between" pl={12} pr={12}>
+            <Box display={'flex'} gap={2}>
                 <IconButton onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
                     <KeyboardArrowLeftIcon fontSize="small" />
                 </IconButton>

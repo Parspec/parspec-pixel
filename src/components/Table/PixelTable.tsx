@@ -70,7 +70,7 @@ export const PixelTable: React.FC<PixelTableProps> = ({ defaultData, columns: pr
     }, [table]);
 
     return (
-        <Box height={'100vh'} width={'97vw'}>
+        <Box height={'100%'} width={'100%'}>
             <DragDropContext onDragEnd={handleDragEnd}>
                 <>
                     <Box display={'flex'}>

@@ -15,7 +15,7 @@ type AutocompleteProps = {
     options: OptionType[];
     color?: 'error' | 'primary' | 'secondary' | 'info' | 'success' | 'warning';
     variant?: 'outlined' | 'filled' | 'standard';
-    onChange: (event: React.SyntheticEvent, inputText: OptionType | null) => void;
+    onChange: (event: React.SyntheticEvent) => void;
 };
 
 type AsyncAutocompleteProps = Omit<AutocompleteProps, 'options'> & {
@@ -25,8 +25,9 @@ type AsyncAutocompleteProps = Omit<AutocompleteProps, 'options'> & {
 
 const Autocomplete: React.FC<AutocompleteProps> = (props) => {
     const { id, label, color, variant, onChange, optionlabelkeyname } = props;
-    const handleOnChange = (event: React.SyntheticEvent, newValue: OptionType | null) => {
-        onChange(event, newValue);
+    const handleOnChange = (event: any, newValue: OptionType | null) => {
+        event.target = { ...event.target, value: { newValue } };
+        onChange(event);
     };
     return (
         <MUIAutocomplete
@@ -84,8 +85,9 @@ const AsyncAutocomplete: React.FC<AsyncAutocompleteProps> = (props) => {
         }
     }, [open]);
 
-    const handleOnChange = (event: React.SyntheticEvent, newValue: OptionType | null) => {
-        onChange(event, newValue);
+    const handleOnChange = (event: any, newValue: OptionType | null) => {
+        event.target = { ...event.target, value: { newValue } };
+        onChange(event);
     };
 
     return (

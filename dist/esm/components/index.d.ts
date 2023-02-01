@@ -6,3 +6,8 @@ export * from './Typography';
 export * from './TextField';
 export * from './Icons';
 export * from './Checkbox';
+export * from './FileSelector';
+export * from './AutoComplete';
+export * from './CircularProgress';
+export * from './Chip';
+export * from './Select';

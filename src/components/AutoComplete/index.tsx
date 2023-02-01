@@ -16,17 +16,18 @@ type AutocompleteProps = {
     color?: 'error' | 'primary' | 'secondary' | 'info' | 'success' | 'warning';
     variant?: 'outlined' | 'filled' | 'standard';
     onChange: (event: React.SyntheticEvent) => void;
+    freesolo?: boolean;
 };
 
-type AsyncAutocompleteProps = Omit<AutocompleteProps, 'options'> & {
+type AsyncAutocompleteProps = Omit<AutocompleteProps, 'options' | 'freesolo'> & {
     loadersize?: number;
     asyncfunc: () => Promise<OptionType[]>;
 };
 
 const Autocomplete: React.FC<AutocompleteProps> = (props) => {
-    const { id, label, color, variant, onChange, optionlabelkeyname } = props;
-    const handleOnChange = (event: any, newValue: OptionType | null) => {
-        event.target = { ...event.target, value: { newValue } };
+    const { id, label, color, variant, onChange, optionlabelkeyname, freesolo } = props;
+    const handleOnChange = (event: any, newValue: string | OptionType | null) => {
+        event.target = { ...event.target, value: newValue };
         onChange(event);
     };
     return (
@@ -41,6 +42,7 @@ const Autocomplete: React.FC<AutocompleteProps> = (props) => {
 
                 return option;
             }}
+            freeSolo={freesolo ? true : false}
             renderInput={(params) => <TextField {...params} variant={variant} color={color} label={label} />}
         />
     );

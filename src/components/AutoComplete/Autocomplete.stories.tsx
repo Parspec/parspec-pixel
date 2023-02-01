@@ -16,7 +16,7 @@ const Template: ComponentStory<typeof Autocomplete> = (args) => (
     <Autocomplete
         {...args}
         onChange={(e) => {
-            console.log(`let's checkout EVENT`, e);
+            console.log(e);
         }}
     />
 );
@@ -47,5 +47,5 @@ AutocompleteWithCreateOption.args = {
     id: 'autocomplete-demo',
     label: 'Movies',
     optionlabelkeyname: 'title',
-    freeSolo: true
+    freesolo: true
 };

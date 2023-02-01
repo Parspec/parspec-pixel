@@ -1,6 +1,7 @@
 export { ParspecLogoIcon } from './ParspecLogoIcon';
 export {
     Close as CloseIcon,
+    Cancel as CancelIcon,
     DragIndicator as DragIndicatorIcon,
     Search as SearchIcon,
     TrendingUp as TrendingUpIcon,
@@ -17,6 +18,11 @@ export {
     PanTool as PanToolIcon,
     Add as AddIcon,
     Remove as RemoveIcon,
-    Edit as EditIcon
+    Edit as EditIcon,
+    MoreVert as MoreVertIcon,
+    CheckCircle as CheckCircleIcon,
+    SwapHoriz as SwapHorizIcon,
+    ChangeHistory as ChangeHistoryIcon,
+    ViewArray as ViewArrayIcon
 } from '@mui/icons-material';
 export { CircularProgress as CircularProgressIcon } from '@mui/material';

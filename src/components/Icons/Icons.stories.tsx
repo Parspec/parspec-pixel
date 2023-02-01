@@ -20,7 +20,13 @@ import {
     RemoveIcon,
     EditIcon,
     KeyboardArrowRightIcon,
-    CircularProgressIcon
+    CircularProgressIcon,
+    MoreVertIcon,
+    CheckCircleIcon,
+    SwapHorizIcon,
+    ChangeHistoryIcon,
+    ViewArrayIcon,
+    CancelIcon
 } from './index';
 import { Grid } from '../Grid';
 import { Box } from '../Box';
@@ -71,7 +77,13 @@ AllIcons.args = {
         { icon: PanToolIcon, name: 'PanToolIcon' },
         { icon: AddIcon, name: 'AddIcon' },
         { icon: RemoveIcon, name: 'RemoveIcon' },
-        { icon: EditIcon, name: 'EditIcon' }
+        { icon: EditIcon, name: 'EditIcon' },
+        { icon: MoreVertIcon, name: 'MoreVertIcon' },
+        { icon: CheckCircleIcon, name: 'CheckCircleIcon' },
+        { icon: CancelIcon, name: 'CancelIcon' },
+        { icon: SwapHorizIcon, name: 'SwapHorizIcon' },
+        { icon: ChangeHistoryIcon, name: 'ChangeHistoryIcon' },
+        { icon: ViewArrayIcon, name: 'ViewArrayIcon ' }
     ],
     fontSize: 'medium'
 };

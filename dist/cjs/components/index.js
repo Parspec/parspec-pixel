@@ -27,4 +27,5 @@ __exportStar(require("./AutoComplete"), exports);
 __exportStar(require("./CircularProgress"), exports);
 __exportStar(require("./Chip"), exports);
 __exportStar(require("./Select"), exports);
+__exportStar(require("./Tabs"), exports);
 //# sourceMappingURL=index.js.map

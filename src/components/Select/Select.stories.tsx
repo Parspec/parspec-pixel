@@ -33,8 +33,5 @@ select.args = {
     options: options,
     label: 'Age',
     labelId: 'demo-simple-select-label',
-    id: 'demo-simple-select',
-    autoWidth: true,
-    defaultValue: 10,
-    fullwidth: true
+    id: 'demo-simple-select'
 };

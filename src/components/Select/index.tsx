@@ -13,12 +13,11 @@ export interface SelectProps extends Omit<MUISelectProps, 'classes' | 'sx'> {
     options: SelectMenuOption[];
     labelId: string;
     id: string;
-    fullwidth?: boolean;
 }
 
-export const Select: React.FC<SelectProps> = ({ id, labelId, fullwidth, options, label, ...rest }) => (
+export const Select: React.FC<SelectProps> = ({ id, labelId, options, label, ...rest }) => (
     <>
-        <FormControl fullWidth={fullwidth}>
+        <FormControl fullWidth>
             <InputLabel id={labelId}>{label}</InputLabel>
             <MUISelect {...rest} labelId={labelId} label={label} id={id}>
                 {options.map((item, index) => (
@@ -39,6 +38,5 @@ Select.defaultProps = {
         { value: 30, label: 'Thirty' }
     ],
     labelId: 'demo-simple-select-label',
-    id: 'demo-simple-select',
-    fullwidth: true
+    id: 'demo-simple-select'
 };

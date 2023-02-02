@@ -16,18 +16,16 @@ export interface SelectProps extends Omit<MUISelectProps, 'classes' | 'sx'> {
 }
 
 export const Select: React.FC<SelectProps> = ({ id, labelId, options, label, ...rest }) => (
-    <>
-        <FormControl fullWidth>
-            <InputLabel id={labelId}>{label}</InputLabel>
-            <MUISelect {...rest} labelId={labelId} label={label} id={id}>
-                {options.map((item, index) => (
-                    <MenuItem key={index} value={item.value}>
-                        {item.label}
-                    </MenuItem>
-                ))}
-            </MUISelect>
-        </FormControl>
-    </>
+    <FormControl fullWidth>
+        <InputLabel id={labelId}>{label}</InputLabel>
+        <MUISelect {...rest} labelId={labelId} label={label} id={id}>
+            {options.map((item, index) => (
+                <MenuItem key={index} value={item.value}>
+                    {item.label}
+                </MenuItem>
+            ))}
+        </MUISelect>
+    </FormControl>
 );
 
 Select.defaultProps = {

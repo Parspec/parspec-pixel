@@ -47,5 +47,5 @@ AutocompleteWithCreateOption.args = {
     id: 'autocomplete-demo',
     label: 'Movies',
     optionlabelkeyname: 'title',
-    freesolo: true
+    freeSolo: true
 };

@@ -13,16 +13,17 @@ import { CircularProgress } from '../CircularProgress';
 import { TextField } from '../TextField';
 import { default as MUIAutocomplete } from '@mui/material/Autocomplete';
 const Autocomplete = (props) => {
-    const { id, label, color, variant, onChange, optionlabelkeyname } = props;
+    const { id, label, color, variant, onChange, optionlabelkeyname, freesolo } = props;
     const handleOnChange = (event, newValue) => {
-        onChange(event, newValue);
+        event.target = Object.assign(Object.assign({}, event.target), { value: newValue });
+        onChange(event);
     };
     return (_jsx(MUIAutocomplete, Object.assign({}, props, { id: id, onChange: handleOnChange, getOptionLabel: (option) => {
             if (typeof option === 'object') {
                 return `${option[optionlabelkeyname]}`;
             }
             return option;
-        }, renderInput: (params) => _jsx(TextField, Object.assign({}, params, { variant: variant, color: color, label: label })) })));
+        }, freeSolo: freesolo ? true : false, renderInput: (params) => _jsx(TextField, Object.assign({}, params, { variant: variant, color: color, label: label })) })));
 };
 Autocomplete.defaultProps = {
     color: 'primary',
@@ -54,7 +55,8 @@ const AsyncAutocomplete = (props) => {
         }
     }, [open]);
     const handleOnChange = (event, newValue) => {
-        onChange(event, newValue);
+        event.target = Object.assign(Object.assign({}, event.target), { value: newValue });
+        onChange(event);
     };
     return (_jsx(MUIAutocomplete, Object.assign({}, props, { id: id, options: options, open: open, onOpen: () => {
             setOpen(true);

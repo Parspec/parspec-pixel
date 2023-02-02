@@ -23,8 +23,8 @@ const simulatingAsynchronous = () => {
 const Template: ComponentStory<typeof AsyncAutocomplete> = (args) => (
     <AsyncAutocomplete
         {...args}
-        onChange={(event, value) => {
-            console.log(value);
+        onChange={(event) => {
+            console.log(event.target);
         }}
     />
 );

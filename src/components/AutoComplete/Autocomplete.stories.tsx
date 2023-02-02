@@ -15,8 +15,8 @@ export default {
 const Template: ComponentStory<typeof Autocomplete> = (args) => (
     <Autocomplete
         {...args}
-        onChange={(e: React.SyntheticEvent, newValue) => {
-            console.log(newValue);
+        onChange={(e) => {
+            console.log(e);
         }}
     />
 );

@@ -10,7 +10,7 @@ export interface AsyncAutocompleteProps extends Omit<AutocompleteProps, 'options
     asyncfunc: () => Promise<OptionType[]>;
 }
 
-const AsyncAutocomplete: React.FC<AsyncAutocompleteProps> = ({ id, label, color, variant, onChange, loadersize, asyncfunc, optionlabelkeyname, ...props }) => {
+export const AsyncAutocomplete: React.FC<AsyncAutocompleteProps> = ({ id, label, color, variant, onChange, loadersize, asyncfunc, optionlabelkeyname, ...props }) => {
     const [open, setOpen] = useState(false);
     const [options, setOptions] = useState<OptionType[]>([]);
 

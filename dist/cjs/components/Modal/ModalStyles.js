@@ -10,7 +10,6 @@ exports.ModalContainerStyle = {
     backgroundColor: '#FFFFFF',
     border: '1px solid #000',
     boxShadow: 24,
-    pl: 6,
-    pr: 6
+    p: 6
 };
 //# sourceMappingURL=ModalStyles.js.map

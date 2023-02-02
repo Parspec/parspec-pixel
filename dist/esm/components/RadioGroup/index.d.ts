@@ -1,8 +1,9 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { RadioGroupProps as MUIRadioGroupProps } from '@mui/material/RadioGroup';
 interface FormLabelParams {
     value: string;
     label: string;
+    helper?: ReactNode;
 }
 export interface RadioGroupProps extends MUIRadioGroupProps {
     label: string;

@@ -1,9 +1,9 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { Tabs } from './';
 import { TrendingUpIcon } from '../Icons';
 import { Box } from '../Box';
 import { Button } from '../Button';
+import { Tabs } from './';
 
 export default {
     title: 'Tabs',

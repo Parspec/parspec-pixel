@@ -1,7 +1,7 @@
-import { Box } from '../Box';
+import { ReactNode, useState } from 'react';
 import { default as MUITabs, TabsProps } from '@mui/material/Tabs';
 import { Tab } from '@mui/material';
-import { ReactNode, useState } from 'react';
+import { Box } from '../Box';
 
 interface TabPanelProps {
     children?: React.ReactNode;

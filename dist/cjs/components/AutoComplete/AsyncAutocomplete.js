@@ -23,6 +23,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.AsyncAutocomplete = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const react_1 = require("react");
 const Autocomplete_1 = __importDefault(require("@mui/material/Autocomplete"));
@@ -62,7 +63,8 @@ const AsyncAutocomplete = (_a) => {
             setOpen(false);
         }, onChange: handleOnChange, isOptionEqualToValue: (option, value) => option[optionlabelkeyname] === value[optionlabelkeyname], getOptionLabel: (option) => `${option[optionlabelkeyname]}`, renderInput: (params) => ((0, jsx_runtime_1.jsx)(TextField_1.TextField, Object.assign({}, params, { color: color, label: label, variant: variant, InputProps: Object.assign(Object.assign({}, params.InputProps), { endAdornment: ((0, jsx_runtime_1.jsxs)(react_1.Fragment, { children: [loading ? (0, jsx_runtime_1.jsx)(CircularProgress_1.CircularProgress, { size: loadersize }) : null, params.InputProps.endAdornment] })) }) }))) })));
 };
-AsyncAutocomplete.defaultProps = {
+exports.AsyncAutocomplete = AsyncAutocomplete;
+exports.AsyncAutocomplete.defaultProps = {
     color: 'primary',
     variant: 'outlined',
     loadersize: 20

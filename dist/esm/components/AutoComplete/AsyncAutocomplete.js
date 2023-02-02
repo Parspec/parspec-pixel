@@ -23,7 +23,7 @@ import { useState, useEffect, Fragment } from 'react';
 import { default as MUIAutocomplete } from '@mui/material/Autocomplete';
 import { CircularProgress } from '../CircularProgress';
 import { TextField } from '../TextField';
-const AsyncAutocomplete = (_a) => {
+export const AsyncAutocomplete = (_a) => {
     var { id, label, color, variant, onChange, loadersize, asyncfunc, optionlabelkeyname } = _a, props = __rest(_a, ["id", "label", "color", "variant", "onChange", "loadersize", "asyncfunc", "optionlabelkeyname"]);
     const [open, setOpen] = useState(false);
     const [options, setOptions] = useState([]);

@@ -12,4 +12,5 @@ export * from './CircularProgress';
 export * from './Chip';
 export * from './Select';
 export * from './Tabs';
+export * from './Breadcrumb';
 //# sourceMappingURL=index.js.map

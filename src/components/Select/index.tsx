@@ -1,5 +1,6 @@
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
 import { default as MUISelect, SelectProps as MUISelectProps } from '@mui/material/Select';
 
 interface SelectMenuOption {
@@ -15,7 +16,7 @@ export interface SelectProps extends Omit<MUISelectProps, 'classes' | 'sx'> {
 }
 
 export const Select: React.FC<SelectProps> = ({ id, labelId, options, label, ...rest }) => (
-    <>
+    <FormControl fullWidth>
         <InputLabel id={labelId}>{label}</InputLabel>
         <MUISelect {...rest} labelId={labelId} label={label} id={id}>
             {options.map((item, index) => (
@@ -24,7 +25,7 @@ export const Select: React.FC<SelectProps> = ({ id, labelId, options, label, ...
                 </MenuItem>
             ))}
         </MUISelect>
-    </>
+    </FormControl>
 );
 
 Select.defaultProps = {

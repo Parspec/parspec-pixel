@@ -6,6 +6,7 @@ export {
     TrendingUp as TrendingUpIcon,
     UnfoldMore as UnfoldMoreIcon,
     Delete as DeleteIcon,
-    CloudUpload as UploadIcon
+    CloudUpload as UploadIcon,
+    MoreVert as MenuIcon
 } from '@mui/icons-material';
 export { CircularProgress as CircularProgressIcon } from '@mui/material';

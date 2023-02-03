@@ -1,24 +1,24 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode } from 'react';
 import { default as MUITabs, TabsProps } from '@mui/material/Tabs';
 import { Tab } from '@mui/material';
 import { Box } from '../Box';
 
+interface TabsPropsCustom extends TabsProps {
+    selectedTab: string;
+    tabs: { label: ReactNode; value: string; content: ReactNode }[];
+    handleTabChange: (newValue: string) => void;
+}
 interface TabPanelProps {
     children?: React.ReactNode;
-    index: number;
-    value: number;
-}
-
-interface TabsPropsCustom extends TabsProps {
-    tabLabelList: ReactNode[];
-    tabPannelList: ReactNode[];
+    index: string;
+    value: string;
 }
 
 function TabPanel(props: TabPanelProps) {
     const { children, value, index, ...other } = props;
 
     return (
-        <Box role="tabpanel" hidden={value !== index} id={`simple-tabpanel-${index}`} aria-labelledby={`simple-tab-${index}`} {...other}>
+        <Box role="tabpanel" hidden={value !== index} id={`simple-tabpanel-${index}`} {...other}>
             {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
         </Box>
     );
@@ -30,24 +30,22 @@ function a11yProps(index: number) {
         'aria-controls': `simple-tabpanel-${index}`
     };
 }
-export const Tabs: React.FC<TabsPropsCustom> = ({ tabLabelList, tabPannelList }) => {
-    const [value, setValue] = useState(0);
-    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-        setValue(newValue);
+export const Tabs: React.FC<TabsPropsCustom> = ({ selectedTab, tabs, handleTabChange }) => {
+    const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+        handleTabChange(newValue);
     };
-
     return (
         <>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <MUITabs value={value} onChange={handleChange} aria-label="pixel basic tabs">
-                    {tabLabelList.map((item, index) => (
-                        <Tab label={item} {...a11yProps(index)} />
+                <MUITabs value={selectedTab} onChange={handleChange}>
+                    {tabs.map((item, index) => (
+                        <Tab label={item.label} value={item.value} {...a11yProps(index)} />
                     ))}
                 </MUITabs>
             </Box>
-            {tabPannelList.map((item, index) => (
-                <TabPanel value={value} index={index}>
-                    {item}
+            {tabs.map((item) => (
+                <TabPanel value={selectedTab} index={item.value}>
+                    <>{item.content}</>
                 </TabPanel>
             ))}
         </>

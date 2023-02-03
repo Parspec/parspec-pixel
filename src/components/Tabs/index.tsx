@@ -3,27 +3,21 @@ import { default as MUITabs, TabsProps } from '@mui/material/Tabs';
 import { Tab } from '@mui/material';
 import { Box } from '../Box';
 
-interface TabsPropsCustom extends TabsProps {
+interface TabsPropsCustom extends Omit<TabsProps, 'onChange'> {
     selectedTab: string;
     options: { label: ReactNode; value: string }[];
-    handleTabChange: (newValue: string) => void;
+    onChange: (newValue: string) => void;
 }
 
-function a11yProps(index: number) {
-    return {
-        id: `simple-tab-${index}`,
-        'aria-controls': `simple-tabpanel-${index}`
-    };
-}
-export const Tabs: React.FC<TabsPropsCustom> = ({ selectedTab, options, handleTabChange }) => {
+export const Tabs: React.FC<TabsPropsCustom> = ({ selectedTab, options, onChange }) => {
     const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-        handleTabChange(newValue);
+        onChange(newValue);
     };
     return (
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <MUITabs value={selectedTab} onChange={handleChange}>
                 {options.map((item, index) => (
-                    <Tab label={item.label} value={item.value} {...a11yProps(index)} />
+                    <Tab label={item.label} value={item.value} />
                 ))}
             </MUITabs>
         </Box>

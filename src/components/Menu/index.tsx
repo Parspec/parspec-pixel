@@ -1,17 +1,16 @@
-import { ReactNode, useState } from 'react';
+import { useState } from 'react';
 import { IconButton, Menu as MuiMenu } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import { MenuIcon } from '../Icons';
 
-interface ABCProps {
+interface MenuProps {
     options: {
         label: string;
         onClick: () => void;
     }[];
-    children?: ReactNode;
 }
 
-export const Menu = ({ options, children }: ABCProps) => {
+export const Menu = ({ options }: MenuProps) => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
 
@@ -24,23 +23,11 @@ export const Menu = ({ options, children }: ABCProps) => {
     };
 
     return (
-        <div>
-            {children ? (
-                children
-            ) : (
-                <IconButton onClick={handleClick}>
-                    <MenuIcon />
-                </IconButton>
-            )}
-            <MuiMenu
-                id="basic-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                MenuListProps={{
-                    'aria-labelledby': 'basic-button'
-                }}
-            >
+        <>
+            <IconButton onClick={handleClick}>
+                <MenuIcon />
+            </IconButton>
+            <MuiMenu id="basic-menu" anchorEl={anchorEl} open={open} onClose={handleClose}>
                 {options.map(({ label, onClick }) => (
                     <MenuItem
                         key={label}
@@ -53,6 +40,6 @@ export const Menu = ({ options, children }: ABCProps) => {
                     </MenuItem>
                 ))}
             </MuiMenu>
-        </div>
+        </>
     );
 };

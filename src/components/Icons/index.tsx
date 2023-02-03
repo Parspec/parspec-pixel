@@ -5,6 +5,8 @@ export {
     DragIndicator as DragIndicatorIcon,
     Search as SearchIcon,
     TrendingUp as TrendingUpIcon,
+    Delete as DeleteIcon,
+    CloudUpload as UploadIcon,
     UnfoldMore as UnfoldMoreIcon,
     KeyboardArrowLeft as KeyboardArrowLeftIcon,
     KeyboardArrowRight as KeyboardArrowRightIcon,

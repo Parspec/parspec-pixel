@@ -16,3 +16,4 @@ export * from './Breadcrumb';
 export * from './Grid';
 export * from './Table';
 export * from './IconButton';
+export * from './Menu';

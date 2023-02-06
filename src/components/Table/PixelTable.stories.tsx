@@ -7,8 +7,8 @@ import { Button } from '../Button';
 import { AddIcon, CancelIcon, CheckCircleIcon, DragIndicatorIcon, MoreVertIcon, ViewArrayIcon } from '../Icons';
 import { Box } from '../Box';
 import { Person, defaultData, defaultDataP, Project } from './dummyData';
-import { BodyMedium, BodySmall, BodyXS, BodyXXS } from '../Typography';
-import { Link, List, ListItem } from '@mui/material';
+import { BodySmall, BodyXS, BodyXXS } from '../Typography';
+import { Link } from '@mui/material';
 
 export default {
     title: 'Table',
@@ -56,31 +56,31 @@ const columns: ColumnDef<Person>[] = [
     },
     {
         accessorKey: 'firstName',
-        header: () => <span>First Name</span>
+        header: () => <BodyXS>First Name</BodyXS>
     },
     {
         accessorKey: 'lastName',
-        header: () => <span>Last Name</span>
+        header: () => <BodyXS>Last Name</BodyXS>
     },
     {
         accessorKey: 'age',
-        header: () => 'Age'
+        header: () => <BodyXS>Age</BodyXS>
     },
     {
         accessorKey: 'visits',
-        header: () => <span>Visits</span>
+        header: () => <BodyXS>Visits</BodyXS>
     },
     {
         accessorKey: 'status',
-        header: 'Status'
+        header: () => <BodyXS>Status</BodyXS>
     },
     {
         accessorKey: 'progress',
-        header: 'Profile Progress'
+        header: () => <BodyXS>Profile Progress</BodyXS>
     }
 ];
 
-const sortableColumnIds = ['firstName', 'age'];
+const sortableColumnIds = ['firstName', 'age', 'visits', 'lastName'];
 export const basic = Template.bind({});
 basic.args = {
     defaultData,
@@ -116,27 +116,27 @@ const columnsFrozen: ColumnDef<Person>[] = [
     },
     {
         accessorKey: 'firstName',
-        header: () => <span>First Name</span>
+        header: () => <BodyXS>First Name</BodyXS>
     },
     {
         accessorKey: 'lastName',
-        header: () => <span>Last Name</span>
+        header: () => <BodyXS>Last Name</BodyXS>
     },
     {
         accessorKey: 'age',
-        header: () => 'Age'
+        header: () => <BodyXS>Age</BodyXS>
     },
     {
         accessorKey: 'visits',
-        header: () => <span>Visits</span>
+        header: () => <BodyXS>Visits</BodyXS>
     },
     {
         accessorKey: 'status',
-        header: 'Status'
+        header: () => <BodyXS>Status</BodyXS>
     },
     {
         accessorKey: 'progress',
-        header: 'Profile Progress'
+        header: () => <BodyXS>Profile Progress</BodyXS>
     }
 ];
 const leftPinnedColumnKeys = ['select', 'drag', 'firstName', 'status', 'age'];
@@ -152,7 +152,16 @@ frozenColumns.args = {
 
 const actionColumns: ColumnDef<Project>[] = [
     {
-        id: 'select',
+        accessorKey: 'drag',
+        header: () => <></>,
+        cell: () => (
+            <Box ml={3}>
+                <DragIndicatorIcon fontSize="small" />
+            </Box>
+        )
+    },
+    {
+        accessorKey: 'select',
         header: ({ table }) => (
             <Checkbox
                 {...{
@@ -266,5 +275,6 @@ const actionColumns: ColumnDef<Project>[] = [
 export const ActionColumns = Template.bind({});
 ActionColumns.args = {
     defaultData: defaultDataP,
-    columns: actionColumns
+    columns: actionColumns,
+    sortableColumnIds: ['wonStatus', 'bomId', 'customer', 'lastModified', 'submittal', 'quote']
 };

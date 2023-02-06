@@ -243,12 +243,12 @@ export const defaultData = [
 export const defaultDataP = [
     {
         wonStatus: true,
-        bomId: "RF-567890",
+        bomId: "RF-167890",
         customer: "Ace Builders",
-        lastModified: { lastModifiedBy: "Courtney Henry", lastModifiedTime: "Aug 18, 2023 at 04:12pm" },
+        lastModified: { lastModifiedBy: "Ali Henry", lastModifiedTime: "Aug 18, 2023 at 04:12pm" },
         quote: {
             quoteStatus: true,
-            quoteActionTakenBy: "Jacob Jones"
+            quoteActionTakenBy: "Amber Jones"
         },
         submittal: {
             submittalStatus: false,
@@ -257,44 +257,58 @@ export const defaultDataP = [
     },
     {
         wonStatus: false,
-        bomId: "RF-567890",
-        customer: "Ace Builders",
-        lastModified: { lastModifiedBy: "Courtney Henry", lastModifiedTime: "Aug 18, 2023 at 04:12pm" },
+        bomId: "RF-267890",
+        customer: "Base Builders",
+        lastModified: { lastModifiedBy: "Ben Henry", lastModifiedTime: "Aug 18, 2023 at 04:12pm" },
         quote: {
             quoteStatus: true,
-            quoteActionTakenBy: "Jacob Jones"
+            quoteActionTakenBy: "Bomber Jones"
         },
         submittal: {
             submittalStatus: true,
-            submittalActionTakenBy: "Jane Cooper"
+            submittalActionTakenBy: "Main Cooper"
         }
     },
     {
         wonStatus: false,
-        bomId: "RF-567890",
-        customer: "Ace Builders",
-        lastModified: { lastModifiedBy: "Courtney Henry", lastModifiedTime: "Aug 18, 2023 at 04:12pm" },
+        bomId: "RF-367890",
+        customer: "Case Builders",
+        lastModified: { lastModifiedBy: "Casy Henry", lastModifiedTime: "Aug 18, 2023 at 04:12pm" },
         quote: {
             quoteStatus: false,
-            quoteActionTakenBy: "Jacob Jones"
+            quoteActionTakenBy: "Coder Jones"
         },
         submittal: {
             submittalStatus: false,
-            submittalActionTakenBy: "Jane Cooper"
+            submittalActionTakenBy: "Saint Cooper"
         }
     },
     {
         wonStatus: false,
-        bomId: "RF-567890",
-        customer: "Ace Builders",
-        lastModified: { lastModifiedBy: "Courtney Henry", lastModifiedTime: "Aug 18, 2023 at 04:12pm" },
+        bomId: "RF-467890",
+        customer: "Dream Builders",
+        lastModified: { lastModifiedBy: "Daisy Henry", lastModifiedTime: "Aug 18, 2023 at 04:12pm" },
         quote: {
             quoteStatus: false,
-            quoteActionTakenBy: "Jacob Jones"
+            quoteActionTakenBy: "Deadly Jones"
         },
         submittal: {
             submittalStatus: true,
-            submittalActionTakenBy: "Jane Cooper"
+            submittalActionTakenBy: "Lane Cooper"
+        }
+    },
+    {
+        wonStatus: true,
+        bomId: "RF-567890",
+        customer: "Eagle Builders",
+        lastModified: { lastModifiedBy: "Ellie Henry", lastModifiedTime: "Aug 18, 2023 at 04:12pm" },
+        quote: {
+            quoteStatus: false,
+            quoteActionTakenBy: "Ellie Jones"
+        },
+        submittal: {
+            submittalStatus: true,
+            submittalActionTakenBy: "Zen Cooper"
         }
     },
 ];

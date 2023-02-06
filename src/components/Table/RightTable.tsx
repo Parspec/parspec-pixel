@@ -30,9 +30,9 @@ export const RightTable: React.FC<RightTableProps> = ({ table, sortableColumnIds
                                                 }
                                                 onClick={sortableColumnIds.includes(header.column.id) ? header.column.getToggleSortingHandler() : () => {}}
                                             >
-                                                <BodyMedium fontWeight={600} width={'max-content'}>
+                                                
                                                     {flexRender(header.column.columnDef.header, header.getContext())}
-                                                </BodyMedium>
+                                                
                                                 {sortableColumnIds.includes(header.column.id)
                                                     ? {
                                                           asc: <ArrowUpwardIcon fontSize="small" />,
@@ -60,16 +60,14 @@ export const RightTable: React.FC<RightTableProps> = ({ table, sortableColumnIds
                                         <TableRow key={row.id} ref={provided.innerRef} {...provided.draggableProps}>
                                             {row.getRightVisibleCells().map((cell) => {
                                                 return (
-                                                    <>
-                                                        <TableCell
-                                                            key={cell.id}
-                                                            padding={cell.column.id === 'select' || cell.column.id === 'drag' ? 'checkbox' : 'normal'}
-                                                            {...(cell.column.id === 'drag' ? { ...provided.dragHandleProps } : {})}
-                                                            style={{ border: '1px solid' }}
-                                                        >
-                                                            <BodyMedium width={'max-content'}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</BodyMedium>
-                                                        </TableCell>
-                                                    </>
+                                                    <TableCell
+                                                        key={cell.id}
+                                                        padding={cell.column.id === 'select' || cell.column.id === 'drag' ? 'checkbox' : 'normal'}
+                                                        {...(cell.column.id === 'drag' ? { ...provided.dragHandleProps } : {})}
+                                                        style={{ border: '1px solid' }}
+                                                    >
+                                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                                    </TableCell>
                                                 );
                                             })}
                                         </TableRow>

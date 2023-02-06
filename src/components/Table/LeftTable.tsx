@@ -31,9 +31,9 @@ export const LeftTable: React.FC<LeftTableProps> = ({ table, sortableColumnIds }
                                                 onClick={sortableColumnIds.includes(header.column.id) ? header.column.getToggleSortingHandler() : () => {}}
                                             >
                                                 <>
-                                                    <BodyMedium fontWeight={600} width={'max-content'}>
+                                                  
                                                         {flexRender(header.column.columnDef.header, header.getContext())}
-                                                    </BodyMedium>
+                                                   
                                                     {sortableColumnIds.includes(header.column.id)
                                                         ? {
                                                               asc: <ArrowUpwardIcon fontSize="small" />,
@@ -62,16 +62,16 @@ export const LeftTable: React.FC<LeftTableProps> = ({ table, sortableColumnIds }
                                         <TableRow key={row.id} ref={provided.innerRef} {...provided.draggableProps}>
                                             {row.getLeftVisibleCells().map((cell) => {
                                                 return (
-                                                    <>
+                                                    
                                                         <TableCell
                                                             padding={cell.column.id === 'select' || cell.column.id === 'drag' ? 'checkbox' : 'normal'}
                                                             key={cell.id}
                                                             {...(cell.column.id === 'drag' ? { ...provided.dragHandleProps } : {})}
                                                             style={{ border: '1px solid' }}
                                                         >
-                                                            <BodyMedium width={'max-content'}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</BodyMedium>
+                                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                                         </TableCell>
-                                                    </>
+                                                    
                                                 );
                                             })}
                                         </TableRow>

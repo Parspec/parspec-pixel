@@ -31,9 +31,8 @@ export const CenterTable: React.FC<CenterTableProps> = ({ table, sortableColumnI
                                                     }
                                                     onClick={sortableColumnIds.includes(header.column.id) ? header.column.getToggleSortingHandler() : () => {}}
                                                 >
-                                                    <BodyMedium fontWeight={600} width={'max-content'}>
-                                                        {flexRender(header.column.columnDef.header, header.getContext())}
-                                                    </BodyMedium>
+                                                    {flexRender(header.column.columnDef.header, header.getContext())}
+
                                                     {sortableColumnIds.includes(header.column.id)
                                                         ? {
                                                               asc: <ArrowUpwardIcon fontSize="small" />,
@@ -68,7 +67,7 @@ export const CenterTable: React.FC<CenterTableProps> = ({ table, sortableColumnI
                                                         {...(cell.column.id === 'drag' ? { ...provided.dragHandleProps } : {})}
                                                         style={{ border: '1px solid' }}
                                                     >
-                                                        <BodyMedium width={'max-content'}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</BodyMedium>
+                                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                                     </TableCell>
                                                 );
                                             })}

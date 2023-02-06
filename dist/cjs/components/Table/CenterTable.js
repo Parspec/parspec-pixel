@@ -7,13 +7,12 @@ const Box_1 = require("../Box");
 const Icons_1 = require("../Icons");
 const react_beautiful_dnd_1 = require("react-beautiful-dnd");
 const _1 = require("./");
-const Typography_1 = require("../Typography");
 const CenterTable = ({ table, sortableColumnIds }) => {
     return ((0, jsx_runtime_1.jsxs)(_1.Table, { children: [(0, jsx_runtime_1.jsx)(_1.TableHead, { children: table.getCenterHeaderGroups().map((headerGroup) => ((0, jsx_runtime_1.jsx)(_1.TableRow, { children: (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: headerGroup.headers.map((header) => {
                             var _a;
                             return ((0, jsx_runtime_1.jsx)(_1.TableCell, Object.assign({ component: 'th', padding: header.column.id === 'select' ? 'checkbox' : 'normal', style: { border: '1px solid' }, colSpan: header.colSpan }, { children: header.isPlaceholder ? null : ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: header.column.id !== 'drag' && ((0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ component: 'span', style: sortableColumnIds.includes(header.column.id) && header.column.getCanSort()
                                             ? { cursor: 'pointer', display: 'flex', gap: 4, alignItems: 'center' }
-                                            : {}, onClick: sortableColumnIds.includes(header.column.id) ? header.column.getToggleSortingHandler() : () => { } }, { children: [(0, jsx_runtime_1.jsx)(Typography_1.BodyMedium, Object.assign({ fontWeight: 600, width: 'max-content' }, { children: (0, react_table_1.flexRender)(header.column.columnDef.header, header.getContext()) })), sortableColumnIds.includes(header.column.id)
+                                            : {}, onClick: sortableColumnIds.includes(header.column.id) ? header.column.getToggleSortingHandler() : () => { } }, { children: [(0, react_table_1.flexRender)(header.column.columnDef.header, header.getContext()), sortableColumnIds.includes(header.column.id)
                                                 ? (_a = {
                                                     asc: (0, jsx_runtime_1.jsx)(Icons_1.ArrowUpwardIcon, { fontSize: "small" }),
                                                     desc: (0, jsx_runtime_1.jsx)(Icons_1.ArrowDownwardIcon, { fontSize: "small" })
@@ -21,7 +20,7 @@ const CenterTable = ({ table, sortableColumnIds }) => {
                                                 : null] }))) })) }), header.id));
                         }) }) }, headerGroup.id))) }), (0, jsx_runtime_1.jsx)(react_beautiful_dnd_1.Droppable, Object.assign({ droppableId: "droppable-1" }, { children: (provided, snapshot) => ((0, jsx_runtime_1.jsxs)(_1.TableBody, Object.assign({ ref: provided.innerRef }, provided.droppableProps, { children: [provided.placeholder, table.getRowModel().rows.map((row, idx) => {
                             return ((0, jsx_runtime_1.jsx)(react_beautiful_dnd_1.Draggable, Object.assign({ draggableId: row.id, index: idx }, { children: (provided, snapshot) => ((0, jsx_runtime_1.jsx)(_1.TableRow, Object.assign({ ref: provided.innerRef }, provided.draggableProps, { children: row.getCenterVisibleCells().map((cell) => {
-                                        return ((0, jsx_runtime_1.jsx)(_1.TableCell, Object.assign({ padding: cell.column.id === 'select' || cell.column.id === 'drag' ? 'checkbox' : 'normal' }, (cell.column.id === 'drag' ? Object.assign({}, provided.dragHandleProps) : {}), { style: { border: '1px solid' } }, { children: (0, jsx_runtime_1.jsx)(Typography_1.BodyMedium, Object.assign({ width: 'max-content' }, { children: (0, react_table_1.flexRender)(cell.column.columnDef.cell, cell.getContext()) })) }), cell.id));
+                                        return ((0, jsx_runtime_1.jsx)(_1.TableCell, Object.assign({ padding: cell.column.id === 'select' || cell.column.id === 'drag' ? 'checkbox' : 'normal' }, (cell.column.id === 'drag' ? Object.assign({}, provided.dragHandleProps) : {}), { style: { border: '1px solid' } }, { children: (0, react_table_1.flexRender)(cell.column.columnDef.cell, cell.getContext()) }), cell.id));
                                     }) }))) }), idx));
                         })] }))) }))] }));
 };

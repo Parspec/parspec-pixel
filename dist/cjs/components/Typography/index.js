@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BodyXS = exports.BodySmall = exports.BodyMedium = exports.BodyBig = exports.H6 = exports.H5 = exports.H4 = exports.H3 = exports.H2 = exports.H1 = void 0;
+exports.BodyXXS = exports.BodyXS = exports.BodySmall = exports.BodyMedium = exports.BodyBig = exports.H6 = exports.H5 = exports.H4 = exports.H3 = exports.H2 = exports.H1 = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const Typography_1 = __importDefault(require("@mui/material/Typography"));
 const Heading = (props) => (0, jsx_runtime_1.jsx)(Typography_1.default, Object.assign({}, props));
@@ -36,4 +36,6 @@ const BodySmall = (props) => (0, jsx_runtime_1.jsx)(BodyText, Object.assign({}, 
 exports.BodySmall = BodySmall;
 const BodyXS = (props) => (0, jsx_runtime_1.jsx)(BodyText, Object.assign({}, props, { fontSize: '12px', lineHeight: '15px' }));
 exports.BodyXS = BodyXS;
+const BodyXXS = (props) => (0, jsx_runtime_1.jsx)(BodyText, Object.assign({}, props, { fontSize: '10px', lineHeight: '12px' }));
+exports.BodyXXS = BodyXXS;
 //# sourceMappingURL=index.js.map

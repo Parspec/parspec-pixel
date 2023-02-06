@@ -20,4 +20,5 @@ export const BodyBig = (props) => _jsx(BodyText, Object.assign({}, props, { font
 export const BodyMedium = (props) => _jsx(BodyText, Object.assign({}, props, { fontSize: '16px', letterSpacing: '0.44px', lineHeight: '24px' }));
 export const BodySmall = (props) => _jsx(BodyText, Object.assign({}, props, { fontSize: '14px', letterSpacing: '0.25px', lineHeight: '16px' }));
 export const BodyXS = (props) => _jsx(BodyText, Object.assign({}, props, { fontSize: '12px', lineHeight: '15px' }));
+export const BodyXXS = (props) => _jsx(BodyText, Object.assign({}, props, { fontSize: '10px', lineHeight: '12px' }));
 //# sourceMappingURL=index.js.map

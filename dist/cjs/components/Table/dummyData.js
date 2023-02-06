@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.defaultData = void 0;
+exports.defaultDataP = exports.defaultData = void 0;
 exports.defaultData = [
     {
         firstName: 'tanner',
@@ -242,5 +242,63 @@ exports.defaultData = [
         status: 'Complicated',
         progress: 10
     }
+];
+exports.defaultDataP = [
+    {
+        wonStatus: true,
+        bomId: "RF-567890",
+        customer: "Ace Builders",
+        lastModified: { lastModifiedBy: "Courtney Henry", lastModifiedTime: "Aug 18, 2023 at 04:12pm" },
+        quote: {
+            quoteStatus: true,
+            quoteActionTakenBy: "Jacob Jones"
+        },
+        submittal: {
+            submittalStatus: false,
+            submittalActionTakenBy: "Jane Cooper"
+        }
+    },
+    {
+        wonStatus: false,
+        bomId: "RF-567890",
+        customer: "Ace Builders",
+        lastModified: { lastModifiedBy: "Courtney Henry", lastModifiedTime: "Aug 18, 2023 at 04:12pm" },
+        quote: {
+            quoteStatus: true,
+            quoteActionTakenBy: "Jacob Jones"
+        },
+        submittal: {
+            submittalStatus: true,
+            submittalActionTakenBy: "Jane Cooper"
+        }
+    },
+    {
+        wonStatus: false,
+        bomId: "RF-567890",
+        customer: "Ace Builders",
+        lastModified: { lastModifiedBy: "Courtney Henry", lastModifiedTime: "Aug 18, 2023 at 04:12pm" },
+        quote: {
+            quoteStatus: false,
+            quoteActionTakenBy: "Jacob Jones"
+        },
+        submittal: {
+            submittalStatus: false,
+            submittalActionTakenBy: "Jane Cooper"
+        }
+    },
+    {
+        wonStatus: false,
+        bomId: "RF-567890",
+        customer: "Ace Builders",
+        lastModified: { lastModifiedBy: "Courtney Henry", lastModifiedTime: "Aug 18, 2023 at 04:12pm" },
+        quote: {
+            quoteStatus: false,
+            quoteActionTakenBy: "Jacob Jones"
+        },
+        submittal: {
+            submittalStatus: true,
+            submittalActionTakenBy: "Jane Cooper"
+        }
+    },
 ];
 //# sourceMappingURL=dummyData.js.map

@@ -4,7 +4,6 @@ import { UnfoldMoreIcon, ArrowUpwardIcon, ArrowDownwardIcon } from '../Icons';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { Table as MUITable, TableBody, TableCell, TableHead, TableRow } from './';
 import React from 'react';
-import { BodyMedium } from '../Typography';
 
 interface CenterTableProps {
     table: Table<any>;

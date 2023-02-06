@@ -3,7 +3,6 @@ import { Box } from '../Box';
 import { UnfoldMoreIcon, ArrowUpwardIcon, ArrowDownwardIcon } from '../Icons';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { Table as MUITable, TableBody, TableCell, TableHead, TableRow } from './';
-import { BodyMedium } from '../Typography';
 
 interface RightTableProps {
     table: Table<any>;
@@ -30,9 +29,8 @@ export const RightTable: React.FC<RightTableProps> = ({ table, sortableColumnIds
                                                 }
                                                 onClick={sortableColumnIds.includes(header.column.id) ? header.column.getToggleSortingHandler() : () => {}}
                                             >
-                                                
-                                                    {flexRender(header.column.columnDef.header, header.getContext())}
-                                                
+                                                {flexRender(header.column.columnDef.header, header.getContext())}
+
                                                 {sortableColumnIds.includes(header.column.id)
                                                     ? {
                                                           asc: <ArrowUpwardIcon fontSize="small" />,

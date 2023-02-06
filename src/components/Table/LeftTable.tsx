@@ -3,7 +3,6 @@ import { Box } from '../Box';
 import { UnfoldMoreIcon, ArrowUpwardIcon, ArrowDownwardIcon } from '../Icons';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { Table as MUITable, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
-import { BodyMedium } from '../Typography';
 
 interface LeftTableProps {
     table: Table<any>;
@@ -12,7 +11,7 @@ interface LeftTableProps {
 
 export const LeftTable: React.FC<LeftTableProps> = ({ table, sortableColumnIds }) => {
     return (
-        <MUITable style={{ borderRight: '1px solid grey' }}>
+        <MUITable style={{ borderRight: '1px solid' }}>
             <TableHead style={{ width: 'max-content' }}>
                 {table?.getLeftHeaderGroups()?.map((headerGroup) => (
                     <TableRow key={headerGroup.id}>
@@ -31,9 +30,8 @@ export const LeftTable: React.FC<LeftTableProps> = ({ table, sortableColumnIds }
                                                 onClick={sortableColumnIds.includes(header.column.id) ? header.column.getToggleSortingHandler() : () => {}}
                                             >
                                                 <>
-                                                  
-                                                        {flexRender(header.column.columnDef.header, header.getContext())}
-                                                   
+                                                    {flexRender(header.column.columnDef.header, header.getContext())}
+
                                                     {sortableColumnIds.includes(header.column.id)
                                                         ? {
                                                               asc: <ArrowUpwardIcon fontSize="small" />,
@@ -62,16 +60,14 @@ export const LeftTable: React.FC<LeftTableProps> = ({ table, sortableColumnIds }
                                         <TableRow key={row.id} ref={provided.innerRef} {...provided.draggableProps}>
                                             {row.getLeftVisibleCells().map((cell) => {
                                                 return (
-                                                    
-                                                        <TableCell
-                                                            padding={cell.column.id === 'select' || cell.column.id === 'drag' ? 'checkbox' : 'normal'}
-                                                            key={cell.id}
-                                                            {...(cell.column.id === 'drag' ? { ...provided.dragHandleProps } : {})}
-                                                            style={{ border: '1px solid' }}
-                                                        >
-                                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                                        </TableCell>
-                                                    
+                                                    <TableCell
+                                                        padding={cell.column.id === 'select' || cell.column.id === 'drag' ? 'checkbox' : 'normal'}
+                                                        key={cell.id}
+                                                        {...(cell.column.id === 'drag' ? { ...provided.dragHandleProps } : {})}
+                                                        style={{ border: '1px solid' }}
+                                                    >
+                                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                                    </TableCell>
                                                 );
                                             })}
                                         </TableRow>

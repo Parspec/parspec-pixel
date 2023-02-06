@@ -214,16 +214,14 @@ const actionColumns: ColumnDef<Project>[] = [
                 </Box>
                 <Box>
                     <BodySmall>{(info.getValue() as keyof Project['quote'])['quoteActionTakenBy']}</BodySmall>
-                    <BodyXS>
-                        {(info.getValue() as keyof Project['quote'])['quoteStatus'] ? <BodyXXS sx={{ color: 'success' }}>Approved</BodyXXS> : <BodyXXS sx={{ color: 'success' }}>Rejected</BodyXXS>}
-                    </BodyXS>
+                    <Box>{(info.getValue() as keyof Project['quote'])['quoteStatus'] ? <BodyXXS color="success.main">Approved</BodyXXS> : <BodyXXS color="error.main">Rejected</BodyXXS>}</Box>
                 </Box>
             </Box>
         )
     },
     {
         accessorKey: 'submittal',
-        header: () => <BodyXXS>Submittal</BodyXXS>,
+        header: () => <BodyXS>Submittal</BodyXS>,
         cell: (info) => (
             <Box display={'flex'} gap={2} alignContent="center" alignItems={'center'}>
                 <Box>
@@ -231,13 +229,7 @@ const actionColumns: ColumnDef<Project>[] = [
                 </Box>
                 <Box>
                     <BodySmall>{(info.getValue() as keyof Project['submittal'])['submittalActionTakenBy']}</BodySmall>
-                    <BodyXS>
-                        {(info.getValue() as keyof Project['submittal'])['submittalStatus'] ? (
-                            <BodyXXS sx={{ color: 'success' }}>Approved</BodyXXS>
-                        ) : (
-                            <BodyXXS sx={{ color: 'success' }}>Rejected</BodyXXS>
-                        )}
-                    </BodyXS>
+                    <Box>{(info.getValue() as keyof Project['submittal'])['submittalStatus'] ? <BodyXXS color="success.main">Approved</BodyXXS> : <BodyXXS color="error.main">Rejected</BodyXXS>}</Box>
                 </Box>
             </Box>
         )
@@ -248,7 +240,11 @@ const actionColumns: ColumnDef<Project>[] = [
         cell: () => (
             <Box display={'flex'} alignContent="center" alignItems={'center'} gap={1}>
                 <AddIcon fontSize="small" />
-                <BodySmall>Create New</BodySmall>
+                <BodySmall>
+                    <Link href="#" style={{ textDecoration: 'none' }}>
+                        Create New
+                    </Link>
+                </BodySmall>
             </Box>
         )
     },

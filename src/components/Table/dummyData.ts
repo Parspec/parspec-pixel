@@ -274,7 +274,7 @@ export const defaultDataP: Project[] = [
       quoteActionTakenBy: "Jacob Jones"
     },
     submittal: {
-      submittalStatus: true,
+      submittalStatus: false,
       submittalActionTakenBy: "Jane Cooper"
     }
   },
@@ -298,11 +298,11 @@ export const defaultDataP: Project[] = [
     customer: "Ace Builders",
     lastModified: { lastModifiedBy: "Courtney Henry", lastModifiedTime: "Aug 18, 2023 at 04:12pm" },
     quote: {
-      quoteStatus: true,
+      quoteStatus: false,
       quoteActionTakenBy: "Jacob Jones"
     },
     submittal: {
-      submittalStatus: true,
+      submittalStatus: false,
       submittalActionTakenBy: "Jane Cooper"
     }
   },
@@ -312,7 +312,7 @@ export const defaultDataP: Project[] = [
     customer: "Ace Builders",
     lastModified: { lastModifiedBy: "Courtney Henry", lastModifiedTime: "Aug 18, 2023 at 04:12pm" },
     quote: {
-      quoteStatus: true,
+      quoteStatus: false,
       quoteActionTakenBy: "Jacob Jones"
     },
     submittal: {

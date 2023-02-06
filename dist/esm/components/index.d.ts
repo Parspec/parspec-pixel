@@ -13,3 +13,4 @@ export * from './Chip';
 export * from './Select';
 export * from './Tabs';
 export * from './Breadcrumb';
+export * from './Menu';

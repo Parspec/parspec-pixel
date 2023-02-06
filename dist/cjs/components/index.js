@@ -29,4 +29,5 @@ __exportStar(require("./Chip"), exports);
 __exportStar(require("./Select"), exports);
 __exportStar(require("./Tabs"), exports);
 __exportStar(require("./Breadcrumb"), exports);
+__exportStar(require("./Menu"), exports);
 //# sourceMappingURL=index.js.map

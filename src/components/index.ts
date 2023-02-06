@@ -11,4 +11,6 @@ export * from './AutoComplete';
 export * from './CircularProgress';
 export * from './Chip';
 export * from './Select';
+export * from './Tabs';
+export * from './Breadcrumb';
 export * from './Menu';

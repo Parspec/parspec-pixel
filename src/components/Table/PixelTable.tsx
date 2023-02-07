@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { PaginationState, getSortedRowModel, getCoreRowModel, getPaginationRowModel, useReactTable, SortingState, ColumnDef } from '@tanstack/react-table';
 import { LeftTable } from './LeftTable';
 import { RightTable } from './RightTable';
@@ -10,10 +10,10 @@ import { DragDropContext, OnDragEndResponder } from 'react-beautiful-dnd';
 interface PixelTableProps {
     defaultData: any;
     columns: ColumnDef<any>[];
-    leftPinnedColumnKeys: string[];
-    rightPinnedColumnKeys: string[];
-    pagination: boolean;
-    sortableColumnIds: string[];
+    leftPinnedColumnKeys?: string[];
+    rightPinnedColumnKeys?: string[];
+    pagination?: boolean;
+    sortableColumnIds?: string[];
 }
 
 export const PixelTable: React.FC<PixelTableProps> = ({ defaultData, columns: propsColumns, leftPinnedColumnKeys, rightPinnedColumnKeys, pagination: paginationRequired, sortableColumnIds }) => {
@@ -23,15 +23,15 @@ export const PixelTable: React.FC<PixelTableProps> = ({ defaultData, columns: pr
         }
     }, [paginationRequired]);
 
-    const [sorting, setSorting] = React.useState<SortingState>([]);
-    const [pagination, setPagination] = React.useState<PaginationState>({
+    const [sorting, setSorting] = useState<SortingState>([]);
+    const [pagination, setPagination] = useState<PaginationState>({
         pageSize: 10,
         pageIndex: 0
     });
-    const [rowSelection, setRowSelection] = React.useState({});
-    const [data, setData] = React.useState(() => [...defaultData]);
-    const [columnPinning, setColumnPinning] = React.useState({});
-    const columns = React.useMemo(() => propsColumns, []);
+    const [rowSelection, setRowSelection] = useState({});
+    const [data, setData] = useState(() => [...defaultData]);
+    const [columnPinning, setColumnPinning] = useState({});
+    const columns = useMemo(() => propsColumns, []);
 
     const table = useReactTable({
         data,
@@ -74,11 +74,11 @@ export const PixelTable: React.FC<PixelTableProps> = ({ defaultData, columns: pr
             <DragDropContext onDragEnd={handleDragEnd}>
                 <>
                     <Box display={'flex'}>
-                        {leftPinnedColumnKeys.length > 0 && <LeftTable table={table} sortableColumnIds={sortableColumnIds} />}
+                        {leftPinnedColumnKeys!.length > 0 && <LeftTable table={table} sortableColumnIds={sortableColumnIds!} />}
                         <Box overflow={'auto'} width="100%">
-                            <CenterTable table={table} sortableColumnIds={sortableColumnIds} />
+                            <CenterTable table={table} sortableColumnIds={sortableColumnIds!} />
                         </Box>
-                        {rightPinnedColumnKeys.length > 0 && <RightTable table={table} sortableColumnIds={sortableColumnIds} />}
+                        {rightPinnedColumnKeys!.length > 0 && <RightTable table={table} sortableColumnIds={sortableColumnIds!} />}
                     </Box>
                     {paginationRequired && (
                         <Box textAlign={'center'} marginTop={8}>

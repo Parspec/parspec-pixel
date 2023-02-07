@@ -275,6 +275,5 @@ const actionColumns: ColumnDef<Project>[] = [
 export const ActionColumns = Template.bind({});
 ActionColumns.args = {
     defaultData: defaultDataP,
-    columns: actionColumns,
-    sortableColumnIds: ['wonStatus', 'bomId', 'customer', 'lastModified', 'submittal', 'quote']
+    columns: actionColumns
 };

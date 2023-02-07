@@ -3,7 +3,6 @@ import { Box } from '../Box';
 import { UnfoldMoreIcon, ArrowUpwardIcon, ArrowDownwardIcon } from '../Icons';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { Table as MUITable, TableBody, TableCell, TableHead, TableRow } from './';
-import React from 'react';
 
 interface CenterTableProps {
     table: Table<any>;

@@ -1,5 +1,5 @@
+/// <reference types="react" />
 import { Table } from '@tanstack/react-table';
-import React from 'react';
 interface CenterTableProps {
     table: Table<any>;
     sortableColumnIds: string[];

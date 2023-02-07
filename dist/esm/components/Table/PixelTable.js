@@ -1,5 +1,5 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
-import React, { useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { getSortedRowModel, getCoreRowModel, getPaginationRowModel, useReactTable } from '@tanstack/react-table';
 import { LeftTable } from './LeftTable';
 import { RightTable } from './RightTable';
@@ -13,15 +13,15 @@ export const PixelTable = ({ defaultData, columns: propsColumns, leftPinnedColum
             setPagination({ pageSize: defaultData.length, pageIndex: 0 });
         }
     }, [paginationRequired]);
-    const [sorting, setSorting] = React.useState([]);
-    const [pagination, setPagination] = React.useState({
+    const [sorting, setSorting] = useState([]);
+    const [pagination, setPagination] = useState({
         pageSize: 10,
         pageIndex: 0
     });
-    const [rowSelection, setRowSelection] = React.useState({});
-    const [data, setData] = React.useState(() => [...defaultData]);
-    const [columnPinning, setColumnPinning] = React.useState({});
-    const columns = React.useMemo(() => propsColumns, []);
+    const [rowSelection, setRowSelection] = useState({});
+    const [data, setData] = useState(() => [...defaultData]);
+    const [columnPinning, setColumnPinning] = useState({});
+    const columns = useMemo(() => propsColumns, []);
     const table = useReactTable({
         data,
         columns,

@@ -1,34 +1,11 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PixelTable = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
-const react_1 = __importStar(require("react"));
+const react_1 = require("react");
 const react_table_1 = require("@tanstack/react-table");
 const LeftTable_1 = require("./LeftTable");
 const RightTable_1 = require("./RightTable");
@@ -42,15 +19,15 @@ const PixelTable = ({ defaultData, columns: propsColumns, leftPinnedColumnKeys, 
             setPagination({ pageSize: defaultData.length, pageIndex: 0 });
         }
     }, [paginationRequired]);
-    const [sorting, setSorting] = react_1.default.useState([]);
-    const [pagination, setPagination] = react_1.default.useState({
+    const [sorting, setSorting] = (0, react_1.useState)([]);
+    const [pagination, setPagination] = (0, react_1.useState)({
         pageSize: 10,
         pageIndex: 0
     });
-    const [rowSelection, setRowSelection] = react_1.default.useState({});
-    const [data, setData] = react_1.default.useState(() => [...defaultData]);
-    const [columnPinning, setColumnPinning] = react_1.default.useState({});
-    const columns = react_1.default.useMemo(() => propsColumns, []);
+    const [rowSelection, setRowSelection] = (0, react_1.useState)({});
+    const [data, setData] = (0, react_1.useState)(() => [...defaultData]);
+    const [columnPinning, setColumnPinning] = (0, react_1.useState)({});
+    const columns = (0, react_1.useMemo)(() => propsColumns, []);
     const table = (0, react_table_1.useReactTable)({
         data,
         columns,

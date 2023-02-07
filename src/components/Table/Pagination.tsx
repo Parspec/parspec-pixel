@@ -3,18 +3,28 @@ import { KeyboardArrowLeftIcon, KeyboardArrowRightIcon } from '../Icons';
 import { BodyMedium } from '../Typography';
 import { PaginationState, Table } from '@tanstack/react-table';
 import { IconButton } from '../IconButton';
-
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { Select } from '../Select';
+import React, { useState } from 'react';
 
 interface PaginationProps {
     pagination: PaginationState;
     table: Table<any>;
 }
-
+const options = [
+    { value: 10, label: '10' },
+    { value: 20, label: '20' },
+    { value: 30, label: '30' }
+];
 const Pagination: React.FC<PaginationProps> = ({ pagination, table }) => {
+    const [selectedValue, setSelectedValue] = useState(String(table.getState().pagination.pageSize));
+    const handleOnChange = (event: any) => {
+        setSelectedValue(event.target.value as string);
+        table.setPageSize(Number(event.target.value));
+    };
+
     return (
         <Box display={'flex'} justifyContent="space-between">
-            <Box display={'flex'} gap={1}>
+            <Box display={'flex'} gap={1} alignItems="center">
                 <IconButton onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
                     <KeyboardArrowLeftIcon fontSize="small" />
                 </IconButton>
@@ -28,21 +38,7 @@ const Pagination: React.FC<PaginationProps> = ({ pagination, table }) => {
                 </IconButton>
             </Box>
             <Box width={'100px'}>
-                <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Show</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={table.getState().pagination.pageSize}
-                        label="Show"
-                        size="small"
-                        onChange={(e) => table.setPageSize(Number(e.target.value))}
-                    >
-                        <MenuItem value={10}>10</MenuItem>
-                        <MenuItem value={20}>20</MenuItem>
-                        <MenuItem value={30}>30</MenuItem>
-                    </Select>
-                </FormControl>
+                <Select size="small" options={options} label="Show" labelId="demo-simple-select-label" id="demo-simple-select" onChange={handleOnChange} value={selectedValue} />
             </Box>
         </Box>
     );

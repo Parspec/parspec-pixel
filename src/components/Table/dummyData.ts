@@ -248,19 +248,25 @@ export const defaultData: Person[] = [
     progress: 10
   }
 ];
+export type LastModifiedType = {
+  lastModifiedBy: string;
+  lastModifiedTime: string;
+};
+export type QuoteType = {
+  quoteStatus: boolean;
+  quoteActionTakenBy: string;
+};
+export type SubmittalType = {
+  submittalStatus: boolean;
+  submittalActionTakenBy: string;
+};
 export type Project = {
   wonStatus: boolean;
   bomId: string;
   customer: string;
-  lastModified: { lastModifiedBy: string, lastModifiedTime: string };
-  quote: {
-    quoteStatus: boolean,
-    quoteActionTakenBy: string
-  };
-  submittal: {
-    submittalStatus: boolean,
-    submittalActionTakenBy: string
-  };
+  lastModified: LastModifiedType;
+  quote: QuoteType;
+  submittal: SubmittalType;
 };
 export const defaultDataP: Project[] = [
   {

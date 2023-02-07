@@ -1,6 +1,33 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { ParspecLogoIcon, TrendingUpIcon, SearchIcon, UnfoldMoreIcon, CloseIcon, DragIndicatorIcon, DeleteIcon, UploadIcon } from './index';
+import {
+    ParspecLogoIcon,
+    TrendingUpIcon,
+    SearchIcon,
+    UnfoldMoreIcon,
+    CloseIcon,
+    DragIndicatorIcon,
+    FirstPageIcon,
+    KeyboardArrowLeftIcon,
+    LastPageIcon,
+    ArrowCircleLeftIcon,
+    ArrowUpwardIcon,
+    ArrowCircleRightIcon,
+    ArrowDownwardIcon,
+    CheckCircleOutlineIcon,
+    PanToolIcon,
+    AddIcon,
+    RemoveIcon,
+    EditIcon,
+    KeyboardArrowRightIcon,
+    CircularProgressIcon,
+    MoreVertIcon,
+    CheckCircleIcon,
+    SwapHorizIcon,
+    ChangeHistoryIcon,
+    ViewArrayIcon,
+    CancelIcon
+} from './index';
 import { Grid } from '../Grid';
 import { Box } from '../Box';
 
@@ -14,7 +41,7 @@ const Template: ComponentStory<any> = (args) => {
         <Grid container>
             {args.icons.map((element) => {
                 return (
-                    <Grid item xs={4} sm={3} md={2} gap={5}>
+                    <Grid item xs={4} sm={3} md={2} gap={5} mb={12}>
                         <>
                             <element.icon fontSize={args.fontSize} />
                             <Box>{element.name}</Box>
@@ -32,13 +59,31 @@ export const AllIcons = Template.bind({});
 AllIcons.args = {
     icons: [
         { icon: ParspecLogoIcon, name: 'ParspecLogoIcon' },
+        { icon: CircularProgressIcon, name: 'CircularProgressIcon' },
         { icon: TrendingUpIcon, name: 'TrendingUpIcon' },
         { icon: SearchIcon, name: 'SearchIcon' },
         { icon: UnfoldMoreIcon, name: 'UnfoldMoreIcon' },
         { icon: CloseIcon, name: 'CloseIcon' },
         { icon: DragIndicatorIcon, name: 'DragIndicatorIcon' },
-        { icon: DeleteIcon, name: 'DeleteIcon' },
-        { icon: UploadIcon, name: 'UploadIcon' }
+        { icon: KeyboardArrowLeftIcon, name: 'KeyboardArrowLeftIcon' },
+        { icon: KeyboardArrowRightIcon, name: 'KeyboardArrowRightIcon' },
+        { icon: FirstPageIcon, name: 'FirstPageIcon' },
+        { icon: LastPageIcon, name: 'LastPageIcon' },
+        { icon: ArrowCircleLeftIcon, name: 'ArrowCircleLeftIcon' },
+        { icon: ArrowCircleRightIcon, name: 'ArrowCircleRightIcon' },
+        { icon: ArrowUpwardIcon, name: 'ArrowUpwardIcon' },
+        { icon: ArrowDownwardIcon, name: 'ArrowDownwardIcon' },
+        { icon: CheckCircleOutlineIcon, name: 'CheckCircleOutlineIcon' },
+        { icon: PanToolIcon, name: 'PanToolIcon' },
+        { icon: AddIcon, name: 'AddIcon' },
+        { icon: RemoveIcon, name: 'RemoveIcon' },
+        { icon: EditIcon, name: 'EditIcon' },
+        { icon: MoreVertIcon, name: 'MoreVertIcon' },
+        { icon: CheckCircleIcon, name: 'CheckCircleIcon' },
+        { icon: CancelIcon, name: 'CancelIcon' },
+        { icon: SwapHorizIcon, name: 'SwapHorizIcon' },
+        { icon: ChangeHistoryIcon, name: 'ChangeHistoryIcon' },
+        { icon: ViewArrayIcon, name: 'ViewArrayIcon ' }
     ],
     fontSize: 'medium'
 };

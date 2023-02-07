@@ -13,5 +13,8 @@ export * from './Chip';
 export * from './Select';
 export * from './Tabs';
 export * from './Breadcrumb';
+export * from './Grid';
+export * from './Table';
+export * from './IconButton';
 export * from './Menu';
 //# sourceMappingURL=index.js.map

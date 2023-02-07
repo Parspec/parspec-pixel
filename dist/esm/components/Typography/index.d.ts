@@ -16,4 +16,5 @@ export declare const BodyBig: React.FC<BodyTypographyProps>;
 export declare const BodyMedium: React.FC<BodyTypographyProps>;
 export declare const BodySmall: React.FC<BodyTypographyProps>;
 export declare const BodyXS: React.FC<BodyTypographyProps>;
+export declare const BodyXXS: React.FC<BodyTypographyProps>;
 export {};

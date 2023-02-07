@@ -1,6 +1,6 @@
 import { CloseIcon } from '../Icons';
 import { BodyBig } from '../Typography';
-import { IconButton } from '@mui/material';
+import { IconButton } from '../IconButton';
 import { Box } from '../Box';
 
 export interface HeaderProps {

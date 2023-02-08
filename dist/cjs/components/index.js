@@ -22,4 +22,12 @@ __exportStar(require("./Typography"), exports);
 __exportStar(require("./TextField"), exports);
 __exportStar(require("./Icons"), exports);
 __exportStar(require("./Checkbox"), exports);
+__exportStar(require("./FileSelector"), exports);
+__exportStar(require("./AutoComplete"), exports);
+__exportStar(require("./CircularProgress"), exports);
+__exportStar(require("./Chip"), exports);
+__exportStar(require("./Select"), exports);
+__exportStar(require("./Tabs"), exports);
+__exportStar(require("./Breadcrumb"), exports);
+__exportStar(require("./Menu"), exports);
 //# sourceMappingURL=index.js.map

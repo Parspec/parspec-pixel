@@ -6,18 +6,16 @@ export interface ModalFooterProps {
     onReject?: () => void;
     cancelButtonLabel?: string;
     continueButtonLabel?: string;
-    continueButtonType?: 'button' | 'submit' | 'reset';
-    cancelButtonType?: 'button' | 'submit' | 'reset';
     isLoading?: boolean;
 }
 
-export const ModalFooter: React.FC<ModalFooterProps> = ({ onAccept, onReject, cancelButtonLabel, continueButtonLabel, isLoading, continueButtonType, cancelButtonType }) => {
+export const ModalFooter: React.FC<ModalFooterProps> = ({ onAccept, onReject, cancelButtonLabel, continueButtonLabel, isLoading }) => {
     return (
         <Box display="flex" justifyContent="end" gap={2}>
-            <Button color="secondary" variant="outlined" onClick={onReject} type={cancelButtonType}>
+            <Button color="secondary" variant="outlined" onClick={onReject}>
                 {cancelButtonLabel}
             </Button>
-            <Button color="primary" variant="contained" onClick={onAccept} isLoading={isLoading} type={continueButtonType}>
+            <Button color="primary" variant="contained" onClick={onAccept} isLoading={isLoading}>
                 {continueButtonLabel}
             </Button>
         </Box>
@@ -29,7 +27,5 @@ ModalFooter.defaultProps = {
     continueButtonLabel: 'Submit',
     onAccept: () => {},
     onReject: () => {},
-    cancelButtonType: 'button',
-    continueButtonType: 'button',
     isLoading: false
 };

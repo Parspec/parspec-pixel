@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { Modal, Header, Footer } from './';
+import { Modal, ModalHeader, ModalFooter } from './';
 import { Button } from '../Button';
 import { Box } from '../Box';
 import { BodySmall, BodyMedium } from '../Typography';
@@ -19,7 +19,7 @@ const Template: ComponentStory<typeof Modal> = (args) => {
     const onClose = () => setOpenModal(false);
     const openModalFunction = () => setOpenModal(true);
     const header = (
-        <Header
+        <ModalHeader
             title="New BOM"
             onClose={onClose}
             children={
@@ -33,7 +33,7 @@ const Template: ComponentStory<typeof Modal> = (args) => {
             }
         />
     );
-    const footer = <Footer onReject={onClose} onAccept={onClose} isLoading />;
+    const footer = <ModalFooter onReject={onClose} onAccept={onClose} isLoading />;
     return (
         <>
             <Button color="primary" variant="contained" onClick={openModalFunction}>

@@ -3,13 +3,13 @@ import { BodyBig } from '../Typography';
 import { IconButton } from '@mui/material';
 import { Box } from '../Box';
 
-export interface HeaderProps {
+export interface ModalHeaderHeaderProps {
     title: string;
     onClose: () => void;
     children?: React.ReactNode;
 }
 
-export const Header: React.FC<HeaderProps> = ({ title, onClose, children }) => {
+export const ModalHeader: React.FC<ModalHeaderHeaderProps> = ({ title, onClose, children }) => {
     return (
         <Box>
             <Box display="flex" justifyContent="space-between" alignItems="center">
@@ -25,6 +25,6 @@ export const Header: React.FC<HeaderProps> = ({ title, onClose, children }) => {
     );
 };
 
-Header.defaultProps = {
+ModalHeader.defaultProps = {
     children: <></>
 };

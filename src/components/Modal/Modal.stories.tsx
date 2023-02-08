@@ -24,7 +24,7 @@ const Template: ComponentStory<typeof Modal> = (args) => {
             onClose={onClose}
             children={
                 <Box p={2}>
-                    <BodyMedium fontWeight={1000}>Optional Children Section</BodyMedium>
+                    <BodyMedium fontWeight={1000}>Modal Header's Optional "Children-Prop" Section</BodyMedium>
                     <Box display="flex" justifyContent="space-between">
                         <Button size="small">B1</Button>
                         <Button size="small">B2</Button>

@@ -18,28 +18,34 @@ const Template: ComponentStory<typeof Modal> = (args) => {
 
     const onClose = () => setOpenModal(false);
     const openModalFunction = () => setOpenModal(true);
-    const header = (
-        <ModalHeader
-            title="New BOM"
-            onClose={onClose}
-            children={
-                <Box p={2}>
-                    <BodyMedium fontWeight={1000}>Modal Header's Optional "Children-Prop" Section</BodyMedium>
-                    <Box display="flex" justifyContent="space-between">
-                        <Button size="small">B1</Button>
-                        <Button size="small">B2</Button>
+    const [header, setHeader] = useState(
+        args.header ? (
+            args.header
+        ) : (
+            <ModalHeader
+                title="New BOM"
+                onClose={onClose}
+                children={
+                    <Box p={2}>
+                        <BodyMedium fontWeight={1000}>Modal Header's Optional "Children-Prop" Section</BodyMedium>
+                        <Box display="flex" justifyContent="space-between">
+                            <Button size="small">B1</Button>
+                            <Button size="small">B2</Button>
+                        </Box>
                     </Box>
-                </Box>
-            }
-        />
+                }
+            />
+        )
     );
-    const footer = <ModalFooter onReject={onClose} onAccept={onClose} isLoading />;
+    const [footer, setFooter] = useState(args.footer ? args.footer : <ModalFooter onReject={onClose} onAccept={onClose} isLoading />);
     return (
         <>
             <Button color="primary" variant="contained" onClick={openModalFunction}>
                 Open Modal
             </Button>
-            <Modal onClose={args.onClose} header={args.header || header} footer={args.footer || footer} open={openModal} children={args.children} />
+            <Modal onClose={args.onClose} header={header} footer={footer} open={openModal}>
+                {args.children}
+            </Modal>
         </>
     );
 };

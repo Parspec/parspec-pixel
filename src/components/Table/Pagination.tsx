@@ -17,9 +17,9 @@ const options = [
 ];
 const Pagination: React.FC<PaginationProps> = ({ pagination, table }) => {
     const [selectedValue, setSelectedValue] = useState(String(table.getState().pagination.pageSize));
-    const handleOnChange = (event: any) => {
-        setSelectedValue(event.target.value as string);
-        table.setPageSize(Number(event.target.value));
+    const handleOnChange = (val: string) => {
+        setSelectedValue(val);
+        table.setPageSize(Number(val));
     };
 
     return (
@@ -37,8 +37,16 @@ const Pagination: React.FC<PaginationProps> = ({ pagination, table }) => {
                     <KeyboardArrowRightIcon fontSize="small" />
                 </IconButton>
             </Box>
-            <Box width={'100px'}>
-                <Select size="small" options={options} label="Show" labelId="demo-simple-select-label" id="demo-simple-select" onChange={handleOnChange} value={selectedValue} />
+            <Box width={'100px'} pr={3}>
+                <Select
+                    size="small"
+                    options={options}
+                    label="Show"
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    onChange={(e) => handleOnChange(e.target.value as string)}
+                    value={selectedValue}
+                />
             </Box>
         </Box>
     );

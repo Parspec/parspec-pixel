@@ -18,7 +18,21 @@ const Template: ComponentStory<typeof Modal> = (args) => {
 
     const onClose = () => setOpenModal(false);
     const openModalFunction = () => setOpenModal(true);
-    const header = <Header title="New BOM" onClose={onClose} />;
+    const header = (
+        <Header
+            title="New BOM"
+            onClose={onClose}
+            children={
+                <Box p={2}>
+                    <BodyMedium fontWeight={1000}>Optional Children Section</BodyMedium>
+                    <Box display="flex" justifyContent="space-between">
+                        <Button size="small">B1</Button>
+                        <Button size="small">B2</Button>
+                    </Box>
+                </Box>
+            }
+        />
+    );
     const footer = <Footer onReject={onClose} onAccept={onClose} isLoading />;
     return (
         <>

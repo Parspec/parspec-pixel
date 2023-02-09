@@ -1,3 +1,5 @@
+import { forwardRef } from 'react';
+
 import { TextField } from '../TextField';
 import { default as MUIAutocomplete } from '@mui/material/Autocomplete';
 
@@ -16,13 +18,14 @@ export interface AutocompleteProps {
     freeSolo?: boolean;
 }
 
-export const Autocomplete: React.FC<AutocompleteProps> = ({ id, label, color, variant, onChange, optionlabelkeyname, freeSolo, ...props }) => {
+export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivElement, AutocompleteProps>(({ id, label, color, variant, onChange, optionlabelkeyname, freeSolo, ...props }, ref) => {
     const handleOnChange = (event: any, newValue: string | OptionType | null) => {
         onChange({ ...event, target: { ...event.target, value: newValue } });
     };
     return (
         <MUIAutocomplete
             {...props}
+            ref={ref}
             id={id}
             onChange={handleOnChange}
             getOptionLabel={(option: OptionType | string): string => {
@@ -36,7 +39,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({ id, label, color, va
             renderInput={(params) => <TextField {...params} variant={variant} color={color} label={label} />}
         />
     );
-};
+});
 
 Autocomplete.defaultProps = {
     color: 'primary',

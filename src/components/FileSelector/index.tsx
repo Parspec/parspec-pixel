@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, forwardRef } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Avatar } from '@mui/material';
 import { Box } from '../Box';
@@ -7,23 +7,17 @@ import { UploadIcon } from '../Icons';
 import { getAcceptedFormats } from './fileFormats';
 import SelectedFile from './SelectedFile';
 
-export const FileSelector = ({
-    maxFiles,
-    acceptedFormats,
-    onUpload,
-    url,
-    error,
-    helperText,
-    onSelect
-}: {
+interface FileSelectorProps {
     maxFiles: number;
-    acceptedFormats: string[];
+    acceptedFormats?: string[];
     onUpload: (args: File[]) => void;
     url: string;
     error: string;
-    helperText: string;
-    onSelect: (args: File[]) => void;
-}) => {
+    helperText?: string;
+    onSelect?: (args: File[]) => void;
+}
+
+export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(({ maxFiles, acceptedFormats = [], onUpload, url, error, helperText, onSelect = () => {} }, ref) => {
     const [files, setFiles] = useState([]);
     const [result, setResults] = useState([]);
 
@@ -77,7 +71,7 @@ export const FileSelector = ({
     });
 
     return (
-        <>
+        <Box ref={ref}>
             {!files.length ? (
                 <div {...getRootProps()}>
                     <input {...getInputProps()} />
@@ -108,16 +102,14 @@ export const FileSelector = ({
                     <BodySmall color="secondary">{helperText}</BodySmall>
                 </Box>
             )}
-        </>
+        </Box>
     );
-};
+});
 
 FileSelector.defaultProps = {
     maxFiles: 1,
-    acceptedFormats: [],
     onUpload: () => {},
     error: '',
     helperText: '',
-    onSelect: () => {},
     url: ''
 };

@@ -1,9 +1,9 @@
 /// <reference types="react" />
-export interface FooterProps {
+export interface ModalFooterProps {
     onAccept?: () => void;
     onReject?: () => void;
     cancelButtonLabel?: string;
     continueButtonLabel?: string;
     isLoading?: boolean;
 }
-export declare const Footer: React.FC<FooterProps>;
+export declare const ModalFooter: React.FC<ModalFooterProps>;

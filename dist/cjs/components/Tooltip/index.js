@@ -14,18 +14,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Button = void 0;
+exports.Tooltip = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
-const react_1 = require("react");
-const Button_1 = __importDefault(require("@mui/material/Button"));
-const Icons_1 = require("../Icons");
-exports.Button = (0, react_1.forwardRef)((_a, ref) => {
-    var { disabled, isLoading, color } = _a, rest = __rest(_a, ["disabled", "isLoading", "color"]);
-    return ((0, jsx_runtime_1.jsx)(Button_1.default, Object.assign({ ref: ref }, rest, { color: color, sx: disabled || isLoading ? { opacity: 0.5, pointerEvents: 'none' } : {}, startIcon: isLoading ? (0, jsx_runtime_1.jsx)(Icons_1.CircularProgressIcon, { color: 'inherit', size: "1rem" }) : null })));
-});
-exports.Button.defaultProps = {
-    color: 'primary',
-    variant: 'contained',
-    isLoading: false
+const Tooltip_1 = __importDefault(require("@mui/material/Tooltip"));
+const Tooltip = (_a) => {
+    var { children, title, placement } = _a, rest = __rest(_a, ["children", "title", "placement"]);
+    return ((0, jsx_runtime_1.jsx)(Tooltip_1.default, Object.assign({ title: title, placement: placement }, rest, { children: children })));
 };
+exports.Tooltip = Tooltip;
 //# sourceMappingURL=index.js.map

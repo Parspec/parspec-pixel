@@ -1,3 +1,3 @@
-export * from './Footer';
-export * from './Header';
+export * from './ModalFooter';
+export * from './ModalHeader';
 export * from './Modal';

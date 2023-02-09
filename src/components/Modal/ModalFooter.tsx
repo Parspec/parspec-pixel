@@ -1,7 +1,7 @@
 import { Box } from '../Box';
 import { Button } from '../Button';
 
-export interface FooterProps {
+export interface ModalFooterProps {
     onAccept?: () => void;
     onReject?: () => void;
     cancelButtonLabel?: string;
@@ -9,7 +9,7 @@ export interface FooterProps {
     isLoading?: boolean;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onAccept, onReject, cancelButtonLabel, continueButtonLabel, isLoading }) => {
+export const ModalFooter: React.FC<ModalFooterProps> = ({ onAccept, onReject, cancelButtonLabel, continueButtonLabel, isLoading }) => {
     return (
         <Box display="flex" justifyContent="end" gap={2}>
             <Button color="secondary" variant="outlined" onClick={onReject}>
@@ -22,7 +22,7 @@ export const Footer: React.FC<FooterProps> = ({ onAccept, onReject, cancelButton
     );
 };
 
-Footer.defaultProps = {
+ModalFooter.defaultProps = {
     cancelButtonLabel: 'Cancel',
     continueButtonLabel: 'Submit',
     onAccept: () => {},

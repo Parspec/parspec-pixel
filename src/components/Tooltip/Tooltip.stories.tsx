@@ -8,12 +8,10 @@ export default {
     component: Tooltip
 } as ComponentMeta<typeof Tooltip>;
 
-const Template: ComponentStory<typeof Tooltip> = (args) => {
-    return <Tooltip {...args} />;
+export const Basic: ComponentStory<typeof Tooltip> = (props) => {
+    return <Tooltip {...props} />;
 };
-
-export const tooltip = Template.bind({});
-tooltip.args = {
+Basic.args = {
     title: 'Tooltip',
     children: <Button>Hover Over Me</Button>,
     placement: 'right'

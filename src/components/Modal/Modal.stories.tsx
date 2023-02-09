@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ComponentMeta } from '@storybook/react';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Modal, ModalHeader, ModalFooter } from './';
 import { Button } from '../Button';
 import { Box } from '../Box';
@@ -10,8 +10,11 @@ export default {
     component: Modal
 } as ComponentMeta<typeof Modal>;
 
-export const DefaultModal: React.FC = () => {
-    const [openModal, setOpenModal] = useState(false);
+export const DefaultModal: ComponentStory<typeof Modal> = ({ open }) => {
+    const [openModal, setOpenModal] = useState(open);
+    useEffect(() => {
+        setOpenModal(open);
+    }, [open]);
 
     const onClose = () => setOpenModal(false);
     const openModalFunction = () => setOpenModal(true);
@@ -42,8 +45,15 @@ export const DefaultModal: React.FC = () => {
     );
 };
 
-export const CustomHeaderFooterModal: React.FC = () => {
-    const [openModal, setOpenModal] = useState(false);
+DefaultModal.args = {
+    open: false
+};
+
+export const CustomHeaderFooterModal: ComponentStory<typeof Modal> = ({ open }) => {
+    const [openModal, setOpenModal] = useState(open);
+    useEffect(() => {
+        setOpenModal(open);
+    }, [open]);
 
     const onClose = () => setOpenModal(false);
     const openModalFunction = () => setOpenModal(true);
@@ -77,4 +87,8 @@ export const CustomHeaderFooterModal: React.FC = () => {
             </Modal>
         </>
     );
+};
+
+CustomHeaderFooterModal.args = {
+    open: false
 };

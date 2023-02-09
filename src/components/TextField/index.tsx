@@ -1,4 +1,5 @@
 import { default as MUITextField, TextFieldProps as MUITextFieldProps } from '@mui/material/TextField';
+import { forwardRef } from 'react';
 
 export interface TextFieldProps extends Omit<MUITextFieldProps, 'margin' | 'classes' | 'sx'> {
     variant?: 'standard' | 'outlined' | 'filled';
@@ -6,7 +7,7 @@ export interface TextFieldProps extends Omit<MUITextFieldProps, 'margin' | 'clas
     error?: boolean;
 }
 
-export const TextField: React.FC<TextFieldProps> = (props) => <MUITextField {...props} />;
+export const TextField = forwardRef<HTMLDivElement, TextFieldProps>((props, ref) => <MUITextField ref={ref} {...props} />);
 
 TextField.defaultProps = {
     variant: 'outlined',

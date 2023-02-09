@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { Modal, ModalHeader, ModalFooter } from './';
 import { Button } from '../Button';
 import { Box } from '../Box';
 import { BodySmall, BodyMedium } from '../Typography';
+import { Modal, ModalHeader, ModalFooter } from './';
 
 export default {
     title: 'Modal',

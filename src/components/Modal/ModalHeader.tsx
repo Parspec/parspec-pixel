@@ -1,6 +1,6 @@
+import { IconButton } from '@mui/material';
 import { CloseIcon } from '../Icons';
 import { BodyBig } from '../Typography';
-import { IconButton } from '@mui/material';
 import { Box } from '../Box';
 
 export interface ModalHeaderHeaderProps {

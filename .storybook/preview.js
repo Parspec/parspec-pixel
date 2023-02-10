@@ -1,4 +1,5 @@
 import { ThemeProvider } from '../src/theme/ThemeProvider';
+import './style.css';
 
 export const parameters = {
     actions: { argTypesRegex: '^on[A-Z].*' },

@@ -29,6 +29,6 @@ declare module '@mui/material/styles' {
 }
 declare module '@mui/material/Button' {
     interface ButtonPropsColorOverrides {
-        tertiary: true,
+        tertiary: true;
     }
 }

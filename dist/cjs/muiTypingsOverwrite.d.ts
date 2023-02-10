@@ -5,3 +5,8 @@ declare module '@mui/material/styles' {
         tertiary: PaletteOptions['primary'];
     }
 }
+declare module '@mui/material/Button' {
+    interface ButtonPropsColorOverrides {
+        tertiary: true;
+    }
+}

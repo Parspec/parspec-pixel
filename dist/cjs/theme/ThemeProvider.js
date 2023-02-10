@@ -40,11 +40,18 @@ const theme = (0, styles_1.createTheme)({
             main: '#F43F5E'
         },
         tertiary: {
-            main: '#6467F2'
+            main: '#6467F2',
+            contrastText: '#ffffff'
         },
         neutral: {
             main: '#5E667D'
         }
+        // info: {
+        //     main: ''
+        // },
+        // warning: {
+        //     main: ''
+        // }
     }
 });
 const ThemeProvider = (props) => {

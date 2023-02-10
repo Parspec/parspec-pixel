@@ -11,7 +11,7 @@ export default {
     }
 } as ComponentMeta<typeof RadioGroup>;
 
-const Template: ComponentStory<typeof RadioGroup> = (args) => {
+export const RadioGroupRow: ComponentStory<typeof RadioGroup> = (args) => {
     const [selectedValue, setSelectedValue] = useState('');
 
     const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,9 +21,7 @@ const Template: ComponentStory<typeof RadioGroup> = (args) => {
     return <RadioGroup {...args} onChange={handleOnChange} value={selectedValue} />;
 };
 
-export const radioGroupRow = Template.bind({});
-
-radioGroupRow.args = {
+RadioGroupRow.args = {
     name: 'test-feature-1',
     row: true,
     options: [
@@ -34,9 +32,17 @@ radioGroupRow.args = {
     label: 'Gender'
 };
 
-export const radioGroupColumn = Template.bind({});
+export const RadioGroupColumn: ComponentStory<typeof RadioGroup> = (args) => {
+    const [selectedValue, setSelectedValue] = useState('');
 
-radioGroupColumn.args = {
+    const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSelectedValue(() => event.target.value);
+    };
+
+    return <RadioGroup {...args} onChange={handleOnChange} value={selectedValue} />;
+};
+
+RadioGroupColumn.args = {
     name: 'test-feature-2',
     options: [
         { value: 'apple', label: 'Apple' },

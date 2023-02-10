@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, forwardRef } from 'react';
 import { default as MUIRadioGroup, RadioGroupProps as MUIRadioGroupProps } from '@mui/material/RadioGroup';
 import FormLabel from '@mui/material/FormLabel';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -18,8 +18,8 @@ export interface RadioGroupProps extends MUIRadioGroupProps {
     name: string;
 }
 
-export const RadioGroup: React.FC<RadioGroupProps> = ({ options, label, name, ...rest }) => (
-    <>
+export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(({ options, label, name, ...rest }, ref) => (
+    <Box ref={ref}>
         <FormLabel>{label}</FormLabel>
         <MUIRadioGroup {...rest} name={name}>
             {options.map((item, index) => (
@@ -29,8 +29,8 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({ options, label, name, ..
                 </>
             ))}
         </MUIRadioGroup>
-    </>
-);
+    </Box>
+));
 
 RadioGroup.defaultProps = {
     label: 'Radio Group',

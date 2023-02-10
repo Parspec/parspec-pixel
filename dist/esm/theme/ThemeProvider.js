@@ -37,11 +37,18 @@ const theme = createTheme({
             main: '#F43F5E'
         },
         tertiary: {
-            main: '#6467F2'
+            main: '#6467F2',
+            contrastText: '#ffffff'
         },
         neutral: {
             main: '#5E667D'
         }
+        // info: {
+        //     main: ''
+        // },
+        // warning: {
+        //     main: ''
+        // }
     }
 });
 export const ThemeProvider = (props) => {

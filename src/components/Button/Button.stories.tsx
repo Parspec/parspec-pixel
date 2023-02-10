@@ -9,9 +9,11 @@ export default {
     argTypes: { onClick: { action: 'onClick' } }
 } as ComponentMeta<typeof Button>;
 
-export const Primary: ComponentStory<typeof Button> = (args) => <Button {...args} />;
+export const Basic: ComponentStory<typeof Button> = (args) => <Button {...args} />;
 
-Primary.args = {
+Basic.args = {
     variant: 'contained',
-    children: 'Primary'
+    children: 'Basic',
+    color: 'tertiary',
+    size: 'small'
 };

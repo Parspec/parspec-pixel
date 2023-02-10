@@ -11,8 +11,8 @@ interface RightTableProps {
 
 export const RightTable: React.FC<RightTableProps> = ({ table, sortableColumnIds }) => {
     return (
-        <MUITable style={{ borderLeft: '1px solid grey' }}>
-            <TableHead style={{ width: 'max-content' }}>
+        <MUITable style={{ borderLeft: '1px solid' }}>
+            <TableHead sx={{ width: 'max-content', backgroundColor: 'secondary.light' }}>
                 {table?.getRightHeaderGroups()?.map((headerGroup) => (
                     <TableRow key={headerGroup.id}>
                         {headerGroup.headers.map((header) => (

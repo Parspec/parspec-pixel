@@ -30,4 +30,3 @@ export const BodyBig: React.FC<BodyTypographyProps> = (props) => <BodyText {...p
 export const BodyMedium: React.FC<BodyTypographyProps> = (props) => <BodyText {...props} fontSize={'16px'} letterSpacing={'0.44px'} lineHeight={'24px'} />;
 export const BodySmall: React.FC<BodyTypographyProps> = (props) => <BodyText {...props} fontSize={'14px'} letterSpacing={'0.25px'} lineHeight={'16px'} />;
 export const BodyXS: React.FC<BodyTypographyProps> = (props) => <BodyText {...props} fontSize={'12px'} lineHeight={'15px'} />;
-export const BodyXXS: React.FC<BodyTypographyProps> = (props) => <BodyText {...props} fontSize={'10px'} lineHeight={'12px'} />;

@@ -29,9 +29,9 @@ const Pagination: React.FC<PaginationProps> = ({ pagination, table }) => {
                     <KeyboardArrowLeftIcon fontSize="small" />
                 </IconButton>
                 <BodyMedium display={'inline'}>
-                    <IconButton sx={{ borderRadius: '100%' }}>
-                        <BodyMedium>{pagination.pageIndex + 1}</BodyMedium>
-                    </IconButton>
+                    <Box sx={{ borderRadius: '50%', backgroundColor: 'tertiary.main', pl: 2, pr: 2, display: 'flex', justifyContent: 'center', alignContent: 'center' }}>
+                        <BodyMedium color="secondary.contrastText">{pagination.pageIndex + 1}</BodyMedium>
+                    </Box>
                 </BodyMedium>
                 <IconButton style={{ borderRadius: 10 }} onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
                     <KeyboardArrowRightIcon fontSize="small" />

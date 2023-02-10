@@ -70,10 +70,10 @@ export const PixelTable: React.FC<PixelTableProps> = ({ defaultData, columns: pr
     }, [table]);
 
     return (
-        <Box height={'100%'} width={'100%'}>
+        <Box>
             <DragDropContext onDragEnd={handleDragEnd}>
                 <>
-                    <Box display={'flex'}>
+                    <Box display={'flex'} height={'90%'} overflow={'auto'}>
                         {leftPinnedColumnKeys!.length > 0 && <LeftTable table={table} sortableColumnIds={sortableColumnIds!} />}
                         <Box overflow={'auto'} width="100%">
                             <CenterTable table={table} sortableColumnIds={sortableColumnIds!} />
@@ -81,7 +81,7 @@ export const PixelTable: React.FC<PixelTableProps> = ({ defaultData, columns: pr
                         {rightPinnedColumnKeys!.length > 0 && <RightTable table={table} sortableColumnIds={sortableColumnIds!} />}
                     </Box>
                     {paginationRequired && (
-                        <Box textAlign={'center'} marginTop={8}>
+                        <Box textAlign={'center'} marginTop={8} height={'10%'}>
                             <Pagination pagination={pagination} table={table} />
                         </Box>
                     )}

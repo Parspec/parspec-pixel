@@ -7,7 +7,7 @@ import { Button } from '../Button';
 import { AddIcon, CancelIcon, CheckCircleIcon, DragIndicatorIcon, MoreVertIcon, ViewArrayIcon } from '../Icons';
 import { Box } from '../Box';
 import { Person, defaultData, defaultDataP, Project } from './dummyData';
-import { BodySmall, BodyXS, BodyXXS } from '../Typography';
+import { BodySmall, BodyXS } from '../Typography';
 import { Link } from '@mui/material';
 
 export default {
@@ -24,7 +24,7 @@ const columns: ColumnDef<Person>[] = [
         accessorKey: 'drag',
         header: () => <></>,
         cell: () => (
-            <Box ml={3}>
+            <Box display={'flex'} justifyContent="center" alignItems={'center'}>
                 <DragIndicatorIcon fontSize="small" />
             </Box>
         )
@@ -155,7 +155,7 @@ const actionColumns: ColumnDef<Project>[] = [
         accessorKey: 'drag',
         header: () => <></>,
         cell: () => (
-            <Box ml={3}>
+            <Box display={'flex'} justifyContent="center" alignItems={'center'}>
                 <DragIndicatorIcon fontSize="small" />
             </Box>
         )
@@ -223,7 +223,7 @@ const actionColumns: ColumnDef<Project>[] = [
                 </Box>
                 <Box>
                     <BodySmall>{(info.getValue() as keyof Project['quote'])['quoteActionTakenBy']}</BodySmall>
-                    <Box>{(info.getValue() as keyof Project['quote'])['quoteStatus'] ? <BodyXXS color="success.main">Approved</BodyXXS> : <BodyXXS color="error.main">Rejected</BodyXXS>}</Box>
+                    <Box>{(info.getValue() as keyof Project['quote'])['quoteStatus'] ? <BodyXS color="success.main">Approved</BodyXS> : <BodyXS color="error.main">Rejected</BodyXS>}</Box>
                 </Box>
             </Box>
         )
@@ -238,7 +238,7 @@ const actionColumns: ColumnDef<Project>[] = [
                 </Box>
                 <Box>
                     <BodySmall>{(info.getValue() as keyof Project['submittal'])['submittalActionTakenBy']}</BodySmall>
-                    <Box>{(info.getValue() as keyof Project['submittal'])['submittalStatus'] ? <BodyXXS color="success.main">Approved</BodyXXS> : <BodyXXS color="error.main">Rejected</BodyXXS>}</Box>
+                    <Box>{(info.getValue() as keyof Project['submittal'])['submittalStatus'] ? <BodyXS color="success.main">Approved</BodyXS> : <BodyXS color="error.main">Rejected</BodyXS>}</Box>
                 </Box>
             </Box>
         )

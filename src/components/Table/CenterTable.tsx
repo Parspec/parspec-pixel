@@ -11,7 +11,7 @@ interface CenterTableProps {
 export const CenterTable: React.FC<CenterTableProps> = ({ table, sortableColumnIds }) => {
     return (
         <MUITable>
-            <TableHead>
+            <TableHead sx={{ backgroundColor: 'secondary.light' }}>
                 {table.getCenterHeaderGroups().map((headerGroup) => (
                     <TableRow key={headerGroup.id}>
                         <>

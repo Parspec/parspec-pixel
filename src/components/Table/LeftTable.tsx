@@ -12,7 +12,7 @@ interface LeftTableProps {
 export const LeftTable: React.FC<LeftTableProps> = ({ table, sortableColumnIds }) => {
     return (
         <MUITable style={{ borderRight: '1px solid' }}>
-            <TableHead style={{ width: 'max-content' }}>
+            <TableHead sx={{ backgroundColor: 'secondary.light', width: 'max-content' }}>
                 {table?.getLeftHeaderGroups()?.map((headerGroup) => (
                     <TableRow key={headerGroup.id}>
                         {headerGroup.headers.map((header) => (

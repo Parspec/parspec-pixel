@@ -1,10 +1,10 @@
 /// <reference types="react" />
 interface FileSelectorProps {
-    maxFiles: number;
+    maxFiles?: number;
     acceptedFormats?: string[];
-    onUpload: (args: File[]) => void;
-    url: string;
-    error: string;
+    onUpload?: (args: File[]) => void;
+    url?: string;
+    error?: string;
     helperText?: string;
     onSelect?: (args: File[]) => void;
 }

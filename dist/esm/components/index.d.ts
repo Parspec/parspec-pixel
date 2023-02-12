@@ -14,3 +14,4 @@ export * from './Select';
 export * from './Tabs';
 export * from './Breadcrumb';
 export * from './Menu';
+export * from './Grid';

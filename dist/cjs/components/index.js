@@ -31,4 +31,5 @@ __exportStar(require("./Tabs"), exports);
 __exportStar(require("./Breadcrumb"), exports);
 __exportStar(require("./Menu"), exports);
 __exportStar(require("./Grid"), exports);
+__exportStar(require("./Stack"), exports);
 //# sourceMappingURL=index.js.map

@@ -15,4 +15,5 @@ export * from './Tabs';
 export * from './Breadcrumb';
 export * from './Menu';
 export * from './Grid';
+export * from './Stack';
 //# sourceMappingURL=index.js.map

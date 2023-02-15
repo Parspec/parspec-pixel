@@ -21,15 +21,18 @@ export const RadioGroupRow: ComponentStory<typeof RadioGroup> = (args) => {
     return <RadioGroup {...args} onChange={handleOnChange} value={selectedValue} />;
 };
 
+const options = [
+    { value: 'female', label: 'Female', helper: <Box>Hello</Box> },
+    { value: 'male', label: 'Male' },
+    { value: 'other', label: 'Other' }
+];
+
 RadioGroupRow.args = {
     name: 'test-feature-1',
     row: true,
-    options: [
-        { value: 'female', label: 'Female', helper: <Box>Hello</Box> },
-        { value: 'male', label: 'Male' },
-        { value: 'other', label: 'Other' }
-    ],
-    label: 'Gender'
+    options: options,
+    label: 'Gender',
+    size: 'small'
 };
 
 export const RadioGroupColumn: ComponentStory<typeof RadioGroup> = (args) => {
@@ -44,11 +47,7 @@ export const RadioGroupColumn: ComponentStory<typeof RadioGroup> = (args) => {
 
 RadioGroupColumn.args = {
     name: 'test-feature-2',
-    options: [
-        { value: 'apple', label: 'Apple' },
-        { value: 'orange', label: 'Orange' },
-        { value: 'mango', label: 'Mango' }
-    ],
+    options: options,
     label: 'Fruits',
-    size: 'large'
+    size: 'small'
 };

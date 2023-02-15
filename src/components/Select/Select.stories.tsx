@@ -31,6 +31,7 @@ const options = [
 
 select.args = {
     options: options,
+    optionlabelkeyname: 'label',
     label: 'Age',
     labelId: 'demo-simple-select-label',
     id: 'demo-simple-select',

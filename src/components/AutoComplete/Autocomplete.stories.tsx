@@ -15,8 +15,8 @@ export default {
 const Template: ComponentStory<typeof Autocomplete> = (args) => (
     <Autocomplete
         {...args}
-        onChange={(e) => {
-            console.log(e);
+        onChange={(e: any) => {
+            console.log(e.target.value);
         }}
     />
 );

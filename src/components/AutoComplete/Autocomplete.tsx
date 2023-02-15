@@ -16,7 +16,7 @@ export interface AutocompleteProps {
     variant?: 'outlined' | 'filled' | 'standard';
     onChange: (event: React.SyntheticEvent) => void;
     freeSolo?: boolean;
-    size?: 'small' | 'medium' | 'large';
+    size: 'small' | 'medium';
 }
 
 export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivElement, AutocompleteProps>(({ id, label, color, variant, onChange, optionlabelkeyname, freeSolo, size, ...props }, ref) => {
@@ -25,6 +25,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
     };
     return (
         <MUIAutocomplete
+            size={size}
             fullWidth
             {...props}
             ref={ref}
@@ -38,17 +39,14 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
                 return option;
             }}
             freeSolo={freeSolo}
-            renderInput={(params) => {
-                params = { ...params, size: size };
-                return <TextField {...params} variant={variant} color={color} label={label} />;
-            }}
+            renderInput={(params) => <TextField {...params} variant={variant} color={color} label={label} />}
         />
     );
 });
 
 Autocomplete.defaultProps = {
     color: 'primary',
-    variant: 'standard',
+    variant: 'outlined',
     freeSolo: false,
     size: 'small'
 };

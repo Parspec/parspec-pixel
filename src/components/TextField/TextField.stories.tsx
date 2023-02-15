@@ -13,40 +13,31 @@ const Template: ComponentStory<typeof TextField> = (args) => {
     return <TextField {...args} />;
 };
 
-export const standard = Template.bind({});
+export const basic = Template.bind({});
 
-standard.args = {
-    variant: 'standard',
-    color: 'primary',
-    size: 'small'
+basic.args = {
+    label: 'outlined'
 };
 
 export const multiline = Template.bind({});
 
 multiline.args = {
+    label: 'multiline',
     multiline: true,
     rows: 4,
-    maxRows: 10,
-    variant: 'outlined'
-};
-
-export const disabled = Template.bind({});
-
-disabled.args = {
-    disabled: true,
-    placeholder: 'this is disabled text'
+    maxRows: 10
 };
 
 export const required = Template.bind({});
 
 required.args = {
     required: true,
-    placeholder: 'required field'
+    label: 'required'
 };
 
 export const error = Template.bind({});
 
 error.args = {
     error: true,
-    placeholder: 'hello world'
+    label: 'error'
 };

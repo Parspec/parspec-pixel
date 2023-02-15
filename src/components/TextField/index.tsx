@@ -2,50 +2,16 @@ import { default as MUITextField, TextFieldProps as MUITextFieldProps } from '@m
 import { forwardRef } from 'react';
 
 export interface TextFieldProps extends Omit<MUITextFieldProps, 'margin' | 'classes'> {
+    label: string;
     variant?: 'standard' | 'outlined' | 'filled';
     color?: 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning';
     error?: boolean;
-    size?: 'small' | 'medium' | 'large';
+    size?: 'small' | 'medium';
 }
 
-export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(({ variant, color, error, size, ...rest }, ref) => {
-    const sizeProps = { size };
-    if (size && size === 'large') {
-        delete sizeProps['size'];
-        switch (variant) {
-            case 'standard':
-                sizeProps['sx'] = {
-                    '& .MuiInput-root': {
-                        fontSize: 18
-                    }
-                };
-                break;
-
-            case 'filled':
-                sizeProps['sx'] = {
-                    '& .MuiFilledInput-root': {
-                        fontSize: 18
-                    }
-                };
-                break;
-
-            case 'outlined':
-                sizeProps['sx'] = {
-                    '& .MuiOutlinedInput-root ': {
-                        fontSize: 18
-                    }
-                };
-                break;
-
-            default:
-                break;
-        }
-    }
-
-    console.log(sizeProps);
-
-    return <MUITextField fullWidth {...sizeProps} ref={ref} variant={variant} color={color} error={error} {...rest} />;
-});
+export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(({ variant, color, error, size, label, ...rest }, ref) => (
+    <MUITextField fullWidth label={label} ref={ref} size={size} variant={variant} color={color} error={error} {...rest} />
+));
 
 TextField.defaultProps = {
     variant: 'outlined',

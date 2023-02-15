@@ -16,6 +16,7 @@ const Template: ComponentStory<typeof Select> = (args) => {
 
     const handleOnChange = (event: any) => {
         setSelectedValue(event.target.value as string);
+        console.log(selectedValue);
     };
 
     return <Select {...args} onChange={handleOnChange} value={selectedValue} />;
@@ -31,7 +32,8 @@ const options = [
 
 select.args = {
     options: options,
-    optionlabelkeyname: 'label',
+    optionLabelKeyname: 'label',
+    optionValueKeyname: 'value',
     label: 'Age',
     labelId: 'demo-simple-select-label',
     id: 'demo-simple-select',

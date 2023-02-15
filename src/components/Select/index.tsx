@@ -15,16 +15,17 @@ export interface SelectProps extends Omit<MUISelectProps, 'classes'> {
     labelId: string;
     id: string;
     size?: 'small' | 'medium';
-    optionlabelkeyname: string;
+    optionLabelKeyname: string;
+    optionValueKeyname: string;
 }
 
-export const Select = forwardRef<HTMLDivElement, SelectProps>(({ id, labelId, options, size, label, optionlabelkeyname, ...rest }, ref) => (
+export const Select = forwardRef<HTMLDivElement, SelectProps>(({ id, labelId, options, size, label, optionLabelKeyname, optionValueKeyname, ...rest }, ref) => (
     <FormControl fullWidth ref={ref} size={size}>
         <InputLabel id={labelId}>{label}</InputLabel>
         <MUISelect {...rest} labelId={labelId} label={label} id={id}>
             {options.map((item, index) => (
-                <MenuItem key={index} value={item[optionlabelkeyname]}>
-                    {item[optionlabelkeyname]}
+                <MenuItem key={index} value={item[optionValueKeyname]}>
+                    {item[optionLabelKeyname]}
                 </MenuItem>
             ))}
         </MUISelect>

@@ -10,15 +10,16 @@ interface SelectMenuOption {
     label: string;
 }
 
-export interface SelectProps extends Omit<MUISelectProps, 'classes' | 'sx'> {
+export interface SelectProps extends Omit<MUISelectProps, 'classes'> {
     label: string;
     options: SelectMenuOption[];
     labelId: string;
     id: string;
+    size?: 'small' | 'medium';
 }
 
-export const Select = forwardRef<HTMLDivElement, SelectProps>(({ id, labelId, options, label, ...rest }, ref) => (
-    <FormControl fullWidth ref={ref}>
+export const Select = forwardRef<HTMLDivElement, SelectProps>(({ id, labelId, options, size, label, ...rest }, ref) => (
+    <FormControl fullWidth ref={ref} size={size}>
         <InputLabel id={labelId}>{label}</InputLabel>
         <MUISelect {...rest} labelId={labelId} label={label} id={id}>
             {options.map((item, index) => (
@@ -38,5 +39,6 @@ Select.defaultProps = {
         { value: 30, label: 'Thirty' }
     ],
     labelId: 'demo-simple-select-label',
-    id: 'demo-simple-select'
+    id: 'demo-simple-select',
+    size: 'small'
 };

@@ -16,7 +16,9 @@ const Template: ComponentStory<typeof TextField> = (args) => {
 export const standard = Template.bind({});
 
 standard.args = {
-    variant: 'standard'
+    variant: 'standard',
+    color: 'primary',
+    size: 'small'
 };
 
 export const multiline = Template.bind({});

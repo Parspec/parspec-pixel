@@ -49,5 +49,6 @@ RadioGroupColumn.args = {
         { value: 'orange', label: 'Orange' },
         { value: 'mango', label: 'Mango' }
     ],
-    label: 'Fruits'
+    label: 'Fruits',
+    size: 'large'
 };

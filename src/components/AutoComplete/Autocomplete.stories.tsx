@@ -27,7 +27,8 @@ Basic.args = {
     options: top100Films,
     id: 'autocomplete-demo',
     label: 'Movies',
-    optionlabelkeyname: 'title'
+    optionlabelkeyname: 'title',
+    size: 'small'
 };
 
 export const MultiSelect = Template.bind({});

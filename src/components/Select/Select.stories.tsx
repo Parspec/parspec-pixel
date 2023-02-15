@@ -33,5 +33,6 @@ select.args = {
     options: options,
     label: 'Age',
     labelId: 'demo-simple-select-label',
-    id: 'demo-simple-select'
+    id: 'demo-simple-select',
+    size: 'small'
 };

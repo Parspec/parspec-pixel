@@ -23,7 +23,7 @@ const Breadcrumb = (_a) => {
     var { options } = _a, rest = __rest(_a, ["options"]);
     return ((0, jsx_runtime_1.jsx)(Breadcrumbs_1.default, Object.assign({ separator: ">" }, rest, { children: options.map((item, index) => {
             if (index === options.length - 1) {
-                return (0, jsx_runtime_1.jsx)(Typography_1.BodyXS, Object.assign({ color: 'secondary' }, { children: item.displaytext }));
+                return ((0, jsx_runtime_1.jsx)(Typography_1.BodyXS, Object.assign({ color: 'secondary' }, { children: item.displaytext }), index));
             }
             return ((0, jsx_runtime_1.jsx)(Link_1.default, Object.assign({ fontWeight: "400", fontFamily: "Inter", fontSize: '12px', color: "secondary", underline: 'hover', href: item.href }, { children: item.displaytext }), index));
         }) })));

@@ -16,3 +16,5 @@ export * from './Breadcrumb';
 export * from './Menu';
 export * from './Grid';
 export * from './Stack';
+export * from './Accordion';
+export * from './Switch';

@@ -19,5 +19,6 @@ export const Basic = Template.bind({});
 
 Basic.args = {
     label: <BodyBig>Basic switch</BodyBig>,
-    inputProps: { 'aria-label': 'basic' }
+    size: 'small',
+    color: 'tertiary'
 };

@@ -14,6 +14,7 @@ export default {
 } as ComponentMeta<typeof Accordion>;
 
 const Template: ComponentStory<typeof Accordion> = (args) => {
+    console.log(`[args]`, args);
     const [switchState1, setWitchState1] = useState<boolean>(false);
     const [switchState2, setWitchState2] = useState<boolean>(false);
     const [expanded, setExpanded] = useState<string | false>(false);

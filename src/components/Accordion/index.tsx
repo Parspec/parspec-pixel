@@ -3,7 +3,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-export interface AccordionProps extends Omit<MUIAccordionProps, 'classes'> {
+export interface AccordionProps extends Omit<MUIAccordionProps, 'classes' | 'children'> {
     summary: React.ReactNode;
     details: React.ReactNode;
     variant: 'outlined' | 'elevation';

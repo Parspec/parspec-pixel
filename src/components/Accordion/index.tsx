@@ -4,8 +4,6 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-import { Box } from '../Box';
-
 export interface AccordionProps extends Omit<MUIAccordionProps, 'classes'> {
     summary: React.ReactNode;
     details: React.ReactNode;

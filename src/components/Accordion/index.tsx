@@ -1,10 +1,7 @@
-import { forwardRef } from 'react';
 import { default as MUIAccordion, AccordionProps as MUIAccordionProps } from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
-import { Box } from '../Box';
 
 export interface AccordionProps extends Omit<MUIAccordionProps, 'classes'> {
     summary: React.ReactNode;
@@ -12,21 +9,19 @@ export interface AccordionProps extends Omit<MUIAccordionProps, 'classes'> {
     variant: 'outlined' | 'elevation';
 }
 
-export const Accordion = forwardRef<HTMLDivElement, AccordionProps>(({ summary, details, variant, ...rest }, ref) => (
-    <Box ref={ref}>
-        <MUIAccordion TransitionProps={{ unmountOnExit: true }} {...rest}>
-            <AccordionSummary
-                sx={{
-                    flexDirection: 'row-reverse'
-                }}
-                expandIcon={<ExpandMoreIcon />}
-            >
-                {summary}
-            </AccordionSummary>
-            <AccordionDetails>{details}</AccordionDetails>
-        </MUIAccordion>
-    </Box>
-));
+export const Accordion: React.FC<AccordionProps> = ({ summary, details, variant, ...rest }) => (
+    <MUIAccordion TransitionProps={{ unmountOnExit: true }} {...rest}>
+        <AccordionSummary
+            sx={{
+                flexDirection: 'row-reverse'
+            }}
+            expandIcon={<ExpandMoreIcon />}
+        >
+            {summary}
+        </AccordionSummary>
+        <AccordionDetails>{details}</AccordionDetails>
+    </MUIAccordion>
+);
 
 Accordion.defaultProps = {
     variant: 'outlined'

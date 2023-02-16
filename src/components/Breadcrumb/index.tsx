@@ -23,7 +23,7 @@ export const Breadcrumb: React.FC<BreadcrumbsProps> = ({ options, ...rest }) => 
                     );
                 }
                 return (
-                    <Link key={index} fontWeight="400" fontFamily="Inter" fontSize={'12px'} key={index} color="secondary" underline={'hover'} href={item.href}>
+                    <Link fontWeight="400" fontFamily="Inter" fontSize={'12px'} key={index} color="secondary" underline={'hover'} href={item.href}>
                         {item.displaytext}
                     </Link>
                 );

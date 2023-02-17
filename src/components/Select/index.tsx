@@ -1,5 +1,4 @@
 import { forwardRef } from 'react';
-
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -19,10 +18,10 @@ export interface SelectProps extends Omit<MUISelectProps, 'classes'> {
     optionValueKeyname: string;
 }
 
-export const Select = forwardRef<HTMLDivElement, SelectProps>(({ id, labelId, options, size, label, optionLabelKeyname, optionValueKeyname, ...rest }, ref) => (
-    <FormControl fullWidth ref={ref} size={size}>
+export const Select: React.FC<SelectProps> = forwardRef(({ id, labelId, options, size, label, optionLabelKeyname, optionValueKeyname, ...rest }, ref) => (
+    <FormControl fullWidth size={size}>
         <InputLabel id={labelId}>{label}</InputLabel>
-        <MUISelect {...rest} labelId={labelId} label={label} id={id}>
+        <MUISelect {...rest} ref={ref} labelId={labelId} label={label} id={id}>
             {options.map((item, index) => (
                 <MenuItem key={index} value={item[optionValueKeyname]}>
                     {item[optionLabelKeyname]}

@@ -14,11 +14,11 @@ import { forwardRef } from 'react';
 import { TextField } from '../TextField';
 import { default as MUIAutocomplete } from '@mui/material/Autocomplete';
 export const Autocomplete = forwardRef((_a, ref) => {
-    var { id, label, color, variant, onChange, optionlabelkeyname, freeSolo } = _a, props = __rest(_a, ["id", "label", "color", "variant", "onChange", "optionlabelkeyname", "freeSolo"]);
+    var { id, label, color, variant, onChange, optionlabelkeyname, freeSolo, size } = _a, props = __rest(_a, ["id", "label", "color", "variant", "onChange", "optionlabelkeyname", "freeSolo", "size"]);
     const handleOnChange = (event, newValue) => {
         onChange(Object.assign(Object.assign({}, event), { target: Object.assign(Object.assign({}, event.target), { value: newValue }) }));
     };
-    return (_jsx(MUIAutocomplete, Object.assign({}, props, { ref: ref, id: id, onChange: handleOnChange, getOptionLabel: (option) => {
+    return (_jsx(MUIAutocomplete, Object.assign({ size: size, fullWidth: true }, props, { ref: ref, id: id, onChange: handleOnChange, getOptionLabel: (option) => {
             if (typeof option === 'object') {
                 return `${option[optionlabelkeyname]}`;
             }
@@ -28,6 +28,7 @@ export const Autocomplete = forwardRef((_a, ref) => {
 Autocomplete.defaultProps = {
     color: 'primary',
     variant: 'outlined',
-    freeSolo: false
+    freeSolo: false,
+    size: 'small'
 };
 //# sourceMappingURL=Autocomplete.js.map

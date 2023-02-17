@@ -22,17 +22,13 @@ const MenuItem_1 = __importDefault(require("@mui/material/MenuItem"));
 const FormControl_1 = __importDefault(require("@mui/material/FormControl"));
 const Select_1 = __importDefault(require("@mui/material/Select"));
 exports.Select = (0, react_1.forwardRef)((_a, ref) => {
-    var { id, labelId, options, label } = _a, rest = __rest(_a, ["id", "labelId", "options", "label"]);
-    return ((0, jsx_runtime_1.jsxs)(FormControl_1.default, Object.assign({ fullWidth: true, ref: ref }, { children: [(0, jsx_runtime_1.jsx)(InputLabel_1.default, Object.assign({ id: labelId }, { children: label })), (0, jsx_runtime_1.jsx)(Select_1.default, Object.assign({}, rest, { labelId: labelId, label: label, id: id }, { children: options.map((item, index) => ((0, jsx_runtime_1.jsx)(MenuItem_1.default, Object.assign({ value: item.value }, { children: item.label }), index))) }))] })));
+    var { id, labelId, options, size, label, optionLabelKeyname, optionValueKeyname } = _a, rest = __rest(_a, ["id", "labelId", "options", "size", "label", "optionLabelKeyname", "optionValueKeyname"]);
+    return ((0, jsx_runtime_1.jsxs)(FormControl_1.default, Object.assign({ fullWidth: true, ref: ref, size: size }, { children: [(0, jsx_runtime_1.jsx)(InputLabel_1.default, Object.assign({ id: labelId }, { children: label })), (0, jsx_runtime_1.jsx)(Select_1.default, Object.assign({}, rest, { labelId: labelId, label: label, id: id }, { children: options.map((item, index) => ((0, jsx_runtime_1.jsx)(MenuItem_1.default, Object.assign({ value: item[optionValueKeyname] }, { children: item[optionLabelKeyname] }), index))) }))] })));
 });
 exports.Select.defaultProps = {
     label: 'Select',
-    options: [
-        { value: 10, label: 'Ten' },
-        { value: 20, label: 'Twenty' },
-        { value: 30, label: 'Thirty' }
-    ],
     labelId: 'demo-simple-select-label',
-    id: 'demo-simple-select'
+    id: 'demo-simple-select',
+    size: 'small'
 };
 //# sourceMappingURL=index.js.map

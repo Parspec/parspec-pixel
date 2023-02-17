@@ -20,11 +20,11 @@ const react_1 = require("react");
 const TextField_1 = require("../TextField");
 const Autocomplete_1 = __importDefault(require("@mui/material/Autocomplete"));
 exports.Autocomplete = (0, react_1.forwardRef)((_a, ref) => {
-    var { id, label, color, variant, onChange, optionlabelkeyname, freeSolo } = _a, props = __rest(_a, ["id", "label", "color", "variant", "onChange", "optionlabelkeyname", "freeSolo"]);
+    var { id, label, color, variant, onChange, optionlabelkeyname, freeSolo, size } = _a, props = __rest(_a, ["id", "label", "color", "variant", "onChange", "optionlabelkeyname", "freeSolo", "size"]);
     const handleOnChange = (event, newValue) => {
         onChange(Object.assign(Object.assign({}, event), { target: Object.assign(Object.assign({}, event.target), { value: newValue }) }));
     };
-    return ((0, jsx_runtime_1.jsx)(Autocomplete_1.default, Object.assign({}, props, { ref: ref, id: id, onChange: handleOnChange, getOptionLabel: (option) => {
+    return ((0, jsx_runtime_1.jsx)(Autocomplete_1.default, Object.assign({ size: size, fullWidth: true }, props, { ref: ref, id: id, onChange: handleOnChange, getOptionLabel: (option) => {
             if (typeof option === 'object') {
                 return `${option[optionlabelkeyname]}`;
             }
@@ -34,6 +34,7 @@ exports.Autocomplete = (0, react_1.forwardRef)((_a, ref) => {
 exports.Autocomplete.defaultProps = {
     color: 'primary',
     variant: 'outlined',
-    freeSolo: false
+    freeSolo: false,
+    size: 'small'
 };
 //# sourceMappingURL=Autocomplete.js.map

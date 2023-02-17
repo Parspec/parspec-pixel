@@ -1,3 +1,5 @@
+import { forwardRef } from 'react';
+
 import { default as MUIAccordion, AccordionProps as MUIAccordionProps } from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -9,8 +11,8 @@ export interface AccordionProps extends Omit<MUIAccordionProps, 'classes' | 'chi
     variant: 'outlined' | 'elevation';
 }
 
-export const Accordion: React.FC<AccordionProps> = ({ summary, details, variant, ...rest }) => (
-    <MUIAccordion TransitionProps={{ unmountOnExit: true }} {...rest}>
+export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, AccordionProps>(({ summary, details, variant, ...rest }, ref) => (
+    <MUIAccordion ref={ref} TransitionProps={{ unmountOnExit: true }} {...rest}>
         <AccordionSummary
             sx={{
                 flexDirection: 'row-reverse'
@@ -21,7 +23,7 @@ export const Accordion: React.FC<AccordionProps> = ({ summary, details, variant,
         </AccordionSummary>
         <AccordionDetails>{details}</AccordionDetails>
     </MUIAccordion>
-);
+));
 
 Accordion.defaultProps = {
     variant: 'outlined'

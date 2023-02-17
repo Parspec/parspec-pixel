@@ -15,8 +15,8 @@ export default {
 const Template: ComponentStory<typeof Autocomplete> = (args) => (
     <Autocomplete
         {...args}
-        onChange={(e) => {
-            console.log(e);
+        onChange={(e: any) => {
+            console.log(e.target.value);
         }}
     />
 );
@@ -27,7 +27,8 @@ Basic.args = {
     options: top100Films,
     id: 'autocomplete-demo',
     label: 'Movies',
-    optionlabelkeyname: 'title'
+    optionlabelkeyname: 'title',
+    size: 'small'
 };
 
 export const MultiSelect = Template.bind({});

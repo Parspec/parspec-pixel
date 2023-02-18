@@ -33,7 +33,6 @@ const Template: ComponentStory<typeof Accordion> = (args) => {
     };
 
     useEffect(() => {
-        console.log(`[switchState1]`, switchState1);
         if (!switchState1) {
             setIsDisabled(true);
         } else {
@@ -42,7 +41,6 @@ const Template: ComponentStory<typeof Accordion> = (args) => {
     }, [switchState1]);
 
     useEffect(() => {
-        console.log(`[switchState2]`, switchState2);
         if (!switchState2) {
             setIsDisabled(true);
         } else {

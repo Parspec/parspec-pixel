@@ -8,7 +8,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 export interface AccordionProps extends Omit<MUIAccordionProps, 'classes' | 'children'> {
     summary: React.ReactNode;
     details: React.ReactNode;
-    variant: 'outlined' | 'elevation';
+    variant?: 'outlined' | 'elevation';
 }
 
 export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, AccordionProps>(({ summary, details, variant, ...rest }, ref) => (

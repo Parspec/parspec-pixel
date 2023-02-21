@@ -1,21 +1,13 @@
 import { default as MUICircularProgress, CircularProgressProps as MUICircularProgressProps } from '@mui/material/CircularProgress';
+import { SIZE_OPTIONS } from '../../Shared/utils';
+import { SizeType } from '../../Shared/interfaces';
 
 export interface CircularProgressProps extends Omit<MUICircularProgressProps, 'sx'> {
     color?: 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning' | 'inherit';
-    size?: 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+    size?: SizeType;
 }
 
-const fontSize = {
-    xxs: 8,
-    xs: 12,
-    sm: 16,
-    md: 20,
-    lg: 24,
-    xl: 28,
-    xxl: 32
-};
-
-export const CircularProgress: React.FC<CircularProgressProps> = ({ color, size, ...rest }) => <MUICircularProgress color={color} size={fontSize[size || 'md']} {...rest} />;
+export const CircularProgress: React.FC<CircularProgressProps> = ({ color, size, ...rest }) => <MUICircularProgress color={color} size={SIZE_OPTIONS[size || 'md']} {...rest} />;
 
 CircularProgress.defaultProps = {
     color: 'inherit',

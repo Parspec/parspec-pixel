@@ -14,6 +14,5 @@ const Template: ComponentStory<typeof Radio> = (args) => <Radio {...args} />;
 export const radio = Template.bind({});
 
 radio.args = {
-    size: 'small',
-    color: 'primary'
+    size: 'small'
 };

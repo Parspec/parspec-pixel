@@ -18,17 +18,7 @@ export const DefaultModal: ComponentStory<typeof Modal> = ({ open }) => {
 
     const onClose = () => setOpenModal(false);
     const openModalFunction = () => setOpenModal(true);
-    const header = (
-        <ModalHeader title="New BOM" onClose={onClose}>
-            <Box p={2}>
-                <BodyMedium fontWeight={1000}>Modal Header's Optional "Children-Prop" Section</BodyMedium>
-                <Box display="flex" justifyContent="space-between">
-                    <Button size="small">B1</Button>
-                    <Button size="small">B2</Button>
-                </Box>
-            </Box>
-        </ModalHeader>
-    );
+    const header = <ModalHeader title="New BOM" onClose={onClose}></ModalHeader>;
 
     const footer = <ModalFooter onReject={onClose} onAccept={onClose} isLoading />;
     return (
@@ -38,7 +28,7 @@ export const DefaultModal: ComponentStory<typeof Modal> = ({ open }) => {
             </Button>
             <Modal onClose={onClose} header={header} footer={footer} open={openModal}>
                 <BodySmall>
-                    'Size of Modal Body is flexible, set height and width of children prop element, passing isLoading prop to footer will disable the buttons with an added spinner icon'
+                    Size of Modal Body is flexible, set height and width of children prop element, passing isLoading prop to footer will disable the buttons with an added spinner icon
                 </BodySmall>
             </Modal>
         </>

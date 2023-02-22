@@ -1,121 +1,49 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { Accordion } from './';
-import { BodyBig, BodySmall, H5 } from '../Typography/';
-import { Switch } from '../Switch';
-import { Box } from '../Box';
+import { BodyBig, BodyMedium } from '../Typography';
 
 export default {
     title: 'Accordion',
-    component: Accordion,
-    argTypes: {
-        onChange: { action: 'onChange' }
-    }
+    component: Accordion
 } as ComponentMeta<typeof Accordion>;
 
-const Template: ComponentStory<typeof Accordion> = (args) => {
-    const [switchState1, setWitchState1] = useState<boolean>(false);
-    const [switchState2, setWitchState2] = useState<boolean>(false);
-    const [expanded, setExpanded] = useState<string | false>(false);
-    const [isDisabled, setIsDisabled] = useState<boolean>(false);
-
-    const handleSwitchOne = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setWitchState1(event.target.checked);
-    };
-
-    const handleSwitchTwo = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setWitchState2(event.target.checked);
-    };
-
-    const handleAccordionOnChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-        setExpanded(isExpanded ? panel : false);
-    };
-
-    useEffect(() => {
-        if (!switchState1) {
-            setIsDisabled(true);
-        } else {
-            setIsDisabled(false);
-        }
-    }, [switchState1]);
-
-    useEffect(() => {
-        if (!switchState2) {
-            setIsDisabled(true);
-        } else {
-            setIsDisabled(false);
-        }
-    }, [switchState2]);
-
-    return (
-        <>
-            <Accordion {...args} details={'Body 1'} summary={'title1'} expanded={expanded === 'panel1'} onChange={handleAccordionOnChange('panel1')} />
-            <Accordion
-                {...args}
-                details={
-                    isDisabled ? (
-                        <Box
-                            sx={{
-                                pointerEvents: 'none',
-                                opacity: '0.4'
-                            }}
-                        >
-                            <BodyBig>
-                                Dolor duis quis laboris consequat minim officia do ad minim Lorem ut excepteur. Quis consectetur consequat occaecat pariatur culpa excepteur laborum labore exercitation
-                                esse reprehenderit sint. Non nulla fugiat ipsum sunt aliquip eu et. Culpa qui quis nulla reprehenderit ad tempor incididunt qui reprehenderit veniam. Duis fugiat
-                                aliquip ex minim ullamco excepteur eiusmod proident sunt anim labore irure quis. Labore pariatur consequat proident sit nulla amet sint quis officia fugiat sit
-                                exercitation id eu.
-                            </BodyBig>
-                            <Switch label={<BodySmall>settings 1</BodySmall>} />
-                            <Switch label={<BodySmall>settings 2</BodySmall>} />
-                        </Box>
-                    ) : (
-                        <Box>
-                            <BodyBig>
-                                Dolor duis quis laboris consequat minim officia do ad minim Lorem ut excepteur. Quis consectetur consequat occaecat pariatur culpa excepteur laborum labore exercitation
-                                esse reprehenderit sint. Non nulla fugiat ipsum sunt aliquip eu et. Culpa qui quis nulla reprehenderit ad tempor incididunt qui reprehenderit veniam. Duis fugiat
-                                aliquip ex minim ullamco excepteur eiusmod proident sunt anim labore irure quis. Labore pariatur consequat proident sit nulla amet sint quis officia fugiat sit
-                                exercitation id eu.
-                            </BodyBig>
-                            <Switch label={<BodySmall>settings 1</BodySmall>} />
-                            <Switch label={<BodySmall>settings 2</BodySmall>} />
-                        </Box>
-                    )
-                }
-                expanded={expanded === 'panel2'}
-                onChange={handleAccordionOnChange('panel2')}
-                summary={
-                    <Box>
-                        <Switch checked={switchState1} sx={{ marginLeft: '10px' }} label="title 2" onChange={handleSwitchOne} />
-                    </Box>
-                }
-            />
-            <Accordion
-                {...args}
-                details={
-                    isDisabled ? (
-                        <Box
-                            sx={{
-                                pointerEvents: 'none',
-                                opacity: '0.4'
-                            }}
-                        >
-                            I am awesome
-                        </Box>
-                    ) : (
-                        <Box>I am awesome</Box>
-                    )
-                }
-                expanded={expanded === 'panel3'}
-                onChange={handleAccordionOnChange('panel3')}
-                summary={
-                    <Box>
-                        <Switch sx={{ marginLeft: '10px' }} checked={switchState2} onChange={handleSwitchTwo} label="title 3" />
-                    </Box>
-                }
-            />
-        </>
-    );
-};
+const Template: ComponentStory<typeof Accordion> = (args) => <Accordion {...args} />;
 
 export const Basic = Template.bind({});
+
+Basic.args = {
+    options: [
+        {
+            summary: <BodyBig>Accordion 1</BodyBig>,
+            details: (
+                <BodyMedium>
+                    In culpa velit nulla dolore enim proident commodo. Ullamco aliqua anim duis laboris pariatur aute minim excepteur. Pariatur amet pariatur anim velit Lorem ipsum ipsum id. Ad esse
+                    laborum enim pariatur culpa id occaecat ea eiusmod nulla ipsum in.
+                </BodyMedium>
+            ),
+            labelId: 'panel1'
+        },
+        {
+            summary: <BodyBig>Accordion 2</BodyBig>,
+            details: (
+                <BodyMedium>
+                    Deserunt velit culpa aliqua velit magna laboris id ex in proident veniam nostrud pariatur. Consequat est et laboris incididunt incididunt Lorem do ullamco est magna. Dolor est
+                    aliqua nulla quis sint nisi aliquip consectetur ullamco est excepteur nostrud reprehenderit minim. Eiusmod esse consectetur do duis minim qui eu quis. Excepteur reprehenderit
+                    adipisicing pariatur ea ex.
+                </BodyMedium>
+            ),
+            labelId: 'panel2'
+        },
+        {
+            summary: <BodyBig>Accordion 3</BodyBig>,
+            details: (
+                <BodyMedium>
+                    Elit velit officia voluptate adipisicing do id magna id veniam. Amet non consequat fugiat velit cupidatat mollit adipisicing do ut. Officia sunt dolore ex culpa mollit pariatur est
+                    minim quis in nisi est.
+                </BodyMedium>
+            ),
+            labelId: 'panel3'
+        }
+    ]
+};

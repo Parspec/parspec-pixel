@@ -9,9 +9,7 @@ export interface SwitchProps extends Omit<MUISwitchProps, 'classes'> {
     size?: 'small' | 'medium';
 }
 
-export const Switch: React.FC<SwitchProps> = forwardRef(({ label, color, size, ...rest }, ref) => (
-    <FormControlLabel ref={ref} control={<MUISwitch {...rest} size={size} color={color} />} label={label} />
-));
+export const Switch: React.FC<SwitchProps> = forwardRef(({ label, ...rest }, ref) => <FormControlLabel ref={ref} control={<MUISwitch {...rest} />} label={label} />);
 
 Switch.defaultProps = {
     label: '',

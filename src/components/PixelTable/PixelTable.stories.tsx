@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { PixelTable } from './PixelTable';
 import { ColumnDirective } from '@syncfusion/ej2-react-treegrid';
@@ -14,6 +14,11 @@ export default {
 } as ComponentMeta<typeof PixelTable>;
 
 export const Table: ComponentStory<typeof PixelTable> = (props) => {
+    const [instanceCount, setInstanceCount] = useState(0);
+    useEffect(() => {
+        setInstanceCount((prev) => prev + 1);
+    }, [props.allowRowDragAndDrop, props.allowEditing, props.allowExports, props.allowPaging, props.allowResizing, props.height, props.frozenColumns, props.treeColumnIndex]);
+
     const coltemplate = (props: any) => {
         if (props.taskData.name.includes('section')) {
             return <Button size="small">Section</Button>;
@@ -51,7 +56,7 @@ export const Table: ComponentStory<typeof PixelTable> = (props) => {
         );
     };
     return (
-        <PixelTable {...props}>
+        <PixelTable {...props} key={instanceCount}>
             <ColumnDirective type="checkbox" allowEditing={false} width="50"></ColumnDirective>
             <ColumnDirective field="taskID" allowEditing={false} headerText="Task ID" width="150" isPrimaryKey={true} />
             <ColumnDirective field="name" headerText="Task Name" minWidth="200" />

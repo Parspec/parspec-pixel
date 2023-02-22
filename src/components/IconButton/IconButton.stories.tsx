@@ -9,9 +9,8 @@ export default {
     argTypes: { onClick: { action: 'onClick' } }
 } as ComponentMeta<typeof IconButton>;
 
-const Template: ComponentStory<typeof IconButton> = (args) => <IconButton {...args} />;
-
-export const CloseIconButton = Template.bind({});
-CloseIconButton.args = {
-    children: <CloseIcon />
-};
+export const CloseIconButton: ComponentStory<typeof IconButton> = (args) => (
+    <IconButton>
+        <CloseIcon />
+    </IconButton>
+);

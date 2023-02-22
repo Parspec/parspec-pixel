@@ -1,4 +1,4 @@
-import { IconButton } from '@mui/material';
+import { IconButton } from '../IconButton';
 import { CloseIcon } from '../Icons';
 import { BodyBig } from '../Typography';
 import { Box } from '../Box';

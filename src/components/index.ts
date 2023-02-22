@@ -14,6 +14,6 @@ export * from './Select';
 export * from './Tabs';
 export * from './Breadcrumb';
 export * from './Grid';
-export * from './Table';
+export * from './PixelTable';
 export * from './IconButton';
 export * from './Menu';

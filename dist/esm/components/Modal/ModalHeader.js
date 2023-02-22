@@ -1,5 +1,5 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
-import { IconButton } from '@mui/material';
+import { IconButton } from '../IconButton';
 import { CloseIcon } from '../Icons';
 import { BodyBig } from '../Typography';
 import { Box } from '../Box';

@@ -21,7 +21,7 @@ import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { registerLicense } from '@syncfusion/ej2-base';
 import './styles.css';
 import { Box } from '../Box';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 
 let license = window.localStorage.getItem('syncfusionLicense');
 registerLicense(license!);
@@ -61,7 +61,6 @@ export const PixelTable: React.FC<PixelTableProps> = ({
     pdfExportProperties,
     height
 }) => {
-    const [dragData2, setDragData2] = useState(data);
     const ref = useRef<any>();
 
     const rowDrop = (args: any) => {
@@ -95,7 +94,7 @@ export const PixelTable: React.FC<PixelTableProps> = ({
                 <TreeGridComponent
                     height={height}
                     ref={ref}
-                    dataSource={dragData2}
+                    dataSource={data}
                     treeColumnIndex={treeColumnIndex}
                     childMapping={childMappingKey}
                     allowPdfExport={allowExports}

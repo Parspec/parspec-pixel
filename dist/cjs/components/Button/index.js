@@ -18,10 +18,10 @@ exports.Button = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const react_1 = require("react");
 const Button_1 = __importDefault(require("@mui/material/Button"));
-const Icons_1 = require("../Icons");
+const CircularProgress_1 = require("../CircularProgress");
 exports.Button = (0, react_1.forwardRef)((_a, ref) => {
     var { disabled, isLoading, color } = _a, rest = __rest(_a, ["disabled", "isLoading", "color"]);
-    return ((0, jsx_runtime_1.jsx)(Button_1.default, Object.assign({ ref: ref }, rest, { color: color, sx: disabled || isLoading ? { opacity: 0.5, pointerEvents: 'none' } : {}, startIcon: isLoading ? (0, jsx_runtime_1.jsx)(Icons_1.CircularProgressIcon, { color: 'inherit', size: "1rem" }) : null })));
+    return ((0, jsx_runtime_1.jsx)(Button_1.default, Object.assign({ ref: ref }, rest, { color: color, sx: disabled || isLoading ? { opacity: 0.5, pointerEvents: 'none' } : {}, startIcon: isLoading ? (0, jsx_runtime_1.jsx)(CircularProgress_1.CircularProgress, { color: 'inherit', size: "1rem" }) : null })));
 });
 exports.Button.defaultProps = {
     color: 'primary',

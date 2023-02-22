@@ -12,10 +12,10 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx } from "react/jsx-runtime";
 import { forwardRef } from 'react';
 import { default as MUIButton } from '@mui/material/Button';
-import { CircularProgressIcon } from '../Icons';
+import { CircularProgress } from '../CircularProgress';
 export const Button = forwardRef((_a, ref) => {
     var { disabled, isLoading, color } = _a, rest = __rest(_a, ["disabled", "isLoading", "color"]);
-    return (_jsx(MUIButton, Object.assign({ ref: ref }, rest, { color: color, sx: disabled || isLoading ? { opacity: 0.5, pointerEvents: 'none' } : {}, startIcon: isLoading ? _jsx(CircularProgressIcon, { color: 'inherit', size: "1rem" }) : null })));
+    return (_jsx(MUIButton, Object.assign({ ref: ref }, rest, { color: color, sx: disabled || isLoading ? { opacity: 0.5, pointerEvents: 'none' } : {}, startIcon: isLoading ? _jsx(CircularProgress, { color: 'inherit', size: "1rem" }) : null })));
 });
 Button.defaultProps = {
     color: 'primary',

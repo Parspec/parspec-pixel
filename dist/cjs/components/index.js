@@ -32,4 +32,6 @@ __exportStar(require("./Breadcrumb"), exports);
 __exportStar(require("./Menu"), exports);
 __exportStar(require("./Grid"), exports);
 __exportStar(require("./Stack"), exports);
+__exportStar(require("./IconButton"), exports);
+__exportStar(require("./PixelTable"), exports);
 //# sourceMappingURL=index.js.map

@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 import { default as MUIButton, ButtonProps as MUIButtonProps } from '@mui/material/Button';
-import { CircularProgressIcon } from '../Icons';
+import { CircularProgress } from '../CircularProgress';
 
 export interface ButtonProps extends Omit<MUIButtonProps, 'classes'> {
     color?: 'primary' | 'secondary' | 'tertiary';
@@ -14,7 +14,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({ disabled, is
             {...rest}
             color={color}
             sx={disabled || isLoading ? { opacity: 0.5, pointerEvents: 'none' } : {}}
-            startIcon={isLoading ? <CircularProgressIcon color={'inherit'} size="1rem" /> : null}
+            startIcon={isLoading ? <CircularProgress color={'inherit'} size="1rem" /> : null}
         />
     );
 });

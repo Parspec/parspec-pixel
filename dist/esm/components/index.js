@@ -16,4 +16,6 @@ export * from './Breadcrumb';
 export * from './Menu';
 export * from './Grid';
 export * from './Stack';
+export * from './IconButton';
+export * from './PixelTable';
 //# sourceMappingURL=index.js.map

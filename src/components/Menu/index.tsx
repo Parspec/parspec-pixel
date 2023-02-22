@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { IconButton, Menu as MuiMenu } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
-import { MenuIcon } from '../Icons';
+import { MoreVertIcon } from '../Icons';
 
 interface MenuProps {
     options: {
@@ -25,7 +25,7 @@ export const Menu = ({ options }: MenuProps) => {
     return (
         <>
             <IconButton onClick={handleClick}>
-                <MenuIcon />
+                <MoreVertIcon />
             </IconButton>
             <MuiMenu id="basic-menu" anchorEl={anchorEl} open={open} onClose={handleClose}>
                 {options.map(({ label, onClick }) => (

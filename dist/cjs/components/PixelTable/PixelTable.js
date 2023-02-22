@@ -1,13 +1,16 @@
-import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { TreeGridComponent, ColumnsDirective, Selection, RowDD, Inject, Freeze, Sort, Edit, Toolbar, Page, PdfExport, ExcelExport, Resize } from '@syncfusion/ej2-react-treegrid';
-import { registerLicense } from '@syncfusion/ej2-base';
-import './styles.css';
-import { Box } from '../Box';
-import { useRef } from 'react';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PixelTable = void 0;
+const jsx_runtime_1 = require("react/jsx-runtime");
+const ej2_react_treegrid_1 = require("@syncfusion/ej2-react-treegrid");
+const ej2_base_1 = require("@syncfusion/ej2-base");
+require("./styles.css");
+const Box_1 = require("../Box");
+const react_1 = require("react");
 let license = window.localStorage.getItem('syncfusionLicense');
-registerLicense(license);
-export const PixelTable = ({ children, data, childMappingKey, allowExports, allowRowDragAndDrop, frozenColumns, treeColumnIndex, allowPaging, pageSettings, allowResizing, allowEditing, toolBarOptions, excelExportProperties, pdfExportProperties, height }) => {
-    const ref = useRef();
+(0, ej2_base_1.registerLicense)(license);
+const PixelTable = ({ children, data, childMappingKey, allowExports, allowRowDragAndDrop, frozenColumns, treeColumnIndex, allowPaging, pageSettings, allowResizing, allowEditing, toolBarOptions, excelExportProperties, pdfExportProperties, height }) => {
+    const ref = (0, react_1.useRef)();
     const rowDrop = (args) => {
         let treeobj = document.getElementsByClassName('e-treegrid')[0];
         treeobj = treeobj.ej2_instances[0];
@@ -33,7 +36,7 @@ export const PixelTable = ({ children, data, childMappingKey, allowExports, allo
             ref.current.pdfExport(pdfExportProperties);
         }
     };
-    return (_jsx(Box, Object.assign({ className: "control-pane" }, { children: _jsx(Box, Object.assign({ className: "control-section" }, { children: _jsxs(TreeGridComponent, Object.assign({ height: height, ref: ref, dataSource: data, treeColumnIndex: treeColumnIndex, childMapping: childMappingKey, allowPdfExport: allowExports, allowExcelExport: allowExports, allowRowDragAndDrop: allowRowDragAndDrop, allowResizing: allowResizing, selectionSettings: {
+    return ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ className: "control-pane" }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ className: "control-section" }, { children: (0, jsx_runtime_1.jsxs)(ej2_react_treegrid_1.TreeGridComponent, Object.assign({ height: height, ref: ref, dataSource: data, treeColumnIndex: treeColumnIndex, childMapping: childMappingKey, allowPdfExport: allowExports, allowExcelExport: allowExports, allowRowDragAndDrop: allowRowDragAndDrop, allowResizing: allowResizing, selectionSettings: {
                     type: 'Multiple',
                     mode: 'Both',
                     cellSelectionMode: 'Box'
@@ -42,9 +45,10 @@ export const PixelTable = ({ children, data, childMappingKey, allowExports, allo
                         allowEditing: true,
                         mode: 'Batch'
                     }
-                    : {}, toolbar: toolBarOptions, toolbarClick: toolbarClick, pageSettings: pageSettings, allowPaging: allowPaging }, { children: [_jsx(ColumnsDirective, { children: children }), _jsx(Inject, { services: [Freeze, RowDD, Selection, Sort, Edit, Toolbar, Page, ExcelExport, PdfExport, Resize] })] })) })) })));
+                    : {}, toolbar: toolBarOptions, toolbarClick: toolbarClick, pageSettings: pageSettings, allowPaging: allowPaging }, { children: [(0, jsx_runtime_1.jsx)(ej2_react_treegrid_1.ColumnsDirective, { children: children }), (0, jsx_runtime_1.jsx)(ej2_react_treegrid_1.Inject, { services: [ej2_react_treegrid_1.Freeze, ej2_react_treegrid_1.RowDD, ej2_react_treegrid_1.Selection, ej2_react_treegrid_1.Sort, ej2_react_treegrid_1.Edit, ej2_react_treegrid_1.Toolbar, ej2_react_treegrid_1.Page, ej2_react_treegrid_1.ExcelExport, ej2_react_treegrid_1.PdfExport, ej2_react_treegrid_1.Resize] })] })) })) })));
 };
-PixelTable.defaultProps = {
+exports.PixelTable = PixelTable;
+exports.PixelTable.defaultProps = {
     excelExportProperties: {
         fileName: 'newExcel.xlsx',
         isCollapsedStatePersist: false

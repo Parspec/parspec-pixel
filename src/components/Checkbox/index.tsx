@@ -10,6 +10,6 @@ export interface CheckboxProps extends Omit<MUICheckboxProps, 'classes' | 'sx'> 
 export const Checkbox: React.FC<CheckboxProps> = ({ label, ...rest }) => <FormControlLabel control={<MUICheckbox {...rest} />} label={label} />;
 
 Checkbox.defaultProps = {
-    size: 'medium',
+    size: 'small',
     color: 'tertiary'
 };

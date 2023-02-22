@@ -25,7 +25,7 @@ export const Table: ComponentStory<typeof PixelTable> = (props) => {
             );
         } else {
             return (
-                <Button size="small" color="secondary">
+                <Button size="small" color="tertiary">
                     Accessory
                 </Button>
             );

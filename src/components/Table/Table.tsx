@@ -26,7 +26,7 @@ import { useRef } from 'react';
 let license = window.localStorage.getItem('syncfusionLicense');
 registerLicense(license!);
 
-export interface PixelTableProps {
+export interface TableProps {
     children: React.ReactNode;
     data: Object[];
     childMappingKey?: string;
@@ -44,7 +44,7 @@ export interface PixelTableProps {
     height?: number;
 }
 
-export const PixelTable: React.FC<PixelTableProps> = ({
+export const Table: React.FC<TableProps> = ({
     children,
     data,
     childMappingKey,
@@ -131,7 +131,7 @@ export const PixelTable: React.FC<PixelTableProps> = ({
     );
 };
 
-PixelTable.defaultProps = {
+Table.defaultProps = {
     excelExportProperties: {
         fileName: 'newExcel.xlsx',
         isCollapsedStatePersist: false

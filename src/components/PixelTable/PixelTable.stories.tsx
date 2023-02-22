@@ -14,7 +14,7 @@ export default {
 } as ComponentMeta<typeof PixelTable>;
 
 export const Table: ComponentStory<typeof PixelTable> = (props) => {
-    function coltemplate(props: any): any {
+    const coltemplate = (props: any) => {
         if (props.taskData.name.includes('section')) {
             return <Button size="small">Section</Button>;
         } else if (props.taskData.name.includes('product')) {
@@ -30,7 +30,7 @@ export const Table: ComponentStory<typeof PixelTable> = (props) => {
                 </Button>
             );
         }
-    }
+    };
 
     const customFn = (args: { [key: string]: string }): boolean => {
         return getValue('value', args).length >= 3;

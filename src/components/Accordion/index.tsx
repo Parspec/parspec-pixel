@@ -13,10 +13,9 @@ interface AccordionMetaData {
 
 export interface AccordionProps extends Omit<MUIAccordionProps, 'classes' | 'children'> {
     options: AccordionMetaData[];
-    variant?: 'outlined' | 'elevation';
 }
 
-export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, AccordionProps>(({ options, variant, ...rest }, ref) => {
+export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, AccordionProps>(({ options, ...rest }, ref) => {
     const [expanded, setExpanded] = useState<string | false>(false);
 
     const handleAccordionOnChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
@@ -43,7 +42,3 @@ export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, Ac
         </>
     );
 });
-
-Accordion.defaultProps = {
-    variant: 'outlined'
-};

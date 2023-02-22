@@ -5,6 +5,6 @@ export const Radio = (props) => {
 };
 Radio.defaultProps = {
     size: 'small',
-    color: 'primary'
+    color: 'tertiary'
 };
 //# sourceMappingURL=index.js.map

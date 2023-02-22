@@ -10,3 +10,13 @@ declare module '@mui/material/Button' {
         tertiary: true;
     }
 }
+declare module '@mui/material/Radio' {
+    interface RadioPropsColorOverrides {
+        tertiary: true;
+    }
+}
+declare module '@mui/material/Checkbox' {
+    interface CheckboxPropsColorOverrides {
+        tertiary: true;
+    }
+}

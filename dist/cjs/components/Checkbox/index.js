@@ -19,11 +19,12 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const Checkbox_1 = __importDefault(require("@mui/material/Checkbox"));
 const FormControlLabel_1 = __importDefault(require("@mui/material/FormControlLabel"));
 const Checkbox = (_a) => {
-    var { label, size } = _a, rest = __rest(_a, ["label", "size"]);
-    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: (0, jsx_runtime_1.jsx)(FormControlLabel_1.default, { control: (0, jsx_runtime_1.jsx)(Checkbox_1.default, Object.assign({}, rest, { size: size })), label: label }) }));
+    var { label } = _a, rest = __rest(_a, ["label"]);
+    return (0, jsx_runtime_1.jsx)(FormControlLabel_1.default, { control: (0, jsx_runtime_1.jsx)(Checkbox_1.default, Object.assign({}, rest)), label: label });
 };
 exports.Checkbox = Checkbox;
 exports.Checkbox.defaultProps = {
-    size: 'medium'
+    size: 'small',
+    color: 'tertiary'
 };
 //# sourceMappingURL=index.js.map

@@ -19,7 +19,7 @@ export interface RadioGroupProps extends MUIRadioGroupProps {
     size?: 'small' | 'medium';
 }
 
-export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(({ options, label, name, size, ...rest }, ref) => (
+export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(({ options, label, name, size = 'small', ...rest }, ref) => (
     <Box ref={ref}>
         <FormLabel>{label}</FormLabel>
         <MUIRadioGroup {...rest} name={name}>
@@ -35,6 +35,5 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(({ options
 
 RadioGroup.defaultProps = {
     label: 'Radio Group',
-    name: 'radio-group-name-control',
-    size: 'small'
+    name: 'radio-group-name-control'
 };

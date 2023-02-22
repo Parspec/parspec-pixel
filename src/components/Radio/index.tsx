@@ -1,7 +1,7 @@
 import { default as MUIRadio, RadioProps as MUIRadioProps } from '@mui/material/Radio';
 
 export interface RadioProps extends Omit<MUIRadioProps, 'classes' | 'sx' | 'color' | 'size'> {
-    color: 'primary' | 'secondary' | 'tertiary';
+    color?: 'primary' | 'secondary' | 'tertiary';
     size: 'small' | 'medium';
 }
 

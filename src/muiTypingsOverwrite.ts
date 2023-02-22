@@ -38,3 +38,9 @@ declare module '@mui/material/Radio' {
         tertiary: true;
     }
 }
+
+declare module '@mui/material/Checkbox' {
+    interface CheckboxPropsColorOverrides {
+        tertiary: true;
+    }
+}

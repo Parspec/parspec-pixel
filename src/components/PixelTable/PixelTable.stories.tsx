@@ -62,7 +62,7 @@ export const Table: ComponentStory<typeof PixelTable> = (props) => {
 };
 
 Table.args = {
-    height: 600,
+    height: 400,
     data: dDataP,
     childMappingKey: 'subtasks',
     allowRowDragAndDrop: true,

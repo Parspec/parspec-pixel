@@ -44,3 +44,8 @@ declare module '@mui/material/Checkbox' {
         tertiary: true;
     }
 }
+declare module '@mui/material/Switch' {
+    interface SwitchPropsColorOverrides {
+        tertiary: true;
+    }
+}

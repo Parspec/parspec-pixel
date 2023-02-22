@@ -1,8 +1,6 @@
-import * as React from 'react';
 import {
     TreeGridComponent,
     ColumnsDirective,
-    ColumnDirective,
     Selection,
     RowDD,
     Inject,
@@ -14,39 +12,57 @@ import {
     Page,
     PdfExport,
     ExcelExport,
-    toolbarClick
+    Resize,
+    TreeGridExcelExportProperties,
+    TreeGridPdfExportProperties,
+    PageSettingsModel
 } from '@syncfusion/ej2-react-treegrid';
-
-import { dDataP } from './data';
-import { getValue, registerLicense } from '@syncfusion/ej2-base';
+import { ClickEventArgs } from '@syncfusion/ej2-navigations';
+import { registerLicense } from '@syncfusion/ej2-base';
 import './styles.css';
-
 import { Box } from '../Box';
-import { Button } from '../Button';
+import { useRef, useState } from 'react';
 
 let license = window.localStorage.getItem('syncfusionLicense');
 registerLicense(license!);
 
-function coltemplate(props: any): any {
-    if (props.taskData.name.includes('section')) {
-        return (
-            <Box color={'primary.main'}>
-                Section <Button size="small">Hi</Button>
-            </Box>
-        );
-    } else {
-        return (
-            <Box color={'secondary.main'} p={2}>
-                Not a section
-            </Box>
-        );
-    }
+export interface PixelTableProps {
+    children: React.ReactNode;
+    data: Object[];
+    childMappingKey?: string;
+    allowExports?: boolean;
+    allowRowDragAndDrop?: boolean;
+    frozenColumns?: number;
+    treeColumnIndex?: number;
+    allowPaging?: boolean;
+    pageSettings?: PageSettingsModel;
+    allowResizing?: boolean;
+    allowEditing?: boolean;
+    toolBarOptions?: ToolbarItems[];
+    excelExportProperties?: TreeGridExcelExportProperties;
+    pdfExportProperties?: TreeGridPdfExportProperties;
+    height?: number;
 }
-export const PixelTable = () => {
-    const [dragData2, setDragData2] = React.useState(dDataP);
-    const ref = React.useRef<any>();
-    const toolBarOpions: ToolbarItems[] = ['ExcelExport', 'PdfExport', 'Delete', 'Update', 'Cancel'];
-    const selectionsettings: Object = { persistSelection: true };
+
+export const PixelTable: React.FC<PixelTableProps> = ({
+    children,
+    data,
+    childMappingKey,
+    allowExports,
+    allowRowDragAndDrop,
+    frozenColumns,
+    treeColumnIndex,
+    allowPaging,
+    pageSettings,
+    allowResizing,
+    allowEditing,
+    toolBarOptions,
+    excelExportProperties,
+    pdfExportProperties,
+    height
+}) => {
+    const [dragData2, setDragData2] = useState(data);
+    const ref = useRef<any>();
 
     const rowDrop = (args: any) => {
         let treeobj: any = document.getElementsByClassName('e-treegrid')[0];
@@ -65,75 +81,76 @@ export const PixelTable = () => {
             treeobj.reorderRows([args.fromIndex], args.dropIndex, 'below');
         }
     };
-    const toolbarClick = (args: any) => {
+    const toolbarClick = (args: ClickEventArgs) => {
         if (args.item.text === 'Excel Export') {
-            let excelExportProperties = {
-                fileName: 'new.xlsx'
-            };
             ref.current.excelExport(excelExportProperties);
         } else if (args.item.text === 'PDF Export') {
-            const exportProperties = {
-                hierarchyExportMode: 'All'
-            };
-
-            ref.current.pdfExport(exportProperties);
+            ref.current.pdfExport(pdfExportProperties);
         }
-    };
-
-    const customFn = (args: { [key: string]: string }): boolean => {
-        return getValue('value', args).length >= 3;
-    };
-    const customFn2 = (args: { [key: string]: string }): boolean => {
-        return getValue('value', args).length <= 5;
-    };
-    const reporter = {
-        minLength: [customFn, 'Need atleast 3 letters'],
-        maxLength: [customFn2, 'Need atmax 5 letters']
     };
 
     return (
         <Box className="control-pane">
             <Box className="control-section">
                 <TreeGridComponent
+                    height={height}
                     ref={ref}
                     dataSource={dragData2}
-                    treeColumnIndex={2}
-                    childMapping="subtasks"
-                    height="410"
-                    allowPdfExport={true}
-                    allowExcelExport={true}
-                    allowRowDragAndDrop={true}
+                    treeColumnIndex={treeColumnIndex}
+                    childMapping={childMappingKey}
+                    allowPdfExport={allowExports}
+                    allowExcelExport={allowExports}
+                    allowRowDragAndDrop={allowRowDragAndDrop}
+                    allowResizing={allowResizing}
                     selectionSettings={{
                         type: 'Multiple',
-                        mode: 'Cell',
+                        mode: 'Both',
                         cellSelectionMode: 'Box'
                     }}
                     enableAutoFill={true}
                     rowDrop={rowDrop}
-                    frozenColumns={3}
+                    frozenColumns={frozenColumns}
                     allowSorting={true}
-                    editSettings={{
-                        allowEditing: true,
-                        allowAdding: true,
-                        allowDeleting: true,
-                        mode: 'Batch',
-                        newRowPosition: 'Below'
-                    }}
-                    toolbar={toolBarOpions}
+                    editSettings={
+                        allowEditing
+                            ? {
+                                  allowEditing: true,
+                                  mode: 'Batch'
+                              }
+                            : {}
+                    }
+                    toolbar={toolBarOptions}
                     toolbarClick={toolbarClick}
-                    // pageSettings={{ pageSize: 10 }}
-                    allowPaging={true}
+                    pageSettings={pageSettings}
+                    allowPaging={allowPaging}
                 >
-                    <ColumnsDirective>
-                        <ColumnDirective type="checkbox" allowEditing={false} width="50"></ColumnDirective>
-                        <ColumnDirective field="taskID" headerText="Task ID" width="150" isPrimaryKey={true} />
-                        <ColumnDirective field="name" headerText="Task Name" width="200" />
-                        <ColumnDirective field="reporter2" headerText="Reporter Custom" width="140" template={coltemplate} />
-                        <ColumnDirective field="reporter" headerText="Reporter" width="200" validationRules={reporter} />
-                    </ColumnsDirective>
-                    <Inject services={[Freeze, RowDD, Selection, Sort, Edit, Toolbar, Page, ExcelExport, PdfExport]} />
+                    <ColumnsDirective>{children}</ColumnsDirective>
+                    <Inject services={[Freeze, RowDD, Selection, Sort, Edit, Toolbar, Page, ExcelExport, PdfExport, Resize]} />
                 </TreeGridComponent>
             </Box>
         </Box>
     );
+};
+
+PixelTable.defaultProps = {
+    excelExportProperties: {
+        fileName: 'newExcel.xlsx',
+        isCollapsedStatePersist: false
+    },
+    pdfExportProperties: {
+        fileName: 'newPdf.pdf',
+        isCollapsedStatePersist: false
+    },
+    childMappingKey: '',
+    allowExports: true,
+    allowRowDragAndDrop: true,
+    frozenColumns: 0,
+    treeColumnIndex: -1,
+    allowPaging: true,
+    pageSettings: {
+        pageSize: 10
+    },
+    allowResizing: true,
+    allowEditing: true,
+    toolBarOptions: []
 };

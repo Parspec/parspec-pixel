@@ -18,7 +18,7 @@ const Template: ComponentStory<typeof Switch> = (args) => {
 export const Basic = Template.bind({});
 
 Basic.args = {
-    label: <BodyBig>Basic switch</BodyBig>,
+    label: 'Switch',
     size: 'small',
     color: 'tertiary'
 };

@@ -8,6 +8,7 @@ const theme = createTheme({
     // },
     typography: {
         fontFamily: 'Inter',
+        fontSize: 12,
         button: {
             textTransform: 'none'
         }

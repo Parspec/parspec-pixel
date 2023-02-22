@@ -7,7 +7,7 @@ export default create({
     brandUrl: 'https://parspec.io',
     brandTarget: '_self',
     colorPrimary: '#FFA72B',
-    colorSecondary: '#FFA72B',
+    colorSecondary: '#091535',
     appBg: 'white',
     appContentBg: 'white',
     appBorderColor: '#091535',

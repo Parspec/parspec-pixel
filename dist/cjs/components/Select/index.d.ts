@@ -9,8 +9,8 @@ export interface SelectProps extends Omit<MUISelectProps, 'classes'> {
     labelId: string;
     id: string;
     size?: 'small' | 'medium';
-    optionLabelKeyname: string;
-    optionValueKeyname: string;
+    optionLabelKeyname?: string;
+    optionValueKeyname?: string;
 }
 export declare const Select: import("react").ForwardRefExoticComponent<Omit<SelectProps, "ref"> & import("react").RefAttributes<HTMLDivElement>>;
 export {};

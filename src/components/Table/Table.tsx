@@ -23,7 +23,7 @@ import './styles.css';
 import { Box } from '../Box';
 import { useRef } from 'react';
 
-let license = window.localStorage.getItem('syncfusionLicense');
+const license = window.localStorage.getItem('syncfusionLicense');
 registerLicense(license!);
 
 export interface TableProps {
@@ -62,11 +62,8 @@ export const Table: React.FC<TableProps> = ({
     height
 }) => {
     const ref = useRef<any>();
-
     const rowDrop = (args: any) => {
-        let treeobj: any = document.getElementsByClassName('e-treegrid')[0];
-        treeobj = treeobj.ej2_instances[0];
-        let droppedData = treeobj.getRowInfo(args.target.parentElement).rowData;
+        const droppedData = ref.current.getRowInfo(args.target.parentElement).rowData;
         let droppedId, draggedId;
         if (droppedData.parentItem != null) {
             droppedId = droppedData.parentItem.taskID;
@@ -77,7 +74,7 @@ export const Table: React.FC<TableProps> = ({
         }
         if (args.dropPosition == 'middleSegment' && droppedId == draggedId) {
             args.cancel = true;
-            treeobj.reorderRows([args.fromIndex], args.dropIndex, 'below');
+            ref.current.reorderRows([args.fromIndex], args.dropIndex, 'below');
         }
     };
     const toolbarClick = (args: ClickEventArgs) => {
@@ -102,11 +99,9 @@ export const Table: React.FC<TableProps> = ({
                     allowRowDragAndDrop={allowRowDragAndDrop}
                     allowResizing={allowResizing}
                     selectionSettings={{
-                        type: 'Multiple',
-                        mode: 'Both',
-                        cellSelectionMode: 'Box'
+                        checkboxOnly: true,
+                        persistSelection: true
                     }}
-                    enableAutoFill={true}
                     rowDrop={rowDrop}
                     frozenColumns={frozenColumns}
                     allowSorting={true}

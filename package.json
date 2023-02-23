@@ -1,5 +1,5 @@
 {
-    "name": "parspec-pixel",
+    "name": "@parspec/pixel",
     "version": "1.0.0",
     "description": "Parspec UI component library",
     "main": "dist/cjs/index.js",

@@ -18,4 +18,6 @@ export * from './Grid';
 export * from './Stack';
 export * from './IconButton';
 export * from './Table';
+export * from './Accordion';
+export * from './Switch';
 //# sourceMappingURL=index.js.map

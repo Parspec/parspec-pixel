@@ -34,4 +34,6 @@ __exportStar(require("./Grid"), exports);
 __exportStar(require("./Stack"), exports);
 __exportStar(require("./IconButton"), exports);
 __exportStar(require("./Table"), exports);
+__exportStar(require("./Accordion"), exports);
+__exportStar(require("./Switch"), exports);
 //# sourceMappingURL=index.js.map

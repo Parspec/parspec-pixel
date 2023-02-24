@@ -20,16 +20,7 @@ Footer.args = {
     onAccept: () => {},
     onReject: () => {},
     isLoading: true,
-    helperText: (
-        <>
-            <BodySmall color="primary">
-                <Box fontWeight={600} component={'span'} mr={1}>
-                    Success/Error/Warning
-                </Box>
-                Messages
-            </BodySmall>
-        </>
-    ),
+    helperText: <BodySmall color="error">Error/Success/Warning Helper-Text</BodySmall>,
     cancelButtonLabel: 'Cancel',
     continueButtonLabel: 'Submit'
 };

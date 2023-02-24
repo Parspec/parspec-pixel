@@ -36,4 +36,5 @@ __exportStar(require("./IconButton"), exports);
 __exportStar(require("./Table"), exports);
 __exportStar(require("./Accordion"), exports);
 __exportStar(require("./Switch"), exports);
+__exportStar(require("./Paper"), exports);
 //# sourceMappingURL=index.js.map

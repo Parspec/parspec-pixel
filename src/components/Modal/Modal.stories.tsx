@@ -20,7 +20,7 @@ export const DefaultModal: ComponentStory<typeof Modal> = ({ open }) => {
     const openModalFunction = () => setOpenModal(true);
     const header = <ModalHeader title="New BOM" onClose={onClose}></ModalHeader>;
 
-    const footer = <ModalFooter onReject={onClose} onAccept={onClose} isLoading />;
+    const footer = <ModalFooter onReject={onClose} onAccept={onClose} isLoading helperText={<BodySmall color="error">Invalid username</BodySmall>} />;
     return (
         <>
             <Button color="primary" variant="contained" onClick={openModalFunction}>

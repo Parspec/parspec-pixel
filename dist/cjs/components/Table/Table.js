@@ -7,14 +7,12 @@ const ej2_base_1 = require("@syncfusion/ej2-base");
 require("./styles.css");
 const Box_1 = require("../Box");
 const react_1 = require("react");
-let license = window.localStorage.getItem('syncfusionLicense');
+const license = window.localStorage.getItem('syncfusionLicense');
 (0, ej2_base_1.registerLicense)(license);
 const Table = ({ children, data, childMappingKey, allowExports, allowRowDragAndDrop, frozenColumns, treeColumnIndex, allowPaging, pageSettings, allowResizing, allowEditing, toolBarOptions, excelExportProperties, pdfExportProperties, height }) => {
     const ref = (0, react_1.useRef)();
     const rowDrop = (args) => {
-        let treeobj = document.getElementsByClassName('e-treegrid')[0];
-        treeobj = treeobj.ej2_instances[0];
-        let droppedData = treeobj.getRowInfo(args.target.parentElement).rowData;
+        const droppedData = ref.current.getRowInfo(args.target.parentElement).rowData;
         let droppedId, draggedId;
         if (droppedData.parentItem != null) {
             droppedId = droppedData.parentItem.taskID;
@@ -25,7 +23,7 @@ const Table = ({ children, data, childMappingKey, allowExports, allowRowDragAndD
         }
         if (args.dropPosition == 'middleSegment' && droppedId == draggedId) {
             args.cancel = true;
-            treeobj.reorderRows([args.fromIndex], args.dropIndex, 'below');
+            ref.current.reorderRows([args.fromIndex], args.dropIndex, 'below');
         }
     };
     const toolbarClick = (args) => {
@@ -37,10 +35,9 @@ const Table = ({ children, data, childMappingKey, allowExports, allowRowDragAndD
         }
     };
     return ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ className: "control-pane" }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ className: "control-section" }, { children: (0, jsx_runtime_1.jsxs)(ej2_react_treegrid_1.TreeGridComponent, Object.assign({ height: height, ref: ref, dataSource: data, treeColumnIndex: treeColumnIndex, childMapping: childMappingKey, allowPdfExport: allowExports, allowExcelExport: allowExports, allowRowDragAndDrop: allowRowDragAndDrop, allowResizing: allowResizing, selectionSettings: {
-                    type: 'Multiple',
-                    mode: 'Both',
-                    cellSelectionMode: 'Box'
-                }, enableAutoFill: true, rowDrop: rowDrop, frozenColumns: frozenColumns, allowSorting: true, editSettings: allowEditing
+                    checkboxOnly: true,
+                    persistSelection: true
+                }, rowDrop: rowDrop, frozenColumns: frozenColumns, allowSorting: true, editSettings: allowEditing
                     ? {
                         allowEditing: true,
                         mode: 'Batch'

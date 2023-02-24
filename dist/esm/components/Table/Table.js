@@ -4,14 +4,12 @@ import { registerLicense } from '@syncfusion/ej2-base';
 import './styles.css';
 import { Box } from '../Box';
 import { useRef } from 'react';
-let license = window.localStorage.getItem('syncfusionLicense');
+const license = window.localStorage.getItem('syncfusionLicense');
 registerLicense(license);
 export const Table = ({ children, data, childMappingKey, allowExports, allowRowDragAndDrop, frozenColumns, treeColumnIndex, allowPaging, pageSettings, allowResizing, allowEditing, toolBarOptions, excelExportProperties, pdfExportProperties, height }) => {
     const ref = useRef();
     const rowDrop = (args) => {
-        let treeobj = document.getElementsByClassName('e-treegrid')[0];
-        treeobj = treeobj.ej2_instances[0];
-        let droppedData = treeobj.getRowInfo(args.target.parentElement).rowData;
+        const droppedData = ref.current.getRowInfo(args.target.parentElement).rowData;
         let droppedId, draggedId;
         if (droppedData.parentItem != null) {
             droppedId = droppedData.parentItem.taskID;
@@ -22,7 +20,7 @@ export const Table = ({ children, data, childMappingKey, allowExports, allowRowD
         }
         if (args.dropPosition == 'middleSegment' && droppedId == draggedId) {
             args.cancel = true;
-            treeobj.reorderRows([args.fromIndex], args.dropIndex, 'below');
+            ref.current.reorderRows([args.fromIndex], args.dropIndex, 'below');
         }
     };
     const toolbarClick = (args) => {
@@ -34,10 +32,9 @@ export const Table = ({ children, data, childMappingKey, allowExports, allowRowD
         }
     };
     return (_jsx(Box, Object.assign({ className: "control-pane" }, { children: _jsx(Box, Object.assign({ className: "control-section" }, { children: _jsxs(TreeGridComponent, Object.assign({ height: height, ref: ref, dataSource: data, treeColumnIndex: treeColumnIndex, childMapping: childMappingKey, allowPdfExport: allowExports, allowExcelExport: allowExports, allowRowDragAndDrop: allowRowDragAndDrop, allowResizing: allowResizing, selectionSettings: {
-                    type: 'Multiple',
-                    mode: 'Both',
-                    cellSelectionMode: 'Box'
-                }, enableAutoFill: true, rowDrop: rowDrop, frozenColumns: frozenColumns, allowSorting: true, editSettings: allowEditing
+                    checkboxOnly: true,
+                    persistSelection: true
+                }, rowDrop: rowDrop, frozenColumns: frozenColumns, allowSorting: true, editSettings: allowEditing
                     ? {
                         allowEditing: true,
                         mode: 'Batch'

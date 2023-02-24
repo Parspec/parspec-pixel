@@ -25,7 +25,8 @@ import {
     SwapHorizIcon,
     ChangeHistoryIcon,
     ViewArrayIcon,
-    CancelIcon
+    CancelIcon,
+    ThumbNailIcon
 } from './index';
 import { Grid } from '../Grid';
 import { Box } from '../Box';
@@ -58,6 +59,7 @@ export const AllIcons = Template.bind({});
 AllIcons.args = {
     icons: [
         { icon: ParspecLogoIcon, name: 'ParspecLogoIcon' },
+        { icon: ThumbNailIcon, name: 'ThumbNailIcon' },
         { icon: TrendingUpIcon, name: 'TrendingUpIcon' },
         { icon: SearchIcon, name: 'SearchIcon' },
         { icon: UnfoldMoreIcon, name: 'UnfoldMoreIcon' },

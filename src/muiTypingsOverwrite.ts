@@ -49,3 +49,9 @@ declare module '@mui/material/Switch' {
         tertiary: true;
     }
 }
+
+declare module '@mui/material/SvgIcon' {
+    interface SvgIconPropsColorOverrides {
+        tertiary: true;
+    }
+}

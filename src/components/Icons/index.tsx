@@ -1,4 +1,5 @@
 export { ParspecLogoIcon } from './ParspecLogoIcon';
+export { ThumbNailIcon } from './ThumbNailIcon';
 export {
     Close as CloseIcon,
     Cancel as CancelIcon,

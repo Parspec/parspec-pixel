@@ -9,6 +9,7 @@ import { ViewArrayIcon } from '../Icons';
 import { Box } from '../Box';
 import { BodyMedium } from '../Typography';
 import { FilterSettingsModel } from '@syncfusion/ej2-grids';
+import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
 export default {
     title: 'Table',
     component: Table
@@ -63,6 +64,11 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
     const menuFilter: FilterSettingsModel = {
         type: 'Menu'
     };
+    const filterTemplateOptions = (props: any): any => {
+        const dataSource: string[] = ['Yes', 'No'];
+        console.log(props);
+        return <DropDownListComponent id={props.column.field} popupHeight="250px" dataSource={dataSource} />;
+    };
     return (
         <Table {...props} key={instanceCount}>
             <ColumnDirective type="checkbox" allowEditing={false} width="50"></ColumnDirective>
@@ -80,6 +86,7 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
                 allowFiltering={false}
             />
             <ColumnDirective field="reporter" headerText="Reporter" minWidth="200" validationRules={validateReporter} />
+            <ColumnDirective field="available" headerText="Availability" minWidth="200" filter={menuFilter} filterTemplate={filterTemplateOptions} />
         </Table>
     );
 };

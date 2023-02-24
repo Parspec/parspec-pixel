@@ -108,8 +108,11 @@ export const Table: React.FC<TableProps> = ({
                     editSettings={
                         allowEditing
                             ? {
+                                  allowAdding: true,
+                                  allowDeleting: true,
                                   allowEditing: true,
-                                  mode: 'Batch'
+                                  mode: 'Cell',
+                                  showDeleteConfirmDialog: true
                               }
                             : {}
                     }

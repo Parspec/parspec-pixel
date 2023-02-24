@@ -60,7 +60,16 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
             <ColumnDirective type="checkbox" allowEditing={false} width="50"></ColumnDirective>
             <ColumnDirective field="taskID" allowEditing={false} headerText="Task ID" width="150" isPrimaryKey={true} />
             <ColumnDirective field="name" headerText="Task Name" minWidth="200" />
-            <ColumnDirective field="custom" allowEditing={false} allowSorting={false} headerText="Custom Component" minWidth="240" template={coltemplate} headerTemplate={customHeaderTemplate} />
+            <ColumnDirective
+                field="custom"
+                allowEditing={true}
+                allowSorting={false}
+                defaultValue={''}
+                headerText="Custom Component"
+                minWidth="240"
+                template={coltemplate}
+                headerTemplate={customHeaderTemplate}
+            />
             <ColumnDirective field="reporter" headerText="Reporter" minWidth="200" validationRules={validateReporter} />
         </Table>
     );
@@ -78,7 +87,7 @@ Basic.args = {
     allowResizing: true,
     allowEditing: true,
     allowExports: true,
-    toolBarOptions: ['ExcelExport', 'PdfExport', 'Update', 'Cancel'],
+    toolBarOptions: ['ExcelExport', 'PdfExport', 'Add', 'Delete', 'Update', 'Cancel'],
     excelExportProperties: {
         fileName: 'newExcel.xlsx',
         isCollapsedStatePersist: false

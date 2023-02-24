@@ -20,7 +20,7 @@ Footer.args = {
     onAccept: () => {},
     onReject: () => {},
     isLoading: true,
-    helperText: <BodySmall color="error">Error/Success/Warning Helper-Text</BodySmall>,
+    helperText: <BodySmall color="error">Invalid username</BodySmall>,
     cancelButtonLabel: 'Cancel',
     continueButtonLabel: 'Submit'
 };

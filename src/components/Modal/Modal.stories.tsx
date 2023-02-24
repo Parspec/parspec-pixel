@@ -25,7 +25,7 @@ export const DefaultModal: ComponentStory<typeof Modal> = ({ open }) => {
             onReject={onClose}
             onAccept={onClose}
             isLoading
-            footerMessage={
+            helperText={
                 <>
                     <BodySmall color="primary">
                         <Box fontWeight={600} component={'span'} mr={1}>

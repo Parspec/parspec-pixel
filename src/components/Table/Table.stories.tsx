@@ -8,6 +8,7 @@ import { Button } from '../Button';
 import { ViewArrayIcon } from '../Icons';
 import { Box } from '../Box';
 import { BodyMedium } from '../Typography';
+import { FilterSettingsModel } from '@syncfusion/ej2-grids';
 export default {
     title: 'Table',
     component: Table
@@ -55,11 +56,18 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
             </Box>
         );
     };
+
+    const checkboxFilter: FilterSettingsModel = {
+        type: 'CheckBox'
+    };
+    const menuFilter: FilterSettingsModel = {
+        type: 'Menu'
+    };
     return (
         <Table {...props} key={instanceCount}>
             <ColumnDirective type="checkbox" allowEditing={false} width="50"></ColumnDirective>
-            <ColumnDirective field="taskID" allowEditing={false} headerText="Task ID" width="150" isPrimaryKey={true} />
-            <ColumnDirective field="name" headerText="Task Name" minWidth="200" />
+            <ColumnDirective field="taskID" allowEditing={false} headerText="Task ID" width="150" isPrimaryKey={true} filter={checkboxFilter} />
+            <ColumnDirective field="name" headerText="Task Name" minWidth="200" filter={menuFilter} />
             <ColumnDirective
                 field="custom"
                 allowEditing={true}
@@ -69,6 +77,7 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
                 minWidth="240"
                 template={coltemplate}
                 headerTemplate={customHeaderTemplate}
+                allowFiltering={false}
             />
             <ColumnDirective field="reporter" headerText="Reporter" minWidth="200" validationRules={validateReporter} />
         </Table>
@@ -95,5 +104,9 @@ Basic.args = {
     pdfExportProperties: {
         fileName: 'newPdf.pdf',
         isCollapsedStatePersist: false
+    },
+    allowFiltering: true,
+    filterSettings: {
+        type: 'Excel'
     }
 };

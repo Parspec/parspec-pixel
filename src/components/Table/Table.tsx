@@ -15,13 +15,15 @@ import {
     Resize,
     TreeGridExcelExportProperties,
     TreeGridPdfExportProperties,
-    PageSettingsModel
+    PageSettingsModel,
+    Filter
 } from '@syncfusion/ej2-react-treegrid';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { registerLicense } from '@syncfusion/ej2-base';
 import './styles.css';
 import { Box } from '../Box';
 import { useRef } from 'react';
+import { FilterSettingsModel } from '@syncfusion/ej2-grids';
 
 const license = window.localStorage.getItem('syncfusionLicense');
 registerLicense(license!);
@@ -42,6 +44,8 @@ export interface TableProps {
     excelExportProperties?: TreeGridExcelExportProperties;
     pdfExportProperties?: TreeGridPdfExportProperties;
     height?: number;
+    allowFiltering?: boolean;
+    filterSettings?: FilterSettingsModel;
 }
 
 export const Table: React.FC<TableProps> = ({
@@ -59,7 +63,9 @@ export const Table: React.FC<TableProps> = ({
     toolBarOptions,
     excelExportProperties,
     pdfExportProperties,
-    height
+    height,
+    allowFiltering,
+    filterSettings
 }) => {
     const ref = useRef<any>();
     const rowDrop = (args: any) => {
@@ -120,9 +126,11 @@ export const Table: React.FC<TableProps> = ({
                     toolbarClick={toolbarClick}
                     pageSettings={pageSettings}
                     allowPaging={allowPaging}
+                    allowFiltering={allowFiltering}
+                    filterSettings={filterSettings}
                 >
                     <ColumnsDirective>{children}</ColumnsDirective>
-                    <Inject services={[Freeze, RowDD, Selection, Sort, Edit, Toolbar, Page, ExcelExport, PdfExport, Resize]} />
+                    <Inject services={[Freeze, RowDD, Selection, Sort, Edit, Toolbar, Page, ExcelExport, PdfExport, Resize, Filter]} />
                 </TreeGridComponent>
             </Box>
         </Box>
@@ -149,5 +157,9 @@ Table.defaultProps = {
     },
     allowResizing: true,
     allowEditing: true,
-    toolBarOptions: []
+    toolBarOptions: [],
+    allowFiltering: true,
+    filterSettings: {
+        type: 'Excel'
+    }
 };

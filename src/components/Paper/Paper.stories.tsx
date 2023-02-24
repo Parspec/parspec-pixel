@@ -9,7 +9,7 @@ export default {
     component: Paper
 } as ComponentMeta<typeof Paper>;
 
-const Template: ComponentStory<typeof Paper> = (args) => (
+export const Basic: ComponentStory<typeof Paper> = (args) => (
     <Box
         sx={{
             display: 'flex',
@@ -25,8 +25,6 @@ const Template: ComponentStory<typeof Paper> = (args) => (
     </Box>
 );
 
-export const basic = Template.bind({});
-
-basic.args = {
+Basic.args = {
     variant: 'outlined'
 };

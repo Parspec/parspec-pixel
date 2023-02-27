@@ -20,4 +20,5 @@ export * from './IconButton';
 export * from './Table';
 export * from './Accordion';
 export * from './Switch';
+export * from './Paper';
 //# sourceMappingURL=index.js.map

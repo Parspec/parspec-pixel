@@ -5,5 +5,6 @@ export interface ModalFooterProps {
     cancelButtonLabel?: string;
     continueButtonLabel?: string;
     isLoading?: boolean;
+    helperText?: React.ReactNode;
 }
 export declare const ModalFooter: React.FC<ModalFooterProps>;

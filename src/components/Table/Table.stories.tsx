@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { Table } from './Table';
 import { ColumnDirective } from '@syncfusion/ej2-react-treegrid';
@@ -66,11 +66,19 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
     };
     const filterTemplateOptions = (props: any): any => {
         const dataSource: string[] = ['Yes', 'No'];
-        console.log(props);
         return <DropDownListComponent id={props.column.field} popupHeight="250px" dataSource={dataSource} />;
     };
+
+    const onCheckboxChange = (data: Object[]) => {
+        console.log(data);
+    };
+
+    const onDragEnd = (data: Object[]) => {
+        console.log(data);
+    };
+
     return (
-        <Table {...props} key={instanceCount}>
+        <Table {...props} key={instanceCount} onDragEnd={onDragEnd} onCheckboxChange={onCheckboxChange}>
             <ColumnDirective type="checkbox" allowEditing={false} width="50"></ColumnDirective>
             <ColumnDirective field="taskID" allowEditing={false} headerText="Task ID" width="150" isPrimaryKey={true} filter={checkboxFilter} />
             <ColumnDirective field="name" headerText="Task Name" minWidth="200" filter={menuFilter} />

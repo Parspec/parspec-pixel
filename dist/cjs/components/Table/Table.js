@@ -9,10 +9,10 @@ const Box_1 = require("../Box");
 const react_1 = require("react");
 const license = window.localStorage.getItem('syncfusionLicense');
 (0, ej2_base_1.registerLicense)(license);
-const Table = ({ children, data, childMappingKey, allowExports, allowRowDragAndDrop, frozenColumns, treeColumnIndex, allowPaging, pageSettings, allowResizing, allowEditing, toolBarOptions, excelExportProperties, pdfExportProperties, height }) => {
-    const ref = (0, react_1.useRef)();
+const Table = ({ children, data, childMappingKey, allowExports, allowRowDragAndDrop, frozenColumns, treeColumnIndex, allowPaging, pageSettings, allowResizing, allowEditing, toolBarOptions, excelExportProperties, pdfExportProperties, height, allowFiltering, filterSettings, onCheckboxChange, onDragEnd }) => {
+    const tableRef = (0, react_1.useRef)();
     const rowDrop = (args) => {
-        const droppedData = ref.current.getRowInfo(args.target.parentElement).rowData;
+        const droppedData = tableRef.current.getRowInfo(args.target.parentElement).rowData;
         let droppedId, draggedId;
         if (droppedData.parentItem != null) {
             droppedId = droppedData.parentItem.taskID;
@@ -23,26 +23,62 @@ const Table = ({ children, data, childMappingKey, allowExports, allowRowDragAndD
         }
         if (args.dropPosition == 'middleSegment' && droppedId == draggedId) {
             args.cancel = true;
-            ref.current.reorderRows([args.fromIndex], args.dropIndex, 'below');
+            tableRef.current.reorderRows([args.fromIndex], args.dropIndex, 'below');
         }
+        onDragEnd(tableRef.current.getDataModule().treeModule.hierarchyData);
     };
     const toolbarClick = (args) => {
-        if (args.item.text === 'Excel Export') {
-            ref.current.excelExport(excelExportProperties);
+        const selectedRecords = tableRef.current.getSelectedRecords();
+        let exelExportPropertiesOnSelectedCheckboxes = {};
+        let pdfExportPropertiesOnSelectedCheckboxes = {};
+        if (selectedRecords.length !== 0) {
+            exelExportPropertiesOnSelectedCheckboxes = Object.assign(Object.assign({}, excelExportProperties), { dataSource: selectedRecords });
+            pdfExportPropertiesOnSelectedCheckboxes = Object.assign(Object.assign({}, pdfExportProperties), { dataSource: selectedRecords });
+            if (args.item.text === 'Excel Export') {
+                tableRef.current.excelExport(exelExportPropertiesOnSelectedCheckboxes);
+            }
+            else if (args.item.text === 'PDF Export') {
+                tableRef.current.pdfExport(pdfExportPropertiesOnSelectedCheckboxes);
+            }
         }
-        else if (args.item.text === 'PDF Export') {
-            ref.current.pdfExport(pdfExportProperties);
+        else {
+            if (args.item.text === 'Excel Export') {
+                tableRef.current.excelExport(excelExportProperties);
+            }
+            else if (args.item.text === 'PDF Export') {
+                tableRef.current.pdfExport(pdfExportProperties);
+            }
         }
     };
-    return ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ className: "control-pane" }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ className: "control-section" }, { children: (0, jsx_runtime_1.jsxs)(ej2_react_treegrid_1.TreeGridComponent, Object.assign({ height: height, ref: ref, dataSource: data, treeColumnIndex: treeColumnIndex, childMapping: childMappingKey, allowPdfExport: allowExports, allowExcelExport: allowExports, allowRowDragAndDrop: allowRowDragAndDrop, allowResizing: allowResizing, selectionSettings: {
+    const checkboxChange = (args) => {
+        onCheckboxChange(tableRef.current.getSelectedRecords());
+    };
+    const actionComplete = (args) => {
+        console.log('hi  ', args);
+        if (args.requestType === 'add') {
+            // triggers when the record was added
+            console.log('add triggers');
+            console.log(args);
+        }
+        if (args.requestType === 'delete') {
+            // triggers when the record was deleted
+            console.log('delete triggers');
+            console.log(args);
+        }
+    };
+    return ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ className: "control-pane" }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ className: "control-section" }, { children: (0, jsx_runtime_1.jsxs)(ej2_react_treegrid_1.TreeGridComponent, Object.assign({ height: height, ref: tableRef, dataSource: data, treeColumnIndex: treeColumnIndex, childMapping: childMappingKey, allowPdfExport: allowExports, allowExcelExport: allowExports, allowRowDragAndDrop: allowRowDragAndDrop, allowResizing: allowResizing, selectionSettings: {
                     checkboxOnly: true,
                     persistSelection: true
                 }, rowDrop: rowDrop, frozenColumns: frozenColumns, allowSorting: true, editSettings: allowEditing
                     ? {
+                        allowAdding: true,
+                        allowDeleting: true,
                         allowEditing: true,
-                        mode: 'Batch'
+                        mode: 'Cell',
+                        showDeleteConfirmDialog: true,
+                        showConfirmDialog: true
                     }
-                    : {}, toolbar: toolBarOptions, toolbarClick: toolbarClick, pageSettings: pageSettings, allowPaging: allowPaging }, { children: [(0, jsx_runtime_1.jsx)(ej2_react_treegrid_1.ColumnsDirective, { children: children }), (0, jsx_runtime_1.jsx)(ej2_react_treegrid_1.Inject, { services: [ej2_react_treegrid_1.Freeze, ej2_react_treegrid_1.RowDD, ej2_react_treegrid_1.Selection, ej2_react_treegrid_1.Sort, ej2_react_treegrid_1.Edit, ej2_react_treegrid_1.Toolbar, ej2_react_treegrid_1.Page, ej2_react_treegrid_1.ExcelExport, ej2_react_treegrid_1.PdfExport, ej2_react_treegrid_1.Resize] })] })) })) })));
+                    : {}, toolbar: toolBarOptions, toolbarClick: toolbarClick, pageSettings: pageSettings, allowPaging: allowPaging, allowFiltering: allowFiltering, filterSettings: filterSettings, checkboxChange: checkboxChange, actionComplete: actionComplete }, { children: [(0, jsx_runtime_1.jsx)(ej2_react_treegrid_1.ColumnsDirective, { children: children }), (0, jsx_runtime_1.jsx)(ej2_react_treegrid_1.Inject, { services: [ej2_react_treegrid_1.Freeze, ej2_react_treegrid_1.RowDD, ej2_react_treegrid_1.Selection, ej2_react_treegrid_1.Sort, ej2_react_treegrid_1.Edit, ej2_react_treegrid_1.Toolbar, ej2_react_treegrid_1.Page, ej2_react_treegrid_1.ExcelExport, ej2_react_treegrid_1.PdfExport, ej2_react_treegrid_1.Resize, ej2_react_treegrid_1.Filter] })] })) })) })));
 };
 exports.Table = Table;
 exports.Table.defaultProps = {
@@ -65,6 +101,12 @@ exports.Table.defaultProps = {
     },
     allowResizing: true,
     allowEditing: true,
-    toolBarOptions: []
+    toolBarOptions: [],
+    allowFiltering: true,
+    filterSettings: {
+        type: 'Excel'
+    },
+    onCheckboxChange: (data) => { },
+    onDragEnd: (data) => { }
 };
 //# sourceMappingURL=Table.js.map

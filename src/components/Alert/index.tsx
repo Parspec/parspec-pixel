@@ -18,9 +18,9 @@ export const AlertBanner: React.FC<alertBannerProps> = ({ color, onClose, childr
             color={color}
             variant={variant}
             severity={severity}
-            sx={{ paddingLeft: '8px', paddingRight: '8px' }}
+            sx={{ display: 'flex', alignItems: 'center', padding: 2, height: 20 }}
             action={
-                <Box display="flex" alignItems="center" gap={3} paddingTop="4px" marginLeft="0px" marginRight="8px">
+                <Box display="flex" alignItems="center" gap={3} paddingBottom={1} paddingRight={2}>
                     {children}
                     <CloseIcon onClick={onClose} sx={{ cursor: 'pointer' }} />
                 </Box>

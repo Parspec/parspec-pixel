@@ -79,24 +79,28 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
 
     const toolBarOptions: ToolbarItems[] = ['ExcelExport', 'PdfExport', 'Add', 'Delete', 'Update', 'Cancel'];
     return (
-        <Table key={instanceCount} {...props} onDragEnd={onDragEnd} onCheckboxChange={onCheckboxChange} toolBarOptions={toolBarOptions}>
-            <ColumnDirective type="checkbox" allowEditing={false} width="50"></ColumnDirective>
-            <ColumnDirective field="taskID" allowEditing={false} headerText="Task ID" width="150" isPrimaryKey={true} filter={checkboxFilter} />
-            <ColumnDirective field="name" headerText="Task Name" minWidth="200" filter={menuFilter} />
-            <ColumnDirective
-                field="custom"
-                allowEditing={true}
-                allowSorting={false}
-                defaultValue={''}
-                headerText="Custom Component"
-                minWidth="240"
-                template={coltemplate}
-                headerTemplate={customHeaderTemplate}
-                allowFiltering={false}
-            />
-            <ColumnDirective field="reporter" headerText="Reporter" minWidth="200" validationRules={validateReporter} />
-            <ColumnDirective field="available" headerText="Availability" minWidth="200" filter={menuFilter} filterTemplate={filterTemplateOptions} />
-        </Table>
+        <>
+            <br />
+            <br />
+            <Table key={instanceCount} {...props} onDragEnd={onDragEnd} onCheckboxChange={onCheckboxChange} toolBarOptions={toolBarOptions}>
+                <ColumnDirective type="checkbox" allowEditing={false} width="50"></ColumnDirective>
+                <ColumnDirective field="taskID" allowEditing={false} headerText="Task ID" width="150" isPrimaryKey={true} filter={checkboxFilter} />
+                <ColumnDirective field="name" headerText="Task Name" minWidth="200" filter={menuFilter} />
+                <ColumnDirective
+                    field="custom"
+                    allowEditing={true}
+                    allowSorting={false}
+                    defaultValue={''}
+                    headerText="Custom Component"
+                    minWidth="240"
+                    template={coltemplate}
+                    headerTemplate={customHeaderTemplate}
+                    allowFiltering={false}
+                />
+                <ColumnDirective field="reporter" headerText="Reporter" minWidth="200" validationRules={validateReporter} />
+                <ColumnDirective field="available" headerText="Availability" minWidth="200" filter={menuFilter} filterTemplate={filterTemplateOptions} />
+            </Table>
+        </>
     );
 };
 

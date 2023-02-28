@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { Table } from './Table';
-import { ColumnDirective } from '@syncfusion/ej2-react-treegrid';
+import { ColumnDirective, ToolbarItems } from '@syncfusion/ej2-react-treegrid';
 import { getValue } from '@syncfusion/ej2-base';
 import { dDataP } from './data';
 import { Button } from '../Button';
@@ -77,8 +77,9 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
         console.log(data);
     };
 
+    const toolBarOptions: ToolbarItems[] = ['ExcelExport', 'PdfExport', 'Add', 'Delete', 'Update', 'Cancel'];
     return (
-        <Table {...props} key={instanceCount} onDragEnd={onDragEnd} onCheckboxChange={onCheckboxChange}>
+        <Table key={instanceCount} {...props} onDragEnd={onDragEnd} onCheckboxChange={onCheckboxChange} toolBarOptions={toolBarOptions}>
             <ColumnDirective type="checkbox" allowEditing={false} width="50"></ColumnDirective>
             <ColumnDirective field="taskID" allowEditing={false} headerText="Task ID" width="150" isPrimaryKey={true} filter={checkboxFilter} />
             <ColumnDirective field="name" headerText="Task Name" minWidth="200" filter={menuFilter} />
@@ -111,7 +112,7 @@ Basic.args = {
     allowResizing: true,
     allowEditing: true,
     allowExports: true,
-    toolBarOptions: ['ExcelExport', 'PdfExport', 'Add', 'Delete', 'Update', 'Cancel'],
+
     excelExportProperties: {
         fileName: 'newExcel.xlsx',
         isCollapsedStatePersist: false

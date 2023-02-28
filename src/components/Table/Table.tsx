@@ -22,7 +22,18 @@ import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { registerLicense } from '@syncfusion/ej2-base';
 import './styles.css';
 import { Box } from '../Box';
-import { AddEventArgs, CheckBoxChangeEventArgs, DeleteEventArgs, EditEventArgs, FilterSettingsModel, SaveEventArgs } from '@syncfusion/ej2-grids';
+import {
+    AddEventArgs,
+    CheckBoxChangeEventArgs,
+    DeleteEventArgs,
+    EditEventArgs,
+    FilterEventArgs,
+    FilterSettingsModel,
+    PageEventArgs,
+    SaveEventArgs,
+    SearchEventArgs,
+    SortEventArgs
+} from '@syncfusion/ej2-grids';
 import { useRef } from 'react';
 
 const license = window.localStorage.getItem('syncfusionLicense');
@@ -121,8 +132,13 @@ export const Table: React.FC<TableProps> = ({
         onCheckboxChange!(tableRef.current.getSelectedRecords());
     };
 
-    const actionComplete = (args: AddEventArgs | SaveEventArgs | DeleteEventArgs | EditEventArgs) => {
-        console.log('hi  ', args);
+    const actionComplete = (args: PageEventArgs | FilterEventArgs | SortEventArgs | SearchEventArgs | AddEventArgs | SaveEventArgs | EditEventArgs | DeleteEventArgs) => {
+        console.log(args);
+
+        if (args.requestType === 'save') {
+            console.log('save triggers');
+            console.log(args);
+        }
         if (args.requestType === 'add') {
             // triggers when the record was added
             console.log('add triggers');
@@ -130,6 +146,10 @@ export const Table: React.FC<TableProps> = ({
         }
         if (args.requestType === 'delete') {
             // triggers when the record was deleted
+            console.log('delete triggers');
+            console.log(args);
+        }
+        if (args.requestType === 'edit') {
             console.log('delete triggers');
             console.log(args);
         }
@@ -203,7 +223,7 @@ Table.defaultProps = {
     },
     allowResizing: true,
     allowEditing: true,
-    toolBarOptions: [],
+    toolBarOptions: ['ExcelExport', 'PdfExport', 'Delete'],
     allowFiltering: true,
     filterSettings: {
         type: 'Excel'

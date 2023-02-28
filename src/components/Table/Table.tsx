@@ -22,7 +22,7 @@ import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { registerLicense } from '@syncfusion/ej2-base';
 import './styles.css';
 import { Box } from '../Box';
-import { CheckBoxChangeEventArgs, FilterSettingsModel } from '@syncfusion/ej2-grids';
+import { AddEventArgs, CheckBoxChangeEventArgs, DeleteEventArgs, EditEventArgs, FilterSettingsModel, SaveEventArgs } from '@syncfusion/ej2-grids';
 import { useRef } from 'react';
 
 const license = window.localStorage.getItem('syncfusionLicense');
@@ -91,10 +91,29 @@ export const Table: React.FC<TableProps> = ({
     };
 
     const toolbarClick = (args: ClickEventArgs) => {
-        if (args.item.text === 'Excel Export') {
-            tableRef.current.excelExport(excelExportProperties);
-        } else if (args.item.text === 'PDF Export') {
-            tableRef.current.pdfExport(pdfExportProperties);
+        const selectedRecords = tableRef.current.getSelectedRecords();
+        let exelExportPropertiesOnSelectedCheckboxes = {};
+        let pdfExportPropertiesOnSelectedCheckboxes = {};
+        if (selectedRecords.length !== 0) {
+            exelExportPropertiesOnSelectedCheckboxes = {
+                ...excelExportProperties,
+                dataSource: selectedRecords
+            };
+            pdfExportPropertiesOnSelectedCheckboxes = {
+                ...pdfExportProperties,
+                dataSource: selectedRecords
+            };
+            if (args.item.text === 'Excel Export') {
+                tableRef.current.excelExport(exelExportPropertiesOnSelectedCheckboxes);
+            } else if (args.item.text === 'PDF Export') {
+                tableRef.current.pdfExport(pdfExportPropertiesOnSelectedCheckboxes);
+            }
+        } else {
+            if (args.item.text === 'Excel Export') {
+                tableRef.current.excelExport(excelExportProperties);
+            } else if (args.item.text === 'PDF Export') {
+                tableRef.current.pdfExport(pdfExportProperties);
+            }
         }
     };
 
@@ -102,6 +121,19 @@ export const Table: React.FC<TableProps> = ({
         onCheckboxChange!(tableRef.current.getSelectedRecords());
     };
 
+    const actionComplete = (args: AddEventArgs | SaveEventArgs | DeleteEventArgs | EditEventArgs) => {
+        console.log('hi  ', args);
+        if (args.requestType === 'add') {
+            // triggers when the record was added
+            console.log('add triggers');
+            console.log(args);
+        }
+        if (args.requestType === 'delete') {
+            // triggers when the record was deleted
+            console.log('delete triggers');
+            console.log(args);
+        }
+    };
     return (
         <Box className="control-pane">
             <Box className="control-section">
@@ -129,7 +161,8 @@ export const Table: React.FC<TableProps> = ({
                                   allowDeleting: true,
                                   allowEditing: true,
                                   mode: 'Cell',
-                                  showDeleteConfirmDialog: true
+                                  showDeleteConfirmDialog: true,
+                                  showConfirmDialog: true
                               }
                             : {}
                     }
@@ -140,6 +173,7 @@ export const Table: React.FC<TableProps> = ({
                     allowFiltering={allowFiltering}
                     filterSettings={filterSettings}
                     checkboxChange={checkboxChange}
+                    actionComplete={actionComplete}
                 >
                     <ColumnsDirective>{children}</ColumnsDirective>
                     <Inject services={[Freeze, RowDD, Selection, Sort, Edit, Toolbar, Page, ExcelExport, PdfExport, Resize, Filter]} />

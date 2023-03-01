@@ -59,6 +59,9 @@ export interface TableProps {
     filterSettings?: FilterSettingsModel;
     onCheckboxChange?: (data: Object[]) => void;
     onDragEnd?: (data: Object[]) => void;
+    onAdd?: (data: Object) => void;
+    onEdit?: (data: Object) => void;
+    onDelete?: (data: Object) => void;
 }
 
 export const Table: React.FC<TableProps> = ({
@@ -80,7 +83,10 @@ export const Table: React.FC<TableProps> = ({
     allowFiltering,
     filterSettings,
     onCheckboxChange,
-    onDragEnd
+    onDragEnd,
+    onAdd,
+    onEdit,
+    onDelete
 }) => {
     const tableRef = useRef<any>();
 
@@ -133,25 +139,14 @@ export const Table: React.FC<TableProps> = ({
     };
 
     const actionComplete = (args: PageEventArgs | FilterEventArgs | SortEventArgs | SearchEventArgs | AddEventArgs | SaveEventArgs | EditEventArgs | DeleteEventArgs) => {
-        console.log(args);
-
-        if (args.requestType === 'save') {
-            console.log('save triggers');
-            console.log(args);
+        if (args.type === 'save') {
+            onEdit!(args);
         }
-        if (args.requestType === 'add') {
-            // triggers when the record was added
-            console.log('add triggers');
-            console.log(args);
+        if (args.requestType === 'save') {
+            onAdd!(args);
         }
         if (args.requestType === 'delete') {
-            // triggers when the record was deleted
-            console.log('delete triggers');
-            console.log(args);
-        }
-        if (args.requestType === 'edit') {
-            console.log('delete triggers');
-            console.log(args);
+            onDelete!(args);
         }
     };
     return (
@@ -229,5 +224,8 @@ Table.defaultProps = {
         type: 'Excel'
     },
     onCheckboxChange: (data: Object[]) => {},
-    onDragEnd: (data: Object[]) => {}
+    onDragEnd: (data: Object[]) => {},
+    onAdd: (data: Object) => {},
+    onEdit: (data: Object) => {},
+    onDelete: (data: Object) => {}
 };

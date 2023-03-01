@@ -70,11 +70,19 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
     };
 
     const onCheckboxChange = (data: Object[]) => {
-        console.log(data);
+        console.log('onCheckboxChange===>\n', data);
     };
-
     const onDragEnd = (data: Object[]) => {
-        console.log(data);
+        console.log('onDragEnd===>\n', data);
+    };
+    const onAdd = (data: Object) => {
+        console.log('onAdd===>\n', data);
+    };
+    const onEdit = (data: Object) => {
+        console.log('onEdit===>\n', data);
+    };
+    const onDelete = (data: Object) => {
+        console.log('onDelete===>\n', data);
     };
 
     const toolBarOptions: ToolbarItems[] = ['ExcelExport', 'PdfExport', 'Add', 'Delete', 'Update', 'Cancel'];
@@ -82,7 +90,7 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
         <>
             <br />
             <br />
-            <Table key={instanceCount} {...props} onDragEnd={onDragEnd} onCheckboxChange={onCheckboxChange} toolBarOptions={toolBarOptions}>
+            <Table key={instanceCount} {...props} onDragEnd={onDragEnd} onCheckboxChange={onCheckboxChange} toolBarOptions={toolBarOptions} onAdd={onAdd} onEdit={onEdit} onDelete={onDelete}>
                 <ColumnDirective type="checkbox" allowEditing={false} width="50"></ColumnDirective>
                 <ColumnDirective field="taskID" allowEditing={false} headerText="Task ID" width="150" isPrimaryKey={true} filter={checkboxFilter} />
                 <ColumnDirective field="name" headerText="Task Name" minWidth="200" filter={menuFilter} />

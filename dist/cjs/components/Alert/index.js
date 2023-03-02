@@ -5,8 +5,8 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const Box_1 = require("../Box");
 const material_1 = require("@mui/material");
 const Icons_1 = require("../Icons");
-const AlertBanner = ({ color, onClose, children, text, variant, severity }) => {
-    return ((0, jsx_runtime_1.jsx)(material_1.Alert, Object.assign({ onClose: onClose, color: color, variant: variant, severity: severity, sx: {
+const AlertBanner = ({ onClose, children, text, variant, severity }) => {
+    return ((0, jsx_runtime_1.jsx)(material_1.Alert, Object.assign({ onClose: onClose, variant: variant, severity: severity, sx: {
             display: 'flex',
             alignItems: 'center',
             padding: 2,
@@ -18,7 +18,6 @@ const AlertBanner = ({ color, onClose, children, text, variant, severity }) => {
 };
 exports.AlertBanner = AlertBanner;
 exports.AlertBanner.defaultProps = {
-    color: 'warning',
     onClose: () => { },
     text: 'You need to enter custom message',
     variant: 'filled',

@@ -37,4 +37,5 @@ __exportStar(require("./Table"), exports);
 __exportStar(require("./Accordion"), exports);
 __exportStar(require("./Switch"), exports);
 __exportStar(require("./Paper"), exports);
+__exportStar(require("./Snackbar"), exports);
 //# sourceMappingURL=index.js.map

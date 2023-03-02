@@ -21,4 +21,5 @@ export * from './Table';
 export * from './Accordion';
 export * from './Switch';
 export * from './Paper';
+export * from './Tooltip';
 //# sourceMappingURL=index.js.map

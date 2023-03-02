@@ -65,7 +65,7 @@ export const Table = ({ children, data, childMappingKey, allowExports, allowRowD
         }
     };
     const dataBound = (args) => {
-        hiddenKeys.map((key) => {
+        hiddenKeys === null || hiddenKeys === void 0 ? void 0 : hiddenKeys.map((key) => {
             var _a;
             const hiddenRowTemplateTd = document.getElementById(key);
             const hiddenRowTr = (_a = hiddenRowTemplateTd === null || hiddenRowTemplateTd === void 0 ? void 0 : hiddenRowTemplateTd.parentElement) === null || _a === void 0 ? void 0 : _a.parentElement;

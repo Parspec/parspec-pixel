@@ -63,7 +63,7 @@ export interface TableProps {
     onEdit?: (data: Object) => void;
     onDelete?: (data: Object) => void;
     onSearch?: (data: Object) => void;
-    hiddenKeys: string[];
+    hiddenKeys?: string[];
 }
 
 export const Table: React.FC<TableProps> = ({
@@ -155,7 +155,7 @@ export const Table: React.FC<TableProps> = ({
     };
 
     const dataBound = (args: Object) => {
-        hiddenKeys.map((key) => {
+        hiddenKeys?.map((key) => {
             const hiddenRowTemplateTd: HTMLElement = document.getElementById(key)!;
             const hiddenRowTr: HTMLElement = hiddenRowTemplateTd?.parentElement?.parentElement!;
             if (hiddenRowTr) {

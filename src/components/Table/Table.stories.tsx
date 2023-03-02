@@ -153,6 +153,6 @@ Basic.args = {
     allowFiltering: true,
     filterSettings: {
         type: 'Excel'
-    }
-    // hiddenKeys: ['1', '2', '3', '13']
+    },
+    hiddenKeys: ['1', '2', '3', '13']
 };

@@ -3,7 +3,6 @@ import { Alert, AlertProps } from '@mui/material';
 import { CloseIcon } from '../Icons';
 
 export interface alertBannerProps extends Omit<AlertProps, 'classes'> {
-    color?: 'success' | 'info' | 'warning' | 'error' | undefined;
     onClose: () => void;
     children?: React.ReactNode;
     text: string;
@@ -11,11 +10,10 @@ export interface alertBannerProps extends Omit<AlertProps, 'classes'> {
     severity: 'success' | 'info' | 'warning' | 'error';
 }
 
-export const AlertBanner: React.FC<alertBannerProps> = ({ color, onClose, children, text, variant, severity }) => {
+export const AlertBanner: React.FC<alertBannerProps> = ({ onClose, children, text, variant, severity }) => {
     return (
         <Alert
             onClose={onClose}
-            color={color}
             variant={variant}
             severity={severity}
             sx={{
@@ -40,7 +38,6 @@ export const AlertBanner: React.FC<alertBannerProps> = ({ color, onClose, childr
 };
 
 AlertBanner.defaultProps = {
-    color: 'warning',
     onClose: () => {},
     text: 'You need to enter custom message',
     variant: 'filled',

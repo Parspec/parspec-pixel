@@ -6,7 +6,7 @@ import { Box } from '../Box';
 import { useRef } from 'react';
 const license = window.localStorage.getItem('syncfusionLicense');
 registerLicense(license);
-export const Table = ({ children, data, childMappingKey, allowExports, allowRowDragAndDrop, frozenColumns, treeColumnIndex, allowPaging, pageSettings, allowResizing, allowEditing, toolBarOptions, excelExportProperties, pdfExportProperties, height, allowFiltering, filterSettings, onCheckboxChange, onDragEnd, onAdd, onEdit, onDelete }) => {
+export const Table = ({ children, data, childMappingKey, allowExports, allowRowDragAndDrop, frozenColumns, treeColumnIndex, allowPaging, pageSettings, allowResizing, allowEditing, toolBarOptions, excelExportProperties, pdfExportProperties, height, allowFiltering, filterSettings, onCheckboxChange, onDragEnd, onAdd, onEdit, onDelete, onSearch, hiddenKeys }) => {
     const tableRef = useRef();
     const rowDrop = (args) => {
         const droppedData = tableRef.current.getRowInfo(args.target.parentElement).rowData;
@@ -54,14 +54,36 @@ export const Table = ({ children, data, childMappingKey, allowExports, allowRowD
         if (args.type === 'save') {
             onEdit(args);
         }
-        if (args.requestType === 'save') {
+        else if (args.requestType === 'save') {
             onAdd(args);
         }
-        if (args.requestType === 'delete') {
+        else if (args.requestType === 'delete') {
             onDelete(args);
         }
+        else if (args.requestType === 'searching') {
+            onSearch(args);
+        }
     };
-    return (_jsx(Box, Object.assign({ className: "control-pane" }, { children: _jsx(Box, Object.assign({ className: "control-section" }, { children: _jsxs(TreeGridComponent, Object.assign({ height: height, ref: tableRef, dataSource: data, treeColumnIndex: treeColumnIndex, childMapping: childMappingKey, allowPdfExport: allowExports, allowExcelExport: allowExports, allowRowDragAndDrop: allowRowDragAndDrop, allowResizing: allowResizing, selectionSettings: {
+    const dataBound = (args) => {
+        hiddenKeys.map((key) => {
+            var _a;
+            const hiddenRowTemplateTd = document.getElementById(key);
+            const hiddenRowTr = (_a = hiddenRowTemplateTd === null || hiddenRowTemplateTd === void 0 ? void 0 : hiddenRowTemplateTd.parentElement) === null || _a === void 0 ? void 0 : _a.parentElement;
+            if (hiddenRowTr) {
+                const rowIndex = hiddenRowTr === null || hiddenRowTr === void 0 ? void 0 : hiddenRowTr.getAttribute('data-rowindex');
+                const rowsOfAllTablesWithProvidedRowIndex = document.querySelectorAll(`tr[data-rowindex="${rowIndex}"]`);
+                for (let i = 0; i < rowsOfAllTablesWithProvidedRowIndex.length; i++) {
+                    const cols = rowsOfAllTablesWithProvidedRowIndex[i].childNodes;
+                    if (cols) {
+                        for (let i = 0; i < cols.length; i++) {
+                            cols[i].style.opacity = 0.4;
+                        }
+                    }
+                }
+            }
+        });
+    };
+    return (_jsx(Box, Object.assign({ className: "control-pane" }, { children: _jsx(Box, Object.assign({ className: "control-section" }, { children: _jsxs(TreeGridComponent, Object.assign({ dataBound: dataBound, height: height, ref: tableRef, dataSource: data, treeColumnIndex: treeColumnIndex, childMapping: childMappingKey, allowPdfExport: allowExports, allowExcelExport: allowExports, allowRowDragAndDrop: allowRowDragAndDrop, allowResizing: allowResizing, selectionSettings: {
                     checkboxOnly: true,
                     persistSelection: true
                 }, rowDrop: rowDrop, frozenColumns: frozenColumns, allowSorting: true, editSettings: allowEditing
@@ -71,7 +93,8 @@ export const Table = ({ children, data, childMappingKey, allowExports, allowRowD
                         allowEditing: true,
                         mode: 'Cell',
                         showDeleteConfirmDialog: true,
-                        showConfirmDialog: true
+                        showConfirmDialog: true,
+                        newRowPosition: 'Bottom'
                     }
                     : {}, toolbar: toolBarOptions, toolbarClick: toolbarClick, pageSettings: pageSettings, allowPaging: allowPaging, allowFiltering: allowFiltering, filterSettings: filterSettings, checkboxChange: checkboxChange, actionComplete: actionComplete }, { children: [_jsx(ColumnsDirective, { children: children }), _jsx(Inject, { services: [Freeze, RowDD, Selection, Sort, Edit, Toolbar, Page, ExcelExport, PdfExport, Resize, Filter] })] })) })) })));
 };
@@ -104,6 +127,8 @@ Table.defaultProps = {
     onDragEnd: (data) => { },
     onAdd: (data) => { },
     onEdit: (data) => { },
-    onDelete: (data) => { }
+    onDelete: (data) => { },
+    onSearch: (data) => { },
+    hiddenKeys: []
 };
 //# sourceMappingURL=Table.js.map

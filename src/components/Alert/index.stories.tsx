@@ -14,7 +14,6 @@ export const Basic: ComponentStory<typeof AlertBanner> = (args) => <AlertBanner 
 Basic.args = {
     variant: 'filled',
     children: 'Basic',
-    color: 'warning',
     text: 'Hellooo',
     severity: 'warning'
 };

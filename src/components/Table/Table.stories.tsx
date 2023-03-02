@@ -23,16 +23,20 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
 
     const coltemplate = (props: any) => {
         if (props.taskData.name.includes('section')) {
-            return <Button size="small">Section</Button>;
+            return (
+                <Button size="small" id={props.id}>
+                    Section
+                </Button>
+            );
         } else if (props.taskData.name.includes('product')) {
             return (
-                <Button size="small" color="secondary">
+                <Button size="small" color="secondary" id={props.id}>
                     Product
                 </Button>
             );
         } else {
             return (
-                <Button size="small" color="tertiary">
+                <Button size="small" color="tertiary" id={props.id}>
                     Accessory
                 </Button>
             );
@@ -84,15 +88,28 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
     const onDelete = (data: Object) => {
         console.log('onDelete===>\n', data);
     };
-
-    const toolBarOptions: ToolbarItems[] = ['ExcelExport', 'PdfExport', 'Add', 'Delete', 'Update', 'Cancel'];
+    const onSearch = (data: Object) => {
+        console.log('onSearch===>\n', data);
+    };
+    const toolBarOptions: ToolbarItems[] = ['ExcelExport', 'PdfExport', 'Add', 'Delete', 'Update', 'Cancel', 'Search'];
     return (
         <>
             <br />
             <br />
-            <Table key={instanceCount} {...props} onDragEnd={onDragEnd} onCheckboxChange={onCheckboxChange} toolBarOptions={toolBarOptions} onAdd={onAdd} onEdit={onEdit} onDelete={onDelete}>
+            <Table
+                key={instanceCount}
+                {...props}
+                onDragEnd={onDragEnd}
+                onCheckboxChange={onCheckboxChange}
+                toolBarOptions={toolBarOptions}
+                onAdd={onAdd}
+                onEdit={onEdit}
+                onDelete={onDelete}
+                onSearch={onSearch}
+            >
                 <ColumnDirective type="checkbox" allowEditing={false} width="50"></ColumnDirective>
-                <ColumnDirective field="taskID" allowEditing={false} headerText="Task ID" width="150" isPrimaryKey={true} filter={checkboxFilter} />
+                <ColumnDirective field="id" isPrimaryKey={true} visible={false} />
+                <ColumnDirective field="taskID" allowEditing={false} headerText="Task ID" width="150" filter={checkboxFilter} editType="numericedit" />
                 <ColumnDirective field="name" headerText="Task Name" minWidth="200" filter={menuFilter} />
                 <ColumnDirective
                     field="custom"
@@ -117,8 +134,8 @@ Basic.args = {
     data: dDataP,
     childMappingKey: 'subtasks',
     allowRowDragAndDrop: true,
-    frozenColumns: 3,
-    treeColumnIndex: 2,
+    frozenColumns: 4,
+    treeColumnIndex: 3,
     allowPaging: true,
     pageSettings: { pageSize: 10 },
     allowResizing: true,
@@ -137,4 +154,5 @@ Basic.args = {
     filterSettings: {
         type: 'Excel'
     }
+    // hiddenKeys: ['1', '2', '3', '13']
 };

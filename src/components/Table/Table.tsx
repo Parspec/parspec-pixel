@@ -62,6 +62,8 @@ export interface TableProps {
     onAdd?: (data: Object) => void;
     onEdit?: (data: Object) => void;
     onDelete?: (data: Object) => void;
+    onSearch?: (data: Object) => void;
+    hiddenKeys: string[];
 }
 
 export const Table: React.FC<TableProps> = ({
@@ -86,7 +88,9 @@ export const Table: React.FC<TableProps> = ({
     onDragEnd,
     onAdd,
     onEdit,
-    onDelete
+    onDelete,
+    onSearch,
+    hiddenKeys
 }) => {
     const tableRef = useRef<any>();
 
@@ -141,18 +145,38 @@ export const Table: React.FC<TableProps> = ({
     const actionComplete = (args: PageEventArgs | FilterEventArgs | SortEventArgs | SearchEventArgs | AddEventArgs | SaveEventArgs | EditEventArgs | DeleteEventArgs) => {
         if (args.type === 'save') {
             onEdit!(args);
-        }
-        if (args.requestType === 'save') {
+        } else if (args.requestType === 'save') {
             onAdd!(args);
-        }
-        if (args.requestType === 'delete') {
+        } else if (args.requestType === 'delete') {
             onDelete!(args);
+        } else if (args.requestType === 'searching') {
+            onSearch!(args);
         }
+    };
+
+    const dataBound = (args: Object) => {
+        hiddenKeys.map((key) => {
+            const hiddenRowTemplateTd: HTMLElement = document.getElementById(key)!;
+            const hiddenRowTr: HTMLElement = hiddenRowTemplateTd?.parentElement?.parentElement!;
+            if (hiddenRowTr) {
+                const rowIndex: string = hiddenRowTr?.getAttribute('data-rowindex')!;
+                const rowsOfAllTablesWithProvidedRowIndex: any = document.querySelectorAll(`tr[data-rowindex="${rowIndex}"]`);
+                for (let i = 0; i < rowsOfAllTablesWithProvidedRowIndex.length; i++) {
+                    const cols = rowsOfAllTablesWithProvidedRowIndex[i].childNodes;
+                    if (cols) {
+                        for (let i = 0; i < cols.length; i++) {
+                            cols[i].style.opacity = 0.4;
+                        }
+                    }
+                }
+            }
+        });
     };
     return (
         <Box className="control-pane">
             <Box className="control-section">
                 <TreeGridComponent
+                    dataBound={dataBound}
                     height={height}
                     ref={tableRef}
                     dataSource={data}
@@ -177,7 +201,8 @@ export const Table: React.FC<TableProps> = ({
                                   allowEditing: true,
                                   mode: 'Cell',
                                   showDeleteConfirmDialog: true,
-                                  showConfirmDialog: true
+                                  showConfirmDialog: true,
+                                  newRowPosition: 'Bottom'
                               }
                             : {}
                     }
@@ -227,5 +252,7 @@ Table.defaultProps = {
     onDragEnd: (data: Object[]) => {},
     onAdd: (data: Object) => {},
     onEdit: (data: Object) => {},
-    onDelete: (data: Object) => {}
+    onDelete: (data: Object) => {},
+    onSearch: (data: Object) => {},
+    hiddenKeys: []
 };

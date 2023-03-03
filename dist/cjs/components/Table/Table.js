@@ -1,19 +1,22 @@
-import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { TreeGridComponent, ColumnsDirective, Selection, RowDD, Inject, Freeze, Sort, Edit, Toolbar, Page, PdfExport, ExcelExport, Resize, Filter } from '@syncfusion/ej2-react-treegrid';
-import { isNullOrUndefined, registerLicense } from '@syncfusion/ej2-base';
-import './styles.css';
-import { Box } from '../Box';
-import { getObject } from '@syncfusion/ej2-grids';
-import { useRef } from 'react';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Table = void 0;
+const jsx_runtime_1 = require("react/jsx-runtime");
+const ej2_react_treegrid_1 = require("@syncfusion/ej2-react-treegrid");
+const ej2_base_1 = require("@syncfusion/ej2-base");
+require("./styles.css");
+const Box_1 = require("../Box");
+const ej2_grids_1 = require("@syncfusion/ej2-grids");
+const react_1 = require("react");
 const license = window.localStorage.getItem('syncfusionLicense');
-registerLicense(license);
-export const Table = ({ children, data, childMappingKey, allowExports, allowRowDragAndDrop, frozenColumns, treeColumnIndex, allowPaging, pageSettings, allowResizing, allowEditing, toolBarOptions, excelExportProperties, pdfExportProperties, height, allowFiltering, filterSettings, onCheckboxChange, onDragEnd, onAdd, onEdit, onDelete, onSearch }) => {
-    const tableRef = useRef();
+(0, ej2_base_1.registerLicense)(license);
+const Table = ({ children, data, childMappingKey, allowExports, allowRowDragAndDrop, frozenColumns, treeColumnIndex, allowPaging, pageSettings, allowResizing, allowEditing, toolBarOptions, excelExportProperties, pdfExportProperties, height, allowFiltering, filterSettings, onCheckboxChange, onDragEnd, onAdd, onEdit, onDelete, onSearch }) => {
+    const tableRef = (0, react_1.useRef)();
     const rowDrop = (args) => {
         // var treeobj = document.getElementsByClassName('e-treegrid')[0].ej2_instances[0];
         var droppedData = tableRef.current.getRowInfo(args.target.parentElement).rowData; //dropped data
         //here collect the taskid value based on parent records
-        if (!isNullOrUndefined(droppedData.parentItem) && args.data[0].parentItem != null) {
+        if (!(0, ej2_base_1.isNullOrUndefined)(droppedData.parentItem) && args.data[0].parentItem != null) {
             var droppedId = droppedData.parentItem.taskID; //dropped data
             var draggedId = args.data[0].parentItem.taskID; // dragged data
         }
@@ -37,12 +40,12 @@ export const Table = ({ children, data, childMappingKey, allowExports, allowRowD
         }
         //Here we prevent the drop for child position
         if (args.dropPosition == 'middleSegment') {
-            if (!isNullOrUndefined(draggedId) && !isNullOrUndefined(droppedId)) {
+            if (!(0, ej2_base_1.isNullOrUndefined)(draggedId) && !(0, ej2_base_1.isNullOrUndefined)(droppedId)) {
                 if (droppedId == draggedId || args.data[0].level == droppedData.level) {
                     args.cancel = true;
                 }
             }
-            else if (args.data[0].level == droppedData.level || (args.data[0].level != droppedData.level && isNullOrUndefined(draggedId) && isNullOrUndefined(droppedId))) {
+            else if (args.data[0].level == droppedData.level || (args.data[0].level != droppedData.level && (0, ej2_base_1.isNullOrUndefined)(draggedId) && (0, ej2_base_1.isNullOrUndefined)(droppedId))) {
                 args.cancel = true;
             }
         }
@@ -89,11 +92,11 @@ export const Table = ({ children, data, childMappingKey, allowExports, allowRowD
         }
     };
     const rowDataBound = (args) => {
-        if (getObject('hidden', args.data) === true) {
+        if ((0, ej2_grids_1.getObject)('hidden', args.data) === true) {
             args.row.style.opacity = '0.4';
         }
     };
-    return (_jsx(Box, Object.assign({ className: "control-pane" }, { children: _jsx(Box, Object.assign({ className: "control-section" }, { children: _jsxs(TreeGridComponent, Object.assign({ rowDataBound: rowDataBound, height: height, ref: tableRef, dataSource: data, treeColumnIndex: treeColumnIndex, childMapping: childMappingKey, allowPdfExport: allowExports, allowExcelExport: allowExports, allowRowDragAndDrop: allowRowDragAndDrop, allowResizing: allowResizing, selectionSettings: {
+    return ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ className: "control-pane" }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ className: "control-section" }, { children: (0, jsx_runtime_1.jsxs)(ej2_react_treegrid_1.TreeGridComponent, Object.assign({ rowDataBound: rowDataBound, height: height, ref: tableRef, dataSource: data, treeColumnIndex: treeColumnIndex, childMapping: childMappingKey, allowPdfExport: allowExports, allowExcelExport: allowExports, allowRowDragAndDrop: allowRowDragAndDrop, allowResizing: allowResizing, selectionSettings: {
                     checkboxOnly: true,
                     persistSelection: true
                 }, rowDrop: rowDrop, frozenColumns: frozenColumns, allowSorting: true, editSettings: allowEditing
@@ -106,9 +109,10 @@ export const Table = ({ children, data, childMappingKey, allowExports, allowRowD
                         showConfirmDialog: true,
                         newRowPosition: 'Bottom'
                     }
-                    : {}, toolbar: toolBarOptions, toolbarClick: (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.length) !== 0 ? toolbarClick : undefined, pageSettings: pageSettings, allowPaging: allowPaging, allowFiltering: allowFiltering, filterSettings: filterSettings, checkboxChange: checkboxChange, actionComplete: actionComplete }, { children: [_jsx(ColumnsDirective, { children: children }), _jsx(Inject, { services: [Freeze, RowDD, Selection, Sort, Edit, Toolbar, Page, ExcelExport, PdfExport, Resize, Filter] })] })) })) })));
+                    : {}, toolbar: toolBarOptions, toolbarClick: (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.length) !== 0 ? toolbarClick : undefined, pageSettings: pageSettings, allowPaging: allowPaging, allowFiltering: allowFiltering, filterSettings: filterSettings, checkboxChange: checkboxChange, actionComplete: actionComplete }, { children: [(0, jsx_runtime_1.jsx)(ej2_react_treegrid_1.ColumnsDirective, { children: children }), (0, jsx_runtime_1.jsx)(ej2_react_treegrid_1.Inject, { services: [ej2_react_treegrid_1.Freeze, ej2_react_treegrid_1.RowDD, ej2_react_treegrid_1.Selection, ej2_react_treegrid_1.Sort, ej2_react_treegrid_1.Edit, ej2_react_treegrid_1.Toolbar, ej2_react_treegrid_1.Page, ej2_react_treegrid_1.ExcelExport, ej2_react_treegrid_1.PdfExport, ej2_react_treegrid_1.Resize, ej2_react_treegrid_1.Filter] })] })) })) })));
 };
-Table.defaultProps = {
+exports.Table = Table;
+exports.Table.defaultProps = {
     excelExportProperties: {
         fileName: 'newExcel.xlsx',
         isCollapsedStatePersist: false

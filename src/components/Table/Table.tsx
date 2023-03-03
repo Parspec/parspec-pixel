@@ -19,7 +19,7 @@ import {
     Filter
 } from '@syncfusion/ej2-react-treegrid';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
-import { registerLicense } from '@syncfusion/ej2-base';
+import { isNullOrUndefined, registerLicense } from '@syncfusion/ej2-base';
 import './styles.css';
 import { Box } from '../Box';
 import {
@@ -65,7 +65,6 @@ export interface TableProps {
     onEdit?: (data: Object) => void;
     onDelete?: (data: Object) => void;
     onSearch?: (data: Object) => void;
-    // hiddenKeys?: string[];
 }
 
 export const Table: React.FC<TableProps> = ({
@@ -92,27 +91,45 @@ export const Table: React.FC<TableProps> = ({
     onEdit,
     onDelete,
     onSearch
-    // hiddenKeys
 }) => {
     const tableRef = useRef<any>();
 
     const rowDrop = (args: any) => {
-        const droppedData = tableRef.current.getRowInfo(args.target.parentElement).rowData;
-        let droppedId, draggedId;
-        if (droppedData.parentItem != null) {
-            droppedId = droppedData.parentItem.taskID;
-            draggedId = args.data[0].parentItem.taskID;
+        // var treeobj = document.getElementsByClassName('e-treegrid')[0].ej2_instances[0];
+        var droppedData = tableRef.current.getRowInfo(args.target.parentElement).rowData; //dropped data
+        //here collect the taskid value based on parent records
+        if (!isNullOrUndefined(droppedData.parentItem) && args.data[0].parentItem != null) {
+            var droppedId = droppedData.parentItem.taskID; //dropped data
+            var draggedId = args.data[0].parentItem.taskID; // dragged data
+        } else if (droppedData.hasChildRecords == true) {
+            var droppedId = droppedData.taskID; //dropped data
+            var draggedId = args.data[0].taskID; // dragged data
         }
-        if (droppedId != draggedId) {
+
+        //Here we prevent for top / bottom position
+        if (droppedId != draggedId && args.data[0].level != droppedData.level) {
             args.cancel = true;
+        } else if (args.dropPosition == 'topSegment' || args.dropPosition == 'bottomSegment') {
+            //here prevent the drop for within child parent
+            if (args.data[0].level != droppedData.level) {
+                args.cancel = true;
+            } else if (args.data[0].level == droppedData.level && (args.data[0].hasChildRecords == undefined || droppedData.hasChildRecords == undefined) && droppedId != draggedId) {
+                //here we prevent drop the record in top of another parent's child
+                args.cancel = true;
+            }
         }
-        if (args.dropPosition == 'middleSegment' && droppedId == draggedId) {
-            args.cancel = true;
-            tableRef.current.reorderRows([args.fromIndex], args.dropIndex, 'below');
+        //Here we prevent the drop for child position
+        if (args.dropPosition == 'middleSegment') {
+            if (!isNullOrUndefined(draggedId) && !isNullOrUndefined(droppedId)) {
+                if (droppedId == draggedId || args.data[0].level == droppedData.level) {
+                    args.cancel = true;
+                }
+            } else if (args.data[0].level == droppedData.level || (args.data[0].level != droppedData.level && isNullOrUndefined(draggedId) && isNullOrUndefined(droppedId))) {
+                args.cancel = true;
+            }
         }
         onDragEnd!(tableRef.current.getDataModule().treeModule.hierarchyData);
     };
-
     const toolbarClick = (args: ClickEventArgs) => {
         const selectedRecords = tableRef.current.getSelectedRecords();
         let exelExportPropertiesOnSelectedCheckboxes = {};
@@ -156,25 +173,6 @@ export const Table: React.FC<TableProps> = ({
         }
     };
 
-    // const dataBound = (args: Object) => {
-    //     hiddenKeys?.map((key) => {
-    //         const hiddenRowTemplateTd: HTMLElement = document.getElementById(key)!;
-    //         const hiddenRowTr: HTMLElement = hiddenRowTemplateTd?.parentElement?.parentElement!;
-    //         if (hiddenRowTr) {
-    //             const rowIndex: string = hiddenRowTr?.getAttribute('data-rowindex')!;
-    //             const rowsOfAllTablesWithProvidedRowIndex: any = document.querySelectorAll(`tr[data-rowindex="${rowIndex}"]`);
-    //             for (let i = 0; i < rowsOfAllTablesWithProvidedRowIndex.length; i++) {
-    //                 const cols = rowsOfAllTablesWithProvidedRowIndex[i].childNodes;
-    //                 if (cols) {
-    //                     for (let i = 0; i < cols.length; i++) {
-    //                         cols[i].style.opacity = 0.4;
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     });
-    // };
-
     const rowDataBound = (args: RowDataBoundEventArgs) => {
         if (getObject('hidden', args.data) === true) {
             (args.row as HTMLTableRowElement).style.opacity = '0.4';
@@ -185,7 +183,6 @@ export const Table: React.FC<TableProps> = ({
             <Box className="control-section">
                 <TreeGridComponent
                     rowDataBound={rowDataBound}
-                    // dataBound={dataBound}
                     height={height}
                     ref={tableRef}
                     dataSource={data}
@@ -216,7 +213,7 @@ export const Table: React.FC<TableProps> = ({
                             : {}
                     }
                     toolbar={toolBarOptions}
-                    toolbarClick={toolbarClick}
+                    toolbarClick={toolBarOptions?.length !== 0 ? toolbarClick : undefined}
                     pageSettings={pageSettings}
                     allowPaging={allowPaging}
                     allowFiltering={allowFiltering}
@@ -252,7 +249,6 @@ Table.defaultProps = {
     },
     allowResizing: true,
     allowEditing: true,
-    toolBarOptions: ['ExcelExport', 'PdfExport', 'Delete'],
     allowFiltering: true,
     filterSettings: {
         type: 'Excel'
@@ -263,5 +259,4 @@ Table.defaultProps = {
     onEdit: (data: Object) => {},
     onDelete: (data: Object) => {},
     onSearch: (data: Object) => {}
-    // hiddenKeys: []
 };

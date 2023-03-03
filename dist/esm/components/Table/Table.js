@@ -1,29 +1,50 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { TreeGridComponent, ColumnsDirective, Selection, RowDD, Inject, Freeze, Sort, Edit, Toolbar, Page, PdfExport, ExcelExport, Resize, Filter } from '@syncfusion/ej2-react-treegrid';
-import { registerLicense } from '@syncfusion/ej2-base';
+import { isNullOrUndefined, registerLicense } from '@syncfusion/ej2-base';
 import './styles.css';
 import { Box } from '../Box';
 import { getObject } from '@syncfusion/ej2-grids';
 import { useRef } from 'react';
 const license = window.localStorage.getItem('syncfusionLicense');
 registerLicense(license);
-export const Table = ({ children, data, childMappingKey, allowExports, allowRowDragAndDrop, frozenColumns, treeColumnIndex, allowPaging, pageSettings, allowResizing, allowEditing, toolBarOptions, excelExportProperties, pdfExportProperties, height, allowFiltering, filterSettings, onCheckboxChange, onDragEnd, onAdd, onEdit, onDelete, onSearch
-// hiddenKeys
- }) => {
+export const Table = ({ children, data, childMappingKey, allowExports, allowRowDragAndDrop, frozenColumns, treeColumnIndex, allowPaging, pageSettings, allowResizing, allowEditing, toolBarOptions, excelExportProperties, pdfExportProperties, height, allowFiltering, filterSettings, onCheckboxChange, onDragEnd, onAdd, onEdit, onDelete, onSearch }) => {
     const tableRef = useRef();
     const rowDrop = (args) => {
-        const droppedData = tableRef.current.getRowInfo(args.target.parentElement).rowData;
-        let droppedId, draggedId;
-        if (droppedData.parentItem != null) {
-            droppedId = droppedData.parentItem.taskID;
-            draggedId = args.data[0].parentItem.taskID;
+        // var treeobj = document.getElementsByClassName('e-treegrid')[0].ej2_instances[0];
+        var droppedData = tableRef.current.getRowInfo(args.target.parentElement).rowData; //dropped data
+        //here collect the taskid value based on parent records
+        if (!isNullOrUndefined(droppedData.parentItem) && args.data[0].parentItem != null) {
+            var droppedId = droppedData.parentItem.taskID; //dropped data
+            var draggedId = args.data[0].parentItem.taskID; // dragged data
         }
-        if (droppedId != draggedId) {
+        else if (droppedData.hasChildRecords == true) {
+            var droppedId = droppedData.taskID; //dropped data
+            var draggedId = args.data[0].taskID; // dragged data
+        }
+        //Here we prevent for top / bottom position
+        if (droppedId != draggedId && args.data[0].level != droppedData.level) {
             args.cancel = true;
         }
-        if (args.dropPosition == 'middleSegment' && droppedId == draggedId) {
-            args.cancel = true;
-            tableRef.current.reorderRows([args.fromIndex], args.dropIndex, 'below');
+        else if (args.dropPosition == 'topSegment' || args.dropPosition == 'bottomSegment') {
+            //here prevent the drop for within child parent
+            if (args.data[0].level != droppedData.level) {
+                args.cancel = true;
+            }
+            else if (args.data[0].level == droppedData.level && (args.data[0].hasChildRecords == undefined || droppedData.hasChildRecords == undefined) && droppedId != draggedId) {
+                //here we prevent drop the record in top of another parent's child
+                args.cancel = true;
+            }
+        }
+        //Here we prevent the drop for child position
+        if (args.dropPosition == 'middleSegment') {
+            if (!isNullOrUndefined(draggedId) && !isNullOrUndefined(droppedId)) {
+                if (droppedId == draggedId || args.data[0].level == droppedData.level) {
+                    args.cancel = true;
+                }
+            }
+            else if (args.data[0].level == droppedData.level || (args.data[0].level != droppedData.level && isNullOrUndefined(draggedId) && isNullOrUndefined(droppedId))) {
+                args.cancel = true;
+            }
         }
         onDragEnd(tableRef.current.getDataModule().treeModule.hierarchyData);
     };
@@ -67,24 +88,6 @@ export const Table = ({ children, data, childMappingKey, allowExports, allowRowD
             onSearch(args);
         }
     };
-    // const dataBound = (args: Object) => {
-    //     hiddenKeys?.map((key) => {
-    //         const hiddenRowTemplateTd: HTMLElement = document.getElementById(key)!;
-    //         const hiddenRowTr: HTMLElement = hiddenRowTemplateTd?.parentElement?.parentElement!;
-    //         if (hiddenRowTr) {
-    //             const rowIndex: string = hiddenRowTr?.getAttribute('data-rowindex')!;
-    //             const rowsOfAllTablesWithProvidedRowIndex: any = document.querySelectorAll(`tr[data-rowindex="${rowIndex}"]`);
-    //             for (let i = 0; i < rowsOfAllTablesWithProvidedRowIndex.length; i++) {
-    //                 const cols = rowsOfAllTablesWithProvidedRowIndex[i].childNodes;
-    //                 if (cols) {
-    //                     for (let i = 0; i < cols.length; i++) {
-    //                         cols[i].style.opacity = 0.4;
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     });
-    // };
     const rowDataBound = (args) => {
         if (getObject('hidden', args.data) === true) {
             args.row.style.opacity = '0.4';
@@ -138,6 +141,5 @@ Table.defaultProps = {
     onEdit: (data) => { },
     onDelete: (data) => { },
     onSearch: (data) => { }
-    // hiddenKeys: []
 };
 //# sourceMappingURL=Table.js.map

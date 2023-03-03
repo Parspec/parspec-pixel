@@ -21,6 +21,7 @@ export const AlertBanner: React.FC<alertBannerProps> = ({ onClose, children, tex
                 alignItems: 'center',
                 padding: 2,
                 height: 20,
+                boxSizing: 'content-box',
                 '& .MuiAlert-icon': {
                     marginRight: 2
                 }

@@ -29,7 +29,9 @@ import {
     EditEventArgs,
     FilterEventArgs,
     FilterSettingsModel,
+    getObject,
     PageEventArgs,
+    RowDataBoundEventArgs,
     SaveEventArgs,
     SearchEventArgs,
     SortEventArgs
@@ -63,7 +65,7 @@ export interface TableProps {
     onEdit?: (data: Object) => void;
     onDelete?: (data: Object) => void;
     onSearch?: (data: Object) => void;
-    hiddenKeys?: string[];
+    // hiddenKeys?: string[];
 }
 
 export const Table: React.FC<TableProps> = ({
@@ -89,8 +91,8 @@ export const Table: React.FC<TableProps> = ({
     onAdd,
     onEdit,
     onDelete,
-    onSearch,
-    hiddenKeys
+    onSearch
+    // hiddenKeys
 }) => {
     const tableRef = useRef<any>();
 
@@ -154,29 +156,36 @@ export const Table: React.FC<TableProps> = ({
         }
     };
 
-    const dataBound = (args: Object) => {
-        hiddenKeys?.map((key) => {
-            const hiddenRowTemplateTd: HTMLElement = document.getElementById(key)!;
-            const hiddenRowTr: HTMLElement = hiddenRowTemplateTd?.parentElement?.parentElement!;
-            if (hiddenRowTr) {
-                const rowIndex: string = hiddenRowTr?.getAttribute('data-rowindex')!;
-                const rowsOfAllTablesWithProvidedRowIndex: any = document.querySelectorAll(`tr[data-rowindex="${rowIndex}"]`);
-                for (let i = 0; i < rowsOfAllTablesWithProvidedRowIndex.length; i++) {
-                    const cols = rowsOfAllTablesWithProvidedRowIndex[i].childNodes;
-                    if (cols) {
-                        for (let i = 0; i < cols.length; i++) {
-                            cols[i].style.opacity = 0.4;
-                        }
-                    }
-                }
-            }
-        });
+    // const dataBound = (args: Object) => {
+    //     hiddenKeys?.map((key) => {
+    //         const hiddenRowTemplateTd: HTMLElement = document.getElementById(key)!;
+    //         const hiddenRowTr: HTMLElement = hiddenRowTemplateTd?.parentElement?.parentElement!;
+    //         if (hiddenRowTr) {
+    //             const rowIndex: string = hiddenRowTr?.getAttribute('data-rowindex')!;
+    //             const rowsOfAllTablesWithProvidedRowIndex: any = document.querySelectorAll(`tr[data-rowindex="${rowIndex}"]`);
+    //             for (let i = 0; i < rowsOfAllTablesWithProvidedRowIndex.length; i++) {
+    //                 const cols = rowsOfAllTablesWithProvidedRowIndex[i].childNodes;
+    //                 if (cols) {
+    //                     for (let i = 0; i < cols.length; i++) {
+    //                         cols[i].style.opacity = 0.4;
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     });
+    // };
+
+    const rowDataBound = (args: RowDataBoundEventArgs) => {
+        if (getObject('hidden', args.data) === true) {
+            (args.row as HTMLTableRowElement).style.opacity = '0.4';
+        }
     };
     return (
         <Box className="control-pane">
             <Box className="control-section">
                 <TreeGridComponent
-                    dataBound={dataBound}
+                    rowDataBound={rowDataBound}
+                    // dataBound={dataBound}
                     height={height}
                     ref={tableRef}
                     dataSource={data}
@@ -253,6 +262,6 @@ Table.defaultProps = {
     onAdd: (data: Object) => {},
     onEdit: (data: Object) => {},
     onDelete: (data: Object) => {},
-    onSearch: (data: Object) => {},
-    hiddenKeys: []
+    onSearch: (data: Object) => {}
+    // hiddenKeys: []
 };

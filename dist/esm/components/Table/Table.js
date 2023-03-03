@@ -3,10 +3,13 @@ import { TreeGridComponent, ColumnsDirective, Selection, RowDD, Inject, Freeze, 
 import { registerLicense } from '@syncfusion/ej2-base';
 import './styles.css';
 import { Box } from '../Box';
+import { getObject } from '@syncfusion/ej2-grids';
 import { useRef } from 'react';
 const license = window.localStorage.getItem('syncfusionLicense');
 registerLicense(license);
-export const Table = ({ children, data, childMappingKey, allowExports, allowRowDragAndDrop, frozenColumns, treeColumnIndex, allowPaging, pageSettings, allowResizing, allowEditing, toolBarOptions, excelExportProperties, pdfExportProperties, height, allowFiltering, filterSettings, onCheckboxChange, onDragEnd, onAdd, onEdit, onDelete, onSearch, hiddenKeys }) => {
+export const Table = ({ children, data, childMappingKey, allowExports, allowRowDragAndDrop, frozenColumns, treeColumnIndex, allowPaging, pageSettings, allowResizing, allowEditing, toolBarOptions, excelExportProperties, pdfExportProperties, height, allowFiltering, filterSettings, onCheckboxChange, onDragEnd, onAdd, onEdit, onDelete, onSearch
+// hiddenKeys
+ }) => {
     const tableRef = useRef();
     const rowDrop = (args) => {
         const droppedData = tableRef.current.getRowInfo(args.target.parentElement).rowData;
@@ -64,26 +67,32 @@ export const Table = ({ children, data, childMappingKey, allowExports, allowRowD
             onSearch(args);
         }
     };
-    const dataBound = (args) => {
-        hiddenKeys === null || hiddenKeys === void 0 ? void 0 : hiddenKeys.map((key) => {
-            var _a;
-            const hiddenRowTemplateTd = document.getElementById(key);
-            const hiddenRowTr = (_a = hiddenRowTemplateTd === null || hiddenRowTemplateTd === void 0 ? void 0 : hiddenRowTemplateTd.parentElement) === null || _a === void 0 ? void 0 : _a.parentElement;
-            if (hiddenRowTr) {
-                const rowIndex = hiddenRowTr === null || hiddenRowTr === void 0 ? void 0 : hiddenRowTr.getAttribute('data-rowindex');
-                const rowsOfAllTablesWithProvidedRowIndex = document.querySelectorAll(`tr[data-rowindex="${rowIndex}"]`);
-                for (let i = 0; i < rowsOfAllTablesWithProvidedRowIndex.length; i++) {
-                    const cols = rowsOfAllTablesWithProvidedRowIndex[i].childNodes;
-                    if (cols) {
-                        for (let i = 0; i < cols.length; i++) {
-                            cols[i].style.opacity = 0.4;
-                        }
-                    }
-                }
-            }
-        });
+    // const dataBound = (args: Object) => {
+    //     hiddenKeys?.map((key) => {
+    //         const hiddenRowTemplateTd: HTMLElement = document.getElementById(key)!;
+    //         const hiddenRowTr: HTMLElement = hiddenRowTemplateTd?.parentElement?.parentElement!;
+    //         if (hiddenRowTr) {
+    //             const rowIndex: string = hiddenRowTr?.getAttribute('data-rowindex')!;
+    //             const rowsOfAllTablesWithProvidedRowIndex: any = document.querySelectorAll(`tr[data-rowindex="${rowIndex}"]`);
+    //             for (let i = 0; i < rowsOfAllTablesWithProvidedRowIndex.length; i++) {
+    //                 const cols = rowsOfAllTablesWithProvidedRowIndex[i].childNodes;
+    //                 if (cols) {
+    //                     for (let i = 0; i < cols.length; i++) {
+    //                         cols[i].style.opacity = 0.4;
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     });
+    // };
+    const rowDataBound = (args) => {
+        if (getObject('hidden', args.data) === true) {
+            args.row.style.opacity = '0.4';
+        }
     };
-    return (_jsx(Box, Object.assign({ className: "control-pane" }, { children: _jsx(Box, Object.assign({ className: "control-section" }, { children: _jsxs(TreeGridComponent, Object.assign({ dataBound: dataBound, height: height, ref: tableRef, dataSource: data, treeColumnIndex: treeColumnIndex, childMapping: childMappingKey, allowPdfExport: allowExports, allowExcelExport: allowExports, allowRowDragAndDrop: allowRowDragAndDrop, allowResizing: allowResizing, selectionSettings: {
+    return (_jsx(Box, Object.assign({ className: "control-pane" }, { children: _jsx(Box, Object.assign({ className: "control-section" }, { children: _jsxs(TreeGridComponent, Object.assign({ rowDataBound: rowDataBound, 
+                // dataBound={dataBound}
+                height: height, ref: tableRef, dataSource: data, treeColumnIndex: treeColumnIndex, childMapping: childMappingKey, allowPdfExport: allowExports, allowExcelExport: allowExports, allowRowDragAndDrop: allowRowDragAndDrop, allowResizing: allowResizing, selectionSettings: {
                     checkboxOnly: true,
                     persistSelection: true
                 }, rowDrop: rowDrop, frozenColumns: frozenColumns, allowSorting: true, editSettings: allowEditing
@@ -128,7 +137,7 @@ Table.defaultProps = {
     onAdd: (data) => { },
     onEdit: (data) => { },
     onDelete: (data) => { },
-    onSearch: (data) => { },
-    hiddenKeys: []
+    onSearch: (data) => { }
+    // hiddenKeys: []
 };
 //# sourceMappingURL=Table.js.map

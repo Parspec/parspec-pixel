@@ -6,10 +6,13 @@ const ej2_react_treegrid_1 = require("@syncfusion/ej2-react-treegrid");
 const ej2_base_1 = require("@syncfusion/ej2-base");
 require("./styles.css");
 const Box_1 = require("../Box");
+const ej2_grids_1 = require("@syncfusion/ej2-grids");
 const react_1 = require("react");
 const license = window.localStorage.getItem('syncfusionLicense');
 (0, ej2_base_1.registerLicense)(license);
-const Table = ({ children, data, childMappingKey, allowExports, allowRowDragAndDrop, frozenColumns, treeColumnIndex, allowPaging, pageSettings, allowResizing, allowEditing, toolBarOptions, excelExportProperties, pdfExportProperties, height, allowFiltering, filterSettings, onCheckboxChange, onDragEnd, onAdd, onEdit, onDelete, onSearch, hiddenKeys }) => {
+const Table = ({ children, data, childMappingKey, allowExports, allowRowDragAndDrop, frozenColumns, treeColumnIndex, allowPaging, pageSettings, allowResizing, allowEditing, toolBarOptions, excelExportProperties, pdfExportProperties, height, allowFiltering, filterSettings, onCheckboxChange, onDragEnd, onAdd, onEdit, onDelete, onSearch
+// hiddenKeys
+ }) => {
     const tableRef = (0, react_1.useRef)();
     const rowDrop = (args) => {
         const droppedData = tableRef.current.getRowInfo(args.target.parentElement).rowData;
@@ -67,26 +70,32 @@ const Table = ({ children, data, childMappingKey, allowExports, allowRowDragAndD
             onSearch(args);
         }
     };
-    const dataBound = (args) => {
-        hiddenKeys === null || hiddenKeys === void 0 ? void 0 : hiddenKeys.map((key) => {
-            var _a;
-            const hiddenRowTemplateTd = document.getElementById(key);
-            const hiddenRowTr = (_a = hiddenRowTemplateTd === null || hiddenRowTemplateTd === void 0 ? void 0 : hiddenRowTemplateTd.parentElement) === null || _a === void 0 ? void 0 : _a.parentElement;
-            if (hiddenRowTr) {
-                const rowIndex = hiddenRowTr === null || hiddenRowTr === void 0 ? void 0 : hiddenRowTr.getAttribute('data-rowindex');
-                const rowsOfAllTablesWithProvidedRowIndex = document.querySelectorAll(`tr[data-rowindex="${rowIndex}"]`);
-                for (let i = 0; i < rowsOfAllTablesWithProvidedRowIndex.length; i++) {
-                    const cols = rowsOfAllTablesWithProvidedRowIndex[i].childNodes;
-                    if (cols) {
-                        for (let i = 0; i < cols.length; i++) {
-                            cols[i].style.opacity = 0.4;
-                        }
-                    }
-                }
-            }
-        });
+    // const dataBound = (args: Object) => {
+    //     hiddenKeys?.map((key) => {
+    //         const hiddenRowTemplateTd: HTMLElement = document.getElementById(key)!;
+    //         const hiddenRowTr: HTMLElement = hiddenRowTemplateTd?.parentElement?.parentElement!;
+    //         if (hiddenRowTr) {
+    //             const rowIndex: string = hiddenRowTr?.getAttribute('data-rowindex')!;
+    //             const rowsOfAllTablesWithProvidedRowIndex: any = document.querySelectorAll(`tr[data-rowindex="${rowIndex}"]`);
+    //             for (let i = 0; i < rowsOfAllTablesWithProvidedRowIndex.length; i++) {
+    //                 const cols = rowsOfAllTablesWithProvidedRowIndex[i].childNodes;
+    //                 if (cols) {
+    //                     for (let i = 0; i < cols.length; i++) {
+    //                         cols[i].style.opacity = 0.4;
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     });
+    // };
+    const rowDataBound = (args) => {
+        if ((0, ej2_grids_1.getObject)('hidden', args.data) === true) {
+            args.row.style.opacity = '0.4';
+        }
     };
-    return ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ className: "control-pane" }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ className: "control-section" }, { children: (0, jsx_runtime_1.jsxs)(ej2_react_treegrid_1.TreeGridComponent, Object.assign({ dataBound: dataBound, height: height, ref: tableRef, dataSource: data, treeColumnIndex: treeColumnIndex, childMapping: childMappingKey, allowPdfExport: allowExports, allowExcelExport: allowExports, allowRowDragAndDrop: allowRowDragAndDrop, allowResizing: allowResizing, selectionSettings: {
+    return ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ className: "control-pane" }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ className: "control-section" }, { children: (0, jsx_runtime_1.jsxs)(ej2_react_treegrid_1.TreeGridComponent, Object.assign({ rowDataBound: rowDataBound, 
+                // dataBound={dataBound}
+                height: height, ref: tableRef, dataSource: data, treeColumnIndex: treeColumnIndex, childMapping: childMappingKey, allowPdfExport: allowExports, allowExcelExport: allowExports, allowRowDragAndDrop: allowRowDragAndDrop, allowResizing: allowResizing, selectionSettings: {
                     checkboxOnly: true,
                     persistSelection: true
                 }, rowDrop: rowDrop, frozenColumns: frozenColumns, allowSorting: true, editSettings: allowEditing
@@ -132,7 +141,7 @@ exports.Table.defaultProps = {
     onAdd: (data) => { },
     onEdit: (data) => { },
     onDelete: (data) => { },
-    onSearch: (data) => { },
-    hiddenKeys: []
+    onSearch: (data) => { }
+    // hiddenKeys: []
 };
 //# sourceMappingURL=Table.js.map

@@ -4,30 +4,35 @@ export declare const dDataP: {
     name: string;
     reporter: string;
     available: string;
+    hidden: boolean;
     subtasks: ({
         id: number;
         taskID: number;
         name: string;
         reporter: string;
         available: string;
+        hidden: boolean;
         subtasks: {
             id: number;
             taskID: number;
             name: string;
             reporter: string;
             available: string;
+            hidden: boolean;
         }[];
     } | {
         id: number;
         taskID: number;
         name: string;
         reporter: string;
+        hidden: boolean;
         subtasks: {
             id: number;
             taskID: number;
             name: string;
             reporter: string;
             available: string;
+            hidden: boolean;
         }[];
         available?: undefined;
     })[];

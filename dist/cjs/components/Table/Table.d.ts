@@ -26,6 +26,5 @@ export interface TableProps {
     onEdit?: (data: Object) => void;
     onDelete?: (data: Object) => void;
     onSearch?: (data: Object) => void;
-    hiddenKeys?: string[];
 }
 export declare const Table: React.FC<TableProps>;

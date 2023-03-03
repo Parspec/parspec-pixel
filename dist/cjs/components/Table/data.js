@@ -8,6 +8,7 @@ exports.dDataP = [
         name: 'section1',
         reporter: '',
         available: '',
+        hidden: true,
         subtasks: [
             {
                 id: 2,
@@ -15,6 +16,7 @@ exports.dDataP = [
                 name: 'product1',
                 reporter: 'Jolan',
                 available: 'Yes',
+                hidden: true,
                 subtasks: [
                     {
                         id: 3,
@@ -22,6 +24,7 @@ exports.dDataP = [
                         name: 'accessory1',
                         reporter: 'Forest',
                         available: 'Yes',
+                        hidden: true,
                     },
                     {
                         id: 4,
@@ -29,6 +32,7 @@ exports.dDataP = [
                         name: 'accessory2',
                         reporter: 'Parikshit',
                         available: 'Yes',
+                        hidden: false,
                     }
                 ]
             },
@@ -38,6 +42,7 @@ exports.dDataP = [
                 reporter: 'Abhijit',
                 name: 'product2',
                 available: 'Yes',
+                hidden: false,
                 subtasks: [
                     {
                         id: 6,
@@ -45,6 +50,7 @@ exports.dDataP = [
                         reporter: 'Lovish',
                         name: 'accessory1',
                         available: 'Yes',
+                        hidden: false,
                     },
                     {
                         id: 7,
@@ -52,6 +58,7 @@ exports.dDataP = [
                         reporter: 'Abhishek',
                         name: 'accessory2',
                         available: 'Yes',
+                        hidden: false,
                     }
                 ]
             }
@@ -63,6 +70,7 @@ exports.dDataP = [
         name: 'section2',
         reporter: '',
         available: '',
+        hidden: false,
         subtasks: [
             {
                 id: 9,
@@ -70,6 +78,7 @@ exports.dDataP = [
                 name: 'product1',
                 reporter: 'Atul',
                 available: 'Yes',
+                hidden: false,
                 subtasks: [
                     {
                         id: 10,
@@ -77,6 +86,7 @@ exports.dDataP = [
                         name: 'accessory1',
                         reporter: 'Pratyush',
                         available: 'Yes',
+                        hidden: false,
                     },
                     {
                         id: 11,
@@ -84,6 +94,7 @@ exports.dDataP = [
                         name: 'accessory2',
                         reporter: 'Sreemukhi',
                         available: 'Yes',
+                        hidden: false,
                     }
                 ]
             },
@@ -93,6 +104,7 @@ exports.dDataP = [
                 name: 'product2',
                 reporter: 'Komal',
                 available: 'Yes',
+                hidden: false,
                 subtasks: [
                     {
                         id: 13,
@@ -100,6 +112,7 @@ exports.dDataP = [
                         name: 'accessory1',
                         reporter: 'Harsh',
                         available: 'Yes',
+                        hidden: false,
                     },
                     {
                         id: 14,
@@ -107,6 +120,7 @@ exports.dDataP = [
                         name: 'accessory2',
                         reporter: 'Tarun',
                         available: 'Yes',
+                        hidden: true,
                     }
                 ]
             }
@@ -117,7 +131,7 @@ exports.dDataP = [
         taskID: 15,
         name: 'section3',
         reporter: '',
-        available: '',
+        available: '', hidden: false,
         subtasks: [
             {
                 id: 16,
@@ -125,6 +139,7 @@ exports.dDataP = [
                 name: 'product1',
                 reporter: 'Anit',
                 available: 'No',
+                hidden: false,
                 subtasks: [
                     {
                         id: 17,
@@ -132,6 +147,7 @@ exports.dDataP = [
                         name: 'accessory1',
                         reporter: 'Sreemukhi',
                         available: 'No',
+                        hidden: false,
                     },
                     {
                         id: 18,
@@ -139,6 +155,7 @@ exports.dDataP = [
                         name: 'accessory2',
                         reporter: 'Komal',
                         available: 'No',
+                        hidden: false,
                     }
                 ]
             },
@@ -147,6 +164,7 @@ exports.dDataP = [
                 taskID: 19,
                 name: 'product2',
                 reporter: 'Abhishek',
+                hidden: false,
                 subtasks: [
                     {
                         id: 20,
@@ -154,6 +172,7 @@ exports.dDataP = [
                         name: 'accessory1',
                         reporter: 'Atul',
                         available: 'No',
+                        hidden: false,
                     },
                     {
                         id: 21,
@@ -161,6 +180,7 @@ exports.dDataP = [
                         name: 'accessory2',
                         reporter: 'Lovish',
                         available: 'No',
+                        hidden: true,
                     }
                 ]
             }
@@ -172,6 +192,7 @@ exports.dDataP = [
         name: 'section4',
         reporter: '',
         available: '',
+        hidden: false,
         subtasks: [
             {
                 id: 23,
@@ -179,6 +200,7 @@ exports.dDataP = [
                 name: 'product1',
                 reporter: 'Abhijit',
                 available: 'No',
+                hidden: false,
                 subtasks: [
                     {
                         id: 24,
@@ -186,6 +208,7 @@ exports.dDataP = [
                         name: 'accessory1',
                         reporter: 'Jolan',
                         available: 'No',
+                        hidden: false,
                     },
                     {
                         id: 25,
@@ -193,6 +216,7 @@ exports.dDataP = [
                         name: 'accessory2',
                         reporter: 'Rishikesh',
                         available: 'No',
+                        hidden: false,
                     }
                 ]
             },
@@ -202,6 +226,7 @@ exports.dDataP = [
                 name: 'product2',
                 reporter: 'Pratyush',
                 available: 'No',
+                hidden: false,
                 subtasks: [
                     {
                         id: 27,
@@ -209,6 +234,7 @@ exports.dDataP = [
                         name: 'accessory1',
                         reporter: 'Parikshit',
                         available: 'No',
+                        hidden: false,
                     },
                     {
                         id: 28,
@@ -216,6 +242,7 @@ exports.dDataP = [
                         name: 'accessory2',
                         reporter: 'Atul',
                         available: 'No',
+                        hidden: false,
                     }
                 ]
             }

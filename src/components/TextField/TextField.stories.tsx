@@ -9,35 +9,40 @@ export default {
     argTypes: { onChange: { action: 'onChange' }, onBlur: { action: 'onBlur' } }
 } as ComponentMeta<typeof TextField>;
 
-const Template: ComponentStory<typeof TextField> = (args) => {
+export const Basic: ComponentStory<typeof TextField> = (args) => {
     return <TextField {...args} />;
 };
 
-export const basic = Template.bind({});
-
-basic.args = {
-    label: 'outlined'
+Basic.args = {
+    label: 'Outlined'
 };
 
-export const multiline = Template.bind({});
+export const Multiline: ComponentStory<typeof TextField> = (args) => {
+    return <TextField {...args} />;
+};
 
-multiline.args = {
-    label: 'multiline',
+Multiline.args = {
+    label: 'Multiline',
     multiline: true,
     rows: 4,
     maxRows: 10
 };
 
-export const required = Template.bind({});
-
-required.args = {
-    required: true,
-    label: 'required'
+export const RequiredField: ComponentStory<typeof TextField> = (args) => {
+    return <TextField {...args} />;
 };
 
-export const error = Template.bind({});
+RequiredField.args = {
+    required: true,
+    label: 'Required'
+};
 
-error.args = {
+export const ErrorField: ComponentStory<typeof TextField> = (args) => {
+    return <TextField {...args} />;
+};
+
+ErrorField.args = {
     error: true,
-    label: 'error'
+    label: 'Error',
+    helperText: 'Invalid user name'
 };

@@ -16,7 +16,9 @@ const Template: ComponentStory<typeof TextField> = (args) => {
 export const basic = Template.bind({});
 
 basic.args = {
-    label: 'outlined'
+    showChips: true,
+    label: 'outlined',
+    chipsItem: ['harjailovish@gmail.com', 'yolo@gyyaa.com']
 };
 
 export const multiline = Template.bind({});

@@ -24,3 +24,4 @@ export * from './Paper';
 export * from './Alert';
 export * from './DatePicker';
 export * from './Radio';
+export * from './DatePicker';

@@ -39,4 +39,5 @@ __exportStar(require("./Switch"), exports);
 __exportStar(require("./Paper"), exports);
 __exportStar(require("./Alert"), exports);
 __exportStar(require("./Radio"), exports);
+__exportStar(require("./DatePicker"), exports);
 //# sourceMappingURL=index.js.map

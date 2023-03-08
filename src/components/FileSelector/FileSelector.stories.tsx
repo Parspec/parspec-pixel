@@ -9,11 +9,9 @@ export default {
 } as ComponentMeta<typeof FileSelector>;
 
 export const fileSelector: ComponentStory<typeof FileSelector> = (args) => (
-    <FileSelector url="https://hotfix-staging.parspec.xyz/api/generate_signed_url/" error="Wrong format" maxFiles={2} onUpload={(data) => console.log('uploaded', data)} />
+    <FileSelector {...args} url="https://hotfix-staging.parspec.xyz/api/generate_signed_url/" error="Wrong format" maxFiles={2} onUpload={(data) => console.log('uploaded', data)} />
 );
 
-fileSelector.args {
-    placeholder : 'Drag and drop files here, or:'
-}
-
-
+fileSelector.args = {
+    placeholder: 'Drag and drop files here, or:'
+};

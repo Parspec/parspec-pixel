@@ -1,7 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { Switch } from './';
-import { BodyBig } from '../Typography/';
 
 export default {
     title: 'Switch',

@@ -16,11 +16,6 @@ export default {
 } as ComponentMeta<typeof Table>;
 
 export const Basic: ComponentStory<typeof Table> = (props) => {
-    const [instanceCount, setInstanceCount] = useState(0);
-    useEffect(() => {
-        setInstanceCount((prev) => prev + 1);
-    }, [props.allowRowDragAndDrop, props.allowEditing, props.allowExports, props.allowPaging, props.allowResizing, props.height, props.frozenColumns, props.treeColumnIndex]);
-
     const coltemplate = (props: any) => {
         if (props.taskData.name.includes('section')) {
             return (
@@ -34,12 +29,14 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
                     Product
                 </Button>
             );
-        } else {
+        } else if (props.taskData.name.includes('accessory')) {
             return (
                 <Button size="small" color="tertiary" id={props.id}>
                     Accessory
                 </Button>
             );
+        } else {
+            return <></>;
         }
     };
 
@@ -91,28 +88,23 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
     const onSearch = (data: Object) => {
         console.log('onSearch===>\n', data);
     };
-    const toolBarOptions: ToolbarItems[] = ['ExcelExport', 'PdfExport', 'Add', 'Delete', 'Update', 'Cancel', 'Search'];
+    const getTableProps = (args: any) => {
+        const toolBarItems = ['ExcelExport', 'PdfExport', 'Add', 'Delete', 'Search', 'Update', 'Cancel'] as ToolbarItems[];
+        return {
+            toolBarOptions: toolBarItems,
+            ...args
+        };
+    };
     return (
         <>
             <br />
             <br />
-            <Table
-                key={instanceCount}
-                {...props}
-                onDragEnd={onDragEnd}
-                onCheckboxChange={onCheckboxChange}
-                toolBarOptions={toolBarOptions}
-                onAdd={onAdd}
-                onEdit={onEdit}
-                onDelete={onDelete}
-                onSearch={onSearch}
-            >
+            <Table {...getTableProps({ ...props, onAdd, onCheckboxChange, onDelete, onDragEnd, onEdit, onSearch })}>
                 <ColumnDirective type="checkbox" allowEditing={false} width="50"></ColumnDirective>
                 <ColumnDirective field="id" isPrimaryKey={true} visible={false} />
                 <ColumnDirective field="taskID" allowEditing={false} headerText="Task ID" width="150" filter={checkboxFilter} editType="numericedit" />
                 <ColumnDirective field="name" headerText="Task Name" minWidth="200" filter={menuFilter} />
                 <ColumnDirective
-                    field="custom"
                     allowEditing={true}
                     allowSorting={false}
                     defaultValue={''}
@@ -128,7 +120,7 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
         </>
     );
 };
-
+// Arg properties with value as true and their corresponding settings are not required to be passed to table component as they are already present as default props, we have passed them here to get controls in stories
 Basic.args = {
     height: 400,
     data: dDataP,
@@ -154,5 +146,4 @@ Basic.args = {
     filterSettings: {
         type: 'Excel'
     }
-    // hiddenKeys: ['1', '2', '3', '13']
 };

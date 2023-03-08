@@ -95,15 +95,17 @@ export const Table: React.FC<TableProps> = ({
     const tableRef = useRef<any>();
 
     const rowDrop = (args: any) => {
-        // var treeobj = document.getElementsByClassName('e-treegrid')[0].ej2_instances[0];
-        var droppedData = tableRef.current.getRowInfo(args.target.parentElement).rowData; //dropped data
+        const droppedData = tableRef.current.getRowInfo(args.target.parentElement).rowData; //dropped data
+        let droppedId, draggedId;
         //here collect the taskid value based on parent records
-        if (!isNullOrUndefined(droppedData.parentItem) && args.data[0].parentItem != null) {
-            var droppedId = droppedData.parentItem.taskID; //dropped data
-            var draggedId = args.data[0].parentItem.taskID; // dragged data
-        } else if (droppedData.hasChildRecords == true) {
-            var droppedId = droppedData.taskID; //dropped data
-            var draggedId = args.data[0].taskID; // dragged data
+        if (!isNullOrUndefined(droppedData)) {
+            if (!isNullOrUndefined(droppedData.parentItem) && args.data[0].parentItem != null) {
+                droppedId = droppedData.parentItem.taskID; //dropped data
+                draggedId = args.data[0].parentItem.taskID; // dragged data
+            } else if (droppedData.hasChildRecords == true) {
+                droppedId = droppedData.taskID; //dropped data
+                draggedId = args.data[0].taskID; // dragged data
+            }
         }
 
         //Here we prevent for top / bottom position
@@ -113,9 +115,14 @@ export const Table: React.FC<TableProps> = ({
             //here prevent the drop for within child parent
             if (args.data[0].level != droppedData.level) {
                 args.cancel = true;
-            } else if (args.data[0].level == droppedData.level && (args.data[0].hasChildRecords == undefined || droppedData.hasChildRecords == undefined) && droppedId != draggedId) {
-                //here we prevent drop the record in top of another parent's child
-                args.cancel = true;
+            } else if (args.data[0].level != 0 && droppedData.level != 0) {
+                if (
+                    args.data[0].level == droppedData.level &&
+                    (isNullOrUndefined(args.data[0].hasChildRecords) || isNullOrUndefined(droppedData.hasChildRecords) || args.data[0].hasChildRecords == true) &&
+                    droppedId != draggedId
+                ) {
+                    args.cancel = true; //here we prevent drop the record in top of another parent's child
+                }
             }
         }
         //Here we prevent the drop for child position

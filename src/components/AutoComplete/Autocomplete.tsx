@@ -4,7 +4,7 @@ import { TextField } from '../TextField';
 import { default as MUIAutocomplete } from '@mui/material/Autocomplete';
 
 export type OptionType = {
-    [index: string]: string;
+    [index: string]: string | number;
 };
 
 export interface AutocompleteProps {

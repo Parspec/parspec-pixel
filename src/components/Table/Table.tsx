@@ -34,6 +34,7 @@ import {
     RowDataBoundEventArgs,
     SaveEventArgs,
     SearchEventArgs,
+    SelectionSettingsModel,
     SortEventArgs
 } from '@syncfusion/ej2-grids';
 import { useRef } from 'react';
@@ -59,6 +60,7 @@ export interface TableProps {
     height?: number;
     allowFiltering?: boolean;
     filterSettings?: FilterSettingsModel;
+    selectionSettings?: SelectionSettingsModel;
     onCheckboxChange?: (data: Object[]) => void;
     onDragEnd?: (data: Object[]) => void;
     onAdd?: (data: Object) => void;
@@ -90,7 +92,8 @@ export const Table: React.FC<TableProps> = ({
     onAdd,
     onEdit,
     onDelete,
-    onSearch
+    onSearch,
+    selectionSettings
 }) => {
     const tableRef = useRef<any>();
 
@@ -199,10 +202,7 @@ export const Table: React.FC<TableProps> = ({
                     allowExcelExport={allowExports}
                     allowRowDragAndDrop={allowRowDragAndDrop}
                     allowResizing={allowResizing}
-                    selectionSettings={{
-                        checkboxOnly: true,
-                        persistSelection: true
-                    }}
+                    selectionSettings={selectionSettings}
                     rowDrop={rowDrop}
                     frozenColumns={frozenColumns}
                     allowSorting={true}
@@ -259,6 +259,10 @@ Table.defaultProps = {
     allowFiltering: true,
     filterSettings: {
         type: 'Excel'
+    },
+    selectionSettings: {
+        checkboxOnly: true,
+        persistSelection: true
     },
     onCheckboxChange: (data: Object[]) => {},
     onDragEnd: (data: Object[]) => {},

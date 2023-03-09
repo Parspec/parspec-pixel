@@ -10,27 +10,10 @@ export default {
     argTypes: { onClick: { action: 'onClick' }, onDelete: { action: 'onDelete' } }
 } as ComponentMeta<typeof Chip>;
 
-const Template: ComponentStory<typeof Chip> = (args) => <Chip {...args} onClick={() => alert('I was clicked !!')} onDelete={() => alert('I was deleted :(')} />;
-
-export const basic = Template.bind({});
+export const basic: ComponentStory<typeof Chip> = (args) => <Chip {...args} />;
 
 basic.args = {
     variant: 'outlined',
-    label: 'Basic'
-};
-
-export const clickable = Template.bind({});
-
-clickable.args = {
-    label: 'Clickable',
-    component: 'a',
-    href: 'https://mui.com/material-ui/react-chip/#basic-chip',
-    clickable: true
-};
-
-export const avatarChip = Template.bind({});
-
-avatarChip.args = {
-    label: 'Avatar',
+    label: 'Basic',
     avatar: <Avatar>A</Avatar>
 };

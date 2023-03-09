@@ -17,10 +17,11 @@ export interface AutocompleteProps {
     onChange: (event: React.SyntheticEvent) => void;
     freeSolo?: boolean;
     size: 'small' | 'medium';
+    multiple?: boolean;
 }
 
 export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivElement, AutocompleteProps>(({ id, label, color, variant, onChange, optionlabelkeyname, freeSolo, size, ...props }, ref) => {
-    const handleOnChange = (event: any, newValue: string | OptionType | null) => {
+    const handleOnChange = (event: any, newValue: string | OptionType | (string | OptionType)[] | null) => {
         onChange({ ...event, target: { ...event.target, value: newValue } });
     };
     return (

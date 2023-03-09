@@ -11,11 +11,9 @@ export default {
     }
 } as ComponentMeta<typeof Switch>;
 
-const Template: ComponentStory<typeof Switch> = (args) => {
+export const Basic: ComponentStory<typeof Switch> = (args) => {
     return <Switch {...args} />;
 };
-
-export const Basic = Template.bind({});
 
 Basic.args = {
     label: 'Switch',

@@ -15,10 +15,11 @@ interface FileSelectorProps {
     error?: string;
     helperText?: string;
     onSelect?: (args: File[]) => void;
+    placeholder?: string;
 }
 
 export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
-    ({ maxFiles = 1, acceptedFormats = [], onUpload = () => {}, url = '', error = '', helperText = '', onSelect = () => {} }, ref) => {
+    ({ maxFiles = 1, acceptedFormats = [], onUpload = () => {}, url = '', error = '', helperText = '', onSelect = () => {}, placeholder = '' }, ref) => {
         const [files, setFiles] = useState([]);
         const [result, setResults] = useState([]);
 
@@ -77,7 +78,7 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                     <div {...getRootProps()}>
                         <input {...getInputProps()} />
                         <Box p={6} bgcolor="#f3f5fa" width={1} borderRadius={1} display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ cursor: 'pointer' }}>
-                            <BodySmall>Drag and drop files here, or:</BodySmall>
+                            <BodySmall>{placeholder}</BodySmall>
                             <Box mt={6} mb={3}>
                                 <Avatar>
                                     <UploadIcon />

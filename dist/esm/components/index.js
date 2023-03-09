@@ -22,4 +22,6 @@ export * from './Accordion';
 export * from './Switch';
 export * from './Paper';
 export * from './Alert';
+export * from './DatePicker';
+export * from './Radio';
 //# sourceMappingURL=index.js.map

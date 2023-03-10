@@ -133,7 +133,6 @@ Basic.args = {
     allowResizing: true,
     allowEditing: true,
     allowExports: true,
-
     excelExportProperties: {
         fileName: 'newExcel.xlsx',
         isCollapsedStatePersist: false

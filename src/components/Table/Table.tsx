@@ -19,7 +19,7 @@ import {
     Filter
 } from '@syncfusion/ej2-react-treegrid';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
-import { isNullOrUndefined, registerLicense } from '@syncfusion/ej2-base';
+import { addClass, isNullOrUndefined, registerLicense } from '@syncfusion/ej2-base';
 import './styles.css';
 import { Box } from '../Box';
 import {
@@ -186,6 +186,9 @@ export const Table: React.FC<TableProps> = ({
     const rowDataBound = (args: RowDataBoundEventArgs) => {
         if (getObject('hidden', args.data) === true) {
             (args.row as HTMLTableRowElement).style.opacity = '0.4';
+        }
+        if (selectionSettings?.type === 'Single') {
+            addClass([args.row!], 'singleSelect');
         }
     };
     return (

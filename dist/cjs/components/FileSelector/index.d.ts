@@ -7,6 +7,7 @@ interface FileSelectorProps {
     error?: string;
     helperText?: string;
     onSelect?: (args: File[]) => void;
+    placeholder?: string;
 }
 export declare const FileSelector: import("react").ForwardRefExoticComponent<FileSelectorProps & import("react").RefAttributes<HTMLDivElement>>;
 export {};

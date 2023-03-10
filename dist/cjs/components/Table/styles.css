@@ -28952,6 +28952,10 @@ li.e-separator.e-menu-item.e-excel-separator {
 }
 
 tr.singleSelect:hover {
-    background: #e0e0e0 !important;
+    background: #ffe4bd;
     cursor: pointer;
+}
+
+.e-treegrid td.e-active {
+    background-color: #ffe4bd;
 }

@@ -7,7 +7,6 @@ export interface TextFieldProps extends Omit<MUITextFieldProps, 'margin' | 'clas
     color?: 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning';
     error?: boolean;
     size?: 'small' | 'medium';
-    helperText?: string;
 }
 
 export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(({ variant, color, error, size, label, ...rest }, ref) => (

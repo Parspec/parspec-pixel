@@ -21,7 +21,7 @@ const theme = createTheme({
         //     disabled: '#ffc471'
         // },
         primary: {
-            light: '#ffc471',
+            light: '#ffe4bd',
             main: '#FFA72B',
             dark: '#e89827',
             contrastText: '#091535'

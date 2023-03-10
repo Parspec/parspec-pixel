@@ -3,7 +3,7 @@ import { default as MUIButton, ButtonProps as MUIButtonProps } from '@mui/materi
 import { CircularProgress } from '../CircularProgress';
 
 export interface ButtonProps extends Omit<MUIButtonProps, 'classes'> {
-    color?: 'primary' | 'secondary' | 'tertiary';
+    color?: 'primary' | 'secondary' | 'tertiary' | 'error';
     isLoading?: boolean;
 }
 

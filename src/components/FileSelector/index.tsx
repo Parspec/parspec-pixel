@@ -78,7 +78,9 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                     <div {...getRootProps()}>
                         <input {...getInputProps()} />
                         <Box p={6} bgcolor="#f3f5fa" width={1} borderRadius={1} display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ cursor: 'pointer' }}>
-                            <BodySmall>{placeholder}</BodySmall>
+                            <Box width={'100%'} textAlign="center">
+                                <BodySmall>{placeholder}</BodySmall>
+                            </Box>
                             <Box mt={6} mb={3}>
                                 <Avatar>
                                     <UploadIcon />

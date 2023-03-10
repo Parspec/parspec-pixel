@@ -29,6 +29,7 @@ Autocomplete.defaultProps = {
     color: 'primary',
     variant: 'outlined',
     freeSolo: false,
-    size: 'small'
+    size: 'small',
+    multiple: false
 };
 //# sourceMappingURL=Autocomplete.js.map

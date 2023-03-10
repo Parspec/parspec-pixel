@@ -30,6 +30,7 @@
         "@syncfusion/ej2-navigations": "~20.2.43",
         "@syncfusion/ej2-react-treegrid": "~20.2.43",
         "axios": "^1.3.3",
+        "dayjs": "^1.11.7",
         "react-dropzone": "^14.2.3"
     },
     "devDependencies": {

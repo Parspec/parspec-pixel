@@ -7,9 +7,7 @@ export default {
     component: Breadcrumb
 } as ComponentMeta<typeof Breadcrumb>;
 
-const Template: ComponentStory<typeof Breadcrumb> = (args) => <Breadcrumb {...args} />;
-
-export const breadcrumb = Template.bind({});
+export const breadcrumb: ComponentStory<typeof Breadcrumb> = (args) => <Breadcrumb {...args} />;
 
 breadcrumb.args = {
     options: [

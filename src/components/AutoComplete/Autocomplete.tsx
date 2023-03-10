@@ -4,7 +4,7 @@ import { TextField } from '../TextField';
 import { default as MUIAutocomplete } from '@mui/material/Autocomplete';
 
 export type OptionType = {
-    [index: string]: string;
+    [index: string]: string | number;
 };
 
 export interface AutocompleteProps {
@@ -17,10 +17,13 @@ export interface AutocompleteProps {
     onChange: (event: React.SyntheticEvent) => void;
     freeSolo?: boolean;
     size: 'small' | 'medium';
+    multiple?: boolean;
+    value?: string | OptionType | (string | OptionType)[] | null;
+    defaultValue?: string | OptionType | (string | OptionType)[] | null;
 }
 
 export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivElement, AutocompleteProps>(({ id, label, color, variant, onChange, optionlabelkeyname, freeSolo, size, ...props }, ref) => {
-    const handleOnChange = (event: any, newValue: string | OptionType | null) => {
+    const handleOnChange = (event: any, newValue: string | OptionType | (string | OptionType)[] | null) => {
         onChange({ ...event, target: { ...event.target, value: newValue } });
     };
     return (
@@ -48,5 +51,6 @@ Autocomplete.defaultProps = {
     color: 'primary',
     variant: 'outlined',
     freeSolo: false,
-    size: 'small'
+    size: 'small',
+    multiple: false
 };

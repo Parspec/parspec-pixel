@@ -28951,6 +28951,7 @@ li.e-separator.e-menu-item.e-excel-separator {
     content: '\e35d';
 }
 
-tr:hover {
+tr.singleSelect:hover {
     background: #e0e0e0 !important;
+    cursor: pointer;
 }

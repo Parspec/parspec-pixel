@@ -3,7 +3,11 @@ import { default as MUIPaper, PaperProps as MUIPaperProps } from '@mui/material/
 
 export interface PaperProps extends Omit<MUIPaperProps, 'classes'> {}
 
-export const Paper = forwardRef<HTMLDivElement, PaperProps>(({ children, ...props }) => <MUIPaper {...props}>{children}</MUIPaper>);
+export const Paper = forwardRef<HTMLDivElement, PaperProps>(({ children, ...props }, ref) => (
+    <MUIPaper ref={ref} {...props}>
+        {children}
+    </MUIPaper>
+));
 
 Paper.defaultProps = {
     variant: 'outlined'

@@ -222,6 +222,9 @@ export const Table: React.FC<TableProps> = ({
                               }
                             : {}
                     }
+                    searchSettings={{
+                        hierarchyMode: 'Both'
+                    }}
                     toolbar={toolBarOptions}
                     toolbarClick={toolBarOptions?.length !== 0 ? toolbarClick : undefined}
                     pageSettings={pageSettings}

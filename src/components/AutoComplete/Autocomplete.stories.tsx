@@ -12,7 +12,7 @@ export default {
     }
 } as ComponentMeta<typeof Autocomplete>;
 
-const Template: ComponentStory<typeof Autocomplete> = (args) => (
+export const Basic: ComponentStory<typeof Autocomplete> = (args) => (
     <Autocomplete
         {...args}
         onChange={(e: any) => {
@@ -21,27 +21,41 @@ const Template: ComponentStory<typeof Autocomplete> = (args) => (
     />
 );
 
-export const Basic = Template.bind({});
-
 Basic.args = {
     options: top100Films,
     id: 'autocomplete-demo',
     label: 'Movies',
     optionlabelkeyname: 'title',
-    size: 'small'
+    size: 'small',
+    defaultValue: 'I am default'
 };
 
-export const MultiSelect = Template.bind({});
+export const MultiSelect: ComponentStory<typeof Autocomplete> = (args) => (
+    <Autocomplete
+        {...args}
+        onChange={(e: any) => {
+            console.log(e.target.value);
+        }}
+    />
+);
 
 MultiSelect.args = {
     id: 'multiselect-demo',
     label: 'MultiSelect',
     multiple: true,
     options: top100Films,
-    optionlabelkeyname: 'title'
+    optionlabelkeyname: 'title',
+    defaultValue: ['Hello']
 };
 
-export const AutocompleteWithCreateOption = Template.bind({});
+export const AutocompleteWithCreateOption: ComponentStory<typeof Autocomplete> = (args) => (
+    <Autocomplete
+        {...args}
+        onChange={(e: any) => {
+            console.log(e.target.value);
+        }}
+    />
+);
 
 AutocompleteWithCreateOption.args = {
     options: top100Films,

@@ -11,7 +11,7 @@ export interface AutocompleteProps {
     variant?: 'outlined' | 'filled' | 'standard';
     onChange: (event: React.SyntheticEvent) => void;
     freeSolo?: boolean;
-    size: 'small' | 'medium';
+    size?: 'small' | 'medium';
     multiple?: boolean;
     value?: string | OptionType | (string | OptionType)[] | null;
     defaultValue?: string | OptionType | (string | OptionType)[] | null;

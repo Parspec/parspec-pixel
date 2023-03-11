@@ -14,7 +14,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({ disabled, is
             {...rest}
             color={color}
             sx={disabled || isLoading ? { opacity: 0.5, pointerEvents: 'none' } : {}}
-            startIcon={isLoading ? <CircularProgress color={'inherit'} size="1rem" /> : null}
+            startIcon={isLoading ? <CircularProgress color={'primary'} size="1rem" /> : null}
         />
     );
 });

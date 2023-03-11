@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ViewArrayIcon = exports.ChangeHistoryIcon = exports.SwapHorizIcon = exports.CheckCircleIcon = exports.MoreVertIcon = exports.EditIcon = exports.RemoveIcon = exports.AddIcon = exports.PanToolIcon = exports.CheckCircleOutlineIcon = exports.ArrowDownwardIcon = exports.ArrowUpwardIcon = exports.ArrowCircleRightIcon = exports.ArrowCircleLeftIcon = exports.LastPageIcon = exports.FirstPageIcon = exports.KeyboardArrowRightIcon = exports.KeyboardArrowLeftIcon = exports.UnfoldMoreIcon = exports.UploadIcon = exports.DeleteIcon = exports.TrendingUpIcon = exports.SearchIcon = exports.DragIndicatorIcon = exports.CancelIcon = exports.CloseIcon = exports.ParspecLogoIcon = void 0;
+exports.Sync = exports.Tune = exports.ContentCopy = exports.SyncProblem = exports.FileDownloadOutlined = exports.ViewArrayIcon = exports.ChangeHistoryIcon = exports.SwapHorizIcon = exports.CheckCircleIcon = exports.MoreVertIcon = exports.EditIcon = exports.RemoveIcon = exports.AddIcon = exports.PanToolIcon = exports.CheckCircleOutlineIcon = exports.ArrowDownwardIcon = exports.ArrowUpwardIcon = exports.ArrowCircleRightIcon = exports.ArrowCircleLeftIcon = exports.LastPageIcon = exports.FirstPageIcon = exports.KeyboardArrowRightIcon = exports.KeyboardArrowLeftIcon = exports.UnfoldMoreIcon = exports.UploadIcon = exports.DeleteIcon = exports.TrendingUpIcon = exports.SearchIcon = exports.DragIndicatorIcon = exports.CancelIcon = exports.CloseIcon = exports.ParspecLogoIcon = void 0;
 var ParspecLogoIcon_1 = require("./ParspecLogoIcon");
 Object.defineProperty(exports, "ParspecLogoIcon", { enumerable: true, get: function () { return ParspecLogoIcon_1.ParspecLogoIcon; } });
 var icons_material_1 = require("@mui/icons-material");
@@ -30,4 +30,9 @@ Object.defineProperty(exports, "CheckCircleIcon", { enumerable: true, get: funct
 Object.defineProperty(exports, "SwapHorizIcon", { enumerable: true, get: function () { return icons_material_1.SwapHoriz; } });
 Object.defineProperty(exports, "ChangeHistoryIcon", { enumerable: true, get: function () { return icons_material_1.ChangeHistory; } });
 Object.defineProperty(exports, "ViewArrayIcon", { enumerable: true, get: function () { return icons_material_1.ViewArray; } });
+Object.defineProperty(exports, "FileDownloadOutlined", { enumerable: true, get: function () { return icons_material_1.FileDownloadOutlined; } });
+Object.defineProperty(exports, "SyncProblem", { enumerable: true, get: function () { return icons_material_1.SyncProblem; } });
+Object.defineProperty(exports, "ContentCopy", { enumerable: true, get: function () { return icons_material_1.ContentCopy; } });
+Object.defineProperty(exports, "Tune", { enumerable: true, get: function () { return icons_material_1.Tune; } });
+Object.defineProperty(exports, "Sync", { enumerable: true, get: function () { return icons_material_1.Sync; } });
 //# sourceMappingURL=index.js.map

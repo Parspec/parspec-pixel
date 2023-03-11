@@ -6,4 +6,4 @@ export interface CustomDatePickerProps {
     onChange?: (newValue: Dayjs | null) => void;
     defaultValue?: Dayjs;
 }
-export declare const CustomDatePicker: React.FC<CustomDatePickerProps>;
+export declare const CustomDatePicker: import("react").ForwardRefExoticComponent<CustomDatePickerProps & import("react").RefAttributes<HTMLDivElement>>;

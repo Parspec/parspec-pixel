@@ -25,7 +25,12 @@ import {
     SwapHorizIcon,
     ChangeHistoryIcon,
     ViewArrayIcon,
-    CancelIcon
+    CancelIcon,
+    FileDownloadOutlined,
+    SyncProblem,
+    ContentCopy,
+    Tune,
+    Sync
 } from './index';
 import { Grid } from '../Grid';
 import { Box } from '../Box';
@@ -81,7 +86,12 @@ AllIcons.args = {
         { icon: CancelIcon, name: 'CancelIcon' },
         { icon: SwapHorizIcon, name: 'SwapHorizIcon' },
         { icon: ChangeHistoryIcon, name: 'ChangeHistoryIcon' },
-        { icon: ViewArrayIcon, name: 'ViewArrayIcon ' }
+        { icon: ViewArrayIcon, name: 'ViewArrayIcon ' },
+        { icon: FileDownloadOutlined, name: 'FileDownloadOutlined' },
+        { icon: SyncProblem, name: 'SyncProblem' },
+        { icon: ContentCopy, name: 'ContentCopy' },
+        { icon: Tune, name: 'Tune' },
+        { icon: Sync, name: 'Sync' }
     ],
     fontSize: 'medium'
 };

@@ -49,3 +49,9 @@ declare module '@mui/material/Switch' {
         tertiary: true;
     }
 }
+
+declare module '@mui/material/CircularProgress' {
+    interface CircularProgressPropsColorOverrides {
+        tertiary: true;
+    }
+}

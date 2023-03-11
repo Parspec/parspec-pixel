@@ -11,7 +11,7 @@ export default {
     }
 } as ComponentMeta<typeof Select>;
 
-const Template: ComponentStory<typeof Select> = (args) => {
+export const select: ComponentStory<typeof Select> = (args) => {
     const [selectedValue, setSelectedValue] = useState('');
 
     const handleOnChange = (event: any) => {
@@ -21,8 +21,6 @@ const Template: ComponentStory<typeof Select> = (args) => {
 
     return <Select {...args} onChange={handleOnChange} value={selectedValue} />;
 };
-
-export const select = Template.bind({});
 
 const options = [
     { value: 10, label: 'Ten' },

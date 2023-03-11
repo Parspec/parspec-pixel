@@ -1,12 +1,12 @@
 import { default as MUICircularProgress, CircularProgressProps as MUICircularProgressProps } from '@mui/material/CircularProgress';
 
 export interface CircularProgressProps extends Omit<MUICircularProgressProps, 'sx'> {
-    color?: 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning' | 'inherit';
+    color?: 'primary' | 'secondary' | 'tertiary';
 }
 
-export const CircularProgress: React.FC<CircularProgressProps> = ({ color, size, ...rest }) => <MUICircularProgress color={color} size={size} {...rest} />;
+export const CircularProgress: React.FC<CircularProgressProps> = (props) => <MUICircularProgress {...props} />;
 
 CircularProgress.defaultProps = {
-    color: 'inherit',
-    size: 20
+    color: 'primary',
+    size: 80
 };

@@ -30,5 +30,6 @@ export {
     SyncProblem,
     ContentCopy,
     Tune,
-    Sync
+    Sync,
+    Delete
 } from '@mui/icons-material';

@@ -30,7 +30,8 @@ import {
     SyncProblem,
     ContentCopy,
     Tune,
-    Sync
+    Sync,
+    Delete
 } from './index';
 import { Grid } from '../Grid';
 import { Box } from '../Box';
@@ -91,7 +92,8 @@ AllIcons.args = {
         { icon: SyncProblem, name: 'SyncProblem' },
         { icon: ContentCopy, name: 'ContentCopy' },
         { icon: Tune, name: 'Tune' },
-        { icon: Sync, name: 'Sync' }
+        { icon: Sync, name: 'Sync' },
+        { icon: Delete, name: 'Delete' }
     ],
     fontSize: 'medium'
 };

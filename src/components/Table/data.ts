@@ -246,3 +246,40 @@ export const dDataP = [
     ]
   },
 ]
+
+export const dDataP2 = [
+  {
+    id: 1,
+    taskID: 1,
+    name: 'section1',
+    reporter: '',
+    available: '',
+    hidden: false,
+  },
+  {
+    id: 8,
+    taskID: 8,
+    name: 'section2',
+    reporter: '',
+    available: '',
+    hidden: false,
+
+  },
+  {
+    id: 15,
+    taskID: 15,
+    name: 'section3',
+    reporter: '',
+    available: '', hidden: false,
+
+  },
+  {
+    id: 22,
+    taskID: 22,
+    name: 'section4',
+    reporter: '',
+    available: '',
+    hidden: false,
+    selected: true,
+  },
+]

@@ -8,7 +8,7 @@ exports.dDataP = [
         name: 'section1',
         reporter: '',
         available: '',
-        hidden: true,
+        hidden: false,
         subtasks: [
             {
                 id: 2,

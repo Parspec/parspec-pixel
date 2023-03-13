@@ -1,6 +1,7 @@
 export { ParspecLogoIcon } from './ParspecLogoIcon';
 export { RedirectIcon } from './RedirectIcon';
 export { AnnotateIcon } from './AnnotateIcon';
+export { AnnotateColoredIcon } from './AnnotateColoredIcon';
 export {
     Close as CloseIcon,
     Cancel as CancelIcon,

@@ -28,7 +28,8 @@ import {
     CancelIcon,
     RedirectIcon,
     AnnotateIcon,
-    SyncIcon
+    SyncIcon,
+    AnnotateColoredIcon
 } from './index';
 import { Grid } from '../Grid';
 import { Box } from '../Box';
@@ -87,7 +88,8 @@ AllIcons.args = {
         { icon: ViewArrayIcon, name: 'ViewArrayIcon ' },
         { icon: SyncIcon, name: 'SyncIcon ' },
         { icon: RedirectIcon, name: 'RedirectIcon' },
-        { icon: AnnotateIcon, name: 'AnnotateIcon' }
+        { icon: AnnotateIcon, name: 'AnnotateIcon' },
+        { icon: AnnotateColoredIcon, name: 'AnnotateColoredIcon' }
     ],
     fontSize: 'medium'
 };

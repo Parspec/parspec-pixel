@@ -16,7 +16,11 @@ export const Breadcrumb: React.FC<BreadcrumbsProps> = ({ options, ...rest }) => 
         <MUIBreadcrumb separator=">" {...rest}>
             {options.map((item, index) => {
                 if (index === options.length - 1) {
-                    return <BodyXS color={'secondary'}>{item.displaytext}</BodyXS>;
+                    return (
+                        <BodyXS key={index} color={'secondary'}>
+                            {item.displaytext}
+                        </BodyXS>
+                    );
                 }
                 return (
                     <Link fontWeight="400" fontFamily="Inter" fontSize={'12px'} key={index} color="secondary" underline={'hover'} href={item.href}>

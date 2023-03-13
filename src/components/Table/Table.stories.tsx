@@ -1,15 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { Table } from './Table';
-import { ColumnDirective, ToolbarItems } from '@syncfusion/ej2-react-treegrid';
+import { ColumnDirective, SelectionSettingsModel, ToolbarItems } from '@syncfusion/ej2-react-treegrid';
 import { getValue } from '@syncfusion/ej2-base';
-import { dDataP } from './data';
+import { dDataP, dDataP2 } from './data';
 import { Button } from '../Button';
 import { ViewArrayIcon } from '../Icons';
 import { Box } from '../Box';
 import { BodyMedium } from '../Typography';
 import { FilterSettingsModel } from '@syncfusion/ej2-grids';
 import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
+import { Radio } from '../Radio';
+
 export default {
     title: 'Table',
     component: Table
@@ -145,4 +147,46 @@ Basic.args = {
     filterSettings: {
         type: 'Excel'
     }
+};
+
+export const SingleSelect: ComponentStory<typeof Table> = (props) => {
+    const [data, setData] = useState(dDataP2);
+    const getTableProps = (args: any) => {
+        const selectionSettings: SelectionSettingsModel = {
+            type: 'Single'
+        };
+        return {
+            selectionSettings,
+            ...args
+        };
+    };
+    const coltemplate = (props) => {
+        return <Radio size="small" checked={props.selected}></Radio>; //onChange={() => onRadioChange(props)}
+    };
+    const onRowSelection = (selectedData) => {
+        const { taskData, id } = selectedData[0];
+        const updatedItem = { ...taskData, selected: true };
+        setData((prev) => prev.map((item) => (item.id === taskData.id ? updatedItem : { ...item, selected: false })));
+    };
+
+    return (
+        <>
+            <br />
+            <br />
+            <Table {...getTableProps({ ...props, onRowSelection })} data={data}>
+                <ColumnDirective field="id" isPrimaryKey={true} visible={false} />
+                <ColumnDirective allowEditing={false} allowSorting={false} headerText="" width="80" template={coltemplate} allowFiltering={false} />
+                <ColumnDirective field="taskID" allowEditing={false} headerText="Task ID" width="150" editType="numericedit" />
+                <ColumnDirective field="name" headerText="Task Name" minWidth="200" />
+                <ColumnDirective field="reporter" headerText="Reporter" minWidth="200" />
+                <ColumnDirective field="available" headerText="Availability" minWidth="200" />
+            </Table>
+        </>
+    );
+};
+SingleSelect.args = {
+    height: 400,
+    childMappingKey: 'subtasks',
+    allowRowDragAndDrop: true,
+    treeColumnIndex: 3
 };

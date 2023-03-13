@@ -32,6 +32,7 @@ import {
     getObject,
     PageEventArgs,
     RowDataBoundEventArgs,
+    RowSelectEventArgs,
     SaveEventArgs,
     SearchEventArgs,
     SelectionSettingsModel,
@@ -67,6 +68,7 @@ export interface TableProps {
     onEdit?: (data: Object) => void;
     onDelete?: (data: Object) => void;
     onSearch?: (data: Object) => void;
+    onRowSelection?: (data: Object) => void;
 }
 
 export const Table: React.FC<TableProps> = ({
@@ -93,7 +95,8 @@ export const Table: React.FC<TableProps> = ({
     onEdit,
     onDelete,
     onSearch,
-    selectionSettings
+    selectionSettings,
+    onRowSelection
 }) => {
     const tableRef = useRef<any>();
 
@@ -170,6 +173,9 @@ export const Table: React.FC<TableProps> = ({
     const checkboxChange = (args: CheckBoxChangeEventArgs) => {
         onCheckboxChange!(tableRef.current.getSelectedRecords());
     };
+    const rowSelected = (args: RowSelectEventArgs) => {
+        onRowSelection!(tableRef.current.getSelectedRecords());
+    };
 
     const actionComplete = (args: PageEventArgs | FilterEventArgs | SortEventArgs | SearchEventArgs | AddEventArgs | SaveEventArgs | EditEventArgs | DeleteEventArgs) => {
         if (args.type === 'save') {
@@ -194,49 +200,52 @@ export const Table: React.FC<TableProps> = ({
     return (
         <Box className="control-pane">
             <Box className="control-section">
-                <TreeGridComponent
-                    rowDataBound={rowDataBound}
-                    height={height}
-                    ref={tableRef}
-                    dataSource={data}
-                    treeColumnIndex={treeColumnIndex}
-                    childMapping={childMappingKey}
-                    allowPdfExport={allowExports}
-                    allowExcelExport={allowExports}
-                    allowRowDragAndDrop={allowRowDragAndDrop}
-                    allowResizing={allowResizing}
-                    selectionSettings={selectionSettings}
-                    rowDrop={rowDrop}
-                    frozenColumns={frozenColumns}
-                    allowSorting={true}
-                    editSettings={
-                        allowEditing
-                            ? {
-                                  allowAdding: true,
-                                  allowDeleting: true,
-                                  allowEditing: true,
-                                  mode: 'Cell',
-                                  showDeleteConfirmDialog: true,
-                                  showConfirmDialog: true,
-                                  newRowPosition: 'Bottom'
-                              }
-                            : {}
-                    }
-                    searchSettings={{
-                        hierarchyMode: 'Both'
-                    }}
-                    toolbar={toolBarOptions}
-                    toolbarClick={toolBarOptions?.length !== 0 ? toolbarClick : undefined}
-                    pageSettings={pageSettings}
-                    allowPaging={allowPaging}
-                    allowFiltering={allowFiltering}
-                    filterSettings={filterSettings}
-                    checkboxChange={checkboxChange}
-                    actionComplete={actionComplete}
-                >
-                    <ColumnsDirective>{children}</ColumnsDirective>
-                    <Inject services={[Freeze, RowDD, Selection, Sort, Edit, Toolbar, Page, ExcelExport, PdfExport, Resize, Filter]} />
-                </TreeGridComponent>
+                {data && (
+                    <TreeGridComponent
+                        rowSelected={rowSelected}
+                        rowDataBound={rowDataBound}
+                        height={height}
+                        ref={tableRef}
+                        dataSource={data}
+                        treeColumnIndex={treeColumnIndex}
+                        childMapping={childMappingKey}
+                        allowPdfExport={allowExports}
+                        allowExcelExport={allowExports}
+                        allowRowDragAndDrop={allowRowDragAndDrop}
+                        allowResizing={allowResizing}
+                        selectionSettings={selectionSettings}
+                        rowDrop={rowDrop}
+                        frozenColumns={frozenColumns}
+                        allowSorting={true}
+                        editSettings={
+                            allowEditing
+                                ? {
+                                      allowAdding: true,
+                                      allowDeleting: true,
+                                      allowEditing: true,
+                                      mode: 'Cell',
+                                      showDeleteConfirmDialog: true,
+                                      showConfirmDialog: true,
+                                      newRowPosition: 'Bottom'
+                                  }
+                                : {}
+                        }
+                        searchSettings={{
+                            hierarchyMode: 'Both'
+                        }}
+                        toolbar={toolBarOptions}
+                        toolbarClick={toolBarOptions?.length !== 0 ? toolbarClick : undefined}
+                        pageSettings={pageSettings}
+                        allowPaging={allowPaging}
+                        allowFiltering={allowFiltering}
+                        filterSettings={filterSettings}
+                        checkboxChange={checkboxChange}
+                        actionComplete={actionComplete}
+                    >
+                        <ColumnsDirective>{children}</ColumnsDirective>
+                        <Inject services={[Freeze, RowDD, Selection, Sort, Edit, Toolbar, Page, ExcelExport, PdfExport, Resize, Filter]} />
+                    </TreeGridComponent>
+                )}
             </Box>
         </Box>
     );
@@ -275,5 +284,6 @@ Table.defaultProps = {
     onAdd: (data: Object) => {},
     onEdit: (data: Object) => {},
     onDelete: (data: Object) => {},
-    onSearch: (data: Object) => {}
+    onSearch: (data: Object) => {},
+    onRowSelection: (data: Object) => {}
 };

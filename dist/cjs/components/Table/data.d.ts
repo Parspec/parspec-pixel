@@ -37,3 +37,20 @@ export declare const dDataP: {
         available?: undefined;
     })[];
 }[];
+export declare const dDataP2: ({
+    id: number;
+    taskID: number;
+    name: string;
+    reporter: string;
+    available: string;
+    hidden: boolean;
+    selected?: undefined;
+} | {
+    id: number;
+    taskID: number;
+    name: string;
+    reporter: string;
+    available: string;
+    hidden: boolean;
+    selected: boolean;
+})[];

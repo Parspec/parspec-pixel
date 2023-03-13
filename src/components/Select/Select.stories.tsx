@@ -11,7 +11,7 @@ export default {
     }
 } as ComponentMeta<typeof Select>;
 
-export const select: ComponentStory<typeof Select> = (args) => {
+export const Basic: ComponentStory<typeof Select> = (args) => {
     const [selectedValue, setSelectedValue] = useState('');
 
     const handleOnChange = (event: any) => {
@@ -28,7 +28,7 @@ const options = [
     { value: 30, label: 'Thirty' }
 ];
 
-select.args = {
+Basic.args = {
     options: options,
     optionLabelKeyname: 'label',
     optionValueKeyname: 'value',

@@ -8,9 +8,9 @@ export default {
     component: CircularProgress
 } as ComponentMeta<typeof CircularProgress>;
 
-export const circularProgress: ComponentStory<typeof CircularProgress> = (args) => <CircularProgress {...args} />;
+export const Basic: ComponentStory<typeof CircularProgress> = (args) => <CircularProgress {...args} />;
 
-circularProgress.args = {
+Basic.args = {
     color: 'primary',
     size: 20,
     thickness: 3.6

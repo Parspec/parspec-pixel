@@ -10,16 +10,16 @@ export default {
     argTypes: { onClick: { action: 'onClick' }, onDelete: { action: 'onDelete' } }
 } as ComponentMeta<typeof Chip>;
 
-export const basic: ComponentStory<typeof Chip> = (args) => <Chip {...args} />;
+export const Basic: ComponentStory<typeof Chip> = (args) => <Chip {...args} />;
 
-basic.args = {
+Basic.args = {
     variant: 'outlined',
     label: 'Basic'
 };
 
-export const avatarChip: ComponentStory<typeof Chip> = (args) => <Chip {...args} onClick={() => alert('I was clicked !!')} onDelete={() => alert('I was deleted :(')} />;
+export const AvatarChip: ComponentStory<typeof Chip> = (args) => <Chip {...args} onClick={() => alert('I was clicked !!')} onDelete={() => alert('I was deleted :(')} />;
 
-avatarChip.args = {
+AvatarChip.args = {
     label: 'Avatar',
     avatar: <Avatar>A</Avatar>
 };

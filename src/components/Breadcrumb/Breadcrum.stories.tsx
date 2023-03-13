@@ -7,9 +7,9 @@ export default {
     component: Breadcrumb
 } as ComponentMeta<typeof Breadcrumb>;
 
-export const breadcrumb: ComponentStory<typeof Breadcrumb> = (args) => <Breadcrumb {...args} />;
+export const Basic: ComponentStory<typeof Breadcrumb> = (args) => <Breadcrumb {...args} />;
 
-breadcrumb.args = {
+Basic.args = {
     options: [
         { displaytext: 'Projects', href: '#' },
         { displaytext: 'Walnut Creek Medical Center', href: '#' }

@@ -10,7 +10,7 @@ export default {
     }
 } as ComponentMeta<typeof Checkbox>;
 
-const Template: ComponentStory<typeof Checkbox> = (args) => {
+export const Basic: ComponentStory<typeof Checkbox> = (args) => {
     const [checked, setChecked] = useState(true);
 
     const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,9 +20,7 @@ const Template: ComponentStory<typeof Checkbox> = (args) => {
     return <Checkbox {...args} onChange={handleOnChange} checked={checked} />;
 };
 
-export const checkbox = Template.bind({});
-
-checkbox.args = {
+Basic.args = {
     label: 'Apple',
     size: 'small'
 };

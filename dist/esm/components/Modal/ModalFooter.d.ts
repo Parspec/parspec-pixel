@@ -4,6 +4,7 @@ export interface ModalFooterProps {
     onReject?: () => void;
     cancelButtonLabel?: string;
     continueButtonLabel?: string;
+    continueButtonColor?: 'primary' | 'secondary' | 'tertiary' | 'error';
     isLoading?: boolean;
     helperText?: React.ReactNode;
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { FileSelector } from './index';
+import { Box } from '@mui/system';
 
 export default {
     title: 'File Selector',
@@ -8,8 +9,13 @@ export default {
     argTypes: { onUpload: { action: 'onUpload' } }
 } as ComponentMeta<typeof FileSelector>;
 
-const Template: ComponentStory<typeof FileSelector> = (args) => (
-    <FileSelector url="https://hotfix-staging.parspec.xyz/api/generate_signed_url/" error="Wrong format" maxFiles={2} onUpload={(data) => console.log('uploaded', data)} />
+export const fileSelector: ComponentStory<typeof FileSelector> = (args) => (
+    <FileSelector {...args} url="https://hotfix-staging.parspec.xyz/api/generate_signed_url/" error="Wrong format" maxFiles={2} onUpload={(data) => console.log('uploaded', data)} />
 );
 
-export const Primary = Template.bind({});
+fileSelector.args = {
+    placeholder: 'Drag and drop files here, or:',
+    error: 'Wrong format',
+    maxFiles: 2,
+    onUpload: (data) => console.log('uploaded', data)
+};

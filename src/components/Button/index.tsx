@@ -3,7 +3,7 @@ import { default as MUIButton, ButtonProps as MUIButtonProps } from '@mui/materi
 import { CircularProgress } from '../CircularProgress';
 
 export interface ButtonProps extends Omit<MUIButtonProps, 'classes'> {
-    color?: 'primary' | 'secondary' | 'tertiary';
+    color?: 'primary' | 'secondary' | 'tertiary' | 'error';
     isLoading?: boolean;
 }
 
@@ -14,7 +14,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({ disabled, is
             {...rest}
             color={color}
             sx={disabled || isLoading ? { opacity: 0.5, pointerEvents: 'none' } : {}}
-            startIcon={isLoading ? <CircularProgress color={'inherit'} size="1rem" /> : null}
+            startIcon={isLoading ? <CircularProgress color={'primary'} size="1rem" /> : null}
         />
     );
 });

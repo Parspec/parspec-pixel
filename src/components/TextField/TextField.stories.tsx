@@ -9,35 +9,40 @@ export default {
     argTypes: { onChange: { action: 'onChange' }, onBlur: { action: 'onBlur' } }
 } as ComponentMeta<typeof TextField>;
 
-const Template: ComponentStory<typeof TextField> = (args) => {
+export const Basic: ComponentStory<typeof TextField> = (args) => {
     return <TextField {...args} />;
 };
 
-export const basic = Template.bind({});
-
-basic.args = {
+Basic.args = {
     label: 'outlined'
 };
 
-export const multiline = Template.bind({});
+export const Multiline: ComponentStory<typeof TextField> = (args) => {
+    return <TextField {...args} />;
+};
 
-multiline.args = {
+Multiline.args = {
     label: 'multiline',
     multiline: true,
     rows: 4,
     maxRows: 10
 };
 
-export const required = Template.bind({});
+export const Required: ComponentStory<typeof TextField> = (args) => {
+    return <TextField {...args} />;
+};
 
-required.args = {
+Required.args = {
     required: true,
     label: 'required'
 };
 
-export const error = Template.bind({});
+export const Error: ComponentStory<typeof TextField> = (args) => {
+    return <TextField {...args} />;
+};
 
-error.args = {
+Error.args = {
     error: true,
-    label: 'error'
+    label: 'error',
+    helperText: 'invalid input !!'
 };

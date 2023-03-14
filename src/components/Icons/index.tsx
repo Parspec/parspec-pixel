@@ -25,5 +25,11 @@ export {
     CheckCircle as CheckCircleIcon,
     SwapHoriz as SwapHorizIcon,
     ChangeHistory as ChangeHistoryIcon,
-    ViewArray as ViewArrayIcon
+    ViewArray as ViewArrayIcon,
+    FileDownloadOutlined,
+    SyncProblem,
+    ContentCopy,
+    Tune,
+    Sync,
+    Delete
 } from '@mui/icons-material';

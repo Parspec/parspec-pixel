@@ -280,6 +280,6 @@ export const dDataP2 = [
     reporter: '',
     available: '',
     hidden: false,
-    selected: true,
+
   },
 ]

@@ -10,7 +10,6 @@ import { Box } from '../Box';
 import { BodyMedium } from '../Typography';
 import { FilterSettingsModel } from '@syncfusion/ej2-grids';
 import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
-import { Radio } from '../Radio';
 
 export default {
     title: 'Table',
@@ -90,6 +89,9 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
     const onSearch = (data: Object) => {
         console.log('onSearch===>\n', data);
     };
+    const onRowSelection = (selectedData) => {
+        console.log('onRowSelection===>\n', selectedData);
+    };
     const getTableProps = (args: any) => {
         const toolBarItems = ['ExcelExport', 'PdfExport', 'Add', 'Delete', 'Search', 'Update', 'Cancel'] as ToolbarItems[];
         return {
@@ -101,8 +103,8 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
         <>
             <br />
             <br />
-            <Table {...getTableProps({ ...props, onAdd, onCheckboxChange, onDelete, onDragEnd, onEdit, onSearch })}>
-                <ColumnDirective type="checkbox" allowEditing={false} width="50"></ColumnDirective>
+            <Table {...getTableProps({ ...props, onAdd, onCheckboxChange, onDelete, onDragEnd, onEdit, onSearch, onRowSelection })}>
+                {/* <ColumnDirective type="checkbox" allowEditing={false} width="50"></ColumnDirective> */}
                 <ColumnDirective field="id" isPrimaryKey={true} visible={false} />
                 <ColumnDirective field="taskID" allowEditing={false} headerText="Task ID" width="150" filter={checkboxFilter} editType="numericedit" />
                 <ColumnDirective field="name" headerText="Task Name" minWidth="200" filter={menuFilter} />
@@ -160,13 +162,9 @@ export const SingleSelect: ComponentStory<typeof Table> = (props) => {
             ...args
         };
     };
-    const coltemplate = (props) => {
-        return <Radio size="small" checked={props.selected}></Radio>; //onChange={() => onRadioChange(props)}
-    };
+
     const onRowSelection = (selectedData) => {
-        const { taskData, id } = selectedData[0];
-        const updatedItem = { ...taskData, selected: true };
-        setData((prev) => prev.map((item) => (item.id === taskData.id ? updatedItem : { ...item, selected: false })));
+        console.log(selectedData);
     };
 
     return (
@@ -175,7 +173,6 @@ export const SingleSelect: ComponentStory<typeof Table> = (props) => {
             <br />
             <Table {...getTableProps({ ...props, onRowSelection })} data={data}>
                 <ColumnDirective field="id" isPrimaryKey={true} visible={false} />
-                <ColumnDirective allowEditing={false} allowSorting={false} headerText="" width="80" template={coltemplate} allowFiltering={false} />
                 <ColumnDirective field="taskID" allowEditing={false} headerText="Task ID" width="150" editType="numericedit" />
                 <ColumnDirective field="name" headerText="Task Name" minWidth="200" />
                 <ColumnDirective field="reporter" headerText="Reporter" minWidth="200" />

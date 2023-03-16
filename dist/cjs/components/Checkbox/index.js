@@ -20,7 +20,7 @@ const Checkbox_1 = __importDefault(require("@mui/material/Checkbox"));
 const FormControlLabel_1 = __importDefault(require("@mui/material/FormControlLabel"));
 const Checkbox = (_a) => {
     var { label } = _a, rest = __rest(_a, ["label"]);
-    return (0, jsx_runtime_1.jsx)(FormControlLabel_1.default, { control: (0, jsx_runtime_1.jsx)(Checkbox_1.default, Object.assign({}, rest)), label: label });
+    return jsx_runtime_1.jsx(FormControlLabel_1.default, { control: jsx_runtime_1.jsx(Checkbox_1.default, Object.assign({}, rest), void 0), label: label }, void 0);
 };
 exports.Checkbox = Checkbox;
 exports.Checkbox.defaultProps = {

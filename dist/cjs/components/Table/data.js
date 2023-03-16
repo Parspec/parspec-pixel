@@ -280,7 +280,6 @@ exports.dDataP2 = [
         reporter: '',
         available: '',
         hidden: false,
-        selected: true,
     },
 ];
 //# sourceMappingURL=data.js.map

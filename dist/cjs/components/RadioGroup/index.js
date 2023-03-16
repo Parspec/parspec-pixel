@@ -22,9 +22,9 @@ const FormLabel_1 = __importDefault(require("@mui/material/FormLabel"));
 const FormControlLabel_1 = __importDefault(require("@mui/material/FormControlLabel"));
 const Radio_1 = require("../Radio");
 const Box_1 = require("../Box");
-exports.RadioGroup = (0, react_1.forwardRef)((_a, ref) => {
+exports.RadioGroup = react_1.forwardRef((_a, ref) => {
     var { options, label, name, size = 'small' } = _a, rest = __rest(_a, ["options", "label", "name", "size"]);
-    return ((0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ ref: ref }, { children: [(0, jsx_runtime_1.jsx)(FormLabel_1.default, { children: label }), (0, jsx_runtime_1.jsx)(RadioGroup_1.default, Object.assign({}, rest, { name: name }, { children: options.map((item, index) => ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(FormControlLabel_1.default, { value: item.value, control: (0, jsx_runtime_1.jsx)(Radio_1.Radio, { size: size }), label: item.label }, index), item.helper && !rest.row && (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ ml: 8 }, { children: item.helper }))] }))) }))] })));
+    return (jsx_runtime_1.jsxs(Box_1.Box, Object.assign({ ref: ref }, { children: [jsx_runtime_1.jsx(FormLabel_1.default, { children: label }, void 0), jsx_runtime_1.jsx(RadioGroup_1.default, Object.assign({}, rest, { name: name }, { children: options.map((item, index) => (jsx_runtime_1.jsxs(jsx_runtime_1.Fragment, { children: [jsx_runtime_1.jsx(FormControlLabel_1.default, { value: item.value, control: jsx_runtime_1.jsx(Radio_1.Radio, { size: size }, void 0), label: item.label }, index), item.helper && !rest.row && jsx_runtime_1.jsx(Box_1.Box, Object.assign({ ml: 8 }, { children: item.helper }), void 0)] }, void 0))) }), void 0)] }), void 0));
 });
 exports.RadioGroup.defaultProps = {
     label: 'Radio Group',

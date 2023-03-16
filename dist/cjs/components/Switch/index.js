@@ -19,9 +19,9 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const react_1 = require("react");
 const FormControlLabel_1 = __importDefault(require("@mui/material/FormControlLabel"));
 const Switch_1 = __importDefault(require("@mui/material/Switch"));
-exports.Switch = (0, react_1.forwardRef)((_a, ref) => {
+exports.Switch = react_1.forwardRef((_a, ref) => {
     var { label } = _a, rest = __rest(_a, ["label"]);
-    return (0, jsx_runtime_1.jsx)(FormControlLabel_1.default, { ref: ref, control: (0, jsx_runtime_1.jsx)(Switch_1.default, Object.assign({}, rest)), label: label });
+    return jsx_runtime_1.jsx(FormControlLabel_1.default, { ref: ref, control: jsx_runtime_1.jsx(Switch_1.default, Object.assign({}, rest), void 0), label: label }, void 0);
 });
 exports.Switch.defaultProps = {
     label: '',

@@ -1,8 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ViewArrayIcon = exports.ChangeHistoryIcon = exports.SwapHorizIcon = exports.CheckCircleIcon = exports.MoreVertIcon = exports.EditIcon = exports.RemoveIcon = exports.AddIcon = exports.PanToolIcon = exports.CheckCircleOutlineIcon = exports.ArrowDownwardIcon = exports.ArrowUpwardIcon = exports.ArrowCircleRightIcon = exports.ArrowCircleLeftIcon = exports.LastPageIcon = exports.FirstPageIcon = exports.KeyboardArrowRightIcon = exports.KeyboardArrowLeftIcon = exports.UnfoldMoreIcon = exports.UploadIcon = exports.DeleteIcon = exports.TrendingUpIcon = exports.SearchIcon = exports.DragIndicatorIcon = exports.CancelIcon = exports.CloseIcon = exports.ParspecLogoIcon = void 0;
+exports.SyncIcon = exports.ViewArrayIcon = exports.ChangeHistoryIcon = exports.SwapHorizIcon = exports.CheckCircleIcon = exports.MoreVertIcon = exports.EditIcon = exports.RemoveIcon = exports.AddIcon = exports.PanToolIcon = exports.CheckCircleOutlineIcon = exports.ArrowDownwardIcon = exports.ArrowUpwardIcon = exports.ArrowCircleRightIcon = exports.ArrowCircleLeftIcon = exports.LastPageIcon = exports.FirstPageIcon = exports.KeyboardArrowRightIcon = exports.KeyboardArrowLeftIcon = exports.UnfoldMoreIcon = exports.UploadIcon = exports.DeleteIcon = exports.TrendingUpIcon = exports.SearchIcon = exports.DragIndicatorIcon = exports.CancelIcon = exports.CloseIcon = exports.AnnotateColoredIcon = exports.AnnotateIcon = exports.RedirectIcon = exports.ParspecLogoIcon = void 0;
 var ParspecLogoIcon_1 = require("./ParspecLogoIcon");
 Object.defineProperty(exports, "ParspecLogoIcon", { enumerable: true, get: function () { return ParspecLogoIcon_1.ParspecLogoIcon; } });
+var RedirectIcon_1 = require("./RedirectIcon");
+Object.defineProperty(exports, "RedirectIcon", { enumerable: true, get: function () { return RedirectIcon_1.RedirectIcon; } });
+var AnnotateIcon_1 = require("./AnnotateIcon");
+Object.defineProperty(exports, "AnnotateIcon", { enumerable: true, get: function () { return AnnotateIcon_1.AnnotateIcon; } });
+var AnnotateColoredIcon_1 = require("./AnnotateColoredIcon");
+Object.defineProperty(exports, "AnnotateColoredIcon", { enumerable: true, get: function () { return AnnotateColoredIcon_1.AnnotateColoredIcon; } });
 var icons_material_1 = require("@mui/icons-material");
 Object.defineProperty(exports, "CloseIcon", { enumerable: true, get: function () { return icons_material_1.Close; } });
 Object.defineProperty(exports, "CancelIcon", { enumerable: true, get: function () { return icons_material_1.Cancel; } });
@@ -30,4 +36,5 @@ Object.defineProperty(exports, "CheckCircleIcon", { enumerable: true, get: funct
 Object.defineProperty(exports, "SwapHorizIcon", { enumerable: true, get: function () { return icons_material_1.SwapHoriz; } });
 Object.defineProperty(exports, "ChangeHistoryIcon", { enumerable: true, get: function () { return icons_material_1.ChangeHistory; } });
 Object.defineProperty(exports, "ViewArrayIcon", { enumerable: true, get: function () { return icons_material_1.ViewArray; } });
+Object.defineProperty(exports, "SyncIcon", { enumerable: true, get: function () { return icons_material_1.SyncProblem; } });
 //# sourceMappingURL=index.js.map

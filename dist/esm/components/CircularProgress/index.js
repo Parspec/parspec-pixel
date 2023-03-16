@@ -13,7 +13,7 @@ import { jsx as _jsx } from "react/jsx-runtime";
 import { default as MUICircularProgress } from '@mui/material/CircularProgress';
 export const CircularProgress = (_a) => {
     var { color, size } = _a, rest = __rest(_a, ["color", "size"]);
-    return _jsx(MUICircularProgress, Object.assign({ color: color, size: size }, rest));
+    return _jsx(MUICircularProgress, Object.assign({ color: color, size: size }, rest), void 0);
 };
 CircularProgress.defaultProps = {
     color: 'inherit',

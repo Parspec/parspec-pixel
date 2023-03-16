@@ -7,7 +7,7 @@ exports.IconButton = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const IconButton_1 = __importDefault(require("@mui/material/IconButton"));
 const IconButton = (props) => {
-    return (0, jsx_runtime_1.jsx)(IconButton_1.default, Object.assign({}, props));
+    return jsx_runtime_1.jsx(IconButton_1.default, Object.assign({}, props), void 0);
 };
 exports.IconButton = IconButton;
 //# sourceMappingURL=index.js.map

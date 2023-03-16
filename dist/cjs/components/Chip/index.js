@@ -19,7 +19,7 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const Chip_1 = __importDefault(require("@mui/material/Chip"));
 const Chip = (_a) => {
     var { label } = _a, rest = __rest(_a, ["label"]);
-    return (0, jsx_runtime_1.jsx)(Chip_1.default, Object.assign({ label: label }, rest));
+    return jsx_runtime_1.jsx(Chip_1.default, Object.assign({ label: label }, rest), void 0);
 };
 exports.Chip = Chip;
 exports.Chip.defaultProps = {

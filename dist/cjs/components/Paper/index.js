@@ -18,9 +18,9 @@ exports.Paper = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const react_1 = require("react");
 const Paper_1 = __importDefault(require("@mui/material/Paper"));
-exports.Paper = (0, react_1.forwardRef)((_a) => {
+exports.Paper = react_1.forwardRef((_a) => {
     var { children } = _a, props = __rest(_a, ["children"]);
-    return (0, jsx_runtime_1.jsx)(Paper_1.default, Object.assign({}, props, { children: children }));
+    return jsx_runtime_1.jsx(Paper_1.default, Object.assign({}, props, { children: children }), void 0);
 });
 exports.Paper.defaultProps = {
     variant: 'outlined'

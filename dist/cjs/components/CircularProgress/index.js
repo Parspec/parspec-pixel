@@ -19,7 +19,7 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const CircularProgress_1 = __importDefault(require("@mui/material/CircularProgress"));
 const CircularProgress = (_a) => {
     var { color, size } = _a, rest = __rest(_a, ["color", "size"]);
-    return (0, jsx_runtime_1.jsx)(CircularProgress_1.default, Object.assign({ color: color, size: size }, rest));
+    return jsx_runtime_1.jsx(CircularProgress_1.default, Object.assign({ color: color, size: size }, rest), void 0);
 };
 exports.CircularProgress = CircularProgress;
 exports.CircularProgress.defaultProps = {

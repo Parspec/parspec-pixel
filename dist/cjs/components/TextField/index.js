@@ -18,9 +18,9 @@ exports.TextField = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const TextField_1 = __importDefault(require("@mui/material/TextField"));
 const react_1 = require("react");
-exports.TextField = (0, react_1.forwardRef)((_a, ref) => {
+exports.TextField = react_1.forwardRef((_a, ref) => {
     var { variant, color, error, size, label } = _a, rest = __rest(_a, ["variant", "color", "error", "size", "label"]);
-    return ((0, jsx_runtime_1.jsx)(TextField_1.default, Object.assign({ fullWidth: true, label: label, ref: ref, size: size, variant: variant, color: color, error: error }, rest)));
+    return (jsx_runtime_1.jsx(TextField_1.default, Object.assign({ fullWidth: true, label: label, ref: ref, size: size, variant: variant, color: color, error: error }, rest), void 0));
 });
 exports.TextField.defaultProps = {
     variant: 'outlined',

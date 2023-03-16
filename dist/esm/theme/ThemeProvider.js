@@ -58,6 +58,6 @@ const theme = createTheme({
     }
 });
 export const ThemeProvider = (props) => {
-    return _jsx(MUIThemeProvider, Object.assign({ theme: theme }, { children: props.children }));
+    return _jsx(MUIThemeProvider, Object.assign({ theme: theme }, { children: props.children }), void 0);
 };
 //# sourceMappingURL=ThemeProvider.js.map

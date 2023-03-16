@@ -4,6 +4,7 @@ interface MenuProps {
         label: string;
         onClick: () => void;
     }[];
+    children?: any;
 }
-export declare const Menu: ({ options }: MenuProps) => JSX.Element;
+export declare const Menu: ({ options, children }: MenuProps) => JSX.Element;
 export {};

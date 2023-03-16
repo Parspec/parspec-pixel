@@ -22,9 +22,9 @@ const axios_1 = __importDefault(require("axios"));
 const ProgressBar_1 = __importDefault(require("../ProgressBar"));
 const SelectedFile = (props) => {
     const { file, onDelete, url, handleResults, index } = props;
-    const [progress, setProgress] = (0, react_1.useState)(0);
+    const [progress, setProgress] = react_1.useState(0);
     let source = axios_1.default.CancelToken.source();
-    (0, react_1.useEffect)(() => {
+    react_1.useEffect(() => {
         const token = localStorage.getItem('token');
         const onUpload = () => __awaiter(void 0, void 0, void 0, function* () {
             var _a;
@@ -65,7 +65,7 @@ const SelectedFile = (props) => {
     const handleDelete = () => {
         onDelete(file);
     };
-    return ((0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }, { children: [(0, jsx_runtime_1.jsxs)(Box_1.Box, { children: [(0, jsx_runtime_1.jsx)(Typography_1.BodySmall, Object.assign({ fontWeight: 600 }, { children: file.name })), (0, jsx_runtime_1.jsxs)(Typography_1.BodySmall, { children: [(file.size / 1000).toFixed(2), " kb"] })] }), (0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ ml: "auto", display: "flex" }, { children: [url ? ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ mr: 2 }, { children: (0, jsx_runtime_1.jsx)(ProgressBar_1.default, { progress: progress }) }))) : null, (0, jsx_runtime_1.jsx)(material_1.IconButton, Object.assign({ onClick: handleDelete, size: "small" }, { children: (0, jsx_runtime_1.jsx)(Icons_1.DeleteIcon, {}) }))] }))] })));
+    return (jsx_runtime_1.jsxs(Box_1.Box, Object.assign({ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }, { children: [jsx_runtime_1.jsxs(Box_1.Box, { children: [jsx_runtime_1.jsx(Typography_1.BodySmall, Object.assign({ fontWeight: 600 }, { children: file.name }), void 0), jsx_runtime_1.jsxs(Typography_1.BodySmall, { children: [(file.size / 1000).toFixed(2), " kb"] }, void 0)] }, void 0), jsx_runtime_1.jsxs(Box_1.Box, Object.assign({ ml: "auto", display: "flex" }, { children: [url ? (jsx_runtime_1.jsx(Box_1.Box, Object.assign({ mr: 2 }, { children: jsx_runtime_1.jsx(ProgressBar_1.default, { progress: progress }, void 0) }), void 0)) : null, jsx_runtime_1.jsx(material_1.IconButton, Object.assign({ onClick: handleDelete, size: "small" }, { children: jsx_runtime_1.jsx(Icons_1.DeleteIcon, {}, void 0) }), void 0)] }), void 0)] }), void 0));
 };
 exports.default = SelectedFile;
 //# sourceMappingURL=SelectedFile.js.map

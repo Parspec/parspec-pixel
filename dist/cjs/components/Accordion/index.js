@@ -22,10 +22,13 @@ const AccordionSummary_1 = __importDefault(require("@mui/material/AccordionSumma
 const AccordionDetails_1 = __importDefault(require("@mui/material/AccordionDetails"));
 const ExpandMore_1 = __importDefault(require("@mui/icons-material/ExpandMore"));
 exports.Accordion = (0, react_1.forwardRef)((_a, ref) => {
-    var { options } = _a, rest = __rest(_a, ["options"]);
+    var { options, getPanel } = _a, rest = __rest(_a, ["options", "getPanel"]);
     const [expanded, setExpanded] = (0, react_1.useState)(false);
     const handleAccordionOnChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
+        if (getPanel) {
+            getPanel(panel);
+        }
     };
     return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: options.map((item, index) => {
             return ((0, jsx_runtime_1.jsxs)(Accordion_1.default, Object.assign({ ref: ref, TransitionProps: { unmountOnExit: true } }, rest, { expanded: expanded === item.labelId, onChange: handleAccordionOnChange(item.labelId) }, { children: [(0, jsx_runtime_1.jsx)(AccordionSummary_1.default, Object.assign({ sx: {

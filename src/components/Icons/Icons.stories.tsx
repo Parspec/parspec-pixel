@@ -31,7 +31,8 @@ import {
     ContentCopy,
     Tune,
     Sync,
-    Delete
+    Delete,
+    VisibilityOffOutlined
 } from './index';
 import { Grid } from '../Grid';
 import { Box } from '../Box';
@@ -88,12 +89,13 @@ AllIcons.args = {
         { icon: SwapHorizIcon, name: 'SwapHorizIcon' },
         { icon: ChangeHistoryIcon, name: 'ChangeHistoryIcon' },
         { icon: ViewArrayIcon, name: 'ViewArrayIcon ' },
-        { icon: FileDownloadOutlined, name: 'FileDownloadOutlined' },
-        { icon: SyncProblem, name: 'SyncProblem' },
-        { icon: ContentCopy, name: 'ContentCopy' },
-        { icon: Tune, name: 'Tune' },
-        { icon: Sync, name: 'Sync' },
-        { icon: Delete, name: 'Delete' }
+        { icon: FileDownloadOutlined, name: 'FileDownloadOutlinedIcon' },
+        { icon: SyncProblem, name: 'SyncProblemIcon' },
+        { icon: ContentCopy, name: 'ContentCopyIcon' },
+        { icon: Tune, name: 'TuneIcon' },
+        { icon: Sync, name: 'SyncIcon' },
+        { icon: Delete, name: 'DeleteIcon' },
+        { icon: VisibilityOffOutlined, name: 'VisibilityOffOutlinedIcon' }
     ],
     fontSize: 'medium'
 };

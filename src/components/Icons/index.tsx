@@ -31,5 +31,6 @@ export {
     ContentCopy,
     Tune,
     Sync,
-    Delete
+    Delete,
+    VisibilityOffOutlined
 } from '@mui/icons-material';

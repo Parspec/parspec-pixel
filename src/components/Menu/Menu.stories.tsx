@@ -19,7 +19,7 @@ const Template: ComponentStory<typeof Menu> = (args) => (
     <Menu options={options}>
         {
             <Button variant="outlined" color="secondary" endIcon={<MoreVertIcon />}>
-                Hello
+                Menu Button
             </Button>
         }
     </Menu>

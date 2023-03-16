@@ -16,7 +16,9 @@ import {
     TreeGridExcelExportProperties,
     TreeGridPdfExportProperties,
     PageSettingsModel,
-    Filter
+    Filter,
+    ContextMenuItem,
+    ContextMenu
 } from '@syncfusion/ej2-react-treegrid';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { isNullOrUndefined, registerLicense } from '@syncfusion/ej2-base';
@@ -194,11 +196,32 @@ export const Table: React.FC<TableProps> = ({
             (args.row as HTMLTableRowElement).style.opacity = '0.4';
         }
     };
+    // const contextMenuItems: ContextMenuItem[] = [
+    //     'AutoFit',
+    //     'AutoFitAll',
+    //     'SortAscending',
+    //     'SortDescending',
+    //     'AddRow',
+    //     'Edit',
+    //     'Delete',
+    //     'Save',
+    //     'Cancel',
+    //     'PdfExport',
+    //     'ExcelExport',
+    //     'CsvExport',
+    //     'FirstPage',
+    //     'PrevPage',
+    //     'LastPage',
+    //     'NextPage',
+    //     'Indent',
+    //     'Outdent'
+    // ];
     return (
         <Box className="control-pane">
             <Box className="control-section">
                 {data && (
                     <TreeGridComponent
+                        // contextMenuItems={contextMenuItems}
                         rowSelected={rowSelected}
                         rowDataBound={rowDataBound}
                         height={height}
@@ -222,8 +245,8 @@ export const Table: React.FC<TableProps> = ({
                                       allowEditing: true,
                                       mode: 'Cell',
                                       showDeleteConfirmDialog: true,
-                                      showConfirmDialog: true,
-                                      newRowPosition: 'Bottom'
+                                      showConfirmDialog: true
+                                      //   newRowPosition: 'Bottom'
                                   }
                                 : {}
                         }
@@ -240,7 +263,7 @@ export const Table: React.FC<TableProps> = ({
                         actionComplete={actionComplete}
                     >
                         <ColumnsDirective>{children}</ColumnsDirective>
-                        <Inject services={[Freeze, RowDD, Selection, Sort, Edit, Toolbar, Page, ExcelExport, PdfExport, Resize, Filter]} />
+                        <Inject services={[Freeze, RowDD, Selection, Sort, Edit, Toolbar, Page, ExcelExport, PdfExport, Resize, Filter, ContextMenu]} />
                     </TreeGridComponent>
                 )}
             </Box>
@@ -273,7 +296,6 @@ Table.defaultProps = {
         type: 'Excel'
     },
     selectionSettings: {
-        type: 'Multiple',
         persistSelection: true
     },
     onCheckboxChange: (data: Object[]) => {},

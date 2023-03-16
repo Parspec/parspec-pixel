@@ -28959,3 +28959,8 @@ tr:hover {
 .e-treegrid td.e-active {
     background-color: #ffe4bd;
 }
+
+.e-grid td.e-updatedtd {
+    background-color: #d7f9c7;
+    color: #000;
+}

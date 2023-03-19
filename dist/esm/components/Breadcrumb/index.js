@@ -17,7 +17,7 @@ export const Breadcrumb = (_a) => {
     var { options } = _a, rest = __rest(_a, ["options"]);
     return (_jsx(MUIBreadcrumb, Object.assign({ separator: ">" }, rest, { children: options.map((item, index) => {
             if (index === options.length - 1) {
-                return _jsx(BodyXS, Object.assign({ color: 'secondary' }, { children: item.displaytext }), void 0);
+                return (_jsx(BodyXS, Object.assign({ color: 'secondary' }, { children: item.displaytext }), index));
             }
             return (_jsx(Link, Object.assign({ fontWeight: "400", fontFamily: "Inter", fontSize: '12px', color: "secondary", underline: 'hover', href: item.href }, { children: item.displaytext }), index));
         }) }), void 0));

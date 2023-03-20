@@ -13,11 +13,11 @@ const Typography_1 = require("../Typography");
 const Icons_1 = require("../Icons");
 const fileFormats_1 = require("./fileFormats");
 const SelectedFile_1 = __importDefault(require("./SelectedFile"));
-exports.FileSelector = react_1.forwardRef(({ maxFiles = 1, acceptedFormats = [], onUpload = () => { }, url = '', error = '', helperText = '', onSelect = () => { } }, ref) => {
-    const [files, setFiles] = react_1.useState([]);
-    const [result, setResults] = react_1.useState([]);
+exports.FileSelector = (0, react_1.forwardRef)(({ maxFiles = 1, acceptedFormats = [], onUpload = () => { }, url = '', error = '', helperText = '', onSelect = () => { } }, ref) => {
+    const [files, setFiles] = (0, react_1.useState)([]);
+    const [result, setResults] = (0, react_1.useState)([]);
     //To give the information of selected files to the main component.
-    react_1.useEffect(() => {
+    (0, react_1.useEffect)(() => {
         onSelect(files);
         if (!files.length) {
             setResults([]);
@@ -25,7 +25,7 @@ exports.FileSelector = react_1.forwardRef(({ maxFiles = 1, acceptedFormats = [],
         }
     }, [files]);
     //To call the callback when uploading of all files is done
-    react_1.useEffect(() => {
+    (0, react_1.useEffect)(() => {
         if (files.length) {
             let uploadedFiles = result.filter((file) => file);
             if (uploadedFiles.length === files.length) {
@@ -38,7 +38,7 @@ exports.FileSelector = react_1.forwardRef(({ maxFiles = 1, acceptedFormats = [],
         }
     }, [result]);
     //Function called when file is selected
-    const onDrop = react_1.useCallback((acceptedFiles) => {
+    const onDrop = (0, react_1.useCallback)((acceptedFiles) => {
         setFiles(acceptedFiles);
     }, []);
     //Function called when file is deleted
@@ -54,11 +54,11 @@ exports.FileSelector = react_1.forwardRef(({ maxFiles = 1, acceptedFormats = [],
             return output;
         });
     };
-    const { getRootProps, getInputProps } = react_dropzone_1.useDropzone({
+    const { getRootProps, getInputProps } = (0, react_dropzone_1.useDropzone)({
         onDrop,
         maxFiles,
-        accept: acceptedFormats.length ? fileFormats_1.getAcceptedFormats(acceptedFormats) : {}
+        accept: acceptedFormats.length ? (0, fileFormats_1.getAcceptedFormats)(acceptedFormats) : {}
     });
-    return (jsx_runtime_1.jsxs(Box_1.Box, Object.assign({ ref: ref }, { children: [!files.length ? (jsx_runtime_1.jsxs("div", Object.assign({}, getRootProps(), { children: [jsx_runtime_1.jsx("input", Object.assign({}, getInputProps()), void 0), jsx_runtime_1.jsxs(Box_1.Box, Object.assign({ p: 6, bgcolor: "#f3f5fa", width: 1, borderRadius: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", sx: { cursor: 'pointer' } }, { children: [jsx_runtime_1.jsx(Typography_1.BodySmall, { children: "Drag and drop files here, or:" }, void 0), jsx_runtime_1.jsx(Box_1.Box, Object.assign({ mt: 6, mb: 3 }, { children: jsx_runtime_1.jsx(material_1.Avatar, { children: jsx_runtime_1.jsx(Icons_1.UploadIcon, {}, void 0) }, void 0) }), void 0), jsx_runtime_1.jsx(Typography_1.BodySmall, { children: "Browse" }, void 0)] }), void 0)] }), void 0)) : (jsx_runtime_1.jsx(Box_1.Box, { children: files.map((file, index) => (jsx_runtime_1.jsx(SelectedFile_1.default, { file: file, onDelete: onDelete, url: url, index: index, handleResults: handleResults }, file.name))) }, void 0)), error && (jsx_runtime_1.jsx(Box_1.Box, Object.assign({ mt: 1 }, { children: jsx_runtime_1.jsx(Typography_1.BodySmall, Object.assign({ color: "error" }, { children: error }), void 0) }), void 0)), helperText && (jsx_runtime_1.jsx(Box_1.Box, Object.assign({ mt: 2 }, { children: jsx_runtime_1.jsx(Typography_1.BodySmall, Object.assign({ color: "secondary" }, { children: helperText }), void 0) }), void 0))] }), void 0));
+    return ((0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ ref: ref }, { children: [!files.length ? ((0, jsx_runtime_1.jsxs)("div", Object.assign({}, getRootProps(), { children: [(0, jsx_runtime_1.jsx)("input", Object.assign({}, getInputProps())), (0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ p: 6, bgcolor: "#f3f5fa", width: 1, borderRadius: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", sx: { cursor: 'pointer' } }, { children: [(0, jsx_runtime_1.jsx)(Typography_1.BodySmall, { children: "Drag and drop files here, or:" }), (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ mt: 6, mb: 3 }, { children: (0, jsx_runtime_1.jsx)(material_1.Avatar, { children: (0, jsx_runtime_1.jsx)(Icons_1.UploadIcon, {}) }) })), (0, jsx_runtime_1.jsx)(Typography_1.BodySmall, { children: "Browse" })] }))] }))) : ((0, jsx_runtime_1.jsx)(Box_1.Box, { children: files.map((file, index) => ((0, jsx_runtime_1.jsx)(SelectedFile_1.default, { file: file, onDelete: onDelete, url: url, index: index, handleResults: handleResults }, file.name))) })), error && ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ mt: 1 }, { children: (0, jsx_runtime_1.jsx)(Typography_1.BodySmall, Object.assign({ color: "error" }, { children: error })) }))), helperText && ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ mt: 2 }, { children: (0, jsx_runtime_1.jsx)(Typography_1.BodySmall, Object.assign({ color: "secondary" }, { children: helperText })) })))] })));
 });
 //# sourceMappingURL=index.js.map

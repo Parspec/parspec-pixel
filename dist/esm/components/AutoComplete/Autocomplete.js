@@ -23,7 +23,7 @@ export const Autocomplete = forwardRef((_a, ref) => {
                 return `${option[optionlabelkeyname]}`;
             }
             return option;
-        }, freeSolo: freeSolo, renderInput: (params) => _jsx(TextField, Object.assign({}, params, { variant: variant, color: color, label: label }), void 0) }), void 0));
+        }, freeSolo: freeSolo, renderInput: (params) => _jsx(TextField, Object.assign({}, params, { variant: variant, color: color, label: label })) })));
 });
 Autocomplete.defaultProps = {
     color: 'primary',

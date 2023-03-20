@@ -31,10 +31,10 @@ const CircularProgress_1 = require("../CircularProgress");
 const TextField_1 = require("../TextField");
 const AsyncAutocomplete = (_a) => {
     var { id, label, color, variant, onChange, loadersize, asyncfunc, optionlabelkeyname } = _a, props = __rest(_a, ["id", "label", "color", "variant", "onChange", "loadersize", "asyncfunc", "optionlabelkeyname"]);
-    const [open, setOpen] = react_1.useState(false);
-    const [options, setOptions] = react_1.useState([]);
+    const [open, setOpen] = (0, react_1.useState)(false);
+    const [options, setOptions] = (0, react_1.useState)([]);
     const loading = open && options.length === 0;
-    react_1.useEffect(() => {
+    (0, react_1.useEffect)(() => {
         let active = true;
         if (!loading) {
             return undefined;
@@ -49,7 +49,7 @@ const AsyncAutocomplete = (_a) => {
             active = false;
         };
     }, [loading]);
-    react_1.useEffect(() => {
+    (0, react_1.useEffect)(() => {
         if (!open) {
             setOptions([]);
         }
@@ -57,11 +57,11 @@ const AsyncAutocomplete = (_a) => {
     const handleOnChange = (event, newValue) => {
         onChange(Object.assign(Object.assign({}, event), { target: Object.assign(Object.assign({}, event.target), { value: newValue }) }));
     };
-    return (jsx_runtime_1.jsx(Autocomplete_1.default, Object.assign({}, props, { id: id, options: options, open: open, onOpen: () => {
+    return ((0, jsx_runtime_1.jsx)(Autocomplete_1.default, Object.assign({}, props, { id: id, options: options, open: open, onOpen: () => {
             setOpen(true);
         }, onClose: () => {
             setOpen(false);
-        }, onChange: handleOnChange, isOptionEqualToValue: (option, value) => option[optionlabelkeyname] === value[optionlabelkeyname], getOptionLabel: (option) => `${option[optionlabelkeyname]}`, renderInput: (params) => (jsx_runtime_1.jsx(TextField_1.TextField, Object.assign({}, params, { color: color, label: label, variant: variant, InputProps: Object.assign(Object.assign({}, params.InputProps), { endAdornment: (jsx_runtime_1.jsxs(react_1.Fragment, { children: [loading ? jsx_runtime_1.jsx(CircularProgress_1.CircularProgress, { size: loadersize }, void 0) : null, params.InputProps.endAdornment] }, void 0)) }) }), void 0)) }), void 0));
+        }, onChange: handleOnChange, isOptionEqualToValue: (option, value) => option[optionlabelkeyname] === value[optionlabelkeyname], getOptionLabel: (option) => `${option[optionlabelkeyname]}`, renderInput: (params) => ((0, jsx_runtime_1.jsx)(TextField_1.TextField, Object.assign({}, params, { color: color, label: label, variant: variant, InputProps: Object.assign(Object.assign({}, params.InputProps), { endAdornment: ((0, jsx_runtime_1.jsxs)(react_1.Fragment, { children: [loading ? (0, jsx_runtime_1.jsx)(CircularProgress_1.CircularProgress, {}) : null, params.InputProps.endAdornment] })) }) }))) })));
 };
 exports.AsyncAutocomplete = AsyncAutocomplete;
 exports.AsyncAutocomplete.defaultProps = {

@@ -7,7 +7,7 @@ exports.Radio = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const Radio_1 = __importDefault(require("@mui/material/Radio"));
 const Radio = (props) => {
-    return jsx_runtime_1.jsx(Radio_1.default, Object.assign({}, props), void 0);
+    return (0, jsx_runtime_1.jsx)(Radio_1.default, Object.assign({}, props));
 };
 exports.Radio = Radio;
 exports.Radio.defaultProps = {

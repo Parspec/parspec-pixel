@@ -21,16 +21,16 @@ const Accordion_1 = __importDefault(require("@mui/material/Accordion"));
 const AccordionSummary_1 = __importDefault(require("@mui/material/AccordionSummary"));
 const AccordionDetails_1 = __importDefault(require("@mui/material/AccordionDetails"));
 const ExpandMore_1 = __importDefault(require("@mui/icons-material/ExpandMore"));
-exports.Accordion = react_1.forwardRef((_a, ref) => {
+exports.Accordion = (0, react_1.forwardRef)((_a, ref) => {
     var { options } = _a, rest = __rest(_a, ["options"]);
-    const [expanded, setExpanded] = react_1.useState(false);
+    const [expanded, setExpanded] = (0, react_1.useState)(false);
     const handleAccordionOnChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
     };
-    return (jsx_runtime_1.jsx(jsx_runtime_1.Fragment, { children: options.map((item, index) => {
-            return (jsx_runtime_1.jsxs(Accordion_1.default, Object.assign({ ref: ref, TransitionProps: { unmountOnExit: true } }, rest, { expanded: expanded === item.labelId, onChange: handleAccordionOnChange(item.labelId) }, { children: [jsx_runtime_1.jsx(AccordionSummary_1.default, Object.assign({ sx: {
+    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: options.map((item, index) => {
+            return ((0, jsx_runtime_1.jsxs)(Accordion_1.default, Object.assign({ ref: ref, TransitionProps: { unmountOnExit: true } }, rest, { expanded: expanded === item.labelId, onChange: handleAccordionOnChange(item.labelId) }, { children: [(0, jsx_runtime_1.jsx)(AccordionSummary_1.default, Object.assign({ sx: {
                             flexDirection: 'row-reverse'
-                        }, expandIcon: jsx_runtime_1.jsx(ExpandMore_1.default, {}, void 0) }, { children: item.summary }), void 0), jsx_runtime_1.jsx(AccordionDetails_1.default, { children: item.details }, void 0)] }), index));
-        }) }, void 0));
+                        }, expandIcon: (0, jsx_runtime_1.jsx)(ExpandMore_1.default, {}) }, { children: item.summary })), (0, jsx_runtime_1.jsx)(AccordionDetails_1.default, { children: item.details })] }), index));
+        }) }));
 });
 //# sourceMappingURL=index.js.map

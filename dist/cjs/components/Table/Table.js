@@ -9,15 +9,15 @@ const Box_1 = require("../Box");
 const ej2_grids_1 = require("@syncfusion/ej2-grids");
 const react_1 = require("react");
 const license = window.localStorage.getItem('syncfusionLicense');
-ej2_base_1.registerLicense(license);
+(0, ej2_base_1.registerLicense)(license);
 const Table = ({ children, data, childMappingKey, allowExports, allowRowDragAndDrop, frozenColumns, treeColumnIndex, allowPaging, pageSettings, allowResizing, allowEditing, toolBarOptions, excelExportProperties, pdfExportProperties, height, allowFiltering, filterSettings, onCheckboxChange, onDragEnd, onAdd, onEdit, onDelete, onSearch, selectionSettings, onRowSelection }) => {
-    const tableRef = react_1.useRef();
+    const tableRef = (0, react_1.useRef)();
     const rowDrop = (args) => {
         const droppedData = tableRef.current.getRowInfo(args.target.parentElement).rowData; //dropped data
         let droppedId, draggedId;
         //here collect the taskid value based on parent records
-        if (!ej2_base_1.isNullOrUndefined(droppedData)) {
-            if (!ej2_base_1.isNullOrUndefined(droppedData.parentItem) && args.data[0].parentItem != null) {
+        if (!(0, ej2_base_1.isNullOrUndefined)(droppedData)) {
+            if (!(0, ej2_base_1.isNullOrUndefined)(droppedData.parentItem) && args.data[0].parentItem != null) {
                 droppedId = droppedData.parentItem.taskID; //dropped data
                 draggedId = args.data[0].parentItem.taskID; // dragged data
             }
@@ -37,7 +37,7 @@ const Table = ({ children, data, childMappingKey, allowExports, allowRowDragAndD
             }
             else if (args.data[0].level != 0 && droppedData.level != 0) {
                 if (args.data[0].level == droppedData.level &&
-                    (ej2_base_1.isNullOrUndefined(args.data[0].hasChildRecords) || ej2_base_1.isNullOrUndefined(droppedData.hasChildRecords) || args.data[0].hasChildRecords == true) &&
+                    ((0, ej2_base_1.isNullOrUndefined)(args.data[0].hasChildRecords) || (0, ej2_base_1.isNullOrUndefined)(droppedData.hasChildRecords) || args.data[0].hasChildRecords == true) &&
                     droppedId != draggedId) {
                     args.cancel = true; //here we prevent drop the record in top of another parent's child
                 }
@@ -45,12 +45,12 @@ const Table = ({ children, data, childMappingKey, allowExports, allowRowDragAndD
         }
         //Here we prevent the drop for child position
         if (args.dropPosition == 'middleSegment') {
-            if (!ej2_base_1.isNullOrUndefined(draggedId) && !ej2_base_1.isNullOrUndefined(droppedId)) {
+            if (!(0, ej2_base_1.isNullOrUndefined)(draggedId) && !(0, ej2_base_1.isNullOrUndefined)(droppedId)) {
                 if (droppedId == draggedId || args.data[0].level == droppedData.level) {
                     args.cancel = true;
                 }
             }
-            else if (args.data[0].level == droppedData.level || (args.data[0].level != droppedData.level && ej2_base_1.isNullOrUndefined(draggedId) && ej2_base_1.isNullOrUndefined(droppedId))) {
+            else if (args.data[0].level == droppedData.level || (args.data[0].level != droppedData.level && (0, ej2_base_1.isNullOrUndefined)(draggedId) && (0, ej2_base_1.isNullOrUndefined)(droppedId))) {
                 args.cancel = true;
             }
         }
@@ -100,11 +100,11 @@ const Table = ({ children, data, childMappingKey, allowExports, allowRowDragAndD
         }
     };
     const rowDataBound = (args) => {
-        if (ej2_grids_1.getObject('hidden', args.data) === true) {
+        if ((0, ej2_grids_1.getObject)('hidden', args.data) === true) {
             args.row.style.opacity = '0.4';
         }
     };
-    return (jsx_runtime_1.jsx(Box_1.Box, Object.assign({ className: "control-pane" }, { children: jsx_runtime_1.jsx(Box_1.Box, Object.assign({ className: "control-section" }, { children: data && (jsx_runtime_1.jsxs(ej2_react_treegrid_1.TreeGridComponent, Object.assign({ rowSelected: rowSelected, rowDataBound: rowDataBound, height: height, ref: tableRef, dataSource: data, treeColumnIndex: treeColumnIndex, childMapping: childMappingKey, allowPdfExport: allowExports, allowExcelExport: allowExports, allowRowDragAndDrop: allowRowDragAndDrop, allowResizing: allowResizing, selectionSettings: selectionSettings, rowDrop: rowDrop, frozenColumns: frozenColumns, allowSorting: true, editSettings: allowEditing
+    return ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ className: "control-pane" }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ className: "control-section" }, { children: data && ((0, jsx_runtime_1.jsxs)(ej2_react_treegrid_1.TreeGridComponent, Object.assign({ rowSelected: rowSelected, rowDataBound: rowDataBound, height: height, ref: tableRef, dataSource: data, treeColumnIndex: treeColumnIndex, childMapping: childMappingKey, allowPdfExport: allowExports, allowExcelExport: allowExports, allowRowDragAndDrop: allowRowDragAndDrop, allowResizing: allowResizing, selectionSettings: selectionSettings, rowDrop: rowDrop, frozenColumns: frozenColumns, allowSorting: true, editSettings: allowEditing
                     ? {
                         allowAdding: true,
                         allowDeleting: true,
@@ -116,7 +116,7 @@ const Table = ({ children, data, childMappingKey, allowExports, allowRowDragAndD
                     }
                     : {}, searchSettings: {
                     hierarchyMode: 'Both'
-                }, toolbar: toolBarOptions, toolbarClick: (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.length) !== 0 ? toolbarClick : undefined, pageSettings: pageSettings, allowPaging: allowPaging, allowFiltering: allowFiltering, filterSettings: filterSettings, checkboxChange: checkboxChange, actionComplete: actionComplete }, { children: [jsx_runtime_1.jsx(ej2_react_treegrid_1.ColumnsDirective, { children: children }, void 0), jsx_runtime_1.jsx(ej2_react_treegrid_1.Inject, { services: [ej2_react_treegrid_1.Freeze, ej2_react_treegrid_1.RowDD, ej2_react_treegrid_1.Selection, ej2_react_treegrid_1.Sort, ej2_react_treegrid_1.Edit, ej2_react_treegrid_1.Toolbar, ej2_react_treegrid_1.Page, ej2_react_treegrid_1.ExcelExport, ej2_react_treegrid_1.PdfExport, ej2_react_treegrid_1.Resize, ej2_react_treegrid_1.Filter] }, void 0)] }), void 0)) }), void 0) }), void 0));
+                }, toolbar: toolBarOptions, toolbarClick: (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.length) !== 0 ? toolbarClick : undefined, pageSettings: pageSettings, allowPaging: allowPaging, allowFiltering: allowFiltering, filterSettings: filterSettings, checkboxChange: checkboxChange, actionComplete: actionComplete }, { children: [(0, jsx_runtime_1.jsx)(ej2_react_treegrid_1.ColumnsDirective, { children: children }), (0, jsx_runtime_1.jsx)(ej2_react_treegrid_1.Inject, { services: [ej2_react_treegrid_1.Freeze, ej2_react_treegrid_1.RowDD, ej2_react_treegrid_1.Selection, ej2_react_treegrid_1.Sort, ej2_react_treegrid_1.Edit, ej2_react_treegrid_1.Toolbar, ej2_react_treegrid_1.Page, ej2_react_treegrid_1.ExcelExport, ej2_react_treegrid_1.PdfExport, ej2_react_treegrid_1.Resize, ej2_react_treegrid_1.Filter] })] }))) })) })));
 };
 exports.Table = Table;
 exports.Table.defaultProps = {

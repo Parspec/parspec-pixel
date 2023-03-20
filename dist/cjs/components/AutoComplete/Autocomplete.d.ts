@@ -1,5 +1,5 @@
 /// <reference types="react" />
-export declare type OptionType = {
+export type OptionType = {
     [index: string]: string;
 };
 export interface AutocompleteProps {

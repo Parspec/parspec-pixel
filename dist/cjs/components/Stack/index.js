@@ -7,7 +7,7 @@ exports.Stack = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const Stack_1 = __importDefault(require("@mui/material/Stack"));
 const Stack = (props) => {
-    return jsx_runtime_1.jsx(Stack_1.default, Object.assign({}, props), void 0);
+    return (0, jsx_runtime_1.jsx)(Stack_1.default, Object.assign({}, props));
 };
 exports.Stack = Stack;
 //# sourceMappingURL=index.js.map

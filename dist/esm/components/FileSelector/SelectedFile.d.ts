@@ -1,5 +1,5 @@
 /// <reference types="react" />
-declare type SelectedFileProps = {
+type SelectedFileProps = {
     file: {
         name: string;
         size: number;

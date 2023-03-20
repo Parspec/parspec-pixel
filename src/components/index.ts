@@ -25,4 +25,8 @@ export * from './Tooltip';
 export * from './AlertBanner';
 export * from './DatePicker';
 export * from './Radio';
+<<<<<<< HEAD
 export * from './skeleton';
+=======
+export * from './LinearProgress';
+>>>>>>> 4ee845d (..)

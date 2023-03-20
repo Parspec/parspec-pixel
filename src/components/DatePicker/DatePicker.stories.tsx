@@ -15,6 +15,6 @@ export default {
 export const Basic: ComponentStory<typeof CustomDatePicker> = (args) => <CustomDatePicker {...args} />;
 
 Basic.args = {
-    defaultValue: dayjs('2022-04-17'),
+    defaultValue: dayjs(new Date()),
     label: 'DatePicker'
 };

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { IconButton, Menu as MuiMenu } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import { MoreVertIcon } from '../Icons';
@@ -8,9 +8,10 @@ interface MenuProps {
         label: string;
         onClick: () => void;
     }[];
+    children?: any;
 }
 
-export const Menu = ({ options }: MenuProps) => {
+export const Menu = ({ options, children }: MenuProps) => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
 
@@ -24,9 +25,13 @@ export const Menu = ({ options }: MenuProps) => {
 
     return (
         <>
-            <IconButton onClick={handleClick}>
-                <MoreVertIcon />
-            </IconButton>
+            {children ? (
+                React.cloneElement(children, { onClick: handleClick })
+            ) : (
+                <IconButton onClick={handleClick}>
+                    <MoreVertIcon />
+                </IconButton>
+            )}
             <MuiMenu id="basic-menu" anchorEl={anchorEl} open={open} onClose={handleClose}>
                 {options.map(({ label, onClick }) => (
                     <MenuItem

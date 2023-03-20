@@ -23,7 +23,7 @@ const AccordionDetails_1 = __importDefault(require("@mui/material/AccordionDetai
 const ExpandMore_1 = __importDefault(require("@mui/icons-material/ExpandMore"));
 exports.Accordion = (0, react_1.forwardRef)((_a, ref) => {
     var { options, getPanel } = _a, rest = __rest(_a, ["options", "getPanel"]);
-    const [expanded, setExpanded] = (0, react_1.useState)(false);
+    const [expanded, setExpanded] = (0, react_1.useState)('panel1');
     const handleAccordionOnChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
         if (getPanel) {

@@ -17,7 +17,6 @@ import {
     TreeGridPdfExportProperties,
     PageSettingsModel,
     Filter,
-    ContextMenuItem,
     ContextMenu
 } from '@syncfusion/ej2-react-treegrid';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
@@ -40,8 +39,12 @@ import {
     SelectionSettingsModel,
     SortEventArgs
 } from '@syncfusion/ej2-grids';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
+window.localStorage.setItem(
+    'syncfusionLicense',
+    'Mgo+DSMBaFt/QHRqVVhlWFpFdEBBXHxAd1p/VWJYdVt5flBPcDwsT3RfQF5jSn9VdkxhWX5WcHVURQ==;Mgo+DSMBPh8sVXJ0S0J+XE9BclRDX3xKf0x/TGpQb19xflBPallYVBYiSV9jS31TdURlWXZccHVdR2FdUw==;ORg4AjUWIQA/Gnt2VVhkQlFac1tJXGFWfVJpTGpQdk5xdV9DaVZUTWY/P1ZhSXxQdkZiX39XcnRUTmFZWUY=;MTM0NjkyNEAzMjMwMmUzNDJlMzBpV1RLdVE0M05jeVRMMnljS2pQKy9YTVBINzQycm43SzFTUldOdk9OUmdRPQ==;MTM0NjkyNUAzMjMwMmUzNDJlMzBpOGErQ1VPaDhFdUdvOG9OamdoNnVTcjNTMGFyZW4wSGNkNTN3OURZQm1NPQ==;NRAiBiAaIQQuGjN/V0Z+WE9EaFpGVmJLYVB3WmpQdldgdVRMZVVbQX9PIiBoS35RdUVgWHleeXZVR2hfVER0;MTM0NjkyN0AzMjMwMmUzNDJlMzBsY3F0b3hYMGFiVUZXK3J1SzVTU0dYNVk1Y2QyU1B6WE1qSlpmNWJSU0tVPQ==;MTM0NjkyOEAzMjMwMmUzNDJlMzBoNFdtWndvNE44SUlJN0FUMmVsYkVHaFQvcmVFbEJwN29wcUFRb2hhY0NFPQ==;Mgo+DSMBMAY9C3t2VVhkQlFac1tJXGFWfVJpTGpQdk5xdV9DaVZUTWY/P1ZhSXxQdkZiX39XcnRUTmVaWUY=;MTM0NjkzMEAzMjMwMmUzNDJlMzBrODVVZDM3Z3UwZXhULzlvOVFjV3FhWjhyOWNkZmRYY1krVVg1V050Q2lrPQ==;MTM0NjkzMUAzMjMwMmUzNDJlMzBvbUpUbHBmanFiMkVWeFBDNTlXbit4STZnMlVLOGdIRFBQUWJVYXRpb2JNPQ==;MTM0NjkzMkAzMjMwMmUzNDJlMzBsY3F0b3hYMGFiVUZXK3J1SzVTU0dYNVk1Y2QyU1B6WE1qSlpmNWJSU0tVPQ=='
+);
 const license = window.localStorage.getItem('syncfusionLicense');
 registerLicense(license!);
 
@@ -71,6 +74,7 @@ export interface TableProps {
     onDelete?: (data: Object) => void;
     onSearch?: (data: Object) => void;
     onRowSelection?: (data: Object) => void;
+    loading?: boolean;
 }
 
 export const Table: React.FC<TableProps> = ({
@@ -98,9 +102,18 @@ export const Table: React.FC<TableProps> = ({
     onDelete,
     onSearch,
     selectionSettings,
-    onRowSelection
+    onRowSelection,
+    loading
 }) => {
     const tableRef = useRef<any>();
+
+    useEffect(() => {
+        if (loading) {
+            tableRef.current.showSpinner();
+        } else {
+            tableRef.current.hideSpinner();
+        }
+    }, [loading]);
 
     const rowDrop = (args: any) => {
         const droppedData = tableRef.current.getRowInfo(args.target.parentElement).rowData; //dropped data
@@ -196,32 +209,18 @@ export const Table: React.FC<TableProps> = ({
             (args.row as HTMLTableRowElement).style.opacity = '0.4';
         }
     };
-    // const contextMenuItems: ContextMenuItem[] = [
-    //     'AutoFit',
-    //     'AutoFitAll',
-    //     'SortAscending',
-    //     'SortDescending',
-    //     'AddRow',
-    //     'Edit',
-    //     'Delete',
-    //     'Save',
-    //     'Cancel',
-    //     'PdfExport',
-    //     'ExcelExport',
-    //     'CsvExport',
-    //     'FirstPage',
-    //     'PrevPage',
-    //     'LastPage',
-    //     'NextPage',
-    //     'Indent',
-    //     'Outdent'
-    // ];
+
+    const actionBeginHandler = (args: any) => {
+        if (args.requestType == 'add') {
+            args.data.id = Math.floor(Math.random() * 20000);
+        }
+    };
     return (
         <Box className="control-pane">
             <Box className="control-section">
                 {data && (
                     <TreeGridComponent
-                        // contextMenuItems={contextMenuItems}
+                        actionBegin={actionBeginHandler}
                         rowSelected={rowSelected}
                         rowDataBound={rowDataBound}
                         height={height}
@@ -243,10 +242,10 @@ export const Table: React.FC<TableProps> = ({
                                       allowAdding: true,
                                       allowDeleting: true,
                                       allowEditing: true,
-                                      mode: 'Cell',
+                                      mode: 'Batch',
                                       showDeleteConfirmDialog: true,
-                                      showConfirmDialog: true
-                                      //   newRowPosition: 'Bottom'
+                                      showConfirmDialog: true,
+                                      newRowPosition: 'Bottom'
                                   }
                                 : {}
                         }
@@ -296,6 +295,7 @@ Table.defaultProps = {
         type: 'Excel'
     },
     selectionSettings: {
+        checkboxOnly: true,
         persistSelection: true
     },
     onCheckboxChange: (data: Object[]) => {},
@@ -304,5 +304,6 @@ Table.defaultProps = {
     onEdit: (data: Object) => {},
     onDelete: (data: Object) => {},
     onSearch: (data: Object) => {},
-    onRowSelection: (data: Object) => {}
+    onRowSelection: (data: Object) => {},
+    loading: false
 };

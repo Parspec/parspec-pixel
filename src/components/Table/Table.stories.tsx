@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { Table } from './Table';
 import { ColumnDirective, SelectionSettingsModel, ToolbarItems } from '@syncfusion/ej2-react-treegrid';
@@ -8,6 +8,7 @@ import { Button } from '../Button';
 import { ViewArrayIcon } from '../Icons';
 import { Box } from '../Box';
 import { BodyMedium } from '../Typography';
+import { Menu } from '../Menu';
 import { FilterSettingsModel } from '@syncfusion/ej2-grids';
 import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
 
@@ -169,8 +170,6 @@ export const SingleSelect: ComponentStory<typeof Table> = (props) => {
 
     return (
         <>
-            <br />
-            <br />
             <Table {...getTableProps({ ...props, onRowSelection })} data={data}>
                 <ColumnDirective field="id" isPrimaryKey={true} visible={false} />
                 <ColumnDirective field="taskID" allowEditing={false} headerText="Task ID" width="150" editType="numericedit" />
@@ -188,50 +187,50 @@ SingleSelect.args = {
     treeColumnIndex: 3
 };
 
-export const V2Table: ComponentStory<typeof Table> = (props) => {
-    const coltemplate = (props: any) => {
-        if (props.taskData.name.includes('section')) {
-            return (
-                <Button size="small" id={props.id}>
-                    Section
-                </Button>
-            );
-        } else if (props.taskData.name.includes('product')) {
-            return (
-                <Button size="small" color="secondary" id={props.id}>
-                    Product
-                </Button>
-            );
-        } else if (props.taskData.name.includes('accessory')) {
-            return (
-                <Button size="small" color="tertiary" id={props.id}>
-                    Accessory
-                </Button>
-            );
-        } else {
-            return <></>;
-        }
-    };
-
-    const customFn = (args: { [key: string]: string }): boolean => {
-        return getValue('value', args).length >= 3;
-    };
-    const customFn2 = (args: { [key: string]: string }): boolean => {
-        return getValue('value', args).length <= 5;
-    };
-    const validateReporter = {
-        minLength: [customFn, 'Atleast 3 characters required'],
-        maxLength: [customFn2, 'Atmax 5 characters allowed']
-    };
-    const customHeaderTemplate = () => {
+const coltemplate = (props: any) => {
+    if (props?.taskData?.name?.includes('section')) {
         return (
-            <Box display={'flex'} gap={2}>
-                <BodyMedium>Custom Template Column</BodyMedium>
-                <ViewArrayIcon />
-            </Box>
+            <Button size="small" id={props.id}>
+                Section
+            </Button>
         );
-    };
+    } else if (props?.taskData?.name?.includes('product')) {
+        return (
+            <Button size="small" color="secondary" id={props.id}>
+                Product
+            </Button>
+        );
+    } else if (props?.taskData?.name?.includes('accessory')) {
+        return (
+            <Button size="small" color="tertiary" id={props.id}>
+                Accessory
+            </Button>
+        );
+    } else {
+        return <></>;
+    }
+};
 
+const customFn = (args: { [key: string]: string }): boolean => {
+    return getValue('value', args).length >= 3;
+};
+const customFn2 = (args: { [key: string]: string }): boolean => {
+    return getValue('value', args).length <= 5;
+};
+const validateReporter = {
+    minLength: [customFn, 'Atleast 3 characters required'],
+    maxLength: [customFn2, 'Atmax 5 characters allowed']
+};
+const customHeaderTemplate = () => {
+    return (
+        <Box display={'flex'} gap={2}>
+            <BodyMedium>Custom Template Column</BodyMedium>
+            <ViewArrayIcon />
+        </Box>
+    );
+};
+
+export const V2Table: ComponentStory<typeof Table> = (props) => {
     const checkboxFilter: FilterSettingsModel = {
         type: 'CheckBox'
     };
@@ -272,10 +271,30 @@ export const V2Table: ComponentStory<typeof Table> = (props) => {
         };
     };
 
+    const clearFilterFunction = () => {
+        const treeobj = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];
+        console.log(treeobj);
+        treeobj.clearFiltering();
+        treeobj.deleteRecord();
+    };
+
+    //     const getMenu = useCallback((props: any) => {
+    //     const options = [
+    //       { label: "Add Below", onClick: () => onAddBelow(props) },
+    //       { label: "Duplicate", onClick: () => onDuplicate(props) },
+    //       { label: props.hidden ? "Unhide" : "Hide", onClick: () => onHide(props) },
+    //       { label: "Delete", onClick: () => onClickDelete(props) },
+    //     ];
+    //     return (
+    //       <Box display={"flex"} justifyContent={"center"}>
+    //         <Menu options={options} />
+    //       </Box>
+    //     );
+    //   }, []);
+
     return (
         <>
-            <br />
-            <br />
+            <Button onClick={clearFilterFunction}>Clear Filters</Button>
             <Table {...getTableProps({ ...props, onAdd, onCheckboxChange, onDelete, onDragEnd, onEdit, onSearch, onRowSelection })}>
                 <ColumnDirective type="checkbox" width="50" />
                 <ColumnDirective field="id" isPrimaryKey={true} visible={false} />
@@ -292,6 +311,13 @@ export const V2Table: ComponentStory<typeof Table> = (props) => {
                 />
                 <ColumnDirective field="reporter" headerText="Reporter" minWidth="200" validationRules={validateReporter} />
                 <ColumnDirective field="available" headerText="Availability" minWidth="200" filter={menuFilter} filterTemplate={filterTemplateOptions} />
+                {/* <ColumnDirective
+                width="60"
+                headerTemplate={() => <ViewArrayIcon />}
+                template={getMenu}
+                allowEditing={false}
+              /> */}
+                {/* <ColumnDirective width="60" template={() => <Button onClick={clearFilterFunction}>123</Button>} allowEditing={false} /> */}
             </Table>
         </>
     );
@@ -302,7 +328,7 @@ V2Table.args = {
     data: dDataP,
     childMappingKey: 'subtasks',
     allowRowDragAndDrop: true,
-    // frozenColumns: 4,
+    frozenColumns: 4,
     treeColumnIndex: 3,
     allowPaging: true,
     pageSettings: { pageSize: 10 },
@@ -320,10 +346,6 @@ V2Table.args = {
     allowFiltering: true,
     filterSettings: {
         type: 'Excel'
-    }
-    // selectionSettings: {
-    //     // type: 'Multiple',
-    //     // persistSelection: true
-    //     // checkboxMode: 'Default'
-    // }
+    },
+    loading: false
 };

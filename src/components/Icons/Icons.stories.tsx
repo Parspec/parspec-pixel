@@ -41,8 +41,13 @@ import {
 >>>>>>> c9d772a (created build and resolved componets errors)
 =======
     Sync,
+<<<<<<< HEAD
     Delete
 >>>>>>> 1e418a8 (added delete icons)
+=======
+    Delete,
+    VisibilityOffOutlined
+>>>>>>> 4a3cd8a (added icons and added getLabelProps in accordion)
 } from './index';
 import { Grid } from '../Grid';
 import { Box } from '../Box';
@@ -100,6 +105,7 @@ AllIcons.args = {
         { icon: ChangeHistoryIcon, name: 'ChangeHistoryIcon' },
         { icon: ViewArrayIcon, name: 'ViewArrayIcon ' },
 <<<<<<< HEAD
+<<<<<<< HEAD
         { icon: SyncIcon, name: 'SyncIcon ' },
         { icon: RedirectIcon, name: 'RedirectIcon' },
         { icon: AnnotateIcon, name: 'AnnotateIcon' },
@@ -116,6 +122,15 @@ AllIcons.args = {
         { icon: Sync, name: 'Sync' },
         { icon: Delete, name: 'Delete' }
 >>>>>>> 1e418a8 (added delete icons)
+=======
+        { icon: FileDownloadOutlined, name: 'FileDownloadOutlinedIcon' },
+        { icon: SyncProblem, name: 'SyncProblemIcon' },
+        { icon: ContentCopy, name: 'ContentCopyIcon' },
+        { icon: Tune, name: 'TuneIcon' },
+        { icon: Sync, name: 'SyncIcon' },
+        { icon: Delete, name: 'DeleteIcon' },
+        { icon: VisibilityOffOutlined, name: 'VisibilityOffOutlinedIcon' }
+>>>>>>> 4a3cd8a (added icons and added getLabelProps in accordion)
     ],
     fontSize: 'medium'
 };

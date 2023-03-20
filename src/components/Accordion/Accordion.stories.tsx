@@ -2,6 +2,7 @@ import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { Accordion } from './';
 import { BodyBig, BodyMedium } from '../Typography';
+import { SolarPower } from '@mui/icons-material';
 
 export default {
     title: 'Accordion',
@@ -43,5 +44,6 @@ Basic.args = {
             ),
             labelId: 'panel3'
         }
-    ]
+    ],
+    getPanel: (panel: string) => console.log(panel)
 };

@@ -12,13 +12,13 @@ export const AlertBanner = ({ onClose, children, text, variant, severity }) => {
             '& .MuiAlert-icon': {
                 marginRight: 2
             }
-        }, action: _jsxs(Box, Object.assign({ display: "flex", alignItems: "center", gap: 2, paddingBottom: 1, paddingRight: 2 }, { children: [children, _jsx(CloseIcon, { onClick: onClose, sx: { cursor: 'pointer' } })] })) }, { children: _jsx(Box, { children: text }) })));
+        }, action: _jsxs(Box, Object.assign({ display: "flex", alignItems: "center", gap: 2, paddingBottom: 1, paddingRight: 2 }, { children: [children, _jsx(CloseIcon, { onClick: onClose, sx: { cursor: 'pointer' } }, void 0)] }), void 0) }, { children: _jsx(Box, { children: text }, void 0) }), void 0));
 };
 AlertBanner.defaultProps = {
     onClose: () => { },
     text: 'You need to enter custom message',
     variant: 'filled',
-    children: _jsx(_Fragment, {}),
+    children: _jsx(_Fragment, {}, void 0),
     severity: 'warning'
 };
 //# sourceMappingURL=index.js.map

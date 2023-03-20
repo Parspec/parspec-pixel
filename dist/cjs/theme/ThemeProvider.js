@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ThemeProvider = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const styles_1 = require("@mui/material/styles");
-const theme = (0, styles_1.createTheme)({
+const theme = styles_1.createTheme({
     spacing: 4,
     // shape: {
     //     borderRadius: 0
@@ -63,7 +63,7 @@ const theme = (0, styles_1.createTheme)({
     }
 });
 const ThemeProvider = (props) => {
-    return (0, jsx_runtime_1.jsx)(styles_1.ThemeProvider, Object.assign({ theme: theme }, { children: props.children }));
+    return jsx_runtime_1.jsx(styles_1.ThemeProvider, Object.assign({ theme: theme }, { children: props.children }), void 0);
 };
 exports.ThemeProvider = ThemeProvider;
 //# sourceMappingURL=ThemeProvider.js.map

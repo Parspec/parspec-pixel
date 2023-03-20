@@ -20,6 +20,6 @@ export const Breadcrumb = (_a) => {
                 return (_jsx(BodyXS, Object.assign({ color: 'secondary' }, { children: item.displaytext }), index));
             }
             return (_jsx(Link, Object.assign({ fontWeight: "400", fontFamily: "Inter", fontSize: '12px', color: "secondary", underline: 'hover', href: item.href }, { children: item.displaytext }), index));
-        }) })));
+        }) }), void 0));
 };
 //# sourceMappingURL=index.js.map

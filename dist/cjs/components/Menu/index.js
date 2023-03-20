@@ -1,11 +1,7 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -33,7 +29,7 @@ const material_1 = require("@mui/material");
 const MenuItem_1 = __importDefault(require("@mui/material/MenuItem"));
 const Icons_1 = require("../Icons");
 const Menu = ({ options, children }) => {
-    const [anchorEl, setAnchorEl] = (0, react_1.useState)(null);
+    const [anchorEl, setAnchorEl] = react_1.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -41,10 +37,10 @@ const Menu = ({ options, children }) => {
     const handleClose = () => {
         setAnchorEl(null);
     };
-    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [children ? (react_1.default.cloneElement(children, { onClick: handleClick })) : ((0, jsx_runtime_1.jsx)(material_1.IconButton, Object.assign({ onClick: handleClick }, { children: (0, jsx_runtime_1.jsx)(Icons_1.MoreVertIcon, {}) }))), (0, jsx_runtime_1.jsx)(material_1.Menu, Object.assign({ id: "basic-menu", anchorEl: anchorEl, open: open, onClose: handleClose }, { children: options.map(({ label, onClick }) => ((0, jsx_runtime_1.jsx)(MenuItem_1.default, Object.assign({ onClick: () => {
+    return (jsx_runtime_1.jsxs(jsx_runtime_1.Fragment, { children: [children ? (react_1.default.cloneElement(children, { onClick: handleClick })) : (jsx_runtime_1.jsx(material_1.IconButton, Object.assign({ onClick: handleClick }, { children: jsx_runtime_1.jsx(Icons_1.MoreVertIcon, {}, void 0) }), void 0)), jsx_runtime_1.jsx(material_1.Menu, Object.assign({ id: "basic-menu", anchorEl: anchorEl, open: open, onClose: handleClose }, { children: options.map(({ label, onClick }) => (jsx_runtime_1.jsx(MenuItem_1.default, Object.assign({ onClick: () => {
                         onClick();
                         handleClose();
-                    } }, { children: label }), label))) }))] }));
+                    } }, { children: label }), label))) }), void 0)] }, void 0));
 };
 exports.Menu = Menu;
 //# sourceMappingURL=index.js.map

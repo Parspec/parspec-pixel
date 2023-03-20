@@ -13,7 +13,7 @@ import { jsx as _jsx } from "react/jsx-runtime";
 import { default as MUIChip } from '@mui/material/Chip';
 export const Chip = (_a) => {
     var { label } = _a, rest = __rest(_a, ["label"]);
-    return _jsx(MUIChip, Object.assign({ label: label }, rest));
+    return _jsx(MUIChip, Object.assign({ label: label }, rest), void 0);
 };
 Chip.defaultProps = {
     variant: 'outlined'

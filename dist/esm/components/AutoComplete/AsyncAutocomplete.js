@@ -55,7 +55,7 @@ export const AsyncAutocomplete = (_a) => {
             setOpen(true);
         }, onClose: () => {
             setOpen(false);
-        }, onChange: handleOnChange, isOptionEqualToValue: (option, value) => option[optionlabelkeyname] === value[optionlabelkeyname], getOptionLabel: (option) => `${option[optionlabelkeyname]}`, renderInput: (params) => (_jsx(TextField, Object.assign({}, params, { color: color, label: label, variant: variant, InputProps: Object.assign(Object.assign({}, params.InputProps), { endAdornment: (_jsxs(Fragment, { children: [loading ? _jsx(CircularProgress, {}) : null, params.InputProps.endAdornment] })) }) }))) })));
+        }, onChange: handleOnChange, isOptionEqualToValue: (option, value) => option[optionlabelkeyname] === value[optionlabelkeyname], getOptionLabel: (option) => `${option[optionlabelkeyname]}`, renderInput: (params) => (_jsx(TextField, Object.assign({}, params, { color: color, label: label, variant: variant, InputProps: Object.assign(Object.assign({}, params.InputProps), { endAdornment: (_jsxs(Fragment, { children: [loading ? _jsx(CircularProgress, {}, void 0) : null, params.InputProps.endAdornment] }, void 0)) }) }), void 0)) }), void 0));
 };
 AsyncAutocomplete.defaultProps = {
     color: 'primary',

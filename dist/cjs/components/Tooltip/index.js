@@ -19,7 +19,7 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const Tooltip_1 = __importDefault(require("@mui/material/Tooltip"));
 const Tooltip = (_a) => {
     var { children, title, placement } = _a, rest = __rest(_a, ["children", "title", "placement"]);
-    return ((0, jsx_runtime_1.jsx)(Tooltip_1.default, Object.assign({ title: title, placement: placement }, rest, { children: children })));
+    return (jsx_runtime_1.jsx(Tooltip_1.default, Object.assign({ title: title, placement: placement }, rest, { children: children }), void 0));
 };
 exports.Tooltip = Tooltip;
 //# sourceMappingURL=index.js.map

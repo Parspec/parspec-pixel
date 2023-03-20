@@ -42,4 +42,5 @@ __exportStar(require("./Alert"), exports);
 __exportStar(require("./DatePicker"), exports);
 __exportStar(require("./Radio"), exports);
 __exportStar(require("./LinearProgress"), exports);
+__exportStar(require("./skeleton"), exports);
 //# sourceMappingURL=index.js.map

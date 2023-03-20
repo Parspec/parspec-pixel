@@ -29,23 +29,12 @@ export {
     SwapHoriz as SwapHorizIcon,
     ChangeHistory as ChangeHistoryIcon,
     ViewArray as ViewArrayIcon,
-<<<<<<< HEAD
-    SyncProblem as SyncIcon
-=======
+    SyncProblem as SyncIcon,
     FileDownloadOutlined,
     SyncProblem,
     ContentCopy,
     Tune,
-<<<<<<< HEAD
-    Sync
->>>>>>> c9d772a (created build and resolved componets errors)
-=======
     Sync,
-<<<<<<< HEAD
-    Delete
->>>>>>> 1e418a8 (added delete icons)
-=======
     Delete,
     VisibilityOffOutlined
->>>>>>> 4a3cd8a (added icons and added getLabelProps in accordion)
 } from '@mui/icons-material';

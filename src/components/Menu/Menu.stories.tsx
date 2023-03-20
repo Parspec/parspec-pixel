@@ -15,7 +15,6 @@ const options = [
     { label: 'Option 3', onClick: () => alert('clicked on option 3') }
 ];
 
-<<<<<<< HEAD
 const Template: ComponentStory<typeof Menu> = (args) => (
     <Menu options={options}>
         {
@@ -27,6 +26,3 @@ const Template: ComponentStory<typeof Menu> = (args) => (
 );
 
 export const Primary = Template.bind({});
-=======
-export const Primary: ComponentStory<typeof Menu> = (args) => <Menu options={options} />;
->>>>>>> c9d772a (created build and resolved componets errors)

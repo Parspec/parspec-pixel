@@ -26,28 +26,17 @@ import {
     ChangeHistoryIcon,
     ViewArrayIcon,
     CancelIcon,
-<<<<<<< HEAD
     RedirectIcon,
     AnnotateIcon,
     SyncIcon,
-    AnnotateColoredIcon
-=======
+    AnnotateColoredIcon,
     FileDownloadOutlined,
     SyncProblem,
     ContentCopy,
     Tune,
-<<<<<<< HEAD
-    Sync
->>>>>>> c9d772a (created build and resolved componets errors)
-=======
     Sync,
-<<<<<<< HEAD
-    Delete
->>>>>>> 1e418a8 (added delete icons)
-=======
     Delete,
     VisibilityOffOutlined
->>>>>>> 4a3cd8a (added icons and added getLabelProps in accordion)
 } from './index';
 import { Grid } from '../Grid';
 import { Box } from '../Box';
@@ -104,25 +93,22 @@ AllIcons.args = {
         { icon: SwapHorizIcon, name: 'SwapHorizIcon' },
         { icon: ChangeHistoryIcon, name: 'ChangeHistoryIcon' },
         { icon: ViewArrayIcon, name: 'ViewArrayIcon ' },
-<<<<<<< HEAD
-<<<<<<< HEAD
+
         { icon: SyncIcon, name: 'SyncIcon ' },
         { icon: RedirectIcon, name: 'RedirectIcon' },
         { icon: AnnotateIcon, name: 'AnnotateIcon' },
-        { icon: AnnotateColoredIcon, name: 'AnnotateColoredIcon' }
-=======
+        { icon: AnnotateColoredIcon, name: 'AnnotateColoredIcon' },
+
         { icon: FileDownloadOutlined, name: 'FileDownloadOutlined' },
         { icon: SyncProblem, name: 'SyncProblem' },
         { icon: ContentCopy, name: 'ContentCopy' },
         { icon: Tune, name: 'Tune' },
-<<<<<<< HEAD
-        { icon: Sync, name: 'Sync' }
->>>>>>> c9d772a (created build and resolved componets errors)
-=======
+
         { icon: Sync, name: 'Sync' },
-        { icon: Delete, name: 'Delete' }
->>>>>>> 1e418a8 (added delete icons)
-=======
+
+        { icon: Sync, name: 'Sync' },
+        { icon: Delete, name: 'Delete' },
+
         { icon: FileDownloadOutlined, name: 'FileDownloadOutlinedIcon' },
         { icon: SyncProblem, name: 'SyncProblemIcon' },
         { icon: ContentCopy, name: 'ContentCopyIcon' },
@@ -130,7 +116,6 @@ AllIcons.args = {
         { icon: Sync, name: 'SyncIcon' },
         { icon: Delete, name: 'DeleteIcon' },
         { icon: VisibilityOffOutlined, name: 'VisibilityOffOutlinedIcon' }
->>>>>>> 4a3cd8a (added icons and added getLabelProps in accordion)
     ],
     fontSize: 'medium'
 };

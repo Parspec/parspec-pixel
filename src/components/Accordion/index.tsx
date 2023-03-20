@@ -16,13 +16,8 @@ export interface AccordionProps extends Omit<MUIAccordionProps, 'classes' | 'chi
     getPanel?: (label: string) => void;
 }
 
-<<<<<<< HEAD
-export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, AccordionProps>(({ options, ...rest }, ref) => {
-    const [expanded, setExpanded] = useState<string | false>('panel1');
-=======
 export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, AccordionProps>(({ options, getPanel, ...rest }, ref) => {
-    const [expanded, setExpanded] = useState<string | false>(false);
->>>>>>> 4a3cd8a (added icons and added getLabelProps in accordion)
+    const [expanded, setExpanded] = useState<string | false>(options[0]['labelId']);
 
     const handleAccordionOnChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
         setExpanded(isExpanded ? panel : false);

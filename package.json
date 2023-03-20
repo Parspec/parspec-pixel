@@ -11,7 +11,7 @@
     "scripts": {
         "copy-files:esm": "copyfiles -u 1 src/**/*.css dist/esm",
         "copy-files:cjs": "copyfiles -u 1 src/**/*.css dist/cjs",
-        "build": "npm run build:esm && npm run build:cjs && npm run copy-files:esm && npm run copy-files:cjs",
+        "build": "rm -rf dist/ && npm run build:esm && npm run build:cjs && npm run copy-files:esm && npm run copy-files:cjs",
         "build:esm": "tsc",
         "build:cjs": "tsc --module CommonJS --outDir dist/cjs",
         "storybook": "start-storybook -p 6006",

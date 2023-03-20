@@ -36,6 +36,11 @@ export {
     SyncProblem,
     ContentCopy,
     Tune,
+<<<<<<< HEAD
     Sync
 >>>>>>> c9d772a (created build and resolved componets errors)
+=======
+    Sync,
+    Delete
+>>>>>>> 1e418a8 (added delete icons)
 } from '@mui/icons-material';

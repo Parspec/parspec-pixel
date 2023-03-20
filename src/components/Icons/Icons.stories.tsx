@@ -36,8 +36,13 @@ import {
     SyncProblem,
     ContentCopy,
     Tune,
+<<<<<<< HEAD
     Sync
 >>>>>>> c9d772a (created build and resolved componets errors)
+=======
+    Sync,
+    Delete
+>>>>>>> 1e418a8 (added delete icons)
 } from './index';
 import { Grid } from '../Grid';
 import { Box } from '../Box';
@@ -104,8 +109,13 @@ AllIcons.args = {
         { icon: SyncProblem, name: 'SyncProblem' },
         { icon: ContentCopy, name: 'ContentCopy' },
         { icon: Tune, name: 'Tune' },
+<<<<<<< HEAD
         { icon: Sync, name: 'Sync' }
 >>>>>>> c9d772a (created build and resolved componets errors)
+=======
+        { icon: Sync, name: 'Sync' },
+        { icon: Delete, name: 'Delete' }
+>>>>>>> 1e418a8 (added delete icons)
     ],
     fontSize: 'medium'
 };

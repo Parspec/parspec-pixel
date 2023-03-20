@@ -77,7 +77,7 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                 {!files.length ? (
                     <div {...getRootProps()}>
                         <input {...getInputProps()} />
-                        <Box p={6} border={`1px solid #6467F2`} width={1} borderRadius={1} display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ cursor: 'pointer' }}>
+                        <Box p={6} width={1} borderRadius={1} display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ cursor: 'pointer' }}>
                             <Box width={'100%'} textAlign="center">
                                 <BodySmall>{placeholder}</BodySmall>
                             </Box>

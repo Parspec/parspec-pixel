@@ -55,3 +55,9 @@ declare module '@mui/material/CircularProgress' {
         tertiary: true;
     }
 }
+
+declare module '@mui/material/LinearProgress' {
+    interface LinearProgressPropsColorOverrides {
+        tertiary: true;
+    }
+}

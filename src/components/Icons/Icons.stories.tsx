@@ -26,10 +26,18 @@ import {
     ChangeHistoryIcon,
     ViewArrayIcon,
     CancelIcon,
+<<<<<<< HEAD
     RedirectIcon,
     AnnotateIcon,
     SyncIcon,
     AnnotateColoredIcon
+=======
+    FileDownloadOutlined,
+    SyncProblem,
+    ContentCopy,
+    Tune,
+    Sync
+>>>>>>> c9d772a (created build and resolved componets errors)
 } from './index';
 import { Grid } from '../Grid';
 import { Box } from '../Box';
@@ -86,10 +94,18 @@ AllIcons.args = {
         { icon: SwapHorizIcon, name: 'SwapHorizIcon' },
         { icon: ChangeHistoryIcon, name: 'ChangeHistoryIcon' },
         { icon: ViewArrayIcon, name: 'ViewArrayIcon ' },
+<<<<<<< HEAD
         { icon: SyncIcon, name: 'SyncIcon ' },
         { icon: RedirectIcon, name: 'RedirectIcon' },
         { icon: AnnotateIcon, name: 'AnnotateIcon' },
         { icon: AnnotateColoredIcon, name: 'AnnotateColoredIcon' }
+=======
+        { icon: FileDownloadOutlined, name: 'FileDownloadOutlined' },
+        { icon: SyncProblem, name: 'SyncProblem' },
+        { icon: ContentCopy, name: 'ContentCopy' },
+        { icon: Tune, name: 'Tune' },
+        { icon: Sync, name: 'Sync' }
+>>>>>>> c9d772a (created build and resolved componets errors)
     ],
     fontSize: 'medium'
 };

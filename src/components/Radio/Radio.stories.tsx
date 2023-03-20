@@ -9,9 +9,7 @@ export default {
     argTypes: { onChange: { action: 'onChange' } }
 } as ComponentMeta<typeof Radio>;
 
-const Template: ComponentStory<typeof Radio> = (args) => <Radio {...args} />;
-
-export const radio = Template.bind({});
+export const radio: ComponentStory<typeof Radio> = (args) => <Radio {...args} />;
 
 radio.args = {
     size: 'small'

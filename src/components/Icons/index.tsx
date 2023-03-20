@@ -29,5 +29,13 @@ export {
     SwapHoriz as SwapHorizIcon,
     ChangeHistory as ChangeHistoryIcon,
     ViewArray as ViewArrayIcon,
+<<<<<<< HEAD
     SyncProblem as SyncIcon
+=======
+    FileDownloadOutlined,
+    SyncProblem,
+    ContentCopy,
+    Tune,
+    Sync
+>>>>>>> c9d772a (created build and resolved componets errors)
 } from '@mui/icons-material';

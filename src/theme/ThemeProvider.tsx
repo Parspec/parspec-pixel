@@ -15,11 +15,10 @@ const theme = createTheme({
     },
     palette: {
         action: {},
-        // text: {
-        //     primary: '#091535',
-        //     secondary: '#ffffff',
-        //     disabled: '#ffc471'
-        // },
+        text: {
+            primary: '#091535',
+            secondary: '#091535'
+        },
         primary: {
             light: '#ffe4bd',
             main: '#FFA72B',
@@ -45,7 +44,10 @@ const theme = createTheme({
             contrastText: '#091535'
         },
         success: {
-            main: '#2dd4de'
+            light: '#6EE7B7',
+            main: '#10B981',
+            dark: '#047857',
+            contrastText: '#ffffff'
         },
         // info: {
         //     main: ''

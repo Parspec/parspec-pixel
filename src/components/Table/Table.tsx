@@ -19,7 +19,7 @@ import {
     Filter
 } from '@syncfusion/ej2-react-treegrid';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
-import { addClass, isNullOrUndefined, registerLicense } from '@syncfusion/ej2-base';
+import { isNullOrUndefined, registerLicense } from '@syncfusion/ej2-base';
 import './styles.css';
 import { Box } from '../Box';
 import {
@@ -193,9 +193,6 @@ export const Table: React.FC<TableProps> = ({
         if (getObject('hidden', args.data) === true) {
             (args.row as HTMLTableRowElement).style.opacity = '0.4';
         }
-        if (selectionSettings?.type === 'Single') {
-            addClass([args.row!], 'singleSelect');
-        }
     };
     return (
         <Box className="control-pane">
@@ -276,7 +273,7 @@ Table.defaultProps = {
         type: 'Excel'
     },
     selectionSettings: {
-        checkboxOnly: true,
+        type: 'Multiple',
         persistSelection: true
     },
     onCheckboxChange: (data: Object[]) => {},

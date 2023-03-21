@@ -17,7 +17,7 @@ export const Breadcrumb: React.FC<BreadcrumbsProps> = ({ options, ...rest }) => 
             {options.map((item, index) => {
                 if (index === options.length - 1) {
                     return (
-                        <BodyXS key={index} color={'secondary'}>
+                        <BodyXS color={'secondary'} key={index}>
                             {item.displaytext}
                         </BodyXS>
                     );

@@ -1,6 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { TreeGridComponent, ColumnsDirective, Selection, RowDD, Inject, Freeze, Sort, Edit, Toolbar, Page, PdfExport, ExcelExport, Resize, Filter } from '@syncfusion/ej2-react-treegrid';
-import { addClass, isNullOrUndefined, registerLicense } from '@syncfusion/ej2-base';
+import { isNullOrUndefined, registerLicense } from '@syncfusion/ej2-base';
 import './styles.css';
 import { Box } from '../Box';
 import { getObject } from '@syncfusion/ej2-grids';
@@ -100,9 +100,6 @@ export const Table = ({ children, data, childMappingKey, allowExports, allowRowD
         if (getObject('hidden', args.data) === true) {
             args.row.style.opacity = '0.4';
         }
-        if ((selectionSettings === null || selectionSettings === void 0 ? void 0 : selectionSettings.type) === 'Single') {
-            addClass([args.row], 'singleSelect');
-        }
     };
     return (_jsx(Box, Object.assign({ className: "control-pane" }, { children: _jsx(Box, Object.assign({ className: "control-section" }, { children: data && (_jsxs(TreeGridComponent, Object.assign({ rowSelected: rowSelected, rowDataBound: rowDataBound, height: height, ref: tableRef, dataSource: data, treeColumnIndex: treeColumnIndex, childMapping: childMappingKey, allowPdfExport: allowExports, allowExcelExport: allowExports, allowRowDragAndDrop: allowRowDragAndDrop, allowResizing: allowResizing, selectionSettings: selectionSettings, rowDrop: rowDrop, frozenColumns: frozenColumns, allowSorting: true, editSettings: allowEditing
                     ? {
@@ -143,7 +140,7 @@ Table.defaultProps = {
         type: 'Excel'
     },
     selectionSettings: {
-        checkboxOnly: true,
+        type: 'Multiple',
         persistSelection: true
     },
     onCheckboxChange: (data) => { },

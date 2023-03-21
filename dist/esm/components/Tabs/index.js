@@ -6,6 +6,6 @@ export const Tabs = ({ selectedTab, options, onChange }) => {
     const handleChange = (event, newValue) => {
         onChange(newValue);
     };
-    return (_jsx(Box, Object.assign({ sx: { borderBottom: 1, borderColor: 'divider' } }, { children: _jsx(MUITabs, Object.assign({ value: selectedTab, onChange: handleChange }, { children: options.map((item, index) => (_jsx(Tab, { label: item.label, value: item.value }))) })) })));
+    return (_jsx(Box, Object.assign({ sx: { borderBottom: 1, borderColor: 'divider' } }, { children: _jsx(MUITabs, Object.assign({ value: selectedTab, onChange: handleChange }, { children: options.map((item, index) => (_jsx(Tab, { label: item.label, value: item.value }, index))) })) })));
 };
 //# sourceMappingURL=index.js.map

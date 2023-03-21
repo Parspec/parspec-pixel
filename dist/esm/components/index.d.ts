@@ -25,5 +25,5 @@ export * from './Tooltip';
 export * from './Alert';
 export * from './DatePicker';
 export * from './Radio';
-export * from './LinearProgress';
 export * from './skeleton';
+export * from './LinearProgress';

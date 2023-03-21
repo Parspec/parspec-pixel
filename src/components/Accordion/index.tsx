@@ -17,7 +17,7 @@ export interface AccordionProps extends Omit<MUIAccordionProps, 'classes' | 'chi
 }
 
 export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, AccordionProps>(({ options, getPanel, ...rest }, ref) => {
-    const [expanded, setExpanded] = useState<string | false>('panel1');
+    const [expanded, setExpanded] = useState<string | false>(options[0]['labelId']);
 
     const handleAccordionOnChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
         setExpanded(isExpanded ? panel : false);

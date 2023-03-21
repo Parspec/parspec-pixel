@@ -26,6 +26,10 @@ import {
     ChangeHistoryIcon,
     ViewArrayIcon,
     CancelIcon,
+    RedirectIcon,
+    AnnotateIcon,
+    SyncIcon,
+    AnnotateColoredIcon,
     FileDownloadOutlined,
     SyncProblem,
     ContentCopy,
@@ -89,6 +93,22 @@ AllIcons.args = {
         { icon: SwapHorizIcon, name: 'SwapHorizIcon' },
         { icon: ChangeHistoryIcon, name: 'ChangeHistoryIcon' },
         { icon: ViewArrayIcon, name: 'ViewArrayIcon ' },
+
+        { icon: SyncIcon, name: 'SyncIcon ' },
+        { icon: RedirectIcon, name: 'RedirectIcon' },
+        { icon: AnnotateIcon, name: 'AnnotateIcon' },
+        { icon: AnnotateColoredIcon, name: 'AnnotateColoredIcon' },
+
+        { icon: FileDownloadOutlined, name: 'FileDownloadOutlined' },
+        { icon: SyncProblem, name: 'SyncProblem' },
+        { icon: ContentCopy, name: 'ContentCopy' },
+        { icon: Tune, name: 'Tune' },
+
+        { icon: Sync, name: 'Sync' },
+
+        { icon: Sync, name: 'Sync' },
+        { icon: Delete, name: 'Delete' },
+
         { icon: FileDownloadOutlined, name: 'FileDownloadOutlinedIcon' },
         { icon: SyncProblem, name: 'SyncProblemIcon' },
         { icon: ContentCopy, name: 'ContentCopyIcon' },

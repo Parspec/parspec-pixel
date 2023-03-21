@@ -8,7 +8,6 @@ import { Button } from '../Button';
 import { ViewArrayIcon } from '../Icons';
 import { Box } from '../Box';
 import { BodyMedium } from '../Typography';
-import { Menu } from '../Menu';
 import { FilterSettingsModel } from '@syncfusion/ej2-grids';
 import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
 
@@ -18,6 +17,7 @@ export default {
 } as ComponentMeta<typeof Table>;
 
 export const Basic: ComponentStory<typeof Table> = (props) => {
+    const tableRef = useRef<any>();
     const coltemplate = (props: any) => {
         if (props.taskData.name.includes('section')) {
             return (
@@ -102,9 +102,7 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
     };
     return (
         <>
-            <br />
-            <br />
-            <Table {...getTableProps({ ...props, onAdd, onCheckboxChange, onDelete, onDragEnd, onEdit, onSearch, onRowSelection })}>
+            <Table {...getTableProps({ ...props, onAdd, onCheckboxChange, onDelete, onDragEnd, onEdit, onSearch, onRowSelection })} ref={tableRef}>
                 <ColumnDirective type="checkbox" allowEditing={false} width="50"></ColumnDirective>
                 <ColumnDirective field="id" isPrimaryKey={true} visible={false} />
                 <ColumnDirective field="taskID" allowEditing={false} headerText="Task ID" width="150" filter={checkboxFilter} editType="numericedit" />
@@ -136,14 +134,13 @@ Basic.args = {
     allowPaging: true,
     pageSettings: { pageSize: 10 },
     allowResizing: true,
-    allowEditing: true,
     allowExports: true,
     excelExportProperties: {
-        fileName: 'newExcel.xlsx',
+        fileName: 'newExcel1.xlsx',
         isCollapsedStatePersist: false
     },
     pdfExportProperties: {
-        fileName: 'newPdf.pdf',
+        fileName: 'newPdf1.pdf',
         isCollapsedStatePersist: false
     },
     allowFiltering: true,
@@ -153,6 +150,7 @@ Basic.args = {
 };
 
 export const SingleSelect: ComponentStory<typeof Table> = (props) => {
+    const tableRef = useRef<any>();
     const [data, setData] = useState(dDataP2);
     const getTableProps = (args: any) => {
         const selectionSettings: SelectionSettingsModel = {
@@ -170,7 +168,7 @@ export const SingleSelect: ComponentStory<typeof Table> = (props) => {
 
     return (
         <>
-            <Table {...getTableProps({ ...props, onRowSelection })} data={data}>
+            <Table {...getTableProps({ ...props, onRowSelection })} data={data} ref={tableRef}>
                 <ColumnDirective field="id" isPrimaryKey={true} visible={false} />
                 <ColumnDirective field="taskID" allowEditing={false} headerText="Task ID" width="150" editType="numericedit" />
                 <ColumnDirective field="name" headerText="Task Name" minWidth="200" />
@@ -270,32 +268,13 @@ export const V2Table: ComponentStory<typeof Table> = (props) => {
             ...args
         };
     };
-
-    const clearFilterFunction = () => {
-        const treeobj = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];
-        console.log(treeobj);
-        treeobj.clearFiltering();
-        treeobj.deleteRecord();
-    };
-
-    //     const getMenu = useCallback((props: any) => {
-    //     const options = [
-    //       { label: "Add Below", onClick: () => onAddBelow(props) },
-    //       { label: "Duplicate", onClick: () => onDuplicate(props) },
-    //       { label: props.hidden ? "Unhide" : "Hide", onClick: () => onHide(props) },
-    //       { label: "Delete", onClick: () => onClickDelete(props) },
-    //     ];
-    //     return (
-    //       <Box display={"flex"} justifyContent={"center"}>
-    //         <Menu options={options} />
-    //       </Box>
-    //     );
-    //   }, []);
+    const tableRef = useRef<any>();
 
     return (
         <>
-            <Button onClick={clearFilterFunction}>Clear Filters</Button>
-            <Table {...getTableProps({ ...props, onAdd, onCheckboxChange, onDelete, onDragEnd, onEdit, onSearch, onRowSelection })}>
+            <Button onClick={() => tableRef.current.clearFiltering()}>Clear Filters</Button>
+            <br />
+            <Table {...getTableProps({ ...props, onAdd, onCheckboxChange, onDelete, onDragEnd, onEdit, onSearch, onRowSelection })} ref={tableRef}>
                 <ColumnDirective type="checkbox" width="50" />
                 <ColumnDirective field="id" isPrimaryKey={true} visible={false} />
                 <ColumnDirective field="taskID" headerText="Task ID" width="150" filter={checkboxFilter} editType="numericedit" />
@@ -311,13 +290,6 @@ export const V2Table: ComponentStory<typeof Table> = (props) => {
                 />
                 <ColumnDirective field="reporter" headerText="Reporter" minWidth="200" validationRules={validateReporter} />
                 <ColumnDirective field="available" headerText="Availability" minWidth="200" filter={menuFilter} filterTemplate={filterTemplateOptions} />
-                {/* <ColumnDirective
-                width="60"
-                headerTemplate={() => <ViewArrayIcon />}
-                template={getMenu}
-                allowEditing={false}
-              /> */}
-                {/* <ColumnDirective width="60" template={() => <Button onClick={clearFilterFunction}>123</Button>} allowEditing={false} /> */}
             </Table>
         </>
     );
@@ -333,7 +305,6 @@ V2Table.args = {
     allowPaging: true,
     pageSettings: { pageSize: 10 },
     allowResizing: true,
-    allowEditing: true,
     allowExports: true,
     excelExportProperties: {
         fileName: 'newExcel.xlsx',

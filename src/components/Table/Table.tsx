@@ -17,10 +17,11 @@ import {
     TreeGridPdfExportProperties,
     PageSettingsModel,
     Filter,
-    ContextMenu
+    ContextMenu,
+    EditSettingsModel
 } from '@syncfusion/ej2-react-treegrid';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
-import { isNullOrUndefined, registerLicense } from '@syncfusion/ej2-base';
+import { addClass, isNullOrUndefined, registerLicense } from '@syncfusion/ej2-base';
 import './styles.css';
 import { Box } from '../Box';
 import {
@@ -39,12 +40,8 @@ import {
     SelectionSettingsModel,
     SortEventArgs
 } from '@syncfusion/ej2-grids';
-import { useEffect, useRef } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
 
-window.localStorage.setItem(
-    'syncfusionLicense',
-    'Mgo+DSMBaFt/QHRqVVhlWFpFdEBBXHxAd1p/VWJYdVt5flBPcDwsT3RfQF5jSn9VdkxhWX5WcHVURQ==;Mgo+DSMBPh8sVXJ0S0J+XE9BclRDX3xKf0x/TGpQb19xflBPallYVBYiSV9jS31TdURlWXZccHVdR2FdUw==;ORg4AjUWIQA/Gnt2VVhkQlFac1tJXGFWfVJpTGpQdk5xdV9DaVZUTWY/P1ZhSXxQdkZiX39XcnRUTmFZWUY=;MTM0NjkyNEAzMjMwMmUzNDJlMzBpV1RLdVE0M05jeVRMMnljS2pQKy9YTVBINzQycm43SzFTUldOdk9OUmdRPQ==;MTM0NjkyNUAzMjMwMmUzNDJlMzBpOGErQ1VPaDhFdUdvOG9OamdoNnVTcjNTMGFyZW4wSGNkNTN3OURZQm1NPQ==;NRAiBiAaIQQuGjN/V0Z+WE9EaFpGVmJLYVB3WmpQdldgdVRMZVVbQX9PIiBoS35RdUVgWHleeXZVR2hfVER0;MTM0NjkyN0AzMjMwMmUzNDJlMzBsY3F0b3hYMGFiVUZXK3J1SzVTU0dYNVk1Y2QyU1B6WE1qSlpmNWJSU0tVPQ==;MTM0NjkyOEAzMjMwMmUzNDJlMzBoNFdtWndvNE44SUlJN0FUMmVsYkVHaFQvcmVFbEJwN29wcUFRb2hhY0NFPQ==;Mgo+DSMBMAY9C3t2VVhkQlFac1tJXGFWfVJpTGpQdk5xdV9DaVZUTWY/P1ZhSXxQdkZiX39XcnRUTmVaWUY=;MTM0NjkzMEAzMjMwMmUzNDJlMzBrODVVZDM3Z3UwZXhULzlvOVFjV3FhWjhyOWNkZmRYY1krVVg1V050Q2lrPQ==;MTM0NjkzMUAzMjMwMmUzNDJlMzBvbUpUbHBmanFiMkVWeFBDNTlXbit4STZnMlVLOGdIRFBQUWJVYXRpb2JNPQ==;MTM0NjkzMkAzMjMwMmUzNDJlMzBsY3F0b3hYMGFiVUZXK3J1SzVTU0dYNVk1Y2QyU1B6WE1qSlpmNWJSU0tVPQ=='
-);
 const license = window.localStorage.getItem('syncfusionLicense');
 registerLicense(license!);
 
@@ -59,7 +56,6 @@ export interface TableProps {
     allowPaging?: boolean;
     pageSettings?: PageSettingsModel;
     allowResizing?: boolean;
-    allowEditing?: boolean;
     toolBarOptions?: ToolbarItems[];
     excelExportProperties?: TreeGridExcelExportProperties;
     pdfExportProperties?: TreeGridPdfExportProperties;
@@ -67,6 +63,7 @@ export interface TableProps {
     allowFiltering?: boolean;
     filterSettings?: FilterSettingsModel;
     selectionSettings?: SelectionSettingsModel;
+    editSettings?: EditSettingsModel;
     onCheckboxChange?: (data: Object[]) => void;
     onDragEnd?: (data: Object[]) => void;
     onAdd?: (data: Object) => void;
@@ -77,34 +74,36 @@ export interface TableProps {
     loading?: boolean;
 }
 
-export const Table: React.FC<TableProps> = ({
-    children,
-    data,
-    childMappingKey,
-    allowExports,
-    allowRowDragAndDrop,
-    frozenColumns,
-    treeColumnIndex,
-    allowPaging,
-    pageSettings,
-    allowResizing,
-    allowEditing,
-    toolBarOptions,
-    excelExportProperties,
-    pdfExportProperties,
-    height,
-    allowFiltering,
-    filterSettings,
-    onCheckboxChange,
-    onDragEnd,
-    onAdd,
-    onEdit,
-    onDelete,
-    onSearch,
-    selectionSettings,
-    onRowSelection,
-    loading
-}) => {
+export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
+    const {
+        children,
+        data,
+        childMappingKey,
+        allowExports,
+        allowRowDragAndDrop,
+        frozenColumns,
+        treeColumnIndex,
+        allowPaging,
+        pageSettings,
+        allowResizing,
+        toolBarOptions,
+        excelExportProperties,
+        pdfExportProperties,
+        height,
+        allowFiltering,
+        editSettings,
+        filterSettings,
+        onCheckboxChange,
+        onDragEnd,
+        onAdd,
+        onEdit,
+        onDelete,
+        onSearch,
+        selectionSettings,
+        onRowSelection,
+        loading
+    } = props;
+
     const tableRef = useRef<any>();
 
     useEffect(() => {
@@ -184,7 +183,6 @@ export const Table: React.FC<TableProps> = ({
             }
         }
     };
-
     const checkboxChange = (args: CheckBoxChangeEventArgs) => {
         onCheckboxChange!(tableRef.current.getSelectedRecords());
     };
@@ -204,9 +202,12 @@ export const Table: React.FC<TableProps> = ({
         }
     };
 
-    const rowDataBound = (args: RowDataBoundEventArgs) => {
+    const rowDataBound = (args: any) => {
         if (getObject('hidden', args.data) === true) {
             (args.row as HTMLTableRowElement).style.opacity = '0.4';
+        }
+        if (selectionSettings?.type === 'Single') {
+            addClass([args.row], 'singleSelect');
         }
     };
 
@@ -215,6 +216,16 @@ export const Table: React.FC<TableProps> = ({
             args.data.id = Math.floor(Math.random() * 20000);
         }
     };
+
+    useImperativeHandle(ref, () => {
+        const clearFiltering = () => {
+            tableRef.current.clearFiltering();
+        };
+        return {
+            clearFiltering
+        };
+    });
+
     return (
         <Box className="control-pane">
             <Box className="control-section">
@@ -236,19 +247,7 @@ export const Table: React.FC<TableProps> = ({
                         rowDrop={rowDrop}
                         frozenColumns={frozenColumns}
                         allowSorting={true}
-                        editSettings={
-                            allowEditing
-                                ? {
-                                      allowAdding: true,
-                                      allowDeleting: true,
-                                      allowEditing: true,
-                                      mode: 'Batch',
-                                      showDeleteConfirmDialog: true,
-                                      showConfirmDialog: true,
-                                      newRowPosition: 'Bottom'
-                                  }
-                                : {}
-                        }
+                        editSettings={editSettings}
                         searchSettings={{
                             hierarchyMode: 'Both'
                         }}
@@ -268,7 +267,7 @@ export const Table: React.FC<TableProps> = ({
             </Box>
         </Box>
     );
-};
+});
 
 Table.defaultProps = {
     excelExportProperties: {
@@ -289,7 +288,6 @@ Table.defaultProps = {
         pageSize: 10
     },
     allowResizing: true,
-    allowEditing: true,
     allowFiltering: true,
     filterSettings: {
         type: 'Excel'
@@ -297,6 +295,15 @@ Table.defaultProps = {
     selectionSettings: {
         checkboxOnly: true,
         persistSelection: true
+    },
+    editSettings: {
+        allowAdding: true,
+        allowDeleting: true,
+        allowEditing: true,
+        mode: 'Cell',
+        showDeleteConfirmDialog: true,
+        showConfirmDialog: true,
+        newRowPosition: 'Bottom'
     },
     onCheckboxChange: (data: Object[]) => {},
     onDragEnd: (data: Object[]) => {},

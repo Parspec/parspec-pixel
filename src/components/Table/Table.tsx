@@ -16,10 +16,12 @@ import {
     TreeGridExcelExportProperties,
     TreeGridPdfExportProperties,
     PageSettingsModel,
-    Filter
+    Filter,
+    ContextMenu,
+    EditSettingsModel
 } from '@syncfusion/ej2-react-treegrid';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
-import { isNullOrUndefined, registerLicense } from '@syncfusion/ej2-base';
+import { addClass, isNullOrUndefined, registerLicense } from '@syncfusion/ej2-base';
 import './styles.css';
 import { Box } from '../Box';
 import {
@@ -38,7 +40,7 @@ import {
     SelectionSettingsModel,
     SortEventArgs
 } from '@syncfusion/ej2-grids';
-import { useRef } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
 
 const license = window.localStorage.getItem('syncfusionLicense');
 registerLicense(license!);
@@ -54,7 +56,6 @@ export interface TableProps {
     allowPaging?: boolean;
     pageSettings?: PageSettingsModel;
     allowResizing?: boolean;
-    allowEditing?: boolean;
     toolBarOptions?: ToolbarItems[];
     excelExportProperties?: TreeGridExcelExportProperties;
     pdfExportProperties?: TreeGridPdfExportProperties;
@@ -62,6 +63,7 @@ export interface TableProps {
     allowFiltering?: boolean;
     filterSettings?: FilterSettingsModel;
     selectionSettings?: SelectionSettingsModel;
+    editSettings?: EditSettingsModel;
     onCheckboxChange?: (data: Object[]) => void;
     onDragEnd?: (data: Object[]) => void;
     onAdd?: (data: Object) => void;
@@ -69,36 +71,48 @@ export interface TableProps {
     onDelete?: (data: Object) => void;
     onSearch?: (data: Object) => void;
     onRowSelection?: (data: Object) => void;
+    loading?: boolean;
 }
 
-export const Table: React.FC<TableProps> = ({
-    children,
-    data,
-    childMappingKey,
-    allowExports,
-    allowRowDragAndDrop,
-    frozenColumns,
-    treeColumnIndex,
-    allowPaging,
-    pageSettings,
-    allowResizing,
-    allowEditing,
-    toolBarOptions,
-    excelExportProperties,
-    pdfExportProperties,
-    height,
-    allowFiltering,
-    filterSettings,
-    onCheckboxChange,
-    onDragEnd,
-    onAdd,
-    onEdit,
-    onDelete,
-    onSearch,
-    selectionSettings,
-    onRowSelection
-}) => {
+export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
+    const {
+        children,
+        data,
+        childMappingKey,
+        allowExports,
+        allowRowDragAndDrop,
+        frozenColumns,
+        treeColumnIndex,
+        allowPaging,
+        pageSettings,
+        allowResizing,
+        toolBarOptions,
+        excelExportProperties,
+        pdfExportProperties,
+        height,
+        allowFiltering,
+        editSettings,
+        filterSettings,
+        onCheckboxChange,
+        onDragEnd,
+        onAdd,
+        onEdit,
+        onDelete,
+        onSearch,
+        selectionSettings,
+        onRowSelection,
+        loading
+    } = props;
+
     const tableRef = useRef<any>();
+
+    useEffect(() => {
+        if (loading) {
+            tableRef.current.showSpinner();
+        } else {
+            tableRef.current.hideSpinner();
+        }
+    }, [loading]);
 
     const rowDrop = (args: any) => {
         const droppedData = tableRef.current.getRowInfo(args.target.parentElement).rowData; //dropped data
@@ -169,7 +183,6 @@ export const Table: React.FC<TableProps> = ({
             }
         }
     };
-
     const checkboxChange = (args: CheckBoxChangeEventArgs) => {
         onCheckboxChange!(tableRef.current.getSelectedRecords());
     };
@@ -189,16 +202,36 @@ export const Table: React.FC<TableProps> = ({
         }
     };
 
-    const rowDataBound = (args: RowDataBoundEventArgs) => {
+    const rowDataBound = (args: any) => {
         if (getObject('hidden', args.data) === true) {
             (args.row as HTMLTableRowElement).style.opacity = '0.4';
         }
+        if (selectionSettings?.type === 'Single') {
+            addClass([args.row], 'singleSelect');
+        }
     };
+
+    const actionBeginHandler = (args: any) => {
+        if (args.requestType == 'add') {
+            args.data.id = Math.floor(Math.random() * 20000);
+        }
+    };
+
+    useImperativeHandle(ref, () => {
+        const clearFiltering = () => {
+            tableRef.current.clearFiltering();
+        };
+        return {
+            clearFiltering
+        };
+    });
+
     return (
         <Box className="control-pane">
             <Box className="control-section">
                 {data && (
                     <TreeGridComponent
+                        actionBegin={actionBeginHandler}
                         rowSelected={rowSelected}
                         rowDataBound={rowDataBound}
                         height={height}
@@ -214,19 +247,7 @@ export const Table: React.FC<TableProps> = ({
                         rowDrop={rowDrop}
                         frozenColumns={frozenColumns}
                         allowSorting={true}
-                        editSettings={
-                            allowEditing
-                                ? {
-                                      allowAdding: true,
-                                      allowDeleting: true,
-                                      allowEditing: true,
-                                      mode: 'Cell',
-                                      showDeleteConfirmDialog: true,
-                                      showConfirmDialog: true,
-                                      newRowPosition: 'Bottom'
-                                  }
-                                : {}
-                        }
+                        editSettings={editSettings}
                         searchSettings={{
                             hierarchyMode: 'Both'
                         }}
@@ -240,13 +261,13 @@ export const Table: React.FC<TableProps> = ({
                         actionComplete={actionComplete}
                     >
                         <ColumnsDirective>{children}</ColumnsDirective>
-                        <Inject services={[Freeze, RowDD, Selection, Sort, Edit, Toolbar, Page, ExcelExport, PdfExport, Resize, Filter]} />
+                        <Inject services={[Freeze, RowDD, Selection, Sort, Edit, Toolbar, Page, ExcelExport, PdfExport, Resize, Filter, ContextMenu]} />
                     </TreeGridComponent>
                 )}
             </Box>
         </Box>
     );
-};
+});
 
 Table.defaultProps = {
     excelExportProperties: {
@@ -267,14 +288,22 @@ Table.defaultProps = {
         pageSize: 10
     },
     allowResizing: true,
-    allowEditing: true,
     allowFiltering: true,
     filterSettings: {
         type: 'Excel'
     },
     selectionSettings: {
-        type: 'Multiple',
+        checkboxOnly: true,
         persistSelection: true
+    },
+    editSettings: {
+        allowAdding: true,
+        allowDeleting: true,
+        allowEditing: true,
+        mode: 'Cell',
+        showDeleteConfirmDialog: true,
+        showConfirmDialog: true,
+        newRowPosition: 'Bottom'
     },
     onCheckboxChange: (data: Object[]) => {},
     onDragEnd: (data: Object[]) => {},
@@ -282,5 +311,6 @@ Table.defaultProps = {
     onEdit: (data: Object) => {},
     onDelete: (data: Object) => {},
     onSearch: (data: Object) => {},
-    onRowSelection: (data: Object) => {}
+    onRowSelection: (data: Object) => {},
+    loading: false
 };

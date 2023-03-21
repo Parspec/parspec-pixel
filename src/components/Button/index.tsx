@@ -10,13 +10,7 @@ export interface ButtonProps extends Omit<MUIButtonProps, 'classes'> {
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({ disabled, isLoading, color, loaderThickness, ...rest }, ref) => {
     return (
-        <MUIButton
-            ref={ref}
-            {...rest}
-            color={color}
-            sx={disabled || isLoading ? { opacity: 0.5, pointerEvents: 'none' } : {}}
-            startIcon={isLoading ? <CircularProgress thickness={loaderThickness} color={'inherit'} size="1rem" /> : null}
-        />
+        <MUIButton ref={ref} {...rest} color={color} sx={disabled || isLoading ? { opacity: 0.5, pointerEvents: 'none' } : {}} startIcon={isLoading ? <CircularProgress color={'inherit'} /> : null} />
     );
 });
 

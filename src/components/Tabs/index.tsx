@@ -17,7 +17,7 @@ export const Tabs: React.FC<TabsPropsCustom> = ({ selectedTab, options, onChange
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <MUITabs value={selectedTab} onChange={handleChange}>
                 {options.map((item, index) => (
-                    <Tab label={item.label} value={item.value} />
+                    <Tab label={item.label} value={item.value} key={index} />
                 ))}
             </MUITabs>
         </Box>

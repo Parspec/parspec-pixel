@@ -1,4 +1,7 @@
 export { ParspecLogoIcon } from './ParspecLogoIcon';
+export { RedirectIcon } from './RedirectIcon';
+export { AnnotateIcon } from './AnnotateIcon';
+export { AnnotateColoredIcon } from './AnnotateColoredIcon';
 export {
     Close as CloseIcon,
     Cancel as CancelIcon,
@@ -25,5 +28,6 @@ export {
     CheckCircle as CheckCircleIcon,
     SwapHoriz as SwapHorizIcon,
     ChangeHistory as ChangeHistoryIcon,
-    ViewArray as ViewArrayIcon
+    ViewArray as ViewArrayIcon,
+    SyncProblem as SyncIcon
 } from '@mui/icons-material';

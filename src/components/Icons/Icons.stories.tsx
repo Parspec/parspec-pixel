@@ -25,7 +25,11 @@ import {
     SwapHorizIcon,
     ChangeHistoryIcon,
     ViewArrayIcon,
-    CancelIcon
+    CancelIcon,
+    RedirectIcon,
+    AnnotateIcon,
+    SyncIcon,
+    AnnotateColoredIcon
 } from './index';
 import { Grid } from '../Grid';
 import { Box } from '../Box';
@@ -81,7 +85,11 @@ AllIcons.args = {
         { icon: CancelIcon, name: 'CancelIcon' },
         { icon: SwapHorizIcon, name: 'SwapHorizIcon' },
         { icon: ChangeHistoryIcon, name: 'ChangeHistoryIcon' },
-        { icon: ViewArrayIcon, name: 'ViewArrayIcon ' }
+        { icon: ViewArrayIcon, name: 'ViewArrayIcon ' },
+        { icon: SyncIcon, name: 'SyncIcon ' },
+        { icon: RedirectIcon, name: 'RedirectIcon' },
+        { icon: AnnotateIcon, name: 'AnnotateIcon' },
+        { icon: AnnotateColoredIcon, name: 'AnnotateColoredIcon' }
     ],
     fontSize: 'medium'
 };

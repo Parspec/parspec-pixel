@@ -33,7 +33,6 @@ import {
     FilterSettingsModel,
     getObject,
     PageEventArgs,
-    RowDataBoundEventArgs,
     RowSelectEventArgs,
     SaveEventArgs,
     SearchEventArgs,

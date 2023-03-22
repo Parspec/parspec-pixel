@@ -17,7 +17,7 @@ import FormControl from '@mui/material/FormControl';
 import { default as MUISelect } from '@mui/material/Select';
 export const Select = forwardRef((_a, ref) => {
     var { id, labelId, options, size, label, optionLabelKeyname = 'label', optionValueKeyname = 'value' } = _a, rest = __rest(_a, ["id", "labelId", "options", "size", "label", "optionLabelKeyname", "optionValueKeyname"]);
-    return (_jsxs(FormControl, Object.assign({ fullWidth: true, ref: ref, size: size }, { children: [_jsx(InputLabel, Object.assign({ id: labelId }, { children: label }), void 0), _jsx(MUISelect, Object.assign({}, rest, { labelId: labelId, label: label, id: id }, { children: options.map((item, index) => (_jsx(MenuItem, Object.assign({ value: item[optionValueKeyname] }, { children: item[optionLabelKeyname] }), index))) }), void 0)] }), void 0));
+    return (_jsxs(FormControl, Object.assign({ fullWidth: true, ref: ref, size: size }, { children: [_jsx(InputLabel, Object.assign({ id: labelId }, { children: label })), _jsx(MUISelect, Object.assign({}, rest, { labelId: labelId, label: label, id: id }, { children: options.map((item, index) => (_jsx(MenuItem, Object.assign({ value: item[optionValueKeyname] }, { children: item[optionLabelKeyname] }), index))) }))] })));
 });
 Select.defaultProps = {
     label: 'Select',

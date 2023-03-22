@@ -24,7 +24,7 @@ export const Accordion = forwardRef((_a, ref) => {
     return (_jsx(_Fragment, { children: options.map((item, index) => {
             return (_jsxs(MUIAccordion, Object.assign({ ref: ref, TransitionProps: { unmountOnExit: true } }, rest, { expanded: expanded === item.labelId, onChange: handleAccordionOnChange(item.labelId) }, { children: [_jsx(AccordionSummary, Object.assign({ sx: {
                             flexDirection: 'row-reverse'
-                        }, expandIcon: _jsx(ExpandMoreIcon, {}, void 0) }, { children: item.summary }), void 0), _jsx(AccordionDetails, { children: item.details }, void 0)] }), index));
-        }) }, void 0));
+                        }, expandIcon: _jsx(ExpandMoreIcon, {}) }, { children: item.summary })), _jsx(AccordionDetails, { children: item.details })] }), index));
+        }) }));
 });
 //# sourceMappingURL=index.js.map

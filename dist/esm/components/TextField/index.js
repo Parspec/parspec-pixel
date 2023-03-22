@@ -14,7 +14,7 @@ import { default as MUITextField } from '@mui/material/TextField';
 import { forwardRef } from 'react';
 export const TextField = forwardRef((_a, ref) => {
     var { variant, color, error, size, label } = _a, rest = __rest(_a, ["variant", "color", "error", "size", "label"]);
-    return (_jsx(MUITextField, Object.assign({ fullWidth: true, label: label, ref: ref, size: size, variant: variant, color: color, error: error }, rest), void 0));
+    return (_jsx(MUITextField, Object.assign({ fullWidth: true, label: label, ref: ref, size: size, variant: variant, color: color, error: error }, rest)));
 });
 TextField.defaultProps = {
     variant: 'outlined',

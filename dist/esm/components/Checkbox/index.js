@@ -14,7 +14,7 @@ import { default as MUICheckbox } from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 export const Checkbox = (_a) => {
     var { label } = _a, rest = __rest(_a, ["label"]);
-    return _jsx(FormControlLabel, { control: _jsx(MUICheckbox, Object.assign({}, rest), void 0), label: label }, void 0);
+    return _jsx(FormControlLabel, { control: _jsx(MUICheckbox, Object.assign({}, rest)), label: label });
 };
 Checkbox.defaultProps = {
     size: 'small',

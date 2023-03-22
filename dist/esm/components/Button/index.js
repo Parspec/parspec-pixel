@@ -14,13 +14,12 @@ import { forwardRef } from 'react';
 import { default as MUIButton } from '@mui/material/Button';
 import { CircularProgress } from '../CircularProgress';
 export const Button = forwardRef((_a, ref) => {
-    var { disabled, isLoading, color, loaderThickness } = _a, rest = __rest(_a, ["disabled", "isLoading", "color", "loaderThickness"]);
+    var { disabled, isLoading, color } = _a, rest = __rest(_a, ["disabled", "isLoading", "color"]);
     return (_jsx(MUIButton, Object.assign({ ref: ref }, rest, { color: color, sx: disabled || isLoading ? { opacity: 0.5, pointerEvents: 'none' } : {}, startIcon: isLoading ? _jsx(CircularProgress, { color: 'inherit' }) : null })));
 });
 Button.defaultProps = {
     color: 'primary',
     variant: 'contained',
-    isLoading: false,
-    loaderThickness: 3.6
+    isLoading: false
 };
 //# sourceMappingURL=index.js.map

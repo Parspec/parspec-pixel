@@ -44,7 +44,6 @@ import ControlPointDuplicateIcon from '@mui/icons-material/ControlPointDuplicate
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import { CloseIcon } from '../Icons';
 import { BodySmall } from '../Typography';
 

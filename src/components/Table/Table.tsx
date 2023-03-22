@@ -31,6 +31,7 @@ import {
     FilterSettingsModel,
     getObject,
     PageEventArgs,
+    RowDeselectEventArgs,
     RowSelectEventArgs,
     SaveEventArgs,
     SearchEventArgs,
@@ -44,7 +45,6 @@ import ControlPointDuplicateIcon from '@mui/icons-material/ControlPointDuplicate
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import { CloseIcon } from '../Icons';
 import { BodySmall } from '../Typography';
 
@@ -176,6 +176,9 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     const rowSelected = (args: RowSelectEventArgs) => {
         onRowSelection!(tableRef.current.getSelectedRecords());
     };
+    const rowDeselected = (args: RowDeselectEventArgs) => {
+        onRowSelection!(tableRef.current.getSelectedRecords());
+    };
 
     const actionComplete = (args: PageEventArgs | FilterEventArgs | SortEventArgs | SearchEventArgs | AddEventArgs | SaveEventArgs | EditEventArgs | DeleteEventArgs) => {
         if (args.type === 'save') {
@@ -267,6 +270,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                         <TreeGridComponent
                             actionBegin={actionBeginHandler}
                             rowSelected={rowSelected}
+                            rowDeselected={rowDeselected}
                             rowDataBound={rowDataBound}
                             height={height}
                             ref={tableRef}

@@ -12,6 +12,6 @@ export const Basic: ComponentStory<typeof CircularProgress> = (args) => <Circula
 
 Basic.args = {
     color: 'primary',
-    size: 20,
+    size: 'sm',
     thickness: 3.6
 };

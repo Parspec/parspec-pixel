@@ -4,23 +4,23 @@ import { Button } from '../Button';
 export interface ModalFooterProps {
     onAccept?: () => void;
     onReject?: () => void;
-    cancelButtonLabel?: string;
-    continueButtonLabel?: string;
+    rejectButtonLabel?: string;
+    acceptButtonLabel?: string;
     continueButtonColor?: 'primary' | 'secondary' | 'tertiary' | 'error';
     isLoading?: boolean;
     helperText?: React.ReactNode;
 }
 
-export const ModalFooter: React.FC<ModalFooterProps> = ({ onAccept, onReject, cancelButtonLabel, continueButtonLabel, continueButtonColor, isLoading, helperText }) => {
+export const ModalFooter: React.FC<ModalFooterProps> = ({ onAccept, onReject, rejectButtonLabel, acceptButtonLabel, continueButtonColor, isLoading, helperText }) => {
     return (
         <Box display="flex" justifyContent="space-between" alignItems={'center'}>
             <Box>{helperText}</Box>
             <Box display={'flex'} gap={2}>
                 <Button color="secondary" variant="outlined" onClick={onReject}>
-                    {cancelButtonLabel}
+                    {rejectButtonLabel}
                 </Button>
                 <Button color={continueButtonColor} variant="contained" onClick={onAccept} isLoading={isLoading}>
-                    {continueButtonLabel}
+                    {acceptButtonLabel}
                 </Button>
             </Box>
         </Box>
@@ -28,8 +28,8 @@ export const ModalFooter: React.FC<ModalFooterProps> = ({ onAccept, onReject, ca
 };
 
 ModalFooter.defaultProps = {
-    cancelButtonLabel: 'Cancel',
-    continueButtonLabel: 'Submit',
+    rejectButtonLabel: 'Cancel',
+    acceptButtonLabel: 'Submit',
     continueButtonColor: 'primary',
     onAccept: () => {},
     onReject: () => {},

@@ -35,13 +35,12 @@ import {
     AnnotateIcon,
     SyncIcon,
     AnnotateColoredIcon,
-    FileDownloadOutlined,
-    SyncProblem,
-    ContentCopy,
-    Tune,
-    Sync,
-    Delete,
-    VisibilityOffOutlined
+    FileDownloadOutlinedIcon,
+    SyncProblemIcon,
+    ContentCopyIcon,
+    TuneIcon,
+    DeleteIcon,
+    VisibilityOffOutlinedIcon
 } from './index';
 import { Grid } from '../Grid';
 import { Box } from '../Box';
@@ -51,7 +50,7 @@ export default {
     component: SearchIcon
 } as ComponentMeta<typeof SearchIcon>;
 
-const Template: ComponentStory<any> = (args) => {
+export const AllIcons: ComponentStory<any> = (args) => {
     return Array.isArray(args.icons) ? (
         <Grid container>
             {args.icons.map((element) => {
@@ -69,8 +68,6 @@ const Template: ComponentStory<any> = (args) => {
         <args.icons fontSize={args.fontSize} />
     );
 };
-
-export const AllIcons = Template.bind({});
 AllIcons.args = {
     icons: [
         { icon: ParspecLogoIcon, name: 'ParspecLogoIcon' },
@@ -112,28 +109,40 @@ AllIcons.args = {
         { icon: AnnotateIcon, name: 'AnnotateIcon' },
         { icon: AnnotateColoredIcon, name: 'AnnotateColoredIcon' },
 
-        { icon: FileDownloadOutlined, name: 'FileDownloadOutlined' },
-        { icon: SyncProblem, name: 'SyncProblem' },
-        { icon: ContentCopy, name: 'ContentCopy' },
-        { icon: Tune, name: 'Tune' },
+        { icon: FileDownloadOutlinedIcon, name: 'FileDownloadOutlinedIcon' },
+        { icon: SyncProblemIcon, name: 'SyncProblemIcon' },
+        { icon: ContentCopyIcon, name: 'ContentCopyIcon' },
 
-        { icon: Sync, name: 'Sync' },
+        { icon: FileDownloadOutlinedIcon, name: 'FileDownloadOutlinedIcon' },
+        { icon: SyncProblemIcon, name: 'SyncProblemIcon' },
+        { icon: ContentCopyIcon, name: 'ContentCopyIcon' },
+        { icon: TuneIcon, name: 'TuneIcon' },
 
-        { icon: Sync, name: 'Sync' },
-        { icon: Delete, name: 'Delete' },
-
-        { icon: FileDownloadOutlined, name: 'FileDownloadOutlinedIcon' },
-        { icon: SyncProblem, name: 'SyncProblemIcon' },
-        { icon: ContentCopy, name: 'ContentCopyIcon' },
-        { icon: Tune, name: 'TuneIcon' },
-        { icon: Sync, name: 'SyncIcon' },
-        { icon: Delete, name: 'DeleteIcon' },
-        { icon: VisibilityOffOutlined, name: 'VisibilityOffOutlinedIcon' }
+        { icon: DeleteIcon, name: 'DeleteIcon' },
+        { icon: VisibilityOffOutlinedIcon, name: 'VisibilityOffOutlinedIcon' }
     ],
     fontSize: 'medium'
 };
 
-export const ParspecLogo = Template.bind({});
+export const ParspecLogo: ComponentStory<any> = (args) => {
+    return Array.isArray(args.icons) ? (
+        <Grid container>
+            {args.icons.map((element) => {
+                return (
+                    <Grid item xs={4} sm={3} md={2} gap={5} mb={12}>
+                        <>
+                            <element.icon fontSize={args.fontSize} />
+                            <Box>{element.name}</Box>
+                        </>
+                    </Grid>
+                );
+            })}
+        </Grid>
+    ) : (
+        <args.icons fontSize={args.fontSize} />
+    );
+};
+
 ParspecLogo.args = {
     icons: ParspecLogoIcon,
     fontSize: 'large'

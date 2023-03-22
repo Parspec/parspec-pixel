@@ -31,6 +31,7 @@ import {
     FilterSettingsModel,
     getObject,
     PageEventArgs,
+    RowDeselectEventArgs,
     RowSelectEventArgs,
     SaveEventArgs,
     SearchEventArgs,
@@ -175,6 +176,9 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     const rowSelected = (args: RowSelectEventArgs) => {
         onRowSelection!(tableRef.current.getSelectedRecords());
     };
+    const rowDeselected = (args: RowDeselectEventArgs) => {
+        onRowSelection!(tableRef.current.getSelectedRecords());
+    };
 
     const actionComplete = (args: PageEventArgs | FilterEventArgs | SortEventArgs | SearchEventArgs | AddEventArgs | SaveEventArgs | EditEventArgs | DeleteEventArgs) => {
         if (args.type === 'save') {
@@ -221,8 +225,8 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     return (
         <>
             {showToolbar && (
-                <Box display={'flex'} justifyContent="space-between">
-                    <Box display="flex" alignItems="center" gap={2}>
+                <Box display={'flex'} justifyContent="space-between" mb={2}>
+                    <Box display="flex" alignItems="center" gap={1}>
                         {toolBarOptions?.includes('search') && (
                             <Box width={300}>
                                 <TextField label={'Search'} size="small" onChange={(t: any) => tableRef.current.search(t.target.value)} />
@@ -230,22 +234,22 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                         )}
                         {toolBarOptions?.includes('add') && (
                             <IconButton onClick={() => tableRef.current.addRecord()}>
-                                <ControlPointDuplicateIcon fontSize="large" />
+                                <ControlPointDuplicateIcon fontSize="medium" />
                             </IconButton>
                         )}
                         {toolBarOptions?.includes('delete') && (
                             <IconButton onClick={() => tableRef.current.deleteRecord()}>
-                                <DeleteOutlineIcon fontSize="large" />
+                                <DeleteOutlineIcon fontSize="medium" />
                             </IconButton>
                         )}
                         {toolBarOptions?.includes('hide') && (
                             <IconButton onClick={hideUnhideSelected}>
-                                <VisibilityOffIcon fontSize="large" />
+                                <VisibilityOffIcon fontSize="medium" />
                             </IconButton>
                         )}
                         {toolBarOptions?.includes('clearFilters') && (
                             <IconButton onClick={() => tableRef.current.clearFiltering()}>
-                                <FilterAltOffIcon fontSize="large" />
+                                <FilterAltOffIcon fontSize="medium" />
                             </IconButton>
                         )}
                         {toolBarOptions?.includes('selectedItems') && selected > 0 && (
@@ -266,6 +270,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                         <TreeGridComponent
                             actionBegin={actionBeginHandler}
                             rowSelected={rowSelected}
+                            rowDeselected={rowDeselected}
                             rowDataBound={rowDataBound}
                             height={height}
                             ref={tableRef}

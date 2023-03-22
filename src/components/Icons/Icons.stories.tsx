@@ -95,7 +95,7 @@ AllIcons.args = {
         { icon: DeleteOutlineIcon, name: 'DeleteOutlineIcon ' },
         { icon: VisibilityOffIcon, name: 'VisibilityOffIcon ' },
         { icon: VisibilityIcon, name: 'VisibilityIcon ' },
-        { icon: FilterAltOffIcon, name: 'FilterAltOffIcon ' }
+        { icon: FilterAltOffIcon, name: 'FilterAltOffIcon ' },
         { icon: SyncIcon, name: 'SyncIcon ' },
         { icon: RedirectIcon, name: 'RedirectIcon' },
         { icon: AnnotateIcon, name: 'AnnotateIcon' },

@@ -14,11 +14,10 @@ const theme = createTheme({
     },
     palette: {
         action: {},
-        // text: {
-        //     primary: '#091535',
-        //     secondary: '#ffffff',
-        //     disabled: '#ffc471'
-        // },
+        text: {
+            primary: '#091535',
+            secondary: '#091535'
+        },
         primary: {
             light: '#ffe4bd',
             main: '#FFA72B',
@@ -44,7 +43,10 @@ const theme = createTheme({
             contrastText: '#091535'
         },
         success: {
-            main: '#2dd4de'
+            light: '#6EE7B7',
+            main: '#10B981',
+            dark: '#047857',
+            contrastText: '#ffffff'
         },
         // info: {
         //     main: ''
@@ -58,6 +60,6 @@ const theme = createTheme({
     }
 });
 export const ThemeProvider = (props) => {
-    return _jsx(MUIThemeProvider, Object.assign({ theme: theme }, { children: props.children }));
+    return _jsx(MUIThemeProvider, Object.assign({ theme: theme }, { children: props.children }), void 0);
 };
 //# sourceMappingURL=ThemeProvider.js.map

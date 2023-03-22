@@ -14,7 +14,7 @@ import { forwardRef } from 'react';
 import { default as MUIPaper } from '@mui/material/Paper';
 export const Paper = forwardRef((_a) => {
     var { children } = _a, props = __rest(_a, ["children"]);
-    return _jsx(MUIPaper, Object.assign({}, props, { children: children }));
+    return _jsx(MUIPaper, Object.assign({}, props, { children: children }), void 0);
 });
 Paper.defaultProps = {
     variant: 'outlined'

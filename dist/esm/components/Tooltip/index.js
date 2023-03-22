@@ -13,6 +13,6 @@ import { jsx as _jsx } from "react/jsx-runtime";
 import { default as MUITooltip } from '@mui/material/Tooltip';
 export const Tooltip = (_a) => {
     var { children, title, placement } = _a, rest = __rest(_a, ["children", "title", "placement"]);
-    return (_jsx(MUITooltip, Object.assign({ title: title, placement: placement }, rest, { children: children })));
+    return (_jsx(MUITooltip, Object.assign({ title: title, placement: placement }, rest, { children: children }), void 0));
 };
 //# sourceMappingURL=index.js.map

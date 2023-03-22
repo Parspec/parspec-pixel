@@ -71,7 +71,7 @@ export const AsyncAutocomplete: React.FC<AsyncAutocompleteProps> = ({ id, label,
                         ...params.InputProps,
                         endAdornment: (
                             <Fragment>
-                                {loading ? <CircularProgress size={loadersize} /> : null}
+                                {loading ? <CircularProgress /> : null}
                                 {params.InputProps.endAdornment}
                             </Fragment>
                         )

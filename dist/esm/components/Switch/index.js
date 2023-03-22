@@ -15,7 +15,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import { default as MUISwitch } from '@mui/material/Switch';
 export const Switch = forwardRef((_a, ref) => {
     var { label } = _a, rest = __rest(_a, ["label"]);
-    return _jsx(FormControlLabel, { ref: ref, control: _jsx(MUISwitch, Object.assign({}, rest)), label: label });
+    return _jsx(FormControlLabel, { ref: ref, control: _jsx(MUISwitch, Object.assign({}, rest), void 0), label: label }, void 0);
 });
 Switch.defaultProps = {
     label: '',

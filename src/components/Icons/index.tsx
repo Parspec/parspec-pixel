@@ -25,5 +25,10 @@ export {
     CheckCircle as CheckCircleIcon,
     SwapHoriz as SwapHorizIcon,
     ChangeHistory as ChangeHistoryIcon,
-    ViewArray as ViewArrayIcon
+    ViewArray as ViewArrayIcon,
+    ControlPointDuplicate as ControlPointDuplicateIcon,
+    DeleteOutline as DeleteOutlineIcon,
+    VisibilityOff as VisibilityOffIcon,
+    Visibility as VisibilityIcon,
+    FilterAltOff as FilterAltOffIcon
 } from '@mui/icons-material';

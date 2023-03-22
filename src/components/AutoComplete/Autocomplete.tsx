@@ -57,7 +57,11 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
                     freeSolo={freeSolo}
                     renderInput={(params) => <TextField {...params} variant={variant} color={color} label={label} />}
                 />
-                {helperText && <BodyXS>{helperText}</BodyXS>}
+                {helperText && (
+                    <BodyXS color="error" mt={1}>
+                        {helperText}
+                    </BodyXS>
+                )}
             </>
         );
     }

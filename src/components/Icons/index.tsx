@@ -29,5 +29,10 @@ export {
     SwapHoriz as SwapHorizIcon,
     ChangeHistory as ChangeHistoryIcon,
     ViewArray as ViewArrayIcon,
+    ControlPointDuplicate as ControlPointDuplicateIcon,
+    DeleteOutline as DeleteOutlineIcon,
+    VisibilityOff as VisibilityOffIcon,
+    Visibility as VisibilityIcon,
+    FilterAltOff as FilterAltOffIcon,
     SyncProblem as SyncIcon
 } from '@mui/icons-material';

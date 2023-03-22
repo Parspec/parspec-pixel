@@ -34,5 +34,11 @@ export {
     VisibilityOff as VisibilityOffIcon,
     Visibility as VisibilityIcon,
     FilterAltOff as FilterAltOffIcon,
-    SyncProblem as SyncIcon
+    FileDownloadOutlined as FileDownloadOutlinedIcon,
+    SyncProblem as SyncProblemIcon,
+    ContentCopy as ContentCopyIcon,
+    Tune as TuneIcon,
+    Sync as SyncIcon,
+    Delete as DeeletIcon,
+    VisibilityOffOutlined as VisibilityOffOutlinedIcon
 } from '@mui/icons-material';

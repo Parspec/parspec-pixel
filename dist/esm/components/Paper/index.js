@@ -12,9 +12,9 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx } from "react/jsx-runtime";
 import { forwardRef } from 'react';
 import { default as MUIPaper } from '@mui/material/Paper';
-export const Paper = forwardRef((_a) => {
+export const Paper = forwardRef((_a, ref) => {
     var { children } = _a, props = __rest(_a, ["children"]);
-    return _jsx(MUIPaper, Object.assign({}, props, { children: children }), void 0);
+    return (_jsx(MUIPaper, Object.assign({ ref: ref }, props, { children: children })));
 });
 Paper.defaultProps = {
     variant: 'outlined'

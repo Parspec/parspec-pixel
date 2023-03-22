@@ -1,15 +1,24 @@
-import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { TreeGridComponent, ColumnsDirective, Selection, RowDD, Inject, Freeze, Sort, Edit, Toolbar, Page, PdfExport, ExcelExport, Resize, Filter, ContextMenu } from '@syncfusion/ej2-react-treegrid';
+import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
+import { TreeGridComponent, ColumnsDirective, Selection, RowDD, Inject, Freeze, Sort, Edit, Page, PdfExport, ExcelExport, Resize, Filter, ContextMenu } from '@syncfusion/ej2-react-treegrid';
 import { addClass, isNullOrUndefined, registerLicense } from '@syncfusion/ej2-base';
 import './styles.css';
 import { Box } from '../Box';
 import { getObject } from '@syncfusion/ej2-grids';
-import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import { TextField } from '../TextField';
+import { IconButton } from '../IconButton';
+import ControlPointDuplicateIcon from '@mui/icons-material/ControlPointDuplicate';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
+import { CloseIcon } from '../Icons';
+import { BodySmall } from '../Typography';
 const license = window.localStorage.getItem('syncfusionLicense');
 registerLicense(license);
 export const Table = forwardRef((props, ref) => {
-    const { children, data, childMappingKey, allowExports, allowRowDragAndDrop, frozenColumns, treeColumnIndex, allowPaging, pageSettings, allowResizing, toolBarOptions, excelExportProperties, pdfExportProperties, height, allowFiltering, editSettings, filterSettings, onCheckboxChange, onDragEnd, onAdd, onEdit, onDelete, onSearch, selectionSettings, onRowSelection, loading } = props;
+    const { children, data, childMappingKey, allowExports, allowRowDragAndDrop, frozenColumns, treeColumnIndex, allowPaging, pageSettings, allowResizing, showToolbar, toolBarOptions, height, allowFiltering, editSettings, filterSettings, onCheckboxChange, onDragEnd, onAdd, onEdit, onDelete, onSearch, selectionSettings, onRowSelection, loading, toolbarRightSection, searchSettings } = props;
     const tableRef = useRef();
+    const [selected, setSelected] = useState(0);
     useEffect(() => {
         if (loading) {
             tableRef.current.showSpinner();
@@ -62,31 +71,9 @@ export const Table = forwardRef((props, ref) => {
         }
         onDragEnd(tableRef.current.getDataModule().treeModule.hierarchyData);
     };
-    const toolbarClick = (args) => {
-        const selectedRecords = tableRef.current.getSelectedRecords();
-        let exelExportPropertiesOnSelectedCheckboxes = {};
-        let pdfExportPropertiesOnSelectedCheckboxes = {};
-        if (selectedRecords.length !== 0) {
-            exelExportPropertiesOnSelectedCheckboxes = Object.assign(Object.assign({}, excelExportProperties), { dataSource: selectedRecords });
-            pdfExportPropertiesOnSelectedCheckboxes = Object.assign(Object.assign({}, pdfExportProperties), { dataSource: selectedRecords });
-            if (args.item.text === 'Excel Export') {
-                tableRef.current.excelExport(exelExportPropertiesOnSelectedCheckboxes);
-            }
-            else if (args.item.text === 'PDF Export') {
-                tableRef.current.pdfExport(pdfExportPropertiesOnSelectedCheckboxes);
-            }
-        }
-        else {
-            if (args.item.text === 'Excel Export') {
-                tableRef.current.excelExport(excelExportProperties);
-            }
-            else if (args.item.text === 'PDF Export') {
-                tableRef.current.pdfExport(pdfExportProperties);
-            }
-        }
-    };
     const checkboxChange = (args) => {
         onCheckboxChange(tableRef.current.getSelectedRecords());
+        setSelected(tableRef.current.getSelectedRecords().length);
     };
     const rowSelected = (args) => {
         onRowSelection(tableRef.current.getSelectedRecords());
@@ -126,9 +113,12 @@ export const Table = forwardRef((props, ref) => {
             clearFiltering
         };
     });
-    return (_jsx(Box, Object.assign({ className: "control-pane" }, { children: _jsx(Box, Object.assign({ className: "control-section" }, { children: data && (_jsxs(TreeGridComponent, Object.assign({ actionBegin: actionBeginHandler, rowSelected: rowSelected, rowDataBound: rowDataBound, height: height, ref: tableRef, dataSource: data, treeColumnIndex: treeColumnIndex, childMapping: childMappingKey, allowPdfExport: allowExports, allowExcelExport: allowExports, allowRowDragAndDrop: allowRowDragAndDrop, allowResizing: allowResizing, selectionSettings: selectionSettings, rowDrop: rowDrop, frozenColumns: frozenColumns, allowSorting: true, editSettings: editSettings, searchSettings: {
-                    hierarchyMode: 'Both'
-                }, toolbar: toolBarOptions, toolbarClick: (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.length) !== 0 ? toolbarClick : undefined, pageSettings: pageSettings, allowPaging: allowPaging, allowFiltering: allowFiltering, filterSettings: filterSettings, checkboxChange: checkboxChange, actionComplete: actionComplete }, { children: [_jsx(ColumnsDirective, { children: children }, void 0), _jsx(Inject, { services: [Freeze, RowDD, Selection, Sort, Edit, Toolbar, Page, ExcelExport, PdfExport, Resize, Filter, ContextMenu] }, void 0)] }), void 0)) }), void 0) }), void 0));
+    const hideUnhideSelected = () => { };
+    const closeBanner = () => {
+        setSelected(0);
+        tableRef.current.clearSelection();
+    };
+    return (_jsxs(_Fragment, { children: [showToolbar && (_jsxs(Box, Object.assign({ display: 'flex', justifyContent: "space-between" }, { children: [_jsxs(Box, Object.assign({ display: "flex", alignItems: "center", gap: 2 }, { children: [(toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('search')) && (_jsx(Box, Object.assign({ width: 300 }, { children: _jsx(TextField, { label: 'Search', size: "small", onChange: (t) => tableRef.current.search(t.target.value) }) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('add')) && (_jsx(IconButton, Object.assign({ onClick: () => tableRef.current.addRecord() }, { children: _jsx(ControlPointDuplicateIcon, { fontSize: "large" }) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('delete')) && (_jsx(IconButton, Object.assign({ onClick: () => tableRef.current.deleteRecord() }, { children: _jsx(DeleteOutlineIcon, { fontSize: "large" }) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('hide')) && (_jsx(IconButton, Object.assign({ onClick: hideUnhideSelected }, { children: _jsx(VisibilityOffIcon, { fontSize: "large" }) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('clearFilters')) && (_jsx(IconButton, Object.assign({ onClick: () => tableRef.current.clearFiltering() }, { children: _jsx(FilterAltOffIcon, { fontSize: "large" }) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('selectedItems')) && selected > 0 && (_jsxs(Box, Object.assign({ p: 1, pl: 3, pr: 2, bgcolor: 'tertiary.main', color: 'secondary.contrastText', display: "flex", alignItems: "center", gap: 2 }, { children: [_jsxs(BodySmall, Object.assign({ color: "secondary.contrastText" }, { children: [selected, " items selected"] })), _jsx(IconButton, Object.assign({ onClick: closeBanner, sx: { color: 'secondary.contrastText', margin: 0, padding: 0 } }, { children: _jsx(CloseIcon, { fontSize: "small" }) }))] })))] })), _jsx(Box, { children: toolbarRightSection })] }))), _jsx(Box, Object.assign({ className: "control-pane" }, { children: _jsx(Box, Object.assign({ className: "control-section" }, { children: data && (_jsxs(TreeGridComponent, Object.assign({ actionBegin: actionBeginHandler, rowSelected: rowSelected, rowDataBound: rowDataBound, height: height, ref: tableRef, dataSource: data, treeColumnIndex: treeColumnIndex, childMapping: childMappingKey, allowPdfExport: allowExports, allowExcelExport: allowExports, allowRowDragAndDrop: allowRowDragAndDrop, allowResizing: allowResizing, selectionSettings: selectionSettings, rowDrop: rowDrop, frozenColumns: frozenColumns, allowSorting: true, editSettings: editSettings, searchSettings: searchSettings, pageSettings: pageSettings, allowPaging: allowPaging, allowFiltering: allowFiltering, filterSettings: filterSettings, checkboxChange: checkboxChange, actionComplete: actionComplete }, { children: [_jsx(ColumnsDirective, { children: children }), _jsx(Inject, { services: [Freeze, RowDD, Selection, Sort, Edit, Page, ExcelExport, PdfExport, Resize, Filter, ContextMenu] })] }))) })) }))] }));
 });
 Table.defaultProps = {
     excelExportProperties: {
@@ -173,6 +163,12 @@ Table.defaultProps = {
     onDelete: (data) => { },
     onSearch: (data) => { },
     onRowSelection: (data) => { },
-    loading: false
+    loading: false,
+    showToolbar: true,
+    toolBarOptions: [],
+    toolbarRightSection: _jsx(_Fragment, {}),
+    searchSettings: {
+        hierarchyMode: 'Both'
+    }
 };
 //# sourceMappingURL=Table.js.map

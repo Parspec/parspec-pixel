@@ -6,13 +6,15 @@ import { CustomDatePicker } from './';
 
 export default {
     title: 'CustomDatePicker',
-    component: CustomDatePicker
+    component: CustomDatePicker,
+    argTypes: {
+        onChange: { action: 'onChange' }
+    }
 } as ComponentMeta<typeof CustomDatePicker>;
 
 export const Basic: ComponentStory<typeof CustomDatePicker> = (args) => <CustomDatePicker {...args} />;
 
 Basic.args = {
-    onChange: (currentDate) => console.log(currentDate),
-    defaultValue: dayjs('2022-04-17'),
+    defaultValue: dayjs(new Date()),
     label: 'DatePicker'
 };

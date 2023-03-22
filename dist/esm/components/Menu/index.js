@@ -12,9 +12,9 @@ export const Menu = ({ options, children }) => {
     const handleClose = () => {
         setAnchorEl(null);
     };
-    return (_jsxs(_Fragment, { children: [children ? (React.cloneElement(children, { onClick: handleClick })) : (_jsx(IconButton, Object.assign({ onClick: handleClick }, { children: _jsx(MoreVertIcon, {}, void 0) }), void 0)), _jsx(MuiMenu, Object.assign({ id: "basic-menu", anchorEl: anchorEl, open: open, onClose: handleClose }, { children: options.map(({ label, onClick }) => (_jsx(MenuItem, Object.assign({ onClick: () => {
+    return (_jsxs(_Fragment, { children: [children ? (React.cloneElement(children, { onClick: handleClick })) : (_jsx(IconButton, Object.assign({ onClick: handleClick }, { children: _jsx(MoreVertIcon, {}) }))), _jsx(MuiMenu, Object.assign({ id: "basic-menu", anchorEl: anchorEl, open: open, onClose: handleClose }, { children: options.map(({ label, onClick }) => (_jsx(MenuItem, Object.assign({ onClick: () => {
                         onClick();
                         handleClose();
-                    } }, { children: label }), label))) }), void 0)] }, void 0));
+                    } }, { children: label }), label))) }))] }));
 };
 //# sourceMappingURL=index.js.map

@@ -8,6 +8,7 @@ export const AlertBanner = ({ onClose, children, text, variant, severity }) => {
             alignItems: 'center',
             padding: 2,
             height: 20,
+            boxSizing: 'content-box',
             '& .MuiAlert-icon': {
                 marginRight: 2
             }

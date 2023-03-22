@@ -26,6 +26,11 @@ import {
     ChangeHistoryIcon,
     ViewArrayIcon,
     CancelIcon,
+    FilterAltOffIcon,
+    VisibilityIcon,
+    VisibilityOffIcon,
+    DeleteOutlineIcon,
+    ControlPointDuplicateIcon,
     RedirectIcon,
     AnnotateIcon,
     SyncIcon,
@@ -93,7 +98,15 @@ AllIcons.args = {
         { icon: SwapHorizIcon, name: 'SwapHorizIcon' },
         { icon: ChangeHistoryIcon, name: 'ChangeHistoryIcon' },
         { icon: ViewArrayIcon, name: 'ViewArrayIcon ' },
+<<<<<<< HEAD
 
+=======
+        { icon: ControlPointDuplicateIcon, name: 'ControlPointDuplicateIcon ' },
+        { icon: DeleteOutlineIcon, name: 'DeleteOutlineIcon ' },
+        { icon: VisibilityOffIcon, name: 'VisibilityOffIcon ' },
+        { icon: VisibilityIcon, name: 'VisibilityIcon ' },
+        { icon: FilterAltOffIcon, name: 'FilterAltOffIcon ' },
+>>>>>>> 0b182ac607256aaad6a329bf3b32885b6bf485cc
         { icon: SyncIcon, name: 'SyncIcon ' },
         { icon: RedirectIcon, name: 'RedirectIcon' },
         { icon: AnnotateIcon, name: 'AnnotateIcon' },

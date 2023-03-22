@@ -1,5 +1,5 @@
 /// <reference types="react" />
-import { ToolbarItems, TreeGridExcelExportProperties, TreeGridPdfExportProperties, PageSettingsModel } from '@syncfusion/ej2-react-treegrid';
+import { TreeGridExcelExportProperties, TreeGridPdfExportProperties, PageSettingsModel, EditSettingsModel, SearchSettingsModel } from '@syncfusion/ej2-react-treegrid';
 import './styles.css';
 import { FilterSettingsModel, SelectionSettingsModel } from '@syncfusion/ej2-grids';
 export interface TableProps {
@@ -13,14 +13,15 @@ export interface TableProps {
     allowPaging?: boolean;
     pageSettings?: PageSettingsModel;
     allowResizing?: boolean;
-    allowEditing?: boolean;
-    toolBarOptions?: ToolbarItems[];
+    showToolbar?: boolean;
+    toolBarOptions?: string[];
     excelExportProperties?: TreeGridExcelExportProperties;
     pdfExportProperties?: TreeGridPdfExportProperties;
     height?: number;
     allowFiltering?: boolean;
     filterSettings?: FilterSettingsModel;
     selectionSettings?: SelectionSettingsModel;
+    editSettings?: EditSettingsModel;
     onCheckboxChange?: (data: Object[]) => void;
     onDragEnd?: (data: Object[]) => void;
     onAdd?: (data: Object) => void;
@@ -28,5 +29,8 @@ export interface TableProps {
     onDelete?: (data: Object) => void;
     onSearch?: (data: Object) => void;
     onRowSelection?: (data: Object) => void;
+    loading?: boolean;
+    toolbarRightSection?: React.ReactNode;
+    searchSettings?: SearchSettingsModel;
 }
 export declare const Table: React.FC<TableProps>;

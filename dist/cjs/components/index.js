@@ -42,5 +42,6 @@ __exportStar(require("./AlertBanner"), exports);
 __exportStar(require("./DatePicker"), exports);
 __exportStar(require("./Radio"), exports);
 __exportStar(require("./skeleton"), exports);
+__exportStar(require("./LinearProgress"), exports);
 __exportStar(require("./Snackbar"), exports);
 //# sourceMappingURL=index.js.map

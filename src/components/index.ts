@@ -26,4 +26,5 @@ export * from './AlertBanner';
 export * from './DatePicker';
 export * from './Radio';
 export * from './skeleton';
+export * from './LinearProgress';
 export * from './Snackbar';

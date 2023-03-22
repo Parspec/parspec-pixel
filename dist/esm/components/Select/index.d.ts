@@ -6,8 +6,8 @@ interface SelectMenuOption {
 export interface SelectProps extends Omit<MUISelectProps, 'classes'> {
     label: string;
     options: SelectMenuOption[];
-    labelId: string;
-    id: string;
+    labelId?: string;
+    id?: string;
     size?: 'small' | 'medium';
     optionLabelKeyname?: string;
     optionValueKeyname?: string;

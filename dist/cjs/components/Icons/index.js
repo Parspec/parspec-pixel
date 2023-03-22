@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SyncIcon = exports.FilterAltOffIcon = exports.VisibilityIcon = exports.VisibilityOffIcon = exports.DeleteOutlineIcon = exports.ControlPointDuplicateIcon = exports.ViewArrayIcon = exports.ChangeHistoryIcon = exports.SwapHorizIcon = exports.CheckCircleIcon = exports.MoreVertIcon = exports.EditIcon = exports.RemoveIcon = exports.AddIcon = exports.PanToolIcon = exports.CheckCircleOutlineIcon = exports.ArrowDownwardIcon = exports.ArrowUpwardIcon = exports.ArrowCircleRightIcon = exports.ArrowCircleLeftIcon = exports.LastPageIcon = exports.FirstPageIcon = exports.KeyboardArrowRightIcon = exports.KeyboardArrowLeftIcon = exports.UnfoldMoreIcon = exports.UploadIcon = exports.DeleteIcon = exports.TrendingUpIcon = exports.SearchIcon = exports.DragIndicatorIcon = exports.CancelIcon = exports.CloseIcon = exports.AnnotateColoredIcon = exports.AnnotateIcon = exports.RedirectIcon = exports.ParspecLogoIcon = void 0;
+exports.VisibilityOffOutlinedIcon = exports.DeeletIcon = exports.SyncIcon = exports.TuneIcon = exports.ContentCopyIcon = exports.SyncProblemIcon = exports.FileDownloadOutlinedIcon = exports.FilterAltOffIcon = exports.VisibilityIcon = exports.VisibilityOffIcon = exports.DeleteOutlineIcon = exports.ControlPointDuplicateIcon = exports.ViewArrayIcon = exports.ChangeHistoryIcon = exports.SwapHorizIcon = exports.CheckCircleIcon = exports.MoreVertIcon = exports.EditIcon = exports.RemoveIcon = exports.AddIcon = exports.PanToolIcon = exports.CheckCircleOutlineIcon = exports.ArrowDownwardIcon = exports.ArrowUpwardIcon = exports.ArrowCircleRightIcon = exports.ArrowCircleLeftIcon = exports.LastPageIcon = exports.FirstPageIcon = exports.KeyboardArrowRightIcon = exports.KeyboardArrowLeftIcon = exports.UnfoldMoreIcon = exports.UploadIcon = exports.DeleteIcon = exports.TrendingUpIcon = exports.SearchIcon = exports.DragIndicatorIcon = exports.CancelIcon = exports.CloseIcon = exports.AnnotateColoredIcon = exports.AnnotateIcon = exports.RedirectIcon = exports.ParspecLogoIcon = void 0;
 var ParspecLogoIcon_1 = require("./ParspecLogoIcon");
 Object.defineProperty(exports, "ParspecLogoIcon", { enumerable: true, get: function () { return ParspecLogoIcon_1.ParspecLogoIcon; } });
 var RedirectIcon_1 = require("./RedirectIcon");
@@ -41,5 +41,11 @@ Object.defineProperty(exports, "DeleteOutlineIcon", { enumerable: true, get: fun
 Object.defineProperty(exports, "VisibilityOffIcon", { enumerable: true, get: function () { return icons_material_1.VisibilityOff; } });
 Object.defineProperty(exports, "VisibilityIcon", { enumerable: true, get: function () { return icons_material_1.Visibility; } });
 Object.defineProperty(exports, "FilterAltOffIcon", { enumerable: true, get: function () { return icons_material_1.FilterAltOff; } });
-Object.defineProperty(exports, "SyncIcon", { enumerable: true, get: function () { return icons_material_1.SyncProblem; } });
+Object.defineProperty(exports, "FileDownloadOutlinedIcon", { enumerable: true, get: function () { return icons_material_1.FileDownloadOutlined; } });
+Object.defineProperty(exports, "SyncProblemIcon", { enumerable: true, get: function () { return icons_material_1.SyncProblem; } });
+Object.defineProperty(exports, "ContentCopyIcon", { enumerable: true, get: function () { return icons_material_1.ContentCopy; } });
+Object.defineProperty(exports, "TuneIcon", { enumerable: true, get: function () { return icons_material_1.Tune; } });
+Object.defineProperty(exports, "SyncIcon", { enumerable: true, get: function () { return icons_material_1.Sync; } });
+Object.defineProperty(exports, "DeeletIcon", { enumerable: true, get: function () { return icons_material_1.Delete; } });
+Object.defineProperty(exports, "VisibilityOffOutlinedIcon", { enumerable: true, get: function () { return icons_material_1.VisibilityOffOutlined; } });
 //# sourceMappingURL=index.js.map

@@ -16,10 +16,13 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 export const Accordion = forwardRef((_a, ref) => {
-    var { options } = _a, rest = __rest(_a, ["options"]);
-    const [expanded, setExpanded] = useState(false);
+    var { options, getPanel } = _a, rest = __rest(_a, ["options", "getPanel"]);
+    const [expanded, setExpanded] = useState(options[0]['labelId']);
     const handleAccordionOnChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
+        if (getPanel) {
+            getPanel(panel);
+        }
     };
     return (_jsx(_Fragment, { children: options.map((item, index) => {
             return (_jsxs(MUIAccordion, Object.assign({ ref: ref, TransitionProps: { unmountOnExit: true } }, rest, { expanded: expanded === item.labelId, onChange: handleAccordionOnChange(item.labelId) }, { children: [_jsx(AccordionSummary, Object.assign({ sx: {

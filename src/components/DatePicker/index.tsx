@@ -2,19 +2,12 @@ import { Dayjs } from 'dayjs';
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { DesktopDatePicker, DesktopDatePickerProps } from '@mui/x-date-pickers/DesktopDatePicker';
 
-export interface CustomDatePickerProps {
-    label?: string;
-    value?: Dayjs | null;
-    onChange?: (newValue: Dayjs | null) => void;
-    defaultValue?: Dayjs;
-}
-
-export const CustomDatePicker: React.FC<CustomDatePickerProps> = (props) => {
+export const CustomDatePicker: React.FC<DesktopDatePickerProps<Dayjs>> = (props) => {
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker
+            <DesktopDatePicker
                 sx={{
                     width: '100%'
                 }}

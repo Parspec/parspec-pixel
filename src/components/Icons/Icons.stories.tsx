@@ -34,7 +34,14 @@ import {
     RedirectIcon,
     AnnotateIcon,
     SyncIcon,
-    AnnotateColoredIcon
+    AnnotateColoredIcon,
+    FileDownloadOutlined,
+    SyncProblem,
+    ContentCopy,
+    Tune,
+    Sync,
+    Delete,
+    VisibilityOffOutlined
 } from './index';
 import { Grid } from '../Grid';
 import { Box } from '../Box';
@@ -91,15 +98,37 @@ AllIcons.args = {
         { icon: SwapHorizIcon, name: 'SwapHorizIcon' },
         { icon: ChangeHistoryIcon, name: 'ChangeHistoryIcon' },
         { icon: ViewArrayIcon, name: 'ViewArrayIcon ' },
+<<<<<<< HEAD
+
+=======
         { icon: ControlPointDuplicateIcon, name: 'ControlPointDuplicateIcon ' },
         { icon: DeleteOutlineIcon, name: 'DeleteOutlineIcon ' },
         { icon: VisibilityOffIcon, name: 'VisibilityOffIcon ' },
         { icon: VisibilityIcon, name: 'VisibilityIcon ' },
         { icon: FilterAltOffIcon, name: 'FilterAltOffIcon ' },
+>>>>>>> 0b182ac607256aaad6a329bf3b32885b6bf485cc
         { icon: SyncIcon, name: 'SyncIcon ' },
         { icon: RedirectIcon, name: 'RedirectIcon' },
         { icon: AnnotateIcon, name: 'AnnotateIcon' },
-        { icon: AnnotateColoredIcon, name: 'AnnotateColoredIcon' }
+        { icon: AnnotateColoredIcon, name: 'AnnotateColoredIcon' },
+
+        { icon: FileDownloadOutlined, name: 'FileDownloadOutlined' },
+        { icon: SyncProblem, name: 'SyncProblem' },
+        { icon: ContentCopy, name: 'ContentCopy' },
+        { icon: Tune, name: 'Tune' },
+
+        { icon: Sync, name: 'Sync' },
+
+        { icon: Sync, name: 'Sync' },
+        { icon: Delete, name: 'Delete' },
+
+        { icon: FileDownloadOutlined, name: 'FileDownloadOutlinedIcon' },
+        { icon: SyncProblem, name: 'SyncProblemIcon' },
+        { icon: ContentCopy, name: 'ContentCopyIcon' },
+        { icon: Tune, name: 'TuneIcon' },
+        { icon: Sync, name: 'SyncIcon' },
+        { icon: Delete, name: 'DeleteIcon' },
+        { icon: VisibilityOffOutlined, name: 'VisibilityOffOutlinedIcon' }
     ],
     fontSize: 'medium'
 };

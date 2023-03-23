@@ -49,7 +49,7 @@ import { Tooltip } from '../Tooltip';
 const license = window.localStorage.getItem('syncfusionLicense');
 registerLicense(license!);
 
-type ToolbarT = 'add' | 'delete' | 'search' | 'clearFilters' | 'hide' | 'unhide' | 'selectedItems' | 'duplicate';
+type ToolbarT = 'delete' | 'search' | 'clearFilters' | 'hide' | 'unhide' | 'selectedItems' | 'duplicate';
 export type ToolbarType = ToolbarT[];
 export interface TableProps {
     children: React.ReactNode;
@@ -119,7 +119,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     } = props;
 
     const tableRef = useRef<any>();
-    const [selected, setSelected] = useState(0);
+    const [selected, setSelectedForBanner] = useState(0);
 
     useEffect(() => {
         if (loading) {
@@ -174,8 +174,8 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     };
 
     const checkboxChange = (args: CheckBoxChangeEventArgs) => {
-        onCheckboxChange!(tableRef.current.getSelectedRecords());
-        setSelected(tableRef.current.getSelectedRecords().length);
+        onCheckboxChange!(tableRef?.current?.getSelectedRecords());
+        setSelectedForBanner(tableRef?.current?.getSelectedRecords()?.length);
     };
     const rowSelected = (args: RowSelectEventArgs) => {
         onRowSelection!(tableRef.current.getSelectedRecords());
@@ -207,84 +207,24 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         }
     };
 
-    const actionBeginHandler = (args: any) => {
-        if (args.requestType == 'add') {
-            args.data.id = Math.floor(Math.random() * 20000);
-        }
-    };
-
     useImperativeHandle(ref, () => {
-        const addRecord = (args?: { data: Object; index: number; position: RowPosition }) => {
-            if (args) {
-                tableRef.current.addRecord(args.data, args.index, args.position);
-            } else {
-                tableRef.current.addRecord();
-            }
-        };
-        const hideUnhide = (data: any) => {
-            const currentHiddenValue = data?.hidden;
-            const updatedData = { ...data, hidden: !currentHiddenValue, taskData: { ...data.taskData, hidden: !currentHiddenValue } };
-            tableRef.current.setRowData(data?.id, updatedData);
-            onHideUnhide!([updatedData]);
+        const clearSelection = () => {
+            tableRef.current.clearSelection();
+            setSelectedForBanner(0);
         };
         return {
-            addRecord,
-            hideUnhide
+            clearSelection,
+            setSelectedForBanner
         };
     });
 
-    const hideUnhideSelected = () => {
-        const selectedRecords = JSON.parse(JSON.stringify(tableRef.current.getSelectedRecords()));
-        if (selectedRecords?.length > 0) {
-            let changedRows: Object[] = [];
-            for (let i = 0; i < selectedRecords?.length; i++) {
-                const currentHiddenValue = selectedRecords[i].hidden;
-                console.log(currentHiddenValue, !currentHiddenValue);
-                const updatedTaskDataValue = { ...selectedRecords[i].taskData, hidden: !currentHiddenValue };
-                console.log(updatedTaskDataValue);
-                const updatedData = { ...selectedRecords[i], hidden: !currentHiddenValue, taskData: { ...updatedTaskDataValue } };
-                console.log(updatedData);
-                tableRef.current.setRowData(selectedRecords[i].id, updatedData);
-                changedRows.push({ ...updatedData });
-            }
-            tableRef.current.clearSelection();
-            setSelected(0);
-            onHideUnhide!(changedRows);
-        }
-    };
     const closeBanner = () => {
-        setSelected(0);
+        setSelectedForBanner(0);
         tableRef.current.clearSelection();
-    };
-    const addDuplicates = () => {
-        const selectedRecords = tableRef.current.getSelectedRecords();
-        if (selectedRecords?.length > 0) {
-            // for (let i = 0; i < selectedRecords?.length; i++) {
-            //     const uniqueId = Math.floor(Math.random() * 20000);
-            //     tableRef.current.addRecord({ ...selectedRecords[i], id: uniqueId }, selectedRecords[i].index, 'Below');
-            // }
-            onAddDuplicates!(selectedRecords);
-            tableRef.current.clearSelection();
-            setSelected(0);
-        }
     };
 
     return (
         <>
-            <Box
-                onClick={() =>
-                    (ref as any).hideUnhide({
-                        id: 3,
-                        taskID: 3,
-                        name: 'accessory1',
-                        reporter: 'Forest',
-                        available: 'Yes',
-                        hidden: true
-                    })
-                }
-            >
-                hide
-            </Box>
             {showToolbar && (
                 <Box display={'flex'} justifyContent="space-between" mb={2}>
                     <Box display="flex" alignItems="center" gap={1}>
@@ -293,16 +233,9 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                                 <TextField label={'Search...'} size="small" onChange={(t: any) => tableRef.current.search(t.target.value)} />
                             </Box>
                         )}
-                        {toolBarOptions?.includes('add') && (
-                            <Tooltip title="Add Record">
-                                <IconButton onClick={() => tableRef.current.addRecord()}>
-                                    <AddIcon fontSize="medium" />
-                                </IconButton>
-                            </Tooltip>
-                        )}
                         {toolBarOptions?.includes('duplicate') && (
                             <Tooltip title="Add Duplicate Record(s)">
-                                <IconButton onClick={addDuplicates}>
+                                <IconButton onClick={() => onAddDuplicates!(tableRef.current.getSelectedRecords())}>
                                     <ControlPointDuplicateIcon fontSize="medium" />
                                 </IconButton>
                             </Tooltip>
@@ -311,8 +244,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             <Tooltip title="Delete Record(s)">
                                 <IconButton
                                     onClick={() => {
-                                        tableRef.current.deleteRecord();
-                                        setSelected(0);
+                                        onDelete!(tableRef.current.getSelectedRecords());
                                     }}
                                 >
                                     <DeleteOutlineIcon fontSize="medium" />
@@ -321,7 +253,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                         )}
                         {toolBarOptions?.includes('hide') && (
                             <Tooltip title="Hide/Unhide Record(s)">
-                                <IconButton onClick={hideUnhideSelected}>
+                                <IconButton onClick={() => onHideUnhide!(tableRef.current.getSelectedRecords())}>
                                     <VisibilityOffIcon fontSize="medium" />
                                 </IconButton>
                             </Tooltip>
@@ -349,7 +281,6 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                 <Box className="control-section">
                     {data && (
                         <TreeGridComponent
-                            actionBegin={actionBeginHandler}
                             rowSelected={rowSelected}
                             rowDeselected={rowDeselected}
                             rowDataBound={rowDataBound}

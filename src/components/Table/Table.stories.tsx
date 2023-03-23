@@ -99,7 +99,7 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
         console.log('onAddDuplicates (selected data)===>\n', data);
     };
     const getTableProps = (args: any) => {
-        const toolBarItems: ToolbarType = ['add', 'delete', 'search', 'clearFilters', 'hide', 'unhide', 'selectedItems', 'duplicate'];
+        const toolBarItems: ToolbarType = ['delete', 'search', 'clearFilters', 'hide', 'unhide', 'selectedItems', 'duplicate'];
         return {
             toolBarOptions: toolBarItems,
             ...args
@@ -272,8 +272,11 @@ export const V2Table: ComponentStory<typeof Table> = (props) => {
     const onRowSelection = (selectedData) => {
         console.log('onRowSelection===>\n', selectedData);
     };
+    const onAddDuplicates = (data: Object[]) => {
+        console.log('onAddDuplicates (selected data)===>\n', data);
+    };
     const getTableProps = (args: any) => {
-        const toolBarItems: ToolbarType = ['add', 'delete', 'search', 'clearFilters', 'hide', 'unhide', 'selectedItems', 'duplicate'];
+        const toolBarItems: ToolbarType = ['delete', 'search', 'clearFilters', 'hide', 'unhide', 'selectedItems', 'duplicate'];
         return {
             toolBarOptions: toolBarItems,
             toolbarRightSection: <Button>Import Products</Button>,
@@ -284,7 +287,7 @@ export const V2Table: ComponentStory<typeof Table> = (props) => {
 
     return (
         <>
-            <Table {...getTableProps({ ...props, onAdd, onCheckboxChange, onDelete, onDragEnd, onEdit, onSearch, onRowSelection, onHideUnhide })} ref={tableRef}>
+            <Table {...getTableProps({ ...props, onAdd, onCheckboxChange, onDelete, onDragEnd, onEdit, onSearch, onRowSelection, onHideUnhide, onAddDuplicates })} ref={tableRef}>
                 <ColumnDirective type="checkbox" width="50" />
                 <ColumnDirective field="id" isPrimaryKey={true} visible={false} />
                 <ColumnDirective field="taskID" headerText="Task ID" width="150" filter={checkboxFilter} editType="numericedit" />

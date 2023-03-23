@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { Table } from './Table';
+import { Table, ToolbarType } from './Table';
 import { ColumnDirective, SelectionSettingsModel } from '@syncfusion/ej2-react-treegrid';
 import { getValue } from '@syncfusion/ej2-base';
 import { dDataP, dDataP2 } from './data';
@@ -71,7 +71,9 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
         const dataSource: string[] = ['Yes', 'No'];
         return <DropDownListComponent id={props.column.field} popupHeight="250px" dataSource={dataSource} />;
     };
-
+    const onHideUnhide = (data: Object) => {
+        console.log('onHideUnhide===>\n', data);
+    };
     const onCheckboxChange = (data: Object[]) => {
         console.log('onCheckboxChange===>\n', data);
     };
@@ -93,8 +95,11 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
     const onRowSelection = (selectedData) => {
         console.log('onRowSelection===>\n', selectedData);
     };
+    const onAddDuplicates = (data: Object[]) => {
+        console.log('onAddDuplicates (selected data)===>\n', data);
+    };
     const getTableProps = (args: any) => {
-        const toolBarItems = ['add', 'delete', 'search', 'clearFilters', 'hide', 'unhide', 'selectedItems'];
+        const toolBarItems: ToolbarType = ['add', 'delete', 'search', 'clearFilters', 'hide', 'unhide', 'selectedItems', 'duplicate'];
         return {
             toolBarOptions: toolBarItems,
             ...args
@@ -102,7 +107,7 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
     };
     return (
         <>
-            <Table {...getTableProps({ ...props, onAdd, onCheckboxChange, onDelete, onDragEnd, onEdit, onSearch, onRowSelection })} ref={tableRef}>
+            <Table {...getTableProps({ ...props, onAdd, onCheckboxChange, onDelete, onDragEnd, onEdit, onSearch, onRowSelection, onHideUnhide, onAddDuplicates })} ref={tableRef}>
                 <ColumnDirective type="checkbox" allowEditing={false} allowSorting={false} width="50"></ColumnDirective>
                 <ColumnDirective field="id" isPrimaryKey={true} visible={false} />
                 <ColumnDirective field="taskID" allowEditing={false} headerText="Task ID" width="150" filter={checkboxFilter} editType="numericedit" />
@@ -243,7 +248,9 @@ export const V2Table: ComponentStory<typeof Table> = (props) => {
         const dataSource: string[] = ['Yes', 'No'];
         return <DropDownListComponent id={props.column.field} popupHeight="250px" dataSource={dataSource} />;
     };
-
+    const onHideUnhide = (data: Object[]) => {
+        console.log('onHideUnhide===>\n', data);
+    };
     const onCheckboxChange = (data: Object[]) => {
         console.log('onCheckboxChange===>\n', data);
     };
@@ -266,7 +273,7 @@ export const V2Table: ComponentStory<typeof Table> = (props) => {
         console.log('onRowSelection===>\n', selectedData);
     };
     const getTableProps = (args: any) => {
-        const toolBarItems = ['add', 'delete', 'search', 'clearFilters', 'hide', 'unhide', 'selectedItems'];
+        const toolBarItems: ToolbarType = ['add', 'delete', 'search', 'clearFilters', 'hide', 'unhide', 'selectedItems', 'duplicate'];
         return {
             toolBarOptions: toolBarItems,
             toolbarRightSection: <Button>Import Products</Button>,
@@ -277,7 +284,7 @@ export const V2Table: ComponentStory<typeof Table> = (props) => {
 
     return (
         <>
-            <Table {...getTableProps({ ...props, onAdd, onCheckboxChange, onDelete, onDragEnd, onEdit, onSearch, onRowSelection })} ref={tableRef}>
+            <Table {...getTableProps({ ...props, onAdd, onCheckboxChange, onDelete, onDragEnd, onEdit, onSearch, onRowSelection, onHideUnhide })} ref={tableRef}>
                 <ColumnDirective type="checkbox" width="50" />
                 <ColumnDirective field="id" isPrimaryKey={true} visible={false} />
                 <ColumnDirective field="taskID" headerText="Task ID" width="150" filter={checkboxFilter} editType="numericedit" />

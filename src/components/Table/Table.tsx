@@ -17,7 +17,8 @@ import {
     Filter,
     ContextMenu,
     EditSettingsModel,
-    SearchSettingsModel
+    SearchSettingsModel,
+    RowPosition
 } from '@syncfusion/ej2-react-treegrid';
 import { addClass, isNullOrUndefined, registerLicense } from '@syncfusion/ej2-base';
 import './styles.css';
@@ -41,16 +42,15 @@ import {
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { TextField } from '../TextField';
 import { IconButton } from '../IconButton';
-import ControlPointDuplicateIcon from '@mui/icons-material/ControlPointDuplicate';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
-import { CloseIcon } from '../Icons';
+import { CloseIcon, ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffIcon, FilterAltOffIcon, AddIcon } from '../Icons';
 import { BodySmall } from '../Typography';
+import { Tooltip } from '../Tooltip';
 
 const license = window.localStorage.getItem('syncfusionLicense');
 registerLicense(license!);
 
+type ToolbarT = 'add' | 'delete' | 'search' | 'clearFilters' | 'hide' | 'unhide' | 'selectedItems' | 'duplicate';
+export type ToolbarType = ToolbarT[];
 export interface TableProps {
     children: React.ReactNode;
     data: Object[];
@@ -63,7 +63,7 @@ export interface TableProps {
     pageSettings?: PageSettingsModel;
     allowResizing?: boolean;
     showToolbar?: boolean;
-    toolBarOptions?: string[];
+    toolBarOptions?: ToolbarType;
     excelExportProperties?: TreeGridExcelExportProperties;
     pdfExportProperties?: TreeGridPdfExportProperties;
     height?: number;
@@ -71,7 +71,9 @@ export interface TableProps {
     filterSettings?: FilterSettingsModel;
     selectionSettings?: SelectionSettingsModel;
     editSettings?: EditSettingsModel;
+    onHideUnhide?: (data: Object[]) => void;
     onCheckboxChange?: (data: Object[]) => void;
+    onAddDuplicates?: (data: Object[]) => void;
     onDragEnd?: (data: Object[]) => void;
     onAdd?: (data: Object) => void;
     onEdit?: (data: Object) => void;
@@ -101,6 +103,8 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         allowFiltering,
         editSettings,
         filterSettings,
+        onHideUnhide,
+        onAddDuplicates,
         onCheckboxChange,
         onDragEnd,
         onAdd,
@@ -119,14 +123,14 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
 
     useEffect(() => {
         if (loading) {
-            tableRef.current.showSpinner();
+            tableRef?.current?.showSpinner();
         } else {
-            tableRef.current.hideSpinner();
+            tableRef?.current?.hideSpinner();
         }
     }, [loading]);
 
     const rowDrop = (args: any) => {
-        const droppedData = tableRef.current.getRowInfo(args.target.parentElement).rowData; //dropped data
+        const droppedData = tableRef?.current?.getRowInfo(args.target.parentElement).rowData; //dropped data
         let droppedId, draggedId;
         //here collect the taskid value based on parent records
         if (!isNullOrUndefined(droppedData)) {
@@ -195,6 +199,8 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     const rowDataBound = (args: any) => {
         if (getObject('hidden', args.data) === true) {
             (args.row as HTMLTableRowElement).style.opacity = '0.4';
+        } else {
+            (args.row as HTMLTableRowElement).style.opacity = '1';
         }
         if (selectionSettings?.type === 'Single') {
             addClass([args.row], 'singleSelect');
@@ -208,53 +214,128 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     };
 
     useImperativeHandle(ref, () => {
-        const clearFiltering = () => {
-            tableRef.current.clearFiltering();
+        const addRecord = (args?: { data: Object; index: number; position: RowPosition }) => {
+            if (args) {
+                tableRef.current.addRecord(args.data, args.index, args.position);
+            } else {
+                tableRef.current.addRecord();
+            }
+        };
+        const hideUnhide = (data: any) => {
+            const currentHiddenValue = data?.hidden;
+            const updatedData = { ...data, hidden: !currentHiddenValue, taskData: { ...data.taskData, hidden: !currentHiddenValue } };
+            tableRef.current.setRowData(data?.id, updatedData);
+            onHideUnhide!([updatedData]);
         };
         return {
-            clearFiltering
+            addRecord,
+            hideUnhide
         };
     });
 
-    const hideUnhideSelected = () => {};
+    const hideUnhideSelected = () => {
+        const selectedRecords = JSON.parse(JSON.stringify(tableRef.current.getSelectedRecords()));
+        if (selectedRecords?.length > 0) {
+            let changedRows: Object[] = [];
+            for (let i = 0; i < selectedRecords?.length; i++) {
+                const currentHiddenValue = selectedRecords[i].hidden;
+                console.log(currentHiddenValue, !currentHiddenValue);
+                const updatedTaskDataValue = { ...selectedRecords[i].taskData, hidden: !currentHiddenValue };
+                console.log(updatedTaskDataValue);
+                const updatedData = { ...selectedRecords[i], hidden: !currentHiddenValue, taskData: { ...updatedTaskDataValue } };
+                console.log(updatedData);
+                tableRef.current.setRowData(selectedRecords[i].id, updatedData);
+                changedRows.push({ ...updatedData });
+            }
+            tableRef.current.clearSelection();
+            setSelected(0);
+            onHideUnhide!(changedRows);
+        }
+    };
     const closeBanner = () => {
         setSelected(0);
         tableRef.current.clearSelection();
     };
+    const addDuplicates = () => {
+        const selectedRecords = tableRef.current.getSelectedRecords();
+        if (selectedRecords?.length > 0) {
+            // for (let i = 0; i < selectedRecords?.length; i++) {
+            //     const uniqueId = Math.floor(Math.random() * 20000);
+            //     tableRef.current.addRecord({ ...selectedRecords[i], id: uniqueId }, selectedRecords[i].index, 'Below');
+            // }
+            onAddDuplicates!(selectedRecords);
+            tableRef.current.clearSelection();
+            setSelected(0);
+        }
+    };
 
     return (
         <>
+            <Box
+                onClick={() =>
+                    (ref as any).hideUnhide({
+                        id: 3,
+                        taskID: 3,
+                        name: 'accessory1',
+                        reporter: 'Forest',
+                        available: 'Yes',
+                        hidden: true
+                    })
+                }
+            >
+                hide
+            </Box>
             {showToolbar && (
                 <Box display={'flex'} justifyContent="space-between" mb={2}>
                     <Box display="flex" alignItems="center" gap={1}>
                         {toolBarOptions?.includes('search') && (
                             <Box width={300}>
-                                <TextField label={'Search'} size="small" onChange={(t: any) => tableRef.current.search(t.target.value)} />
+                                <TextField label={'Search...'} size="small" onChange={(t: any) => tableRef.current.search(t.target.value)} />
                             </Box>
                         )}
                         {toolBarOptions?.includes('add') && (
-                            <IconButton onClick={() => tableRef.current.addRecord()}>
-                                <ControlPointDuplicateIcon fontSize="medium" />
-                            </IconButton>
+                            <Tooltip title="Add Record">
+                                <IconButton onClick={() => tableRef.current.addRecord()}>
+                                    <AddIcon fontSize="medium" />
+                                </IconButton>
+                            </Tooltip>
+                        )}
+                        {toolBarOptions?.includes('duplicate') && (
+                            <Tooltip title="Add Duplicate Record(s)">
+                                <IconButton onClick={addDuplicates}>
+                                    <ControlPointDuplicateIcon fontSize="medium" />
+                                </IconButton>
+                            </Tooltip>
                         )}
                         {toolBarOptions?.includes('delete') && (
-                            <IconButton onClick={() => tableRef.current.deleteRecord()}>
-                                <DeleteOutlineIcon fontSize="medium" />
-                            </IconButton>
+                            <Tooltip title="Delete Record(s)">
+                                <IconButton
+                                    onClick={() => {
+                                        tableRef.current.deleteRecord();
+                                        setSelected(0);
+                                    }}
+                                >
+                                    <DeleteOutlineIcon fontSize="medium" />
+                                </IconButton>
+                            </Tooltip>
                         )}
                         {toolBarOptions?.includes('hide') && (
-                            <IconButton onClick={hideUnhideSelected}>
-                                <VisibilityOffIcon fontSize="medium" />
-                            </IconButton>
+                            <Tooltip title="Hide/Unhide Record(s)">
+                                <IconButton onClick={hideUnhideSelected}>
+                                    <VisibilityOffIcon fontSize="medium" />
+                                </IconButton>
+                            </Tooltip>
                         )}
                         {toolBarOptions?.includes('clearFilters') && (
-                            <IconButton onClick={() => tableRef.current.clearFiltering()}>
-                                <FilterAltOffIcon fontSize="medium" />
-                            </IconButton>
+                            <Tooltip title="Clear Filter(s)">
+                                <IconButton onClick={() => tableRef.current.clearFiltering()}>
+                                    <FilterAltOffIcon fontSize="medium" />
+                                </IconButton>
+                            </Tooltip>
                         )}
                         {toolBarOptions?.includes('selectedItems') && selected > 0 && (
                             <Box p={1} pl={3} pr={2} bgcolor={'tertiary.main'} color={'secondary.contrastText'} display="flex" alignItems="center" gap={2}>
-                                <BodySmall color="secondary.contrastText">{selected} items selected</BodySmall>
+                                <BodySmall color="secondary.contrastText">{selected} item(s) selected</BodySmall>
                                 <IconButton onClick={closeBanner} sx={{ color: 'secondary.contrastText', margin: 0, padding: 0 }}>
                                     <CloseIcon fontSize="small" />
                                 </IconButton>
@@ -340,6 +421,8 @@ Table.defaultProps = {
         showConfirmDialog: true,
         newRowPosition: 'Bottom'
     },
+    onAddDuplicates: (data: Object[]) => {},
+    onHideUnhide: (data: Object[]) => {},
     onCheckboxChange: (data: Object[]) => {},
     onDragEnd: (data: Object[]) => {},
     onAdd: (data: Object) => {},

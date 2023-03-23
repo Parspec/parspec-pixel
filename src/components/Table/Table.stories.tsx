@@ -16,148 +16,6 @@ export default {
     component: Table
 } as ComponentMeta<typeof Table>;
 
-export const Basic: ComponentStory<typeof Table> = (props) => {
-    const tableRef = useRef<any>();
-    const coltemplate = (props: any) => {
-        if (props?.taskData?.name?.includes('section')) {
-            return (
-                <Button size="small" id={props.id}>
-                    Section
-                </Button>
-            );
-        } else if (props?.taskData?.name?.includes('product')) {
-            return (
-                <Button size="small" color="secondary" id={props.id}>
-                    Product
-                </Button>
-            );
-        } else if (props?.taskData?.name?.includes('accessory')) {
-            return (
-                <Button size="small" color="tertiary" id={props.id}>
-                    Accessory
-                </Button>
-            );
-        } else {
-            return <></>;
-        }
-    };
-
-    const customFn = (args: { [key: string]: string }): boolean => {
-        return getValue('value', args).length >= 3;
-    };
-    const customFn2 = (args: { [key: string]: string }): boolean => {
-        return getValue('value', args).length <= 5;
-    };
-    const validateReporter = {
-        minLength: [customFn, 'Atleast 3 characters required'],
-        maxLength: [customFn2, 'Atmax 5 characters allowed']
-    };
-    const customHeaderTemplate = () => {
-        return (
-            <Box display={'flex'} gap={2}>
-                <BodyMedium>Custom Template Column</BodyMedium>
-                <ViewArrayIcon />
-            </Box>
-        );
-    };
-
-    const checkboxFilter: FilterSettingsModel = {
-        type: 'CheckBox'
-    };
-    const menuFilter: FilterSettingsModel = {
-        type: 'Menu'
-    };
-    const filterTemplateOptions = (props: any): any => {
-        const dataSource: string[] = ['Yes', 'No'];
-        return <DropDownListComponent id={props.column.field} popupHeight="250px" dataSource={dataSource} />;
-    };
-    const onHideUnhide = (data: Object) => {
-        console.log('onHideUnhide===>\n', data);
-    };
-    const onCheckboxChange = (data: Object[]) => {
-        console.log('onCheckboxChange===>\n', data);
-    };
-    const onDragEnd = (data: Object[]) => {
-        console.log('onDragEnd===>\n', data);
-    };
-    const onAdd = (data: Object) => {
-        console.log('onAdd===>\n', data);
-    };
-    const onEdit = (data: Object) => {
-        console.log('onEdit===>\n', data);
-    };
-    const onDelete = (data: Object) => {
-        console.log('onDelete===>\n', data);
-    };
-    const onSearch = (data: Object) => {
-        console.log('onSearch===>\n', data);
-    };
-    const onRowSelection = (selectedData) => {
-        console.log('onRowSelection===>\n', selectedData);
-    };
-    const onAddDuplicates = (data: Object[]) => {
-        console.log('onAddDuplicates (selected data)===>\n', data);
-    };
-    const getTableProps = (args: any) => {
-        const toolBarItems: ToolbarType = ['delete', 'search', 'clearFilters', 'hide', 'unhide', 'selectedItems', 'duplicate'];
-        return {
-            toolBarOptions: toolBarItems,
-            ...args
-        };
-    };
-    return (
-        <>
-            <Table {...getTableProps({ ...props, onAdd, onCheckboxChange, onDelete, onDragEnd, onEdit, onSearch, onRowSelection, onHideUnhide, onAddDuplicates })} ref={tableRef}>
-                <ColumnDirective type="checkbox" allowEditing={false} allowSorting={false} width="50"></ColumnDirective>
-                <ColumnDirective field="id" isPrimaryKey={true} visible={false} />
-                <ColumnDirective field="taskID" allowEditing={false} headerText="Task ID" width="150" filter={checkboxFilter} editType="numericedit" />
-                <ColumnDirective field="name" headerText="Task Name" minWidth="200" filter={menuFilter} />
-                <ColumnDirective
-                    allowEditing={true}
-                    allowSorting={false}
-                    defaultValue={''}
-                    headerText="Custom Component"
-                    minWidth="240"
-                    template={coltemplate}
-                    headerTemplate={customHeaderTemplate}
-                    allowFiltering={false}
-                />
-                <ColumnDirective field="reporter" headerText="Reporter" minWidth="200" validationRules={validateReporter} />
-                <ColumnDirective field="available" headerText="Availability" minWidth="200" filter={menuFilter} filterTemplate={filterTemplateOptions} />
-            </Table>
-        </>
-    );
-};
-// Arg properties with value as true and their corresponding settings are not required to be passed to table component as they are already present as default props, we have passed them here to get controls in stories
-Basic.args = {
-    height: 400,
-    data: dDataP,
-    childMappingKey: 'subtasks',
-    allowRowDragAndDrop: true,
-    frozenColumns: 4,
-    treeColumnIndex: 3,
-    allowPaging: true,
-    pageSettings: { pageSize: 10 },
-    allowResizing: true,
-    allowExports: true,
-    excelExportProperties: {
-        fileName: 'newExcel1.xlsx',
-        isCollapsedStatePersist: false
-    },
-    pdfExportProperties: {
-        fileName: 'newPdf1.pdf',
-        isCollapsedStatePersist: false
-    },
-    allowFiltering: true,
-    filterSettings: {
-        type: 'Excel'
-    },
-    searchSettings: {
-        fields: ['taskID', 'name', 'reported', 'available'],
-        hierarchyMode: 'Both'
-    }
-};
-
 export const SingleSelect: ComponentStory<typeof Table> = (props) => {
     const tableRef = useRef<any>();
     const [data, setData] = useState(dDataP2);
@@ -237,7 +95,7 @@ const customHeaderTemplate = () => {
     );
 };
 
-export const V2Table: ComponentStory<typeof Table> = (props) => {
+export const Basic: ComponentStory<typeof Table> = (props) => {
     const checkboxFilter: FilterSettingsModel = {
         type: 'CheckBox'
     };
@@ -307,8 +165,8 @@ export const V2Table: ComponentStory<typeof Table> = (props) => {
         </>
     );
 };
-
-V2Table.args = {
+// Arg properties with value as true and their corresponding settings are not required to be passed to table component as they are already present as default props, we have passed them here to get controls in stories
+Basic.args = {
     height: 400,
     data: dDataP,
     childMappingKey: 'subtasks',

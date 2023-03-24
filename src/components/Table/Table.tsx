@@ -31,6 +31,7 @@ import {
     FilterEventArgs,
     FilterSettingsModel,
     getObject,
+    HeaderCellInfoEventArgs,
     PageEventArgs,
     RowDeselectEventArgs,
     RowSelectEventArgs,
@@ -223,6 +224,11 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         tableRef.current.clearSelection();
     };
 
+    var headerCellInfo = function (args: HeaderCellInfoEventArgs) {
+        if (args?.cell?.column?.allowSorting) {
+            args?.node?.classList?.add('customicon');
+        }
+    };
     return (
         <>
             {showToolbar && (
@@ -230,7 +236,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                     <Box display="flex" alignItems="center" gap={1}>
                         {toolBarOptions?.includes('search') && (
                             <Box width={300}>
-                                <TextField label={'Search...'} size="small" onChange={(t: any) => tableRef.current.search(t.target.value)} />
+                                <TextField label={'Search...'} variant="standard" size="small" onChange={(t: any) => tableRef.current.search(t.target.value)} />
                             </Box>
                         )}
                         {toolBarOptions?.includes('duplicate') && (
@@ -281,6 +287,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                 <Box className="control-section">
                     {data && (
                         <TreeGridComponent
+                            headerCellInfo={headerCellInfo}
                             rowSelected={rowSelected}
                             rowDeselected={rowDeselected}
                             rowDataBound={rowDataBound}

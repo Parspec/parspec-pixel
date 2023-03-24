@@ -28975,3 +28975,11 @@ tr.singleSelect:hover {
 .e-grid .e-gridheader {
     color: #091535;
 }
+
+.e-treegrid .customicon .e-sortfilterdiv:not(.e-icon-ascending):not(.e-icon-descending)::before {
+    font-size: 12px;
+    content: '\e612';
+}
+.e-grid .e-gridheader .e-icons:not(.e-icon-hide):not(.e-check):not(.e-stop):not(.e-icon-reorderuparrow):not(.e-icon-reorderdownarrow){
+    color: #091535;
+}

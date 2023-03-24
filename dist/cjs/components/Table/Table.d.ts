@@ -2,6 +2,8 @@
 import { TreeGridExcelExportProperties, TreeGridPdfExportProperties, PageSettingsModel, EditSettingsModel, SearchSettingsModel } from '@syncfusion/ej2-react-treegrid';
 import './styles.css';
 import { FilterSettingsModel, SelectionSettingsModel } from '@syncfusion/ej2-grids';
+type ToolbarT = 'add' | 'delete' | 'search' | 'clearFilters' | 'hide' | 'unhide' | 'selectedItems' | 'duplicate';
+export type ToolbarType = ToolbarT[];
 export interface TableProps {
     children: React.ReactNode;
     data: Object[];
@@ -14,7 +16,7 @@ export interface TableProps {
     pageSettings?: PageSettingsModel;
     allowResizing?: boolean;
     showToolbar?: boolean;
-    toolBarOptions?: string[];
+    toolBarOptions?: ToolbarType;
     excelExportProperties?: TreeGridExcelExportProperties;
     pdfExportProperties?: TreeGridPdfExportProperties;
     height?: number;
@@ -22,7 +24,9 @@ export interface TableProps {
     filterSettings?: FilterSettingsModel;
     selectionSettings?: SelectionSettingsModel;
     editSettings?: EditSettingsModel;
+    onHideUnhide?: (data: Object[]) => void;
     onCheckboxChange?: (data: Object[]) => void;
+    onAddDuplicates?: (data: Object[]) => void;
     onDragEnd?: (data: Object[]) => void;
     onAdd?: (data: Object) => void;
     onEdit?: (data: Object) => void;
@@ -34,3 +38,4 @@ export interface TableProps {
     searchSettings?: SearchSettingsModel;
 }
 export declare const Table: React.FC<TableProps>;
+export {};

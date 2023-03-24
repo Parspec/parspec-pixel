@@ -7,28 +7,27 @@ import { getObject } from '@syncfusion/ej2-grids';
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { TextField } from '../TextField';
 import { IconButton } from '../IconButton';
-import ControlPointDuplicateIcon from '@mui/icons-material/ControlPointDuplicate';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
-import { CloseIcon } from '../Icons';
+import { CloseIcon, ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffIcon, FilterAltOffIcon, AddIcon } from '../Icons';
 import { BodySmall } from '../Typography';
+import { Tooltip } from '../Tooltip';
 const license = window.localStorage.getItem('syncfusionLicense');
 registerLicense(license);
 export const Table = forwardRef((props, ref) => {
-    const { children, data, childMappingKey, allowExports, allowRowDragAndDrop, frozenColumns, treeColumnIndex, allowPaging, pageSettings, allowResizing, showToolbar, toolBarOptions, height, allowFiltering, editSettings, filterSettings, onCheckboxChange, onDragEnd, onAdd, onEdit, onDelete, onSearch, selectionSettings, onRowSelection, loading, toolbarRightSection, searchSettings } = props;
+    const { children, data, childMappingKey, allowExports, allowRowDragAndDrop, frozenColumns, treeColumnIndex, allowPaging, pageSettings, allowResizing, showToolbar, toolBarOptions, height, allowFiltering, editSettings, filterSettings, onHideUnhide, onAddDuplicates, onCheckboxChange, onDragEnd, onAdd, onEdit, onDelete, onSearch, selectionSettings, onRowSelection, loading, toolbarRightSection, searchSettings } = props;
     const tableRef = useRef();
     const [selected, setSelected] = useState(0);
     useEffect(() => {
+        var _a, _b;
         if (loading) {
-            tableRef.current.showSpinner();
+            (_a = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _a === void 0 ? void 0 : _a.showSpinner();
         }
         else {
-            tableRef.current.hideSpinner();
+            (_b = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _b === void 0 ? void 0 : _b.hideSpinner();
         }
     }, [loading]);
     const rowDrop = (args) => {
-        const droppedData = tableRef.current.getRowInfo(args.target.parentElement).rowData; //dropped data
+        var _a;
+        const droppedData = (_a = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _a === void 0 ? void 0 : _a.getRowInfo(args.target.parentElement).rowData; //dropped data
         let droppedId, draggedId;
         //here collect the taskid value based on parent records
         if (!isNullOrUndefined(droppedData)) {
@@ -99,6 +98,9 @@ export const Table = forwardRef((props, ref) => {
         if (getObject('hidden', args.data) === true) {
             args.row.style.opacity = '0.4';
         }
+        else {
+            args.row.style.opacity = '1';
+        }
         if ((selectionSettings === null || selectionSettings === void 0 ? void 0 : selectionSettings.type) === 'Single') {
             addClass([args.row], 'singleSelect');
         }
@@ -109,19 +111,71 @@ export const Table = forwardRef((props, ref) => {
         }
     };
     useImperativeHandle(ref, () => {
-        const clearFiltering = () => {
-            tableRef.current.clearFiltering();
+        const addRecord = (args) => {
+            if (args) {
+                tableRef.current.addRecord(args.data, args.index, args.position);
+            }
+            else {
+                tableRef.current.addRecord();
+            }
+        };
+        const hideUnhide = (data) => {
+            const currentHiddenValue = data === null || data === void 0 ? void 0 : data.hidden;
+            const updatedData = Object.assign(Object.assign({}, data), { hidden: !currentHiddenValue, taskData: Object.assign(Object.assign({}, data.taskData), { hidden: !currentHiddenValue }) });
+            tableRef.current.setRowData(data === null || data === void 0 ? void 0 : data.id, updatedData);
+            onHideUnhide([updatedData]);
         };
         return {
-            clearFiltering
+            addRecord,
+            hideUnhide
         };
     });
-    const hideUnhideSelected = () => { };
+    const hideUnhideSelected = () => {
+        const selectedRecords = JSON.parse(JSON.stringify(tableRef.current.getSelectedRecords()));
+        if ((selectedRecords === null || selectedRecords === void 0 ? void 0 : selectedRecords.length) > 0) {
+            let changedRows = [];
+            for (let i = 0; i < (selectedRecords === null || selectedRecords === void 0 ? void 0 : selectedRecords.length); i++) {
+                const currentHiddenValue = selectedRecords[i].hidden;
+                console.log(currentHiddenValue, !currentHiddenValue);
+                const updatedTaskDataValue = Object.assign(Object.assign({}, selectedRecords[i].taskData), { hidden: !currentHiddenValue });
+                console.log(updatedTaskDataValue);
+                const updatedData = Object.assign(Object.assign({}, selectedRecords[i]), { hidden: !currentHiddenValue, taskData: Object.assign({}, updatedTaskDataValue) });
+                console.log(updatedData);
+                tableRef.current.setRowData(selectedRecords[i].id, updatedData);
+                changedRows.push(Object.assign({}, updatedData));
+            }
+            tableRef.current.clearSelection();
+            setSelected(0);
+            onHideUnhide(changedRows);
+        }
+    };
     const closeBanner = () => {
         setSelected(0);
         tableRef.current.clearSelection();
     };
-    return (_jsxs(_Fragment, { children: [showToolbar && (_jsxs(Box, Object.assign({ display: 'flex', justifyContent: "space-between", mb: 2 }, { children: [_jsxs(Box, Object.assign({ display: "flex", alignItems: "center", gap: 1 }, { children: [(toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('search')) && (_jsx(Box, Object.assign({ width: 300 }, { children: _jsx(TextField, { label: 'Search', size: "small", onChange: (t) => tableRef.current.search(t.target.value) }) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('add')) && (_jsx(IconButton, Object.assign({ onClick: () => tableRef.current.addRecord() }, { children: _jsx(ControlPointDuplicateIcon, { fontSize: "medium" }) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('delete')) && (_jsx(IconButton, Object.assign({ onClick: () => tableRef.current.deleteRecord() }, { children: _jsx(DeleteOutlineIcon, { fontSize: "medium" }) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('hide')) && (_jsx(IconButton, Object.assign({ onClick: hideUnhideSelected }, { children: _jsx(VisibilityOffIcon, { fontSize: "medium" }) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('clearFilters')) && (_jsx(IconButton, Object.assign({ onClick: () => tableRef.current.clearFiltering() }, { children: _jsx(FilterAltOffIcon, { fontSize: "medium" }) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('selectedItems')) && selected > 0 && (_jsxs(Box, Object.assign({ p: 1, pl: 3, pr: 2, bgcolor: 'tertiary.main', color: 'secondary.contrastText', display: "flex", alignItems: "center", gap: 2 }, { children: [_jsxs(BodySmall, Object.assign({ color: "secondary.contrastText" }, { children: [selected, " items selected"] })), _jsx(IconButton, Object.assign({ onClick: closeBanner, sx: { color: 'secondary.contrastText', margin: 0, padding: 0 } }, { children: _jsx(CloseIcon, { fontSize: "small" }) }))] })))] })), _jsx(Box, { children: toolbarRightSection })] }))), _jsx(Box, Object.assign({ className: "control-pane" }, { children: _jsx(Box, Object.assign({ className: "control-section" }, { children: data && (_jsxs(TreeGridComponent, Object.assign({ actionBegin: actionBeginHandler, rowSelected: rowSelected, rowDeselected: rowDeselected, rowDataBound: rowDataBound, height: height, ref: tableRef, dataSource: data, treeColumnIndex: treeColumnIndex, childMapping: childMappingKey, allowPdfExport: allowExports, allowExcelExport: allowExports, allowRowDragAndDrop: allowRowDragAndDrop, allowResizing: allowResizing, selectionSettings: selectionSettings, rowDrop: rowDrop, frozenColumns: frozenColumns, allowSorting: true, editSettings: editSettings, searchSettings: searchSettings, pageSettings: pageSettings, allowPaging: allowPaging, allowFiltering: allowFiltering, filterSettings: filterSettings, checkboxChange: checkboxChange, actionComplete: actionComplete }, { children: [_jsx(ColumnsDirective, { children: children }), _jsx(Inject, { services: [Freeze, RowDD, Selection, Sort, Edit, Page, ExcelExport, PdfExport, Resize, Filter, ContextMenu] })] }))) })) }))] }));
+    const addDuplicates = () => {
+        const selectedRecords = tableRef.current.getSelectedRecords();
+        if ((selectedRecords === null || selectedRecords === void 0 ? void 0 : selectedRecords.length) > 0) {
+            // for (let i = 0; i < selectedRecords?.length; i++) {
+            //     const uniqueId = Math.floor(Math.random() * 20000);
+            //     tableRef.current.addRecord({ ...selectedRecords[i], id: uniqueId }, selectedRecords[i].index, 'Below');
+            // }
+            onAddDuplicates(selectedRecords);
+            tableRef.current.clearSelection();
+            setSelected(0);
+        }
+    };
+    return (_jsxs(_Fragment, { children: [_jsx(Box, Object.assign({ onClick: () => ref.hideUnhide({
+                    id: 3,
+                    taskID: 3,
+                    name: 'accessory1',
+                    reporter: 'Forest',
+                    available: 'Yes',
+                    hidden: true
+                }) }, { children: "hide" })), showToolbar && (_jsxs(Box, Object.assign({ display: 'flex', justifyContent: "space-between", mb: 2 }, { children: [_jsxs(Box, Object.assign({ display: "flex", alignItems: "center", gap: 1 }, { children: [(toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('search')) && (_jsx(Box, Object.assign({ width: 300 }, { children: _jsx(TextField, { label: 'Search...', size: "small", onChange: (t) => tableRef.current.search(t.target.value) }) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('add')) && (_jsx(Tooltip, Object.assign({ title: "Add Record" }, { children: _jsx(IconButton, Object.assign({ onClick: () => tableRef.current.addRecord() }, { children: _jsx(AddIcon, { fontSize: "medium" }) })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('duplicate')) && (_jsx(Tooltip, Object.assign({ title: "Add Duplicate Record(s)" }, { children: _jsx(IconButton, Object.assign({ onClick: addDuplicates }, { children: _jsx(ControlPointDuplicateIcon, { fontSize: "medium" }) })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('delete')) && (_jsx(Tooltip, Object.assign({ title: "Delete Record(s)" }, { children: _jsx(IconButton, Object.assign({ onClick: () => {
+                                        tableRef.current.deleteRecord();
+                                        setSelected(0);
+                                    } }, { children: _jsx(DeleteOutlineIcon, { fontSize: "medium" }) })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('hide')) && (_jsx(Tooltip, Object.assign({ title: "Hide/Unhide Record(s)" }, { children: _jsx(IconButton, Object.assign({ onClick: hideUnhideSelected }, { children: _jsx(VisibilityOffIcon, { fontSize: "medium" }) })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('clearFilters')) && (_jsx(Tooltip, Object.assign({ title: "Clear Filter(s)" }, { children: _jsx(IconButton, Object.assign({ onClick: () => tableRef.current.clearFiltering() }, { children: _jsx(FilterAltOffIcon, { fontSize: "medium" }) })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('selectedItems')) && selected > 0 && (_jsxs(Box, Object.assign({ p: 1, pl: 3, pr: 2, bgcolor: 'tertiary.main', color: 'secondary.contrastText', display: "flex", alignItems: "center", gap: 2 }, { children: [_jsxs(BodySmall, Object.assign({ color: "secondary.contrastText" }, { children: [selected, " item(s) selected"] })), _jsx(IconButton, Object.assign({ onClick: closeBanner, sx: { color: 'secondary.contrastText', margin: 0, padding: 0 } }, { children: _jsx(CloseIcon, { fontSize: "small" }) }))] })))] })), _jsx(Box, { children: toolbarRightSection })] }))), _jsx(Box, Object.assign({ className: "control-pane" }, { children: _jsx(Box, Object.assign({ className: "control-section" }, { children: data && (_jsxs(TreeGridComponent, Object.assign({ actionBegin: actionBeginHandler, rowSelected: rowSelected, rowDeselected: rowDeselected, rowDataBound: rowDataBound, height: height, ref: tableRef, dataSource: data, treeColumnIndex: treeColumnIndex, childMapping: childMappingKey, allowPdfExport: allowExports, allowExcelExport: allowExports, allowRowDragAndDrop: allowRowDragAndDrop, allowResizing: allowResizing, selectionSettings: selectionSettings, rowDrop: rowDrop, frozenColumns: frozenColumns, allowSorting: true, editSettings: editSettings, searchSettings: searchSettings, pageSettings: pageSettings, allowPaging: allowPaging, allowFiltering: allowFiltering, filterSettings: filterSettings, checkboxChange: checkboxChange, actionComplete: actionComplete }, { children: [_jsx(ColumnsDirective, { children: children }), _jsx(Inject, { services: [Freeze, RowDD, Selection, Sort, Edit, Page, ExcelExport, PdfExport, Resize, Filter, ContextMenu] })] }))) })) }))] }));
 });
 Table.defaultProps = {
     excelExportProperties: {
@@ -159,6 +213,8 @@ Table.defaultProps = {
         showConfirmDialog: true,
         newRowPosition: 'Bottom'
     },
+    onAddDuplicates: (data) => { },
+    onHideUnhide: (data) => { },
     onCheckboxChange: (data) => { },
     onDragEnd: (data) => { },
     onAdd: (data) => { },

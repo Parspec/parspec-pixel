@@ -7,8 +7,6 @@ import {
     Freeze,
     Sort,
     Edit,
-    Toolbar,
-    ToolbarItems,
     Page,
     PdfExport,
     ExcelExport,
@@ -16,10 +14,12 @@ import {
     TreeGridExcelExportProperties,
     TreeGridPdfExportProperties,
     PageSettingsModel,
-    Filter
+    Filter,
+    ContextMenu,
+    EditSettingsModel,
+    SearchSettingsModel
 } from '@syncfusion/ej2-react-treegrid';
-import { ClickEventArgs } from '@syncfusion/ej2-navigations';
-import { isNullOrUndefined, registerLicense } from '@syncfusion/ej2-base';
+import { addClass, isNullOrUndefined, registerLicense } from '@syncfusion/ej2-base';
 import './styles.css';
 import { Box } from '../Box';
 import {
@@ -30,19 +30,27 @@ import {
     FilterEventArgs,
     FilterSettingsModel,
     getObject,
+    HeaderCellInfoEventArgs,
     PageEventArgs,
-    RowDataBoundEventArgs,
+    RowDeselectEventArgs,
     RowSelectEventArgs,
     SaveEventArgs,
     SearchEventArgs,
     SelectionSettingsModel,
     SortEventArgs
 } from '@syncfusion/ej2-grids';
-import { useRef } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import { TextField } from '../TextField';
+import { IconButton } from '../IconButton';
+import { CloseIcon, ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffIcon, FilterAltOffIcon } from '../Icons';
+import { BodySmall } from '../Typography';
+import { Tooltip } from '../Tooltip';
 
 const license = window.localStorage.getItem('syncfusionLicense');
 registerLicense(license!);
 
+type ToolbarT = 'delete' | 'search' | 'clearFilters' | 'hide' | 'unhide' | 'selectedItems' | 'duplicate';
+export type ToolbarType = ToolbarT[];
 export interface TableProps {
     children: React.ReactNode;
     data: Object[];
@@ -54,54 +62,75 @@ export interface TableProps {
     allowPaging?: boolean;
     pageSettings?: PageSettingsModel;
     allowResizing?: boolean;
-    allowEditing?: boolean;
-    toolBarOptions?: ToolbarItems[];
+    showToolbar?: boolean;
+    toolBarOptions?: ToolbarType;
     excelExportProperties?: TreeGridExcelExportProperties;
     pdfExportProperties?: TreeGridPdfExportProperties;
     height?: number;
     allowFiltering?: boolean;
     filterSettings?: FilterSettingsModel;
     selectionSettings?: SelectionSettingsModel;
+    editSettings?: EditSettingsModel;
+    onHideUnhide?: (data: Object[]) => void;
     onCheckboxChange?: (data: Object[]) => void;
+    onAddDuplicates?: (data: Object[]) => void;
     onDragEnd?: (data: Object[]) => void;
     onAdd?: (data: Object) => void;
     onEdit?: (data: Object) => void;
     onDelete?: (data: Object) => void;
     onSearch?: (data: Object) => void;
     onRowSelection?: (data: Object) => void;
+    loading?: boolean;
+    toolbarRightSection?: React.ReactNode;
+    searchSettings?: SearchSettingsModel;
 }
 
-export const Table: React.FC<TableProps> = ({
-    children,
-    data,
-    childMappingKey,
-    allowExports,
-    allowRowDragAndDrop,
-    frozenColumns,
-    treeColumnIndex,
-    allowPaging,
-    pageSettings,
-    allowResizing,
-    allowEditing,
-    toolBarOptions,
-    excelExportProperties,
-    pdfExportProperties,
-    height,
-    allowFiltering,
-    filterSettings,
-    onCheckboxChange,
-    onDragEnd,
-    onAdd,
-    onEdit,
-    onDelete,
-    onSearch,
-    selectionSettings,
-    onRowSelection
-}) => {
+export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
+    const {
+        children,
+        data,
+        childMappingKey,
+        allowExports,
+        allowRowDragAndDrop,
+        frozenColumns,
+        treeColumnIndex,
+        allowPaging,
+        pageSettings,
+        allowResizing,
+        showToolbar,
+        toolBarOptions,
+        height,
+        allowFiltering,
+        editSettings,
+        filterSettings,
+        onHideUnhide,
+        onAddDuplicates,
+        onCheckboxChange,
+        onDragEnd,
+        onAdd,
+        onEdit,
+        onDelete,
+        onSearch,
+        selectionSettings,
+        onRowSelection,
+        loading,
+        toolbarRightSection,
+        searchSettings
+    } = props;
+
     const tableRef = useRef<any>();
+    const [selected, setSelectedForBanner] = useState(0);
+
+    useEffect(() => {
+        if (loading) {
+            tableRef?.current?.showSpinner();
+        } else {
+            tableRef?.current?.hideSpinner();
+        }
+    }, [loading]);
 
     const rowDrop = (args: any) => {
-        const droppedData = tableRef.current.getRowInfo(args.target.parentElement).rowData; //dropped data
+        const droppedData = tableRef?.current?.getRowInfo(args.target.parentElement).rowData; //dropped data
         let droppedId, draggedId;
         //here collect the taskid value based on parent records
         if (!isNullOrUndefined(droppedData)) {
@@ -143,37 +172,15 @@ export const Table: React.FC<TableProps> = ({
         }
         onDragEnd!(tableRef.current.getDataModule().treeModule.hierarchyData);
     };
-    const toolbarClick = (args: ClickEventArgs) => {
-        const selectedRecords = tableRef.current.getSelectedRecords();
-        let exelExportPropertiesOnSelectedCheckboxes = {};
-        let pdfExportPropertiesOnSelectedCheckboxes = {};
-        if (selectedRecords.length !== 0) {
-            exelExportPropertiesOnSelectedCheckboxes = {
-                ...excelExportProperties,
-                dataSource: selectedRecords
-            };
-            pdfExportPropertiesOnSelectedCheckboxes = {
-                ...pdfExportProperties,
-                dataSource: selectedRecords
-            };
-            if (args.item.text === 'Excel Export') {
-                tableRef.current.excelExport(exelExportPropertiesOnSelectedCheckboxes);
-            } else if (args.item.text === 'PDF Export') {
-                tableRef.current.pdfExport(pdfExportPropertiesOnSelectedCheckboxes);
-            }
-        } else {
-            if (args.item.text === 'Excel Export') {
-                tableRef.current.excelExport(excelExportProperties);
-            } else if (args.item.text === 'PDF Export') {
-                tableRef.current.pdfExport(pdfExportProperties);
-            }
-        }
-    };
 
     const checkboxChange = (args: CheckBoxChangeEventArgs) => {
-        onCheckboxChange!(tableRef.current.getSelectedRecords());
+        onCheckboxChange!(tableRef?.current?.getSelectedRecords());
+        setSelectedForBanner(tableRef?.current?.getSelectedRecords()?.length);
     };
     const rowSelected = (args: RowSelectEventArgs) => {
+        onRowSelection!(tableRef.current.getSelectedRecords());
+    };
+    const rowDeselected = (args: RowDeselectEventArgs) => {
         onRowSelection!(tableRef.current.getSelectedRecords());
     };
 
@@ -189,64 +196,131 @@ export const Table: React.FC<TableProps> = ({
         }
     };
 
-    const rowDataBound = (args: RowDataBoundEventArgs) => {
+    const rowDataBound = (args: any) => {
         if (getObject('hidden', args.data) === true) {
             (args.row as HTMLTableRowElement).style.opacity = '0.4';
+        } else {
+            (args.row as HTMLTableRowElement).style.opacity = '1';
+        }
+        if (selectionSettings?.type === 'Single') {
+            addClass([args.row], 'singleSelect');
+        }
+    };
+
+    useImperativeHandle(ref, () => {
+        const clearSelection = () => {
+            tableRef.current.clearSelection();
+            setSelectedForBanner(0);
+        };
+        return {
+            clearSelection,
+            setSelectedForBanner
+        };
+    });
+
+    const closeBanner = () => {
+        setSelectedForBanner(0);
+        tableRef.current.clearSelection();
+    };
+
+    var headerCellInfo = function (args: HeaderCellInfoEventArgs) {
+        if (args?.cell?.column?.allowSorting) {
+            args?.node?.classList?.add('customicon');
         }
     };
     return (
-        <Box className="control-pane">
-            <Box className="control-section">
-                {data && (
-                    <TreeGridComponent
-                        rowSelected={rowSelected}
-                        rowDataBound={rowDataBound}
-                        height={height}
-                        ref={tableRef}
-                        dataSource={data}
-                        treeColumnIndex={treeColumnIndex}
-                        childMapping={childMappingKey}
-                        allowPdfExport={allowExports}
-                        allowExcelExport={allowExports}
-                        allowRowDragAndDrop={allowRowDragAndDrop}
-                        allowResizing={allowResizing}
-                        selectionSettings={selectionSettings}
-                        rowDrop={rowDrop}
-                        frozenColumns={frozenColumns}
-                        allowSorting={true}
-                        editSettings={
-                            allowEditing
-                                ? {
-                                      allowAdding: true,
-                                      allowDeleting: true,
-                                      allowEditing: true,
-                                      mode: 'Cell',
-                                      showDeleteConfirmDialog: true,
-                                      showConfirmDialog: true,
-                                      newRowPosition: 'Bottom'
-                                  }
-                                : {}
-                        }
-                        searchSettings={{
-                            hierarchyMode: 'Both'
-                        }}
-                        toolbar={toolBarOptions}
-                        toolbarClick={toolBarOptions?.length !== 0 ? toolbarClick : undefined}
-                        pageSettings={pageSettings}
-                        allowPaging={allowPaging}
-                        allowFiltering={allowFiltering}
-                        filterSettings={filterSettings}
-                        checkboxChange={checkboxChange}
-                        actionComplete={actionComplete}
-                    >
-                        <ColumnsDirective>{children}</ColumnsDirective>
-                        <Inject services={[Freeze, RowDD, Selection, Sort, Edit, Toolbar, Page, ExcelExport, PdfExport, Resize, Filter]} />
-                    </TreeGridComponent>
-                )}
+        <>
+            {showToolbar && (
+                <Box display={'flex'} justifyContent="space-between" mb={2}>
+                    <Box display="flex" alignItems="center" gap={1}>
+                        {toolBarOptions?.includes('search') && (
+                            <Box width={300}>
+                                <TextField label={'Search...'} variant="standard" size="small" onChange={(t: any) => tableRef.current.search(t.target.value)} />
+                            </Box>
+                        )}
+                        {toolBarOptions?.includes('duplicate') && (
+                            <Tooltip title="Add Duplicate Record(s)">
+                                <IconButton onClick={() => onAddDuplicates!(tableRef.current.getSelectedRecords())}>
+                                    <ControlPointDuplicateIcon fontSize="medium" />
+                                </IconButton>
+                            </Tooltip>
+                        )}
+                        {toolBarOptions?.includes('delete') && (
+                            <Tooltip title="Delete Record(s)">
+                                <IconButton
+                                    onClick={() => {
+                                        onDelete!(tableRef.current.getSelectedRecords());
+                                    }}
+                                >
+                                    <DeleteOutlineIcon fontSize="medium" />
+                                </IconButton>
+                            </Tooltip>
+                        )}
+                        {toolBarOptions?.includes('hide') && (
+                            <Tooltip title="Hide/Unhide Record(s)">
+                                <IconButton onClick={() => onHideUnhide!(tableRef.current.getSelectedRecords())}>
+                                    <VisibilityOffIcon fontSize="medium" />
+                                </IconButton>
+                            </Tooltip>
+                        )}
+                        {toolBarOptions?.includes('clearFilters') && (
+                            <Tooltip title="Clear Filter(s)">
+                                <IconButton onClick={() => tableRef.current.clearFiltering()}>
+                                    <FilterAltOffIcon fontSize="medium" />
+                                </IconButton>
+                            </Tooltip>
+                        )}
+                        {toolBarOptions?.includes('selectedItems') && selected > 0 && (
+                            <Box p={1} pl={3} pr={2} bgcolor={'tertiary.main'} color={'secondary.contrastText'} display="flex" alignItems="center" gap={2}>
+                                <BodySmall color="secondary.contrastText">{selected} item(s) selected</BodySmall>
+                                <IconButton onClick={closeBanner} sx={{ color: 'secondary.contrastText', margin: 0, padding: 0 }}>
+                                    <CloseIcon fontSize="small" />
+                                </IconButton>
+                            </Box>
+                        )}
+                    </Box>
+                    <Box>{toolbarRightSection}</Box>
+                </Box>
+            )}
+            <Box className="control-pane">
+                <Box className="control-section">
+                    {data && (
+                        <TreeGridComponent
+                            headerCellInfo={headerCellInfo}
+                            rowSelected={rowSelected}
+                            rowDeselected={rowDeselected}
+                            rowDataBound={rowDataBound}
+                            height={height}
+                            ref={tableRef}
+                            dataSource={data}
+                            treeColumnIndex={treeColumnIndex}
+                            childMapping={childMappingKey}
+                            allowPdfExport={allowExports}
+                            allowExcelExport={allowExports}
+                            allowRowDragAndDrop={allowRowDragAndDrop}
+                            allowResizing={allowResizing}
+                            selectionSettings={selectionSettings}
+                            rowDrop={rowDrop}
+                            frozenColumns={frozenColumns}
+                            allowSorting={true}
+                            editSettings={editSettings}
+                            searchSettings={searchSettings}
+                            pageSettings={pageSettings}
+                            allowPaging={allowPaging}
+                            allowFiltering={allowFiltering}
+                            filterSettings={filterSettings}
+                            checkboxChange={checkboxChange}
+                            actionComplete={actionComplete}
+                        >
+                            <ColumnsDirective>{children}</ColumnsDirective>
+                            <Inject services={[Freeze, RowDD, Selection, Sort, Edit, Page, ExcelExport, PdfExport, Resize, Filter, ContextMenu]} />
+                        </TreeGridComponent>
+                    )}
+                </Box>
             </Box>
-        </Box>
+        </>
     );
-};
+});
 
 Table.defaultProps = {
     excelExportProperties: {
@@ -267,20 +341,37 @@ Table.defaultProps = {
         pageSize: 10
     },
     allowResizing: true,
-    allowEditing: true,
     allowFiltering: true,
     filterSettings: {
         type: 'Excel'
     },
     selectionSettings: {
-        type: 'Multiple',
+        checkboxOnly: true,
         persistSelection: true
     },
+    editSettings: {
+        allowAdding: true,
+        allowDeleting: true,
+        allowEditing: true,
+        mode: 'Cell',
+        showDeleteConfirmDialog: true,
+        showConfirmDialog: true,
+        newRowPosition: 'Bottom'
+    },
+    onAddDuplicates: (data: Object[]) => {},
+    onHideUnhide: (data: Object[]) => {},
     onCheckboxChange: (data: Object[]) => {},
     onDragEnd: (data: Object[]) => {},
     onAdd: (data: Object) => {},
     onEdit: (data: Object) => {},
     onDelete: (data: Object) => {},
     onSearch: (data: Object) => {},
-    onRowSelection: (data: Object) => {}
+    onRowSelection: (data: Object) => {},
+    loading: false,
+    showToolbar: true,
+    toolBarOptions: [],
+    toolbarRightSection: <></>,
+    searchSettings: {
+        hierarchyMode: 'Both'
+    }
 };

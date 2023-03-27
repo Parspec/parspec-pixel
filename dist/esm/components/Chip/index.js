@@ -11,10 +11,11 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx } from "react/jsx-runtime";
 import { default as MUIChip } from '@mui/material/Chip';
-export const Chip = (_a) => {
+import { forwardRef } from 'react';
+export const Chip = forwardRef((_a, ref) => {
     var { label } = _a, rest = __rest(_a, ["label"]);
-    return _jsx(MUIChip, Object.assign({ label: label }, rest), void 0);
-};
+    return _jsx(MUIChip, Object.assign({ ref: ref, label: label }, rest));
+});
 Chip.defaultProps = {
     variant: 'outlined'
 };

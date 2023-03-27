@@ -7,7 +7,7 @@ exports.Grid = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const Grid_1 = __importDefault(require("@mui/material/Grid"));
 const Grid = (props) => {
-    return jsx_runtime_1.jsx(Grid_1.default, Object.assign({}, props), void 0);
+    return (0, jsx_runtime_1.jsx)(Grid_1.default, Object.assign({}, props));
 };
 exports.Grid = Grid;
 //# sourceMappingURL=index.js.map

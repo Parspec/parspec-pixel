@@ -4,7 +4,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { AlertBanner } from './';
 
 export default {
-    title: 'alertBanner',
+    title: 'AlertBanner',
     component: AlertBanner,
     argTypes: { onClose: { action: 'onClose' } }
 } as ComponentMeta<typeof AlertBanner>;

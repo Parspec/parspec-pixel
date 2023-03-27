@@ -17,11 +17,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Chip = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const Chip_1 = __importDefault(require("@mui/material/Chip"));
-const Chip = (_a) => {
+const react_1 = require("react");
+exports.Chip = (0, react_1.forwardRef)((_a, ref) => {
     var { label } = _a, rest = __rest(_a, ["label"]);
-    return jsx_runtime_1.jsx(Chip_1.default, Object.assign({ label: label }, rest), void 0);
-};
-exports.Chip = Chip;
+    return (0, jsx_runtime_1.jsx)(Chip_1.default, Object.assign({ ref: ref, label: label }, rest));
+});
 exports.Chip.defaultProps = {
     variant: 'outlined'
 };

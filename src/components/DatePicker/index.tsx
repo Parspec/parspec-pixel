@@ -1,25 +1,29 @@
 import { Dayjs } from 'dayjs';
-
+import { DatePicker, DatePickerProps } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
 
-export interface CustomDatePickerProps {
-    label?: string;
-    value?: Dayjs | null;
-    onChange?: (newValue: Dayjs | null) => void;
-    defaultValue?: Dayjs;
+export { Dayjs, dayjs };
+
+export interface CustomDatePickerProps<Dayjs> extends DatePickerProps<Dayjs> {
+    size?: 'small' | 'medium';
 }
 
-export const CustomDatePicker: React.FC<CustomDatePickerProps> = (props) => {
+export const CustomDatePicker: React.FC<CustomDatePickerProps<Dayjs>> = ({ size, ...props }) => {
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
                 sx={{
                     width: '100%'
                 }}
+                slotProps={{ textField: { size } }}
                 {...props}
             />
         </LocalizationProvider>
     );
+};
+
+CustomDatePicker.defaultProps = {
+    size: 'small'
 };

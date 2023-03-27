@@ -9,10 +9,74 @@ export default {
     argTypes: { onClick: { action: 'onClick' } }
 } as ComponentMeta<typeof Button>;
 
-export const Basic: ComponentStory<typeof Button> = (args) => <Button {...args} />;
+export const Primary: ComponentStory<typeof Button> = (args) => <Button {...args} />;
 
-Basic.args = {
+Primary.args = {
     variant: 'contained',
+    children: 'Basic',
+    color: 'primary',
+    size: 'small'
+};
+
+export const PrimaryWithLoader: ComponentStory<typeof Button> = (args) => <Button {...args} />;
+
+PrimaryWithLoader.args = {
+    variant: 'contained',
+    children: 'Basic',
+    color: 'primary',
+    size: 'small',
+    isLoading: true
+};
+
+export const Secondary: ComponentStory<typeof Button> = (args) => <Button {...args} />;
+
+Secondary.args = {
+    variant: 'contained',
+    children: 'Basic',
+    color: 'secondary',
+    size: 'small'
+};
+
+export const Tertiary: ComponentStory<typeof Button> = (args) => <Button {...args} />;
+
+Tertiary.args = {
+    variant: 'contained',
+    children: 'Basic',
+    color: 'tertiary',
+    size: 'small'
+};
+
+export const PrimaryOutlined: ComponentStory<typeof Button> = (args) => <Button {...args} />;
+
+PrimaryOutlined.args = {
+    variant: 'outlined',
+    children: 'Basic',
+    color: 'primary',
+    size: 'small'
+};
+
+export const SecondaryOutlined: ComponentStory<typeof Button> = (args) => <Button {...args} />;
+
+SecondaryOutlined.args = {
+    variant: 'outlined',
+    children: 'Basic',
+    color: 'secondary',
+    size: 'small'
+};
+
+export const TertiaryOutlined: ComponentStory<typeof Button> = (args) => <Button {...args} />;
+
+TertiaryOutlined.args = {
+    variant: 'outlined',
+    children: 'Basic',
+    color: 'tertiary',
+    size: 'small'
+};
+
+export const TertiaryText: ComponentStory<typeof Button> = (args) => <Button {...args} />;
+
+TertiaryText.args = {
+    variant: 'text',
     children: 'Basic',
     color: 'tertiary',
     size: 'small'

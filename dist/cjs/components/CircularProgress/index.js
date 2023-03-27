@@ -20,7 +20,7 @@ const CircularProgress_1 = __importDefault(require("@mui/material/CircularProgre
 const utils_1 = require("../../Shared/utils");
 const CircularProgress = (_a) => {
     var { color = 'inherit', size = 'sm' } = _a, rest = __rest(_a, ["color", "size"]);
-    return jsx_runtime_1.jsx(CircularProgress_1.default, Object.assign({ color: color, size: utils_1.SIZE_OPTIONS[size] }, rest), void 0);
+    return (0, jsx_runtime_1.jsx)(CircularProgress_1.default, Object.assign({ color: color, size: utils_1.SIZE_OPTIONS[size] }, rest));
 };
 exports.CircularProgress = CircularProgress;
 //# sourceMappingURL=index.js.map

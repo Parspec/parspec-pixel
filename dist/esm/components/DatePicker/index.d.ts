@@ -1,9 +1,9 @@
 /// <reference types="react" />
 import { Dayjs } from 'dayjs';
-export interface CustomDatePickerProps {
-    label?: string;
-    value?: Dayjs | null;
-    onChange?: (newValue: Dayjs | null) => void;
-    defaultValue?: Dayjs;
+import { DatePickerProps } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
+export { Dayjs, dayjs };
+export interface CustomDatePickerProps<Dayjs> extends DatePickerProps<Dayjs> {
+    size?: 'small' | 'medium';
 }
-export declare const CustomDatePicker: React.FC<CustomDatePickerProps>;
+export declare const CustomDatePicker: React.FC<CustomDatePickerProps<Dayjs>>;

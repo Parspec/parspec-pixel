@@ -14,6 +14,6 @@ import { default as MUICircularProgress } from '@mui/material/CircularProgress';
 import { SIZE_OPTIONS } from '../../Shared/utils';
 export const CircularProgress = (_a) => {
     var { color = 'inherit', size = 'sm' } = _a, rest = __rest(_a, ["color", "size"]);
-    return _jsx(MUICircularProgress, Object.assign({ color: color, size: SIZE_OPTIONS[size] }, rest), void 0);
+    return _jsx(MUICircularProgress, Object.assign({ color: color, size: SIZE_OPTIONS[size] }, rest));
 };
 //# sourceMappingURL=index.js.map

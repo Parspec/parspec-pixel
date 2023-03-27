@@ -36,4 +36,4 @@ export default {
     component: Colors
 } as ComponentMeta<typeof Colors>;
 
-export const AllColors: ComponentStory<typeof Colors> = (args) => <Colors {...args} />;
+export const AllColors: ComponentStory<typeof Colors> = () => <Colors />;

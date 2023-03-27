@@ -33,5 +33,16 @@ export {
     Link as LinkIcon,
     Download as DownloadIcon,
     Image as ImageIcon,
-    FormatListBulleted as FormatListBulletedIcon
+    FormatListBulleted as FormatListBulletedIcon,
+    ControlPointDuplicate as ControlPointDuplicateIcon,
+    DeleteOutline as DeleteOutlineIcon,
+    VisibilityOff as VisibilityOffIcon,
+    Visibility as VisibilityIcon,
+    FilterAltOff as FilterAltOffIcon,
+    FileDownloadOutlined as FileDownloadOutlinedIcon,
+    SyncProblem as SyncProblemIcon,
+    ContentCopy as ContentCopyIcon,
+    Tune as TuneIcon,
+    Delete as DeeletIcon,
+    VisibilityOffOutlined as VisibilityOffOutlinedIcon
 } from '@mui/icons-material';

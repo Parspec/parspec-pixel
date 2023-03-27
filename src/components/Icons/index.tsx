@@ -29,6 +29,11 @@ export {
     SwapHoriz as SwapHorizIcon,
     ChangeHistory as ChangeHistoryIcon,
     ViewArray as ViewArrayIcon,
+    SyncProblem as SyncIcon,
+    Link as LinkIcon,
+    Download as DownloadIcon,
+    Image as ImageIcon,
+    FormatListBulleted as FormatListBulletedIcon,
     ControlPointDuplicate as ControlPointDuplicateIcon,
     DeleteOutline as DeleteOutlineIcon,
     VisibilityOff as VisibilityOffIcon,
@@ -38,7 +43,6 @@ export {
     SyncProblem as SyncProblemIcon,
     ContentCopy as ContentCopyIcon,
     Tune as TuneIcon,
-    Sync as SyncIcon,
     Delete as DeeletIcon,
     VisibilityOffOutlined as VisibilityOffOutlinedIcon
 } from '@mui/icons-material';

@@ -1,8 +1,7 @@
 import React from 'react';
-import dayjs from 'dayjs';
 
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { CustomDatePicker } from './';
+import { CustomDatePicker, dayjs } from './';
 
 export default {
     title: 'CustomDatePicker',
@@ -16,5 +15,6 @@ export const Basic: ComponentStory<typeof CustomDatePicker> = (args) => <CustomD
 
 Basic.args = {
     defaultValue: dayjs(new Date()),
-    label: 'DatePicker'
+    label: 'DatePicker',
+    size: 'small'
 };

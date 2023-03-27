@@ -36,5 +36,5 @@ Basic.args = {
     labelId: 'demo-simple-select-label',
     id: 'demo-simple-select',
     size: 'small',
-    currentColor: 'primary'
+    borderColor: 'success'
 };

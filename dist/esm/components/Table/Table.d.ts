@@ -36,6 +36,7 @@ export interface TableProps {
     loading?: boolean;
     toolbarRightSection?: React.ReactNode;
     searchSettings?: SearchSettingsModel;
+    hiddenProperty?: string;
 }
 export declare const Table: React.FC<TableProps>;
 export {};

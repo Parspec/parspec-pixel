@@ -53,19 +53,19 @@ SingleSelect.args = {
 };
 
 const coltemplate = (props: any) => {
-    if (props?.taskData?.name?.includes('section')) {
+    if (props?.taskData?.type?.includes('section')) {
         return (
             <Button size="small" id={props.id}>
                 Section
             </Button>
         );
-    } else if (props?.taskData?.name?.includes('product')) {
+    } else if (props?.taskData?.type?.includes('product')) {
         return (
             <Button size="small" color="secondary" id={props.id}>
                 Product
             </Button>
         );
-    } else if (props?.taskData?.name?.includes('accessory')) {
+    } else if (props?.taskData?.type?.includes('accessory')) {
         return (
             <Button size="small" color="tertiary" id={props.id}>
                 Accessory
@@ -153,6 +153,7 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
                 <ColumnDirective
                     allowEditing={false}
                     allowSorting={false}
+                    field="type"
                     defaultValue={'product'}
                     minWidth="240"
                     template={coltemplate}
@@ -189,7 +190,7 @@ Basic.args = {
     filterSettings: {
         type: 'Excel'
     },
-    loading: false,
+    loading: true,
     searchSettings: {
         fields: ['taskID', 'name', 'reported', 'available'],
         hierarchyMode: 'Both'

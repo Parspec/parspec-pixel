@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.VisibilityOffOutlinedIcon = exports.DeeletIcon = exports.SyncIcon = exports.TuneIcon = exports.ContentCopyIcon = exports.SyncProblemIcon = exports.FileDownloadOutlinedIcon = exports.FilterAltOffIcon = exports.VisibilityIcon = exports.VisibilityOffIcon = exports.DeleteOutlineIcon = exports.ControlPointDuplicateIcon = exports.ViewArrayIcon = exports.ChangeHistoryIcon = exports.SwapHorizIcon = exports.CheckCircleIcon = exports.MoreVertIcon = exports.EditIcon = exports.RemoveIcon = exports.AddIcon = exports.PanToolIcon = exports.CheckCircleOutlineIcon = exports.ArrowDownwardIcon = exports.ArrowUpwardIcon = exports.ArrowCircleRightIcon = exports.ArrowCircleLeftIcon = exports.LastPageIcon = exports.FirstPageIcon = exports.KeyboardArrowRightIcon = exports.KeyboardArrowLeftIcon = exports.UnfoldMoreIcon = exports.UploadIcon = exports.DeleteIcon = exports.TrendingUpIcon = exports.SearchIcon = exports.DragIndicatorIcon = exports.CancelIcon = exports.CloseIcon = exports.AnnotateColoredIcon = exports.AnnotateIcon = exports.RedirectIcon = exports.ParspecLogoIcon = void 0;
+exports.VisibilityOffOutlinedIcon = exports.DeeletIcon = exports.TuneIcon = exports.ContentCopyIcon = exports.SyncProblemIcon = exports.FileDownloadOutlinedIcon = exports.FilterAltOffIcon = exports.VisibilityIcon = exports.VisibilityOffIcon = exports.DeleteOutlineIcon = exports.ControlPointDuplicateIcon = exports.FormatListBulletedIcon = exports.ImageIcon = exports.DownloadIcon = exports.LinkIcon = exports.SyncIcon = exports.ViewArrayIcon = exports.ChangeHistoryIcon = exports.SwapHorizIcon = exports.CheckCircleIcon = exports.MoreVertIcon = exports.EditIcon = exports.RemoveIcon = exports.AddIcon = exports.PanToolIcon = exports.CheckCircleOutlineIcon = exports.ArrowDownwardIcon = exports.ArrowUpwardIcon = exports.ArrowCircleRightIcon = exports.ArrowCircleLeftIcon = exports.LastPageIcon = exports.FirstPageIcon = exports.KeyboardArrowRightIcon = exports.KeyboardArrowLeftIcon = exports.UnfoldMoreIcon = exports.UploadIcon = exports.DeleteIcon = exports.TrendingUpIcon = exports.SearchIcon = exports.DragIndicatorIcon = exports.CancelIcon = exports.CloseIcon = exports.AnnotateColoredIcon = exports.AnnotateIcon = exports.RedirectIcon = exports.ParspecLogoIcon = void 0;
 var ParspecLogoIcon_1 = require("./ParspecLogoIcon");
 Object.defineProperty(exports, "ParspecLogoIcon", { enumerable: true, get: function () { return ParspecLogoIcon_1.ParspecLogoIcon; } });
 var RedirectIcon_1 = require("./RedirectIcon");
@@ -36,6 +36,11 @@ Object.defineProperty(exports, "CheckCircleIcon", { enumerable: true, get: funct
 Object.defineProperty(exports, "SwapHorizIcon", { enumerable: true, get: function () { return icons_material_1.SwapHoriz; } });
 Object.defineProperty(exports, "ChangeHistoryIcon", { enumerable: true, get: function () { return icons_material_1.ChangeHistory; } });
 Object.defineProperty(exports, "ViewArrayIcon", { enumerable: true, get: function () { return icons_material_1.ViewArray; } });
+Object.defineProperty(exports, "SyncIcon", { enumerable: true, get: function () { return icons_material_1.SyncProblem; } });
+Object.defineProperty(exports, "LinkIcon", { enumerable: true, get: function () { return icons_material_1.Link; } });
+Object.defineProperty(exports, "DownloadIcon", { enumerable: true, get: function () { return icons_material_1.Download; } });
+Object.defineProperty(exports, "ImageIcon", { enumerable: true, get: function () { return icons_material_1.Image; } });
+Object.defineProperty(exports, "FormatListBulletedIcon", { enumerable: true, get: function () { return icons_material_1.FormatListBulleted; } });
 Object.defineProperty(exports, "ControlPointDuplicateIcon", { enumerable: true, get: function () { return icons_material_1.ControlPointDuplicate; } });
 Object.defineProperty(exports, "DeleteOutlineIcon", { enumerable: true, get: function () { return icons_material_1.DeleteOutline; } });
 Object.defineProperty(exports, "VisibilityOffIcon", { enumerable: true, get: function () { return icons_material_1.VisibilityOff; } });
@@ -45,7 +50,6 @@ Object.defineProperty(exports, "FileDownloadOutlinedIcon", { enumerable: true, g
 Object.defineProperty(exports, "SyncProblemIcon", { enumerable: true, get: function () { return icons_material_1.SyncProblem; } });
 Object.defineProperty(exports, "ContentCopyIcon", { enumerable: true, get: function () { return icons_material_1.ContentCopy; } });
 Object.defineProperty(exports, "TuneIcon", { enumerable: true, get: function () { return icons_material_1.Tune; } });
-Object.defineProperty(exports, "SyncIcon", { enumerable: true, get: function () { return icons_material_1.Sync; } });
 Object.defineProperty(exports, "DeeletIcon", { enumerable: true, get: function () { return icons_material_1.Delete; } });
 Object.defineProperty(exports, "VisibilityOffOutlinedIcon", { enumerable: true, get: function () { return icons_material_1.VisibilityOffOutlined; } });
 //# sourceMappingURL=index.js.map

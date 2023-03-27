@@ -21,9 +21,37 @@ const InputLabel_1 = __importDefault(require("@mui/material/InputLabel"));
 const MenuItem_1 = __importDefault(require("@mui/material/MenuItem"));
 const FormControl_1 = __importDefault(require("@mui/material/FormControl"));
 const Select_1 = __importDefault(require("@mui/material/Select"));
+const styled_1 = __importDefault(require("@mui/material/styles/styled"));
+const StyledFormControl = (0, styled_1.default)(FormControl_1.default, {
+    shouldForwardProp(propName) {
+        return !(propName === 'borderColor');
+    }
+})(({ theme, borderColor }) => {
+    var _a, _b;
+    if (!borderColor) {
+        return {};
+    }
+    const colorValFromTheme = (_b = (_a = theme.palette) === null || _a === void 0 ? void 0 : _a[borderColor]) === null || _b === void 0 ? void 0 : _b.main;
+    return {
+        '& label.Mui-focused': {
+            color: colorValFromTheme
+        },
+        '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+                borderColor: colorValFromTheme
+            },
+            '&:hover fieldset': {
+                borderColor: colorValFromTheme
+            },
+            '&.Mui-focused fieldset': {
+                borderColor: colorValFromTheme
+            }
+        }
+    };
+});
 exports.Select = (0, react_1.forwardRef)((_a, ref) => {
-    var { id, labelId, options, size, label, optionLabelKeyname = 'label', optionValueKeyname = 'value' } = _a, rest = __rest(_a, ["id", "labelId", "options", "size", "label", "optionLabelKeyname", "optionValueKeyname"]);
-    return ((0, jsx_runtime_1.jsxs)(FormControl_1.default, Object.assign({ fullWidth: true, ref: ref, size: size }, { children: [(0, jsx_runtime_1.jsx)(InputLabel_1.default, Object.assign({ id: labelId }, { children: label })), (0, jsx_runtime_1.jsx)(Select_1.default, Object.assign({}, rest, { labelId: labelId, label: label, id: id }, { children: options.map((item, index) => ((0, jsx_runtime_1.jsx)(MenuItem_1.default, Object.assign({ value: item[optionValueKeyname] }, { children: item[optionLabelKeyname] }), index))) }))] })));
+    var { id, labelId, options, size, label, optionLabelKeyname = 'label', optionValueKeyname = 'value', borderColor } = _a, rest = __rest(_a, ["id", "labelId", "options", "size", "label", "optionLabelKeyname", "optionValueKeyname", "borderColor"]);
+    return ((0, jsx_runtime_1.jsxs)(StyledFormControl, Object.assign({ fullWidth: true, ref: ref, size: size, borderColor: borderColor }, { children: [(0, jsx_runtime_1.jsx)(InputLabel_1.default, Object.assign({ id: labelId }, { children: label })), (0, jsx_runtime_1.jsx)(Select_1.default, Object.assign({}, rest, { labelId: labelId, label: label, id: id }, { children: options.map((item, index) => ((0, jsx_runtime_1.jsx)(MenuItem_1.default, Object.assign({ value: item[optionValueKeyname] }, { children: item[optionLabelKeyname] }), index))) }))] })));
 });
 exports.Select.defaultProps = {
     label: 'Select',

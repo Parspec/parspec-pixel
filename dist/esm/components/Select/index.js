@@ -21,7 +21,11 @@ const StyledFormControl = styled(FormControl, {
         return !(propName === 'borderColor');
     }
 })(({ theme, borderColor }) => {
-    const colorValFromTheme = theme.palette[borderColor].main;
+    var _a, _b;
+    if (!borderColor) {
+        return {};
+    }
+    const colorValFromTheme = (_b = (_a = theme.palette) === null || _a === void 0 ? void 0 : _a[borderColor]) === null || _b === void 0 ? void 0 : _b.main;
     return {
         '& label.Mui-focused': {
             color: colorValFromTheme

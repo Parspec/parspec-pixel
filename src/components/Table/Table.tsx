@@ -83,6 +83,7 @@ export interface TableProps {
     loading?: boolean;
     toolbarRightSection?: React.ReactNode;
     searchSettings?: SearchSettingsModel;
+    hiddenProperty?: string;
 }
 
 export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
@@ -115,17 +116,25 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         onRowSelection,
         loading,
         toolbarRightSection,
-        searchSettings
+        searchSettings,
+        hiddenProperty
     } = props;
 
     const tableRef = useRef<any>();
     const [selected, setSelectedForBanner] = useState(0);
 
     useEffect(() => {
+        let obj = (document.getElementsByClassName('e-grid')[0] as any).ej2_instances[0].localeObj.localeStrings;
         if (loading) {
+            obj.EmptyRecord = '';
             tableRef?.current?.showSpinner();
+            tableRef?.current?.refresh();
         } else {
             tableRef?.current?.hideSpinner();
+            if (data.length === 0) {
+                obj.EmptyRecord = 'No records to display';
+                tableRef?.current?.refresh();
+            }
         }
     }, [loading]);
 
@@ -197,7 +206,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     };
 
     const rowDataBound = (args: any) => {
-        if (getObject('hidden', args.data) === true) {
+        if (getObject(hiddenProperty, args.data) === true) {
             (args.row as HTMLTableRowElement).style.opacity = '0.4';
         } else {
             (args.row as HTMLTableRowElement).style.opacity = '1';
@@ -373,5 +382,6 @@ Table.defaultProps = {
     toolbarRightSection: <></>,
     searchSettings: {
         hierarchyMode: 'Both'
-    }
+    },
+    hiddenProperty: 'is_hidden'
 };

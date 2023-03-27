@@ -747,6 +747,7 @@
 }
 .e-icons.e-arrow-up:before {
     content: '\e840';
+    font-weight: bold;
 }
 .e-icons.e-chevron-right-fill-3:before {
     content: '\e848';
@@ -28473,6 +28474,7 @@ li.e-separator.e-menu-item.e-excel-separator {
 .e-grid .e-icon-filter::before,
 .e-grid-menu .e-icon-filter::before {
     content: '\e250';
+    font-weight: bold;
 }
 .e-grid .e-icon-filter.e-filtered::before,
 .e-grid-menu .e-icon-filter.e-filtered::before {
@@ -28978,8 +28980,8 @@ tr.singleSelect:hover {
 
 .e-treegrid .customicon .e-sortfilterdiv:not(.e-icon-ascending):not(.e-icon-descending)::before {
     font-size: 12px;
-    content: '\e612';
+    content: '\e666';
 }
-.e-grid .e-gridheader .e-icons:not(.e-icon-hide):not(.e-check):not(.e-stop):not(.e-icon-reorderuparrow):not(.e-icon-reorderdownarrow){
+.e-grid .e-gridheader .e-icons:not(.e-icon-hide):not(.e-check):not(.e-stop):not(.e-icon-reorderuparrow):not(.e-icon-reorderdownarrow) {
     color: #091535;
 }

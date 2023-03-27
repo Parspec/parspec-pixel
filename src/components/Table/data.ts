@@ -5,7 +5,7 @@ export const dDataP = [
     name: 'section1',
     reporter: '',
     available: '',
-    hidden: false,
+    is_hidden: false,
     subtasks: [
       {
         id: 2,
@@ -13,7 +13,7 @@ export const dDataP = [
         name: 'product1',
         reporter: 'Jolan',
         available: 'Yes',
-        hidden: true,
+        is_hidden: true,
         subtasks: [
           {
             id: 3,
@@ -21,7 +21,7 @@ export const dDataP = [
             name: 'accessory1',
             reporter: 'Forest',
             available: 'Yes',
-            hidden: true,
+            is_hidden: true,
           },
           {
             id: 4,
@@ -29,7 +29,7 @@ export const dDataP = [
             name: 'accessory2',
             reporter: 'Parikshit',
             available: 'Yes',
-            hidden: false,
+            is_hidden: false,
           }
         ]
       },
@@ -39,7 +39,7 @@ export const dDataP = [
         reporter: 'Abhijit',
         name: 'product2',
         available: 'Yes',
-        hidden: false,
+        is_hidden: false,
         subtasks: [
           {
             id: 6,
@@ -47,7 +47,7 @@ export const dDataP = [
             reporter: 'Lovish',
             name: 'accessory1',
             available: 'Yes',
-            hidden: false,
+            is_hidden: false,
           },
           {
             id: 7,
@@ -55,7 +55,7 @@ export const dDataP = [
             reporter: 'Abhishek',
             name: 'accessory2',
             available: 'Yes',
-            hidden: false,
+            is_hidden: false,
           }
         ]
       }
@@ -67,7 +67,7 @@ export const dDataP = [
     name: 'section2',
     reporter: '',
     available: '',
-    hidden: false,
+    is_hidden: false,
     subtasks: [
       {
         id: 9,
@@ -75,7 +75,7 @@ export const dDataP = [
         name: 'product1',
         reporter: 'Atul',
         available: 'Yes',
-        hidden: false,
+        is_hidden: false,
         subtasks: [
           {
             id: 10,
@@ -83,7 +83,7 @@ export const dDataP = [
             name: 'accessory1',
             reporter: 'Pratyush',
             available: 'Yes',
-            hidden: false,
+            is_hidden: false,
           },
           {
             id: 11,
@@ -91,7 +91,7 @@ export const dDataP = [
             name: 'accessory2',
             reporter: 'Sreemukhi',
             available: 'Yes',
-            hidden: false,
+            is_hidden: false,
           }
         ]
       },
@@ -101,7 +101,7 @@ export const dDataP = [
         name: 'product2',
         reporter: 'Komal',
         available: 'Yes',
-        hidden: false,
+        is_hidden: false,
         subtasks: [
           {
             id: 13,
@@ -109,7 +109,7 @@ export const dDataP = [
             name: 'accessory1',
             reporter: 'Harsh',
             available: 'Yes',
-            hidden: false,
+            is_hidden: false,
           },
           {
             id: 14,
@@ -117,7 +117,7 @@ export const dDataP = [
             name: 'accessory2',
             reporter: 'Tarun',
             available: 'Yes',
-            hidden: true,
+            is_hidden: true,
           }
         ]
       }
@@ -128,7 +128,7 @@ export const dDataP = [
     taskID: 15,
     name: 'section3',
     reporter: '',
-    available: '', hidden: false,
+    available: '', is_hidden: false,
     subtasks: [
       {
         id: 16,
@@ -136,7 +136,7 @@ export const dDataP = [
         name: 'product1',
         reporter: 'Anit',
         available: 'No',
-        hidden: false,
+        is_hidden: false,
         subtasks: [
           {
             id: 17,
@@ -144,7 +144,7 @@ export const dDataP = [
             name: 'accessory1',
             reporter: 'Sreemukhi',
             available: 'No',
-            hidden: false,
+            is_hidden: false,
           },
           {
             id: 18,
@@ -152,7 +152,7 @@ export const dDataP = [
             name: 'accessory2',
             reporter: 'Komal',
             available: 'No',
-            hidden: false,
+            is_hidden: false,
           }
         ]
       },
@@ -161,7 +161,7 @@ export const dDataP = [
         taskID: 19,
         name: 'product2',
         reporter: 'Abhishek',
-        hidden: false,
+        is_hidden: false,
         subtasks: [
           {
             id: 20,
@@ -169,7 +169,7 @@ export const dDataP = [
             name: 'accessory1',
             reporter: 'Atul',
             available: 'No',
-            hidden: false,
+            is_hidden: false,
           },
           {
             id: 21,
@@ -177,7 +177,7 @@ export const dDataP = [
             name: 'accessory2',
             reporter: 'Lovish',
             available: 'No',
-            hidden: true,
+            is_hidden: true,
           }
         ]
       }
@@ -189,7 +189,7 @@ export const dDataP = [
     name: 'section4',
     reporter: '',
     available: '',
-    hidden: false,
+    is_hidden: false,
     subtasks: [
       {
         id: 23,
@@ -197,7 +197,7 @@ export const dDataP = [
         name: 'product1',
         reporter: 'Abhijit',
         available: 'No',
-        hidden: false,
+        is_hidden: false,
         subtasks: [
           {
             id: 24,
@@ -205,7 +205,7 @@ export const dDataP = [
             name: 'accessory1',
             reporter: 'Jolan',
             available: 'No',
-            hidden: false,
+            is_hidden: false,
           },
           {
             id: 25,
@@ -213,7 +213,7 @@ export const dDataP = [
             name: 'accessory2',
             reporter: 'Rishikesh',
             available: 'No',
-            hidden: false,
+            is_hidden: false,
           }
         ]
       },
@@ -223,7 +223,7 @@ export const dDataP = [
         name: 'product2',
         reporter: 'Pratyush',
         available: 'No',
-        hidden: false,
+        is_hidden: false,
         subtasks: [
           {
             id: 27,
@@ -231,7 +231,7 @@ export const dDataP = [
             name: 'accessory1',
             reporter: 'Parikshit',
             available: 'No',
-            hidden: false,
+            is_hidden: false,
           },
           {
             id: 28,
@@ -239,7 +239,7 @@ export const dDataP = [
             name: 'accessory2',
             reporter: 'Atul',
             available: 'No',
-            hidden: false,
+            is_hidden: false,
           }
         ]
       }
@@ -254,7 +254,7 @@ export const dDataP2 = [
     name: 'section1',
     reporter: '',
     available: '',
-    hidden: false,
+    is_hidden: false,
   },
   {
     id: 8,
@@ -262,7 +262,7 @@ export const dDataP2 = [
     name: 'section2',
     reporter: '',
     available: '',
-    hidden: false,
+    is_hidden: false,
 
   },
   {
@@ -270,7 +270,7 @@ export const dDataP2 = [
     taskID: 15,
     name: 'section3',
     reporter: '',
-    available: '', hidden: false,
+    available: '', is_hidden: false,
 
   },
   {
@@ -279,7 +279,7 @@ export const dDataP2 = [
     name: 'section4',
     reporter: '',
     available: '',
-    hidden: false,
+    is_hidden: false,
 
   },
 ]

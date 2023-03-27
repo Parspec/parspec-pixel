@@ -10,7 +10,7 @@ interface SelectMenuOption {
     [index: string]: string | number;
 }
 
-type currentColorType = 'primary' | 'secondary' | 'tertiary' | 'info' | 'warning' | 'success' | 'error';
+type BorderColorType = 'primary' | 'secondary' | 'tertiary' | 'info' | 'warning' | 'success' | 'error';
 export interface SelectProps extends Omit<MUISelectProps, 'classes'> {
     label: string;
     options: SelectMenuOption[];
@@ -19,19 +19,19 @@ export interface SelectProps extends Omit<MUISelectProps, 'classes'> {
     size?: 'small' | 'medium';
     optionLabelKeyname?: string;
     optionValueKeyname?: string;
-    currentColor?: currentColorType;
+    borderColor?: BorderColorType;
 }
 
 interface FormControlProps extends MUIFormControlProps {
-    currentColor?: currentColorType;
+    borderColor?: BorderColorType;
 }
 
 const StyledFormControl = styled(FormControl, {
     shouldForwardProp(propName) {
-        return !(propName === 'currentColor');
+        return !(propName === 'borderColor');
     }
-})<FormControlProps>(({ theme, currentColor }: FormControlProps) => {
-    const colorValFromTheme = theme.palette[currentColor].main;
+})<FormControlProps>(({ theme, borderColor }: FormControlProps) => {
+    const colorValFromTheme = theme.palette[borderColor].main;
     return {
         '& label.Mui-focused': {
             color: colorValFromTheme
@@ -50,8 +50,8 @@ const StyledFormControl = styled(FormControl, {
     };
 });
 
-export const Select = forwardRef<HTMLDivElement, SelectProps>(({ id, labelId, options, size, label, optionLabelKeyname = 'label', optionValueKeyname = 'value', currentColor, ...rest }, ref) => (
-    <StyledFormControl fullWidth ref={ref} size={size} currentColor={currentColor}>
+export const Select = forwardRef<HTMLDivElement, SelectProps>(({ id, labelId, options, size, label, optionLabelKeyname = 'label', optionValueKeyname = 'value', borderColor, ...rest }, ref) => (
+    <StyledFormControl fullWidth ref={ref} size={size} borderColor={borderColor}>
         <InputLabel id={labelId}>{label}</InputLabel>
         <MUISelect {...rest} labelId={labelId} label={label} id={id}>
             {options.map((item, index) => (

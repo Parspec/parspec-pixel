@@ -28442,10 +28442,14 @@ li.e-separator.e-menu-item.e-excel-separator {
 .e-grid .e-icon-ascending::before,
 .e-grid-menu .e-icon-ascending::before {
     content: '\e840';
+    color: #ffa72b;
+    font-weight: bold;
 }
 .e-grid .e-icon-descending::before,
 .e-grid-menu .e-icon-descending::before {
     content: '\e83f';
+    color: #ffa72b;
+    font-weight: bold;
 }
 .e-grid .e-icon-hide::before,
 .e-grid-menu .e-icon-hide::before {

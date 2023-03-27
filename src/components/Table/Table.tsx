@@ -22,23 +22,7 @@ import {
 import { addClass, isNullOrUndefined, registerLicense } from '@syncfusion/ej2-base';
 import './styles.css';
 import { Box } from '../Box';
-import {
-    AddEventArgs,
-    CheckBoxChangeEventArgs,
-    DeleteEventArgs,
-    EditEventArgs,
-    FilterEventArgs,
-    FilterSettingsModel,
-    getObject,
-    HeaderCellInfoEventArgs,
-    PageEventArgs,
-    RowDeselectEventArgs,
-    RowSelectEventArgs,
-    SaveEventArgs,
-    SearchEventArgs,
-    SelectionSettingsModel,
-    SortEventArgs
-} from '@syncfusion/ej2-grids';
+import { CheckBoxChangeEventArgs, FilterSettingsModel, getObject, HeaderCellInfoEventArgs, RowDeselectEventArgs, RowSelectEventArgs, SelectionSettingsModel } from '@syncfusion/ej2-grids';
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { TextField } from '../TextField';
 import { IconButton } from '../IconButton';
@@ -108,10 +92,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         onAddDuplicates,
         onCheckboxChange,
         onDragEnd,
-        onAdd,
-        onEdit,
         onDelete,
-        onSearch,
         selectionSettings,
         onRowSelection,
         loading,
@@ -193,18 +174,6 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         onRowSelection!(tableRef.current.getSelectedRecords());
     };
 
-    const actionComplete = (args: PageEventArgs | FilterEventArgs | SortEventArgs | SearchEventArgs | AddEventArgs | SaveEventArgs | EditEventArgs | DeleteEventArgs) => {
-        if (args.type === 'save') {
-            onEdit!(args);
-        } else if (args.requestType === 'save') {
-            onAdd!(args);
-        } else if (args.requestType === 'delete') {
-            onDelete!(args);
-        } else if (args.requestType === 'searching') {
-            onSearch!(args);
-        }
-    };
-
     const rowDataBound = (args: any) => {
         if (getObject(hiddenProperty, args.data) === true) {
             (args.row as HTMLTableRowElement).style.opacity = '0.4';
@@ -219,7 +188,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     useImperativeHandle(ref, () => {
         const clearSelection = () => {
             tableRef.current.clearSelection();
-            setSelectedForBanner(0);
+            setSelectedForBanner(() => 0);
         };
         return {
             clearSelection,
@@ -228,7 +197,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     });
 
     const closeBanner = () => {
-        setSelectedForBanner(0);
+        setSelectedForBanner(() => 0);
         tableRef.current.clearSelection();
     };
 
@@ -319,7 +288,6 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             allowFiltering={allowFiltering}
                             filterSettings={filterSettings}
                             checkboxChange={checkboxChange}
-                            actionComplete={actionComplete}
                         >
                             <ColumnsDirective>{children}</ColumnsDirective>
                             <Inject services={[Freeze, RowDD, Selection, Sort, Edit, Page, ExcelExport, PdfExport, Resize, Filter, ContextMenu]} />

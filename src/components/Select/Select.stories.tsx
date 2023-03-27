@@ -35,6 +35,5 @@ Basic.args = {
     label: 'Age',
     labelId: 'demo-simple-select-label',
     id: 'demo-simple-select',
-    size: 'small',
-    borderColor: 'success'
+    size: 'small'
 };

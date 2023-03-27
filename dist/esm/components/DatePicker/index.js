@@ -17,12 +17,13 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import dayjs from 'dayjs';
 export { Dayjs, dayjs };
 export const CustomDatePicker = (_a) => {
-    var { size } = _a, props = __rest(_a, ["size"]);
+    var { size, color } = _a, props = __rest(_a, ["size", "color"]);
     return (_jsx(LocalizationProvider, Object.assign({ dateAdapter: AdapterDayjs }, { children: _jsx(DatePicker, Object.assign({ sx: {
                 width: '100%'
-            }, slotProps: { textField: { size } } }, props)) })));
+            }, slotProps: { textField: { size, color } } }, props)) })));
 };
 CustomDatePicker.defaultProps = {
-    size: 'small'
+    size: 'small',
+    color: 'secondary'
 };
 //# sourceMappingURL=index.js.map

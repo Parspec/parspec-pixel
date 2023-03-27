@@ -24,13 +24,14 @@ const LocalizationProvider_1 = require("@mui/x-date-pickers/LocalizationProvider
 const dayjs_2 = __importDefault(require("dayjs"));
 exports.dayjs = dayjs_2.default;
 const CustomDatePicker = (_a) => {
-    var { size } = _a, props = __rest(_a, ["size"]);
+    var { size, color } = _a, props = __rest(_a, ["size", "color"]);
     return ((0, jsx_runtime_1.jsx)(LocalizationProvider_1.LocalizationProvider, Object.assign({ dateAdapter: AdapterDayjs_1.AdapterDayjs }, { children: (0, jsx_runtime_1.jsx)(DatePicker_1.DatePicker, Object.assign({ sx: {
                 width: '100%'
-            }, slotProps: { textField: { size } } }, props)) })));
+            }, slotProps: { textField: { size, color } } }, props)) })));
 };
 exports.CustomDatePicker = CustomDatePicker;
 exports.CustomDatePicker.defaultProps = {
-    size: 'small'
+    size: 'small',
+    color: 'secondary'
 };
 //# sourceMappingURL=index.js.map

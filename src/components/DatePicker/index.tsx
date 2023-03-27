@@ -8,16 +8,17 @@ export { Dayjs, dayjs };
 
 export interface CustomDatePickerProps<Dayjs> extends DatePickerProps<Dayjs> {
     size?: 'small' | 'medium';
+    color?: 'primary' | 'secondary';
 }
 
-export const CustomDatePicker: React.FC<CustomDatePickerProps<Dayjs>> = ({ size, ...props }) => {
+export const CustomDatePicker: React.FC<CustomDatePickerProps<Dayjs>> = ({ size, color, ...props }) => {
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
                 sx={{
                     width: '100%'
                 }}
-                slotProps={{ textField: { size } }}
+                slotProps={{ textField: { size, color } }}
                 {...props}
             />
         </LocalizationProvider>
@@ -25,5 +26,6 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps<Dayjs>> = ({ size,
 };
 
 CustomDatePicker.defaultProps = {
-    size: 'small'
+    size: 'small',
+    color: 'secondary'
 };

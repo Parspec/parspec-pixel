@@ -16,5 +16,6 @@ export const Basic: ComponentStory<typeof CustomDatePicker> = (args) => <CustomD
 Basic.args = {
     defaultValue: dayjs(new Date()),
     label: 'DatePicker',
-    size: 'small'
+    size: 'small',
+    color: 'secondary'
 };

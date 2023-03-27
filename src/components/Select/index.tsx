@@ -5,7 +5,6 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl, { FormControlProps as MUIFormControlProps } from '@mui/material/FormControl';
 import { default as MUISelect, SelectProps as MUISelectProps } from '@mui/material/Select';
 import styled from '@mui/material/styles/styled';
-
 interface SelectMenuOption {
     [index: string]: string | number;
 }
@@ -21,6 +20,8 @@ export interface SelectProps extends Omit<MUISelectProps, 'classes'> {
     optionValueKeyname?: string;
     borderColor?: BorderColorType;
 }
+
+export { SelectChangeEvent } from '@mui/material';
 
 interface FormControlProps extends MUIFormControlProps {
     borderColor?: BorderColorType;

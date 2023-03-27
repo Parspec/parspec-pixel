@@ -22,7 +22,23 @@ import {
 import { addClass, isNullOrUndefined, registerLicense } from '@syncfusion/ej2-base';
 import './styles.css';
 import { Box } from '../Box';
-import { CheckBoxChangeEventArgs, FilterSettingsModel, getObject, HeaderCellInfoEventArgs, RowDeselectEventArgs, RowSelectEventArgs, SelectionSettingsModel } from '@syncfusion/ej2-grids';
+import {
+    AddEventArgs,
+    CheckBoxChangeEventArgs,
+    DeleteEventArgs,
+    EditEventArgs,
+    FilterEventArgs,
+    FilterSettingsModel,
+    getObject,
+    HeaderCellInfoEventArgs,
+    PageEventArgs,
+    RowDeselectEventArgs,
+    RowSelectEventArgs,
+    SaveEventArgs,
+    SearchEventArgs,
+    SelectionSettingsModel,
+    SortEventArgs
+} from '@syncfusion/ej2-grids';
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { TextField } from '../TextField';
 import { IconButton } from '../IconButton';
@@ -92,6 +108,8 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         onAddDuplicates,
         onCheckboxChange,
         onDragEnd,
+        onEdit,
+        onSearch,
         onDelete,
         selectionSettings,
         onRowSelection,
@@ -119,6 +137,13 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         }
     }, [loading]);
 
+    const actionComplete = (args: PageEventArgs | FilterEventArgs | SortEventArgs | SearchEventArgs | AddEventArgs | SaveEventArgs | EditEventArgs | DeleteEventArgs) => {
+        if (args.type === 'save') {
+            onEdit!(args);
+        } else if (args.requestType === 'searching') {
+            onSearch!(args);
+        }
+    };
     const rowDrop = (args: any) => {
         const droppedData = tableRef?.current?.getRowInfo(args.target.parentElement).rowData; //dropped data
         let droppedId, draggedId;
@@ -264,6 +289,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                 <Box className="control-section">
                     {data && (
                         <TreeGridComponent
+                            actionComplete={actionComplete}
                             headerCellInfo={headerCellInfo}
                             rowSelected={rowSelected}
                             rowDeselected={rowDeselected}

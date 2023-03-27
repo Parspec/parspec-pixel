@@ -227,7 +227,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             <Tooltip title="Delete Record(s)">
                                 <IconButton
                                     onClick={() => {
-                                        onDelete!(tableRef.current.getSelectedRecords());
+                                        onDelete!(tableRef?.current?.getSelectedRecords());
                                     }}
                                 >
                                     <DeleteOutlineIcon fontSize="medium" />

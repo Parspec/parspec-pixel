@@ -5,6 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl, { FormControlProps as MUIFormControlProps } from '@mui/material/FormControl';
 import { default as MUISelect, SelectProps as MUISelectProps } from '@mui/material/Select';
 import styled from '@mui/material/styles/styled';
+
 interface SelectMenuOption {
     [index: string]: string | number;
 }
@@ -31,8 +32,11 @@ const StyledFormControl = styled(FormControl, {
     shouldForwardProp(propName) {
         return !(propName === 'borderColor');
     }
-})<FormControlProps>(({ theme, borderColor }: FormControlProps) => {
-    const colorValFromTheme = theme.palette[borderColor].main;
+})<FormControlProps>(({ theme, borderColor }) => {
+    if (!borderColor) {
+        return {};
+    }
+    const colorValFromTheme = theme.palette?.[borderColor]?.main;
     return {
         '& label.Mui-focused': {
             color: colorValFromTheme

@@ -1,1 +1,1 @@
-export { styled } from '@mui/material/styles';
+export { styled, Theme } from '@mui/material/styles';

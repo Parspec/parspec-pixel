@@ -29,5 +29,9 @@ export {
     SwapHoriz as SwapHorizIcon,
     ChangeHistory as ChangeHistoryIcon,
     ViewArray as ViewArrayIcon,
-    SyncProblem as SyncIcon
+    SyncProblem as SyncIcon,
+    Link as LinkIcon,
+    Download as DownloadIcon,
+    Image as ImageIcon,
+    FormatListBulleted as FormatListBulletedIcon
 } from '@mui/icons-material';

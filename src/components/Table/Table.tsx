@@ -234,7 +234,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     return (
         <>
             {showToolbar && (
-                <Box display={'flex'} justifyContent="space-between" mb={2}>
+                <Box display={'flex'} justifyContent="space-between" mb={2} sx={loading ? { PointerEvent: 'none' } : {}}>
                     <Box display="flex" alignItems="center" gap={1}>
                         {toolBarOptions?.includes('search') && (
                             <Box width={300}>
@@ -243,7 +243,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                         )}
                         {toolBarOptions?.includes('duplicate') && (
                             <Tooltip title="Add Duplicate Record(s)">
-                                <IconButton onClick={() => onAddDuplicates!(tableRef.current.getSelectedRecords())}>
+                                <IconButton onClick={() => onAddDuplicates!(tableRef.current.getSelectedRecords())} disabled={tableRef?.current?.getSelectedRecords()?.length === 0}>
                                     <ControlPointDuplicateIcon fontSize="medium" />
                                 </IconButton>
                             </Tooltip>
@@ -251,6 +251,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                         {toolBarOptions?.includes('delete') && (
                             <Tooltip title="Delete Record(s)">
                                 <IconButton
+                                    disabled={tableRef?.current?.getSelectedRecords()?.length === 0}
                                     onClick={() => {
                                         onDelete!(tableRef?.current?.getSelectedRecords());
                                     }}
@@ -261,7 +262,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                         )}
                         {toolBarOptions?.includes('hide') && (
                             <Tooltip title="Hide/Unhide Record(s)">
-                                <IconButton onClick={() => onHideUnhide!(tableRef.current.getSelectedRecords())}>
+                                <IconButton onClick={() => onHideUnhide!(tableRef.current.getSelectedRecords())} disabled={tableRef?.current?.getSelectedRecords()?.length === 0}>
                                     <VisibilityOffIcon fontSize="medium" />
                                 </IconButton>
                             </Tooltip>

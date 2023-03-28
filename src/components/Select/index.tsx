@@ -38,7 +38,7 @@ const StyledFormControl = styled(FormControl, {
     }
     const colorValFromTheme = theme.palette?.[borderColor]?.main;
     return {
-        '& label.Mui-focused': {
+        '& label.Mui-focused, & label.MuiInputLabel-shrink': {
             color: colorValFromTheme
         },
         '& .MuiOutlinedInput-root': {

@@ -9,14 +9,15 @@ function getCustomFontsize(fontSize?: string) {
     }
 }
 
-interface SvgIconProps extends MUISvgIconProps {}
+export interface SvgIconProps extends Omit<MUISvgIconProps, 'fontSize'> {
+    fontSize?: 'small' | 'medium' | 'large' | 'xl' | 'xxl';
+}
 
-export function SvgIcon({ children, ...restProps }: SvgIconProps) {
-    const { fontSize } = restProps;
+export function SvgIcon({ children, fontSize, ...restProps }: SvgIconProps) {
     const customFontSize = getCustomFontsize(fontSize);
-
+    const fontSizePropVal = fontSize === 'xl' || fontSize === 'xxl' ? undefined : fontSize;
     return (
-        <MUISvgIcon {...restProps} sx={{ fontSize: customFontSize }}>
+        <MUISvgIcon {...restProps} fontSize={fontSizePropVal} sx={{ fontSize: customFontSize }}>
             {children}
         </MUISvgIcon>
     );

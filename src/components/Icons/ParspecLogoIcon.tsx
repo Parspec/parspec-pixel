@@ -1,5 +1,4 @@
-import { SvgIconProps } from '@mui/material';
-import { SvgIcon } from './SvgIcon';
+import { SvgIcon, SvgIconProps } from './SvgIcon';
 
 export const ParspecLogoIcon: React.FC<SvgIconProps> = ({ fontSize }) => {
     return (

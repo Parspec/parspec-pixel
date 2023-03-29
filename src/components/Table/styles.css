@@ -26674,7 +26674,7 @@ li.e-separator.e-menu-item.e-excel-separator {
 .e-grid .e-frozenheader .e-virtualtable > .e-table,
 .e-grid .e-frozencontent .e-virtualtable > .e-table {
     border-left: 0;
-    border-right: 2px solid;
+    border-right: 4px solid;
 }
 .e-grid .e-frozenheader.e-frozen-right-header > .e-table,
 .e-grid .e-frozencontent.e-frozen-right-content > .e-table,
@@ -28118,7 +28118,7 @@ li.e-separator.e-menu-item.e-excel-separator {
 .e-grid .e-frozencontent > .e-table,
 .e-grid .e-frozencontent .e-virtualtable > .e-table,
 .e-grid .e-frozenheader .e-virtualtable > .e-table {
-    border-right-color: #ffa72b;
+    border-right-color: #b3b6c0;
 }
 .e-grid .e-frozenheader.e-frozenborderdisabled > .e-table,
 .e-grid .e-frozencontent.e-frozenborderdisabled > .e-table,

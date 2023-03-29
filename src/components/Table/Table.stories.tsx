@@ -190,7 +190,7 @@ Basic.args = {
     filterSettings: {
         type: 'Excel'
     },
-    loading: true,
+    loading: false,
     searchSettings: {
         fields: ['taskID', 'name', 'reported', 'available'],
         hierarchyMode: 'Both'

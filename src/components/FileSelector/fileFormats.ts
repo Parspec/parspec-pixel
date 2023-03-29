@@ -4,7 +4,9 @@ const fileFormats = {
     '.jpg': 'image/jpeg',
     '.doc': 'application/msword',
     '.docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-    '.pdf': 'application/pdf'
+    '.pdf': 'application/pdf',
+    '.xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    '.xml': 'pplication/xml'
 };
 
 export const getAcceptedFormats = (formats: string[]) => {

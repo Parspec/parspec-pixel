@@ -29,7 +29,7 @@ export {
     SwapHoriz as SwapHorizIcon,
     ChangeHistory as ChangeHistoryIcon,
     ViewArray as ViewArrayIcon,
-    SyncProblem as SyncIcon,
+    Sync as SyncIcon,
     Link as LinkIcon,
     Download as DownloadIcon,
     Image as ImageIcon,

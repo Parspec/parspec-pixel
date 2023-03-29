@@ -214,6 +214,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         const clearSelection = () => {
             tableRef.current.clearSelection();
             setSelectedForBanner(() => 0);
+            onCheckboxChange!([]);
         };
         return {
             clearSelection,
@@ -224,6 +225,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     const closeBanner = () => {
         setSelectedForBanner(() => 0);
         tableRef.current.clearSelection();
+        onCheckboxChange!([]);
     };
 
     var headerCellInfo = function (args: HeaderCellInfoEventArgs) {

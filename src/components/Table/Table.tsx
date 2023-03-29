@@ -233,19 +233,27 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
             args?.node?.classList?.add('customicon');
         }
     };
+    const disabled = (() => !tableRef?.current || tableRef?.current?.getSelectedRecords()?.length === 0)();
     return (
         <>
+            {console.log(tableRef)}
             {showToolbar && (
                 <Box display={'flex'} justifyContent="space-between" mb={2} sx={loading ? { PointerEvent: 'none' } : {}}>
                     <Box display="flex" alignItems="center" gap={1}>
                         {toolBarOptions?.includes('search') && (
                             <Box width={300}>
-                                <TextField label={'Search...'} variant="standard" size="small" onChange={(t: any) => tableRef.current.search(t.target.value)} />
+                                <TextField
+                                    label=""
+                                    placeholder="Search..."
+                                    variant="standard"
+                                    size="small"
+                                    onChange={(t: React.ChangeEvent<HTMLInputElement>) => tableRef.current.search(t?.target?.value)}
+                                />
                             </Box>
                         )}
                         {toolBarOptions?.includes('duplicate') && (
                             <Tooltip title="Add Duplicate Record(s)">
-                                <IconButton onClick={() => onAddDuplicates!(tableRef.current.getSelectedRecords())} disabled={tableRef?.current?.getSelectedRecords()?.length === 0}>
+                                <IconButton onClick={() => onAddDuplicates!(tableRef.current.getSelectedRecords())} disabled={disabled}>
                                     <ControlPointDuplicateIcon fontSize="medium" />
                                 </IconButton>
                             </Tooltip>
@@ -253,7 +261,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                         {toolBarOptions?.includes('delete') && (
                             <Tooltip title="Delete Record(s)">
                                 <IconButton
-                                    disabled={tableRef?.current?.getSelectedRecords()?.length === 0}
+                                    disabled={disabled}
                                     onClick={() => {
                                         onDelete!(tableRef?.current?.getSelectedRecords());
                                     }}
@@ -264,7 +272,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                         )}
                         {toolBarOptions?.includes('hide') && (
                             <Tooltip title="Hide/Unhide Record(s)">
-                                <IconButton onClick={() => onHideUnhide!(tableRef.current.getSelectedRecords())} disabled={tableRef?.current?.getSelectedRecords()?.length === 0}>
+                                <IconButton onClick={() => onHideUnhide!(tableRef.current.getSelectedRecords())} disabled={disabled}>
                                     <VisibilityOffIcon fontSize="medium" />
                                 </IconButton>
                             </Tooltip>

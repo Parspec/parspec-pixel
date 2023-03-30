@@ -125,13 +125,17 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     useEffect(() => {
         let obj = (document.getElementsByClassName('e-grid')[0] as any)?.ej2_instances?.[0]?.localeObj?.localeStrings;
         if (loading) {
-            obj.EmptyRecord = '';
+            if (obj && obj?.EmptyRecord) {
+                obj.EmptyRecord = '';
+            }
             tableRef?.current?.showSpinner();
             tableRef?.current?.refresh();
         } else {
             tableRef?.current?.hideSpinner();
             if (data.length === 0) {
-                obj.EmptyRecord = 'No records to display';
+                if (obj && obj?.EmptyRecord) {
+                    obj.EmptyRecord = 'No records to display';
+                }
                 tableRef?.current?.refresh();
             }
         }

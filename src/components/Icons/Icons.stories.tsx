@@ -40,7 +40,8 @@ import {
     ContentCopyIcon,
     TuneIcon,
     DeleteIcon,
-    VisibilityOffOutlinedIcon
+    VisibilityOffOutlinedIcon,
+    ClockIcon
 } from './index';
 import { Grid } from '../Grid';
 import { Box } from '../Box';
@@ -112,7 +113,8 @@ AllIcons.args = {
         { icon: TuneIcon, name: 'TuneIcon' },
         { icon: SyncIcon, name: 'SyncIcon' },
         { icon: DeleteIcon, name: 'DeleteIcon' },
-        { icon: VisibilityOffOutlinedIcon, name: 'VisibilityOffOutlinedIcon' }
+        { icon: VisibilityOffOutlinedIcon, name: 'VisibilityOffOutlinedIcon' },
+        { icon: ClockIcon, name: 'ClockIcon' }
     ],
     fontSize: 'medium'
 };

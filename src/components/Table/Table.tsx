@@ -123,7 +123,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     const [selected, setSelectedForBanner] = useState(0);
 
     useEffect(() => {
-        let obj = (document.getElementsByClassName('e-grid')[0] as any).ej2_instances[0].localeObj.localeStrings;
+        let obj = (document.getElementsByClassName('e-grid')[0] as any)?.ej2_instances?.[0]?.localeObj?.localeStrings;
         if (loading) {
             obj.EmptyRecord = '';
             tableRef?.current?.showSpinner();

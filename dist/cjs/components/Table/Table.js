@@ -23,14 +23,18 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
         var _a, _b, _c, _d, _e, _f, _g, _h;
         let obj = (_d = (_c = (_b = (_a = document.getElementsByClassName('e-grid')[0]) === null || _a === void 0 ? void 0 : _a.ej2_instances) === null || _b === void 0 ? void 0 : _b[0]) === null || _c === void 0 ? void 0 : _c.localeObj) === null || _d === void 0 ? void 0 : _d.localeStrings;
         if (loading) {
-            obj.EmptyRecord = '';
+            if (obj && (obj === null || obj === void 0 ? void 0 : obj.EmptyRecord)) {
+                obj.EmptyRecord = '';
+            }
             (_e = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _e === void 0 ? void 0 : _e.showSpinner();
             (_f = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _f === void 0 ? void 0 : _f.refresh();
         }
         else {
             (_g = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _g === void 0 ? void 0 : _g.hideSpinner();
             if (data.length === 0) {
-                obj.EmptyRecord = 'No records to display';
+                if (obj && (obj === null || obj === void 0 ? void 0 : obj.EmptyRecord)) {
+                    obj.EmptyRecord = 'No records to display';
+                }
                 (_h = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _h === void 0 ? void 0 : _h.refresh();
             }
         }

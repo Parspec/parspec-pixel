@@ -242,7 +242,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         <>
             {showToolbar && (
                 <Box display={'flex'} justifyContent="space-between" mb={2} sx={loading ? { PointerEvent: 'none' } : {}}>
-                    <Box display="flex" alignItems="center" gap={1}>
+                    <Box display="flex" alignItems="flex-end" gap={1}>
                         {toolBarOptions?.includes('search') && (
                             <Box width={300}>
                                 <TextField

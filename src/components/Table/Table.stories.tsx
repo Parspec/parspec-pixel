@@ -194,5 +194,6 @@ Basic.args = {
     searchSettings: {
         fields: ['taskID', 'name', 'reported', 'available'],
         hierarchyMode: 'Both'
-    }
+    },
+    toolbarRightSection: <Button>Right Section</Button>
 };

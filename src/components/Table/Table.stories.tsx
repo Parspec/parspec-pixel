@@ -145,6 +145,8 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
 
     return (
         <>
+            <br />
+            <br />
             <Table {...getTableProps({ ...props, onAdd, onCheckboxChange, onDelete, onDragEnd, onEdit, onSearch, onRowSelection, onHideUnhide, onAddDuplicates })} ref={tableRef}>
                 <ColumnDirective type="checkbox" width="50" />
                 <ColumnDirective field="id" isPrimaryKey={true} visible={false} />

@@ -45,5 +45,6 @@ export {
     ContentCopy as ContentCopyIcon,
     Tune as TuneIcon,
     Delete as DeeletIcon,
-    VisibilityOffOutlined as VisibilityOffOutlinedIcon
+    VisibilityOffOutlined as VisibilityOffOutlinedIcon,
+    Info as InfoIcon
 } from '@mui/icons-material';

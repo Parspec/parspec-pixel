@@ -11,8 +11,12 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx } from "react/jsx-runtime";
 import { default as MUIBreadcrumb } from '@mui/material/Breadcrumbs';
-import Link from '@mui/material/Link';
+import MUILink from '@mui/material/Link';
 import { BodyXS } from '../Typography';
+function Link(_a) {
+    var { children, component } = _a, restProps = __rest(_a, ["children", "component"]);
+    return (_jsx(MUILink, Object.assign({ component: component }, restProps, { children: children })));
+}
 export const Breadcrumb = (_a) => {
     var { options, component } = _a, rest = __rest(_a, ["options", "component"]);
     return (_jsx(MUIBreadcrumb, Object.assign({ separator: ">" }, rest, { children: options.map((item, index) => {

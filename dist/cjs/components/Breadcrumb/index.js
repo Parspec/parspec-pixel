@@ -17,7 +17,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Breadcrumb = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const Breadcrumbs_1 = __importDefault(require("@mui/material/Breadcrumbs"));
-const Link_1 = __importDefault(require("./Link"));
+const Link_1 = __importDefault(require("@mui/material/Link"));
 const Typography_1 = require("../Typography");
 const Breadcrumb = (_a) => {
     var { options, component } = _a, rest = __rest(_a, ["options", "component"]);

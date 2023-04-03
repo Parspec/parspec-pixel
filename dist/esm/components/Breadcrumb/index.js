@@ -11,7 +11,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx } from "react/jsx-runtime";
 import { default as MUIBreadcrumb } from '@mui/material/Breadcrumbs';
-import Link from './Link';
+import Link from '@mui/material/Link';
 import { BodyXS } from '../Typography';
 export const Breadcrumb = (_a) => {
     var { options, component } = _a, rest = __rest(_a, ["options", "component"]);

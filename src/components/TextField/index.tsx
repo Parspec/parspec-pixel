@@ -25,7 +25,7 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(({ variant, 
     <>
         <StyledMUITextField fullWidth label={label} ref={ref} size={size} variant={variant} color={color} error={error} helperText={helperText} {...rest} />
         {chips && (
-            <Box marginTop={2} display="flex" flexWrap="wrap">
+            <Box marginTop={2} display="flex" flexWrap="wrap" rowGap={1}>
                 {chips.map((chip, index) => (
                     <Box marginRight={1}>
                         <Chip label={chip} onDelete={() => onChipDelete!(index)} />

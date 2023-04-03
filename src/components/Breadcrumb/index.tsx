@@ -1,5 +1,5 @@
 import { default as MUIBreadcrumb, BreadcrumbsProps as MUIBreadcrumbsProps } from '@mui/material/Breadcrumbs';
-import Link from './Link';
+import Link from '@mui/material/Link';
 import { BodyXS } from '../Typography';
 
 interface OptionTypes {
@@ -9,7 +9,7 @@ interface OptionTypes {
 
 export interface BreadcrumbsProps extends Omit<MUIBreadcrumbsProps, 'classes' | 'sx'> {
     options: OptionTypes[];
-    component?: React.ElementType;
+    component: React.ElementType;
 }
 
 export const Breadcrumb: React.FC<BreadcrumbsProps> = ({ options, component, ...rest }) => {

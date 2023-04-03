@@ -4,7 +4,7 @@ import { Tooltip } from '../Tooltip';
 
 interface TextLimiterProps {
     tooltip: React.ReactNode;
-    text: React.ReactNode;
+    text: string;
 }
 
 export const TextLimiter = (props: TextLimiterProps) => {

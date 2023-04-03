@@ -27,7 +27,7 @@ export const Breadcrumb: React.FC<BreadcrumbsProps> = ({ options, component, isL
         <MUIBreadcrumb separator=">" {...rest}>
             {options.map((item, index) => {
                 if (isLoading) {
-                    return <Skeleton variant="rectangular" width="116px" height="16px" />;
+                    return <Skeleton variant="rectangular" width="116px" height="16px" key={index} />;
                 }
                 if (index === options.length - 1) {
                     return (

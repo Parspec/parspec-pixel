@@ -41,7 +41,9 @@ import {
     TuneIcon,
     DeleteIcon,
     VisibilityOffOutlinedIcon,
-    ClockIcon
+    ClockIcon,
+    LanguageIcon,
+    DatasheetSelectInfoIcon
 } from './index';
 import { Grid } from '../Grid';
 import { Box } from '../Box';
@@ -114,7 +116,9 @@ AllIcons.args = {
         { icon: SyncIcon, name: 'SyncIcon' },
         { icon: DeleteIcon, name: 'DeleteIcon' },
         { icon: VisibilityOffOutlinedIcon, name: 'VisibilityOffOutlinedIcon' },
-        { icon: ClockIcon, name: 'ClockIcon' }
+        { icon: ClockIcon, name: 'ClockIcon' },
+        { icon: LanguageIcon, name: 'LanguageIcon' },
+        { icon: DatasheetSelectInfoIcon, name: 'DatasheetSelectInfoIcon' }
     ],
     fontSize: 'medium'
 };

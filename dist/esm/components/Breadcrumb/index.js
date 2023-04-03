@@ -11,15 +11,19 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx } from "react/jsx-runtime";
 import { default as MUIBreadcrumb } from '@mui/material/Breadcrumbs';
-import Link from '@mui/material/Link';
+import MUILink from '@mui/material/Link';
 import { BodyXS } from '../Typography';
+function Link(_a) {
+    var { children, component } = _a, restProps = __rest(_a, ["children", "component"]);
+    return (_jsx(MUILink, Object.assign({ component: component }, restProps, { children: children })));
+}
 export const Breadcrumb = (_a) => {
-    var { options } = _a, rest = __rest(_a, ["options"]);
+    var { options, component } = _a, rest = __rest(_a, ["options", "component"]);
     return (_jsx(MUIBreadcrumb, Object.assign({ separator: ">" }, rest, { children: options.map((item, index) => {
             if (index === options.length - 1) {
                 return (_jsx(BodyXS, Object.assign({ color: 'secondary' }, { children: item.displaytext }), index));
             }
-            return (_jsx(Link, Object.assign({ fontWeight: "400", fontFamily: "Inter", fontSize: '12px', color: "secondary", underline: 'hover', href: item.href }, { children: item.displaytext }), index));
+            return (_jsx(Link, Object.assign({ fontWeight: "400", fontFamily: "Inter", fontSize: '12px', color: "secondary", underline: 'hover', to: item.href, component: component }, { children: item.displaytext }), index));
         }) })));
 };
 //# sourceMappingURL=index.js.map

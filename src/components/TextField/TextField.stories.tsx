@@ -14,7 +14,8 @@ export const Basic: ComponentStory<typeof TextField> = (args) => {
 };
 
 Basic.args = {
-    label: 'outlined'
+    label: 'outlined',
+    chips: ['one']
 };
 
 export const Multiline: ComponentStory<typeof TextField> = (args) => {

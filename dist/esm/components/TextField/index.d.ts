@@ -6,5 +6,8 @@ export interface TextFieldProps extends Omit<MUITextFieldProps, 'margin' | 'clas
     color?: 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning';
     error?: boolean;
     size?: 'small' | 'medium';
+    chips?: Array<string>;
+    onChipDelete?: (index: number) => void;
+    helperText?: string;
 }
 export declare const TextField: import("react").ForwardRefExoticComponent<Omit<TextFieldProps, "ref"> & import("react").RefAttributes<HTMLDivElement>>;

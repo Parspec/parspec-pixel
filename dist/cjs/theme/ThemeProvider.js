@@ -18,8 +18,8 @@ const theme = (0, styles_1.createTheme)({
     palette: {
         action: {},
         text: {
-            primary: '#091535',
-            secondary: '#091535'
+            primary: '#091535'
+            // secondary: '#091535'
         },
         primary: {
             light: '#ffe4bd',

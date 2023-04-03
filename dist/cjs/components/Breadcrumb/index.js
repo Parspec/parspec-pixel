@@ -28,7 +28,7 @@ const Breadcrumb = (_a) => {
     var { options, component, isLoading = false } = _a, rest = __rest(_a, ["options", "component", "isLoading"]);
     return ((0, jsx_runtime_1.jsx)(Breadcrumbs_1.default, Object.assign({ separator: ">" }, rest, { children: options.map((item, index) => {
             if (isLoading) {
-                return (0, jsx_runtime_1.jsx)(skeleton_1.Skeleton, { variant: "rectangular", width: "116px", height: "16px" });
+                return (0, jsx_runtime_1.jsx)(skeleton_1.Skeleton, { variant: "rectangular", width: "116px", height: "16px" }, index);
             }
             if (index === options.length - 1) {
                 return ((0, jsx_runtime_1.jsx)(Typography_1.BodyXS, Object.assign({ color: 'secondary' }, { children: item.displaytext }), index));

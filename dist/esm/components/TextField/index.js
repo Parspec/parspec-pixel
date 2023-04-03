@@ -22,7 +22,7 @@ const StyledMUITextField = styled(MUITextField)({
 });
 export const TextField = forwardRef((_a, ref) => {
     var { variant, color, error, size, label, chips, onChipDelete, helperText } = _a, rest = __rest(_a, ["variant", "color", "error", "size", "label", "chips", "onChipDelete", "helperText"]);
-    return (_jsxs(_Fragment, { children: [_jsx(StyledMUITextField, Object.assign({ fullWidth: true, label: label, ref: ref, size: size, variant: variant, color: color, error: error, helperText: helperText }, rest)), chips && (_jsx(Box, Object.assign({ marginTop: 2, display: "flex", flexWrap: "wrap" }, { children: chips.map((chip, index) => (_jsx(Box, Object.assign({ marginRight: 1 }, { children: _jsx(Chip, { label: chip, onDelete: () => onChipDelete(index) }) })))) })))] }));
+    return (_jsxs(_Fragment, { children: [_jsx(StyledMUITextField, Object.assign({ fullWidth: true, label: label, ref: ref, size: size, variant: variant, color: color, error: error, helperText: helperText }, rest)), chips && (_jsx(Box, Object.assign({ marginTop: 2, display: "flex", flexWrap: "wrap", rowGap: 1 }, { children: chips.map((chip, index) => (_jsx(Box, Object.assign({ marginRight: 1 }, { children: _jsx(Chip, { label: chip, onDelete: () => onChipDelete(index) }) })))) })))] }));
 });
 TextField.defaultProps = {
     variant: 'outlined',

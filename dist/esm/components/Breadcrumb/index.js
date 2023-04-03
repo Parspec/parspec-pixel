@@ -22,7 +22,7 @@ export const Breadcrumb = (_a) => {
     var { options, component, isLoading = false } = _a, rest = __rest(_a, ["options", "component", "isLoading"]);
     return (_jsx(MUIBreadcrumb, Object.assign({ separator: ">" }, rest, { children: options.map((item, index) => {
             if (isLoading) {
-                return _jsx(Skeleton, { variant: "rectangular", width: "116px", height: "16px" });
+                return _jsx(Skeleton, { variant: "rectangular", width: "116px", height: "16px" }, index);
             }
             if (index === options.length - 1) {
                 return (_jsx(BodyXS, Object.assign({ color: 'secondary' }, { children: item.displaytext }), index));

@@ -2,6 +2,17 @@ import React, { PropsWithChildren } from 'react';
 import { createTheme, ThemeProvider as MUIThemeProvider } from '@mui/material/styles';
 
 const theme = createTheme({
+    components: {
+        MuiTooltip: {
+            styleOverrides: {
+                tooltip: {
+                    fontSize: '14px',
+                    color: '#ffffff',
+                    bgcolor: '#091535'
+                }
+            }
+        }
+    },
     spacing: 4,
     // shape: {
     //     borderRadius: 0

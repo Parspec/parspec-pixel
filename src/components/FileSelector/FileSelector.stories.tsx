@@ -17,5 +17,6 @@ fileSelector.args = {
     placeholder: 'Drag and drop files here, or:',
     error: 'Wrong format',
     maxFiles: 2,
-    onUpload: (data) => console.log('uploaded', data)
+    onUpload: (data) => console.log('uploaded', data),
+    borderColor: 'secondary'
 };

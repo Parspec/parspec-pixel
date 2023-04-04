@@ -28989,3 +28989,7 @@ tr.singleSelect:hover {
 .e-grid .e-gridheader .e-icons:not(.e-icon-hide):not(.e-check):not(.e-stop):not(.e-icon-reorderuparrow):not(.e-icon-reorderdownarrow) {
     color: #091535;
 }
+
+.e-excel-ascending.e-menu-item, .e-excel-descending.e-menu-item{
+    display: none;
+}

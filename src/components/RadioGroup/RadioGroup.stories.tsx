@@ -22,9 +22,9 @@ export const RadioGroupRow: ComponentStory<typeof RadioGroup> = (args) => {
 };
 
 const options = [
-    { value: 'female', label: 'Female', helper: <Box>Hello</Box> },
-    { value: 'male', label: 'Male' },
-    { value: 'other', label: 'Other' }
+    { value: 'female', label: '', helper: <Box>Hello</Box> },
+    { value: 'male', label: '' },
+    { value: 'other', label: '' }
 ];
 
 RadioGroupRow.args = {

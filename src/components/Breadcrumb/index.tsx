@@ -1,7 +1,6 @@
 import { default as MUIBreadcrumb, BreadcrumbsProps as MUIBreadcrumbsProps } from '@mui/material/Breadcrumbs';
 import MUILink, { LinkProps as MUILinkProps } from '@mui/material/Link';
 import { Skeleton } from '../skeleton';
-import { BodyXS } from '../Typography';
 
 interface OptionTypes {
     displaytext: string;
@@ -31,9 +30,9 @@ export const Breadcrumb: React.FC<BreadcrumbsProps> = ({ options, component, isL
                 }
                 if (index === options.length - 1) {
                     return (
-                        <BodyXS color={'secondary'} key={index}>
+                        <Link underline="hover" color="secondary" fontSize={'12px'} key={index} to="/">
                             {item.displaytext}
-                        </BodyXS>
+                        </Link>
                     );
                 }
                 return (

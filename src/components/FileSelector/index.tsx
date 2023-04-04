@@ -16,10 +16,11 @@ interface FileSelectorProps {
     helperText?: string;
     onSelect?: (args: File[]) => void;
     placeholder?: string;
+    borderColor?: 'primary' | 'secondary' | 'tertiary';
 }
 
 export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
-    ({ maxFiles = 1, acceptedFormats = [], onUpload = () => {}, url = '', error = '', helperText = '', onSelect = () => {}, placeholder = '' }, ref) => {
+    ({ maxFiles = 1, acceptedFormats = [], onUpload = () => {}, url = '', error = '', helperText = '', onSelect = () => {}, placeholder = '', borderColor }, ref) => {
         const [files, setFiles] = useState([]);
         const [result, setResults] = useState([]);
 
@@ -73,11 +74,23 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
         });
 
         return (
-            <Box ref={ref}>
+            <Box ref={ref} height={'100%'}>
                 {!files.length ? (
-                    <div {...getRootProps()}>
+                    <Box {...getRootProps()} height={'100%'}>
                         <input {...getInputProps()} />
-                        <Box p={6} width={1} borderRadius={1} display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ cursor: 'pointer' }}>
+                        <Box
+                            p={6}
+                            width={1}
+                            border={'1px solid'}
+                            borderColor={borderColor}
+                            borderRadius={1}
+                            display="flex"
+                            flexDirection="column"
+                            justifyContent="center"
+                            alignItems="center"
+                            sx={{ cursor: 'pointer' }}
+                            height={'100%'}
+                        >
                             <Box width={'100%'} textAlign="center">
                                 <BodySmall>{placeholder}</BodySmall>
                             </Box>
@@ -88,7 +101,7 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                             </Box>
                             <BodySmall>Browse</BodySmall>
                         </Box>
-                    </div>
+                    </Box>
                 ) : (
                     <Box>
                         {files.map((file: { name: string; size: number }, index: number) => (
@@ -110,3 +123,7 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
         );
     }
 );
+
+FileSelector.defaultProps = {
+    borderColor: 'secondary'
+};

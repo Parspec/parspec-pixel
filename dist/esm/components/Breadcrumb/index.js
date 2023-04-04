@@ -13,7 +13,6 @@ import { jsx as _jsx } from "react/jsx-runtime";
 import { default as MUIBreadcrumb } from '@mui/material/Breadcrumbs';
 import MUILink from '@mui/material/Link';
 import { Skeleton } from '../skeleton';
-import { BodyXS } from '../Typography';
 function Link(_a) {
     var { children, component } = _a, restProps = __rest(_a, ["children", "component"]);
     return (_jsx(MUILink, Object.assign({ component: component }, restProps, { children: children })));
@@ -25,7 +24,7 @@ export const Breadcrumb = (_a) => {
                 return _jsx(Skeleton, { variant: "rectangular", width: "116px", height: "16px" }, index);
             }
             if (index === options.length - 1) {
-                return (_jsx(BodyXS, Object.assign({ color: 'secondary' }, { children: item.displaytext }), index));
+                return (_jsx(Link, Object.assign({ underline: "hover", color: "secondary", fontSize: '12px', to: "/" }, { children: item.displaytext }), index));
             }
             return (_jsx(Link, Object.assign({ fontWeight: "400", fontFamily: "Inter", fontSize: '12px', color: "secondary", underline: 'hover', to: item.href, component: component }, { children: item.displaytext }), index));
         }) })));

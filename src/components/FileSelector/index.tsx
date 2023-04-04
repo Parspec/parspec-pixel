@@ -74,9 +74,9 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
         });
 
         return (
-            <Box ref={ref}>
+            <Box ref={ref} height={'100%'}>
                 {!files.length ? (
-                    <div {...getRootProps()}>
+                    <Box {...getRootProps()} height={'100%'}>
                         <input {...getInputProps()} />
                         <Box
                             p={6}
@@ -101,7 +101,7 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                             </Box>
                             <BodySmall>Browse</BodySmall>
                         </Box>
-                    </div>
+                    </Box>
                 ) : (
                     <Box>
                         {files.map((file: { name: string; size: number }, index: number) => (

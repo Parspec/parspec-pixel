@@ -17,11 +17,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Breadcrumb = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const Breadcrumbs_1 = __importDefault(require("@mui/material/Breadcrumbs"));
-const react_router_dom_1 = require("react-router-dom");
 const Link_1 = __importDefault(require("@mui/material/Link"));
 const skeleton_1 = require("../skeleton");
-const Typography_1 = require("../Typography");
-<<<<<<< HEAD
 function Link(_a) {
     var { children, component } = _a, restProps = __rest(_a, ["children", "component"]);
     return ((0, jsx_runtime_1.jsx)(Link_1.default, Object.assign({ component: component }, restProps, { children: children })));
@@ -33,23 +30,10 @@ const Breadcrumb = (_a) => {
                 return (0, jsx_runtime_1.jsx)(skeleton_1.Skeleton, { variant: "rectangular", width: "116px", height: "16px" }, index);
             }
             if (index === options.length - 1) {
-                return ((0, jsx_runtime_1.jsx)(Typography_1.BodyXS, Object.assign({ color: 'secondary' }, { children: item.displaytext }), index));
+                return ((0, jsx_runtime_1.jsx)(Link, Object.assign({ underline: "hover", color: "secondary", fontSize: '12px', to: "/" }, { children: item.displaytext }), index));
             }
             return ((0, jsx_runtime_1.jsx)(Link, Object.assign({ fontWeight: "400", fontFamily: "Inter", fontSize: '12px', color: "secondary", underline: 'hover', to: item.href, component: component }, { children: item.displaytext }), index));
         }) })));
-=======
-function LinkRouter(props) {
-    return (0, jsx_runtime_1.jsx)(Link_1.default, Object.assign({}, props, { component: react_router_dom_1.Link }));
-}
-const Breadcrumb = (_a) => {
-    var { options } = _a, rest = __rest(_a, ["options"]);
-    return ((0, jsx_runtime_1.jsx)(react_router_dom_1.BrowserRouter, { children: (0, jsx_runtime_1.jsx)(Breadcrumbs_1.default, Object.assign({ separator: ">" }, rest, { children: options.map((item, index) => {
-                if (index === options.length - 1) {
-                    return ((0, jsx_runtime_1.jsx)(Typography_1.BodyXS, Object.assign({ color: 'secondary' }, { children: item.displaytext }), index));
-                }
-                return ((0, jsx_runtime_1.jsx)(LinkRouter, Object.assign({ underline: "hover", color: "secondary", fontSize: '12px', to: "/" }, { children: item.displaytext }), index));
-            }) })) }));
->>>>>>> 717338d (added custom radio)
 };
 exports.Breadcrumb = Breadcrumb;
 //# sourceMappingURL=index.js.map

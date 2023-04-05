@@ -11,7 +11,7 @@ exports.ModalFooter = ModalFooter;
 exports.ModalFooter.defaultProps = {
     cancelButtonLabel: 'Cancel',
     continueButtonLabel: 'Submit',
-    continueButtonColor: 'primary',
+    continueButtonColor: 'tertiary',
     onAccept: () => { },
     onReject: () => { },
     isLoading: false,

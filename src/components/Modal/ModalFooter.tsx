@@ -30,7 +30,7 @@ export const ModalFooter: React.FC<ModalFooterProps> = ({ onAccept, onReject, ca
 ModalFooter.defaultProps = {
     cancelButtonLabel: 'Cancel',
     continueButtonLabel: 'Submit',
-    continueButtonColor: 'primary',
+    continueButtonColor: 'tertiary',
     onAccept: () => {},
     onReject: () => {},
     isLoading: false,

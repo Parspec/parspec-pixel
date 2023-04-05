@@ -19,7 +19,7 @@ const theme = createTheme({
             primary: '#091535'
             // secondary: '#091535'
         },
-        primary: {
+        tertiary: {
             light: '#ffe4bd',
             main: '#FFA72B',
             dark: '#e89827',
@@ -31,7 +31,7 @@ const theme = createTheme({
             dark: '#060f26',
             contrastText: '#ffffff'
         },
-        tertiary: {
+        primary: {
             light: '#B8B9F9',
             main: '#6467F2',
             dark: '#4749AC',

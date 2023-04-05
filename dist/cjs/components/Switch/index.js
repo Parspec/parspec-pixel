@@ -25,7 +25,6 @@ exports.Switch = (0, react_1.forwardRef)((_a, ref) => {
 });
 exports.Switch.defaultProps = {
     label: '',
-    color: 'tertiary',
     size: 'small'
 };
 //# sourceMappingURL=index.js.map

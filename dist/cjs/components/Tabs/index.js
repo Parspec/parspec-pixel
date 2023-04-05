@@ -12,7 +12,7 @@ const Tabs = ({ selectedTab, options, onChange }) => {
     const handleChange = (event, newValue) => {
         onChange(newValue);
     };
-    return ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ sx: { borderBottom: 1, borderColor: 'divider' } }, { children: (0, jsx_runtime_1.jsx)(Tabs_1.default, Object.assign({ value: selectedTab, onChange: handleChange }, { children: options.map((item, index) => ((0, jsx_runtime_1.jsx)(material_1.Tab, { label: item.label, value: item.value }, index))) })) })));
+    return ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ sx: { borderBottom: 1, borderColor: 'divider' } }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ color: "tertiary" }, { children: (0, jsx_runtime_1.jsx)(Tabs_1.default, Object.assign({ value: selectedTab, onChange: handleChange }, { children: options.map((item, index) => ((0, jsx_runtime_1.jsx)(material_1.Tab, { label: item.label, value: item.value }, index))) })) })) })));
 };
 exports.Tabs = Tabs;
 //# sourceMappingURL=index.js.map

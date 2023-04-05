@@ -4,7 +4,6 @@ export const Radio = (props) => {
     return _jsx(MUIRadio, Object.assign({}, props));
 };
 Radio.defaultProps = {
-    size: 'small',
-    color: 'tertiary'
+    size: 'small'
 };
 //# sourceMappingURL=index.js.map

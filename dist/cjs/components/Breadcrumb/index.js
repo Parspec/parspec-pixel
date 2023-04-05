@@ -20,9 +20,15 @@ const Breadcrumbs_1 = __importDefault(require("@mui/material/Breadcrumbs"));
 const Link_1 = __importDefault(require("@mui/material/Link"));
 const skeleton_1 = require("../skeleton");
 const Typography_1 = require("../Typography");
+const material_1 = require("@mui/material");
+const StyledLink = (0, material_1.styled)(Link_1.default)(({ theme }) => ({
+    '&:hover': {
+        color: theme.palette.tertiary.main
+    }
+}));
 function Link(_a) {
     var { children, component } = _a, restProps = __rest(_a, ["children", "component"]);
-    return ((0, jsx_runtime_1.jsx)(Link_1.default, Object.assign({ component: component }, restProps, { children: children })));
+    return ((0, jsx_runtime_1.jsx)(StyledLink, Object.assign({ component: component }, restProps, { children: children })));
 }
 const Breadcrumb = (_a) => {
     var { options, component, isLoading = false } = _a, rest = __rest(_a, ["options", "component", "isLoading"]);

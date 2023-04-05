@@ -14,9 +14,15 @@ import { default as MUIBreadcrumb } from '@mui/material/Breadcrumbs';
 import MUILink from '@mui/material/Link';
 import { Skeleton } from '../skeleton';
 import { BodyXS } from '../Typography';
+import { styled } from '@mui/material';
+const StyledLink = styled(MUILink)(({ theme }) => ({
+    '&:hover': {
+        color: theme.palette.tertiary.main
+    }
+}));
 function Link(_a) {
     var { children, component } = _a, restProps = __rest(_a, ["children", "component"]);
-    return (_jsx(MUILink, Object.assign({ component: component }, restProps, { children: children })));
+    return (_jsx(StyledLink, Object.assign({ component: component }, restProps, { children: children })));
 }
 export const Breadcrumb = (_a) => {
     var { options, component, isLoading = false } = _a, rest = __rest(_a, ["options", "component", "isLoading"]);

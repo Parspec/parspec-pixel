@@ -40,8 +40,8 @@ const theme = (0, styles_1.createTheme)({
             contrastText: '#ffffff'
         },
         neutral: {
-            light: '#E9EBF8',
-            main: '#5E667D',
+            light: '#F8FAFC',
+            main: '#F1F5F9',
             dark: '#434859',
             contrastText: '#091535'
         },

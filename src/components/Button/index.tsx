@@ -20,7 +20,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({ disabled, is
 });
 
 Button.defaultProps = {
-    color: 'primary',
+    color: 'tertiary',
     variant: 'contained',
     isLoading: false
 };

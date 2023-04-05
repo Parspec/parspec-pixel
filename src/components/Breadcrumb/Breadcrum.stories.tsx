@@ -11,7 +11,9 @@ export const Basic: ComponentStory<typeof Breadcrumb> = (args) => <Breadcrumb {.
 
 Basic.args = {
     options: [
-        { displaytext: 'Projects', href: '#' },
-        { displaytext: 'Walnut Creek Medical Center', href: '#' }
+        { displaytext: 'link1', href: '#' },
+        { displaytext: 'link2', href: '#' },
+        { displaytext: 'link3', href: '#' },
+        { displaytext: 'link4', href: '#' }
     ]
 };

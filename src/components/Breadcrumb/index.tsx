@@ -2,6 +2,7 @@ import { default as MUIBreadcrumb, BreadcrumbsProps as MUIBreadcrumbsProps } fro
 import MUILink, { LinkProps as MUILinkProps } from '@mui/material/Link';
 import { Skeleton } from '../skeleton';
 import { BodyXS } from '../Typography';
+import { styled } from '@mui/material';
 
 interface OptionTypes {
     displaytext: string;
@@ -14,11 +15,17 @@ export interface BreadcrumbsProps extends Omit<MUIBreadcrumbsProps, 'classes' | 
     isLoading?: boolean;
 }
 
+const StyledLink = styled(MUILink)(({ theme }) => ({
+    '&:hover': {
+        color: theme.palette.tertiary.main
+    }
+}));
+
 function Link<C extends React.ElementType>({ children, component, ...restProps }: MUILinkProps<C, { component?: C }>) {
     return (
-        <MUILink component={component} {...restProps}>
+        <StyledLink component={component} {...restProps}>
             {children}
-        </MUILink>
+        </StyledLink>
     );
 }
 

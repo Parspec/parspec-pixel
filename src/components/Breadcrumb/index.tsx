@@ -17,7 +17,7 @@ export interface BreadcrumbsProps extends Omit<MUIBreadcrumbsProps, 'classes' | 
 
 const StyledLink = styled(MUILink)(({ theme }) => ({
     '&:hover': {
-        color: theme.palette.tertiary.main
+        color: theme.palette.primary.main
     }
 }));
 

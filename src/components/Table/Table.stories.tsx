@@ -17,6 +17,9 @@ export default {
 } as ComponentMeta<typeof Table>;
 
 export const SingleSelect: ComponentStory<typeof Table> = (props) => {
+    const onDragEnd = (data: any) => {
+        console.log('onDragEnd===>\n', data);
+    };
     const tableRef = useRef<any>();
     const [data, setData] = useState(dDataP2);
     const getTableProps = (args: any) => {
@@ -35,7 +38,7 @@ export const SingleSelect: ComponentStory<typeof Table> = (props) => {
 
     return (
         <>
-            <Table {...getTableProps({ ...props, onRowSelection })} data={data} ref={tableRef}>
+            <Table {...getTableProps({ ...props, onRowSelection, onDragEnd })} data={data} ref={tableRef}>
                 <ColumnDirective field="id" isPrimaryKey={true} visible={false} />
                 <ColumnDirective field="taskID" allowEditing={false} headerText="Task ID" width="150" editType="numericedit" />
                 <ColumnDirective field="name" headerText="Task Name" minWidth="200" />

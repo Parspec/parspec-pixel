@@ -24,7 +24,7 @@ exports.Button = (0, react_1.forwardRef)((_a, ref) => {
     return ((0, jsx_runtime_1.jsx)(Button_1.default, Object.assign({ ref: ref }, rest, { color: color, sx: disabled || isLoading ? { opacity: 0.5, pointerEvents: 'none' } : {}, startIcon: isLoading ? (0, jsx_runtime_1.jsx)(CircularProgress_1.CircularProgress, { color: 'inherit', size: "sm" }) : null })));
 });
 exports.Button.defaultProps = {
-    color: 'primary',
+    color: 'tertiary',
     variant: 'contained',
     isLoading: false
 };

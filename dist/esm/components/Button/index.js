@@ -18,7 +18,7 @@ export const Button = forwardRef((_a, ref) => {
     return (_jsx(MUIButton, Object.assign({ ref: ref }, rest, { color: color, sx: disabled || isLoading ? { opacity: 0.5, pointerEvents: 'none' } : {}, startIcon: isLoading ? _jsx(CircularProgress, { color: 'inherit', size: "sm" }) : null })));
 });
 Button.defaultProps = {
-    color: 'primary',
+    color: 'tertiary',
     variant: 'contained',
     isLoading: false
 };

@@ -39,3 +39,8 @@ declare module '@mui/material/LinearProgress' {
         tertiary: true;
     }
 }
+declare module '@mui/material/Tabs' {
+    interface TabsPropsIndicatorColorOverrides {
+        tertiary: true;
+    }
+}

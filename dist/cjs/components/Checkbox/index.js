@@ -24,7 +24,6 @@ const Checkbox = (_a) => {
 };
 exports.Checkbox = Checkbox;
 exports.Checkbox.defaultProps = {
-    size: 'small',
-    color: 'tertiary'
+    size: 'small'
 };
 //# sourceMappingURL=index.js.map

@@ -7,6 +7,7 @@ interface MenuProps {
     options: {
         label: string;
         onClick: () => void;
+        isError?: boolean;
     }[];
     children?: any;
 }
@@ -33,8 +34,9 @@ export const Menu = ({ options, children }: MenuProps) => {
                 </IconButton>
             )}
             <MuiMenu id="basic-menu" anchorEl={anchorEl} open={open} onClose={handleClose}>
-                {options.map(({ label, onClick }) => (
+                {options.map(({ label, onClick, isError }) => (
                     <MenuItem
+                        color={isError ? '#FF0000' : 'inherit'}
                         key={label}
                         onClick={() => {
                             onClick();

@@ -28,4 +28,5 @@ export * from './Radio';
 export * from './skeleton';
 export * from './LinearProgress';
 export * from './Snackbar';
+export * from './Link';
 //# sourceMappingURL=index.js.map

@@ -4,22 +4,25 @@ import { CircularProgress } from '../CircularProgress';
 import { ButtonSizeType } from '../../Shared/interfaces';
 
 export interface ButtonProps extends Omit<MUIButtonProps, 'classes'> {
-    color?: 'primary' | 'secondary' | 'tertiary' | 'error' | 'success';
+    color?: 'primary' | 'secondary' | 'tertiary' | 'error' | 'success' | 'warning';
     isLoading?: boolean;
     size?: ButtonSizeType;
 }
 
-const XS_CLASS = {
-    height: '24px'
+const XS_STYLE = {
+    height: '24px',
+    padding: '4px 8px',
+    fontSize: '10px'
 };
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({ disabled, isLoading, color, size = 'small', ...rest }, ref) => {
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({ disabled, isLoading, color, ...rest }, ref) => {
     return (
         <MUIButton
             ref={ref}
-            {...rest}
             color={color}
-            sx={disabled || isLoading ? { opacity: 0.5, pointerEvents: 'none', ...(size === 'xs' ? XS_CLASS : {}) } : { ...(size === 'xs' ? XS_CLASS : {}) }}
+            sx={disabled || isLoading ? { opacity: 0.5, pointerEvents: 'none', ...(rest?.size === 'xs' && XS_STYLE) } : { ...(rest?.size === 'xs' && XS_STYLE) }}
+            // sx={{ height: '24px' }}
+            {...rest}
             startIcon={isLoading ? <CircularProgress color={'inherit'} size="sm" /> : null}
         />
     );

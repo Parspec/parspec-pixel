@@ -1,5 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { Box } from '@mui/material';
 
 import { Button } from './';
 
@@ -9,11 +10,87 @@ export default {
     argTypes: { onClick: { action: 'onClick' } }
 } as ComponentMeta<typeof Button>;
 
+export const PrimaryTest: ComponentStory<typeof Button> = (args) => (
+    <>
+        <Box m={2}>
+            <Button {...args} variant="contained" children="Completed" color="primary" size="small" />
+        </Box>
+        <Box m={2}>
+            {' '}
+            <Button {...args} variant="contained" children="Completed" color="secondary" size="small" />
+        </Box>
+        <Box m={2}>
+            {' '}
+            <Button {...args} variant="contained" children="Completed" color="tertiary" size="small" />
+        </Box>
+        <Box m={2}>
+            {' '}
+            <Button {...args} variant="contained" children="Completed" color="success" size="small" />
+        </Box>
+        <Box m={2}>
+            {' '}
+            <Button {...args} variant="contained" children="Completed" color="warning" size="small" />
+        </Box>
+        <Box m={2}>
+            {' '}
+            <Button {...args} variant="contained" children="Completed" color="error" size="small" />
+        </Box>
+        <Box m={2}>
+            {' '}
+            <Button {...args} variant="outlined" children="Completed" color="primary" size="small" />
+        </Box>
+        <Box m={2}>
+            {' '}
+            <Button {...args} variant="outlined" children="Completed" color="secondary" size="small" />
+        </Box>
+        <Box m={2}>
+            {' '}
+            <Button {...args} variant="outlined" children="Completed" color="tertiary" size="small" />
+        </Box>
+        <Box m={2}>
+            {' '}
+            <Button {...args} variant="outlined" children="Completed" color="success" size="small" />
+        </Box>
+        <Box m={2}>
+            {' '}
+            <Button {...args} variant="outlined" children="Completed" color="warning" size="small" />
+        </Box>
+        <Box m={2}>
+            {' '}
+            <Button {...args} variant="outlined" children="Completed" color="error" size="small" />
+        </Box>
+        <Box m={2}>
+            {' '}
+            <Button {...args} variant="text" children="Completed" color="primary" size="small" />
+        </Box>
+        <Box m={2}>
+            {' '}
+            <Button {...args} variant="text" children="Completed" color="secondary" size="small" />
+        </Box>
+        <Box m={2}>
+            {' '}
+            <Button {...args} variant="text" children="Completed" color="tertiary" size="small" />
+        </Box>
+        <Box m={2}>
+            {' '}
+            <Button {...args} variant="text" children="Completed" color="success" size="small" />
+        </Box>
+        <Box m={2}>
+            {' '}
+            <Button {...args} variant="text" children="Completed" color="warning" size="small" />
+        </Box>
+        <Box m={2}>
+            {' '}
+            <Button {...args} variant="text" children="Completed" color="error" size="small" />
+        </Box>
+    </>
+);
+
 export const Primary: ComponentStory<typeof Button> = (args) => <Button {...args} />;
 
 Primary.args = {
     variant: 'contained',
-    children: 'Basic',
+    children: 'Completed',
     color: 'primary',
     size: 'small'
 };

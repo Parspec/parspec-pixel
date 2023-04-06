@@ -1,7 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { FileSelector } from './index';
-import { Box } from '@mui/system';
 
 export default {
     title: 'File Selector',

@@ -11,8 +11,14 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx } from "react/jsx-runtime";
 import { Link as MUILink } from '@mui/material';
+import { styled } from '@mui/material';
+const StyledLink = styled(MUILink)(({ theme }) => ({
+    '&:hover': {
+        color: theme.palette.primary.main
+    }
+}));
 export function Link(_a) {
     var { children, component } = _a, restProps = __rest(_a, ["children", "component"]);
-    return (_jsx(MUILink, Object.assign({ component: component }, restProps, { children: children })));
+    return (_jsx(StyledLink, Object.assign({ component: component }, restProps, { children: children })));
 }
 //# sourceMappingURL=index.js.map

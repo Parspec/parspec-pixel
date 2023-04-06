@@ -14,9 +14,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Link = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const material_1 = require("@mui/material");
+const material_2 = require("@mui/material");
+const StyledLink = (0, material_2.styled)(material_1.Link)(({ theme }) => ({
+    '&:hover': {
+        color: theme.palette.primary.main
+    }
+}));
 function Link(_a) {
     var { children, component } = _a, restProps = __rest(_a, ["children", "component"]);
-    return ((0, jsx_runtime_1.jsx)(material_1.Link, Object.assign({ component: component }, restProps, { children: children })));
+    return ((0, jsx_runtime_1.jsx)(StyledLink, Object.assign({ component: component }, restProps, { children: children })));
 }
 exports.Link = Link;
 //# sourceMappingURL=index.js.map

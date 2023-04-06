@@ -36,7 +36,7 @@ export const Menu = ({ options, children }: MenuProps) => {
             <MuiMenu id="basic-menu" anchorEl={anchorEl} open={open} onClose={handleClose}>
                 {options.map(({ label, onClick, isError }) => (
                     <MenuItem
-                        color={isError ? '#FF0000' : 'inherit'}
+                        sx={{ ...(isError ? { color: 'error.main' } : { color: 'inherit' }) }}
                         key={label}
                         onClick={() => {
                             onClick();

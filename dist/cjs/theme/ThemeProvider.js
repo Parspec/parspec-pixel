@@ -42,7 +42,7 @@ const theme = (0, styles_1.createTheme)({
         neutral: {
             light: '#F8FAFC',
             main: '#F1F5F9',
-            dark: '#434859',
+            dark: '#64748B',
             contrastText: '#091535'
         },
         success: {

@@ -1,5 +1,5 @@
 /// <reference types="react" />
-export interface IFileSelectorFileType {
+export interface FileSelectorFileType {
     file: {
         path: string;
         lastModified: number;
@@ -13,11 +13,11 @@ export interface IFileSelectorFileType {
 interface FileSelectorProps {
     maxFiles?: number;
     acceptedFormats?: string[];
-    onUpload?: (args: IFileSelectorFileType[]) => void;
+    onUpload?: (args: FileSelectorFileType[]) => void;
     url?: string;
     error?: string;
     helperText?: string;
-    onSelect?: (args: IFileSelectorFileType[]) => void;
+    onSelect?: (args: FileSelectorFileType[]) => void;
     placeholder?: string;
     borderColor?: 'primary' | 'secondary' | 'tertiary';
 }

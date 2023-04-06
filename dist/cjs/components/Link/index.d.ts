@@ -1,5 +1,5 @@
 /// <reference types="react" />
 import { LinkProps as MUILinkProps } from '@mui/material';
-export declare function Link<C extends React.ElementType>({ children, component, ...restProps }: MUILinkProps<C, {
+export declare function Link<C extends React.ElementType>({ children, component, ...restProps }: Omit<MUILinkProps<C, {
     component?: C;
-}>): JSX.Element;
+}>, 'classes' | 'sx' | 'TypographyClasses'>): JSX.Element;

@@ -13,6 +13,5 @@ export const Switch: React.FC<SwitchProps> = forwardRef(({ label, ...rest }, ref
 
 Switch.defaultProps = {
     label: '',
-    color: 'tertiary',
     size: 'small'
 };

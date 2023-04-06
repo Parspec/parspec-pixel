@@ -23,7 +23,7 @@ export const DefaultModal: ComponentStory<typeof Modal> = ({ open }) => {
     const footer = <ModalFooter onReject={onClose} onAccept={onClose} isLoading helperText={<BodySmall color="error">Invalid username</BodySmall>} />;
     return (
         <>
-            <Button color="primary" variant="contained" onClick={openModalFunction}>
+            <Button variant="contained" onClick={openModalFunction}>
                 Open Modal
             </Button>
             <Modal onClose={onClose} header={header} footer={footer} open={openModal}>
@@ -55,15 +55,13 @@ export const CustomHeaderFooterModal: ComponentStory<typeof Modal> = ({ open }) 
 
     const footer = (
         <Box textAlign={'right'}>
-            <Button variant="contained" color="primary">
-                Ok
-            </Button>
+            <Button variant="contained">Ok</Button>
         </Box>
     );
 
     return (
         <>
-            <Button color="primary" variant="contained" onClick={openModalFunction}>
+            <Button variant="contained" onClick={openModalFunction}>
                 Open Modal
             </Button>
             <Modal onClose={onClose} header={header} footer={footer} open={openModal}>

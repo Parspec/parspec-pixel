@@ -43,7 +43,8 @@ import {
     VisibilityOffOutlinedIcon,
     ClockIcon,
     LanguageIcon,
-    DatasheetSelectInfoIcon
+    DatasheetSelectInfoIcon,
+    InfoIcon
 } from './index';
 import { Grid } from '../Grid';
 import { Box } from '../Box';
@@ -118,7 +119,8 @@ AllIcons.args = {
         { icon: VisibilityOffOutlinedIcon, name: 'VisibilityOffOutlinedIcon' },
         { icon: ClockIcon, name: 'ClockIcon' },
         { icon: LanguageIcon, name: 'LanguageIcon' },
-        { icon: DatasheetSelectInfoIcon, name: 'DatasheetSelectInfoIcon' }
+        { icon: DatasheetSelectInfoIcon, name: 'DatasheetSelectInfoIcon' },
+        { icon: InfoIcon, name: 'InfoIcon' }
     ],
     fontSize: 'medium'
 };

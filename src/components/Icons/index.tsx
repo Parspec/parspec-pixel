@@ -47,5 +47,6 @@ export {
     Tune as TuneIcon,
     Delete as DeeletIcon,
     VisibilityOffOutlined as VisibilityOffOutlinedIcon,
-    Language as LanguageIcon
+    Language as LanguageIcon,
+    Info as InfoIcon
 } from '@mui/icons-material';

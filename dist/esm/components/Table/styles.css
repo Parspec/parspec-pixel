@@ -28011,7 +28011,7 @@ li.e-separator.e-menu-item.e-excel-separator {
     z-index: 5;
 }
 .e-grid .e-gridheader {
-    background-color: #fff;
+    background-color: #f1f5f9;
     border-bottom-color: #e0e0e0;
     border-top-color: #e0e0e0;
     color: rgba(0, 0, 0, 0.54);
@@ -28988,4 +28988,29 @@ tr.singleSelect:hover {
 }
 .e-grid .e-gridheader .e-icons:not(.e-icon-hide):not(.e-check):not(.e-stop):not(.e-icon-reorderuparrow):not(.e-icon-reorderdownarrow) {
     color: #091535;
+}
+
+.e-excel-ascending.e-menu-item,
+.e-excel-descending.e-menu-item {
+    display: none;
+}
+
+.e-grid .e-gridheader {
+    background-color: #f1f5f9;
+}
+
+.e-grid .e-headercell,
+.e-grid .e-detailheadercell {
+    background-color: #f1f5f9;
+}
+
+.e-grid .e-rowdragheader {
+    background-color: #f1f5f9;
+}
+
+.e-pager {
+    background-color: transparent;
+}
+.e-pager .e-pagercontainer {
+    background-color: transparent;
 }

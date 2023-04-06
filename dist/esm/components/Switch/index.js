@@ -19,7 +19,6 @@ export const Switch = forwardRef((_a, ref) => {
 });
 Switch.defaultProps = {
     label: '',
-    color: 'tertiary',
     size: 'small'
 };
 //# sourceMappingURL=index.js.map

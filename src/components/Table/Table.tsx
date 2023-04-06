@@ -123,15 +123,19 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     const [selected, setSelectedForBanner] = useState(0);
 
     useEffect(() => {
-        let obj = (document.getElementsByClassName('e-grid')[0] as any).ej2_instances[0].localeObj.localeStrings;
+        let obj = (document.getElementsByClassName('e-grid')[0] as any)?.ej2_instances?.[0]?.localeObj?.localeStrings;
         if (loading) {
-            obj.EmptyRecord = '';
+            if (obj && obj?.EmptyRecord) {
+                obj.EmptyRecord = '';
+            }
             tableRef?.current?.showSpinner();
             tableRef?.current?.refresh();
         } else {
             tableRef?.current?.hideSpinner();
             if (data.length === 0) {
-                obj.EmptyRecord = 'No records to display';
+                if (obj && obj?.EmptyRecord) {
+                    obj.EmptyRecord = 'No records to display';
+                }
                 tableRef?.current?.refresh();
             }
         }
@@ -185,7 +189,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                 args.cancel = true;
             }
         }
-        onDragEnd!(tableRef.current.getDataModule().treeModule.hierarchyData);
+        setTimeout(() => onDragEnd!(tableRef?.current?.getDataModule()?.treeModule?.dataResults), 300);
     };
 
     const checkboxChange = (args: CheckBoxChangeEventArgs) => {
@@ -238,16 +242,10 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         <>
             {showToolbar && (
                 <Box display={'flex'} justifyContent="space-between" mb={2} sx={loading ? { PointerEvent: 'none' } : {}}>
-                    <Box display="flex" alignItems="center" gap={1}>
+                    <Box display="flex" alignItems="flex-end" gap={1}>
                         {toolBarOptions?.includes('search') && (
                             <Box width={300}>
-                                <TextField
-                                    label=""
-                                    placeholder="Search..."
-                                    variant="standard"
-                                    size="small"
-                                    onChange={(t: React.ChangeEvent<HTMLInputElement>) => tableRef.current.search(t?.target?.value)}
-                                />
+                                <TextField label="" placeholder="Search..." size="small" onChange={(t: React.ChangeEvent<HTMLInputElement>) => tableRef.current.search(t?.target?.value)} />
                             </Box>
                         )}
                         {toolBarOptions?.includes('duplicate') && (

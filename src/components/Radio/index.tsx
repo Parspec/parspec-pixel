@@ -10,6 +10,5 @@ export const Radio: React.FC<RadioProps> = (props) => {
 };
 
 Radio.defaultProps = {
-    size: 'small',
-    color: 'tertiary'
+    size: 'small'
 };

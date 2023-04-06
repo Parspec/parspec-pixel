@@ -11,21 +11,36 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SvgIcon = void 0;
+exports.SvgIcon = exports.getFillColor = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const material_1 = require("@mui/material");
 function getCustomFontsize(fontSize) {
     switch (fontSize) {
+        case 'xs':
+            return '12px';
         case 'xl':
             return '40px';
         case 'xxl':
             return '44px';
     }
 }
+function getFillColor(theme, color) {
+    if (!color)
+        return;
+    switch (color) {
+        case 'neutral.main': {
+            return theme.palette.neutral.main;
+        }
+        case 'primary': {
+            return theme.palette.primary.main;
+        }
+    }
+}
+exports.getFillColor = getFillColor;
 function SvgIcon(_a) {
-    var { children, fontSize } = _a, restProps = __rest(_a, ["children", "fontSize"]);
+    var { children, fontSize, color } = _a, restProps = __rest(_a, ["children", "fontSize", "color"]);
     const customFontSize = getCustomFontsize(fontSize);
-    const fontSizePropVal = fontSize === 'xl' || fontSize === 'xxl' ? undefined : fontSize;
+    const fontSizePropVal = fontSize === 'xl' || fontSize === 'xxl' || fontSize === 'xs' ? undefined : fontSize;
     return ((0, jsx_runtime_1.jsx)(material_1.SvgIcon, Object.assign({}, restProps, { fontSize: fontSizePropVal, sx: { fontSize: customFontSize } }, { children: children })));
 }
 exports.SvgIcon = SvgIcon;

@@ -10,7 +10,7 @@ export interface ButtonProps extends Omit<MUIButtonProps, 'classes'> {
 }
 
 const XS_STYLE = {
-    height: '24px',
+    // height: '24px',
     padding: '4px 8px',
     fontSize: '10px'
 };

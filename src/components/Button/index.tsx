@@ -19,7 +19,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({ disabled, is
         <MUIButton
             ref={ref}
             color={color}
-            sx={disabled || isLoading ? { opacity: 0.5, pointerEvents: 'none', ...(rest?.size === 'xs' && XS_STYLE) } : { ...(rest?.size === 'xs' && XS_STYLE) }}
+            // sx={disabled || isLoading ? { opacity: 0.5, pointerEvents: 'none', ...(rest?.size === 'xs' && XS_STYLE) } : { ...(rest?.size === 'xs' && XS_STYLE) }}
+            disabled={disabled}
+            sx={{ ...(isLoading && { opacity: 0.5, pointerEvents: 'none' }), ...(rest?.size === 'xs' && XS_STYLE) }}
             {...rest}
             startIcon={isLoading ? <CircularProgress color={'inherit'} size={rest?.size === 'xs' ? 'xs' : 'sm'} /> : null}
         />

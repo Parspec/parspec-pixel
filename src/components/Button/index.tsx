@@ -10,9 +10,8 @@ export interface ButtonProps extends Omit<MUIButtonProps, 'classes'> {
 }
 
 const XS_STYLE = {
-    // height: '24px',
-    padding: '4px 8px',
-    fontSize: '10px'
+    px: 2,
+    py: 0.5
 };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({ disabled, isLoading, color, ...rest }, ref) => {
@@ -21,9 +20,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({ disabled, is
             ref={ref}
             color={color}
             sx={disabled || isLoading ? { opacity: 0.5, pointerEvents: 'none', ...(rest?.size === 'xs' && XS_STYLE) } : { ...(rest?.size === 'xs' && XS_STYLE) }}
-            // sx={{ height: '24px' }}
             {...rest}
-            startIcon={isLoading ? <CircularProgress color={'inherit'} size="sm" /> : null}
+            startIcon={isLoading ? <CircularProgress color={'inherit'} size={rest?.size === 'xs' ? 'xs' : 'sm'} /> : null}
         />
     );
 });

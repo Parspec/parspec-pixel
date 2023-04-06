@@ -8,13 +8,15 @@ import { getAcceptedFormats } from './fileFormats';
 import SelectedFile from './SelectedFile';
 
 interface fileType {
-    path: string;
-    lastModified: number;
-    lastModifiedDate: Date;
-    name: string;
-    size: number;
-    type: string;
-    webkitRelativePath: string;
+    file: {
+        path: string;
+        lastModified: number;
+        lastModifiedDate: Date;
+        name: string;
+        size: number;
+        type: string;
+        webkitRelativePath: string;
+    };
 }
 interface FileSelectorProps {
     maxFiles?: number;
@@ -26,7 +28,6 @@ interface FileSelectorProps {
     onSelect?: (args: fileType[]) => void;
     placeholder?: string;
     borderColor?: 'primary' | 'secondary' | 'tertiary';
-    onChange: (e: any) => void;
 }
 
 export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(

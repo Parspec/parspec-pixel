@@ -7,16 +7,26 @@ import { UploadIcon } from '../Icons';
 import { getAcceptedFormats } from './fileFormats';
 import SelectedFile from './SelectedFile';
 
+interface fileType {
+    path: string;
+    lastModified: number;
+    lastModifiedDate: Date;
+    name: string;
+    size: number;
+    type: string;
+    webkitRelativePath: string;
+}
 interface FileSelectorProps {
     maxFiles?: number;
     acceptedFormats?: string[];
-    onUpload?: (args: File[]) => void;
+    onUpload?: (args: fileType[]) => void;
     url?: string;
     error?: string;
     helperText?: string;
-    onSelect?: (args: File[]) => void;
+    onSelect?: (args: fileType[]) => void;
     placeholder?: string;
     borderColor?: 'primary' | 'secondary' | 'tertiary';
+    onChange: (e: any) => void;
 }
 
 export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
@@ -73,11 +83,14 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
             accept: acceptedFormats.length ? getAcceptedFormats(acceptedFormats) : {}
         });
 
+        const fileKardeUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+            console.log(e);
+        };
         return (
             <Box ref={ref} height={'100%'}>
                 {!files.length ? (
                     <Box {...getRootProps()} height={'100%'}>
-                        <input {...getInputProps()} />
+                        <input type="file" {...getInputProps()} onChange={fileKardeUpload} />
                         <Box
                             p={6}
                             width={1}

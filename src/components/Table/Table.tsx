@@ -189,7 +189,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                 args.cancel = true;
             }
         }
-        onDragEnd!(tableRef.current.getDataModule().treeModule.hierarchyData);
+        setTimeout(() => onDragEnd!(tableRef?.current?.getDataModule()?.treeModule?.dataResults), 300);
     };
 
     const checkboxChange = (args: CheckBoxChangeEventArgs) => {
@@ -245,13 +245,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                     <Box display="flex" alignItems="flex-end" gap={1}>
                         {toolBarOptions?.includes('search') && (
                             <Box width={300}>
-                                <TextField
-                                    label=""
-                                    placeholder="Search..."
-                                    variant="standard"
-                                    size="small"
-                                    onChange={(t: React.ChangeEvent<HTMLInputElement>) => tableRef.current.search(t?.target?.value)}
-                                />
+                                <TextField label="" placeholder="Search..." size="small" onChange={(t: React.ChangeEvent<HTMLInputElement>) => tableRef.current.search(t?.target?.value)} />
                             </Box>
                         )}
                         {toolBarOptions?.includes('duplicate') && (

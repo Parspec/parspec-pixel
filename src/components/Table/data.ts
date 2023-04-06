@@ -314,5 +314,43 @@ export const dDataP2 = [
     is_hidden: false,
 
   },
+  {
+    id: 2,
+    taskID: 2,
+    name: 'section1',
+    type: 'section',
+    reporter: '',
+    available: '',
+    is_hidden: false,
+  },
+  {
+    id: 3,
+    taskID: 3,
+    name: 'section2',
+    type: 'section',
+    reporter: '',
+    available: '',
+    is_hidden: false,
+
+  },
+  {
+    id: 4,
+    taskID: 4,
+    name: 'section3',
+    type: 'section',
+    reporter: '',
+    available: '', is_hidden: false,
+
+  },
+  {
+    id: 5,
+    taskID: 5,
+    name: 'section4',
+    type: 'section',
+    reporter: '',
+    available: '',
+    is_hidden: false,
+
+  },
 ]
 

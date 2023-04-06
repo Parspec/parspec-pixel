@@ -1,24 +1,25 @@
 /// <reference types="react" />
-interface fileType {
-    path: string;
-    lastModified: number;
-    lastModifiedDate: Date;
-    name: string;
-    size: number;
-    type: string;
-    webkitRelativePath: string;
+export interface IFileSelectorFileType {
+    file: {
+        path: string;
+        lastModified: number;
+        lastModifiedDate: Date;
+        name: string;
+        size: number;
+        type: string;
+        webkitRelativePath: string;
+    };
 }
 interface FileSelectorProps {
     maxFiles?: number;
     acceptedFormats?: string[];
-    onUpload?: (args: fileType[]) => void;
+    onUpload?: (args: IFileSelectorFileType[]) => void;
     url?: string;
     error?: string;
     helperText?: string;
-    onSelect?: (args: fileType[]) => void;
+    onSelect?: (args: IFileSelectorFileType[]) => void;
     placeholder?: string;
     borderColor?: 'primary' | 'secondary' | 'tertiary';
-    onChange: (e: any) => void;
 }
 export declare const FileSelector: import("react").ForwardRefExoticComponent<FileSelectorProps & import("react").RefAttributes<HTMLDivElement>>;
 export {};

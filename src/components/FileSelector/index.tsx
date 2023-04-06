@@ -7,7 +7,7 @@ import { UploadIcon } from '../Icons';
 import { getAcceptedFormats } from './fileFormats';
 import SelectedFile from './SelectedFile';
 
-interface fileType {
+export interface FileSelectorFileType {
     file: {
         path: string;
         lastModified: number;
@@ -21,11 +21,11 @@ interface fileType {
 interface FileSelectorProps {
     maxFiles?: number;
     acceptedFormats?: string[];
-    onUpload?: (args: fileType[]) => void;
+    onUpload?: (args: FileSelectorFileType[]) => void;
     url?: string;
     error?: string;
     helperText?: string;
-    onSelect?: (args: fileType[]) => void;
+    onSelect?: (args: FileSelectorFileType[]) => void;
     placeholder?: string;
     borderColor?: 'primary' | 'secondary' | 'tertiary';
 }

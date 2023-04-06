@@ -83,14 +83,11 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
             accept: acceptedFormats.length ? getAcceptedFormats(acceptedFormats) : {}
         });
 
-        const fileKardeUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-            console.log(e);
-        };
         return (
             <Box ref={ref} height={'100%'}>
                 {!files.length ? (
                     <Box {...getRootProps()} height={'100%'}>
-                        <input type="file" {...getInputProps()} onChange={fileKardeUpload} />
+                        <input type="file" {...getInputProps()} />
                         <Box
                             p={6}
                             width={1}

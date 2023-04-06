@@ -13,16 +13,30 @@ import { jsx as _jsx } from "react/jsx-runtime";
 import { SvgIcon as MUISvgIcon } from '@mui/material';
 function getCustomFontsize(fontSize) {
     switch (fontSize) {
+        case 'xs':
+            return '12px';
         case 'xl':
             return '40px';
         case 'xxl':
             return '44px';
     }
 }
+export function getFillColor(theme, color) {
+    if (!color)
+        return;
+    switch (color) {
+        case 'neutral.main': {
+            return theme.palette.neutral.main;
+        }
+        case 'primary': {
+            return theme.palette.primary.main;
+        }
+    }
+}
 export function SvgIcon(_a) {
-    var { children, fontSize } = _a, restProps = __rest(_a, ["children", "fontSize"]);
+    var { children, fontSize, color } = _a, restProps = __rest(_a, ["children", "fontSize", "color"]);
     const customFontSize = getCustomFontsize(fontSize);
-    const fontSizePropVal = fontSize === 'xl' || fontSize === 'xxl' ? undefined : fontSize;
+    const fontSizePropVal = fontSize === 'xl' || fontSize === 'xxl' || fontSize === 'xs' ? undefined : fontSize;
     return (_jsx(MUISvgIcon, Object.assign({}, restProps, { fontSize: fontSizePropVal, sx: { fontSize: customFontSize } }, { children: children })));
 }
 //# sourceMappingURL=SvgIcon.js.map

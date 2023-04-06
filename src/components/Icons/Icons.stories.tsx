@@ -42,6 +42,8 @@ import {
     DeleteIcon,
     VisibilityOffOutlinedIcon,
     ClockIcon,
+    LanguageIcon,
+    DatasheetSelectInfoIcon,
     InfoIcon
 } from './index';
 import { Grid } from '../Grid';
@@ -116,6 +118,8 @@ AllIcons.args = {
         { icon: DeleteIcon, name: 'DeleteIcon' },
         { icon: VisibilityOffOutlinedIcon, name: 'VisibilityOffOutlinedIcon' },
         { icon: ClockIcon, name: 'ClockIcon' },
+        { icon: LanguageIcon, name: 'LanguageIcon' },
+        { icon: DatasheetSelectInfoIcon, name: 'DatasheetSelectInfoIcon' },
         { icon: InfoIcon, name: 'InfoIcon' }
     ],
     fontSize: 'medium'

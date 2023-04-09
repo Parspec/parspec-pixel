@@ -7,14 +7,25 @@ import { UploadIcon } from '../Icons';
 import { getAcceptedFormats } from './fileFormats';
 import SelectedFile from './SelectedFile';
 
+export interface FileSelectorFileType {
+    file: {
+        path: string;
+        lastModified: number;
+        lastModifiedDate: Date;
+        name: string;
+        size: number;
+        type: string;
+        webkitRelativePath: string;
+    };
+}
 interface FileSelectorProps {
     maxFiles?: number;
     acceptedFormats?: string[];
-    onUpload?: (args: File[]) => void;
+    onUpload?: (args: FileSelectorFileType[]) => void;
     url?: string;
     error?: string;
     helperText?: string;
-    onSelect?: (args: File[]) => void;
+    onSelect?: (args: FileSelectorFileType[]) => void;
     placeholder?: string;
     borderColor?: 'primary' | 'secondary' | 'tertiary';
 }
@@ -77,7 +88,7 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
             <Box ref={ref} height={'100%'}>
                 {!files.length ? (
                     <Box {...getRootProps()} height={'100%'}>
-                        <input {...getInputProps()} />
+                        <input type="file" {...getInputProps()} />
                         <Box
                             p={6}
                             width={1}

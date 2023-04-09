@@ -2,14 +2,13 @@ import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { Accordion } from './';
 import { BodyBig, BodyMedium } from '../Typography';
-import { SolarPower } from '@mui/icons-material';
 
 export default {
     title: 'Accordion',
     component: Accordion
 } as ComponentMeta<typeof Accordion>;
 
-export const Basic: ComponentStory<typeof Accordion> = (args) => <Accordion {...args} />;
+export const Basic: ComponentStory<typeof Accordion> = (args) => <Accordion expanded {...args} />;
 
 Basic.args = {
     options: [

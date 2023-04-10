@@ -11,6 +11,15 @@ const theme = createTheme({
                     backgroundColor: '#091535'
                 }
             }
+        },
+        MuiButton: {
+            styleOverrides: {
+                root: ({ ownerState }) => ({
+                    ...(ownerState.size === 'xs' && {
+                        padding: '2px 8px'
+                    })
+                })
+            }
         }
     },
     spacing: 4,
@@ -68,18 +77,6 @@ const theme = createTheme({
         // }
         error: {
             main: '#F43F5E'
-        }
-    },
-
-    components: {
-        MuiButton: {
-            styleOverrides: {
-                root: ({ ownerState }) => ({
-                    ...(ownerState.size === 'xs' && {
-                        padding: '2px 8px'
-                    })
-                })
-            }
         }
     }
 });

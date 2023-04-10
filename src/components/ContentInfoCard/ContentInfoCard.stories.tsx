@@ -2,15 +2,15 @@ import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { BodySmall } from '../Typography';
 
-import { ContentInfoCard } from './index';
+import { Info } from './index';
 
 export default {
-    title: 'ContentInfoCard',
-    component: ContentInfoCard
-} as ComponentMeta<typeof ContentInfoCard>;
+    title: 'Info',
+    component: Info
+} as ComponentMeta<typeof Info>;
 
-export const Basic: ComponentStory<typeof ContentInfoCard> = (args) => (
-    <ContentInfoCard>
+export const Basic: ComponentStory<typeof Info> = (args) => (
+    <Info>
         <BodySmall>Information</BodySmall>
-    </ContentInfoCard>
+    </Info>
 );

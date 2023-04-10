@@ -8,7 +8,7 @@ const theme = createTheme({
                 tooltip: {
                     fontSize: '14px',
                     color: '#ffffff',
-                    bgcolor: '#091535'
+                    backgroundColor: '#091535'
                 }
             }
         }

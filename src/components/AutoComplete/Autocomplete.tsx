@@ -2,7 +2,6 @@ import { forwardRef } from 'react';
 
 import { TextField } from '../TextField';
 import { default as MUIAutocomplete } from '@mui/material/Autocomplete';
-import { BodyXS } from '../Typography';
 
 export type OptionType = {
     [index: string]: string | number;
@@ -17,16 +16,17 @@ export interface AutocompleteProps {
     variant?: 'outlined' | 'filled' | 'standard';
     onChange: (event: React.SyntheticEvent) => void;
     freeSolo?: boolean;
-    size?: 'small' | 'medium';
+    fieldSize?: 'small' | 'medium';
     multiple?: boolean;
     value?: string | OptionType | (string | OptionType)[] | null;
     defaultValue?: string | OptionType | (string | OptionType)[] | null;
     onBlur?: (event: React.SyntheticEvent) => void;
     helperText?: string;
+    isError?: boolean;
 }
 
 export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivElement, AutocompleteProps>(
-    ({ id, label, color, variant, onChange, optionlabelkeyname, freeSolo, size, onBlur, helperText, ...props }, ref) => {
+    ({ id, label, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur, helperText, isError, ...props }, ref) => {
         const handleOnChange = (event: any, newValue: string | OptionType | (string | OptionType)[] | null) => {
             onChange({ ...event, target: { ...event.target, value: newValue } });
         };
@@ -35,12 +35,10 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
             if (onBlur) {
                 onBlur(event.target.value);
             }
-            console.log(event);
         };
         return (
             <>
                 <MUIAutocomplete
-                    size={size}
                     fullWidth
                     {...props}
                     ref={ref}
@@ -55,13 +53,8 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
                         return option;
                     }}
                     freeSolo={freeSolo}
-                    renderInput={(params) => <TextField {...params} variant={variant} color={color} label={label} />}
+                    renderInput={({ size, ...params }) => <TextField size={fieldSize} helperText={helperText} error={isError} {...params} variant={variant} color={color} label={label} />}
                 />
-                {helperText && (
-                    <BodyXS color="error" mt={1}>
-                        {helperText}
-                    </BodyXS>
-                )}
             </>
         );
     }
@@ -71,7 +64,8 @@ Autocomplete.defaultProps = {
     color: 'primary',
     variant: 'outlined',
     freeSolo: false,
-    size: 'small',
+    fieldSize: 'small',
     multiple: false,
-    helperText: ''
+    helperText: '',
+    isError: false
 };

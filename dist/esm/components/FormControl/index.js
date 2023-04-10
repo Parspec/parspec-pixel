@@ -10,13 +10,9 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 import { jsx as _jsx } from "react/jsx-runtime";
-import { default as MUICheckbox } from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
-export const Checkbox = (_a) => {
-    var { label } = _a, rest = __rest(_a, ["label"]);
-    return _jsx(FormControlLabel, { control: _jsx(MUICheckbox, Object.assign({}, rest)), label: label });
-};
-Checkbox.defaultProps = {
-    size: 'small'
+import { default as MUIFormControl } from '@mui/material/FormControl';
+export const FormControl = (_a) => {
+    var { children } = _a, props = __rest(_a, ["children"]);
+    return _jsx(MUIFormControl, Object.assign({}, props, { children: children }));
 };
 //# sourceMappingURL=index.js.map

@@ -13,6 +13,9 @@ declare module '@mui/material/Button' {
     interface ButtonPropsColorOverrides {
         tertiary: true;
     }
+    interface ButtonPropsSizeOverrides {
+        xs: true;
+    }
 }
 declare module '@mui/material/Radio' {
     interface RadioPropsColorOverrides {

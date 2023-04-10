@@ -26,7 +26,7 @@ Basic.args = {
     id: 'autocomplete-demo',
     label: 'Movies',
     optionlabelkeyname: 'title',
-    size: 'small',
+    fieldSize: 'small',
     defaultValue: 'I am default'
 };
 

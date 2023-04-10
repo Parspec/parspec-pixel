@@ -29,4 +29,5 @@ export * from './skeleton';
 export * from './LinearProgress';
 export * from './Snackbar';
 export * from './Link';
+export * from './FormControl';
 //# sourceMappingURL=index.js.map

@@ -17,7 +17,7 @@ export default {
 } as ComponentMeta<typeof Table>;
 
 export const SingleSelect: ComponentStory<typeof Table> = (props) => {
-    const onDragEnd = (data: any) => {
+    const onDragEnd = (data: Object) => {
         console.log('onDragEnd===>\n', data);
     };
     const tableRef = useRef<any>();
@@ -115,7 +115,7 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
     const onCheckboxChange = (data: Object[]) => {
         console.log('onCheckboxChange===>\n', data);
     };
-    const onDragEnd = (data: Object[]) => {
+    const onDragEnd = (data: Object) => {
         console.log('onDragEnd===>\n', data);
     };
     const onAdd = (data: Object) => {
@@ -148,8 +148,6 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
 
     return (
         <>
-            <br />
-            <br />
             <Table {...getTableProps({ ...props, onAdd, onCheckboxChange, onDelete, onDragEnd, onEdit, onSearch, onRowSelection, onHideUnhide, onAddDuplicates })} ref={tableRef}>
                 <ColumnDirective type="checkbox" width="50" />
                 <ColumnDirective field="id" isPrimaryKey={true} visible={false} />
@@ -200,5 +198,9 @@ Basic.args = {
         fields: ['taskID', 'name', 'reported', 'available'],
         hierarchyMode: 'Both'
     },
-    toolbarRightSection: <Button>Right Section</Button>
+    toolbarRightSection: (
+        <Box display={'flex'} alignItems={'center'}>
+            <Button>Right Section</Button>
+        </Box>
+    )
 };

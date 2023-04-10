@@ -21,11 +21,12 @@ const Button_1 = __importDefault(require("@mui/material/Button"));
 const CircularProgress_1 = require("../CircularProgress");
 exports.Button = (0, react_1.forwardRef)((_a, ref) => {
     var { disabled, isLoading, color } = _a, rest = __rest(_a, ["disabled", "isLoading", "color"]);
-    return ((0, jsx_runtime_1.jsx)(Button_1.default, Object.assign({ ref: ref }, rest, { color: color, sx: disabled || isLoading ? { opacity: 0.5, pointerEvents: 'none' } : {}, startIcon: isLoading ? (0, jsx_runtime_1.jsx)(CircularProgress_1.CircularProgress, { color: 'inherit', size: "sm" }) : rest.startIcon || null })));
+    return ((0, jsx_runtime_1.jsx)(Button_1.default, Object.assign({ ref: ref }, rest, { color: color, sx: disabled || isLoading ? { opacity: 0.5, pointerEvents: 'none' } : {}, startIcon: isLoading ? (0, jsx_runtime_1.jsx)(CircularProgress_1.CircularProgress, { color: 'inherit', size: "xs" }) : rest.startIcon || null })));
 });
 exports.Button.defaultProps = {
     color: 'tertiary',
     variant: 'contained',
-    isLoading: false
+    isLoading: false,
+    size: 'small'
 };
 //# sourceMappingURL=index.js.map

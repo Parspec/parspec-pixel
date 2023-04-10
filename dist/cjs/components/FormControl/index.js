@@ -10,19 +10,16 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Link = void 0;
+exports.FormControl = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
-const material_1 = require("@mui/material");
-const material_2 = require("@mui/material");
-const StyledLink = (0, material_2.styled)(material_1.Link)(({ theme }) => ({
-    '&:hover': {
-        color: theme.palette.primary.main
-    }
-}));
-function Link(_a) {
-    var { children, component } = _a, restProps = __rest(_a, ["children", "component"]);
-    return ((0, jsx_runtime_1.jsx)(StyledLink, Object.assign({ component: component }, restProps, { children: children })));
-}
-exports.Link = Link;
+const FormControl_1 = __importDefault(require("@mui/material/FormControl"));
+const FormControl = (_a) => {
+    var { children } = _a, props = __rest(_a, ["children"]);
+    return (0, jsx_runtime_1.jsx)(FormControl_1.default, Object.assign({}, props, { children: children }));
+};
+exports.FormControl = FormControl;
 //# sourceMappingURL=index.js.map

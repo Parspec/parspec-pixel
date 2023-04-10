@@ -5,6 +5,7 @@ import { CircularProgress } from '../CircularProgress';
 export interface ButtonProps extends Omit<MUIButtonProps, 'classes'> {
     color?: 'primary' | 'secondary' | 'tertiary' | 'error' | 'success';
     isLoading?: boolean;
+    size?: 'xs' | 'small' | 'medium' | 'large';
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({ disabled, isLoading, color, ...rest }, ref) => {
@@ -14,7 +15,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({ disabled, is
             {...rest}
             color={color}
             sx={disabled || isLoading ? { opacity: 0.5, pointerEvents: 'none' } : {}}
-            startIcon={isLoading ? <CircularProgress color={'inherit'} size="sm" /> : rest.startIcon || null}
+            startIcon={isLoading ? <CircularProgress color={'inherit'} size="xs" /> : rest.startIcon || null}
         />
     );
 });
@@ -22,5 +23,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({ disabled, is
 Button.defaultProps = {
     color: 'tertiary',
     variant: 'contained',
-    isLoading: false
+    isLoading: false,
+    size: 'small'
 };

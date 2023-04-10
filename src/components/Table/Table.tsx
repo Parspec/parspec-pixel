@@ -74,7 +74,7 @@ export interface TableProps {
     onHideUnhide?: (data: Object[]) => void;
     onCheckboxChange?: (data: Object[]) => void;
     onAddDuplicates?: (data: Object[]) => void;
-    onDragEnd?: (data: Object[]) => void;
+    onDragEnd?: (data: Object) => void;
     onAdd?: (data: Object) => void;
     onEdit?: (data: Object) => void;
     onDelete?: (data: Object) => void;
@@ -149,6 +149,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         }
     };
     const rowDrop = (args: any) => {
+        let notAllowed = false;
         const droppedData = tableRef?.current?.getRowInfo(args.target.parentElement).rowData; //dropped data
         let droppedId, draggedId;
         //here collect the taskid value based on parent records
@@ -165,10 +166,12 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         //Here we prevent for top / bottom position
         if (droppedId != draggedId && args.data[0].level != droppedData.level) {
             args.cancel = true;
+            notAllowed = true;
         } else if (args.dropPosition == 'topSegment' || args.dropPosition == 'bottomSegment') {
             //here prevent the drop for within child parent
             if (args.data[0].level != droppedData.level) {
                 args.cancel = true;
+                notAllowed = true;
             } else if (args.data[0].level != 0 && droppedData.level != 0) {
                 if (
                     args.data[0].level == droppedData.level &&
@@ -176,6 +179,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                     droppedId != draggedId
                 ) {
                     args.cancel = true; //here we prevent drop the record in top of another parent's child
+                    notAllowed = true;
                 }
             }
         }
@@ -184,12 +188,17 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
             if (!isNullOrUndefined(draggedId) && !isNullOrUndefined(droppedId)) {
                 if (droppedId == draggedId || args.data[0].level == droppedData.level) {
                     args.cancel = true;
+                    notAllowed = true;
                 }
             } else if (args.data[0].level == droppedData.level || (args.data[0].level != droppedData.level && isNullOrUndefined(draggedId) && isNullOrUndefined(droppedId))) {
                 args.cancel = true;
+                notAllowed = true;
             }
         }
-        setTimeout(() => onDragEnd!(tableRef?.current?.getDataModule()?.treeModule?.dataResults), 300);
+        // setTimeout(() => onDragEnd!(tableRef?.current?.getDataModule()?.treeModule?.dataResults), 300);
+        if (!notAllowed) {
+            onDragEnd!({ fromIndex: args.fromIndex, data: args.data[0] });
+        }
     };
 
     const checkboxChange = (args: CheckBoxChangeEventArgs) => {
@@ -241,8 +250,8 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     return (
         <>
             {showToolbar && (
-                <Box display={'flex'} justifyContent="space-between" mb={2} sx={loading ? { PointerEvent: 'none' } : {}}>
-                    <Box display="flex" alignItems="flex-end" gap={1}>
+                <Box display={'flex'} justifyContent="space-between" alignItems={'flex-end'} mb={2} sx={loading ? { PointerEvent: 'none' } : {}}>
+                    <Box display="flex" alignItems="center" gap={1}>
                         {toolBarOptions?.includes('search') && (
                             <Box width={300}>
                                 <TextField label="" placeholder="Search..." size="small" onChange={(t: React.ChangeEvent<HTMLInputElement>) => tableRef.current.search(t?.target?.value)} />
@@ -372,7 +381,7 @@ Table.defaultProps = {
     onAddDuplicates: (data: Object[]) => {},
     onHideUnhide: (data: Object[]) => {},
     onCheckboxChange: (data: Object[]) => {},
-    onDragEnd: (data: Object[]) => {},
+    onDragEnd: (data: Object) => {},
     onAdd: (data: Object) => {},
     onEdit: (data: Object) => {},
     onDelete: (data: Object) => {},

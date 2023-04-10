@@ -27,7 +27,7 @@ export interface TableProps {
     onHideUnhide?: (data: Object[]) => void;
     onCheckboxChange?: (data: Object[]) => void;
     onAddDuplicates?: (data: Object[]) => void;
-    onDragEnd?: (data: Object[]) => void;
+    onDragEnd?: (data: Object) => void;
     onAdd?: (data: Object) => void;
     onEdit?: (data: Object) => void;
     onDelete?: (data: Object) => void;

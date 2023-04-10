@@ -15,11 +15,12 @@ import { default as MUIButton } from '@mui/material/Button';
 import { CircularProgress } from '../CircularProgress';
 export const Button = forwardRef((_a, ref) => {
     var { disabled, isLoading, color } = _a, rest = __rest(_a, ["disabled", "isLoading", "color"]);
-    return (_jsx(MUIButton, Object.assign({ ref: ref }, rest, { color: color, sx: disabled || isLoading ? { opacity: 0.5, pointerEvents: 'none' } : {}, startIcon: isLoading ? _jsx(CircularProgress, { color: 'inherit', size: "sm" }) : rest.startIcon || null })));
+    return (_jsx(MUIButton, Object.assign({ ref: ref }, rest, { color: color, sx: disabled || isLoading ? { opacity: 0.5, pointerEvents: 'none' } : {}, startIcon: isLoading ? _jsx(CircularProgress, { color: 'inherit', size: "xs" }) : rest.startIcon || null })));
 });
 Button.defaultProps = {
     color: 'tertiary',
     variant: 'contained',
-    isLoading: false
+    isLoading: false,
+    size: 'small'
 };
 //# sourceMappingURL=index.js.map

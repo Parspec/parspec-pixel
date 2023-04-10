@@ -1,5 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { Box } from '@mui/material';
 
 import { Button } from './';
 
@@ -13,7 +14,7 @@ export const Primary: ComponentStory<typeof Button> = (args) => <Button {...args
 
 Primary.args = {
     variant: 'contained',
-    children: 'Basic',
+    children: 'Completed',
     color: 'primary',
     size: 'small'
 };

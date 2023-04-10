@@ -7,7 +7,7 @@ import { BodySmall } from '../Typography';
 import { UploadIcon } from '../Icons';
 import { getAcceptedFormats } from './fileFormats';
 import SelectedFile from './SelectedFile';
-export const FileSelector = forwardRef(({ maxFiles = 1, acceptedFormats = [], onUpload = () => { }, url = '', error = '', helperText = '', onSelect = () => { }, placeholder = '' }, ref) => {
+export const FileSelector = forwardRef(({ maxFiles = 1, acceptedFormats = [], onUpload = () => { }, url = '', error = '', helperText = '', onSelect = () => { }, placeholder = '', borderColor }, ref) => {
     const [files, setFiles] = useState([]);
     const [result, setResults] = useState([]);
     //To give the information of selected files to the main component.
@@ -53,6 +53,9 @@ export const FileSelector = forwardRef(({ maxFiles = 1, acceptedFormats = [], on
         maxFiles,
         accept: acceptedFormats.length ? getAcceptedFormats(acceptedFormats) : {}
     });
-    return (_jsxs(Box, Object.assign({ ref: ref }, { children: [!files.length ? (_jsxs("div", Object.assign({}, getRootProps(), { children: [_jsx("input", Object.assign({}, getInputProps())), _jsxs(Box, Object.assign({ p: 6, width: 1, borderRadius: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", sx: { cursor: 'pointer' } }, { children: [_jsx(Box, Object.assign({ width: '100%', textAlign: "center" }, { children: _jsx(BodySmall, { children: placeholder }) })), _jsx(Box, Object.assign({ mt: 6, mb: 3 }, { children: _jsx(Avatar, { children: _jsx(UploadIcon, {}) }) })), _jsx(BodySmall, { children: "Browse" })] }))] }))) : (_jsx(Box, { children: files.map((file, index) => (_jsx(SelectedFile, { file: file, onDelete: onDelete, url: url, index: index, handleResults: handleResults }, file.name))) })), error && (_jsx(Box, Object.assign({ mt: 1 }, { children: _jsx(BodySmall, Object.assign({ color: "error" }, { children: error })) }))), helperText && (_jsx(Box, Object.assign({ mt: 2 }, { children: _jsx(BodySmall, Object.assign({ color: "secondary" }, { children: helperText })) })))] })));
+    return (_jsxs(Box, Object.assign({ ref: ref, height: '100%' }, { children: [!files.length ? (_jsxs(Box, Object.assign({}, getRootProps(), { height: '100%' }, { children: [_jsx("input", Object.assign({ type: "file" }, getInputProps())), _jsxs(Box, Object.assign({ p: 6, width: 1, border: '1px solid', borderColor: borderColor, borderRadius: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", sx: { cursor: 'pointer' }, height: '100%' }, { children: [_jsx(Box, Object.assign({ width: '100%', textAlign: "center" }, { children: _jsx(BodySmall, { children: placeholder }) })), _jsx(Box, Object.assign({ mt: 6, mb: 3 }, { children: _jsx(Avatar, { children: _jsx(UploadIcon, {}) }) })), _jsx(BodySmall, { children: "Browse" })] }))] }))) : (_jsx(Box, { children: files.map((file, index) => (_jsx(SelectedFile, { file: file, onDelete: onDelete, url: url, index: index, handleResults: handleResults }, file.name))) })), error && (_jsx(Box, Object.assign({ mt: 1 }, { children: _jsx(BodySmall, Object.assign({ color: "error" }, { children: error })) }))), helperText && (_jsx(Box, Object.assign({ mt: 2 }, { children: _jsx(BodySmall, Object.assign({ color: "secondary" }, { children: helperText })) })))] })));
 });
+FileSelector.defaultProps = {
+    borderColor: 'secondary'
+};
 //# sourceMappingURL=index.js.map

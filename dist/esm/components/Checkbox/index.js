@@ -17,7 +17,6 @@ export const Checkbox = (_a) => {
     return _jsx(FormControlLabel, { control: _jsx(MUICheckbox, Object.assign({}, rest)), label: label });
 };
 Checkbox.defaultProps = {
-    size: 'small',
-    color: 'tertiary'
+    size: 'small'
 };
 //# sourceMappingURL=index.js.map

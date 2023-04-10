@@ -21,7 +21,7 @@ const theme = (0, styles_1.createTheme)({
             primary: '#091535'
             // secondary: '#091535'
         },
-        primary: {
+        tertiary: {
             light: '#ffe4bd',
             main: '#FFA72B',
             dark: '#e89827',
@@ -33,16 +33,16 @@ const theme = (0, styles_1.createTheme)({
             dark: '#060f26',
             contrastText: '#ffffff'
         },
-        tertiary: {
+        primary: {
             light: '#B8B9F9',
             main: '#6467F2',
             dark: '#4749AC',
             contrastText: '#ffffff'
         },
         neutral: {
-            light: '#E9EBF8',
-            main: '#5E667D',
-            dark: '#434859',
+            light: '#F8FAFC',
+            main: '#F1F5F9',
+            dark: '#64748B',
             contrastText: '#091535'
         },
         success: {

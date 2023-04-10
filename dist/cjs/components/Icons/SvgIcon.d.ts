@@ -1,6 +1,7 @@
 /// <reference types="react" />
-import { SvgIconProps as MUISvgIconProps } from '@mui/material';
+import { SvgIconProps as MUISvgIconProps, Theme } from '@mui/material';
+export declare function getFillColor(theme: Theme, color: string | undefined): string | undefined;
 export interface SvgIconProps extends Omit<MUISvgIconProps, 'fontSize'> {
-    fontSize?: 'small' | 'medium' | 'large' | 'xl' | 'xxl';
+    fontSize?: 'xs' | 'small' | 'medium' | 'large' | 'xl' | 'xxl' | 'inherit';
 }
-export declare function SvgIcon({ children, fontSize, ...restProps }: SvgIconProps): JSX.Element;
+export declare function SvgIcon({ children, fontSize, color, ...restProps }: SvgIconProps): JSX.Element;

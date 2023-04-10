@@ -3,6 +3,7 @@ export { RedirectIcon } from './RedirectIcon';
 export { AnnotateIcon } from './AnnotateIcon';
 export { AnnotateColoredIcon } from './AnnotateColoredIcon';
 export { ClockIcon } from './clockIcon';
+export { DatasheetSelectInfoIcon } from './DatasheetSelectInfoIcon';
 export {
     Close as CloseIcon,
     Cancel as CancelIcon,
@@ -46,5 +47,6 @@ export {
     Tune as TuneIcon,
     Delete as DeeletIcon,
     VisibilityOffOutlined as VisibilityOffOutlinedIcon,
+    Language as LanguageIcon,
     Info as InfoIcon
 } from '@mui/icons-material';

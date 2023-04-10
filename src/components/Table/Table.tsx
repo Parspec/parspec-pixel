@@ -248,7 +248,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     };
     const disabled = (() => !tableRef?.current || tableRef?.current?.getSelectedRecords()?.length === 0)();
     return (
-        <>
+        <Box position={'relative'}>
             {showToolbar && (
                 <Box display={'flex'} justifyContent="space-between" alignItems={'flex-end'} mb={2} sx={loading ? { PointerEvent: 'none' } : {}}>
                     <Box display="flex" alignItems="center" gap={1}>
@@ -338,7 +338,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                     )}
                 </Box>
             </Box>
-        </>
+        </Box>
     );
 });
 

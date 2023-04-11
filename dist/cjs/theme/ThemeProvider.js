@@ -4,6 +4,24 @@ exports.ThemeProvider = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const styles_1 = require("@mui/material/styles");
 const theme = (0, styles_1.createTheme)({
+    components: {
+        MuiTooltip: {
+            styleOverrides: {
+                tooltip: {
+                    fontSize: '14px',
+                    color: '#ffffff',
+                    backgroundColor: '#091535'
+                }
+            }
+        },
+        MuiButton: {
+            styleOverrides: {
+                root: ({ ownerState }) => (Object.assign({}, (ownerState.size === 'xs' && {
+                    padding: '2px 8px'
+                })))
+            }
+        }
+    },
     spacing: 4,
     // shape: {
     //     borderRadius: 0
@@ -28,7 +46,7 @@ const theme = (0, styles_1.createTheme)({
             contrastText: '#091535'
         },
         secondary: {
-            light: '#B3B6C0',
+            light: '#334155',
             main: '#091535',
             dark: '#060f26',
             contrastText: '#ffffff'
@@ -59,15 +77,6 @@ const theme = (0, styles_1.createTheme)({
         // }
         error: {
             main: '#F43F5E'
-        }
-    },
-    components: {
-        MuiButton: {
-            styleOverrides: {
-                root: ({ ownerState }) => (Object.assign({}, (ownerState.size === 'xs' && {
-                    padding: '2px 8px'
-                })))
-            }
         }
     }
 });

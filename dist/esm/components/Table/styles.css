@@ -29014,3 +29014,7 @@ tr.singleSelect:hover {
 .e-pager .e-pagercontainer {
     background-color: transparent;
 }
+
+.e-spinner-pane.e-spin-show{
+    background-color: rgba(255, 255, 255, 0.5);
+}

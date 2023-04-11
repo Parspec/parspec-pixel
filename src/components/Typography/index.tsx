@@ -1,22 +1,31 @@
 import { default as MUITypography, TypographyProps as MUITypographyProps } from '@mui/material/Typography';
-
-interface TypographyProps extends MUITypographyProps {}
+import { TextLimiter } from './TextLimiter';
+interface TypographyProps extends MUITypographyProps {
+    limit?: boolean;
+    lines?: number;
+}
 
 export interface HeadingTypographyProps extends Omit<TypographyProps, 'variant' | 'fontSize' | 'letterSpacing' | 'lineHeight' | 'fontWeight'> {}
 export interface BodyTypographyProps extends Omit<TypographyProps, 'variant' | 'fontSize' | 'letterSpacing' | 'lineHeight'> {}
 
-const Heading: React.FC<TypographyProps> = (props) => <MUITypography {...props} />;
-
-Heading.defaultProps = {
-    color: 'secondary'
+const Heading: React.FC<TypographyProps> = ({ limit, lines, children, ...rest }) => {
+    return <MUITypography {...rest}>{limit ? <TextLimiter text={children} tooltip={children} lines={lines!} /> : children}</MUITypography>;
 };
 
-const BodyText: React.FC<TypographyProps> = (props) => {
-    return <MUITypography {...props} />;
+Heading.defaultProps = {
+    color: 'secondary',
+    limit: true,
+    lines: 1
+};
+
+const BodyText: React.FC<TypographyProps> = ({ limit, lines, children, ...rest }) => {
+    return <MUITypography {...rest}>{limit ? <TextLimiter text={children} tooltip={children} lines={lines!} /> : children}</MUITypography>;
 };
 
 BodyText.defaultProps = {
-    color: 'secondary'
+    color: 'secondary',
+    limit: true,
+    lines: 1
 };
 
 export const H1: React.FC<HeadingTypographyProps> = (props) => <Heading {...props} variant="h1" />;

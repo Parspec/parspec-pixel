@@ -1,6 +1,8 @@
 /// <reference types="react" />
 import { TypographyProps as MUITypographyProps } from '@mui/material/Typography';
 interface TypographyProps extends MUITypographyProps {
+    limit?: boolean;
+    lines?: number;
 }
 export interface HeadingTypographyProps extends Omit<TypographyProps, 'variant' | 'fontSize' | 'letterSpacing' | 'lineHeight' | 'fontWeight'> {
 }

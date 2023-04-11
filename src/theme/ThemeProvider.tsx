@@ -2,6 +2,26 @@ import React, { PropsWithChildren } from 'react';
 import { createTheme, ThemeProvider as MUIThemeProvider } from '@mui/material/styles';
 
 const theme = createTheme({
+    components: {
+        MuiTooltip: {
+            styleOverrides: {
+                tooltip: {
+                    fontSize: '14px',
+                    color: '#ffffff',
+                    backgroundColor: '#091535'
+                }
+            }
+        },
+        MuiButton: {
+            styleOverrides: {
+                root: ({ ownerState }) => ({
+                    ...(ownerState.size === 'xs' && {
+                        padding: '2px 8px'
+                    })
+                })
+            }
+        }
+    },
     spacing: 4,
     // shape: {
     //     borderRadius: 0
@@ -26,7 +46,7 @@ const theme = createTheme({
             contrastText: '#091535'
         },
         secondary: {
-            light: '#B3B6C0',
+            light: '#334155',
             main: '#091535',
             dark: '#060f26',
             contrastText: '#ffffff'
@@ -57,18 +77,6 @@ const theme = createTheme({
         // }
         error: {
             main: '#F43F5E'
-        }
-    },
-
-    components: {
-        MuiButton: {
-            styleOverrides: {
-                root: ({ ownerState }) => ({
-                    ...(ownerState.size === 'xs' && {
-                        padding: '2px 8px'
-                    })
-                })
-            }
         }
     }
 });

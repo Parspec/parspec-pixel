@@ -34,7 +34,7 @@ const theme = createTheme({
         action: {},
         text: {
             primary: '#091535',
-            secondary: 'rgba(0,0,0,0.6)'
+            secondary: '#00000099'
         },
         tertiary: {
             light: '#ffe4bd',

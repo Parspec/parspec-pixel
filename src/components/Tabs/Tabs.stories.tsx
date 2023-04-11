@@ -43,5 +43,4 @@ Basic.args = {
         }
     ],
     onChange: (newValue: string) => {}
-    // color: '#FF0000'
 };

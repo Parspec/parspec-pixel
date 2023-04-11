@@ -28,10 +28,11 @@ interface FileSelectorProps {
     onSelect?: (args: FileSelectorFileType[]) => void;
     placeholder?: string;
     borderColor?: 'primary' | 'secondary' | 'tertiary';
+    bgColor?: string;
 }
 
 export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
-    ({ maxFiles = 1, acceptedFormats = [], onUpload = () => {}, url = '', error = '', helperText = '', onSelect = () => {}, placeholder = '', borderColor }, ref) => {
+    ({ maxFiles = 1, acceptedFormats = [], onUpload = () => {}, url = '', error = '', helperText = '', onSelect = () => {}, placeholder = '', borderColor, bgColor }, ref) => {
         const [files, setFiles] = useState([]);
         const [result, setResults] = useState([]);
 
@@ -106,7 +107,7 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                                 <BodySmall>{placeholder}</BodySmall>
                             </Box>
                             <Box mt={6} mb={3}>
-                                <Avatar>
+                                <Avatar sx={{ backgroundColor: bgColor }}>
                                     <UploadIcon />
                                 </Avatar>
                             </Box>
@@ -136,5 +137,6 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
 );
 
 FileSelector.defaultProps = {
-    borderColor: 'secondary'
+    borderColor: 'secondary',
+    bgColor: 'primary.main'
 };

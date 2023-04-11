@@ -60,6 +60,15 @@ const theme = (0, styles_1.createTheme)({
         error: {
             main: '#F43F5E'
         }
+    },
+    components: {
+        MuiButton: {
+            styleOverrides: {
+                root: ({ ownerState }) => (Object.assign({}, (ownerState.size === 'xs' && {
+                    padding: '2px 8px'
+                })))
+            }
+        }
     }
 });
 const ThemeProvider = (props) => {

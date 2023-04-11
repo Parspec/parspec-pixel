@@ -57,6 +57,15 @@ const theme = createTheme({
         error: {
             main: '#F43F5E'
         }
+    },
+    components: {
+        MuiButton: {
+            styleOverrides: {
+                root: ({ ownerState }) => (Object.assign({}, (ownerState.size === 'xs' && {
+                    padding: '2px 8px'
+                })))
+            }
+        }
     }
 });
 export const ThemeProvider = (props) => {

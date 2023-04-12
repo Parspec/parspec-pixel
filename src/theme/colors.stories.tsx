@@ -13,15 +13,15 @@ const Colors = () => {
         <>
             {COLOR_OPTIONS.map((colorKey) => (
                 <>
-                    <Box width={'100%'} height={'16px'} bgcolor={`${colorKey}.light`} display="flex" p={4}>
+                    <Box width={'100%'} bgcolor={`${colorKey}.light`} display="flex" p={4}>
                         <BodyMedium color={`${colorKey}.contrastText`} mr={2}>{`${colorKey}.light`}</BodyMedium>
                         <BodyMedium color={`${colorKey}.contrastText`}>{palette[colorKey].light}</BodyMedium>
                     </Box>
-                    <Box width={'100%'} height={'16px'} bgcolor={`${colorKey}.main`} display="flex" p={4}>
+                    <Box width={'100%'} bgcolor={`${colorKey}.main`} display="flex" p={4}>
                         <BodyMedium color={`${colorKey}.contrastText`} mr={2}>{`${colorKey}.main`}</BodyMedium>
                         <BodyMedium color={`${colorKey}.contrastText`}>{palette[colorKey].main}</BodyMedium>
                     </Box>
-                    <Box width={'100%'} height={'16px'} bgcolor={`${colorKey}.dark`} display="flex" p={4}>
+                    <Box width={'100%'} bgcolor={`${colorKey}.dark`} display="flex" p={4}>
                         <BodyMedium color={`${colorKey}.contrastText`} mr={2}>{`${colorKey}.dark`}</BodyMedium>
                         <BodyMedium color={`${colorKey}.contrastText`}>{palette[colorKey].dark}</BodyMedium>
                     </Box>

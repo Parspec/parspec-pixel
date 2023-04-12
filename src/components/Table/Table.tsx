@@ -142,12 +142,14 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     }, [loading]);
 
     const actionComplete = (args: PageEventArgs | FilterEventArgs | SortEventArgs | SearchEventArgs | AddEventArgs | SaveEventArgs | EditEventArgs | DeleteEventArgs) => {
-        if (args.type === 'save') {
+        if (args?.type === 'save') {
             onEdit!(args);
-        } else if (args.requestType === 'searching') {
+        }
+        if (args?.requestType === 'searching') {
             onSearch!(args);
         }
     };
+
     const rowDrop = (args: any) => {
         let notAllowed = false;
         const droppedData = tableRef?.current?.getRowInfo(args.target.parentElement).rowData; //dropped data
@@ -195,7 +197,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                 notAllowed = true;
             }
         }
-        // setTimeout(() => onDragEnd!(tableRef?.current?.getDataModule()?.treeModule?.dataResults), 300);
+
         if (!notAllowed) {
             onDragEnd!({ fromIndex: args.fromIndex, data: args.data[0] });
         }
@@ -220,6 +222,10 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         }
         if (selectionSettings?.type === 'Single') {
             addClass([args.row], 'singleSelect');
+        }
+
+        if (tableRef?.current?.getVisibleRecords()?.length !== 0) {
+            (document.getElementById('_gridcontrol_content_table') as any).classList.remove('empty');
         }
     };
 
@@ -247,6 +253,15 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         }
     };
     const disabled = (() => !tableRef?.current || tableRef?.current?.getSelectedRecords()?.length === 0)();
+
+    const dataBound = () => {
+        Object.assign(tableRef.current.grid.filterModule.filterOperators, { startsWith: 'equal' });
+
+        if (tableRef?.current?.getVisibleRecords()?.length === 0) {
+            (document.getElementById('_gridcontrol_content_table') as any).classList.add('empty');
+        }
+    };
+
     return (
         <Box position={'relative'}>
             {showToolbar && (
@@ -291,7 +306,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             </Tooltip>
                         )}
                         {toolBarOptions?.includes('selectedItems') && selected > 0 && (
-                            <Box p={1} pl={3} pr={2} bgcolor={'tertiary.main'} color={'secondary.contrastText'} display="flex" alignItems="center" gap={2}>
+                            <Box p={1} pl={3} pr={2} bgcolor={'primary.main'} color={'secondary.contrastText'} display="flex" alignItems="center" gap={2}>
                                 <BodySmall color="secondary.contrastText">{selected} item(s) selected</BodySmall>
                                 <IconButton onClick={closeBanner} sx={{ color: 'secondary.contrastText', margin: 0, padding: 0 }}>
                                     <CloseIcon fontSize="small" />
@@ -306,6 +321,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                 <Box className="control-section">
                     {data && (
                         <TreeGridComponent
+                            dataBound={dataBound}
                             actionComplete={actionComplete}
                             headerCellInfo={headerCellInfo}
                             rowSelected={rowSelected}
@@ -363,7 +379,7 @@ Table.defaultProps = {
     allowResizing: true,
     allowFiltering: true,
     filterSettings: {
-        type: 'Excel'
+        type: 'CheckBox'
     },
     selectionSettings: {
         checkboxOnly: true,

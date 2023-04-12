@@ -10,4 +10,11 @@ const Snackbar = (props) => {
     return (0, jsx_runtime_1.jsx)(Snackbar_1.default, Object.assign({}, props));
 };
 exports.Snackbar = Snackbar;
+exports.Snackbar.defaultProps = {
+    anchorOrigin: {
+        horizontal: 'center',
+        vertical: 'bottom'
+    },
+    autoHideDuration: 3000
+};
 //# sourceMappingURL=Snackbar.js.map

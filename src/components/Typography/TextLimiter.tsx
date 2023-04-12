@@ -41,7 +41,8 @@ export const TextLimiter = (props: TextLimiterProps) => {
                     WebkitBoxOrient: 'vertical',
                     WebkitLineClamp: props.lines,
                     overflow: 'hidden',
-                    textOverflow: 'ellipsis'
+                    textOverflow: 'ellipsis',
+                    wordBreak: 'break-all'
                 }}
             >
                 {props.text}

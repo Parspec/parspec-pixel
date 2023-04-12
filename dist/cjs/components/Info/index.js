@@ -16,7 +16,7 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const material_1 = require("@mui/material");
 function Info(_a) {
     var { children } = _a, otherProps = __rest(_a, ["children"]);
-    return ((0, jsx_runtime_1.jsx)(material_1.Box, Object.assign({}, otherProps, { padding: "8px", border: "1px solid", borderColor: "primary.dark", color: "primary.dark" }, { children: children })));
+    return ((0, jsx_runtime_1.jsx)(material_1.Box, Object.assign({}, otherProps, { p: 2, border: "1px solid", borderColor: "primary.main", color: "primary.main", bgcolor: 'primary.light' }, { children: children })));
 }
 exports.Info = Info;
 //# sourceMappingURL=index.js.map

@@ -16711,14 +16711,14 @@ textarea.e-filled.e-disabled.e-input::-webkit-input-placeholder {
 }
 .e-btn.e-primary:hover,
 .e-css.e-btn.e-primary:hover {
-    background-color: #b8b9f9;
+    background-color: #e3e3ff;
     border-color: transparent;
     box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
     color: #fff;
 }
 .e-btn.e-primary:focus,
 .e-css.e-btn.e-primary:focus {
-    background-color: #b8b9f9;
+    background-color: #e3e3ff;
     border-color: transparent;
     color: #fff;
     outline: #fafafa 0 solid;
@@ -16726,7 +16726,7 @@ textarea.e-filled.e-disabled.e-input::-webkit-input-placeholder {
 }
 .e-btn.e-primary:active,
 .e-css.e-btn.e-primary:active {
-    background-color: #b8b9f9;
+    background-color: #e3e3ff;
     border-color: transparent;
     color: #fff;
     outline: #fafafa 0 solid;
@@ -16734,7 +16734,7 @@ textarea.e-filled.e-disabled.e-input::-webkit-input-placeholder {
 }
 .e-btn.e-primary.e-active,
 .e-css.e-btn.e-primary.e-active {
-    background-color: #b8b9f9;
+    background-color: #e3e3ff;
     border-color: transparent;
     box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
     color: #fff;
@@ -18149,7 +18149,7 @@ ejs-calendar {
 .e-bigger.e-small .e-calendar .e-content td.e-today.e-selected:hover span.e-day,
 .e-bigger.e-small .e-calendar .e-content td.e-selected:hover span.e-day,
 .e-bigger.e-small .e-calendar .e-content td.e-selected.e-focused-date span.e-day {
-    background-color: #b8b9f9;
+    background-color: #e3e3ff;
     color: #fff;
 }
 .e-calendar .e-content span,
@@ -28782,7 +28782,7 @@ li.e-separator.e-menu-item.e-excel-separator {
     vertical-align: middle;
 }
 .e-treegrid .e-errorelem::before {
-    color: #b8b9f9;
+    color: #e3e3ff;
     content: '\e22a';
     transform: rotate(180deg);
 }
@@ -28869,29 +28869,29 @@ li.e-separator.e-menu-item.e-excel-separator {
 .e-treegrid .e-grid .e-gridcontent tr.e-row:first-child td.e-rowdragdrop.e-childborder {
     border-bottom: 1px solid #6467f2;
     border-top: 1px solid #6467f2;
-    box-shadow: 0 0 0 0 #b8b9f9;
+    box-shadow: 0 0 0 0 #e3e3ff;
 }
 .e-treegrid .e-grid .e-gridcontent tr.e-row:first-child td.e-rowcell.e-droptop,
 .e-treegrid .e-grid .e-gridcontent tr.e-row:first-child td.e-rowdragdrop.e-droptop {
-    border-top: 1px solid #b8b9f9;
+    border-top: 1px solid #e3e3ff;
 }
 .e-treegrid .e-grid .e-gridcontent td.e-rowcell.e-childborder {
     border-bottom: 1px solid #6467f2;
     border-top: 1px solid #6467f2;
-    box-shadow: 0 0 0 0 #b8b9f9;
+    box-shadow: 0 0 0 0 #e3e3ff;
 }
 .e-treegrid .e-grid .e-gridcontent td.e-rowdragdrop.e-childborder {
     border-bottom: 1px solid #6467f2;
     border-top: 1px solid #6467f2;
-    box-shadow: 0 0 0 0 #b8b9f9;
+    box-shadow: 0 0 0 0 #e3e3ff;
 }
 .e-treegrid .e-grid .e-gridcontent td.e-rowcell.e-dropbottom {
-    border-bottom: 1px solid #b8b9f9;
-    box-shadow: 0 0 0 0 #b8b9f9;
+    border-bottom: 1px solid #e3e3ff;
+    box-shadow: 0 0 0 0 #e3e3ff;
 }
 .e-treegrid .e-grid .e-gridcontent td.e-rowdragdrop.e-dropbottom {
-    border-bottom: 1px solid #b8b9f9;
-    box-shadow: 0 0 0 0 #b8b9f9;
+    border-bottom: 1px solid #e3e3ff;
+    box-shadow: 0 0 0 0 #e3e3ff;
 }
 .e-treegrid .e-grid.e-rtl .e-gridheader .e-firstrow-dragborder {
     height: 0;
@@ -28965,12 +28965,12 @@ li.e-separator.e-menu-item.e-excel-separator {
 }
 
 tr.singleSelect:hover {
-    background: #b8b9f9;
+    background: #e3e3ff;
     cursor: pointer;
 }
 
 .e-treegrid td.e-active {
-    background-color: #b8b9f9;
+    background-color: #e3e3ff;
 }
 
 .e-grid td.e-updatedtd {

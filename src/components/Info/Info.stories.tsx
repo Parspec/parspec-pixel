@@ -11,6 +11,6 @@ export default {
 
 export const Basic: ComponentStory<typeof Info> = (args) => (
     <Info>
-        <BodySmall>Information</BodySmall>
+        <BodySmall color="inherit">Information</BodySmall>
     </Info>
 );

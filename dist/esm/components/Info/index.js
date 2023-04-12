@@ -13,6 +13,6 @@ import { jsx as _jsx } from "react/jsx-runtime";
 import { Box } from '@mui/material';
 export function Info(_a) {
     var { children } = _a, otherProps = __rest(_a, ["children"]);
-    return (_jsx(Box, Object.assign({}, otherProps, { padding: "8px", border: "1px solid", borderColor: "primary.dark", color: "primary.dark" }, { children: children })));
+    return (_jsx(Box, Object.assign({}, otherProps, { p: 2, border: "1px solid", borderColor: "primary.main", color: "primary.main", bgcolor: 'primary.light' }, { children: children })));
 }
 //# sourceMappingURL=index.js.map

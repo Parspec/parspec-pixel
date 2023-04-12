@@ -49,7 +49,7 @@ const theme = createTheme({
             contrastText: '#ffffff'
         },
         primary: {
-            light: '#B8B9F9',
+            light: '#E3E3FF',
             main: '#6467F2',
             dark: '#4749AC',
             contrastText: '#ffffff'

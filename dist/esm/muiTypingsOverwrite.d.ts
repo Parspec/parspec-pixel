@@ -47,7 +47,7 @@ declare module '@mui/material/Tabs' {
         tertiary: true;
     }
 }
-declare module '@mui/icons-material' {
+declare module '@mui/material/Icon' {
     interface IconPropsColorOverrides {
         tertiary: true;
     }

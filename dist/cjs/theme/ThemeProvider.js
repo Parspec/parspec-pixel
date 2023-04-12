@@ -1,8 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
 exports.ThemeProvider = void 0;
-const jsx_runtime_1 = require("react/jsx-runtime");
-const styles_1 = require("@mui/material/styles");
+const jsx_runtime_1 = require('react/jsx-runtime');
+const styles_1 = require('@mui/material/styles');
 const theme = (0, styles_1.createTheme)({
     components: {
         MuiTooltip: {
@@ -16,9 +16,13 @@ const theme = (0, styles_1.createTheme)({
         },
         MuiButton: {
             styleOverrides: {
-                root: ({ ownerState }) => (Object.assign({}, (ownerState.size === 'xs' && {
-                    padding: '2px 8px'
-                })))
+                root: ({ ownerState }) =>
+                    Object.assign(
+                        {},
+                        ownerState.size === 'xs' && {
+                            padding: '2px 8px'
+                        }
+                    )
             }
         }
     },
@@ -36,8 +40,8 @@ const theme = (0, styles_1.createTheme)({
     palette: {
         action: {},
         text: {
-            primary: '#091535'
-            // secondary: '#091535'
+            primary: '#091535',
+            secondary: '#00000099'
         },
         tertiary: {
             light: '#ffe4bd',
@@ -46,7 +50,7 @@ const theme = (0, styles_1.createTheme)({
             contrastText: '#091535'
         },
         secondary: {
-            light: '#B3B6C0',
+            light: '#334155',
             main: '#091535',
             dark: '#060f26',
             contrastText: '#ffffff'

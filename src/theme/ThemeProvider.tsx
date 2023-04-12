@@ -36,8 +36,8 @@ const theme = createTheme({
     palette: {
         action: {},
         text: {
-            primary: '#091535'
-            // secondary: '#091535'
+            primary: '#091535',
+            secondary: '#00000099'
         },
         tertiary: {
             light: '#ffe4bd',
@@ -46,7 +46,7 @@ const theme = createTheme({
             contrastText: '#091535'
         },
         secondary: {
-            light: '#B3B6C0',
+            light: '#334155',
             main: '#091535',
             dark: '#060f26',
             contrastText: '#ffffff'

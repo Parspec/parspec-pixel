@@ -30,4 +30,5 @@ export * from './LinearProgress';
 export * from './Snackbar';
 export * from './Link';
 export * from './FormControl';
+export * from './Info';
 //# sourceMappingURL=index.js.map

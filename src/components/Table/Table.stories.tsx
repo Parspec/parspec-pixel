@@ -1,14 +1,13 @@
 import React, { useRef, useState } from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { Table, ToolbarType } from './Table';
-import { ColumnDirective, FilterSettingsModel, SelectionSettingsModel, TreeGridComponent } from '@syncfusion/ej2-react-treegrid';
+import { ColumnDirective, SelectionSettingsModel } from '@syncfusion/ej2-react-treegrid';
 import { getValue } from '@syncfusion/ej2-base';
 import { dDataP, dDataP2 } from './data';
 import { Button } from '../Button';
 import { ViewArrayIcon } from '../Icons';
 import { Box } from '../Box';
 import { BodyMedium } from '../Typography';
-// import { FilterSettingsModel } from '@syncfusion/ej2-grids';
 import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
 
 export default {

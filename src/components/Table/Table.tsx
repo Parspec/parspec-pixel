@@ -42,9 +42,10 @@ import {
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { TextField } from '../TextField';
 import { IconButton } from '../IconButton';
-import { CloseIcon, ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffIcon, FilterAltOffIcon } from '../Icons';
+import { CloseIcon, ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffIcon, FilterAltOffIcon, SearchIcon } from '../Icons';
 import { BodySmall } from '../Typography';
 import { Tooltip } from '../Tooltip';
+import { InputAdornment } from '../InputAdornment';
 
 const license = window.localStorage.getItem('syncfusionLicense');
 registerLicense(license!);
@@ -269,7 +270,19 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                     <Box display="flex" alignItems="center" gap={1}>
                         {toolBarOptions?.includes('search') && (
                             <Box width={300}>
-                                <TextField label="" placeholder="Search..." size="small" onChange={(t: React.ChangeEvent<HTMLInputElement>) => tableRef.current.search(t?.target?.value)} />
+                                <TextField
+                                    label=""
+                                    placeholder="Search..."
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <SearchIcon fontSize="small" />
+                                            </InputAdornment>
+                                        )
+                                    }}
+                                    size="small"
+                                    onChange={(t: React.ChangeEvent<HTMLInputElement>) => tableRef.current.search(t?.target?.value)}
+                                />
                             </Box>
                         )}
                         {toolBarOptions?.includes('duplicate') && (

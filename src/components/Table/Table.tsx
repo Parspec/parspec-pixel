@@ -85,6 +85,7 @@ export interface TableProps {
     toolbarRightSection?: React.ReactNode;
     searchSettings?: SearchSettingsModel;
     hiddenProperty?: string;
+    defaultFilter?: 'equal' | 'contains';
 }
 
 export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
@@ -117,7 +118,8 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         loading,
         toolbarRightSection,
         searchSettings,
-        hiddenProperty
+        hiddenProperty,
+        defaultFilter
     } = props;
 
     const tableRef = useRef<any>();
@@ -225,9 +227,9 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
             addClass([args.row], 'singleSelect');
         }
 
-        if (tableRef?.current?.getVisibleRecords()?.length !== 0) {
-            (document.getElementById('_gridcontrol_content_table') as any).classList.remove('empty');
-        }
+        // if (tableRef?.current?.getVisibleRecords()?.length !== 0) {
+        //     (document.getElementById('_gridcontrol_content_table') as any).classList.remove('empty');
+        // }
     };
 
     useImperativeHandle(ref, () => {
@@ -256,11 +258,11 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     const disabled = (() => !tableRef?.current || tableRef?.current?.getSelectedRecords()?.length === 0)();
 
     const dataBound = () => {
-        Object.assign(tableRef.current.grid.filterModule.filterOperators, { startsWith: 'equal' });
+        Object.assign(tableRef.current.grid.filterModule.filterOperators, { startsWith: defaultFilter! });
 
-        if (tableRef?.current?.getVisibleRecords()?.length === 0) {
-            (document.getElementById('_gridcontrol_content_table') as any).classList.add('empty');
-        }
+        // if (tableRef?.current?.getVisibleRecords()?.length === 0) {
+        //     (document.getElementById('_gridcontrol_content_table') as any).classList.add('empty');
+        // }
     };
 
     const rightSection = useMemo(() => toolbarRightSection, [toolbarRightSection]);
@@ -329,7 +331,6 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                         )}
                     </Box>
                     <Box>{rightSection}</Box>
-                    {/* <Box>{toolbarRightSection}</Box> */}
                 </Box>
             )}
             <Box className="control-pane">
@@ -425,5 +426,6 @@ Table.defaultProps = {
     searchSettings: {
         hierarchyMode: 'Both'
     },
-    hiddenProperty: 'is_hidden'
+    hiddenProperty: 'is_hidden',
+    defaultFilter: 'equal'
 };

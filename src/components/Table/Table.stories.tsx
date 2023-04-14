@@ -8,7 +8,6 @@ import { Button } from '../Button';
 import { ViewArrayIcon } from '../Icons';
 import { Box } from '../Box';
 import { BodyMedium } from '../Typography';
-import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
 
 export default {
     title: 'Table',
@@ -42,7 +41,7 @@ export const SingleSelect: ComponentStory<typeof Table> = (props) => {
                 <ColumnDirective field="taskID" allowEditing={false} headerText="Task ID" width="150" editType="numericedit" />
                 <ColumnDirective field="name" headerText="Task Name" minWidth="200" />
                 <ColumnDirective field="reporter" headerText="Reporter" minWidth="200" />
-                <ColumnDirective field="available" filter={{ type: 'Menu', operator: 'contains' }} filterTemplate={filterTemplateOptions} headerText="Availability" minWidth="200" />
+                <ColumnDirective field="available" headerText="Availability" minWidth="200" />
             </Table>
         </>
     );
@@ -97,16 +96,7 @@ const customHeaderTemplate = () => {
     );
 };
 
-const filterTemplateOptions = (props: any): any => {
-    const dataSource = ['Yes', 'No'];
-    return <DropDownListComponent id={props.column.field} popupHeight="250px" dataSource={dataSource} />;
-};
 export const Basic: ComponentStory<typeof Table> = (props) => {
-    const menuFilter: any = {
-        type: 'Menu',
-        operator: 'contains'
-    };
-
     const onHideUnhide = (data: Object[]) => {
         console.log('onHideUnhide===>\n', data);
     };
@@ -162,7 +152,7 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
                     allowFiltering={false}
                 />
                 <ColumnDirective field="reporter" headerText="Reporter" minWidth="200" validationRules={validateReporter} />
-                <ColumnDirective field="available" headerText="Availability" minWidth="200" filter={menuFilter} filterTemplate={filterTemplateOptions} />
+                <ColumnDirective field="available" headerText="Availability" minWidth="200" />
             </Table>
         </>
     );

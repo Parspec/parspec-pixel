@@ -81,6 +81,7 @@ export interface TableProps {
     onDelete?: (data: Object) => void;
     onSearch?: (data: Object) => void;
     onRowSelection?: (data: Object) => void;
+    customFiltersFunction?: (data: Object) => void;
     loading?: boolean;
     toolbarRightSection?: React.ReactNode;
     searchSettings?: SearchSettingsModel;
@@ -119,7 +120,8 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         toolbarRightSection,
         searchSettings,
         hiddenProperty,
-        defaultFilter
+        defaultFilter,
+        customFiltersFunction
     } = props;
 
     const tableRef = useRef<any>();
@@ -152,7 +154,16 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
             onSearch!(args);
         }
     };
-
+    const actionBegin = (e: any) => {
+        console.log(e);
+        if (e.requestType === 'filterbeforeopen') {
+            customFiltersFunction!(e);
+            // if (e.columnName === 'available') {
+            //     e.filterModel.options.dataSource = [{ available: 'Yes' }, { available: 'No' }];
+            //     // e.filterModel.options.operator = 'contains';
+            // }
+        }
+    };
     const rowDrop = (args: any) => {
         let notAllowed = false;
         const droppedData = tableRef?.current?.getRowInfo(args.target.parentElement).rowData; //dropped data
@@ -337,6 +348,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                 <Box className="control-section">
                     {data && (
                         <TreeGridComponent
+                            actionBegin={actionBegin}
                             dataBound={dataBound}
                             actionComplete={actionComplete}
                             headerCellInfo={headerCellInfo}
@@ -419,6 +431,7 @@ Table.defaultProps = {
     onDelete: (data: Object) => {},
     onSearch: (data: Object) => {},
     onRowSelection: (data: Object) => {},
+    customFiltersFunction: (data: Object) => {},
     loading: false,
     showToolbar: true,
     toolBarOptions: [],

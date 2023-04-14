@@ -33,10 +33,17 @@ export const SingleSelect: ComponentStory<typeof Table> = (props) => {
     const onRowSelection = (selectedData) => {
         console.log(selectedData);
     };
+    const customFiltersFunction = (e: any) => {
+        console.log(e);
+        if (e.columnName === 'available') {
+            // e.filterModel.options.dataSource = [{ available: 'Yes' }, { available: 'No' }];
+            // e.filterModel.options.operator = 'contains';
+        }
+    };
 
     return (
         <>
-            <Table {...getTableProps({ ...props, onRowSelection, onDragEnd })} data={data} ref={tableRef}>
+            <Table {...getTableProps({ ...props, onRowSelection, onDragEnd, customFiltersFunction })} data={data} ref={tableRef}>
                 <ColumnDirective field="id" isPrimaryKey={true} visible={false} />
                 <ColumnDirective field="taskID" allowEditing={false} headerText="Task ID" width="150" editType="numericedit" />
                 <ColumnDirective field="name" headerText="Task Name" minWidth="200" />
@@ -132,11 +139,20 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
             ...args
         };
     };
+
     const tableRef = useRef<any>();
+    const customFiltersFunction = (e: any) => {
+        if (e.columnName === 'available') {
+            e.filterModel.options.dataSource = [{ available: 'Yes' }, { available: 'No' }];
+        }
+    };
 
     return (
         <>
-            <Table {...getTableProps({ ...props, onAdd, onCheckboxChange, onDelete, onDragEnd, onEdit, onSearch, onRowSelection, onHideUnhide, onAddDuplicates })} ref={tableRef}>
+            <Table
+                {...getTableProps({ ...props, onAdd, onCheckboxChange, onDelete, onDragEnd, onEdit, onSearch, onRowSelection, onHideUnhide, onAddDuplicates, customFiltersFunction })}
+                ref={tableRef}
+            >
                 <ColumnDirective type="checkbox" width="50" />
                 <ColumnDirective field="id" isPrimaryKey={true} visible={false} />
                 <ColumnDirective field="taskID" headerText="Task ID" width="150" editType="numericedit" />

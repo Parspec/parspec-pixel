@@ -8,6 +8,7 @@ import { Button } from '../Button';
 import { ViewArrayIcon } from '../Icons';
 import { Box } from '../Box';
 import { BodyMedium } from '../Typography';
+import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
 
 export default {
     title: 'Table',
@@ -34,10 +35,8 @@ export const SingleSelect: ComponentStory<typeof Table> = (props) => {
         console.log(selectedData);
     };
     const customFiltersFunction = (e: any) => {
-        console.log(e);
         if (e.columnName === 'available') {
-            // e.filterModel.options.dataSource = [{ available: 'Yes' }, { available: 'No' }];
-            // e.filterModel.options.operator = 'contains';
+            e.filterModel.options.dataSource = [{ available: 'Yes' }, { available: 'No' }];
         }
     };
 
@@ -48,7 +47,7 @@ export const SingleSelect: ComponentStory<typeof Table> = (props) => {
                 <ColumnDirective field="taskID" allowEditing={false} headerText="Task ID" width="150" editType="numericedit" />
                 <ColumnDirective field="name" headerText="Task Name" minWidth="200" />
                 <ColumnDirective field="reporter" headerText="Reporter" minWidth="200" />
-                <ColumnDirective field="available" headerText="Availability" minWidth="200" />
+                <ColumnDirective field="available" filter={{ type: 'Menu', operator: 'contains' }} filterTemplate={filterTemplateOptions} headerText="Availability" minWidth="200" />
             </Table>
         </>
     );
@@ -82,6 +81,10 @@ const coltemplate = (props: any) => {
     } else {
         return <></>;
     }
+};
+const filterTemplateOptions = (props: any): any => {
+    const dataSource = ['Yes', 'No'];
+    return <DropDownListComponent id={props.column.field} popupHeight="250px" dataSource={dataSource} />;
 };
 
 const customFn = (args: { [key: string]: string }): boolean => {
@@ -142,9 +145,9 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
 
     const tableRef = useRef<any>();
     const customFiltersFunction = (e: any) => {
-        if (e.columnName === 'available') {
-            e.filterModel.options.dataSource = [{ available: 'Yes' }, { available: 'No' }];
-        }
+        // if (e.columnName === 'available') {
+        //     e.filterModel.options.dataSource = [{ available: 'Yes' }, { available: 'No' }];
+        // }
     };
 
     return (
@@ -168,7 +171,7 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
                     allowFiltering={false}
                 />
                 <ColumnDirective field="reporter" headerText="Reporter" minWidth="200" validationRules={validateReporter} />
-                <ColumnDirective field="available" headerText="Availability" minWidth="200" />
+                <ColumnDirective field="available" headerText="Availability" minWidth="200" filterTemplate={filterTemplateOptions} />
             </Table>
         </>
     );

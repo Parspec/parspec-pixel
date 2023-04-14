@@ -155,13 +155,8 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         }
     };
     const actionBegin = (e: any) => {
-        console.log(e);
         if (e.requestType === 'filterbeforeopen') {
             customFiltersFunction!(e);
-            // if (e.columnName === 'available') {
-            //     e.filterModel.options.dataSource = [{ available: 'Yes' }, { available: 'No' }];
-            //     // e.filterModel.options.operator = 'contains';
-            // }
         }
     };
     const rowDrop = (args: any) => {
@@ -238,9 +233,9 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
             addClass([args.row], 'singleSelect');
         }
 
-        // if (tableRef?.current?.getVisibleRecords()?.length !== 0) {
-        //     (document.getElementById('_gridcontrol_content_table') as any).classList.remove('empty');
-        // }
+        if (tableRef?.current?.getVisibleRecords()?.length !== 0) {
+            (document.getElementById('_gridcontrol_content_table') as any).classList.remove('empty');
+        }
     };
 
     useImperativeHandle(ref, () => {
@@ -268,12 +263,12 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     };
     const disabled = (() => !tableRef?.current || tableRef?.current?.getSelectedRecords()?.length === 0)();
 
-    const dataBound = () => {
-        Object.assign(tableRef.current.grid.filterModule.filterOperators, { startsWith: defaultFilter! });
+    const dataBound = (args: Object) => {
+        // Object.assign(tableRef.current.grid.filterModule.filterOperators, { startsWith: 'contains' });
 
-        // if (tableRef?.current?.getVisibleRecords()?.length === 0) {
-        //     (document.getElementById('_gridcontrol_content_table') as any).classList.add('empty');
-        // }
+        if (tableRef?.current?.getVisibleRecords()?.length === 0) {
+            (document.getElementById('_gridcontrol_content_table') as any).classList.add('empty');
+        }
     };
 
     const rightSection = useMemo(() => toolbarRightSection, [toolbarRightSection]);

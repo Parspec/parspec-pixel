@@ -167,6 +167,17 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
         </>
     );
 };
+
+const Abc: React.FC = () => {
+    const [a, setA] = useState(1);
+    return (
+        <Box display={'flex'} alignItems={'center'}>
+            <Button color="primary" onClick={() => setA((p) => p + 1)}>
+                Right Section {a}
+            </Button>
+        </Box>
+    );
+};
 // Arg properties with value as true and their corresponding settings are not required to be passed to table component as they are already present as default props, we have passed them here to get controls in stories
 Basic.args = {
     height: 400,
@@ -193,9 +204,5 @@ Basic.args = {
         fields: ['taskID', 'name', 'reported', 'available'],
         hierarchyMode: 'Both'
     },
-    toolbarRightSection: (
-        <Box display={'flex'} alignItems={'center'}>
-            <Button color="primary">Right Section</Button>
-        </Box>
-    )
+    toolbarRightSection: <Abc />
 };

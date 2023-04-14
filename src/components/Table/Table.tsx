@@ -39,7 +39,7 @@ import {
     SelectionSettingsModel,
     SortEventArgs
 } from '@syncfusion/ej2-grids';
-import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState, memo, useMemo } from 'react';
 import { TextField } from '../TextField';
 import { IconButton } from '../IconButton';
 import { CloseIcon, ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffIcon, FilterAltOffIcon, SearchIcon } from '../Icons';
@@ -263,6 +263,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         }
     };
 
+    const rightSection = useMemo(() => toolbarRightSection, [toolbarRightSection]);
     return (
         <Box position={'relative'}>
             {showToolbar && (
@@ -327,7 +328,8 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             </Box>
                         )}
                     </Box>
-                    <Box>{toolbarRightSection}</Box>
+                    <Box>{rightSection}</Box>
+                    {/* <Box>{toolbarRightSection}</Box> */}
                 </Box>
             )}
             <Box className="control-pane">

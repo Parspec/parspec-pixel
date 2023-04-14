@@ -7,3 +7,13 @@ export const SIZE_OPTIONS = {
     xl: 28,
     xxl: 32
 };
+
+export const SIZE_OPTIONS_LOADER = {
+    xxs: 2,
+    xs: 4,
+    sm: 6,
+    md: 8,
+    lg: 10,
+    xl: 12,
+    xxl: 14
+}

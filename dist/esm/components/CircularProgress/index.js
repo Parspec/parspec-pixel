@@ -11,9 +11,14 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx } from "react/jsx-runtime";
 import { default as MUICircularProgress } from '@mui/material/CircularProgress';
-import { SIZE_OPTIONS } from '../../Shared/utils';
+import { SIZE_OPTIONS, SIZE_OPTIONS_LOADER } from '../../Shared/utils';
 export const CircularProgress = (_a) => {
-    var { color = 'inherit', size = 'sm' } = _a, rest = __rest(_a, ["color", "size"]);
-    return _jsx(MUICircularProgress, Object.assign({ color: color, size: SIZE_OPTIONS[size] }, rest));
+    var { color, size, thickness } = _a, rest = __rest(_a, ["color", "size", "thickness"]);
+    return (_jsx(MUICircularProgress, Object.assign({ color: color, size: SIZE_OPTIONS[`${size}`], thickness: SIZE_OPTIONS_LOADER[`${thickness}`] }, rest)));
+};
+CircularProgress.defaultProps = {
+    color: 'inherit',
+    size: 'sm',
+    thickness: 'xs'
 };
 //# sourceMappingURL=index.js.map

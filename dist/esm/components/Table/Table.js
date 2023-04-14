@@ -14,7 +14,9 @@ import { InputAdornment } from '../InputAdornment';
 const license = window.localStorage.getItem('syncfusionLicense');
 registerLicense(license);
 export const Table = forwardRef((props, ref) => {
-    const { children, data, childMappingKey, allowExports, allowRowDragAndDrop, frozenColumns, treeColumnIndex, allowPaging, pageSettings, allowResizing, showToolbar, toolBarOptions, height, allowFiltering, editSettings, filterSettings, onHideUnhide, onAddDuplicates, onCheckboxChange, onDragEnd, onEdit, onSearch, onDelete, selectionSettings, onRowSelection, loading, toolbarRightSection, searchSettings, hiddenProperty, defaultFilter, customFiltersFunction } = props;
+    const { children, data, childMappingKey, allowExports, allowRowDragAndDrop, frozenColumns, treeColumnIndex, allowPaging, pageSettings, allowResizing, showToolbar, toolBarOptions, height, allowFiltering, editSettings, filterSettings, onHideUnhide, onAddDuplicates, onCheckboxChange, onDragEnd, onEdit, onSearch, onDelete, selectionSettings, onRowSelection, loading, toolbarRightSection, searchSettings, hiddenProperty, 
+    // defaultFilter,
+    customFiltersFunction } = props;
     const tableRef = useRef();
     const [selected, setSelectedForBanner] = useState(0);
     useEffect(() => {
@@ -46,13 +48,8 @@ export const Table = forwardRef((props, ref) => {
         }
     };
     const actionBegin = (e) => {
-        console.log(e);
         if (e.requestType === 'filterbeforeopen') {
             customFiltersFunction(e);
-            // if (e.columnName === 'available') {
-            //     e.filterModel.options.dataSource = [{ available: 'Yes' }, { available: 'No' }];
-            //     // e.filterModel.options.operator = 'contains';
-            // }
         }
     };
     const rowDrop = (args) => {
@@ -120,6 +117,7 @@ export const Table = forwardRef((props, ref) => {
         onRowSelection(tableRef.current.getSelectedRecords());
     };
     const rowDataBound = (args) => {
+        var _a, _b;
         if (getObject(hiddenProperty, args.data) === true) {
             args.row.style.opacity = '0.4';
         }
@@ -129,9 +127,9 @@ export const Table = forwardRef((props, ref) => {
         if ((selectionSettings === null || selectionSettings === void 0 ? void 0 : selectionSettings.type) === 'Single') {
             addClass([args.row], 'singleSelect');
         }
-        // if (tableRef?.current?.getVisibleRecords()?.length !== 0) {
-        //     (document.getElementById('_gridcontrol_content_table') as any).classList.remove('empty');
-        // }
+        if (((_b = (_a = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _a === void 0 ? void 0 : _a.getVisibleRecords()) === null || _b === void 0 ? void 0 : _b.length) !== 0) {
+            document.getElementById('_gridcontrol_content_table').classList.remove('empty');
+        }
     };
     useImperativeHandle(ref, () => {
         const clearSelection = () => {
@@ -156,11 +154,12 @@ export const Table = forwardRef((props, ref) => {
         }
     };
     const disabled = (() => { var _a, _b; return !(tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) || ((_b = (_a = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _a === void 0 ? void 0 : _a.getSelectedRecords()) === null || _b === void 0 ? void 0 : _b.length) === 0; })();
-    const dataBound = () => {
-        Object.assign(tableRef.current.grid.filterModule.filterOperators, { startsWith: defaultFilter });
-        // if (tableRef?.current?.getVisibleRecords()?.length === 0) {
-        //     (document.getElementById('_gridcontrol_content_table') as any).classList.add('empty');
-        // }
+    const dataBound = (args) => {
+        // Object.assign(tableRef.current.grid.filterModule.filterOperators, { startsWith: 'contains' });
+        var _a, _b;
+        if (((_b = (_a = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _a === void 0 ? void 0 : _a.getVisibleRecords()) === null || _b === void 0 ? void 0 : _b.length) === 0) {
+            document.getElementById('_gridcontrol_content_table').classList.add('empty');
+        }
     };
     const rightSection = useMemo(() => toolbarRightSection, [toolbarRightSection]);
     return (_jsxs(Box, Object.assign({ position: 'relative' }, { children: [showToolbar && (_jsxs(Box, Object.assign({ display: 'flex', justifyContent: "space-between", alignItems: 'flex-end', mb: 2, sx: loading ? { PointerEvent: 'none' } : {} }, { children: [_jsxs(Box, Object.assign({ display: "flex", alignItems: "center", gap: 1 }, { children: [(toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('search')) && (_jsx(Box, Object.assign({ width: 300 }, { children: _jsx(TextField, { label: "", placeholder: "Search...", InputProps: {
@@ -223,7 +222,7 @@ Table.defaultProps = {
     searchSettings: {
         hierarchyMode: 'Both'
     },
-    hiddenProperty: 'is_hidden',
-    defaultFilter: 'equal'
+    hiddenProperty: 'is_hidden'
+    // defaultFilter: 'equal'
 };
 //# sourceMappingURL=Table.js.map

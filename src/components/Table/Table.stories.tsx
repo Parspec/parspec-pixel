@@ -35,9 +35,9 @@ export const SingleSelect: ComponentStory<typeof Table> = (props) => {
         console.log(selectedData);
     };
     const customFiltersFunction = (e: any) => {
-        if (e.columnName === 'available') {
-            e.filterModel.options.dataSource = [{ available: 'Yes' }, { available: 'No' }];
-        }
+        // if (e.columnName === 'available') {
+        //     e.filterModel.options.dataSource = [{ available: 'Yes' }, { available: 'No' }];
+        // }
     };
 
     return (

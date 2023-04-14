@@ -86,7 +86,7 @@ export interface TableProps {
     toolbarRightSection?: React.ReactNode;
     searchSettings?: SearchSettingsModel;
     hiddenProperty?: string;
-    defaultFilter?: 'equal' | 'contains';
+    // defaultFilter?: 'equal' | 'contains';
 }
 
 export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
@@ -120,7 +120,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         toolbarRightSection,
         searchSettings,
         hiddenProperty,
-        defaultFilter,
+        // defaultFilter,
         customFiltersFunction
     } = props;
 
@@ -434,6 +434,6 @@ Table.defaultProps = {
     searchSettings: {
         hierarchyMode: 'Both'
     },
-    hiddenProperty: 'is_hidden',
-    defaultFilter: 'equal'
+    hiddenProperty: 'is_hidden'
+    // defaultFilter: 'equal'
 };

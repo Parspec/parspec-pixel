@@ -38,7 +38,6 @@ export interface TableProps {
     toolbarRightSection?: React.ReactNode;
     searchSettings?: SearchSettingsModel;
     hiddenProperty?: string;
-    defaultFilter?: 'equal' | 'contains';
 }
 export declare const Table: React.FC<TableProps>;
 export {};

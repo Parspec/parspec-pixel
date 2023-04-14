@@ -36,8 +36,8 @@ const theme = (0, styles_1.createTheme)({
     palette: {
         action: {},
         text: {
-            primary: '#091535'
-            // secondary: '#091535'
+            primary: '#091535',
+            secondary: '#00000099'
         },
         tertiary: {
             light: '#ffe4bd',
@@ -52,7 +52,7 @@ const theme = (0, styles_1.createTheme)({
             contrastText: '#ffffff'
         },
         primary: {
-            light: '#B8B9F9',
+            light: '#E3E3FF',
             main: '#6467F2',
             dark: '#4749AC',
             contrastText: '#ffffff'

@@ -282,7 +282,7 @@ export const dDataP2 = [
     name: 'section1',
     type: 'section',
     reporter: '',
-    available: '',
+    available: 'Yes, No',
     is_hidden: false,
   },
   {
@@ -291,7 +291,7 @@ export const dDataP2 = [
     name: 'section2',
     type: 'section',
     reporter: '',
-    available: '',
+    available: 'Yes, Yes',
     is_hidden: false,
 
   },
@@ -301,7 +301,8 @@ export const dDataP2 = [
     name: 'section3',
     type: 'section',
     reporter: '',
-    available: '', is_hidden: false,
+    available: 'Yes',
+    is_hidden: false,
 
   },
   {
@@ -310,7 +311,7 @@ export const dDataP2 = [
     name: 'section4',
     type: 'section',
     reporter: '',
-    available: '',
+    available: 'No',
     is_hidden: false,
 
   },
@@ -320,7 +321,7 @@ export const dDataP2 = [
     name: 'section1',
     type: 'section',
     reporter: '',
-    available: '',
+    available: 'Yes',
     is_hidden: false,
   },
   {
@@ -329,7 +330,7 @@ export const dDataP2 = [
     name: 'section2',
     type: 'section',
     reporter: '',
-    available: '',
+    available: 'Yes',
     is_hidden: false,
 
   },
@@ -339,7 +340,7 @@ export const dDataP2 = [
     name: 'section3',
     type: 'section',
     reporter: '',
-    available: '', is_hidden: false,
+    available: 'No', is_hidden: false,
 
   },
   {
@@ -348,7 +349,7 @@ export const dDataP2 = [
     name: 'section4',
     type: 'section',
     reporter: '',
-    available: '',
+    available: 'Yes',
     is_hidden: false,
 
   },

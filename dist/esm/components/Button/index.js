@@ -21,6 +21,6 @@ Button.defaultProps = {
     color: 'tertiary',
     variant: 'contained',
     isLoading: false,
-    size: 'small'
+    size: 'medium'
 };
 //# sourceMappingURL=index.js.map

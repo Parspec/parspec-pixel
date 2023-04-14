@@ -26,7 +26,8 @@ const TextLimiter = (props) => {
                 WebkitBoxOrient: 'vertical',
                 WebkitLineClamp: props.lines,
                 overflow: 'hidden',
-                textOverflow: 'ellipsis'
+                textOverflow: 'ellipsis',
+                wordBreak: 'break-all'
             } }, { children: props.text })) })));
 };
 exports.TextLimiter = TextLimiter;

@@ -8,7 +8,6 @@ import { Button } from '../Button';
 import { ViewArrayIcon } from '../Icons';
 import { Box } from '../Box';
 import { BodyMedium } from '../Typography';
-import { FilterSettingsModel } from '@syncfusion/ej2-grids';
 import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
 
 export default {
@@ -43,7 +42,7 @@ export const SingleSelect: ComponentStory<typeof Table> = (props) => {
                 <ColumnDirective field="taskID" allowEditing={false} headerText="Task ID" width="150" editType="numericedit" />
                 <ColumnDirective field="name" headerText="Task Name" minWidth="200" />
                 <ColumnDirective field="reporter" headerText="Reporter" minWidth="200" />
-                <ColumnDirective field="available" headerText="Availability" minWidth="200" />
+                <ColumnDirective field="available" filter={{ type: 'Menu', operator: 'contains' }} filterTemplate={filterTemplateOptions} headerText="Availability" minWidth="200" />
             </Table>
         </>
     );
@@ -58,7 +57,7 @@ SingleSelect.args = {
 const coltemplate = (props: any) => {
     if (props?.taskData?.type?.includes('section')) {
         return (
-            <Button size="small" id={props.id}>
+            <Button size="small" id={props.id} color="primary">
                 Section
             </Button>
         );
@@ -98,17 +97,16 @@ const customHeaderTemplate = () => {
     );
 };
 
+const filterTemplateOptions = (props: any): any => {
+    const dataSource = ['Yes', 'No'];
+    return <DropDownListComponent id={props.column.field} popupHeight="250px" dataSource={dataSource} />;
+};
 export const Basic: ComponentStory<typeof Table> = (props) => {
-    const checkboxFilter: FilterSettingsModel = {
-        type: 'CheckBox'
+    const menuFilter: any = {
+        type: 'Menu',
+        operator: 'contains'
     };
-    const menuFilter: FilterSettingsModel = {
-        type: 'Menu'
-    };
-    const filterTemplateOptions = (props: any): any => {
-        const dataSource: string[] = ['Yes', 'No'];
-        return <DropDownListComponent id={props.column.field} popupHeight="250px" dataSource={dataSource} />;
-    };
+
     const onHideUnhide = (data: Object[]) => {
         console.log('onHideUnhide===>\n', data);
     };
@@ -151,8 +149,8 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
             <Table {...getTableProps({ ...props, onAdd, onCheckboxChange, onDelete, onDragEnd, onEdit, onSearch, onRowSelection, onHideUnhide, onAddDuplicates })} ref={tableRef}>
                 <ColumnDirective type="checkbox" width="50" />
                 <ColumnDirective field="id" isPrimaryKey={true} visible={false} />
-                <ColumnDirective field="taskID" headerText="Task ID" width="150" filter={checkboxFilter} editType="numericedit" />
-                <ColumnDirective field="name" headerText="Task Name" minWidth="200" filter={menuFilter} />
+                <ColumnDirective field="taskID" headerText="Task ID" width="150" editType="numericedit" />
+                <ColumnDirective field="name" headerText="Task Name" minWidth="200" />
                 <ColumnDirective
                     allowEditing={false}
                     allowSorting={false}
@@ -190,9 +188,6 @@ Basic.args = {
         isCollapsedStatePersist: false
     },
     allowFiltering: true,
-    filterSettings: {
-        type: 'Excel'
-    },
     loading: false,
     searchSettings: {
         fields: ['taskID', 'name', 'reported', 'available'],
@@ -200,7 +195,7 @@ Basic.args = {
     },
     toolbarRightSection: (
         <Box display={'flex'} alignItems={'center'}>
-            <Button>Right Section</Button>
+            <Button color="primary">Right Section</Button>
         </Box>
     )
 };

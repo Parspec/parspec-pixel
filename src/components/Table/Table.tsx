@@ -39,7 +39,7 @@ import {
     SelectionSettingsModel,
     SortEventArgs
 } from '@syncfusion/ej2-grids';
-import { forwardRef, useEffect, useImperativeHandle, useRef, useState, memo, useMemo } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState, useMemo } from 'react';
 import { TextField } from '../TextField';
 import { IconButton } from '../IconButton';
 import { CloseIcon, ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffIcon, FilterAltOffIcon, SearchIcon } from '../Icons';

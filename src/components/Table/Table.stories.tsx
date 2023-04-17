@@ -34,10 +34,15 @@ export const SingleSelect: ComponentStory<typeof Table> = (props) => {
     const onRowSelection = (selectedData) => {
         console.log(selectedData);
     };
+    const customFiltersFunction = (e: any) => {
+        // if (e.columnName === 'available') {
+        //     e.filterModel.options.dataSource = [{ available: 'Yes' }, { available: 'No' }];
+        // }
+    };
 
     return (
         <>
-            <Table {...getTableProps({ ...props, onRowSelection, onDragEnd })} data={data} ref={tableRef}>
+            <Table {...getTableProps({ ...props, onRowSelection, onDragEnd, customFiltersFunction })} data={data} ref={tableRef}>
                 <ColumnDirective field="id" isPrimaryKey={true} visible={false} />
                 <ColumnDirective field="taskID" allowEditing={false} headerText="Task ID" width="150" editType="numericedit" />
                 <ColumnDirective field="name" headerText="Task Name" minWidth="200" />
@@ -77,6 +82,10 @@ const coltemplate = (props: any) => {
         return <></>;
     }
 };
+const filterTemplateOptions = (props: any): any => {
+    const dataSource = ['Yes', 'No'];
+    return <DropDownListComponent id={props.column.field} popupHeight="250px" dataSource={dataSource} />;
+};
 
 const customFn = (args: { [key: string]: string }): boolean => {
     return getValue('value', args).length >= 3;
@@ -97,16 +106,7 @@ const customHeaderTemplate = () => {
     );
 };
 
-const filterTemplateOptions = (props: any): any => {
-    const dataSource = ['Yes', 'No'];
-    return <DropDownListComponent id={props.column.field} popupHeight="250px" dataSource={dataSource} />;
-};
 export const Basic: ComponentStory<typeof Table> = (props) => {
-    const menuFilter: any = {
-        type: 'Menu',
-        operator: 'contains'
-    };
-
     const onHideUnhide = (data: Object[]) => {
         console.log('onHideUnhide===>\n', data);
     };
@@ -142,11 +142,20 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
             ...args
         };
     };
+
     const tableRef = useRef<any>();
+    const customFiltersFunction = (e: any) => {
+        // if (e.columnName === 'available') {
+        //     e.filterModel.options.dataSource = [{ available: 'Yes' }, { available: 'No' }];
+        // }
+    };
 
     return (
         <>
-            <Table {...getTableProps({ ...props, onAdd, onCheckboxChange, onDelete, onDragEnd, onEdit, onSearch, onRowSelection, onHideUnhide, onAddDuplicates })} ref={tableRef}>
+            <Table
+                {...getTableProps({ ...props, onAdd, onCheckboxChange, onDelete, onDragEnd, onEdit, onSearch, onRowSelection, onHideUnhide, onAddDuplicates, customFiltersFunction })}
+                ref={tableRef}
+            >
                 <ColumnDirective type="checkbox" width="50" />
                 <ColumnDirective field="id" isPrimaryKey={true} visible={false} />
                 <ColumnDirective field="taskID" headerText="Task ID" width="150" editType="numericedit" />
@@ -162,9 +171,20 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
                     allowFiltering={false}
                 />
                 <ColumnDirective field="reporter" headerText="Reporter" minWidth="200" validationRules={validateReporter} />
-                <ColumnDirective field="available" headerText="Availability" minWidth="200" filter={menuFilter} filterTemplate={filterTemplateOptions} />
+                <ColumnDirective field="available" headerText="Availability" minWidth="200" filterTemplate={filterTemplateOptions} />
             </Table>
         </>
+    );
+};
+
+const Abc: React.FC = () => {
+    const [a, setA] = useState(1);
+    return (
+        <Box display={'flex'} alignItems={'center'}>
+            <Button color="primary" onClick={() => setA((p) => p + 1)}>
+                Right Section {a}
+            </Button>
+        </Box>
     );
 };
 // Arg properties with value as true and their corresponding settings are not required to be passed to table component as they are already present as default props, we have passed them here to get controls in stories
@@ -193,9 +213,5 @@ Basic.args = {
         fields: ['taskID', 'name', 'reported', 'available'],
         hierarchyMode: 'Both'
     },
-    toolbarRightSection: (
-        <Box display={'flex'} alignItems={'center'}>
-            <Button color="primary">Right Section</Button>
-        </Box>
-    )
+    toolbarRightSection: <Abc />
 };

@@ -1,6 +1,5 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-
 import { CircularProgress } from '.';
 
 export default {
@@ -8,10 +7,14 @@ export default {
     component: CircularProgress
 } as ComponentMeta<typeof CircularProgress>;
 
-export const Basic: ComponentStory<typeof CircularProgress> = (args) => <CircularProgress {...args} />;
+export const Basic: ComponentStory<typeof CircularProgress> = (args) => (
+    <>
+        <CircularProgress {...args} />
+    </>
+);
 
 Basic.args = {
     color: 'primary',
-    size: 20,
+    size: 'sm',
     thickness: 3.6
 };

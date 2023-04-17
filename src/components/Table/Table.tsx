@@ -39,7 +39,7 @@ import {
     SelectionSettingsModel,
     SortEventArgs
 } from '@syncfusion/ej2-grids';
-import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState, useMemo } from 'react';
 import { TextField } from '../TextField';
 import { IconButton } from '../IconButton';
 import { CloseIcon, ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffIcon, FilterAltOffIcon, SearchIcon } from '../Icons';
@@ -81,10 +81,12 @@ export interface TableProps {
     onDelete?: (data: Object) => void;
     onSearch?: (data: Object) => void;
     onRowSelection?: (data: Object) => void;
+    customFiltersFunction?: (data: Object) => void;
     loading?: boolean;
     toolbarRightSection?: React.ReactNode;
     searchSettings?: SearchSettingsModel;
     hiddenProperty?: string;
+    // defaultFilter?: 'equal' | 'contains';
 }
 
 export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
@@ -117,7 +119,9 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         loading,
         toolbarRightSection,
         searchSettings,
-        hiddenProperty
+        hiddenProperty,
+        // defaultFilter,
+        customFiltersFunction
     } = props;
 
     const tableRef = useRef<any>();
@@ -150,7 +154,11 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
             onSearch!(args);
         }
     };
-
+    const actionBegin = (e: any) => {
+        if (e.requestType === 'filterbeforeopen') {
+            customFiltersFunction!(e);
+        }
+    };
     const rowDrop = (args: any) => {
         let notAllowed = false;
         const droppedData = tableRef?.current?.getRowInfo(args.target.parentElement).rowData; //dropped data
@@ -255,14 +263,15 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     };
     const disabled = (() => !tableRef?.current || tableRef?.current?.getSelectedRecords()?.length === 0)();
 
-    const dataBound = () => {
-        Object.assign(tableRef.current.grid.filterModule.filterOperators, { startsWith: 'equal' });
+    const dataBound = (args: Object) => {
+        // Object.assign(tableRef.current.grid.filterModule.filterOperators, { startsWith: 'contains' });
 
         if (tableRef?.current?.getVisibleRecords()?.length === 0) {
             (document.getElementById('_gridcontrol_content_table') as any).classList.add('empty');
         }
     };
 
+    const rightSection = useMemo(() => toolbarRightSection, [toolbarRightSection]);
     return (
         <Box position={'relative'}>
             {showToolbar && (
@@ -327,13 +336,14 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             </Box>
                         )}
                     </Box>
-                    <Box>{toolbarRightSection}</Box>
+                    <Box>{rightSection}</Box>
                 </Box>
             )}
             <Box className="control-pane">
                 <Box className="control-section">
                     {data && (
                         <TreeGridComponent
+                            actionBegin={actionBegin}
                             dataBound={dataBound}
                             actionComplete={actionComplete}
                             headerCellInfo={headerCellInfo}
@@ -416,6 +426,7 @@ Table.defaultProps = {
     onDelete: (data: Object) => {},
     onSearch: (data: Object) => {},
     onRowSelection: (data: Object) => {},
+    customFiltersFunction: (data: Object) => {},
     loading: false,
     showToolbar: true,
     toolBarOptions: [],
@@ -424,4 +435,5 @@ Table.defaultProps = {
         hierarchyMode: 'Both'
     },
     hiddenProperty: 'is_hidden'
+    // defaultFilter: 'equal'
 };

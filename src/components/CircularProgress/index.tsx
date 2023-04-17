@@ -7,4 +7,12 @@ export interface CircularProgressProps extends Omit<MUICircularProgressProps, 's
     size?: SizeType;
 }
 
-export const CircularProgress: React.FC<CircularProgressProps> = ({ color = 'inherit', size = 'sm', ...rest }) => <MUICircularProgress color={color} size={SIZE_OPTIONS[size]} {...rest} />;
+export const CircularProgress: React.FC<CircularProgressProps> = ({ color, size, thickness, ...rest }) => (
+    <MUICircularProgress color={color} size={SIZE_OPTIONS[`${size!}`]} thickness={thickness} {...rest} />
+);
+
+CircularProgress.defaultProps = {
+    color: 'inherit',
+    size: 'sm',
+    thickness: 3.6
+};

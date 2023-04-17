@@ -19,8 +19,13 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const CircularProgress_1 = __importDefault(require("@mui/material/CircularProgress"));
 const utils_1 = require("../../Shared/utils");
 const CircularProgress = (_a) => {
-    var { color = 'inherit', size = 'sm' } = _a, rest = __rest(_a, ["color", "size"]);
-    return (0, jsx_runtime_1.jsx)(CircularProgress_1.default, Object.assign({ color: color, size: utils_1.SIZE_OPTIONS[size] }, rest));
+    var { color, size, thickness } = _a, rest = __rest(_a, ["color", "size", "thickness"]);
+    return ((0, jsx_runtime_1.jsx)(CircularProgress_1.default, Object.assign({ color: color, size: utils_1.SIZE_OPTIONS[`${size}`], thickness: utils_1.SIZE_OPTIONS_LOADER[`${thickness}`] }, rest)));
 };
 exports.CircularProgress = CircularProgress;
+exports.CircularProgress.defaultProps = {
+    color: 'inherit',
+    size: 'sm',
+    thickness: 'xs'
+};
 //# sourceMappingURL=index.js.map

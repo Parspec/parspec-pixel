@@ -48,5 +48,7 @@ export {
     Delete as DeeletIcon,
     VisibilityOffOutlined as VisibilityOffOutlinedIcon,
     Language as LanguageIcon,
-    Info as InfoIcon
+    Info as InfoIcon,
+    Share as ShareIcon,
+    NotificationsOffOutlined as NotificationsOffOutlinedIcon
 } from '@mui/icons-material';

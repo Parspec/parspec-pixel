@@ -1,19 +1,18 @@
 import { default as MUICircularProgress, CircularProgressProps as MUICircularProgressProps } from '@mui/material/CircularProgress';
-import { SIZE_OPTIONS, SIZE_OPTIONS_LOADER } from '../../Shared/utils';
+import { SIZE_OPTIONS } from '../../Shared/utils';
 import { SizeType } from '../../Shared/interfaces';
 
-export interface CircularProgressProps extends Omit<MUICircularProgressProps, 'sx' | 'thickness'> {
+export interface CircularProgressProps extends Omit<MUICircularProgressProps, 'sx'> {
     color?: 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning' | 'inherit';
     size?: SizeType;
-    thickness?: SizeType;
 }
 
 export const CircularProgress: React.FC<CircularProgressProps> = ({ color, size, thickness, ...rest }) => (
-    <MUICircularProgress color={color} size={SIZE_OPTIONS[`${size!}`]} thickness={SIZE_OPTIONS_LOADER[`${thickness!}`]} {...rest} />
+    <MUICircularProgress color={color} size={SIZE_OPTIONS[`${size!}`]} thickness={thickness} {...rest} />
 );
 
 CircularProgress.defaultProps = {
     color: 'inherit',
     size: 'sm',
-    thickness: 'xs'
+    thickness: 3.6
 };

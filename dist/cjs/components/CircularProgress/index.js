@@ -20,12 +20,12 @@ const CircularProgress_1 = __importDefault(require("@mui/material/CircularProgre
 const utils_1 = require("../../Shared/utils");
 const CircularProgress = (_a) => {
     var { color, size, thickness } = _a, rest = __rest(_a, ["color", "size", "thickness"]);
-    return ((0, jsx_runtime_1.jsx)(CircularProgress_1.default, Object.assign({ color: color, size: utils_1.SIZE_OPTIONS[`${size}`], thickness: utils_1.SIZE_OPTIONS_LOADER[`${thickness}`] }, rest)));
+    return ((0, jsx_runtime_1.jsx)(CircularProgress_1.default, Object.assign({ color: color, size: utils_1.SIZE_OPTIONS[`${size}`], thickness: thickness }, rest)));
 };
 exports.CircularProgress = CircularProgress;
 exports.CircularProgress.defaultProps = {
     color: 'inherit',
     size: 'sm',
-    thickness: 'xs'
+    thickness: 3.6
 };
 //# sourceMappingURL=index.js.map

@@ -7,6 +7,9 @@ export const ModalContainerStyle = {
     backgroundColor: '#FFFFFF',
     border: '1px solid #000',
     boxShadow: 24,
-    p: 6
+    p: 6,
+    '&:focus-visible': {
+        outline: 'none'
+    }
 };
 //# sourceMappingURL=ModalStyles.js.map

@@ -44,7 +44,9 @@ import {
     ClockIcon,
     LanguageIcon,
     DatasheetSelectInfoIcon,
-    InfoIcon
+    InfoIcon,
+    ShareIcon,
+    NotificationsOffOutlinedIcon
 } from './index';
 import { Grid } from '../Grid';
 import { Box } from '../Box';
@@ -120,7 +122,9 @@ AllIcons.args = {
         { icon: ClockIcon, name: 'ClockIcon' },
         { icon: LanguageIcon, name: 'LanguageIcon' },
         { icon: DatasheetSelectInfoIcon, name: 'DatasheetSelectInfoIcon' },
-        { icon: InfoIcon, name: 'InfoIcon' }
+        { icon: InfoIcon, name: 'InfoIcon' },
+        { icon: ShareIcon, name: 'ShareIcon' },
+        { icon: NotificationsOffOutlinedIcon, name: 'NotificationsOffOutlinedIcon' }
     ],
     fontSize: 'medium'
 };

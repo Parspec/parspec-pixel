@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.InfoIcon = exports.LanguageIcon = exports.VisibilityOffOutlinedIcon = exports.DeeletIcon = exports.TuneIcon = exports.ContentCopyIcon = exports.SyncProblemIcon = exports.FileDownloadOutlinedIcon = exports.FilterAltOffIcon = exports.VisibilityIcon = exports.VisibilityOffIcon = exports.DeleteOutlineIcon = exports.ControlPointDuplicateIcon = exports.FormatListBulletedIcon = exports.ImageIcon = exports.DownloadIcon = exports.LinkIcon = exports.SyncIcon = exports.ViewArrayIcon = exports.ChangeHistoryIcon = exports.SwapHorizIcon = exports.CheckCircleIcon = exports.MoreVertIcon = exports.EditIcon = exports.RemoveIcon = exports.AddIcon = exports.PanToolIcon = exports.CheckCircleOutlineIcon = exports.ArrowDownwardIcon = exports.ArrowUpwardIcon = exports.ArrowCircleRightIcon = exports.ArrowCircleLeftIcon = exports.LastPageIcon = exports.FirstPageIcon = exports.KeyboardArrowRightIcon = exports.KeyboardArrowLeftIcon = exports.UnfoldMoreIcon = exports.UploadIcon = exports.DeleteIcon = exports.TrendingUpIcon = exports.SearchIcon = exports.DragIndicatorIcon = exports.CancelIcon = exports.CloseIcon = exports.DatasheetSelectInfoIcon = exports.ClockIcon = exports.AnnotateColoredIcon = exports.AnnotateIcon = exports.RedirectIcon = exports.ParspecLogoIcon = void 0;
+exports.NotificationsOffOutlinedIcon = exports.ShareIcon = void 0;
 var ParspecLogoIcon_1 = require("./ParspecLogoIcon");
 Object.defineProperty(exports, "ParspecLogoIcon", { enumerable: true, get: function () { return ParspecLogoIcon_1.ParspecLogoIcon; } });
 var RedirectIcon_1 = require("./RedirectIcon");
@@ -58,4 +59,6 @@ Object.defineProperty(exports, "DeeletIcon", { enumerable: true, get: function (
 Object.defineProperty(exports, "VisibilityOffOutlinedIcon", { enumerable: true, get: function () { return icons_material_1.VisibilityOffOutlined; } });
 Object.defineProperty(exports, "LanguageIcon", { enumerable: true, get: function () { return icons_material_1.Language; } });
 Object.defineProperty(exports, "InfoIcon", { enumerable: true, get: function () { return icons_material_1.Info; } });
+Object.defineProperty(exports, "ShareIcon", { enumerable: true, get: function () { return icons_material_1.Share; } });
+Object.defineProperty(exports, "NotificationsOffOutlinedIcon", { enumerable: true, get: function () { return icons_material_1.NotificationsOffOutlined; } });
 //# sourceMappingURL=index.js.map

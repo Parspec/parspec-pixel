@@ -40,5 +40,6 @@ TextField.defaultProps = {
     variant: 'outlined',
     color: 'primary',
     error: false,
-    size: 'small'
+    size: 'small',
+    inputProps: { maxLength: 255 }
 };

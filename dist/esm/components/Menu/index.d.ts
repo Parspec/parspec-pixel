@@ -3,6 +3,7 @@ interface MenuProps {
     options: {
         label: string;
         onClick: () => void;
+        color?: string;
     }[];
     children?: any;
 }

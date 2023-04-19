@@ -1,26 +1,12 @@
-import { SvgIcon as MUISvgIcon, SvgIconProps as MUISvgIconProps, Theme } from '@mui/material';
+import { SvgIcon as MUISvgIcon, SvgIconProps as MUISvgIconProps, PaletteColor } from '@mui/material';
+import { theme } from '../../theme';
+import { ICON_SIZE_OPTIONS } from '../../Shared/utils';
 
-function getCustomFontsize(fontSize?: string) {
-    switch (fontSize) {
-        case 'xs':
-            return '12px';
-        case 'xl':
-            return '40px';
-        case 'xxl':
-            return '44px';
-    }
-}
-
-export function getFillColor(theme: Theme, color: string | undefined) {
-    if (!color) return;
-    switch (color) {
-        case 'neutral.main': {
-            return theme.palette.neutral.main;
-        }
-        case 'primary': {
-            return theme.palette.primary.main;
-        }
-    }
+export function useGetFillColor(color: string) {
+    if (!color) return theme.palette.primary.main;
+    const [c0, c1] = color.split('.');
+    const finalColor = theme.palette[c0 as keyof typeof theme.palette] as PaletteColor;
+    return c1 ? finalColor[c1 as keyof PaletteColor] : finalColor.main;
 }
 
 export interface SvgIconProps extends Omit<MUISvgIconProps, 'fontSize'> {
@@ -28,12 +14,14 @@ export interface SvgIconProps extends Omit<MUISvgIconProps, 'fontSize'> {
 }
 
 export function SvgIcon({ children, fontSize, color, ...restProps }: SvgIconProps) {
-    const customFontSize = getCustomFontsize(fontSize);
-    const fontSizePropVal = fontSize === 'xl' || fontSize === 'xxl' || fontSize === 'xs' ? undefined : fontSize;
-
     return (
-        <MUISvgIcon {...restProps} fontSize={fontSizePropVal} sx={{ fontSize: customFontSize }}>
+        <MUISvgIcon {...restProps} sx={{ fontSize: ICON_SIZE_OPTIONS[fontSize as keyof typeof ICON_SIZE_OPTIONS] }}>
             {children}
         </MUISvgIcon>
     );
 }
+
+SvgIcon.defaultProps = {
+    fontSize: 'medium',
+    color: 'primary'
+};

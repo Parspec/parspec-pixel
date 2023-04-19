@@ -31,10 +31,7 @@ import {
     VisibilityOffIcon,
     DeleteOutlineIcon,
     ControlPointDuplicateIcon,
-    RedirectIcon,
-    AnnotateIcon,
     SyncIcon,
-    AnnotateColoredIcon,
     FileDownloadOutlinedIcon,
     SyncProblemIcon,
     ContentCopyIcon,
@@ -49,36 +46,32 @@ import {
     NotificationsOffOutlinedIcon
 } from './index';
 import { Grid } from '../Grid';
-import { Box } from '../Box';
+import { BodySmall } from '../Typography';
+import { SvgIconProps } from './SvgIcon';
 
 export default {
     title: 'Icons',
     component: SearchIcon
 } as ComponentMeta<typeof SearchIcon>;
 
-const Template: ComponentStory<any> = (args) => {
-    return Array.isArray(args.icons) ? (
+export const MUIImportedIcons = ({ icons, fontSize, color }) => {
+    return (
         <Grid container>
-            {args.icons.map((element) => {
+            {icons.map((element) => {
                 return (
                     <Grid item xs={4} sm={3} md={2} gap={5} mb={12}>
                         <>
-                            <element.icon fontSize={args.fontSize} />
-                            <Box>{element.name}</Box>
+                            <element.icon fontSize={fontSize} color={color} />
+                            <BodySmall>{element.name}</BodySmall>
                         </>
                     </Grid>
                 );
             })}
         </Grid>
-    ) : (
-        <args.icons fontSize={args.fontSize} />
     );
 };
-
-export const AllIcons = Template.bind({});
-AllIcons.args = {
+MUIImportedIcons.args = {
     icons: [
-        { icon: ParspecLogoIcon, name: 'ParspecLogoIcon' },
         { icon: TrendingUpIcon, name: 'TrendingUpIcon' },
         { icon: SearchIcon, name: 'SearchIcon' },
         { icon: UnfoldMoreIcon, name: 'UnfoldMoreIcon' },
@@ -109,9 +102,6 @@ AllIcons.args = {
         { icon: VisibilityIcon, name: 'VisibilityIcon ' },
         { icon: FilterAltOffIcon, name: 'FilterAltOffIcon ' },
         { icon: SyncIcon, name: 'SyncIcon ' },
-        { icon: RedirectIcon, name: 'RedirectIcon' },
-        { icon: AnnotateIcon, name: 'AnnotateIcon' },
-        { icon: AnnotateColoredIcon, name: 'AnnotateColoredIcon' },
         { icon: FileDownloadOutlinedIcon, name: 'FileDownloadOutlinedIcon' },
         { icon: SyncProblemIcon, name: 'SyncProblemIcon' },
         { icon: ContentCopyIcon, name: 'ContentCopyIcon' },
@@ -119,18 +109,45 @@ AllIcons.args = {
         { icon: SyncIcon, name: 'SyncIcon' },
         { icon: DeleteIcon, name: 'DeleteIcon' },
         { icon: VisibilityOffOutlinedIcon, name: 'VisibilityOffOutlinedIcon' },
-        { icon: ClockIcon, name: 'ClockIcon' },
         { icon: LanguageIcon, name: 'LanguageIcon' },
-        { icon: DatasheetSelectInfoIcon, name: 'DatasheetSelectInfoIcon' },
         { icon: InfoIcon, name: 'InfoIcon' },
         { icon: ShareIcon, name: 'ShareIcon' },
         { icon: NotificationsOffOutlinedIcon, name: 'NotificationsOffOutlinedIcon' }
     ],
-    fontSize: 'medium'
+    fontSize: 'medium',
+    color: 'tertiary'
 };
 
-export const ParspecLogo = Template.bind({});
-ParspecLogo.args = {
-    icons: ParspecLogoIcon,
-    fontSize: 'large'
+// interface StorySVGIcon{
+//     Icon: React.ReactNode;
+//     name: string;
+// }
+// interface SvgIconStoryProps extends SvgIconProps {
+//     icons: StorySVGIcon[];
+// }
+
+export const SvgIcons = ({ icons, fontSize, color, fill, stroke }) => {
+    return (
+        <Grid container>
+            {icons.map((element) => {
+                return (
+                    <Grid item xs={4} sm={3} md={2} gap={5} mb={12}>
+                        <>
+                            <element.icon fontSize={fontSize} color={color} fill={fill} stroke={stroke} />
+                            <BodySmall>{element.name}</BodySmall>
+                        </>
+                    </Grid>
+                );
+            })}
+        </Grid>
+    );
+};
+SvgIcons.args = {
+    icons: [
+        { icon: ParspecLogoIcon, name: 'ParspecLogoIcon' },
+        { icon: ClockIcon, name: 'ClockIcon' },
+        { icon: DatasheetSelectInfoIcon, name: 'DatasheetSelectInfoIcon' }
+    ],
+    fontSize: 'xxl',
+    color: 'tertiary'
 };

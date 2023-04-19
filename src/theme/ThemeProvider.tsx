@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from 'react';
 import { createTheme, ThemeProvider as MUIThemeProvider } from '@mui/material/styles';
 
-const theme = createTheme({
+export const theme = createTheme({
     components: {
         MuiTooltip: {
             styleOverrides: {

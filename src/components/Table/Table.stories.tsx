@@ -45,9 +45,9 @@ export const SingleSelect: ComponentStory<typeof Table> = (props) => {
             <Table {...getTableProps({ ...props, onRowSelection, onDragEnd, customFiltersFunction })} data={data} ref={tableRef}>
                 <ColumnDirective field="id" isPrimaryKey={true} visible={false} />
                 <ColumnDirective field="taskID" allowEditing={false} headerText="Task ID" width="150" editType="numericedit" />
-                <ColumnDirective field="name" headerText="Task Name" minWidth="200" />
-                <ColumnDirective field="reporter" headerText="Reporter" minWidth="200" />
-                <ColumnDirective field="available" filter={{ type: 'Menu', operator: 'contains' }} filterTemplate={filterTemplateOptions} headerText="Availability" minWidth="200" />
+                <ColumnDirective field="name" headerText="Task Name" />
+                <ColumnDirective field="reporter" headerText="Reporter" />
+                <ColumnDirective field="available" filter={{ type: 'Menu', operator: 'contains' }} filterTemplate={filterTemplateOptions} headerText="Availability" />
             </Table>
         </>
     );

@@ -15,7 +15,15 @@ export const Basic: ComponentStory<typeof TextField> = (args) => {
 
 Basic.args = {
     label: 'outlined',
-    chips: ['one']
+    chips: [
+        'one',
+        'hjsdjhfgsdkjgssdfbvlsjdfbvlsfblvjsfbvljshfblvshbflvhsblvhbslfdhbvslv',
+        'hjsdjhfgsdkjgssdfbvlsjdfbvlsfblvjsfbvljshfblvshbflvhsblvhbslfdhbvslv',
+        'wgwrgwgw',
+        'dfsd',
+        'hjsdjhfgsdkjgssdfbvlsjdfbvlsfblvjsfbvljshfblvshbflvhsblvhbslfdhbvslv',
+        'gjgfcjgfdgjd'
+    ]
 };
 
 export const Multiline: ComponentStory<typeof TextField> = (args) => {

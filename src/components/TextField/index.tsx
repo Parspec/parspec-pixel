@@ -3,6 +3,7 @@ import styled from '@mui/material/styles/styled';
 import { forwardRef } from 'react';
 import { Box } from '../Box';
 import { Chip } from '../Chip';
+import { Tooltip } from '../Tooltip';
 
 const StyledMUITextField = styled(MUITextField)({
     '& .MuiFormHelperText-root': {
@@ -19,18 +20,19 @@ export interface TextFieldProps extends Omit<MUITextFieldProps, 'margin' | 'clas
     chips?: Array<string>;
     onChipDelete?: (index: number) => void;
     helperText?: string;
-    chipMaxWidth?: string;
 }
 
-export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(({ variant, color, error, size, label, chips, onChipDelete, helperText, chipMaxWidth, ...rest }, ref) => (
+export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(({ variant, color, error, size, label, chips, onChipDelete, helperText, ...rest }, ref) => (
     <>
         <StyledMUITextField fullWidth label={label} ref={ref} size={size} variant={variant} color={color} error={error} helperText={helperText} {...rest} />
         {chips && (
             <Box marginTop={2} display="flex" flexWrap="wrap" rowGap={1}>
                 {chips.map((chip, index) => (
-                    <Box marginRight={1} maxWidth={chipMaxWidth}>
-                        <Chip label={chip} onDelete={() => onChipDelete!(index)} />
-                    </Box>
+                    <Tooltip placement="bottom" title={chip}>
+                        <Box marginRight={1} maxWidth="40%">
+                            <Chip label={chip} onDelete={() => onChipDelete!(index)} />
+                        </Box>
+                    </Tooltip>
                 ))}
             </Box>
         )}

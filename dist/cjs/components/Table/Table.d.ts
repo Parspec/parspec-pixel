@@ -38,6 +38,7 @@ export interface TableProps {
     toolbarRightSection?: React.ReactNode;
     searchSettings?: SearchSettingsModel;
     hiddenProperty?: string;
+    allowSorting?: boolean;
 }
 export declare const Table: React.FC<TableProps>;
 export {};

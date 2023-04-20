@@ -13,11 +13,16 @@ import { jsx as _jsx } from "react/jsx-runtime";
 import { default as MUISnackbar } from '@mui/material/Snackbar';
 export const Snackbar = (_a) => {
     var { ContentProps } = _a, props = __rest(_a, ["ContentProps"]);
-    return (_jsx(MUISnackbar, Object.assign({ ContentProps: {
-            sx: {
+    return (_jsx(MUISnackbar, Object.assign({ sx: {
+            '& .MuiSnackbarContent-root': {
                 display: 'block',
                 textAlign: 'center',
-                maxWidth: '40vw'
+                backgroundColor: 'secondary.main',
+                padding: '4px 16px',
+                maxWidth: '40vw',
+                '@media (min-width: 600px)': {
+                    minWidth: 160
+                }
             }
         } }, props)));
 };

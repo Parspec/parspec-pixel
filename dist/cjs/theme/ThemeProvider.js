@@ -21,6 +21,13 @@ const theme = (0, styles_1.createTheme)({
                 })))
             }
         }
+        // MuiSnackbarContent: {
+        //     styleOverrides: {
+        //         root: {
+        //             padding :
+        //         }
+        //     }
+        // }
     },
     spacing: 4,
     // shape: {

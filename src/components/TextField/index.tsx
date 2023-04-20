@@ -26,10 +26,10 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(({ variant, 
     <>
         <StyledMUITextField fullWidth label={label} ref={ref} size={size} variant={variant} color={color} error={error} helperText={helperText} {...rest} />
         {chips && (
-            <Box marginTop={2} display="flex" flexWrap="wrap" rowGap={1}>
+            <Box mt={2} display="flex" flexWrap="wrap" rowGap={1}>
                 {chips.map((chip, index) => (
                     <Tooltip placement="bottom" title={chip}>
-                        <Box marginRight={1} maxWidth="40%">
+                        <Box mr={1} maxWidth="40%">
                             <Chip label={chip} onDelete={() => onChipDelete!(index)} />
                         </Box>
                     </Tooltip>

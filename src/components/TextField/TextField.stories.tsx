@@ -15,15 +15,7 @@ export const Basic: ComponentStory<typeof TextField> = (args) => {
 
 Basic.args = {
     label: 'outlined',
-    chips: [
-        'one',
-        'hjsdjhfgsdkjgssdfbvlsjdfbvlsfblvjsfbvljshfblvshbflvhsblvhbslfdhbvslv',
-        'hjsdjhfgsdkjgssdfbvlsjdfbvlsfblvjsfbvljshfblvshbflvhsblvhbslfdhbvslv',
-        'wgwrgwgw',
-        'dfsd',
-        'hjsdjhfgsdkjgssdfbvlsjdfbvlsfblvjsfbvljshfblvshbflvhsblvhbslfdhbvslv',
-        'gjgfcjgfdgjd'
-    ]
+    chips: ['one', 'SomelongFormText', 'AnExtralongformtextwhichusermightneed', 'two', 'three', 'another extra long form text which user might need or any long format data ']
 };
 
 export const Multiline: ComponentStory<typeof TextField> = (args) => {

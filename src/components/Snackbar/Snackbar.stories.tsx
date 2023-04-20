@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { Button } from '../Button';
 import { Snackbar } from './Snackbar';
-import { IconButton } from '../IconButton';
-import { CloseIcon } from '../Icons';
 
 export default {
     title: 'Snackbar',
@@ -20,7 +18,7 @@ export const Basic: ComponentStory<typeof Snackbar> = (props) => {
     return (
         <>
             <Button onClick={handleClick}>Open Snackbar</Button>
-            <Snackbar open={open} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} autoHideDuration={3000} onClose={() => setOpen(false)} message="This is a Parspec Snackbar" />
+            <Snackbar open={open} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} autoHideDuration={3000} onClose={() => setOpen(false)} message="This is a Parspec Snackbar." />
         </>
     );
 };

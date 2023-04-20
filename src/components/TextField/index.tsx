@@ -19,15 +19,16 @@ export interface TextFieldProps extends Omit<MUITextFieldProps, 'margin' | 'clas
     chips?: Array<string>;
     onChipDelete?: (index: number) => void;
     helperText?: string;
+    chipMaxWidth?: string;
 }
 
-export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(({ variant, color, error, size, label, chips, onChipDelete, helperText, ...rest }, ref) => (
+export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(({ variant, color, error, size, label, chips, onChipDelete, helperText, chipMaxWidth, ...rest }, ref) => (
     <>
         <StyledMUITextField fullWidth label={label} ref={ref} size={size} variant={variant} color={color} error={error} helperText={helperText} {...rest} />
         {chips && (
             <Box marginTop={2} display="flex" flexWrap="wrap" rowGap={1}>
                 {chips.map((chip, index) => (
-                    <Box marginRight={1}>
+                    <Box marginRight={1} maxWidth={chipMaxWidth}>
                         <Chip label={chip} onDelete={() => onChipDelete!(index)} />
                     </Box>
                 ))}

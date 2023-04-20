@@ -86,6 +86,7 @@ export interface TableProps {
     toolbarRightSection?: React.ReactNode;
     searchSettings?: SearchSettingsModel;
     hiddenProperty?: string;
+    allowSorting?: boolean;
     // defaultFilter?: 'equal' | 'contains';
 }
 
@@ -101,6 +102,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         allowPaging,
         pageSettings,
         allowResizing,
+        allowSorting,
         showToolbar,
         toolBarOptions,
         height,
@@ -362,7 +364,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             selectionSettings={selectionSettings}
                             rowDrop={rowDrop}
                             frozenColumns={frozenColumns}
-                            allowSorting={true}
+                            allowSorting={allowSorting}
                             editSettings={editSettings}
                             searchSettings={searchSettings}
                             pageSettings={pageSettings}
@@ -400,6 +402,7 @@ Table.defaultProps = {
         pageSize: 10
     },
     allowResizing: true,
+    allowSorting: true,
     allowFiltering: true,
     filterSettings: {
         type: 'CheckBox'

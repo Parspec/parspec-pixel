@@ -290,7 +290,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                                         )
                                     }}
                                     size="small"
-                                    onChange={(t: React.ChangeEvent<HTMLInputElement>) => tableRef.current.search(t?.target?.value)}
+                                    onChange={(t: React.ChangeEvent<HTMLInputElement>) => tableRef.current.search(t?.target?.value?.trim())}
                                 />
                             </Box>
                         )}

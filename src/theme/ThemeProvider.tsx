@@ -21,6 +21,13 @@ export const theme = createTheme({
                 })
             }
         }
+        // MuiSnackbarContent: {
+        //     styleOverrides: {
+        //         root: {
+        //             padding :
+        //         }
+        //     }
+        // }
     },
     spacing: 4,
     // shape: {

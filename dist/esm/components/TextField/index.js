@@ -15,6 +15,7 @@ import styled from '@mui/material/styles/styled';
 import { forwardRef } from 'react';
 import { Box } from '../Box';
 import { Chip } from '../Chip';
+import { Tooltip } from '../Tooltip';
 const StyledMUITextField = styled(MUITextField)({
     '& .MuiFormHelperText-root': {
         marginLeft: '0px'
@@ -22,12 +23,13 @@ const StyledMUITextField = styled(MUITextField)({
 });
 export const TextField = forwardRef((_a, ref) => {
     var { variant, color, error, size, label, chips, onChipDelete, helperText } = _a, rest = __rest(_a, ["variant", "color", "error", "size", "label", "chips", "onChipDelete", "helperText"]);
-    return (_jsxs(_Fragment, { children: [_jsx(StyledMUITextField, Object.assign({ fullWidth: true, label: label, ref: ref, size: size, variant: variant, color: color, error: error, helperText: helperText }, rest)), chips && (_jsx(Box, Object.assign({ marginTop: 2, display: "flex", flexWrap: "wrap", rowGap: 1 }, { children: chips.map((chip, index) => (_jsx(Box, Object.assign({ marginRight: 1 }, { children: _jsx(Chip, { label: chip, onDelete: () => onChipDelete(index) }) })))) })))] }));
+    return (_jsxs(_Fragment, { children: [_jsx(StyledMUITextField, Object.assign({ fullWidth: true, label: label, ref: ref, size: size, variant: variant, color: color, error: error, helperText: helperText }, rest)), chips && (_jsx(Box, Object.assign({ mt: 2, display: "flex", flexWrap: "wrap", rowGap: 1 }, { children: chips.map((chip, index) => (_jsx(Tooltip, Object.assign({ placement: "bottom", title: chip }, { children: _jsx(Box, Object.assign({ mr: 1, maxWidth: "40%" }, { children: _jsx(Chip, { label: chip, onDelete: () => onChipDelete(index) }) })) })))) })))] }));
 });
 TextField.defaultProps = {
     variant: 'outlined',
     color: 'primary',
     error: false,
-    size: 'small'
+    size: 'small',
+    inputProps: { maxLength: 255 }
 };
 //# sourceMappingURL=index.js.map

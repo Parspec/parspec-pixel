@@ -10,10 +10,8 @@ export interface RadioGroupProps extends MUIRadioGroupProps {
     options: FormLabelParams[];
     name: string;
     size?: 'small' | 'medium';
-}
-export interface CustomRadioGroupProps extends RadioGroupProps {
-    gap: number;
+    error?: boolean;
+    helperText?: string;
 }
 export declare const RadioGroup: import("react").ForwardRefExoticComponent<Omit<RadioGroupProps, "ref"> & import("react").RefAttributes<HTMLDivElement>>;
-export declare const CustomRadioGroup: import("react").ForwardRefExoticComponent<Omit<CustomRadioGroupProps, "ref"> & import("react").RefAttributes<HTMLDivElement>>;
 export {};

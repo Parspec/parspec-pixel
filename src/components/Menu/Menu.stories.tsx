@@ -12,7 +12,7 @@ export default {
 const options = [
     { label: 'Option 1', onClick: () => alert('clicked on option 1') },
     { label: 'Option 2', onClick: () => alert('clicked on option 2') },
-    { label: 'Option 3', onClick: () => alert('clicked on option 3') }
+    { label: 'Option 3', onClick: () => alert('clicked on option 3'), color: 'error.main' }
 ];
 
 const Template: ComponentStory<typeof Menu> = (args) => (

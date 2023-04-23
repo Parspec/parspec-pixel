@@ -21,6 +21,7 @@ const styled_1 = __importDefault(require("@mui/material/styles/styled"));
 const react_1 = require("react");
 const Box_1 = require("../Box");
 const Chip_1 = require("../Chip");
+const Tooltip_1 = require("../Tooltip");
 const StyledMUITextField = (0, styled_1.default)(TextField_1.default)({
     '& .MuiFormHelperText-root': {
         marginLeft: '0px'
@@ -28,12 +29,13 @@ const StyledMUITextField = (0, styled_1.default)(TextField_1.default)({
 });
 exports.TextField = (0, react_1.forwardRef)((_a, ref) => {
     var { variant, color, error, size, label, chips, onChipDelete, helperText } = _a, rest = __rest(_a, ["variant", "color", "error", "size", "label", "chips", "onChipDelete", "helperText"]);
-    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(StyledMUITextField, Object.assign({ fullWidth: true, label: label, ref: ref, size: size, variant: variant, color: color, error: error, helperText: helperText }, rest)), chips && ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ marginTop: 2, display: "flex", flexWrap: "wrap", rowGap: 1 }, { children: chips.map((chip, index) => ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ marginRight: 1 }, { children: (0, jsx_runtime_1.jsx)(Chip_1.Chip, { label: chip, onDelete: () => onChipDelete(index) }) })))) })))] }));
+    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(StyledMUITextField, Object.assign({ fullWidth: true, label: label, ref: ref, size: size, variant: variant, color: color, error: error, helperText: helperText }, rest)), chips && ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ mt: 2, display: "flex", flexWrap: "wrap", rowGap: 1 }, { children: chips.map((chip, index) => ((0, jsx_runtime_1.jsx)(Tooltip_1.Tooltip, Object.assign({ placement: "bottom", title: chip }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ mr: 1, maxWidth: "40%" }, { children: (0, jsx_runtime_1.jsx)(Chip_1.Chip, { label: chip, onDelete: () => onChipDelete(index) }) })) })))) })))] }));
 });
 exports.TextField.defaultProps = {
     variant: 'outlined',
     color: 'primary',
     error: false,
-    size: 'small'
+    size: 'small',
+    inputProps: { maxLength: 255 }
 };
 //# sourceMappingURL=index.js.map

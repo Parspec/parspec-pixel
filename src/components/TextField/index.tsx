@@ -3,6 +3,7 @@ import styled from '@mui/material/styles/styled';
 import { forwardRef } from 'react';
 import { Box } from '../Box';
 import { Chip } from '../Chip';
+import { Tooltip } from '../Tooltip';
 
 const StyledMUITextField = styled(MUITextField)({
     '& .MuiFormHelperText-root': {
@@ -25,11 +26,13 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(({ variant, 
     <>
         <StyledMUITextField fullWidth label={label} ref={ref} size={size} variant={variant} color={color} error={error} helperText={helperText} {...rest} />
         {chips && (
-            <Box marginTop={2} display="flex" flexWrap="wrap" rowGap={1}>
+            <Box mt={2} display="flex" flexWrap="wrap" rowGap={1}>
                 {chips.map((chip, index) => (
-                    <Box marginRight={1}>
-                        <Chip label={chip} onDelete={() => onChipDelete!(index)} />
-                    </Box>
+                    <Tooltip placement="bottom" title={chip}>
+                        <Box mr={1} maxWidth="40%">
+                            <Chip label={chip} onDelete={() => onChipDelete!(index)} />
+                        </Box>
+                    </Tooltip>
                 ))}
             </Box>
         )}
@@ -40,5 +43,6 @@ TextField.defaultProps = {
     variant: 'outlined',
     color: 'primary',
     error: false,
-    size: 'small'
+    size: 'small',
+    inputProps: { maxLength: 255 }
 };

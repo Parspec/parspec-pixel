@@ -21,7 +21,9 @@ const Snackbar = (_a) => {
     var { ContentProps } = _a, props = __rest(_a, ["ContentProps"]);
     return ((0, jsx_runtime_1.jsx)(Snackbar_1.default, Object.assign({ sx: {
             '& .MuiSnackbarContent-root': {
-                display: 'block',
+                display: 'flex',
+                flexWrap: 'nowrap',
+                justifyContent: 'center',
                 textAlign: 'center',
                 backgroundColor: 'secondary.main',
                 padding: '4px 16px',

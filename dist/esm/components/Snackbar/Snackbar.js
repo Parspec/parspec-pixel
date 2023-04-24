@@ -15,7 +15,9 @@ export const Snackbar = (_a) => {
     var { ContentProps } = _a, props = __rest(_a, ["ContentProps"]);
     return (_jsx(MUISnackbar, Object.assign({ sx: {
             '& .MuiSnackbarContent-root': {
-                display: 'block',
+                display: 'flex',
+                flexWrap: 'nowrap',
+                justifyContent: 'center',
                 textAlign: 'center',
                 backgroundColor: 'secondary.main',
                 padding: '4px 16px',

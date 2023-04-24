@@ -19,7 +19,6 @@ export interface TableProps {
     toolBarOptions?: ToolbarType;
     excelExportProperties?: TreeGridExcelExportProperties;
     pdfExportProperties?: TreeGridPdfExportProperties;
-    height?: number;
     allowFiltering?: boolean;
     filterSettings?: FilterSettingsModel;
     selectionSettings?: SelectionSettingsModel;

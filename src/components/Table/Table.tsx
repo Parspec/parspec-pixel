@@ -67,7 +67,6 @@ export interface TableProps {
     toolBarOptions?: ToolbarType;
     excelExportProperties?: TreeGridExcelExportProperties;
     pdfExportProperties?: TreeGridPdfExportProperties;
-    height?: number;
     allowFiltering?: boolean;
     filterSettings?: FilterSettingsModel;
     selectionSettings?: SelectionSettingsModel;
@@ -105,7 +104,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         allowSorting,
         showToolbar,
         toolBarOptions,
-        height,
+        // height,
         allowFiltering,
         editSettings,
         filterSettings,
@@ -267,17 +266,28 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
 
     const dataBound = (args: Object) => {
         // Object.assign(tableRef.current.grid.filterModule.filterOperators, { startsWith: 'contains' });
-
         if (tableRef?.current?.getVisibleRecords()?.length === 0) {
             (document.getElementById('_gridcontrol_content_table') as any).classList.add('empty');
         }
     };
 
     const rightSection = useMemo(() => toolbarRightSection, [toolbarRightSection]);
+
+    const [tableHeight, setTableHeight] = useState<number>();
+    const tableContainerRef = useRef<any>();
+    const toolbarContainerRef = useRef<any>();
+
+    useEffect(() => {
+        const toolbarHeight = showToolbar ? toolbarContainerRef?.current?.offsetHeight + 98 : 0;
+        if (tableContainerRef?.current?.offsetHeight) {
+            setTableHeight(tableContainerRef?.current?.offsetHeight - toolbarHeight);
+        }
+    }, []);
+
     return (
-        <Box position={'relative'}>
+        <Box position={'relative'} height={'100%'} width={'100%'} ref={tableContainerRef}>
             {showToolbar && (
-                <Box display={'flex'} justifyContent="space-between" alignItems={'flex-end'} mb={2} sx={loading ? { PointerEvent: 'none' } : {}}>
+                <Box display={'flex'} ref={toolbarContainerRef} justifyContent="space-between" alignItems={'flex-end'} mb={2} sx={loading ? { PointerEvent: 'none' } : {}}>
                     <Box display="flex" alignItems="center" gap={1}>
                         {toolBarOptions?.includes('search') && (
                             <Box width={300}>
@@ -352,7 +362,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             rowSelected={rowSelected}
                             rowDeselected={rowDeselected}
                             rowDataBound={rowDataBound}
-                            height={height}
+                            height={tableHeight}
                             ref={tableRef}
                             dataSource={data}
                             treeColumnIndex={treeColumnIndex}

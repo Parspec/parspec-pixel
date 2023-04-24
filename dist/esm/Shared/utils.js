@@ -7,4 +7,13 @@ export const SIZE_OPTIONS = {
     xl: 28,
     xxl: 32
 };
+export const ICON_SIZE_OPTIONS = {
+    xs: 12,
+    small: 20,
+    medium: 24,
+    large: 32,
+    xl: 40,
+    xxl: 44,
+    inherit: 'inherit'
+};
 //# sourceMappingURL=utils.js.map

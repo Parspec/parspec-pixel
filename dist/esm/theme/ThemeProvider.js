@@ -1,6 +1,6 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { createTheme, ThemeProvider as MUIThemeProvider } from '@mui/material/styles';
-const theme = createTheme({
+export const theme = createTheme({
     components: {
         MuiTooltip: {
             styleOverrides: {

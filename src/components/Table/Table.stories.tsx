@@ -41,7 +41,7 @@ export const SingleSelect: ComponentStory<typeof Table> = (props) => {
     };
 
     return (
-        <>
+        <Box height={500}>
             <Table {...getTableProps({ ...props, onRowSelection, onDragEnd, customFiltersFunction })} data={data} ref={tableRef}>
                 <ColumnDirective field="id" isPrimaryKey={true} visible={false} />
                 <ColumnDirective field="taskID" allowEditing={false} headerText="Task ID" width="150" editType="numericedit" />
@@ -49,7 +49,7 @@ export const SingleSelect: ComponentStory<typeof Table> = (props) => {
                 <ColumnDirective field="reporter" headerText="Reporter" />
                 <ColumnDirective field="available" filter={{ type: 'Menu', operator: 'contains' }} filterTemplate={filterTemplateOptions} headerText="Availability" />
             </Table>
-        </>
+        </Box>
     );
 };
 SingleSelect.args = {
@@ -150,7 +150,7 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
     };
 
     return (
-        <Box height={'700px'}>
+        <Box height={500}>
             <Table
                 {...getTableProps({ ...props, onAdd, onCheckboxChange, onDelete, onDragEnd, onEdit, onSearch, onRowSelection, onHideUnhide, onAddDuplicates, customFiltersFunction })}
                 ref={tableRef}

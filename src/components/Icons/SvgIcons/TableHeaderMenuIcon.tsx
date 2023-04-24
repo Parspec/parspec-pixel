@@ -16,3 +16,8 @@ export const TableHeaderMenuIcon: React.FC<SvgIconProps> = ({ fontSize, color })
         </SvgIcon>
     );
 };
+
+TableHeaderMenuIcon.defaultProps = {
+    fontSize: 'medium',
+    color: 'primary'
+};

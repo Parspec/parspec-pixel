@@ -10,3 +10,8 @@ export const ClockIcon: React.FC<SvgIconProps> = ({ fontSize, color }) => {
         </SvgIcon>
     );
 };
+
+ClockIcon.defaultProps = {
+    fontSize: 'medium',
+    color: 'primary'
+};

@@ -11,3 +11,8 @@ export const ParspecLogoIcon: React.FC<SvgIconProps> = ({ fontSize, color }) => 
         </SvgIcon>
     );
 };
+
+ParspecLogoIcon.defaultProps = {
+    fontSize: 'medium',
+    color: 'primary'
+};

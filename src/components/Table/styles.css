@@ -28444,12 +28444,22 @@ li.e-separator.e-menu-item.e-excel-separator {
     content: '\e840';
     color: #6467f2;
     font-weight: bold;
+    background-color: #f1f5f9;
+    position: relative;
+    z-index: 999;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 .e-grid .e-icon-descending::before,
 .e-grid-menu .e-icon-descending::before {
     content: '\e83f';
     color: #6467f2;
     font-weight: bold;
+    background-color: #f1f5f9;
+    position: relative;
+    z-index: 999;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 .e-grid .e-icon-hide::before,
 .e-grid-menu .e-icon-hide::before {
@@ -29061,7 +29071,7 @@ tr.singleSelect:hover {
     padding-right: 0 !important;
 }
 
-.e-sortfilterdiv,
+/* .e-sortfilterdiv, */
 .e-filtermenudiv.e-icons {
     background-color: #f1f5f9;
     position: relative;

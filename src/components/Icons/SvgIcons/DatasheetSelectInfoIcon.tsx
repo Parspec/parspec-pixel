@@ -1,6 +1,6 @@
 import { SvgIcon, SvgIconProps, getFillColor } from '../SvgIcon';
 
-export const DatasheetSelectInfoIcon = ({ fontSize = 'xs', color }: SvgIconProps) => {
+export const DatasheetSelectInfoIcon = ({ fontSize, color }: SvgIconProps) => {
     const colorCode = getFillColor(String(color));
     return (
         <SvgIcon fontSize={fontSize} xmlns="http://www.w3.org/2000/svg">
@@ -10,4 +10,9 @@ export const DatasheetSelectInfoIcon = ({ fontSize = 'xs', color }: SvgIconProps
             />
         </SvgIcon>
     );
+};
+
+DatasheetSelectInfoIcon.defaultProps = {
+    fontSize: 'medium',
+    color: 'primary'
 };

@@ -1,3 +1,9 @@
 /// <reference types="react" />
 import { SvgIconProps } from '../SvgIcon';
-export declare const DatasheetSelectInfoIcon: ({ fontSize, color }: SvgIconProps) => JSX.Element;
+export declare const DatasheetSelectInfoIcon: {
+    ({ fontSize, color }: SvgIconProps): JSX.Element;
+    defaultProps: {
+        fontSize: string;
+        color: string;
+    };
+};

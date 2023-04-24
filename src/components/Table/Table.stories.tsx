@@ -53,7 +53,6 @@ export const SingleSelect: ComponentStory<typeof Table> = (props) => {
     );
 };
 SingleSelect.args = {
-    height: 400,
     childMappingKey: 'subtasks',
     allowRowDragAndDrop: true,
     treeColumnIndex: 3
@@ -151,7 +150,7 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
     };
 
     return (
-        <>
+        <Box height={'700px'}>
             <Table
                 {...getTableProps({ ...props, onAdd, onCheckboxChange, onDelete, onDragEnd, onEdit, onSearch, onRowSelection, onHideUnhide, onAddDuplicates, customFiltersFunction })}
                 ref={tableRef}
@@ -173,7 +172,7 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
                 <ColumnDirective field="reporter" headerText="Reporter" minWidth="200" validationRules={validateReporter} />
                 <ColumnDirective field="available" headerText="Availability" minWidth="200" filterTemplate={filterTemplateOptions} />
             </Table>
-        </>
+        </Box>
     );
 };
 
@@ -189,7 +188,6 @@ const Abc: React.FC = () => {
 };
 // Arg properties with value as true and their corresponding settings are not required to be passed to table component as they are already present as default props, we have passed them here to get controls in stories
 Basic.args = {
-    height: 400,
     data: dDataP,
     childMappingKey: 'subtasks',
     allowRowDragAndDrop: true,

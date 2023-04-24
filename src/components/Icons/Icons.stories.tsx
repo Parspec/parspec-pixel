@@ -43,15 +43,25 @@ import {
     DatasheetSelectInfoIcon,
     InfoIcon,
     ShareIcon,
-    NotificationsOffOutlinedIcon
+    NotificationsOffOutlinedIcon,
+    TableHeaderMenuIcon
 } from './index';
 import { Grid } from '../Grid';
 import { BodySmall } from '../Typography';
-import { SvgIconProps } from './SvgIcon';
 
 export default {
     title: 'Icons',
-    component: SearchIcon
+    component: SearchIcon,
+    argTypes: {
+        color: {
+            options: ['primary', 'secondary', 'tertiary', 'neutral'],
+            control: { type: 'select' }
+        },
+        fontSize: {
+            options: ['xs', 'small', 'medium', 'large', 'xl', 'xxl'],
+            control: { type: 'select' }
+        }
+    }
 } as ComponentMeta<typeof SearchIcon>;
 
 export const MUIImportedIcons = ({ icons, fontSize, color }) => {
@@ -118,14 +128,6 @@ MUIImportedIcons.args = {
     color: 'tertiary'
 };
 
-// interface StorySVGIcon{
-//     Icon: React.ReactNode;
-//     name: string;
-// }
-// interface SvgIconStoryProps extends SvgIconProps {
-//     icons: StorySVGIcon[];
-// }
-
 export const SvgIcons = ({ icons, fontSize, color, fill, stroke }) => {
     return (
         <Grid container>
@@ -146,7 +148,8 @@ SvgIcons.args = {
     icons: [
         { icon: ParspecLogoIcon, name: 'ParspecLogoIcon' },
         { icon: ClockIcon, name: 'ClockIcon' },
-        { icon: DatasheetSelectInfoIcon, name: 'DatasheetSelectInfoIcon' }
+        { icon: DatasheetSelectInfoIcon, name: 'DatasheetSelectInfoIcon' },
+        { icon: TableHeaderMenuIcon, name: 'TableHeaderMenuIcon' }
     ],
     fontSize: 'xxl',
     color: 'tertiary'

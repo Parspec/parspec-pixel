@@ -86,7 +86,7 @@ export interface TableProps {
     searchSettings?: SearchSettingsModel;
     hiddenProperty?: string;
     allowSorting?: boolean;
-    // defaultFilter?: 'equal' | 'contains';
+    defaultFilter?: 'equal' | 'contains';
 }
 
 export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
@@ -104,7 +104,6 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         allowSorting,
         showToolbar,
         toolBarOptions,
-        // height,
         allowFiltering,
         editSettings,
         filterSettings,
@@ -121,7 +120,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         toolbarRightSection,
         searchSettings,
         hiddenProperty,
-        // defaultFilter,
+        defaultFilter,
         customFiltersFunction
     } = props;
 
@@ -158,6 +157,9 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     const actionBegin = (e: any) => {
         if (e.requestType === 'filterbeforeopen') {
             customFiltersFunction!(e);
+        }
+        if (e.requestType === 'filtering' && e.action != 'clear-filter') {
+            e.columns[0].operator = defaultFilter;
         }
     };
     const rowDrop = (args: any) => {
@@ -265,7 +267,6 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     const disabled = (() => !tableRef?.current || tableRef?.current?.getSelectedRecords()?.length === 0)();
 
     const dataBound = (args: Object) => {
-        // Object.assign(tableRef.current.grid.filterModule.filterOperators, { startsWith: 'contains' });
         if (tableRef?.current?.getVisibleRecords()?.length === 0) {
             (document.getElementById('_gridcontrol_content_table') as any).classList.add('empty');
         }
@@ -283,7 +284,6 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         const tableHeader = 42 + 8;
         if (tableContainerRef?.current?.offsetHeight) {
             setTableHeight(tableContainerRef?.current?.offsetHeight - toolbarHeight - paginationHeight - tableHeader);
-            console.log(showToolbar, 'table-h==>', tableHeight, 't.c.h==>', tableContainerRef?.current?.offsetHeight);
         }
     }, [tableContainerRef?.current]);
     return (
@@ -449,6 +449,6 @@ Table.defaultProps = {
     searchSettings: {
         hierarchyMode: 'Both'
     },
-    hiddenProperty: 'is_hidden'
-    // defaultFilter: 'equal'
+    hiddenProperty: 'is_hidden',
+    defaultFilter: 'equal'
 };

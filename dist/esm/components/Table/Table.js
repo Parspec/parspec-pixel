@@ -14,11 +14,7 @@ import { InputAdornment } from '../InputAdornment';
 const license = window.localStorage.getItem('syncfusionLicense');
 registerLicense(license);
 export const Table = forwardRef((props, ref) => {
-    const { children, data, childMappingKey, allowExports, allowRowDragAndDrop, frozenColumns, treeColumnIndex, allowPaging, pageSettings, allowResizing, allowSorting, showToolbar, toolBarOptions, 
-    // height,
-    allowFiltering, editSettings, filterSettings, onHideUnhide, onAddDuplicates, onCheckboxChange, onDragEnd, onEdit, onSearch, onDelete, selectionSettings, onRowSelection, loading, toolbarRightSection, searchSettings, hiddenProperty, 
-    // defaultFilter,
-    customFiltersFunction } = props;
+    const { children, data, childMappingKey, allowExports, allowRowDragAndDrop, frozenColumns, treeColumnIndex, allowPaging, pageSettings, allowResizing, allowSorting, showToolbar, toolBarOptions, allowFiltering, editSettings, filterSettings, onHideUnhide, onAddDuplicates, onCheckboxChange, onDragEnd, onEdit, onSearch, onDelete, selectionSettings, onRowSelection, loading, toolbarRightSection, searchSettings, hiddenProperty, defaultFilter, customFiltersFunction } = props;
     const tableRef = useRef();
     const [selected, setSelectedForBanner] = useState(0);
     useEffect(() => {
@@ -52,6 +48,9 @@ export const Table = forwardRef((props, ref) => {
     const actionBegin = (e) => {
         if (e.requestType === 'filterbeforeopen') {
             customFiltersFunction(e);
+        }
+        if (e.requestType === 'filtering' && e.action != 'clear-filter') {
+            e.columns[0].operator = defaultFilter;
         }
     };
     const rowDrop = (args) => {
@@ -158,7 +157,6 @@ export const Table = forwardRef((props, ref) => {
     const disabled = (() => { var _a, _b; return !(tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) || ((_b = (_a = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _a === void 0 ? void 0 : _a.getSelectedRecords()) === null || _b === void 0 ? void 0 : _b.length) === 0; })();
     const dataBound = (args) => {
         var _a, _b;
-        // Object.assign(tableRef.current.grid.filterModule.filterOperators, { startsWith: 'contains' });
         if (((_b = (_a = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _a === void 0 ? void 0 : _a.getVisibleRecords()) === null || _b === void 0 ? void 0 : _b.length) === 0) {
             document.getElementById('_gridcontrol_content_table').classList.add('empty');
         }
@@ -168,13 +166,12 @@ export const Table = forwardRef((props, ref) => {
     const tableContainerRef = useRef();
     const toolbarContainerRef = useRef();
     useEffect(() => {
-        var _a, _b, _c, _d;
+        var _a, _b, _c;
         const toolbarHeight = showToolbar && (toolbarContainerRef === null || toolbarContainerRef === void 0 ? void 0 : toolbarContainerRef.current) ? (_a = toolbarContainerRef === null || toolbarContainerRef === void 0 ? void 0 : toolbarContainerRef.current) === null || _a === void 0 ? void 0 : _a.offsetHeight : 0;
         const paginationHeight = allowPaging ? 47 : 0;
         const tableHeader = 42 + 8;
         if ((_b = tableContainerRef === null || tableContainerRef === void 0 ? void 0 : tableContainerRef.current) === null || _b === void 0 ? void 0 : _b.offsetHeight) {
             setTableHeight(((_c = tableContainerRef === null || tableContainerRef === void 0 ? void 0 : tableContainerRef.current) === null || _c === void 0 ? void 0 : _c.offsetHeight) - toolbarHeight - paginationHeight - tableHeader);
-            console.log(showToolbar, 'table-h==>', tableHeight, 't.c.h==>', (_d = tableContainerRef === null || tableContainerRef === void 0 ? void 0 : tableContainerRef.current) === null || _d === void 0 ? void 0 : _d.offsetHeight);
         }
     }, [tableContainerRef === null || tableContainerRef === void 0 ? void 0 : tableContainerRef.current]);
     return (_jsxs(Box, Object.assign({ position: 'relative', height: '100%', width: '100%', ref: tableContainerRef }, { children: [showToolbar ? (_jsxs(Box, Object.assign({ display: 'flex', ref: toolbarContainerRef, justifyContent: "space-between", alignItems: 'flex-end', mb: 2, sx: loading ? { PointerEvent: 'none' } : {} }, { children: [_jsxs(Box, Object.assign({ display: "flex", alignItems: "center", gap: 1 }, { children: [(toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('search')) && (_jsx(Box, Object.assign({ width: 300 }, { children: _jsx(TextField, { label: "", placeholder: "Search...", InputProps: {
@@ -238,7 +235,7 @@ Table.defaultProps = {
     searchSettings: {
         hierarchyMode: 'Both'
     },
-    hiddenProperty: 'is_hidden'
-    // defaultFilter: 'equal'
+    hiddenProperty: 'is_hidden',
+    defaultFilter: 'equal'
 };
 //# sourceMappingURL=Table.js.map

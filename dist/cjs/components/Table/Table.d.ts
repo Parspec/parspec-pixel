@@ -38,7 +38,7 @@ export interface TableProps {
     searchSettings?: SearchSettingsModel;
     hiddenProperty?: string;
     allowSorting?: boolean;
-    defaultFilter?: 'equal' | 'contains';
+    defaultFilter?: string;
 }
 export declare const Table: React.FC<TableProps>;
 export {};

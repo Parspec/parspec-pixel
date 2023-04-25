@@ -86,7 +86,7 @@ export interface TableProps {
     searchSettings?: SearchSettingsModel;
     hiddenProperty?: string;
     allowSorting?: boolean;
-    defaultFilter?: 'equal' | 'contains';
+    defaultFilter?: string;
 }
 
 export const Table: React.FC<TableProps> = forwardRef((props, ref) => {

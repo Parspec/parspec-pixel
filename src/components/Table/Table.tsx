@@ -159,7 +159,9 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
             customFiltersFunction!(e);
         }
         if (e.requestType === 'filtering' && e.action != 'clear-filter') {
-            e.columns[0].operator = defaultFilter;
+            if (e?.columns?.[0]?.operator) {
+                e.columns[0].operator = defaultFilter;
+            }
         }
     };
     const rowDrop = (args: any) => {

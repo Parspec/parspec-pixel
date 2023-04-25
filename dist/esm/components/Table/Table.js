@@ -46,11 +46,14 @@ export const Table = forwardRef((props, ref) => {
         }
     };
     const actionBegin = (e) => {
+        var _a, _b;
         if (e.requestType === 'filterbeforeopen') {
             customFiltersFunction(e);
         }
         if (e.requestType === 'filtering' && e.action != 'clear-filter') {
-            e.columns[0].operator = defaultFilter;
+            if ((_b = (_a = e === null || e === void 0 ? void 0 : e.columns) === null || _a === void 0 ? void 0 : _a[0]) === null || _b === void 0 ? void 0 : _b.operator) {
+                e.columns[0].operator = defaultFilter;
+            }
         }
     };
     const rowDrop = (args) => {

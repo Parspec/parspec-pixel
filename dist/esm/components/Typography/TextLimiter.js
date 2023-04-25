@@ -45,7 +45,7 @@ export const TextLimiter = (props) => {
                 WebkitLineClamp: props.lines,
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
-                wordBreak: 'break-all'
+                wordBreak: 'break-word'
             } }, { children: props.text })) })));
 };
 //# sourceMappingURL=TextLimiter.js.map

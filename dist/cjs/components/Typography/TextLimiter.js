@@ -26,7 +26,8 @@ const StyledToolTip = (0, styled_1.default)((_a) => {
     return (0, jsx_runtime_1.jsx)(Tooltip_2.Tooltip, Object.assign({}, props, { classes: { popper: className } }));
 })({
     [`& .${Tooltip_1.tooltipClasses.tooltip}`]: {
-        maxWidth: '60%'
+        maxWidth: '60%',
+        wordBreak: 'break-word'
     }
 });
 const TextLimiter = (props) => {

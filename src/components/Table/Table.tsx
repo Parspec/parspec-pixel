@@ -278,15 +278,17 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     const toolbarContainerRef = useRef<any>();
 
     useEffect(() => {
-        const toolbarHeight = showToolbar ? toolbarContainerRef?.current?.offsetHeight + 98 : 0;
+        const toolbarHeight = showToolbar && toolbarContainerRef?.current ? toolbarContainerRef?.current?.offsetHeight : 0;
+        const paginationHeight = allowPaging ? 47 : 0;
+        const tableHeader = 42 + 8;
         if (tableContainerRef?.current?.offsetHeight) {
-            setTableHeight(tableContainerRef?.current?.offsetHeight - toolbarHeight);
+            setTableHeight(tableContainerRef?.current?.offsetHeight - toolbarHeight - paginationHeight - tableHeader);
+            console.log(showToolbar, 'table-h==>', tableHeight, 't.c.h==>', tableContainerRef?.current?.offsetHeight);
         }
-    }, []);
-
+    }, [tableContainerRef?.current]);
     return (
         <Box position={'relative'} height={'100%'} width={'100%'} ref={tableContainerRef}>
-            {showToolbar && (
+            {showToolbar ? (
                 <Box display={'flex'} ref={toolbarContainerRef} justifyContent="space-between" alignItems={'flex-end'} mb={2} sx={loading ? { PointerEvent: 'none' } : {}}>
                     <Box display="flex" alignItems="center" gap={1}>
                         {toolBarOptions?.includes('search') && (
@@ -350,7 +352,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                     </Box>
                     <Box>{rightSection}</Box>
                 </Box>
-            )}
+            ) : null}
             <Box className="control-pane">
                 <Box className="control-section">
                     {data && (

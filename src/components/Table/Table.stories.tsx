@@ -27,6 +27,7 @@ export const SingleSelect: ComponentStory<typeof Table> = (props) => {
         };
         return {
             selectionSettings,
+            defaultFilter: 'contains',
             ...args
         };
     };
@@ -35,9 +36,9 @@ export const SingleSelect: ComponentStory<typeof Table> = (props) => {
         console.log(selectedData);
     };
     const customFiltersFunction = (e: any) => {
-        // if (e.columnName === 'available') {
-        //     e.filterModel.options.dataSource = [{ available: 'Yes' }, { available: 'No' }];
-        // }
+        if (e.columnName === 'available') {
+            e.filterModel.options.dataSource = [{ available: 'Yes' }, { available: 'No' }];
+        }
     };
 
     return (
@@ -47,7 +48,7 @@ export const SingleSelect: ComponentStory<typeof Table> = (props) => {
                 <ColumnDirective field="taskID" allowEditing={false} headerText="Task ID" minWidth="100" width="130" editType="numericedit" />
                 <ColumnDirective field="name" headerText="Task Name" />
                 <ColumnDirective field="reporter" headerText="Reporter" />
-                <ColumnDirective field="available" filter={{ type: 'Menu', operator: 'contains' }} filterTemplate={filterTemplateOptions} headerText="Availability" />
+                <ColumnDirective field="available" headerText="Availability" />
             </Table>
         </Box>
     );
@@ -55,7 +56,8 @@ export const SingleSelect: ComponentStory<typeof Table> = (props) => {
 SingleSelect.args = {
     childMappingKey: 'subtasks',
     allowRowDragAndDrop: true,
-    treeColumnIndex: 3
+    treeColumnIndex: 3,
+    allowPaging: false
 };
 
 const coltemplate = (props: any) => {

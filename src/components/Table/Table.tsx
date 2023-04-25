@@ -86,7 +86,7 @@ export interface TableProps {
     searchSettings?: SearchSettingsModel;
     hiddenProperty?: string;
     allowSorting?: boolean;
-    // defaultFilter?: 'equal' | 'contains';
+    defaultFilter?: string;
 }
 
 export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
@@ -104,7 +104,6 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         allowSorting,
         showToolbar,
         toolBarOptions,
-        // height,
         allowFiltering,
         editSettings,
         filterSettings,
@@ -121,7 +120,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         toolbarRightSection,
         searchSettings,
         hiddenProperty,
-        // defaultFilter,
+        defaultFilter,
         customFiltersFunction
     } = props;
 
@@ -158,6 +157,11 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     const actionBegin = (e: any) => {
         if (e.requestType === 'filterbeforeopen') {
             customFiltersFunction!(e);
+        }
+        if (e.requestType === 'filtering' && e.action != 'clear-filter') {
+            if (e?.columns?.[0]?.operator) {
+                e.columns[0].operator = defaultFilter;
+            }
         }
     };
     const rowDrop = (args: any) => {
@@ -265,7 +269,6 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     const disabled = (() => !tableRef?.current || tableRef?.current?.getSelectedRecords()?.length === 0)();
 
     const dataBound = (args: Object) => {
-        // Object.assign(tableRef.current.grid.filterModule.filterOperators, { startsWith: 'contains' });
         if (tableRef?.current?.getVisibleRecords()?.length === 0) {
             (document.getElementById('_gridcontrol_content_table') as any).classList.add('empty');
         }
@@ -278,15 +281,16 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     const toolbarContainerRef = useRef<any>();
 
     useEffect(() => {
-        const toolbarHeight = showToolbar ? toolbarContainerRef?.current?.offsetHeight + 98 : 0;
+        const toolbarHeight = showToolbar && toolbarContainerRef?.current ? toolbarContainerRef?.current?.offsetHeight : 0;
+        const paginationHeight = allowPaging ? 47 : 0;
+        const tableHeader = 42 + 8;
         if (tableContainerRef?.current?.offsetHeight) {
-            setTableHeight(tableContainerRef?.current?.offsetHeight - toolbarHeight);
+            setTableHeight(tableContainerRef?.current?.offsetHeight - toolbarHeight - paginationHeight - tableHeader);
         }
-    }, []);
-
+    }, [tableContainerRef?.current]);
     return (
         <Box position={'relative'} height={'100%'} width={'100%'} ref={tableContainerRef}>
-            {showToolbar && (
+            {showToolbar ? (
                 <Box display={'flex'} ref={toolbarContainerRef} justifyContent="space-between" alignItems={'flex-end'} mb={2} sx={loading ? { PointerEvent: 'none' } : {}}>
                     <Box display="flex" alignItems="center" gap={1}>
                         {toolBarOptions?.includes('search') && (
@@ -350,7 +354,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                     </Box>
                     <Box>{rightSection}</Box>
                 </Box>
-            )}
+            ) : null}
             <Box className="control-pane">
                 <Box className="control-section">
                     {data && (
@@ -447,6 +451,6 @@ Table.defaultProps = {
     searchSettings: {
         hierarchyMode: 'Both'
     },
-    hiddenProperty: 'is_hidden'
-    // defaultFilter: 'equal'
+    hiddenProperty: 'is_hidden',
+    defaultFilter: 'equal'
 };

@@ -278,11 +278,13 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     const toolbarContainerRef = useRef<any>();
 
     useEffect(() => {
-        const toolbarHeight = showToolbar ? toolbarContainerRef?.current?.offsetHeight + 98 : 0;
+        const toolbarHeight = showToolbar && toolbarContainerRef?.current ? toolbarContainerRef?.current?.offsetHeight : 0;
+        const paginationHeight = allowPaging ? 47 : 0;
+        const tableHeader = 42 + 10;
         if (tableContainerRef?.current?.offsetHeight) {
-            setTableHeight(tableContainerRef?.current?.offsetHeight - toolbarHeight);
+            setTableHeight(tableContainerRef?.current?.offsetHeight - toolbarHeight - paginationHeight - tableHeader);
         }
-    }, []);
+    }, [[tableContainerRef?.current]]);
 
     return (
         <Box position={'relative'} height={'100%'} width={'100%'} ref={tableContainerRef}>

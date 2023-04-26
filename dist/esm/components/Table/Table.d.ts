@@ -38,6 +38,7 @@ export interface TableProps {
     searchSettings?: SearchSettingsModel;
     hiddenProperty?: string;
     allowSorting?: boolean;
+    rowHeight?: number;
 }
 export declare const Table: React.FC<TableProps>;
 export {};

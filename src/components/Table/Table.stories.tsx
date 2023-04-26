@@ -55,7 +55,8 @@ export const SingleSelect: ComponentStory<typeof Table> = (props) => {
 SingleSelect.args = {
     childMappingKey: 'subtasks',
     allowRowDragAndDrop: true,
-    treeColumnIndex: 3
+    treeColumnIndex: 3,
+    allowPaging: false
 };
 
 const coltemplate = (props: any) => {
@@ -138,6 +139,7 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
         return {
             toolBarOptions: toolBarItems,
             toolbarRightSection: <Button>Import Products</Button>,
+            rowHeight: 40,
             ...args
         };
     };

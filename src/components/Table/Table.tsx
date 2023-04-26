@@ -86,6 +86,7 @@ export interface TableProps {
     searchSettings?: SearchSettingsModel;
     hiddenProperty?: string;
     allowSorting?: boolean;
+    rowHeight?: number;
     // defaultFilter?: 'equal' | 'contains';
 }
 
@@ -121,6 +122,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         toolbarRightSection,
         searchSettings,
         hiddenProperty,
+        rowHeight,
         // defaultFilter,
         customFiltersFunction
     } = props;
@@ -233,7 +235,6 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         if (selectionSettings?.type === 'Single') {
             addClass([args.row], 'singleSelect');
         }
-
         if (tableRef?.current?.getVisibleRecords()?.length !== 0) {
             (document.getElementById('_gridcontrol_content_table') as any).classList.remove('empty');
         }
@@ -265,7 +266,6 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     const disabled = (() => !tableRef?.current || tableRef?.current?.getSelectedRecords()?.length === 0)();
 
     const dataBound = (args: Object) => {
-        // Object.assign(tableRef.current.grid.filterModule.filterOperators, { startsWith: 'contains' });
         if (tableRef?.current?.getVisibleRecords()?.length === 0) {
             (document.getElementById('_gridcontrol_content_table') as any).classList.add('empty');
         }
@@ -384,6 +384,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             allowFiltering={allowFiltering}
                             filterSettings={filterSettings}
                             checkboxChange={checkboxChange}
+                            rowHeight={rowHeight}
                         >
                             <ColumnsDirective>{children}</ColumnsDirective>
                             <Inject services={[Freeze, RowDD, Selection, Sort, Edit, Page, ExcelExport, PdfExport, Resize, Filter, ContextMenu]} />

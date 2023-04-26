@@ -139,6 +139,7 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
         return {
             toolBarOptions: toolBarItems,
             toolbarRightSection: <Button>Import Products</Button>,
+            rowHeight: 40,
             ...args
         };
     };

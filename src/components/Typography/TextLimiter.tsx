@@ -13,7 +13,8 @@ interface TextLimiterProps {
 
 const StyledToolTip = styled(({ className, ...props }: TooltipProps) => <Tooltip {...props} classes={{ popper: className }} />)({
     [`& .${tooltipClasses.tooltip}`]: {
-        maxWidth: '60%'
+        maxWidth: '60%',
+        wordBreak: 'break-word'
     }
 });
 
@@ -51,7 +52,7 @@ export const TextLimiter = (props: TextLimiterProps) => {
                     WebkitLineClamp: props.lines,
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
-                    wordBreak: 'break-all'
+                    wordBreak: 'break-word'
                 }}
             >
                 {props.text}

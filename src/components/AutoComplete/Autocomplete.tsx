@@ -72,7 +72,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
                         return option;
                     }}
                     filterOptions={filterOptions}
-                    onInputChange={(event: any, value: any) => setState(value)}
+                    onInputChange={(e, value: string) => setState(value)}
                     freeSolo={freeSolo}
                     renderInput={({ size, ...params }) => <TextField size={fieldSize} helperText={helperText} error={error} {...params} variant={variant} color={color} label={label} />}
                 />

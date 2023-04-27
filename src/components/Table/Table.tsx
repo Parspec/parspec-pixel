@@ -67,7 +67,6 @@ export interface TableProps {
     toolBarOptions?: ToolbarType;
     excelExportProperties?: TreeGridExcelExportProperties;
     pdfExportProperties?: TreeGridPdfExportProperties;
-    height?: number;
     allowFiltering?: boolean;
     filterSettings?: FilterSettingsModel;
     selectionSettings?: SelectionSettingsModel;
@@ -87,6 +86,7 @@ export interface TableProps {
     searchSettings?: SearchSettingsModel;
     hiddenProperty?: string;
     allowSorting?: boolean;
+    rowHeight?: number;
     // defaultFilter?: 'equal' | 'contains';
 }
 
@@ -105,7 +105,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         allowSorting,
         showToolbar,
         toolBarOptions,
-        height,
+        // height,
         allowFiltering,
         editSettings,
         filterSettings,
@@ -122,6 +122,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         toolbarRightSection,
         searchSettings,
         hiddenProperty,
+        rowHeight,
         // defaultFilter,
         customFiltersFunction
     } = props;
@@ -234,7 +235,6 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         if (selectionSettings?.type === 'Single') {
             addClass([args.row], 'singleSelect');
         }
-
         if (tableRef?.current?.getVisibleRecords()?.length !== 0) {
             (document.getElementById('_gridcontrol_content_table') as any).classList.remove('empty');
         }
@@ -266,18 +266,30 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     const disabled = (() => !tableRef?.current || tableRef?.current?.getSelectedRecords()?.length === 0)();
 
     const dataBound = (args: Object) => {
-        // Object.assign(tableRef.current.grid.filterModule.filterOperators, { startsWith: 'contains' });
-
         if (tableRef?.current?.getVisibleRecords()?.length === 0) {
             (document.getElementById('_gridcontrol_content_table') as any).classList.add('empty');
         }
     };
 
     const rightSection = useMemo(() => toolbarRightSection, [toolbarRightSection]);
+
+    const [tableHeight, setTableHeight] = useState<number>();
+    const tableContainerRef = useRef<any>();
+    const toolbarContainerRef = useRef<any>();
+
+    useEffect(() => {
+        const toolbarHeight = showToolbar && toolbarContainerRef?.current ? toolbarContainerRef?.current?.offsetHeight : 0;
+        const paginationHeight = allowPaging ? 47 : 0;
+        const tableHeader = 42 + 10;
+        if (tableContainerRef?.current?.offsetHeight) {
+            setTableHeight(tableContainerRef?.current?.offsetHeight - toolbarHeight - paginationHeight - tableHeader);
+        }
+    }, [[tableContainerRef?.current]]);
+
     return (
-        <Box position={'relative'}>
+        <Box position={'relative'} height={'100%'} width={'100%'} ref={tableContainerRef}>
             {showToolbar && (
-                <Box display={'flex'} justifyContent="space-between" alignItems={'flex-end'} mb={2} sx={loading ? { PointerEvent: 'none' } : {}}>
+                <Box display={'flex'} ref={toolbarContainerRef} justifyContent="space-between" alignItems={'flex-end'} mb={2} sx={loading ? { PointerEvent: 'none' } : {}}>
                     <Box display="flex" alignItems="center" gap={1}>
                         {toolBarOptions?.includes('search') && (
                             <Box width={300}>
@@ -352,7 +364,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             rowSelected={rowSelected}
                             rowDeselected={rowDeselected}
                             rowDataBound={rowDataBound}
-                            height={height}
+                            height={tableHeight}
                             ref={tableRef}
                             dataSource={data}
                             treeColumnIndex={treeColumnIndex}
@@ -372,6 +384,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             allowFiltering={allowFiltering}
                             filterSettings={filterSettings}
                             checkboxChange={checkboxChange}
+                            rowHeight={rowHeight}
                         >
                             <ColumnsDirective>{children}</ColumnsDirective>
                             <Inject services={[Freeze, RowDD, Selection, Sort, Edit, Page, ExcelExport, PdfExport, Resize, Filter, ContextMenu]} />

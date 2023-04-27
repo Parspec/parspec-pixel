@@ -28444,12 +28444,22 @@ li.e-separator.e-menu-item.e-excel-separator {
     content: '\e840';
     color: #6467f2;
     font-weight: bold;
+    background-color: #f1f5f9;
+    position: relative;
+    z-index: 999;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 .e-grid .e-icon-descending::before,
 .e-grid-menu .e-icon-descending::before {
     content: '\e83f';
     color: #6467f2;
     font-weight: bold;
+    background-color: #f1f5f9;
+    position: relative;
+    z-index: 999;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 .e-grid .e-icon-hide::before,
 .e-grid-menu .e-icon-hide::before {
@@ -28985,6 +28995,10 @@ tr.singleSelect:hover {
 .e-treegrid .customicon .e-sortfilterdiv:not(.e-icon-ascending):not(.e-icon-descending)::before {
     font-size: 12px;
     content: '\e666';
+    padding-right: 3px;
+    position: relative;
+    z-index: 999;
+    background-color: #f1f5f9;
 }
 .e-grid .e-gridheader .e-icons:not(.e-icon-hide):not(.e-check):not(.e-stop):not(.e-icon-reorderuparrow):not(.e-icon-reorderdownarrow) {
     color: #091535;
@@ -29051,4 +29065,20 @@ tr.singleSelect:hover {
 
 .e-pager div.e-icons.e-disable {
     pointer-events: none;
+}
+
+#_gridcontrol > div.e-gridheader.e-lib.e-droppable {
+    padding-right: 0 !important;
+}
+
+/* .e-sortfilterdiv, */
+.e-filtermenudiv.e-icons {
+    background-color: #f1f5f9;
+    position: relative;
+    z-index: 999;
+}
+
+.e-rcursor {
+    position: relative;
+    z-index: 9999;
 }

@@ -5,7 +5,9 @@ export const Snackbar: React.FC<MUISnackbarProps> = ({ ContentProps, ...props })
         <MUISnackbar
             sx={{
                 '& .MuiSnackbarContent-root': {
-                    display: 'block',
+                    display: 'flex',
+                    flexWrap: 'nowrap',
+                    justifyContent: 'center',
                     textAlign: 'center',
                     backgroundColor: 'secondary.main',
                     padding: '4px 16px',

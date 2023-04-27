@@ -7,3 +7,12 @@ export declare const SIZE_OPTIONS: {
     xl: number;
     xxl: number;
 };
+export declare const ICON_SIZE_OPTIONS: {
+    xs: number;
+    small: number;
+    medium: number;
+    large: number;
+    xl: number;
+    xxl: number;
+    inherit: string;
+};

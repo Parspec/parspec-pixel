@@ -14,34 +14,23 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SvgIcon = exports.getFillColor = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const material_1 = require("@mui/material");
-function getCustomFontsize(fontSize) {
-    switch (fontSize) {
-        case 'xs':
-            return '12px';
-        case 'xl':
-            return '40px';
-        case 'xxl':
-            return '44px';
-    }
-}
-function getFillColor(theme, color) {
+const theme_1 = require("../../theme");
+const utils_1 = require("../../Shared/utils");
+function getFillColor(color) {
     if (!color)
-        return;
-    switch (color) {
-        case 'neutral.main': {
-            return theme.palette.neutral.main;
-        }
-        case 'primary': {
-            return theme.palette.primary.main;
-        }
-    }
+        return theme_1.theme.palette.primary.main;
+    const [c0, c1] = color.split('.');
+    const finalColor = theme_1.theme.palette[c0];
+    return c1 ? finalColor[c1] : finalColor.main;
 }
 exports.getFillColor = getFillColor;
 function SvgIcon(_a) {
     var { children, fontSize, color } = _a, restProps = __rest(_a, ["children", "fontSize", "color"]);
-    const customFontSize = getCustomFontsize(fontSize);
-    const fontSizePropVal = fontSize === 'xl' || fontSize === 'xxl' || fontSize === 'xs' ? undefined : fontSize;
-    return ((0, jsx_runtime_1.jsx)(material_1.SvgIcon, Object.assign({}, restProps, { fontSize: fontSizePropVal, sx: { fontSize: customFontSize } }, { children: children })));
+    return ((0, jsx_runtime_1.jsx)(material_1.SvgIcon, Object.assign({}, restProps, { sx: { fontSize: utils_1.ICON_SIZE_OPTIONS[fontSize] } }, { children: children })));
 }
 exports.SvgIcon = SvgIcon;
+SvgIcon.defaultProps = {
+    fontSize: 'medium',
+    color: 'primary'
+};
 //# sourceMappingURL=SvgIcon.js.map

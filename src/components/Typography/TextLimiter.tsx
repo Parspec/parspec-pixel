@@ -1,4 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
+import styled from '@mui/material/styles/styled';
+import { tooltipClasses, TooltipProps } from '@mui/material/Tooltip';
+
 import { Box } from '../Box';
 import { Tooltip } from '../Tooltip';
 
@@ -7,6 +10,13 @@ interface TextLimiterProps {
     text: React.ReactNode;
     lines: number;
 }
+
+const StyledToolTip = styled(({ className, ...props }: TooltipProps) => <Tooltip {...props} classes={{ popper: className }} />)({
+    [`& .${tooltipClasses.tooltip}`]: {
+        maxWidth: '60%',
+        wordBreak: 'break-word'
+    }
+});
 
 export const TextLimiter = (props: TextLimiterProps) => {
     const textElementRef = useRef<HTMLInputElement | null>(null);
@@ -30,7 +40,7 @@ export const TextLimiter = (props: TextLimiterProps) => {
     );
 
     return (
-        <Tooltip title={props.tooltip} disableHoverListener={!hoverStatus}>
+        <StyledToolTip title={props.tooltip} disableHoverListener={!hoverStatus}>
             <Box
                 ref={textElementRef}
                 height="100%"
@@ -42,11 +52,11 @@ export const TextLimiter = (props: TextLimiterProps) => {
                     WebkitLineClamp: props.lines,
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
-                    wordBreak: 'break-all'
+                    wordBreak: 'break-word'
                 }}
             >
                 {props.text}
             </Box>
-        </Tooltip>
+        </StyledToolTip>
     );
 };

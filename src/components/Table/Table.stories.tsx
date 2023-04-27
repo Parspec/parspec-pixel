@@ -41,22 +41,22 @@ export const SingleSelect: ComponentStory<typeof Table> = (props) => {
     };
 
     return (
-        <>
+        <Box height={500}>
             <Table {...getTableProps({ ...props, onRowSelection, onDragEnd, customFiltersFunction })} data={data} ref={tableRef}>
                 <ColumnDirective field="id" isPrimaryKey={true} visible={false} />
-                <ColumnDirective field="taskID" allowEditing={false} headerText="Task ID" width="150" editType="numericedit" />
-                <ColumnDirective field="name" headerText="Task Name" minWidth="200" />
-                <ColumnDirective field="reporter" headerText="Reporter" minWidth="200" />
-                <ColumnDirective field="available" filter={{ type: 'Menu', operator: 'contains' }} filterTemplate={filterTemplateOptions} headerText="Availability" minWidth="200" />
+                <ColumnDirective field="taskID" allowEditing={false} headerText="Task ID" minWidth="100" width="130" editType="numericedit" />
+                <ColumnDirective field="name" headerText="Task Name" />
+                <ColumnDirective field="reporter" headerText="Reporter" />
+                <ColumnDirective field="available" filter={{ type: 'Menu', operator: 'contains' }} filterTemplate={filterTemplateOptions} headerText="Availability" />
             </Table>
-        </>
+        </Box>
     );
 };
 SingleSelect.args = {
-    height: 400,
     childMappingKey: 'subtasks',
     allowRowDragAndDrop: true,
-    treeColumnIndex: 3
+    treeColumnIndex: 3,
+    allowPaging: false
 };
 
 const coltemplate = (props: any) => {
@@ -139,6 +139,7 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
         return {
             toolBarOptions: toolBarItems,
             toolbarRightSection: <Button>Import Products</Button>,
+            rowHeight: 40,
             ...args
         };
     };
@@ -151,14 +152,14 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
     };
 
     return (
-        <>
+        <Box height={500}>
             <Table
                 {...getTableProps({ ...props, onAdd, onCheckboxChange, onDelete, onDragEnd, onEdit, onSearch, onRowSelection, onHideUnhide, onAddDuplicates, customFiltersFunction })}
                 ref={tableRef}
             >
                 <ColumnDirective type="checkbox" width="50" />
                 <ColumnDirective field="id" isPrimaryKey={true} visible={false} />
-                <ColumnDirective field="taskID" headerText="Task ID" width="150" editType="numericedit" />
+                <ColumnDirective field="taskID" headerText="Task ID" minWidth="100" width="130" editType="numericedit" />
                 <ColumnDirective field="name" headerText="Task Name" minWidth="200" />
                 <ColumnDirective
                     allowEditing={false}
@@ -173,7 +174,7 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
                 <ColumnDirective field="reporter" headerText="Reporter" minWidth="200" validationRules={validateReporter} />
                 <ColumnDirective field="available" headerText="Availability" minWidth="200" filterTemplate={filterTemplateOptions} />
             </Table>
-        </>
+        </Box>
     );
 };
 
@@ -189,7 +190,6 @@ const Abc: React.FC = () => {
 };
 // Arg properties with value as true and their corresponding settings are not required to be passed to table component as they are already present as default props, we have passed them here to get controls in stories
 Basic.args = {
-    height: 400,
     data: dDataP,
     childMappingKey: 'subtasks',
     allowRowDragAndDrop: true,

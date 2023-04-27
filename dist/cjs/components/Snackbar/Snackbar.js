@@ -19,11 +19,18 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const Snackbar_1 = __importDefault(require("@mui/material/Snackbar"));
 const Snackbar = (_a) => {
     var { ContentProps } = _a, props = __rest(_a, ["ContentProps"]);
-    return ((0, jsx_runtime_1.jsx)(Snackbar_1.default, Object.assign({ ContentProps: {
-            sx: {
-                display: 'block',
+    return ((0, jsx_runtime_1.jsx)(Snackbar_1.default, Object.assign({ sx: {
+            '& .MuiSnackbarContent-root': {
+                display: 'flex',
+                flexWrap: 'nowrap',
+                justifyContent: 'center',
                 textAlign: 'center',
-                maxWidth: '40vw'
+                backgroundColor: 'secondary.main',
+                padding: '4px 16px',
+                maxWidth: '40vw',
+                '@media (min-width: 600px)': {
+                    minWidth: 160
+                }
             }
         } }, props)));
 };

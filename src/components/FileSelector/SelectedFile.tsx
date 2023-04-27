@@ -1,9 +1,9 @@
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import { IconButton } from '@mui/material';
 import { Box } from '../Box';
 import { BodySmall } from '../Typography';
 import { DeleteIcon } from '../Icons';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
 import ProgressBar from '../ProgressBar';
 
 type SelectedFileProps = {
@@ -20,6 +20,7 @@ type SelectedFileProps = {
 const SelectedFile = (props: SelectedFileProps) => {
     const { file, onDelete, url, handleResults, index } = props;
     const [progress, setProgress] = useState(0);
+    const [showProgress, setShowProgress] = useState(true);
 
     let source = axios.CancelToken.source();
 
@@ -48,6 +49,7 @@ const SelectedFile = (props: SelectedFileProps) => {
                     // signal: controller?.signal,
                     cancelToken: source.token
                 });
+                setShowProgress(false);
                 return handleResults({ file, progress: 100 }, index);
             } catch (err: any) {
                 if (err?.message !== 'canceled') return handleResults({ file, error: err.message }, index);
@@ -71,14 +73,12 @@ const SelectedFile = (props: SelectedFileProps) => {
                 <BodySmall>{(file.size / 1000).toFixed(2)} kb</BodySmall>
             </Box>
             <Box ml="auto" display="flex">
-                {url ? (
-                    <Box mr={2}>
-                        <ProgressBar progress={progress} />
-                    </Box>
-                ) : null}
-                <IconButton onClick={handleDelete} size="small">
-                    <DeleteIcon />
-                </IconButton>
+                {url && showProgress ? <ProgressBar progress={progress} /> : null}
+                <Box ml={2}>
+                    <IconButton onClick={handleDelete} size="small">
+                        <DeleteIcon />
+                    </IconButton>
+                </Box>
             </Box>
         </Box>
     );

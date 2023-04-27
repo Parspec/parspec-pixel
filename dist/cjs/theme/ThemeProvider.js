@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ThemeProvider = void 0;
+exports.ThemeProvider = exports.theme = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const styles_1 = require("@mui/material/styles");
-const theme = (0, styles_1.createTheme)({
+exports.theme = (0, styles_1.createTheme)({
     components: {
         MuiTooltip: {
             styleOverrides: {
@@ -21,6 +21,13 @@ const theme = (0, styles_1.createTheme)({
                 })))
             }
         }
+        // MuiSnackbarContent: {
+        //     styleOverrides: {
+        //         root: {
+        //             padding :
+        //         }
+        //     }
+        // }
     },
     spacing: 4,
     // shape: {
@@ -81,7 +88,7 @@ const theme = (0, styles_1.createTheme)({
     }
 });
 const ThemeProvider = (props) => {
-    return (0, jsx_runtime_1.jsx)(styles_1.ThemeProvider, Object.assign({ theme: theme }, { children: props.children }));
+    return (0, jsx_runtime_1.jsx)(styles_1.ThemeProvider, Object.assign({ theme: exports.theme }, { children: props.children }));
 };
 exports.ThemeProvider = ThemeProvider;
 //# sourceMappingURL=ThemeProvider.js.map

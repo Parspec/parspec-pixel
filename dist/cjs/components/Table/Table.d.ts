@@ -19,7 +19,6 @@ export interface TableProps {
     toolBarOptions?: ToolbarType;
     excelExportProperties?: TreeGridExcelExportProperties;
     pdfExportProperties?: TreeGridPdfExportProperties;
-    height?: number;
     allowFiltering?: boolean;
     filterSettings?: FilterSettingsModel;
     selectionSettings?: SelectionSettingsModel;
@@ -38,6 +37,8 @@ export interface TableProps {
     toolbarRightSection?: React.ReactNode;
     searchSettings?: SearchSettingsModel;
     hiddenProperty?: string;
+    allowSorting?: boolean;
+    rowHeight?: number;
 }
 export declare const Table: React.FC<TableProps>;
 export {};

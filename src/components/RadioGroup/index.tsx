@@ -25,7 +25,7 @@ export interface RadioGroupProps extends MUIRadioGroupProps {
 
 export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(({ options, label, name, size = 'small', error, helperText, ...rest }, ref) => (
     <FormControl error={error} ref={ref}>
-        <FormLabel>{label}</FormLabel>
+        <FormLabel color={error ? 'error' : 'secondary'}>{label}</FormLabel>
         <MUIRadioGroup {...rest} name={name}>
             {options.map((item, index) => (
                 <>

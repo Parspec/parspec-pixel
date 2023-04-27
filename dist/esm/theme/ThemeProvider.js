@@ -41,7 +41,7 @@ export const theme = createTheme({
         action: {},
         text: {
             primary: '#091535',
-            secondary: '#00000099'
+            secondary: '#6B7280;'
         },
         tertiary: {
             light: '#ffe4bd',

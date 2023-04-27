@@ -10,4 +10,7 @@ const Skeleton = (props) => {
     return (0, jsx_runtime_1.jsx)(Skeleton_1.default, Object.assign({}, props));
 };
 exports.Skeleton = Skeleton;
+exports.Skeleton.defaultProps = {
+    color: 'rgba(0,0,0,0.05)'
+};
 //# sourceMappingURL=index.js.map

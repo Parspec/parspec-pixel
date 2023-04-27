@@ -15,8 +15,8 @@ export interface AutocompleteProps {
     multiple?: boolean;
     value?: string | OptionType | (string | OptionType)[] | null;
     defaultValue?: string | OptionType | (string | OptionType)[] | null;
-    onBlur?: (event: React.SyntheticEvent) => void;
+    onBlur?: (event: any) => void;
     helperText?: string;
-    isError?: boolean;
+    error?: boolean;
 }
 export declare const Autocomplete: React.FC<AutocompleteProps>;

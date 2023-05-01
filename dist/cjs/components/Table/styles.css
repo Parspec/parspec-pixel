@@ -29082,3 +29082,8 @@ tr.singleSelect:hover {
     position: relative;
     z-index: 9999;
 }
+
+.e-grid .e-rowcell {
+    font-size: 14px;
+}
+

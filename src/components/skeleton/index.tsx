@@ -1,7 +1,7 @@
 import { default as MUISkeleton, SkeletonProps } from '@mui/material/Skeleton';
 
 export const Skeleton = (props: SkeletonProps) => {
-    return <MUISkeleton {...props} sx={{ bgcolor: 'rgba(0,0,0,0.5)' }} />;
+    return <MUISkeleton {...props} />;
 };
 
 Skeleton.defaultProps = {

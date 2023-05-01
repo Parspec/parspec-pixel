@@ -7,7 +7,7 @@ exports.Skeleton = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const Skeleton_1 = __importDefault(require("@mui/material/Skeleton"));
 const Skeleton = (props) => {
-    return (0, jsx_runtime_1.jsx)(Skeleton_1.default, Object.assign({}, props, { sx: { bgcolor: 'rgba(0,0,0,0.5)' } }));
+    return (0, jsx_runtime_1.jsx)(Skeleton_1.default, Object.assign({}, props));
 };
 exports.Skeleton = Skeleton;
 exports.Skeleton.defaultProps = {

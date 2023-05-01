@@ -3,6 +3,8 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import { TextField } from './index';
 
+import { VisibilityIcon } from '../Icons/index';
+
 export default {
     title: 'TextField',
     component: TextField,
@@ -46,4 +48,12 @@ Error.args = {
     error: true,
     label: 'error',
     helperText: 'invalid input !!'
+};
+export const WithIcon: ComponentStory<typeof TextField> = (args) => {
+    return <TextField {...args} />;
+};
+
+WithIcon.args = {
+    label: 'outlined',
+    icon: <VisibilityIcon />
 };

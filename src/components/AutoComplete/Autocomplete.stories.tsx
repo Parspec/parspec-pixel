@@ -54,9 +54,7 @@ export const AutocompleteWithCreateOption: ComponentStory<typeof Autocomplete> =
         onChange={(e: any) => {
             console.log(e.target.value);
         }}
-        onBlur={(event: any) => {
-            console.log('Yolooo', event.target.value);
-        }}
+        onBlur={(value: any) => console.log(`[on blur]`, value)}
     />
 );
 

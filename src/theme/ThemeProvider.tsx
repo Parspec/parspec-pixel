@@ -71,18 +71,20 @@ export const theme = createTheme({
             contrastText: '#091535'
         },
         success: {
-            light: '#6EE7B7',
+            light: '#D1FAE5',
             main: '#10B981',
             dark: '#047857',
             contrastText: '#ffffff'
         },
-        // info: {
-        //     main: ''
-        // },
+        info: {
+            light: '#DBEAFE',
+            main: '#3B82F6'
+        },
         // warning: {
         //     main: ''
         // }
         error: {
+            light: '#FFE4E6',
             main: '#F43F5E'
         }
     }

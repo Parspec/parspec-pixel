@@ -8,14 +8,6 @@ export default {
     component: Status
 } as ComponentMeta<typeof Status>;
 
-interface StageType {
-    status: string;
-    color: string;
-}
-interface StatusStoryProps {
-    stages: StageType[];
-}
-
 export const Basic = ({ stages }) => {
     return stages.map((item) => (
         <>

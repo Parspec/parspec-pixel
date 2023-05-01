@@ -309,29 +309,35 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             </Box>
                         )}
                         {toolBarOptions?.includes('duplicate') && (
-                            <Tooltip title="Add Duplicate Record(s)">
-                                <IconButton onClick={() => onAddDuplicates!(tableRef.current.getSelectedRecords())} disabled={disabled}>
-                                    <ControlPointDuplicateIcon fontSize="medium" />
-                                </IconButton>
+                            <Tooltip title={disabled ? 'Select Product(s) First' : 'Add Duplicate Record(s)'}>
+                                <Box>
+                                    <IconButton onClick={() => onAddDuplicates!(tableRef.current.getSelectedRecords())} disabled={disabled}>
+                                        <ControlPointDuplicateIcon fontSize="medium" />
+                                    </IconButton>
+                                </Box>
                             </Tooltip>
                         )}
                         {toolBarOptions?.includes('delete') && (
-                            <Tooltip title="Delete Record(s)">
-                                <IconButton
-                                    disabled={disabled}
-                                    onClick={() => {
-                                        onDelete!(tableRef?.current?.getSelectedRecords());
-                                    }}
-                                >
-                                    <DeleteOutlineIcon fontSize="medium" />
-                                </IconButton>
+                            <Tooltip title={disabled ? 'Select Product(s) First' : 'Delete Record(s)'}>
+                                <Box>
+                                    <IconButton
+                                        disabled={disabled}
+                                        onClick={() => {
+                                            onDelete!(tableRef?.current?.getSelectedRecords());
+                                        }}
+                                    >
+                                        <DeleteOutlineIcon fontSize="medium" />
+                                    </IconButton>
+                                </Box>
                             </Tooltip>
                         )}
                         {toolBarOptions?.includes('hide') && (
-                            <Tooltip title="Hide/Unhide Record(s)">
-                                <IconButton onClick={() => onHideUnhide!(tableRef.current.getSelectedRecords())} disabled={disabled}>
-                                    <VisibilityOffIcon fontSize="medium" />
-                                </IconButton>
+                            <Tooltip title={disabled ? 'Select Product(s) First' : 'Hide/Unhide Record(s)'}>
+                                <Box>
+                                    <IconButton onClick={() => onHideUnhide!(tableRef.current.getSelectedRecords())} disabled={disabled}>
+                                        <VisibilityOffIcon fontSize="medium" />
+                                    </IconButton>
+                                </Box>
                             </Tooltip>
                         )}
                         {toolBarOptions?.includes('clearFilters') && (

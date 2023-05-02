@@ -157,9 +157,13 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
             onSearch!(args);
         }
     };
+
     const actionBegin = (e: any) => {
         if (e.requestType === 'filterbeforeopen') {
             customFiltersFunction!(e);
+        }
+        if (e.type === 'edit') {
+            e.cell.getElementsByTagName('input')[0].setAttribute('maxLength', 255);
         }
     };
     const rowDrop = (args: any) => {
@@ -309,7 +313,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             </Box>
                         )}
                         {toolBarOptions?.includes('duplicate') && (
-                            <Tooltip title={disabled ? 'Select Product(s) First' : 'Add Duplicate Record(s)'}>
+                            <Tooltip title={disabled ? 'Select Item(s) First' : 'Add Duplicate Record(s)'}>
                                 <Box>
                                     <IconButton onClick={() => onAddDuplicates!(tableRef.current.getSelectedRecords())} disabled={disabled}>
                                         <ControlPointDuplicateIcon fontSize="medium" />
@@ -318,7 +322,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             </Tooltip>
                         )}
                         {toolBarOptions?.includes('delete') && (
-                            <Tooltip title={disabled ? 'Select Product(s) First' : 'Delete Record(s)'}>
+                            <Tooltip title={disabled ? 'Select Item(s) First' : 'Delete Record(s)'}>
                                 <Box>
                                     <IconButton
                                         disabled={disabled}
@@ -332,7 +336,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             </Tooltip>
                         )}
                         {toolBarOptions?.includes('hide') && (
-                            <Tooltip title={disabled ? 'Select Product(s) First' : 'Hide/Unhide Record(s)'}>
+                            <Tooltip title={disabled ? 'Select Item(s) First' : 'Hide/Unhide Record(s)'}>
                                 <Box>
                                     <IconButton onClick={() => onHideUnhide!(tableRef.current.getSelectedRecords())} disabled={disabled}>
                                         <VisibilityOffIcon fontSize="medium" />

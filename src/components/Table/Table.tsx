@@ -290,6 +290,10 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         }
     }, [[tableContainerRef?.current]]);
 
+    const resizestart = () => {
+        tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
+    };
+
     return (
         <Box position={'relative'} height={'100%'} width={'100%'} ref={tableContainerRef}>
             {showToolbar && (
@@ -367,6 +371,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                 <Box className="control-section">
                     {data && (
                         <TreeGridComponent
+                            resizeStart={resizestart}
                             actionBegin={actionBegin}
                             dataBound={dataBound}
                             actionComplete={actionComplete}

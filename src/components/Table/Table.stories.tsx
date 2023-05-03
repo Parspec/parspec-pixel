@@ -62,9 +62,11 @@ SingleSelect.args = {
 const coltemplate = (props: any) => {
     if (props?.taskData?.type?.includes('section')) {
         return (
-            <Button size="small" id={props.id} color="primary">
-                Section
-            </Button>
+            <Box height={50} display={'flex'} alignItems={'center'}>
+                <Button size="small" id={props.id} color="primary">
+                    Section
+                </Button>
+            </Box>
         );
     } else if (props?.taskData?.type?.includes('product')) {
         return (
@@ -139,7 +141,7 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
         return {
             toolBarOptions: toolBarItems,
             toolbarRightSection: <Button>Import Products</Button>,
-            rowHeight: 40,
+            // rowHeight: 40,
             ...args
         };
     };

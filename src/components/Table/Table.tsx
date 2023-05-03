@@ -168,6 +168,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
             e.cell.getElementsByTagName('input')[0].setAttribute('maxLength', 255);
         }
     };
+
     const rowDrop = (args: any) => {
         let notAllowed = false;
         const droppedData = tableRef?.current?.getRowInfo(args.target.parentElement).rowData; //dropped data
@@ -182,7 +183,6 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                 draggedId = args.data[0].taskID; // dragged data
             }
         }
-
         //Here we prevent for top / bottom position
         if (droppedId != draggedId && args.data[0].level != droppedData.level) {
             args.cancel = true;
@@ -215,7 +215,6 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                 notAllowed = true;
             }
         }
-
         if (!notAllowed) {
             onDragEnd!({ fromIndex: args.fromIndex, data: args.data[0] });
         }
@@ -296,7 +295,12 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     const resizestart = () => {
         tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     };
-
+    const collapsing = () => {
+        tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
+    };
+    const expanding = () => {
+        tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
+    };
     return (
         <Box position={'relative'} height={'100%'} width={'100%'} ref={tableContainerRef}>
             {showToolbar && (
@@ -374,6 +378,8 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                 <Box className="control-section">
                     {data && (
                         <TreeGridComponent
+                            expanding={expanding}
+                            collapsing={collapsing}
                             resizeStart={resizestart}
                             actionBegin={actionBegin}
                             dataBound={dataBound}

@@ -5,5 +5,5 @@ export const Skeleton = (props: SkeletonProps) => {
 };
 
 Skeleton.defaultProps = {
-    color: 'rgba(0,0,0,0.04)'
+    sx: { bgcolor: 'rgba(0,0,0,0.05)' }
 };

@@ -147,6 +147,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                 tableRef?.current?.refresh();
             }
         }
+        tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     }, [loading]);
 
     const actionComplete = (args: PageEventArgs | FilterEventArgs | SortEventArgs | SearchEventArgs | AddEventArgs | SaveEventArgs | EditEventArgs | DeleteEventArgs) => {
@@ -156,6 +157,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         if (args?.requestType === 'searching') {
             onSearch!(args);
         }
+        tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     };
 
     const actionBegin = (e: any) => {
@@ -288,6 +290,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         if (tableContainerRef?.current?.offsetHeight) {
             setTableHeight(tableContainerRef?.current?.offsetHeight - toolbarHeight - paginationHeight - tableHeader);
         }
+        tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     }, [[tableContainerRef?.current]]);
 
     const resizestart = () => {

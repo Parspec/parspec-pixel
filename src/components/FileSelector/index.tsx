@@ -21,11 +21,11 @@ export interface FileSelectorFileType {
 interface FileSelectorProps {
     maxFiles?: number;
     acceptedFormats?: string[];
-    onUpload?: (args: FileSelectorFileType[]) => void;
+    onUpload?: (args: FileSelectorFileType[] | File[]) => void;
     url?: string;
     error?: string;
     helperText?: string;
-    onSelect?: (args: FileSelectorFileType[]) => void;
+    onSelect?: (args: FileSelectorFileType[] | File[]) => void;
     placeholder?: string;
     borderColor?: 'primary' | 'secondary' | 'tertiary';
 }

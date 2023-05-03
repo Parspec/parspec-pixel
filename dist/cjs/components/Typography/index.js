@@ -36,15 +36,15 @@ BodyText.defaultProps = {
     limit: true,
     lines: 1
 };
-const H1 = (props) => (0, jsx_runtime_1.jsx)(Heading, Object.assign({}, props, { variant: "h1", fontSize: '30px' }));
+const H1 = (props) => (0, jsx_runtime_1.jsx)(Heading, Object.assign({}, props, { variant: "h1", fontSize: '96px' }));
 exports.H1 = H1;
-const H2 = (props) => (0, jsx_runtime_1.jsx)(Heading, Object.assign({}, props, { variant: "h2", fontSize: '28px' }));
+const H2 = (props) => (0, jsx_runtime_1.jsx)(Heading, Object.assign({}, props, { variant: "h2", fontSize: '60px' }));
 exports.H2 = H2;
-const H3 = (props) => (0, jsx_runtime_1.jsx)(Heading, Object.assign({}, props, { variant: "h3", fontSize: '26px' }));
+const H3 = (props) => (0, jsx_runtime_1.jsx)(Heading, Object.assign({}, props, { variant: "h3", fontSize: '48px' }));
 exports.H3 = H3;
-const H4 = (props) => (0, jsx_runtime_1.jsx)(Heading, Object.assign({}, props, { variant: "h4", fontSize: '24px' }));
+const H4 = (props) => (0, jsx_runtime_1.jsx)(Heading, Object.assign({}, props, { variant: "h4", fontSize: '34px' }));
 exports.H4 = H4;
-const H5 = (props) => (0, jsx_runtime_1.jsx)(Heading, Object.assign({}, props, { variant: "h5", fontSize: '22px' }));
+const H5 = (props) => (0, jsx_runtime_1.jsx)(Heading, Object.assign({}, props, { variant: "h5", fontSize: '24px' }));
 exports.H5 = H5;
 const H6 = (props) => (0, jsx_runtime_1.jsx)(Heading, Object.assign({}, props, { variant: "h6", fontSize: '20px' }));
 exports.H6 = H6;

@@ -4,6 +4,6 @@ export const Skeleton = (props) => {
     return _jsx(MUISkeleton, Object.assign({}, props));
 };
 Skeleton.defaultProps = {
-    color: 'rgba(0,0,0,0.05)'
+    color: 'rgba(0,0,0,0.04)'
 };
 //# sourceMappingURL=index.js.map

@@ -154,7 +154,7 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
     };
 
     return (
-        <Box height={500}>
+        <Box height={'100vh'}>
             <Table
                 {...getTableProps({ ...props, onAdd, onCheckboxChange, onDelete, onDragEnd, onEdit, onSearch, onRowSelection, onHideUnhide, onAddDuplicates, customFiltersFunction })}
                 ref={tableRef}
@@ -197,8 +197,8 @@ Basic.args = {
     allowRowDragAndDrop: true,
     frozenColumns: 4,
     treeColumnIndex: 3,
-    allowPaging: true,
-    pageSettings: { pageSize: 10 },
+    allowPaging: false,
+    // pageSettings: { pageSize: 10 },
     allowResizing: true,
     allowExports: true,
     excelExportProperties: {

@@ -62,7 +62,7 @@ SingleSelect.args = {
 const coltemplate = (props: any) => {
     if (props?.taskData?.type?.includes('section')) {
         return (
-            <Box height={50} display={'flex'} alignItems={'center'}>
+            <Box display={'flex'} alignItems={'center'}>
                 <Button size="small" id={props.id} color="primary">
                     Section
                 </Button>
@@ -108,7 +108,13 @@ const customHeaderTemplate = () => {
     );
 };
 
+const useGetData = () => {
+    const [data, setData] = useState(dDataP);
+    return { data };
+};
 export const Basic: ComponentStory<typeof Table> = (props) => {
+    const { data: abcData } = useGetData();
+
     const onHideUnhide = (data: Object[]) => {
         console.log('onHideUnhide===>\n', data);
     };
@@ -141,7 +147,8 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
         return {
             toolBarOptions: toolBarItems,
             toolbarRightSection: <Button>Import Products</Button>,
-            // rowHeight: 40,
+            rowHeight: 40,
+            data: dDataP,
             ...args
         };
     };
@@ -152,12 +159,13 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
         //     e.filterModel.options.dataSource = [{ available: 'Yes' }, { available: 'No' }];
         // }
     };
-
+    console.log(abcData, '=====data');
     return (
         <Box height={'100vh'}>
             <Table
-                {...getTableProps({ ...props, onAdd, onCheckboxChange, onDelete, onDragEnd, onEdit, onSearch, onRowSelection, onHideUnhide, onAddDuplicates, customFiltersFunction })}
+                {...getTableProps({ ...props, onAdd, onCheckboxChange, onDelete, onDragEnd, onEdit, onSearch, onRowSelection, onHideUnhide, onAddDuplicates, customFiltersFunction, dDataP })}
                 ref={tableRef}
+                // data={abcData || []}
             >
                 <ColumnDirective type="checkbox" width="50" />
                 <ColumnDirective field="id" isPrimaryKey={true} visible={false} />
@@ -195,7 +203,7 @@ Basic.args = {
     data: dDataP,
     childMappingKey: 'subtasks',
     allowRowDragAndDrop: true,
-    frozenColumns: 4,
+    // frozenColumns: 4,
     treeColumnIndex: 3,
     allowPaging: false,
     // pageSettings: { pageSize: 10 },

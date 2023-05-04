@@ -20,7 +20,7 @@ import {
     SearchSettingsModel
 } from '@syncfusion/ej2-react-treegrid';
 import { addClass, isNullOrUndefined, registerLicense } from '@syncfusion/ej2-base';
-import './styles.css';
+import './styles2.css';
 import { Box } from '../Box';
 import {
     AddEventArgs,
@@ -157,7 +157,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         if (args?.requestType === 'searching') {
             onSearch!(args);
         }
-        tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
+        // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     };
 
     const actionBegin = (e: any) => {
@@ -170,54 +170,54 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     };
 
     const rowDrop = (args: any) => {
-        let notAllowed = false;
-        const droppedData = tableRef?.current?.getRowInfo(args.target.parentElement).rowData; //dropped data
-        let droppedId, draggedId;
-        //here collect the taskid value based on parent records
-        if (!isNullOrUndefined(droppedData)) {
-            if (!isNullOrUndefined(droppedData.parentItem) && args.data[0].parentItem != null) {
-                droppedId = droppedData.parentItem.taskID; //dropped data
-                draggedId = args.data[0].parentItem.taskID; // dragged data
-            } else if (droppedData.hasChildRecords == true) {
-                droppedId = droppedData.taskID; //dropped data
-                draggedId = args.data[0].taskID; // dragged data
-            }
-        }
-        //Here we prevent for top / bottom position
-        if (droppedId != draggedId && args.data[0].level != droppedData.level) {
-            args.cancel = true;
-            notAllowed = true;
-        } else if (args.dropPosition == 'topSegment' || args.dropPosition == 'bottomSegment') {
-            //here prevent the drop for within child parent
-            if (args.data[0].level != droppedData.level) {
-                args.cancel = true;
-                notAllowed = true;
-            } else if (args.data[0].level != 0 && droppedData.level != 0) {
-                if (
-                    args.data[0].level == droppedData.level &&
-                    (isNullOrUndefined(args.data[0].hasChildRecords) || isNullOrUndefined(droppedData.hasChildRecords) || args.data[0].hasChildRecords == true) &&
-                    droppedId != draggedId
-                ) {
-                    args.cancel = true; //here we prevent drop the record in top of another parent's child
-                    notAllowed = true;
-                }
-            }
-        }
-        //Here we prevent the drop for child position
-        if (args.dropPosition == 'middleSegment') {
-            if (!isNullOrUndefined(draggedId) && !isNullOrUndefined(droppedId)) {
-                if (droppedId == draggedId || args.data[0].level == droppedData.level) {
-                    args.cancel = true;
-                    notAllowed = true;
-                }
-            } else if (args.data[0].level == droppedData.level || (args.data[0].level != droppedData.level && isNullOrUndefined(draggedId) && isNullOrUndefined(droppedId))) {
-                args.cancel = true;
-                notAllowed = true;
-            }
-        }
-        if (!notAllowed) {
-            onDragEnd!({ fromIndex: args.fromIndex, data: args.data[0] });
-        }
+        // let notAllowed = false;
+        // const droppedData = tableRef?.current?.getRowInfo(args.target.parentElement).rowData; //dropped data
+        // let droppedId, draggedId;
+        // //here collect the taskid value based on parent records
+        // if (!isNullOrUndefined(droppedData)) {
+        //     if (!isNullOrUndefined(droppedData.parentItem) && args.data[0].parentItem != null) {
+        //         droppedId = droppedData.parentItem.taskID; //dropped data
+        //         draggedId = args.data[0].parentItem.taskID; // dragged data
+        //     } else if (droppedData.hasChildRecords == true) {
+        //         droppedId = droppedData.taskID; //dropped data
+        //         draggedId = args.data[0].taskID; // dragged data
+        //     }
+        // }
+        // //Here we prevent for top / bottom position
+        // if (droppedId != draggedId && args.data[0].level != droppedData.level) {
+        //     args.cancel = true;
+        //     notAllowed = true;
+        // } else if (args.dropPosition == 'topSegment' || args.dropPosition == 'bottomSegment') {
+        //     //here prevent the drop for within child parent
+        //     if (args.data[0].level != droppedData.level) {
+        //         args.cancel = true;
+        //         notAllowed = true;
+        //     } else if (args.data[0].level != 0 && droppedData.level != 0) {
+        //         if (
+        //             args.data[0].level == droppedData.level &&
+        //             (isNullOrUndefined(args.data[0].hasChildRecords) || isNullOrUndefined(droppedData.hasChildRecords) || args.data[0].hasChildRecords == true) &&
+        //             droppedId != draggedId
+        //         ) {
+        //             args.cancel = true; //here we prevent drop the record in top of another parent's child
+        //             notAllowed = true;
+        //         }
+        //     }
+        // }
+        // //Here we prevent the drop for child position
+        // if (args.dropPosition == 'middleSegment') {
+        //     if (!isNullOrUndefined(draggedId) && !isNullOrUndefined(droppedId)) {
+        //         if (droppedId == draggedId || args.data[0].level == droppedData.level) {
+        //             args.cancel = true;
+        //             notAllowed = true;
+        //         }
+        //     } else if (args.data[0].level == droppedData.level || (args.data[0].level != droppedData.level && isNullOrUndefined(draggedId) && isNullOrUndefined(droppedId))) {
+        //         args.cancel = true;
+        //         notAllowed = true;
+        //     }
+        // }
+        // if (!notAllowed) {
+        //     onDragEnd!({ fromIndex: args.fromIndex, data: args.data[0] });
+        // }
     };
 
     const checkboxChange = (args: CheckBoxChangeEventArgs) => {
@@ -292,15 +292,15 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     }, [[tableContainerRef?.current]]);
 
-    const resizestart = () => {
-        tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
-    };
-    const collapsing = () => {
-        tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
-    };
-    const expanding = () => {
-        tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
-    };
+    // const resizestart = () => {
+    //     tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
+    // };
+    // const collapsing = () => {
+    //     tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
+    // };
+    // const expanding = () => {
+    //     tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
+    // };
     return (
         <Box position={'relative'} height={'100%'} width={'100%'} ref={tableContainerRef}>
             {showToolbar && (
@@ -378,9 +378,10 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                 <Box className="control-section">
                     {data && (
                         <TreeGridComponent
-                            expanding={expanding}
-                            collapsing={collapsing}
-                            resizeStart={resizestart}
+                            // expanding={expanding}
+                            // collapsing={collapsing}
+                            // resizeStart={resizestart}
+                            // enablePersistence={true}
                             actionBegin={actionBegin}
                             dataBound={dataBound}
                             actionComplete={actionComplete}
@@ -398,7 +399,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             allowRowDragAndDrop={allowRowDragAndDrop}
                             allowResizing={allowResizing}
                             selectionSettings={selectionSettings}
-                            rowDrop={rowDrop}
+                            // rowDrop={rowDrop}
                             frozenColumns={frozenColumns}
                             allowSorting={allowSorting}
                             editSettings={editSettings}

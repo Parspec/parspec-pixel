@@ -195,7 +195,7 @@ Basic.args = {
     data: dDataP,
     childMappingKey: 'subtasks',
     allowRowDragAndDrop: true,
-    frozenColumns: 4,
+    // frozenColumns: 4,
     treeColumnIndex: 3,
     allowPaging: false,
     // pageSettings: { pageSize: 10 },

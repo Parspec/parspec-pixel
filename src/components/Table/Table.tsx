@@ -157,7 +157,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         if (args?.requestType === 'searching') {
             onSearch!(args);
         }
-        tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
+        // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     };
 
     const actionBegin = (e: any) => {
@@ -292,15 +292,15 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     }, [[tableContainerRef?.current]]);
 
-    const resizestart = () => {
-        tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
-    };
-    const collapsing = () => {
-        tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
-    };
-    const expanding = () => {
-        tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
-    };
+    // const resizestart = () => {
+    //     tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
+    // };
+    // const collapsing = () => {
+    //     tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
+    // };
+    // const expanding = () => {
+    //     tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
+    // };
     return (
         <Box position={'relative'} height={'100%'} width={'100%'} ref={tableContainerRef}>
             {showToolbar && (
@@ -378,9 +378,9 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                 <Box className="control-section">
                     {data && (
                         <TreeGridComponent
-                            expanding={expanding}
-                            collapsing={collapsing}
-                            resizeStart={resizestart}
+                            // expanding={expanding}
+                            // collapsing={collapsing}
+                            // resizeStart={resizestart}
                             actionBegin={actionBegin}
                             dataBound={dataBound}
                             actionComplete={actionComplete}

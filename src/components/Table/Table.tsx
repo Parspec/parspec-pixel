@@ -87,6 +87,7 @@ export interface TableProps {
     hiddenProperty?: string;
     allowSorting?: boolean;
     rowHeight?: number;
+    height?: number | string;
     // defaultFilter?: 'equal' | 'contains';
 }
 
@@ -105,7 +106,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         allowSorting,
         showToolbar,
         toolBarOptions,
-        // height,
+        height,
         allowFiltering,
         editSettings,
         filterSettings,
@@ -390,7 +391,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             rowSelected={rowSelected}
                             rowDeselected={rowDeselected}
                             rowDataBound={rowDataBound}
-                            height={tableHeight}
+                            height={height || tableHeight}
                             ref={tableRef}
                             dataSource={data}
                             treeColumnIndex={treeColumnIndex}

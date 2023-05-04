@@ -7,7 +7,7 @@ interface StatusProps {
 }
 export const Status: React.FC<StatusProps> = ({ color, children }) => {
     return (
-        <Box bgcolor={`${color}.light`} color={`${color}.main`} p={1} pl={2} pr={2} width={'max-content'}>
+        <Box bgcolor={`${color}.light`} color={`${color}.main`} p={1} pl={2} pr={2} maxWidth={'max-content'}>
             {children}
         </Box>
     );

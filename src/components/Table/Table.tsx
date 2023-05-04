@@ -87,6 +87,7 @@ export interface TableProps {
     hiddenProperty?: string;
     allowSorting?: boolean;
     rowHeight?: number;
+    height?: number | string;
     // defaultFilter?: 'equal' | 'contains';
 }
 
@@ -105,7 +106,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         allowSorting,
         showToolbar,
         toolBarOptions,
-        // height,
+        height,
         allowFiltering,
         editSettings,
         filterSettings,
@@ -147,6 +148,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                 tableRef?.current?.refresh();
             }
         }
+        // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     }, [loading]);
 
     const actionComplete = (args: PageEventArgs | FilterEventArgs | SortEventArgs | SearchEventArgs | AddEventArgs | SaveEventArgs | EditEventArgs | DeleteEventArgs) => {
@@ -156,6 +158,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         if (args?.requestType === 'searching') {
             onSearch!(args);
         }
+        // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     };
 
     const actionBegin = (e: any) => {
@@ -166,6 +169,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
             e.cell.getElementsByTagName('input')[0].setAttribute('maxLength', 255);
         }
     };
+
     const rowDrop = (args: any) => {
         let notAllowed = false;
         const droppedData = tableRef?.current?.getRowInfo(args.target.parentElement).rowData; //dropped data
@@ -180,7 +184,6 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                 draggedId = args.data[0].taskID; // dragged data
             }
         }
-
         //Here we prevent for top / bottom position
         if (droppedId != draggedId && args.data[0].level != droppedData.level) {
             args.cancel = true;
@@ -213,7 +216,6 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                 notAllowed = true;
             }
         }
-
         if (!notAllowed) {
             onDragEnd!({ fromIndex: args.fromIndex, data: args.data[0] });
         }
@@ -288,12 +290,18 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         if (tableContainerRef?.current?.offsetHeight) {
             setTableHeight(tableContainerRef?.current?.offsetHeight - toolbarHeight - paginationHeight - tableHeader);
         }
+        // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     }, [[tableContainerRef?.current]]);
 
-    const resizestart = () => {
-        tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
-    };
-
+    // const resizestart = () => {
+    //     tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
+    // };
+    // const collapsing = () => {
+    //     tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
+    // };
+    // const expanding = () => {
+    //     tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
+    // };
     return (
         <Box position={'relative'} height={'100%'} width={'100%'} ref={tableContainerRef}>
             {showToolbar && (
@@ -357,7 +365,9 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                         )}
                         {toolBarOptions?.includes('selectedItems') && selected > 0 && (
                             <Box p={1} pl={3} pr={2} bgcolor={'primary.main'} color={'secondary.contrastText'} display="flex" alignItems="center" gap={2}>
-                                <BodySmall color="secondary.contrastText">{selected} item(s) selected</BodySmall>
+                                <BodySmall color="secondary.contrastText" limit={false}>
+                                    {selected} item(s) selected
+                                </BodySmall>
                                 <IconButton onClick={closeBanner} sx={{ color: 'secondary.contrastText', margin: 0, padding: 0 }}>
                                     <CloseIcon fontSize="small" />
                                 </IconButton>
@@ -371,7 +381,9 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                 <Box className="control-section">
                     {data && (
                         <TreeGridComponent
-                            resizeStart={resizestart}
+                            // expanding={expanding}
+                            // collapsing={collapsing}
+                            // resizeStart={resizestart}
                             actionBegin={actionBegin}
                             dataBound={dataBound}
                             actionComplete={actionComplete}
@@ -379,7 +391,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             rowSelected={rowSelected}
                             rowDeselected={rowDeselected}
                             rowDataBound={rowDataBound}
-                            height={tableHeight}
+                            height={height || tableHeight}
                             ref={tableRef}
                             dataSource={data}
                             treeColumnIndex={treeColumnIndex}

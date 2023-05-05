@@ -24,9 +24,6 @@ export const TextLimiter = (props: TextLimiterProps) => {
 
     const compareSize = () => {
         const compare = textElementRef?.current?.scrollWidth! > textElementRef?.current?.clientWidth! || textElementRef?.current?.scrollHeight! > textElementRef?.current?.clientHeight!;
-        console.log(compare);
-        console.log(textElementRef?.current?.scrollWidth, textElementRef?.current?.clientWidth);
-        console.log(textElementRef?.current?.scrollHeight, textElementRef?.current?.clientHeight);
         setHover(compare);
     };
 

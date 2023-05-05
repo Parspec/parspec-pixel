@@ -34,11 +34,8 @@ const TextLimiter = (props) => {
     const textElementRef = (0, react_1.useRef)(null);
     const [hoverStatus, setHover] = (0, react_1.useState)(false);
     const compareSize = () => {
-        var _a, _b, _c, _d, _e, _f, _g, _h;
+        var _a, _b, _c, _d;
         const compare = ((_a = textElementRef === null || textElementRef === void 0 ? void 0 : textElementRef.current) === null || _a === void 0 ? void 0 : _a.scrollWidth) > ((_b = textElementRef === null || textElementRef === void 0 ? void 0 : textElementRef.current) === null || _b === void 0 ? void 0 : _b.clientWidth) || ((_c = textElementRef === null || textElementRef === void 0 ? void 0 : textElementRef.current) === null || _c === void 0 ? void 0 : _c.scrollHeight) > ((_d = textElementRef === null || textElementRef === void 0 ? void 0 : textElementRef.current) === null || _d === void 0 ? void 0 : _d.clientHeight);
-        console.log(compare);
-        console.log((_e = textElementRef === null || textElementRef === void 0 ? void 0 : textElementRef.current) === null || _e === void 0 ? void 0 : _e.scrollWidth, (_f = textElementRef === null || textElementRef === void 0 ? void 0 : textElementRef.current) === null || _f === void 0 ? void 0 : _f.clientWidth);
-        console.log((_g = textElementRef === null || textElementRef === void 0 ? void 0 : textElementRef.current) === null || _g === void 0 ? void 0 : _g.scrollHeight, (_h = textElementRef === null || textElementRef === void 0 ? void 0 : textElementRef.current) === null || _h === void 0 ? void 0 : _h.clientHeight);
         setHover(compare);
     };
     (0, react_1.useEffect)(() => {

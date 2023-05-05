@@ -34,17 +34,21 @@ const TextLimiter = (props) => {
     const textElementRef = (0, react_1.useRef)(null);
     const [hoverStatus, setHover] = (0, react_1.useState)(false);
     const compareSize = () => {
-        var _a, _b, _c, _d;
+        var _a, _b, _c, _d, _e, _f, _g, _h;
         const compare = ((_a = textElementRef === null || textElementRef === void 0 ? void 0 : textElementRef.current) === null || _a === void 0 ? void 0 : _a.scrollWidth) > ((_b = textElementRef === null || textElementRef === void 0 ? void 0 : textElementRef.current) === null || _b === void 0 ? void 0 : _b.clientWidth) || ((_c = textElementRef === null || textElementRef === void 0 ? void 0 : textElementRef.current) === null || _c === void 0 ? void 0 : _c.scrollHeight) > ((_d = textElementRef === null || textElementRef === void 0 ? void 0 : textElementRef.current) === null || _d === void 0 ? void 0 : _d.clientHeight);
+        console.log(compare);
+        console.log((_e = textElementRef === null || textElementRef === void 0 ? void 0 : textElementRef.current) === null || _e === void 0 ? void 0 : _e.scrollWidth, (_f = textElementRef === null || textElementRef === void 0 ? void 0 : textElementRef.current) === null || _f === void 0 ? void 0 : _f.clientWidth);
+        console.log((_g = textElementRef === null || textElementRef === void 0 ? void 0 : textElementRef.current) === null || _g === void 0 ? void 0 : _g.scrollHeight, (_h = textElementRef === null || textElementRef === void 0 ? void 0 : textElementRef.current) === null || _h === void 0 ? void 0 : _h.clientHeight);
         setHover(compare);
     };
     (0, react_1.useEffect)(() => {
         compareSize();
         window.addEventListener('resize', compareSize);
+        return () => {
+            window.removeEventListener('resize', compareSize);
+        };
     }, []);
-    (0, react_1.useEffect)(() => () => {
-        window.removeEventListener('resize', compareSize);
-    }, []);
+    (0, react_1.useEffect)(compareSize, [props.text]);
     return ((0, jsx_runtime_1.jsx)(StyledToolTip, Object.assign({ title: props.tooltip, disableHoverListener: !hoverStatus }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ ref: textElementRef, height: "100%", width: "100%", style: {
                 maxWidth: '100%',
                 display: '-webkit-box',

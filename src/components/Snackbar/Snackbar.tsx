@@ -13,7 +13,7 @@ export const Snackbar: React.FC<MUISnackbarProps> = ({ ContentProps, ...props })
                     padding: '4px 16px',
                     maxWidth: '40vw',
                     '@media (min-width: 600px)': {
-                        minWidth: 160
+                        minWidth: '2ch'
                     }
                 }
             }}

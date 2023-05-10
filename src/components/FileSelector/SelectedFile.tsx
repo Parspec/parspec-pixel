@@ -5,11 +5,12 @@ import { Box } from '../Box';
 import { BodySmall } from '../Typography';
 import { DeleteIcon } from '../Icons';
 import ProgressBar from '../ProgressBar';
+import { Paper } from '../Paper';
 
 type SelectedFileProps = {
     file: {
         name: string;
-        size: number;
+        size?: number;
     };
     onDelete: (arg: { name: string }) => void;
     url: string;
@@ -65,22 +66,23 @@ const SelectedFile = (props: SelectedFileProps) => {
     const handleDelete = () => {
         onDelete(file);
     };
-
     return (
-        <Box display="flex" justifyContent="space-between" alignItems="flex-start">
-            <Box>
-                <BodySmall fontWeight={600}>{file.name}</BodySmall>
-                <BodySmall>{(file.size / 1000).toFixed(2)} kb</BodySmall>
-            </Box>
-            <Box ml="auto" display="flex">
-                {url && showProgress ? <ProgressBar progress={progress} /> : null}
-                <Box ml={2}>
-                    <IconButton onClick={handleDelete} size="small">
-                        <DeleteIcon />
-                    </IconButton>
+        <Paper variant="outlined" sx={{ padding: 2 }}>
+            <Box display="flex" justifyContent="space-between" alignItems="flex-start">
+                <Box>
+                    <BodySmall fontWeight={600}>{file.name}</BodySmall>
+                    <BodySmall>{(file.size! / 1000).toFixed(2)} kb</BodySmall>
+                </Box>
+                <Box ml="auto" display="flex">
+                    {url && showProgress ? <ProgressBar progress={progress} /> : null}
+                    <Box ml={2}>
+                        <IconButton onClick={handleDelete} size="small">
+                            <DeleteIcon />
+                        </IconButton>
+                    </Box>
                 </Box>
             </Box>
-        </Box>
+        </Paper>
     );
 };
 

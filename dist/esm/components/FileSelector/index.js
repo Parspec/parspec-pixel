@@ -7,7 +7,7 @@ import { BodySmall } from '../Typography';
 import { UploadIcon } from '../Icons';
 import { getAcceptedFormats } from './fileFormats';
 import SelectedFile from './SelectedFile';
-export const FileSelector = forwardRef(({ maxFiles = 1, acceptedFormats = [], onUpload = () => { }, url = '', error = '', helperText = '', onSelect = () => { }, placeholder = '', borderColor }, ref) => {
+export const FileSelector = forwardRef(({ maxFiles = 1, acceptedFormats = [], onUpload = () => { }, url = '', error = '', helperText = '', onSelect = () => { }, placeholder = '', borderColor, preSelectedFile }, ref) => {
     const [files, setFiles] = useState([]);
     const [result, setResults] = useState([]);
     //To give the information of selected files to the main component.
@@ -18,6 +18,14 @@ export const FileSelector = forwardRef(({ maxFiles = 1, acceptedFormats = [], on
             onUpload([]);
         }
     }, [files]);
+    useEffect(() => {
+        if (!(preSelectedFile === null || preSelectedFile === void 0 ? void 0 : preSelectedFile.length)) {
+            setResults([]);
+            onUpload([]);
+            return;
+        }
+        onSelect(preSelectedFile);
+    }, [preSelectedFile]);
     //To call the callback when uploading of all files is done
     useEffect(() => {
         if (files.length) {

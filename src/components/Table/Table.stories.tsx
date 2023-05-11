@@ -159,7 +159,7 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
         //     e.filterModel.options.dataSource = [{ available: 'Yes' }, { available: 'No' }];
         // }
     };
-    console.log(abcData, '=====data');
+
     return (
         <Box height={'100vh'}>
             <Table
@@ -167,10 +167,12 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
                 ref={tableRef}
                 // data={abcData || []}
             >
-                <ColumnDirective type="checkbox" width="50" />
+                {/* <ColumnDirective type="checkbox" width="50" /> */}
+                {/* <ColumnDirective showCheckbox={true} width="70" /> */}
                 <ColumnDirective field="id" isPrimaryKey={true} visible={false} />
-                <ColumnDirective field="taskID" headerText="Task ID" minWidth="100" width="130" editType="numericedit" />
-                <ColumnDirective field="name" headerText="Task Name" minWidth="200" />
+                {/* <ColumnDirective field="taskID" headerText="Task ID" minWidth="100" width="130" editType="numericedit" /> */}
+
+                <ColumnDirective field="name" headerText="Task Name" minWidth="200" showCheckbox />
                 <ColumnDirective
                     allowEditing={false}
                     allowSorting={false}
@@ -182,7 +184,7 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
                     allowFiltering={false}
                 />
                 <ColumnDirective field="reporter" headerText="Reporter" minWidth="200" validationRules={validateReporter} />
-                <ColumnDirective field="available" headerText="Availability" minWidth="200" filterTemplate={filterTemplateOptions} />
+                <ColumnDirective field="available" headerText="Availability" minWidth="200" filter={{ type: 'Menu' }} filterTemplate={filterTemplateOptions} />
             </Table>
         </Box>
     );
@@ -204,9 +206,9 @@ Basic.args = {
     childMappingKey: 'subtasks',
     allowRowDragAndDrop: true,
     // frozenColumns: 4,
-    treeColumnIndex: 3,
+    treeColumnIndex: 1,
     allowPaging: false,
-    // pageSettings: { pageSize: 10 },
+    pageSettings: { pageSize: 10 },
     allowResizing: true,
     allowExports: true,
     excelExportProperties: {

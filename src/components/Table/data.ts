@@ -5,7 +5,7 @@ export const dDataP = [
         name: 'prod123',
         type: 'product',
         reporter: '',
-        available: '',
+        available: 'Yes, No',
         is_hidden: false
     },
     {
@@ -14,7 +14,7 @@ export const dDataP = [
         name: 'prod1234',
         type: 'product',
         reporter: '',
-        available: '',
+        available: 'NoYes',
         is_hidden: false
     },
     {
@@ -23,7 +23,7 @@ export const dDataP = [
         name: 'prod124',
         type: 'product',
         reporter: '',
-        available: '',
+        available: 'YesNoYes',
         is_hidden: false
     },
     {
@@ -59,7 +59,7 @@ export const dDataP = [
                         name: 'accessory112',
                         type: 'accessory',
                         reporter: 'Forest',
-                        available: 'Yes',
+                        available: 'No',
                         is_hidden: true
                     }
                 ]
@@ -79,7 +79,7 @@ export const dDataP = [
                         reporter: 'Abhishek',
                         name: 'accessory2',
                         type: 'accessory',
-                        available: 'Yes',
+                        available: 'No',
                         is_hidden: false
                     }
                 ]
@@ -119,7 +119,7 @@ export const dDataP = [
                         name: 'accessory2',
                         type: 'accessory',
                         reporter: 'Sreemukhi',
-                        available: 'Yes',
+                        available: 'No',
                         is_hidden: false
                     }
                 ]
@@ -148,7 +148,7 @@ export const dDataP = [
                         name: 'accessory2',
                         type: 'accessory',
                         reporter: 'Tarun',
-                        available: 'Yes',
+                        available: 'No',
                         is_hidden: true
                     }
                 ]

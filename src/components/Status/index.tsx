@@ -1,6 +1,5 @@
 import React from 'react';
 import { Box } from '../Box';
-
 interface StatusProps {
     color?: 'primary' | 'info' | 'success' | 'error' | 'tertiary';
     children?: React.ReactNode;

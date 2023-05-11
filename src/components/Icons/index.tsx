@@ -48,5 +48,12 @@ export {
     Language as LanguageIcon,
     Info as InfoIcon,
     Share as ShareIcon,
-    NotificationsOffOutlined as NotificationsOffOutlinedIcon
+    NotificationsOffOutlined as NotificationsOffOutlinedIcon,
+    SignalCellular0Bar as SignalCellular0BarIcon,
+    SignalCellular1Bar as SignalCellular1BarIcon,
+    SignalCellular2Bar as SignalCellular2BarIcon,
+    SignalCellular3Bar as SignalCellular3BarIcon,
+    SignalCellular4Bar as SignalCellular4BarIcon,
+    OpenInNew as OpenInNewIcon,
+    Warning as WarningIcon
 } from '@mui/icons-material';

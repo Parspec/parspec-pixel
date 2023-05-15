@@ -44,8 +44,7 @@ const TextLimiter = (props) => {
         return () => {
             window.removeEventListener('resize', compareSize);
         };
-    }, []);
-    (0, react_1.useEffect)(compareSize, [props.text]);
+    }, [props.text]);
     return ((0, jsx_runtime_1.jsx)(StyledToolTip, Object.assign({ title: props.tooltip, disableHoverListener: !hoverStatus }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ ref: textElementRef, height: "100%", width: "100%", style: {
                 maxWidth: '100%',
                 display: '-webkit-box',

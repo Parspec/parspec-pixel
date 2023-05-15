@@ -29088,11 +29088,11 @@ tr.singleSelect:hover {
 }
 
 /*  to be removed in V2 middle segment no border */
-tr.e-row td.e-childborder {
+/* tr.e-row td.e-childborder {
   border-color: #dee2e6 !important;
   border-top-width: 1px !important;
   border-bottom-width: 0px !important;
   border-left-width: 0px !important;
   border-right-width: 0px !important;
-}
+} */
 /*  to be removed in V2 middle segment no border */

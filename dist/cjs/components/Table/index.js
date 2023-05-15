@@ -14,5 +14,8 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ColumnDirective = void 0;
 __exportStar(require("./Table"), exports);
+var ej2_react_treegrid_1 = require("@syncfusion/ej2-react-treegrid");
+Object.defineProperty(exports, "ColumnDirective", { enumerable: true, get: function () { return ej2_react_treegrid_1.ColumnDirective; } });
 //# sourceMappingURL=index.js.map

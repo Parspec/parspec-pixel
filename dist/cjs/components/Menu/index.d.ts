@@ -1,4 +1,3 @@
-/// <reference types="react" />
 interface MenuProps {
     options: {
         label: string;
@@ -7,5 +6,5 @@ interface MenuProps {
     }[];
     children?: any;
 }
-export declare const Menu: ({ options, children }: MenuProps) => JSX.Element;
+export declare const Menu: ({ options, children }: MenuProps) => import("react/jsx-runtime").JSX.Element;
 export {};

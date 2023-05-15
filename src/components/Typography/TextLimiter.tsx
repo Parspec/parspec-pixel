@@ -34,9 +34,7 @@ export const TextLimiter = (props: TextLimiterProps) => {
         return () => {
             window.removeEventListener('resize', compareSize);
         };
-    }, []);
-
-    useEffect(compareSize, [props.text]);
+    }, [props.text]);
 
     return (
         <StyledToolTip title={props.tooltip} disableHoverListener={!hoverStatus}>

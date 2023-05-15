@@ -41,7 +41,7 @@ const TextField_1 = require("../TextField");
 const Autocomplete_1 = __importStar(require("@mui/material/Autocomplete"));
 const filter = (0, Autocomplete_1.createFilterOptions)();
 exports.Autocomplete = (0, react_1.forwardRef)((_a, ref) => {
-    var { id, label, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur, helperText, error, options } = _a, props = __rest(_a, ["id", "label", "color", "variant", "onChange", "optionlabelkeyname", "freeSolo", "fieldSize", "onBlur", "helperText", "error", "options"]);
+    var { id, label, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur, helperText, error, options, onTextFieldChange } = _a, props = __rest(_a, ["id", "label", "color", "variant", "onChange", "optionlabelkeyname", "freeSolo", "fieldSize", "onBlur", "helperText", "error", "options", "onTextFieldChange"]);
     const [state, setState] = (0, react_1.useState)();
     const handleOnChange = (event, newValue) => {
         onChange(Object.assign(Object.assign({}, event), { target: Object.assign(Object.assign({}, event.target), { value: newValue }) }));
@@ -64,12 +64,18 @@ exports.Autocomplete = (0, react_1.forwardRef)((_a, ref) => {
             onBlur(_result);
         }
     };
+    const handleOnInputChange = (event, value) => {
+        setState(value);
+        if (onTextFieldChange) {
+            onTextFieldChange(event);
+        }
+    };
     return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: (0, jsx_runtime_1.jsx)(Autocomplete_1.default, Object.assign({ fullWidth: true }, props, { options: options, ref: ref, id: id, onBlur: handleFocusOut, onChange: handleOnChange, getOptionLabel: (option) => {
                 if (typeof option === 'object') {
                     return `${option[optionlabelkeyname]}`;
                 }
                 return option;
-            }, filterOptions: filterOptions, onInputChange: (e, value) => setState(value), freeSolo: freeSolo, renderInput: (_a) => {
+            }, filterOptions: filterOptions, onInputChange: handleOnInputChange, freeSolo: freeSolo, renderInput: (_a) => {
                 var { size } = _a, params = __rest(_a, ["size"]);
                 return (0, jsx_runtime_1.jsx)(TextField_1.TextField, Object.assign({ size: fieldSize, helperText: helperText, error: error }, params, { variant: variant, color: color, label: label }));
             } })) }));

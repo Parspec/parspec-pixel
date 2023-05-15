@@ -15,7 +15,7 @@ import { TextField } from '../TextField';
 import { default as MUIAutocomplete, createFilterOptions } from '@mui/material/Autocomplete';
 const filter = createFilterOptions();
 export const Autocomplete = forwardRef((_a, ref) => {
-    var { id, label, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur, helperText, error, options } = _a, props = __rest(_a, ["id", "label", "color", "variant", "onChange", "optionlabelkeyname", "freeSolo", "fieldSize", "onBlur", "helperText", "error", "options"]);
+    var { id, label, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur, helperText, error, options, onTextFieldChange } = _a, props = __rest(_a, ["id", "label", "color", "variant", "onChange", "optionlabelkeyname", "freeSolo", "fieldSize", "onBlur", "helperText", "error", "options", "onTextFieldChange"]);
     const [state, setState] = useState();
     const handleOnChange = (event, newValue) => {
         onChange(Object.assign(Object.assign({}, event), { target: Object.assign(Object.assign({}, event.target), { value: newValue }) }));
@@ -38,12 +38,18 @@ export const Autocomplete = forwardRef((_a, ref) => {
             onBlur(_result);
         }
     };
+    const handleOnInputChange = (event, value) => {
+        setState(value);
+        if (onTextFieldChange) {
+            onTextFieldChange(event);
+        }
+    };
     return (_jsx(_Fragment, { children: _jsx(MUIAutocomplete, Object.assign({ fullWidth: true }, props, { options: options, ref: ref, id: id, onBlur: handleFocusOut, onChange: handleOnChange, getOptionLabel: (option) => {
                 if (typeof option === 'object') {
                     return `${option[optionlabelkeyname]}`;
                 }
                 return option;
-            }, filterOptions: filterOptions, onInputChange: (e, value) => setState(value), freeSolo: freeSolo, renderInput: (_a) => {
+            }, filterOptions: filterOptions, onInputChange: handleOnInputChange, freeSolo: freeSolo, renderInput: (_a) => {
                 var { size } = _a, params = __rest(_a, ["size"]);
                 return _jsx(TextField, Object.assign({ size: fieldSize, helperText: helperText, error: error }, params, { variant: variant, color: color, label: label }));
             } })) }));

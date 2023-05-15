@@ -23,7 +23,6 @@ export const TextLimiter = (props: TextLimiterProps) => {
     const [hoverStatus, setHover] = useState(false);
 
     const compareSize = () => {
-        console.log(textElementRef?.current?.scrollWidth, textElementRef?.current?.clientWidth, textElementRef?.current?.scrollHeight, textElementRef?.current?.clientHeight);
         const compare = textElementRef?.current?.scrollWidth! > textElementRef?.current?.clientWidth! || textElementRef?.current?.scrollHeight! > textElementRef?.current?.clientHeight!;
         setHover(compare);
     };

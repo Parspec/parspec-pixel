@@ -14,7 +14,7 @@ export interface AutocompleteProps {
     options: OptionType[];
     color?: 'error' | 'primary' | 'secondary' | 'info' | 'success' | 'warning';
     variant?: 'outlined' | 'filled' | 'standard';
-    onChange: (event: React.SyntheticEvent) => void;
+    onChange: (event: React.SyntheticEvent<Element, Event>) => void;
     freeSolo?: boolean;
     fieldSize?: 'small' | 'medium';
     multiple?: boolean;
@@ -23,12 +23,13 @@ export interface AutocompleteProps {
     onBlur?: (event: any) => void;
     helperText?: string;
     error?: boolean;
+    onTextFieldChange?: (e: React.SyntheticEvent<Element, Event>) => void;
 }
 
 const filter = createFilterOptions<OptionType>();
 
 export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivElement, AutocompleteProps>(
-    ({ id, label, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur, helperText, error, options, ...props }, ref) => {
+    ({ id, label, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur, helperText, error, options, onTextFieldChange, ...props }, ref) => {
         const [state, setState] = useState<OptionType | string>();
         const handleOnChange = (event: any, newValue: string | OptionType | (string | OptionType)[] | null) => {
             onChange({ ...event, target: { ...event.target, value: newValue } });
@@ -54,6 +55,14 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
                 onBlur(_result);
             }
         };
+
+        const handleOnInputChange = (event: React.SyntheticEvent<Element, Event>, value: string) => {
+            setState(value);
+            if (onTextFieldChange) {
+                onTextFieldChange(event);
+            }
+        };
+
         return (
             <>
                 <MUIAutocomplete
@@ -72,7 +81,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
                         return option;
                     }}
                     filterOptions={filterOptions}
-                    onInputChange={(e, value: string) => setState(value)}
+                    onInputChange={handleOnInputChange}
                     freeSolo={freeSolo}
                     renderInput={({ size, ...params }) => <TextField size={fieldSize} helperText={helperText} error={error} {...params} variant={variant} color={color} label={label} />}
                 />

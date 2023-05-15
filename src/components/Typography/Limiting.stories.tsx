@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { BodyBig, BodyMedium, BodySmall, BodyXS, H6 } from '.';
+import { BodyBig, BodyMedium, BodySmall, BodyXS, H1, H2, H3, H4, H5, H6 } from '.';
 import { Button } from '../Button';
 
 export default {
@@ -9,7 +9,7 @@ export default {
 } as ComponentMeta<typeof BodyBig>;
 
 export const Limiting: ComponentStory<typeof BodyBig> = (args) => {
-    const [text, setText] = React.useState('Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, enim.');
+    const [text, setText] = React.useState('Lorem ipsum dolor sit amet consectetur');
 
     return (
         <>
@@ -35,7 +35,25 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.`}</BodyMedium>
             <br />
             <BodyBig {...args} limit={false} />
             <br />
+            <H1>{text}</H1>
+            <br />
+            <H2>{text}</H2>
+            <br />
+            <H3>{text}</H3>
+            <br />
+            <H4>{text}</H4>
+            <br />
+            <H5>{text}</H5>
+            <br />
+            <H6>{text}</H6>
+            <br />
+            <BodyBig>{text}</BodyBig>
+            <br />
+            <BodyMedium>{text}</BodyMedium>
+            <br />
             <BodySmall>{text}</BodySmall>
+            <br />
+            <BodyXS>{text}</BodyXS>
             <br />
             <Button
                 onClick={() =>

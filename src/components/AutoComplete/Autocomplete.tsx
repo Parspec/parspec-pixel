@@ -23,13 +23,13 @@ export interface AutocompleteProps {
     onBlur?: (event: any) => void;
     helperText?: string;
     error?: boolean;
-    onInputChange?: (e: React.SyntheticEvent<Element, Event>) => void;
+    onTextFieldChange?: (e: React.SyntheticEvent<Element, Event>) => void;
 }
 
 const filter = createFilterOptions<OptionType>();
 
 export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivElement, AutocompleteProps>(
-    ({ id, label, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur, helperText, error, options, onInputChange, ...props }, ref) => {
+    ({ id, label, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur, helperText, error, options, onTextFieldChange, ...props }, ref) => {
         const [state, setState] = useState<OptionType | string>();
         const handleOnChange = (event: any, newValue: string | OptionType | (string | OptionType)[] | null) => {
             onChange({ ...event, target: { ...event.target, value: newValue } });
@@ -58,8 +58,8 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
 
         const handleOnInputChange = (event: React.SyntheticEvent<Element, Event>, value: string) => {
             setState(value);
-            if (onInputChange) {
-                onInputChange(event);
+            if (onTextFieldChange) {
+                onTextFieldChange(event);
             }
         };
 

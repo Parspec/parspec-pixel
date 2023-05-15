@@ -39,7 +39,7 @@ export const SingleSelect: ComponentStory<typeof Table> = (props) => {
         //     e.filterModel.options.dataSource = [{ available: 'Yes' }, { available: 'No' }];
         // }
     };
-
+    // filter={{ type: 'Menu', operator: 'contains' }} filterTemplate={filterTemplateOptions}
     return (
         <Box height={500}>
             <Table {...getTableProps({ ...props, onRowSelection, onDragEnd, customFiltersFunction })} data={data} ref={tableRef}>
@@ -47,7 +47,7 @@ export const SingleSelect: ComponentStory<typeof Table> = (props) => {
                 <ColumnDirective field="taskID" allowEditing={false} headerText="Task ID" minWidth="100" width="130" editType="numericedit" />
                 <ColumnDirective field="name" headerText="Task Name" />
                 <ColumnDirective field="reporter" headerText="Reporter" />
-                <ColumnDirective field="available" filter={{ type: 'Menu', operator: 'contains' }} filterTemplate={filterTemplateOptions} headerText="Availability" />
+                <ColumnDirective field="available" headerText="Availability" filter={{ type: 'Menu', operator: 'contains' }} filterTemplate={filterTemplateOptions} />
             </Table>
         </Box>
     );
@@ -165,14 +165,10 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
             <Table
                 {...getTableProps({ ...props, onAdd, onCheckboxChange, onDelete, onDragEnd, onEdit, onSearch, onRowSelection, onHideUnhide, onAddDuplicates, customFiltersFunction, dDataP })}
                 ref={tableRef}
-                // data={abcData || []}
             >
-                {/* <ColumnDirective type="checkbox" width="50" /> */}
-                {/* <ColumnDirective showCheckbox={true} width="70" /> */}
+                <ColumnDirective type="checkbox" width="50" />
                 <ColumnDirective field="id" isPrimaryKey={true} visible={false} />
-                {/* <ColumnDirective field="taskID" headerText="Task ID" minWidth="100" width="130" editType="numericedit" /> */}
-
-                <ColumnDirective field="name" headerText="Task Name" minWidth="200" showCheckbox />
+                <ColumnDirective field="name" headerText="Task Name" minWidth="200" />
                 <ColumnDirective
                     allowEditing={false}
                     allowSorting={false}
@@ -206,7 +202,7 @@ Basic.args = {
     childMappingKey: 'subtasks',
     allowRowDragAndDrop: true,
     // frozenColumns: 4,
-    treeColumnIndex: 1,
+    treeColumnIndex: 2,
     allowPaging: false,
     pageSettings: { pageSize: 10 },
     allowResizing: true,

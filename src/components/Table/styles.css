@@ -29094,3 +29094,17 @@ tr.singleSelect:hover {
 } */
 /*  to be removed in V2 middle segment no border */
 
+.e-treegrid .e-table {
+    border-collapse: separate;
+    border-spacing: 0 6px;
+}
+.e-grid .e-rowcell {
+    border-width: 1px 0 1px 0;
+    /* 3px 0 0 0 */
+}
+
+.e-grid .e-gridcontent .e-rowdragdrop,
+.e-grid .e-gridheader .e-rowdragdrop {
+    border-width: 1px 0 1px 0;
+    /* 3px 0 0 0 */
+}

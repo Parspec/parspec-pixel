@@ -36,11 +36,11 @@ BodyText.defaultProps = {
     limit: true,
     lines: 1
 };
-const H1 = (props) => (0, jsx_runtime_1.jsx)(Heading, Object.assign({}, props, { variant: "h1", fontSize: '96px' }));
+const H1 = (props) => (0, jsx_runtime_1.jsx)(Heading, Object.assign({}, props, { variant: "h1", fontSize: '96px', lineHeight: '120px' }));
 exports.H1 = H1;
 const H2 = (props) => (0, jsx_runtime_1.jsx)(Heading, Object.assign({}, props, { variant: "h2", fontSize: '60px' }));
 exports.H2 = H2;
-const H3 = (props) => (0, jsx_runtime_1.jsx)(Heading, Object.assign({}, props, { variant: "h3", fontSize: '48px' }));
+const H3 = (props) => (0, jsx_runtime_1.jsx)(Heading, Object.assign({}, props, { variant: "h3", fontSize: '48px', lineHeight: '80px' }));
 exports.H3 = H3;
 const H4 = (props) => (0, jsx_runtime_1.jsx)(Heading, Object.assign({}, props, { variant: "h4", fontSize: '34px' }));
 exports.H4 = H4;
@@ -52,7 +52,7 @@ const BodyBig = (props) => (0, jsx_runtime_1.jsx)(BodyText, Object.assign({}, pr
 exports.BodyBig = BodyBig;
 const BodyMedium = (props) => (0, jsx_runtime_1.jsx)(BodyText, Object.assign({}, props, { fontSize: '16px', letterSpacing: '0.44px', lineHeight: '24px' }));
 exports.BodyMedium = BodyMedium;
-const BodySmall = (props) => (0, jsx_runtime_1.jsx)(BodyText, Object.assign({}, props, { fontSize: '14px', letterSpacing: '0.25px', lineHeight: '16px' }));
+const BodySmall = (props) => (0, jsx_runtime_1.jsx)(BodyText, Object.assign({}, props, { fontSize: '14px', letterSpacing: '0.25px', lineHeight: '18px' }));
 exports.BodySmall = BodySmall;
 const BodyXS = (props) => (0, jsx_runtime_1.jsx)(BodyText, Object.assign({}, props, { fontSize: '12px', lineHeight: '15px' }));
 exports.BodyXS = BodyXS;

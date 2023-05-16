@@ -2,7 +2,7 @@ import { default as MUITooltip, TooltipProps as MUITooltipProps } from '@mui/mat
 
 export const Tooltip: React.FC<MUITooltipProps> = ({ children, title, placement, ...rest }) => {
     return (
-        <MUITooltip title={title} placement={placement} {...rest}>
+        <MUITooltip title={title} placement={placement} arrow {...rest}>
             {children}
         </MUITooltip>
     );

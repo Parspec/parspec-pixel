@@ -45,6 +45,13 @@ import {
     ShareIcon,
     NotificationsOffOutlinedIcon,
     TableHeaderMenuIcon,
+    SignalCellular0BarIcon,
+    SignalCellular1BarIcon,
+    SignalCellular2BarIcon,
+    SignalCellular3BarIcon,
+    SignalCellular4BarIcon,
+    OpenInNewIcon,
+    WarningIcon,
     ErrorIcon
 } from './index';
 import { Grid } from '../Grid';
@@ -124,6 +131,13 @@ MUIImportedIcons.args = {
         { icon: InfoIcon, name: 'InfoIcon' },
         { icon: ShareIcon, name: 'ShareIcon' },
         { icon: NotificationsOffOutlinedIcon, name: 'NotificationsOffOutlinedIcon' },
+        { icon: SignalCellular0BarIcon, name: 'SignalCellular0BarIcon' },
+        { icon: SignalCellular1BarIcon, name: 'SignalCellular1BarIcon' },
+        { icon: SignalCellular2BarIcon, name: 'SignalCellular2BarIcon' },
+        { icon: SignalCellular3BarIcon, name: 'SignalCellular3BarIcon' },
+        { icon: SignalCellular4BarIcon, name: 'SignalCellular4BarIcon' },
+        { icon: OpenInNewIcon, name: 'OpenInNewIcon' },
+        { icon: WarningIcon, name: 'WarningIcon' },
         { icon: ErrorIcon, name: 'ErroIcon' }
     ],
     fontSize: 'medium',

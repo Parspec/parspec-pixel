@@ -14,12 +14,18 @@ module.exports = {
                     test: /\.s[ac]ss$/i,
                     use: [
                         'style-loader',
-                        'css-loader',
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                sourceMap: true
+                            }
+                        },
                         {
                             loader: 'sass-loader',
                             options: {
                                 sassOptions: {
-                                    includePaths: ['node_modules/@syncfusion']
+                                    includePaths: ['node_modules/@syncfusion'],
+                                    sourceMap: true
                                 }
                             }
                         }

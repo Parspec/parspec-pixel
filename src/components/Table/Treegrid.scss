@@ -1,3 +1,11 @@
+$accent: #6467f2;
+$grey-light-font: #000;
+$grey-300: #e3e3ff;
+$grey-900: #091535;
+$grid-font-size: 14px;
+$pager-font-size: 14px;
+$grid-header-cell-color: #f1f5f9;
+
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,500');
 @import 'ej2-icons/styles/fabric.scss';
 @import 'ej2-base/styles/material.scss';
@@ -11,13 +19,6 @@
 @import 'ej2-grids/styles/material.scss';
 @import 'ej2-react-treegrid/styles/material.scss';
 
-$accent: #6467f2;
-$grey-light-font: #000;
-$grey-300: #e3e3ff;
-$grey-900: #091535;
-$grid-font-size: 14px;
-$pager-font-size: 14px;
-$grid-header-cell-color: #f1f5f9;
 .e-grid .e-icon-filter::before,
 .e-grid-menu .e-icon-filter::before {
     content: '\e250';

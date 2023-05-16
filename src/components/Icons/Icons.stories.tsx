@@ -44,7 +44,8 @@ import {
     InfoIcon,
     ShareIcon,
     NotificationsOffOutlinedIcon,
-    TableHeaderMenuIcon
+    TableHeaderMenuIcon,
+    ErrorIcon
 } from './index';
 import { Grid } from '../Grid';
 import { BodySmall } from '../Typography';
@@ -122,7 +123,8 @@ MUIImportedIcons.args = {
         { icon: LanguageIcon, name: 'LanguageIcon' },
         { icon: InfoIcon, name: 'InfoIcon' },
         { icon: ShareIcon, name: 'ShareIcon' },
-        { icon: NotificationsOffOutlinedIcon, name: 'NotificationsOffOutlinedIcon' }
+        { icon: NotificationsOffOutlinedIcon, name: 'NotificationsOffOutlinedIcon' },
+        { icon: ErrorIcon, name: 'ErroIcon' }
     ],
     fontSize: 'medium',
     color: 'tertiary'

@@ -48,5 +48,6 @@ export {
     Language as LanguageIcon,
     Info as InfoIcon,
     Share as ShareIcon,
-    NotificationsOffOutlined as NotificationsOffOutlinedIcon
+    NotificationsOffOutlined as NotificationsOffOutlinedIcon,
+    Error as ErrorIcon
 } from '@mui/icons-material';

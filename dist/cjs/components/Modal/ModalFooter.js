@@ -10,7 +10,7 @@ const ModalFooter = ({ onAccept, onReject, cancelButtonLabel, continueButtonLabe
 exports.ModalFooter = ModalFooter;
 exports.ModalFooter.defaultProps = {
     cancelButtonLabel: 'Cancel',
-    continueButtonLabel: 'Submit',
+    continueButtonLabel: 'Confirm',
     continueButtonColor: 'tertiary',
     onAccept: () => { },
     onReject: () => { },

@@ -87,6 +87,7 @@ export interface TableProps {
     hiddenProperty?: string;
     allowSorting?: boolean;
     rowHeight?: number;
+    height?: number | string;
     // defaultFilter?: 'equal' | 'contains';
 }
 
@@ -105,7 +106,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         allowSorting,
         showToolbar,
         toolBarOptions,
-        // height,
+        height,
         allowFiltering,
         editSettings,
         filterSettings,
@@ -147,7 +148,6 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                 tableRef?.current?.refresh();
             }
         }
-        // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     }, [loading]);
 
     const actionComplete = (args: PageEventArgs | FilterEventArgs | SortEventArgs | SearchEventArgs | AddEventArgs | SaveEventArgs | EditEventArgs | DeleteEventArgs) => {
@@ -157,15 +157,19 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         if (args?.requestType === 'searching') {
             onSearch!(args);
         }
-        // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
+        // tableRef?.current?.grid.notify('freezerender', { case: 'refreshHeight' });
     };
 
-    const actionBegin = (args: any) => {
-        if (args.requestType === 'filterbeforeopen') {
-            customFiltersFunction!(args);
+    const actionBegin = (e: any) => {
+        if (e.requestType === 'filtering' && !isNullOrUndefined(e.currentFilterObject) && isNullOrUndefined(e?.currentFilterObject?.value)) {
+            e.cancel = true;
         }
-        if (args.type === 'edit') {
-            args.cell.getElementsByTagName('input')[0].setAttribute('maxLength', 255);
+
+        if (e.requestType === 'filterbeforeopen') {
+            customFiltersFunction!(e);
+        }
+        if (e.type === 'edit') {
+            e.cell.getElementsByTagName('input')[0].setAttribute('maxLength', 255);
         }
     };
 
@@ -269,8 +273,8 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                 onDragEnd!({ fromIndex: args.fromIndex, data: args.data[0] });
             }
         }
+        // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     };
-
     const checkboxChange = (args: CheckBoxChangeEventArgs) => {
         onCheckboxChange!(tableRef?.current?.getSelectedRecords());
         setSelectedForBanner(tableRef?.current?.getSelectedRecords()?.length);
@@ -302,6 +306,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
             setSelectedForBanner(() => 0);
             onCheckboxChange!([]);
         };
+
         return {
             clearSelection,
             setSelectedForBanner
@@ -344,13 +349,13 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     }, [[tableContainerRef?.current]]);
 
     // const resizestart = () => {
-    //     tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
+    //     tableRef?.current?.grid?.notify('freezerender', { case: 'refreshHeight' });
     // };
     // const collapsing = () => {
-    //     tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
+    //     tableRef?.current?.grid?.notify('freezerender', { case: 'refreshHeight' });
     // };
     // const expanding = () => {
-    //     tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
+    //     tableRef?.current?.grid?.notify('freezerender', { case: 'refreshHeight' });
     // };
     return (
         <Box position={'relative'} height={'100%'} width={'100%'} ref={tableContainerRef}>
@@ -435,7 +440,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             // collapsing={collapsing}
                             // resizeStart={resizestart}
                             // enablePersistence={true}
-                            autoCheckHierarchy={true}
+                            // autoCheckHierarchy={true}
                             actionBegin={actionBegin}
                             dataBound={dataBound}
                             actionComplete={actionComplete}
@@ -443,7 +448,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             rowSelected={rowSelected}
                             rowDeselected={rowDeselected}
                             rowDataBound={rowDataBound}
-                            height={tableHeight}
+                            height={height || tableHeight}
                             ref={tableRef}
                             dataSource={data}
                             treeColumnIndex={treeColumnIndex}

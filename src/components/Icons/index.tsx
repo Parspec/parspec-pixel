@@ -56,5 +56,6 @@ export {
     SignalCellular4Bar as SignalCellular4BarIcon,
     OpenInNew as OpenInNewIcon,
     Warning as WarningIcon,
-    Error as ErrorIcon
+    Error as ErrorIcon,
+    DocumentScanner as DocumentScannerIcon
 } from '@mui/icons-material';

@@ -34,10 +34,8 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
         }
         else {
             (_g = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _g === void 0 ? void 0 : _g.hideSpinner();
-            if (data.length === 0) {
-                if (obj && (obj === null || obj === void 0 ? void 0 : obj.EmptyRecord)) {
-                    obj.EmptyRecord = 'No records to display';
-                }
+            if (!data.length && obj && !(obj === null || obj === void 0 ? void 0 : obj.EmptyRecord.length)) {
+                obj.EmptyRecord = 'No records to display';
                 (_h = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _h === void 0 ? void 0 : _h.refresh();
             }
         }

@@ -86,7 +86,7 @@ const coltemplate = (props: any) => {
 };
 const filterTemplateOptions = (props: any): any => {
     const dataSource = ['Yes', 'No'];
-    return <DropDownListComponent id={props.column.field} popupHeight="250px" dataSource={dataSource} />;
+    return <DropDownListComponent id={props.column.field} popupHeight="250px" dataSource={dataSource} enablePersistence={true} />;
 };
 
 const customFn = (args: { [key: string]: string }): boolean => {

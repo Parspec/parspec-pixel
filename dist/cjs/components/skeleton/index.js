@@ -11,6 +11,6 @@ const Skeleton = (props) => {
 };
 exports.Skeleton = Skeleton;
 exports.Skeleton.defaultProps = {
-    color: 'rgba(0,0,0,0.04)'
+    sx: { bgcolor: 'rgba(0,0,0,0.05)' }
 };
 //# sourceMappingURL=index.js.map

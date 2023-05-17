@@ -39,6 +39,7 @@ export interface TableProps {
     hiddenProperty?: string;
     allowSorting?: boolean;
     rowHeight?: number;
+    height?: number | string;
 }
 export declare const Table: React.FC<TableProps>;
 export {};

@@ -9,13 +9,13 @@ import SelectedFile from './SelectedFile';
 
 export interface FileSelectorFileType {
     file: {
-        path: string;
-        lastModified: number;
-        lastModifiedDate: Date;
+        path?: string;
+        lastModified?: number;
+        lastModifiedDate?: Date;
         name: string;
-        size: number;
-        type: string;
-        webkitRelativePath: string;
+        size?: number;
+        type?: string;
+        webkitRelativePath?: string;
     };
 }
 interface FileSelectorProps {
@@ -28,10 +28,11 @@ interface FileSelectorProps {
     onSelect?: (args: FileSelectorFileType[] | File[]) => void;
     placeholder?: string;
     borderColor?: 'primary' | 'secondary' | 'tertiary';
+    preSelectedFile?: FileSelectorFileType[] | File[];
 }
 
 export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
-    ({ maxFiles = 1, acceptedFormats = [], onUpload = () => {}, url = '', error = '', helperText = '', onSelect = () => {}, placeholder = '', borderColor }, ref) => {
+    ({ maxFiles = 1, acceptedFormats = [], onUpload = () => {}, url = '', error = '', helperText = '', onSelect = () => {}, placeholder = '', borderColor, preSelectedFile }, ref) => {
         const [files, setFiles] = useState([]);
         const [result, setResults] = useState([]);
 
@@ -43,6 +44,15 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                 onUpload([]);
             }
         }, [files]);
+
+        useEffect(() => {
+            if (!preSelectedFile?.length) {
+                setResults([]);
+                onUpload([]);
+                return;
+            }
+            onSelect(preSelectedFile);
+        }, [preSelectedFile]);
 
         //To call the callback when uploading of all files is done
         useEffect(() => {
@@ -115,7 +125,7 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                     </Box>
                 ) : (
                     <Box>
-                        {files.map((file: { name: string; size: number }, index: number) => (
+                        {files.map((file: { name: string; size?: number }, index: number) => (
                             <SelectedFile key={file.name} file={file} onDelete={onDelete} url={url} index={index} handleResults={handleResults} />
                         ))}
                     </Box>

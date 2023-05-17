@@ -30,14 +30,11 @@ export const TextLimiter = (props: TextLimiterProps) => {
     useEffect(() => {
         compareSize();
         window.addEventListener('resize', compareSize);
-    }, []);
 
-    useEffect(
-        () => () => {
+        return () => {
             window.removeEventListener('resize', compareSize);
-        },
-        []
-    );
+        };
+    }, [props.text]);
 
     return (
         <StyledToolTip title={props.tooltip} disableHoverListener={!hoverStatus}>
@@ -52,7 +49,7 @@ export const TextLimiter = (props: TextLimiterProps) => {
                     WebkitLineClamp: props.lines,
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
-                    wordBreak: 'break-word'
+                    wordBreak: props.lines > 1 ? 'break-word' : 'break-all'
                 }}
             >
                 {props.text}

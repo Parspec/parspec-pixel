@@ -3,6 +3,8 @@ import { SkeletonProps } from '@mui/material/Skeleton';
 export declare const Skeleton: {
     (props: SkeletonProps): JSX.Element;
     defaultProps: {
-        color: string;
+        sx: {
+            bgcolor: string;
+        };
     };
 };

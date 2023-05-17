@@ -2,7 +2,7 @@
 type SelectedFileProps = {
     file: {
         name: string;
-        size: number;
+        size?: number;
     };
     onDelete: (arg: {
         name: string;

@@ -1,5 +1,32 @@
 export const dDataP = [
     {
+        id: 123,
+        taskID: 123,
+        name: 'prod123',
+        type: 'product',
+        reporter: '',
+        available: '',
+        is_hidden: false
+    },
+    {
+        id: 1234,
+        taskID: 1234,
+        name: 'prod1234',
+        type: 'product',
+        reporter: '',
+        available: '',
+        is_hidden: false
+    },
+    {
+        id: 124,
+        taskID: 124,
+        name: 'prod124',
+        type: 'product',
+        reporter: '',
+        available: '',
+        is_hidden: false
+    },
+    {
         id: 1,
         taskID: 1,
         name: 'section1',
@@ -24,16 +51,16 @@ export const dDataP = [
                         type: 'accessory',
                         reporter: 'Forest',
                         available: 'Yes',
-                        is_hidden: true,
+                        is_hidden: true
                     },
                     {
-                        id: 4,
-                        taskID: 4,
-                        name: 'accessory2',
+                        id: 312,
+                        taskID: 312,
+                        name: 'accessory112',
                         type: 'accessory',
-                        reporter: 'Parikshit',
+                        reporter: 'Forest',
                         available: 'Yes',
-                        is_hidden: false,
+                        is_hidden: true
                     }
                 ]
             },
@@ -47,22 +74,13 @@ export const dDataP = [
                 is_hidden: false,
                 subtasks: [
                     {
-                        id: 6,
-                        taskID: 6,
-                        reporter: 'Lovish',
-                        name: 'accessory1',
-                        type: 'accessory',
-                        available: 'Yes',
-                        is_hidden: false,
-                    },
-                    {
                         id: 7,
                         taskID: 7,
                         reporter: 'Abhishek',
                         name: 'accessory2',
                         type: 'accessory',
                         available: 'Yes',
-                        is_hidden: false,
+                        is_hidden: false
                     }
                 ]
             }
@@ -93,7 +111,7 @@ export const dDataP = [
                         type: 'accessory',
                         reporter: 'Pratyush',
                         available: 'Yes',
-                        is_hidden: false,
+                        is_hidden: false
                     },
                     {
                         id: 11,
@@ -102,7 +120,7 @@ export const dDataP = [
                         type: 'accessory',
                         reporter: 'Sreemukhi',
                         available: 'Yes',
-                        is_hidden: false,
+                        is_hidden: false
                     }
                 ]
             },
@@ -122,7 +140,7 @@ export const dDataP = [
                         type: 'accessory',
                         reporter: 'Harsh',
                         available: 'Yes',
-                        is_hidden: false,
+                        is_hidden: false
                     },
                     {
                         id: 14,
@@ -131,148 +149,12 @@ export const dDataP = [
                         type: 'accessory',
                         reporter: 'Tarun',
                         available: 'Yes',
-                        is_hidden: true,
+                        is_hidden: true
                     }
                 ]
             }
         ]
-    },
-    {
-        id: 15,
-        taskID: 15,
-        name: 'section3',
-        type: 'section',
-        reporter: '',
-        available: '', is_hidden: false,
-        subtasks: [
-            {
-                id: 16,
-                taskID: 16,
-                name: 'product1',
-                type: 'product',
-                reporter: 'Anit',
-                available: 'No',
-                is_hidden: false,
-                subtasks: [
-                    {
-                        id: 17,
-                        taskID: 17,
-                        name: 'accessory1',
-                        type: 'accessory',
-                        reporter: 'Sreemukhi',
-                        available: 'No',
-                        is_hidden: false,
-                    },
-                    {
-                        id: 18,
-                        taskID: 18,
-                        name: 'accessory2',
-                        type: 'accessory',
-                        reporter: 'Komal',
-                        available: 'No',
-                        is_hidden: false,
-                    }
-                ]
-            },
-            {
-                id: 19,
-                taskID: 19,
-                name: 'product2',
-                reporter: 'Abhishek',
-                type: 'product',
-                is_hidden: false,
-                subtasks: [
-                    {
-                        id: 20,
-                        taskID: 20,
-                        name: 'accessory1',
-                        type: 'accessory',
-                        reporter: 'Atul',
-                        available: 'No',
-                        is_hidden: false,
-                    },
-                    {
-                        id: 21,
-                        taskID: 21,
-                        name: 'accessory2',
-                        type: 'accessory',
-                        reporter: 'Lovish',
-                        available: 'No',
-                        is_hidden: true,
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        id: 22,
-        taskID: 22,
-        name: 'section4',
-        type: 'section',
-        reporter: '',
-        available: '',
-        is_hidden: false,
-        subtasks: [
-            {
-                id: 23,
-                taskID: 23,
-                name: 'product1',
-                type: 'product',
-                reporter: 'Abhijit',
-                available: 'No',
-                is_hidden: false,
-                subtasks: [
-                    {
-                        id: 24,
-                        taskID: 24,
-                        name: 'accessory1',
-                        type: 'accessory',
-                        reporter: 'Jolan',
-                        available: 'No',
-                        is_hidden: false,
-                    },
-                    {
-                        id: 25,
-                        taskID: 25,
-                        name: 'accessory2',
-                        type: 'accessory',
-                        reporter: 'Rishikesh',
-                        available: 'No',
-                        is_hidden: false,
-                    }
-                ]
-            },
-            {
-                id: 26,
-                taskID: 26,
-                name: 'product2',
-                type: 'product',
-                reporter: 'Pratyush',
-                available: 'No',
-                is_hidden: false,
-                subtasks: [
-                    {
-                        id: 27,
-                        taskID: 27,
-                        name: 'accessory1',
-                        type: 'accessory',
-                        reporter: 'Parikshit',
-                        available: 'No',
-                        is_hidden: false,
-                    },
-                    {
-                        id: 28,
-                        taskID: 28,
-                        name: 'accessory2',
-                        type: 'accessory',
-                        reporter: 'Atul',
-                        available: 'No',
-                        is_hidden: false,
-                    }
-                ]
-            }
-        ]
-    },
+    }
 ];
 export const dDataP2 = [
     {
@@ -282,7 +164,7 @@ export const dDataP2 = [
         type: 'section',
         reporter: '',
         available: 'Yes, No',
-        is_hidden: false,
+        is_hidden: false
     },
     {
         id: 8,
@@ -291,7 +173,7 @@ export const dDataP2 = [
         type: 'section',
         reporter: '',
         available: 'Yes, Yes',
-        is_hidden: false,
+        is_hidden: false
     },
     {
         id: 15,
@@ -300,7 +182,7 @@ export const dDataP2 = [
         type: 'section',
         reporter: '',
         available: 'Yes',
-        is_hidden: false,
+        is_hidden: false
     },
     {
         id: 22,
@@ -309,7 +191,7 @@ export const dDataP2 = [
         type: 'section',
         reporter: '',
         available: 'No',
-        is_hidden: false,
+        is_hidden: false
     },
     {
         id: 2,
@@ -318,7 +200,7 @@ export const dDataP2 = [
         type: 'section',
         reporter: '',
         available: 'Yes',
-        is_hidden: false,
+        is_hidden: false
     },
     {
         id: 3,
@@ -327,7 +209,7 @@ export const dDataP2 = [
         type: 'section',
         reporter: '',
         available: 'Yes',
-        is_hidden: false,
+        is_hidden: false
     },
     {
         id: 4,
@@ -335,7 +217,8 @@ export const dDataP2 = [
         name: 'section3',
         type: 'section',
         reporter: '',
-        available: 'No', is_hidden: false,
+        available: 'No',
+        is_hidden: false
     },
     {
         id: 5,
@@ -344,7 +227,7 @@ export const dDataP2 = [
         type: 'section',
         reporter: '',
         available: 'Yes',
-        is_hidden: false,
-    },
+        is_hidden: false
+    }
 ];
 //# sourceMappingURL=data.js.map

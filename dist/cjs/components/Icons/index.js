@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NotificationsOffOutlinedIcon = exports.ShareIcon = exports.InfoIcon = exports.LanguageIcon = exports.VisibilityOffOutlinedIcon = exports.DeeletIcon = exports.TuneIcon = exports.ContentCopyIcon = exports.SyncProblemIcon = exports.FileDownloadOutlinedIcon = exports.FilterAltOffIcon = exports.VisibilityIcon = exports.VisibilityOffIcon = exports.DeleteOutlineIcon = exports.ControlPointDuplicateIcon = exports.FormatListBulletedIcon = exports.ImageIcon = exports.DownloadIcon = exports.LinkIcon = exports.SyncIcon = exports.ViewArrayIcon = exports.ChangeHistoryIcon = exports.SwapHorizIcon = exports.CheckCircleIcon = exports.MoreVertIcon = exports.EditIcon = exports.RemoveIcon = exports.AddIcon = exports.PanToolIcon = exports.CheckCircleOutlineIcon = exports.ArrowDownwardIcon = exports.ArrowUpwardIcon = exports.ArrowCircleRightIcon = exports.ArrowCircleLeftIcon = exports.LastPageIcon = exports.FirstPageIcon = exports.KeyboardArrowRightIcon = exports.KeyboardArrowLeftIcon = exports.UnfoldMoreIcon = exports.UploadIcon = exports.DeleteIcon = exports.TrendingUpIcon = exports.SearchIcon = exports.DragIndicatorIcon = exports.CancelIcon = exports.CloseIcon = exports.TableHeaderMenuIcon = exports.DatasheetSelectInfoIcon = exports.ClockIcon = exports.ParspecLogoIcon = void 0;
+exports.ErrorIcon = exports.WarningIcon = exports.OpenInNewIcon = exports.SignalCellular4BarIcon = exports.SignalCellular3BarIcon = exports.SignalCellular2BarIcon = exports.SignalCellular1BarIcon = exports.SignalCellular0BarIcon = void 0;
 var ParspecLogoIcon_1 = require("./SvgIcons/ParspecLogoIcon");
 Object.defineProperty(exports, "ParspecLogoIcon", { enumerable: true, get: function () { return ParspecLogoIcon_1.ParspecLogoIcon; } });
 var ClockIcon_1 = require("./SvgIcons/ClockIcon");
@@ -56,4 +57,12 @@ Object.defineProperty(exports, "LanguageIcon", { enumerable: true, get: function
 Object.defineProperty(exports, "InfoIcon", { enumerable: true, get: function () { return icons_material_1.Info; } });
 Object.defineProperty(exports, "ShareIcon", { enumerable: true, get: function () { return icons_material_1.Share; } });
 Object.defineProperty(exports, "NotificationsOffOutlinedIcon", { enumerable: true, get: function () { return icons_material_1.NotificationsOffOutlined; } });
+Object.defineProperty(exports, "SignalCellular0BarIcon", { enumerable: true, get: function () { return icons_material_1.SignalCellular0Bar; } });
+Object.defineProperty(exports, "SignalCellular1BarIcon", { enumerable: true, get: function () { return icons_material_1.SignalCellular1Bar; } });
+Object.defineProperty(exports, "SignalCellular2BarIcon", { enumerable: true, get: function () { return icons_material_1.SignalCellular2Bar; } });
+Object.defineProperty(exports, "SignalCellular3BarIcon", { enumerable: true, get: function () { return icons_material_1.SignalCellular3Bar; } });
+Object.defineProperty(exports, "SignalCellular4BarIcon", { enumerable: true, get: function () { return icons_material_1.SignalCellular4Bar; } });
+Object.defineProperty(exports, "OpenInNewIcon", { enumerable: true, get: function () { return icons_material_1.OpenInNew; } });
+Object.defineProperty(exports, "WarningIcon", { enumerable: true, get: function () { return icons_material_1.Warning; } });
+Object.defineProperty(exports, "ErrorIcon", { enumerable: true, get: function () { return icons_material_1.Error; } });
 //# sourceMappingURL=index.js.map

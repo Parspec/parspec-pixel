@@ -141,10 +141,8 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
             tableRef?.current?.refresh();
         } else {
             tableRef?.current?.hideSpinner();
-            if (data.length === 0) {
-                if (obj && obj?.EmptyRecord) {
-                    obj.EmptyRecord = 'No records to display';
-                }
+            if (!data.length && obj && !obj?.EmptyRecord.length) {
+                obj.EmptyRecord = 'No records to display';
                 tableRef?.current?.refresh();
             }
         }

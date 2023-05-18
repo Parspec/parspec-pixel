@@ -23,9 +23,11 @@ export interface TextFieldProps extends Omit<MUITextFieldProps, 'margin' | 'clas
     onChipDelete?: (index: number) => void;
     helperText?: string;
     icon?: React.ReactNode;
+    scrollActive?: boolean;
+    scrollAreaHeight?: number;
 }
 
-export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(({ variant, color, error, size, label, chips, onChipDelete, helperText, icon, ...rest }, ref) => (
+export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(({ variant, color, error, size, label, chips, onChipDelete, helperText, icon, scrollActive, scrollAreaHeight, ...rest }, ref) => (
     <>
         <StyledMUITextField
             fullWidth
@@ -41,11 +43,22 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(({ variant, 
             }}
             {...rest}
         />
-        {chips && (
+        {chips && scrollActive && (
+            <Box mt={2} display="flex" flexWrap="wrap" rowGap={1} overflow={'hidden'} sx={{ overflowY: 'scroll' }} maxHeight={scrollAreaHeight}>
+                {chips.map((chip, index) => (
+                    <Tooltip placement="bottom" title={chip}>
+                        <Box mr={1} maxWidth="40%" key={chip}>
+                            <Chip label={chip} onDelete={() => onChipDelete!(index)} />
+                        </Box>
+                    </Tooltip>
+                ))}
+            </Box>
+        )}
+        {chips && !scrollActive && (
             <Box mt={2} display="flex" flexWrap="wrap" rowGap={1}>
                 {chips.map((chip, index) => (
                     <Tooltip placement="bottom" title={chip}>
-                        <Box mr={1} maxWidth="40%">
+                        <Box mr={1} maxWidth="40%" key={chip}>
                             <Chip label={chip} onDelete={() => onChipDelete!(index)} />
                         </Box>
                     </Tooltip>
@@ -60,5 +73,6 @@ TextField.defaultProps = {
     color: 'primary',
     error: false,
     size: 'small',
-    inputProps: { maxLength: 255 }
+    inputProps: { maxLength: 255 },
+    scrollActive: false
 };

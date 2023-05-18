@@ -47,7 +47,7 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(({ variant, 
             <Box mt={2} display="flex" flexWrap="wrap" rowGap={1} overflow={'hidden'} sx={{ overflowY: 'scroll' }} maxHeight={scrollAreaHeight}>
                 {chips.map((chip, index) => (
                     <Tooltip placement="bottom" title={chip}>
-                        <Box mr={1} maxWidth="40%" key={chip}>
+                        <Box mr={1} maxWidth="40%" key={`${chip}-${index}`}>
                             <Chip label={chip} onDelete={() => onChipDelete!(index)} />
                         </Box>
                     </Tooltip>
@@ -58,7 +58,7 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(({ variant, 
             <Box mt={2} display="flex" flexWrap="wrap" rowGap={1}>
                 {chips.map((chip, index) => (
                     <Tooltip placement="bottom" title={chip}>
-                        <Box mr={1} maxWidth="40%" key={chip}>
+                        <Box mr={1} maxWidth="40%" key={`${chip}-${index}`}>
                             <Chip label={chip} onDelete={() => onChipDelete!(index)} />
                         </Box>
                     </Tooltip>

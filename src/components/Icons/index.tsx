@@ -57,5 +57,6 @@ export {
     OpenInNew as OpenInNewIcon,
     Warning as WarningIcon,
     Error as ErrorIcon,
-    DocumentScanner as DocumentScannerIcon
+    DocumentScanner as DocumentScannerIcon,
+    CropFree as CropFreeIcon
 } from '@mui/icons-material';

@@ -13,7 +13,7 @@ const Typography_1 = require("../Typography");
 const Icons_1 = require("../Icons");
 const fileFormats_1 = require("./fileFormats");
 const SelectedFile_1 = __importDefault(require("./SelectedFile"));
-exports.FileSelector = (0, react_1.forwardRef)(({ maxFiles = 1, acceptedFormats = [], onUpload = () => { }, url = '', error = '', helperText = '', onSelect = () => { }, placeholder = '', borderColor, preSelectedFile, onDeleteFile }, ref) => {
+exports.FileSelector = (0, react_1.forwardRef)(({ maxFiles = 1, acceptedFormats = [], onUpload = () => { }, url = '', error = '', helperText = '', onSelect = () => { }, placeholder = '', borderColor, preSelectedFile, onDeleteFile = () => { } }, ref) => {
     const [files, setFiles] = (0, react_1.useState)([]);
     const [result, setResults] = (0, react_1.useState)([]);
     //To give the information of selected files to the main component.
@@ -53,9 +53,7 @@ exports.FileSelector = (0, react_1.forwardRef)(({ maxFiles = 1, acceptedFormats 
     const onDelete = (file) => {
         setFiles((old) => old.filter((item) => item.name !== file.name));
         setResults((old) => old.filter((item) => item.file.name !== file.name));
-        if (onDeleteFile) {
-            onDeleteFile();
-        }
+        onDeleteFile();
     };
     //Callback function to get the result of file uplaod
     const handleResults = (data, index) => {

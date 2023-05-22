@@ -7,7 +7,7 @@ import { BodySmall } from '../Typography';
 import { UploadIcon } from '../Icons';
 import { getAcceptedFormats } from './fileFormats';
 import SelectedFile from './SelectedFile';
-export const FileSelector = forwardRef(({ maxFiles = 1, acceptedFormats = [], onUpload = () => { }, url = '', error = '', helperText = '', onSelect = () => { }, placeholder = '', borderColor, preSelectedFile, onDeleteFile }, ref) => {
+export const FileSelector = forwardRef(({ maxFiles = 1, acceptedFormats = [], onUpload = () => { }, url = '', error = '', helperText = '', onSelect = () => { }, placeholder = '', borderColor, preSelectedFile, onDeleteFile = () => { } }, ref) => {
     const [files, setFiles] = useState([]);
     const [result, setResults] = useState([]);
     //To give the information of selected files to the main component.
@@ -47,9 +47,7 @@ export const FileSelector = forwardRef(({ maxFiles = 1, acceptedFormats = [], on
     const onDelete = (file) => {
         setFiles((old) => old.filter((item) => item.name !== file.name));
         setResults((old) => old.filter((item) => item.file.name !== file.name));
-        if (onDeleteFile) {
-            onDeleteFile();
-        }
+        onDeleteFile();
     };
     //Callback function to get the result of file uplaod
     const handleResults = (data, index) => {

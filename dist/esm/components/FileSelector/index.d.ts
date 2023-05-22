@@ -21,6 +21,7 @@ interface FileSelectorProps {
     placeholder?: string;
     borderColor?: 'primary' | 'secondary' | 'tertiary';
     preSelectedFile?: FileSelectorFileType[] | File[];
+    onDeleteFile?: () => void;
 }
 export declare const FileSelector: import("react").ForwardRefExoticComponent<FileSelectorProps & import("react").RefAttributes<HTMLDivElement>>;
 export {};

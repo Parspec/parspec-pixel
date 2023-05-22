@@ -29,11 +29,26 @@ interface FileSelectorProps {
     placeholder?: string;
     borderColor?: 'primary' | 'secondary' | 'tertiary';
     preSelectedFile?: FileSelectorFileType[] | File[];
-    onDeleteFile: () => void;
+    onDeleteFile?: () => void;
 }
 
 export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
-    ({ maxFiles = 1, acceptedFormats = [], onUpload = () => {}, url = '', error = '', helperText = '', onSelect = () => {}, placeholder = '', borderColor, preSelectedFile, onDeleteFile }, ref) => {
+    (
+        {
+            maxFiles = 1,
+            acceptedFormats = [],
+            onUpload = () => {},
+            url = '',
+            error = '',
+            helperText = '',
+            onSelect = () => {},
+            placeholder = '',
+            borderColor,
+            preSelectedFile,
+            onDeleteFile = () => {}
+        },
+        ref
+    ) => {
         const [files, setFiles] = useState([]);
         const [result, setResults] = useState([]);
 
@@ -148,6 +163,5 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
 );
 
 FileSelector.defaultProps = {
-    borderColor: 'secondary',
-    onDeleteFile: () => {}
+    borderColor: 'secondary'
 };

@@ -9,7 +9,7 @@ export interface AutocompleteProps {
     options: OptionType[];
     color?: 'error' | 'primary' | 'secondary' | 'info' | 'success' | 'warning';
     variant?: 'outlined' | 'filled' | 'standard';
-    onChange: (event: React.SyntheticEvent) => void;
+    onChange: (event: React.SyntheticEvent<Element, Event>) => void;
     freeSolo?: boolean;
     fieldSize?: 'small' | 'medium';
     multiple?: boolean;
@@ -18,5 +18,6 @@ export interface AutocompleteProps {
     onBlur?: (event: any) => void;
     helperText?: string;
     error?: boolean;
+    onTextFieldChange?: (e: React.SyntheticEvent<Element, Event>) => void;
 }
 export declare const Autocomplete: React.FC<AutocompleteProps>;

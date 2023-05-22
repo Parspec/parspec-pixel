@@ -57,3 +57,29 @@ WithIcon.args = {
     label: 'outlined',
     icon: <VisibilityIcon />
 };
+
+export const ScrollableChips: ComponentStory<typeof TextField> = (args) => {
+    return <TextField {...args} />;
+};
+
+ScrollableChips.args = {
+    label: 'outlined',
+    scrollAreaHeight: 80,
+    chips: [
+        'one',
+        'SomelongFormTextA',
+        'SomelongFormTextB',
+        'SomelongFormTextC',
+        'SomelongFormTextD',
+        'sometext',
+        'AnExtralongformtextwhichusermightneed',
+        'two',
+        'three',
+        'SomelongFormText',
+        'djfn',
+        'SomelongFormText',
+        'skdjbfksdjbfksd',
+        'sdjfn',
+        'another extra long form text which user might need or any long format data '
+    ]
+};

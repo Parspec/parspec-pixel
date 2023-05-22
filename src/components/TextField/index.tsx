@@ -23,9 +23,10 @@ export interface TextFieldProps extends Omit<MUITextFieldProps, 'margin' | 'clas
     onChipDelete?: (index: number) => void;
     helperText?: string;
     icon?: React.ReactNode;
+    scrollAreaHeight?: number;
 }
 
-export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(({ variant, color, error, size, label, chips, onChipDelete, helperText, icon, ...rest }, ref) => (
+export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(({ variant, color, error, size, label, chips, onChipDelete, helperText, icon, scrollAreaHeight, ...rest }, ref) => (
     <>
         <StyledMUITextField
             fullWidth
@@ -41,11 +42,22 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(({ variant, 
             }}
             {...rest}
         />
-        {chips && (
+        {chips && scrollAreaHeight && (
+            <Box mt={2} display="flex" flexWrap="wrap" rowGap={1} overflow={'hidden'} sx={{ overflowY: 'scroll' }} maxHeight={scrollAreaHeight}>
+                {chips.map((chip, index) => (
+                    <Tooltip placement="bottom" title={chip}>
+                        <Box mr={1} maxWidth="40%" key={`${chip}-${index}`}>
+                            <Chip label={chip} onDelete={() => onChipDelete!(index)} />
+                        </Box>
+                    </Tooltip>
+                ))}
+            </Box>
+        )}
+        {chips && !scrollAreaHeight && (
             <Box mt={2} display="flex" flexWrap="wrap" rowGap={1}>
                 {chips.map((chip, index) => (
                     <Tooltip placement="bottom" title={chip}>
-                        <Box mr={1} maxWidth="40%">
+                        <Box mr={1} maxWidth="40%" key={`${chip}-${index}`}>
                             <Chip label={chip} onDelete={() => onChipDelete!(index)} />
                         </Box>
                     </Tooltip>

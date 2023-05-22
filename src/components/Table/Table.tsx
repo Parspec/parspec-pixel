@@ -19,7 +19,7 @@ import {
     EditSettingsModel,
     SearchSettingsModel
 } from '@syncfusion/ej2-react-treegrid';
-import { addClass, registerLicense } from '@syncfusion/ej2-base';
+import { addClass, isNullOrUndefined, registerLicense } from '@syncfusion/ej2-base';
 import './Treegrid.scss';
 // import './styles.css';
 import { Box } from '../Box';
@@ -47,10 +47,6 @@ import { CloseIcon, ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffI
 import { BodySmall } from '../Typography';
 import { Tooltip } from '../Tooltip';
 import { InputAdornment } from '../InputAdornment';
-window.localStorage.setItem(
-    'syncfusionLicense',
-    'Mgo+DSMBaFt+QHFqVkFrXVNbdV5dVGpAd0N3RGlcdlR1fUUmHVdTRHRcQlljTX5TckJmW39beH0=;Mgo+DSMBPh8sVXJ1S0d+X1ZPd11dXmJWd1p/THNYflR1fV9DaUwxOX1dQl9gSXpTckVjXXhbcnRcQGk=;ORg4AjUWIQA/Gnt2VFhhQlJDfV5AQmBIYVp/TGpJfl96cVxMZVVBJAtUQF1hSn5XdkFjWXtZdXZUQmBV;MTYwMzQwMkAzMjMxMmUzMTJlMzMzN0ZtL0kzc0FtbUVTbjREZEs4cGNuVkd0TXI5SmZNbmRlbGEwRnQ0bnJTNTA9;MTYwMzQwM0AzMjMxMmUzMTJlMzMzN0QzQWZIYjkxU1dzV3pSaGpseHdPcWRoUmdtb2hWVjIzNVRubmtoL1lGaVU9;NRAiBiAaIQQuGjN/V0d+XU9HcVRDX3xKf0x/TGpQb19xflBPallYVBYiSV9jS31TckVnWX9ad3FXRGZaWA==;MTYwMzQwNUAzMjMxMmUzMTJlMzMzN1pySEd1T0ZEQjRJRTNwZ280UXVZMGVtN1RhQjNDbGcxQ1o0TzVpdC9JdUk9;MTYwMzQwNkAzMjMxMmUzMTJlMzMzN25QaHFKWS85c2pqVVpRTFd4U1crbDlJeEFZNFFUNjYyUENtWVR2MjdNNnc9;Mgo+DSMBMAY9C3t2VFhhQlJDfV5AQmBIYVp/TGpJfl96cVxMZVVBJAtUQF1hSn5XdkFjWXtZdXZWRWVV;MTYwMzQwOEAzMjMxMmUzMTJlMzMzN29BL2FMN01nWnN1ZG9wb0I4QmdPMmhFM25Pa0hsU05nUE8zclVHR1N0Qm89;MTYwMzQwOUAzMjMxMmUzMTJlMzMzN1dnbmQ1UlMyZDNTOEFLYzZhNlhaWGhVcGZUbVNEdWQrbUFiS1hZcFdzZzQ9;MTYwMzQxMEAzMjMxMmUzMTJlMzMzN1pySEd1T0ZEQjRJRTNwZ280UXVZMGVtN1RhQjNDbGcxQ1o0TzVpdC9JdUk9'
-);
 const license = window.localStorage.getItem('syncfusionLicense');
 registerLicense(license!);
 

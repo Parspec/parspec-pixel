@@ -1,6 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { TreeGridComponent, ColumnsDirective, Selection, RowDD, Inject, Freeze, Sort, Edit, Page, PdfExport, ExcelExport, Resize, Filter, ContextMenu } from '@syncfusion/ej2-react-treegrid';
-import { addClass, registerLicense } from '@syncfusion/ej2-base';
+import { addClass, isNullOrUndefined, registerLicense } from '@syncfusion/ej2-base';
 import './Treegrid.scss';
 // import './styles.css';
 import { Box } from '../Box';

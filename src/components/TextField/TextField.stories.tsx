@@ -64,7 +64,6 @@ export const ScrollableChips: ComponentStory<typeof TextField> = (args) => {
 
 ScrollableChips.args = {
     label: 'outlined',
-    scrollActive: true,
     scrollAreaHeight: 80,
     chips: [
         'one',

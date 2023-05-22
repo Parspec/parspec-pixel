@@ -17,6 +17,5 @@ fileSelector.args = {
     error: 'Wrong format',
     maxFiles: 2,
     onUpload: (data) => console.log('uploaded', data),
-    borderColor: 'secondary',
-    onDeleteFile: () => alert('I am getting deleted')
+    borderColor: 'secondary'
 };

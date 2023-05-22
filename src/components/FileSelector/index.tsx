@@ -29,7 +29,7 @@ interface FileSelectorProps {
     placeholder?: string;
     borderColor?: 'primary' | 'secondary' | 'tertiary';
     preSelectedFile?: FileSelectorFileType[] | File[];
-    onDeleteFile?: () => void;
+    onDeleteFile: () => void;
 }
 
 export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
@@ -78,9 +78,7 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
         const onDelete = (file: { name: string }) => {
             setFiles((old) => old.filter((item: { name: string }) => item.name !== file.name));
             setResults((old) => old.filter((item: { file: { name: string } }) => item.file.name !== file.name));
-            if (onDeleteFile) {
-                onDeleteFile();
-            }
+            onDeleteFile();
         };
 
         //Callback function to get the result of file uplaod
@@ -150,5 +148,6 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
 );
 
 FileSelector.defaultProps = {
-    borderColor: 'secondary'
+    borderColor: 'secondary',
+    onDeleteFile: () => {}
 };

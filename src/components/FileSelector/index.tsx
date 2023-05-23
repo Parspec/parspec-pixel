@@ -8,15 +8,13 @@ import { getAcceptedFormats } from './fileFormats';
 import SelectedFile from './SelectedFile';
 
 export interface FileSelectorFileType {
-    file: {
-        path?: string;
-        lastModified?: number;
-        lastModifiedDate?: Date;
-        name: string;
-        size?: number;
-        type?: string;
-        webkitRelativePath?: string;
-    };
+    path?: string;
+    lastModified?: number;
+    lastModifiedDate?: Date;
+    name: string;
+    size?: number;
+    type?: string;
+    webkitRelativePath?: string;
 }
 interface FileSelectorProps {
     maxFiles?: number;
@@ -49,8 +47,14 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
         },
         ref
     ) => {
-        const [files, setFiles] = useState([]);
+        const [files, setFiles] = useState<any>([]);
         const [result, setResults] = useState([]);
+
+        useEffect(() => {
+            if (preSelectedFile?.length) {
+                setFiles(preSelectedFile);
+            }
+        }, []);
 
         //To give the information of selected files to the main component.
         useEffect(() => {
@@ -60,15 +64,6 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                 onUpload([]);
             }
         }, [files]);
-
-        useEffect(() => {
-            if (!preSelectedFile?.length) {
-                setResults([]);
-                onUpload([]);
-                return;
-            }
-            onSelect(preSelectedFile);
-        }, [preSelectedFile]);
 
         //To call the callback when uploading of all files is done
         useEffect(() => {
@@ -91,7 +86,7 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
 
         //Function called when file is deleted
         const onDelete = (file: { name: string }) => {
-            setFiles((old) => old.filter((item: { name: string }) => item.name !== file.name));
+            setFiles((old: any) => old.filter((item: { name: string }) => item.name !== file.name));
             setResults((old) => old.filter((item: { file: { name: string } }) => item.file.name !== file.name));
             onDeleteFile();
         };

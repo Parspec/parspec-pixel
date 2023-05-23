@@ -1,4 +1,4 @@
-import { jsx as _jsx } from "react/jsx-runtime";
+import { jsx as _jsx } from 'react/jsx-runtime';
 import { createTheme, ThemeProvider as MUIThemeProvider } from '@mui/material/styles';
 export const theme = createTheme({
     components: {
@@ -13,9 +13,13 @@ export const theme = createTheme({
         },
         MuiButton: {
             styleOverrides: {
-                root: ({ ownerState }) => (Object.assign({}, (ownerState.size === 'xs' && {
-                    padding: '2px 8px'
-                })))
+                root: ({ ownerState }) =>
+                    Object.assign(
+                        {},
+                        ownerState.size === 'xs' && {
+                            padding: '2px 8px'
+                        }
+                    )
             }
         }
         // MuiSnackbarContent: {

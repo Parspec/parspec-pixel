@@ -1,8 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
 exports.ThemeProvider = exports.theme = void 0;
-const jsx_runtime_1 = require("react/jsx-runtime");
-const styles_1 = require("@mui/material/styles");
+const jsx_runtime_1 = require('react/jsx-runtime');
+const styles_1 = require('@mui/material/styles');
 exports.theme = (0, styles_1.createTheme)({
     components: {
         MuiTooltip: {
@@ -16,9 +16,13 @@ exports.theme = (0, styles_1.createTheme)({
         },
         MuiButton: {
             styleOverrides: {
-                root: ({ ownerState }) => (Object.assign({}, (ownerState.size === 'xs' && {
-                    padding: '2px 8px'
-                })))
+                root: ({ ownerState }) =>
+                    Object.assign(
+                        {},
+                        ownerState.size === 'xs' && {
+                            padding: '2px 8px'
+                        }
+                    )
             }
         }
         // MuiSnackbarContent: {
@@ -44,7 +48,7 @@ exports.theme = (0, styles_1.createTheme)({
         action: {},
         text: {
             primary: '#091535',
-            secondary: '#D4D4D8'
+            secondary: '#6B7280'
         },
         tertiary: {
             light: '#ffe4bd',

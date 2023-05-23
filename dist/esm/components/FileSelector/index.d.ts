@@ -1,14 +1,12 @@
 /// <reference types="react" />
 export interface FileSelectorFileType {
-    file: {
-        path?: string;
-        lastModified?: number;
-        lastModifiedDate?: Date;
-        name: string;
-        size?: number;
-        type?: string;
-        webkitRelativePath?: string;
-    };
+    path?: string;
+    lastModified?: number;
+    lastModifiedDate?: Date;
+    name: string;
+    size?: number;
+    type?: string;
+    webkitRelativePath?: string;
 }
 interface FileSelectorProps {
     maxFiles?: number;

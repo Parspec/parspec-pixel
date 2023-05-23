@@ -16,6 +16,11 @@ const SelectedFile_1 = __importDefault(require("./SelectedFile"));
 exports.FileSelector = (0, react_1.forwardRef)(({ maxFiles = 1, acceptedFormats = [], onUpload = () => { }, url = '', error = '', helperText = '', onSelect = () => { }, placeholder = '', borderColor, preSelectedFile, onDeleteFile = () => { } }, ref) => {
     const [files, setFiles] = (0, react_1.useState)([]);
     const [result, setResults] = (0, react_1.useState)([]);
+    (0, react_1.useEffect)(() => {
+        if (preSelectedFile === null || preSelectedFile === void 0 ? void 0 : preSelectedFile.length) {
+            setFiles(preSelectedFile);
+        }
+    }, []);
     //To give the information of selected files to the main component.
     (0, react_1.useEffect)(() => {
         onSelect(files);
@@ -24,14 +29,6 @@ exports.FileSelector = (0, react_1.forwardRef)(({ maxFiles = 1, acceptedFormats 
             onUpload([]);
         }
     }, [files]);
-    (0, react_1.useEffect)(() => {
-        if (!(preSelectedFile === null || preSelectedFile === void 0 ? void 0 : preSelectedFile.length)) {
-            setResults([]);
-            onUpload([]);
-            return;
-        }
-        onSelect(preSelectedFile);
-    }, [preSelectedFile]);
     //To call the callback when uploading of all files is done
     (0, react_1.useEffect)(() => {
         if (files.length) {

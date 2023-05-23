@@ -71,8 +71,9 @@ const SelectedFile = (props: SelectedFileProps) => {
             <Box display="flex" justifyContent="space-between" alignItems="flex-start">
                 <Box>
                     <BodySmall fontWeight={600}>{file.name}</BodySmall>
-                    <BodySmall>{(file.size! / 1000).toFixed(2)} kb</BodySmall>
+                    {file?.size && <BodySmall>{(file.size! / 1000).toFixed(2)} kb</BodySmall>}
                 </Box>
+
                 <Box ml="auto" display="flex">
                     {url && showProgress ? <ProgressBar progress={progress} /> : null}
                     <Box ml={2}>

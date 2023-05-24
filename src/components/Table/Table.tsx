@@ -22,23 +22,7 @@ import {
 import { addClass, isNullOrUndefined, registerLicense } from '@syncfusion/ej2-base';
 import './styles.css';
 import { Box } from '../Box';
-import {
-    AddEventArgs,
-    CheckBoxChangeEventArgs,
-    DeleteEventArgs,
-    EditEventArgs,
-    FilterEventArgs,
-    FilterSettingsModel,
-    getObject,
-    HeaderCellInfoEventArgs,
-    PageEventArgs,
-    RowDeselectEventArgs,
-    RowSelectEventArgs,
-    SaveEventArgs,
-    SearchEventArgs,
-    SelectionSettingsModel,
-    SortEventArgs
-} from '@syncfusion/ej2-grids';
+import { CheckBoxChangeEventArgs, FilterSettingsModel, getObject, HeaderCellInfoEventArgs, RowDeselectEventArgs, RowSelectEventArgs, SelectionSettingsModel } from '@syncfusion/ej2-grids';
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState, useMemo } from 'react';
 import { TextField } from '../TextField';
 import { IconButton } from '../IconButton';
@@ -46,7 +30,6 @@ import { CloseIcon, ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffI
 import { BodySmall } from '../Typography';
 import { Tooltip } from '../Tooltip';
 import { InputAdornment } from '../InputAdornment';
-import { Button } from '../Button';
 
 const license = window.localStorage.getItem('syncfusionLicense');
 registerLicense(license!);

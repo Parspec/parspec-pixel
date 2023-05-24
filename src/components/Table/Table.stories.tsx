@@ -137,7 +137,7 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
         console.log('onAddDuplicates (selected data)===>\n', data);
     };
     const getTableProps = (args: any) => {
-        const toolBarItems: ToolbarType = ['delete', 'search', 'clearFilters', 'hide', 'unhide', 'selectedItems', 'duplicate'];
+        const toolBarItems: ToolbarType = ['delete', 'search', 'clearFilters', 'hide', 'unhide', 'selectedItems', 'duplicate', 'save'];
         return {
             toolBarOptions: toolBarItems,
             toolbarRightSection: <Button>Import Products</Button>,
@@ -159,7 +159,7 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
                 {...getTableProps({ ...props, onAdd, onCheckboxChange, onDelete, onDragEnd, onEdit, onSearch, onRowSelection, onHideUnhide, onAddDuplicates, customFiltersFunction })}
                 ref={tableRef}
             >
-                <ColumnDirective type="checkbox" width="50" />
+                <ColumnDirective type="checkbox" width="50" allowEditing={false} />
                 <ColumnDirective field="id" isPrimaryKey={true} visible={false} />
                 <ColumnDirective field="taskID" headerText="Task ID" minWidth="100" width="130" editType="numericedit" />
                 <ColumnDirective field="name" headerText="Task Name" minWidth="200" />

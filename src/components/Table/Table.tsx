@@ -42,15 +42,16 @@ import {
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState, useMemo } from 'react';
 import { TextField } from '../TextField';
 import { IconButton } from '../IconButton';
-import { CloseIcon, ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffIcon, FilterAltOffIcon, SearchIcon } from '../Icons';
+import { CloseIcon, ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffIcon, FilterAltOffIcon, SearchIcon, SaveAsIcon } from '../Icons';
 import { BodySmall } from '../Typography';
 import { Tooltip } from '../Tooltip';
 import { InputAdornment } from '../InputAdornment';
+import { Button } from '../Button';
 
 const license = window.localStorage.getItem('syncfusionLicense');
 registerLicense(license!);
 
-type ToolbarT = 'delete' | 'search' | 'clearFilters' | 'hide' | 'unhide' | 'selectedItems' | 'duplicate';
+type ToolbarT = 'delete' | 'search' | 'clearFilters' | 'hide' | 'unhide' | 'selectedItems' | 'duplicate' | 'save';
 export type ToolbarType = ToolbarT[];
 export interface TableProps {
     children: React.ReactNode;
@@ -149,9 +150,14 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     }, [loading]);
 
-    const actionComplete = (args: PageEventArgs | FilterEventArgs | SortEventArgs | SearchEventArgs | AddEventArgs | SaveEventArgs | EditEventArgs | DeleteEventArgs) => {
+    const actionComplete = (args: any) => {
         if (args?.type === 'save') {
-            onEdit!(args);
+            const field = args?.column?.field;
+            const previousData = args?.previousData;
+            const newData = args?.data?.[field];
+            if (previousData !== newData) {
+                onEdit!(args);
+            }
         }
         if (args?.requestType === 'searching') {
             onSearch!(args);
@@ -304,6 +310,44 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     // const expanding = () => {
     //     tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     // };
+    let treegridObj;
+    const load = () => {
+        treegridObj = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];
+        let instance = treegridObj;
+
+        if (instance != null) {
+            instance.element.addEventListener('mousedown', function (e: any) {
+                if (
+                    e.target.closest('td') !== null &&
+                    e.target.closest('td').classList.contains('e-rowcell') &&
+                    !e.target.classList.contains('e-treegridexpand') &&
+                    !e.target.classList.contains('e-treegridcollapse') &&
+                    e.target.closest('td').getAttribute('aria-colIndex') !== null
+                ) {
+                    let target = e.target.closest('td');
+                    if (instance.grid.isEdit && !target.classList.contains('e-editedbatchcell') && !document.getElementsByClassName('e-addedrow').length) {
+                        instance.grid.saveCell(); // calling saveCell method
+                    }
+                    if (!instance.grid.isEdit) {
+                        let index = parseInt(target.getAttribute('Index'));
+                        let colindex = parseInt(target.getAttribute('aria-colindex'));
+                        let field = instance.getColumns()[colindex - 1].field;
+                        setTimeout(function () {
+                            instance.editCell(index, field); // calling editCell method
+                        });
+                    }
+                }
+            });
+        }
+    };
+
+    const [editState, setEditState] = useState(false);
+    const cellEdit = () => {
+        setEditState(true);
+    };
+    const cellSaved = () => {
+        setEditState(false);
+    };
     return (
         <Box position={'relative'} height={'100%'} width={'100%'} ref={tableContainerRef}>
             {showToolbar && (
@@ -354,6 +398,15 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                                 <Box>
                                     <IconButton onClick={() => onHideUnhide!(tableRef.current.getSelectedRecords())} disabled={disabled}>
                                         <VisibilityOffIcon fontSize="medium" />
+                                    </IconButton>
+                                </Box>
+                            </Tooltip>
+                        )}
+                        {toolBarOptions?.includes('save') && (
+                            <Tooltip title="Save">
+                                <Box>
+                                    <IconButton onClick={() => tableRef.current.endEdit()} disabled={!editState}>
+                                        <SaveAsIcon fontSize="medium" />
                                     </IconButton>
                                 </Box>
                             </Tooltip>
@@ -414,6 +467,9 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             filterSettings={filterSettings}
                             checkboxChange={checkboxChange}
                             rowHeight={rowHeight}
+                            load={load}
+                            cellEdit={cellEdit}
+                            cellSave={cellSaved}
                         >
                             <ColumnsDirective>{children}</ColumnsDirective>
                             <Inject services={[Freeze, RowDD, Selection, Sort, Edit, Page, ExcelExport, PdfExport, Resize, Filter, ContextMenu]} />

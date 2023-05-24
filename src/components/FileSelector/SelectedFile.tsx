@@ -6,6 +6,7 @@ import { BodySmall } from '../Typography';
 import { DeleteIcon } from '../Icons';
 import ProgressBar from '../ProgressBar';
 import { Paper } from '../Paper';
+import { CircularProgress } from '../CircularProgress';
 
 type SelectedFileProps = {
     file: {
@@ -16,10 +17,11 @@ type SelectedFileProps = {
     url: string;
     index: number;
     handleResults: (data: {}, index: number) => void;
+    isLoading?: boolean;
 };
 
 const SelectedFile = (props: SelectedFileProps) => {
-    const { file, onDelete, url, handleResults, index } = props;
+    const { file, onDelete, url, handleResults, index, isLoading } = props;
     const [progress, setProgress] = useState(0);
     const [showProgress, setShowProgress] = useState(true);
 
@@ -71,11 +73,13 @@ const SelectedFile = (props: SelectedFileProps) => {
             <Box display="flex" justifyContent="space-between" alignItems="flex-start">
                 <Box>
                     <BodySmall fontWeight={600}>{file.name}</BodySmall>
-                    <BodySmall>{(file.size! / 1000).toFixed(2)} kb</BodySmall>
+                    {file?.size && <BodySmall>{(file.size! / 1000).toFixed(2)} kb</BodySmall>}
                 </Box>
+
                 <Box ml="auto" display="flex">
                     {url && showProgress ? <ProgressBar progress={progress} /> : null}
-                    <Box ml={2}>
+                    <Box ml={2} display="flex" alignItems="center" gap="8px">
+                        {!url && isLoading ? <CircularProgress /> : null}
                         <IconButton onClick={handleDelete} size="small">
                             <DeleteIcon />
                         </IconButton>

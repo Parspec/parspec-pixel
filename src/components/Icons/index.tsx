@@ -59,5 +59,6 @@ export {
     Error as ErrorIcon,
     DocumentScanner as DocumentScannerIcon,
     CropFree as CropFreeIcon,
+    SentimentVeryDissatisfied as SadFaceIcon,
     SaveAs as SaveAsIcon
 } from '@mui/icons-material';

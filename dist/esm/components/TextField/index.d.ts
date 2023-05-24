@@ -10,5 +10,6 @@ export interface TextFieldProps extends Omit<MUITextFieldProps, 'margin' | 'clas
     onChipDelete?: (index: number) => void;
     helperText?: string;
     icon?: React.ReactNode;
+    scrollAreaHeight?: number;
 }
 export declare const TextField: import("react").ForwardRefExoticComponent<Omit<TextFieldProps, "ref"> & import("react").RefAttributes<HTMLDivElement>>;

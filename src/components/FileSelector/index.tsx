@@ -28,6 +28,7 @@ interface FileSelectorProps {
     borderColor?: 'primary' | 'secondary' | 'tertiary';
     preSelectedFile?: FileSelectorFileType[] | File[];
     onDeleteFile?: () => void;
+    isLoading?: boolean;
 }
 
 export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
@@ -43,7 +44,8 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
             placeholder = '',
             borderColor,
             preSelectedFile,
-            onDeleteFile = () => {}
+            onDeleteFile = () => {},
+            isLoading = false
         },
         ref
     ) => {
@@ -138,7 +140,7 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                 ) : (
                     <Box>
                         {files.map((file: { name: string; size?: number }, index: number) => (
-                            <SelectedFile key={file.name} file={file} onDelete={onDelete} url={url} index={index} handleResults={handleResults} />
+                            <SelectedFile key={file.name} file={file} onDelete={onDelete} url={url} index={index} handleResults={handleResults} isLoading={isLoading} />
                         ))}
                     </Box>
                 )}

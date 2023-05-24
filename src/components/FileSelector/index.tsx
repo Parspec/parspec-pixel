@@ -19,7 +19,7 @@ export interface FileSelectorFileType {
 interface FileSelectorProps {
     maxFiles?: number;
     acceptedFormats?: string[];
-    onUpload?: (args: FileSelectorFileType[] | File[]) => void;
+    onUpload?: (args: { file: FileSelectorFileType | File; error?: string; progress?: number }[]) => void;
     url?: string;
     error?: string;
     helperText?: string;

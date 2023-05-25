@@ -140,7 +140,21 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
         const toolBarItems: ToolbarType = ['delete', 'search', 'clearFilters', 'hide', 'unhide', 'selectedItems', 'duplicate'];
         return {
             toolBarOptions: toolBarItems,
-            toolbarRightSection: <Button>Import Products</Button>,
+            toolbarRightSection: (
+                <Box display={'flex'} gap={5} justifyContent={'flex-end'}>
+                    <Button>Import Products</Button>
+                    <Box display={'flex'} alignItems={'center'}>
+                        <Button
+                            color="primary"
+                            onClick={() => {
+                                tableRef.current.scrollTo(124);
+                            }}
+                        >
+                            scroll to 124
+                        </Button>
+                    </Box>
+                </Box>
+            ),
             // rowHeight: 40,
             ...args
         };
@@ -180,16 +194,17 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
     );
 };
 
-const Abc: React.FC = () => {
-    const [a, setA] = useState(1);
-    return (
-        <Box display={'flex'} alignItems={'center'}>
-            <Button color="primary" onClick={() => setA((p) => p + 1)}>
-                Right Section {a}
-            </Button>
-        </Box>
-    );
-};
+// const Abc: React.FC = () => {
+//     const [a, setA] = useState(1);
+//     return (
+//         <Box display={'flex'} alignItems={'center'}>
+//             <Button color="primary" onClick={() => setA((p) => p + 1)}>
+//                 Right Section {a}
+//             </Button>
+//         </Box>
+//     );
+// };
+
 // Arg properties with value as true and their corresponding settings are not required to be passed to table component as they are already present as default props, we have passed them here to get controls in stories
 Basic.args = {
     data: dDataP,
@@ -214,6 +229,6 @@ Basic.args = {
     searchSettings: {
         fields: ['taskID', 'name', 'reported', 'available'],
         hierarchyMode: 'Both'
-    },
-    toolbarRightSection: <Abc />
+    }
+    // toolbarRightSection: <Abc />
 };

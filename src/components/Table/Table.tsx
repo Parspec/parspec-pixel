@@ -227,6 +227,11 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         onCheckboxChange!(tableRef?.current?.getSelectedRecords());
         setSelectedForBanner(tableRef?.current?.getSelectedRecords()?.length);
     };
+    const scrollTo = (id: any) => {
+        const { index } = tableRef?.current?.flatData.find((value: any) => value.id === id);
+        const rowHeight = tableRef.current.getRows()[index].scrollHeight;
+        tableRef.current.getContent().children[0].scrollTop = rowHeight * index;
+    };
     const rowSelected = (args: RowSelectEventArgs) => {
         onRowSelection!(tableRef.current.getSelectedRecords());
     };
@@ -256,7 +261,8 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         };
         return {
             clearSelection,
-            setSelectedForBanner
+            setSelectedForBanner,
+            scrollTo
         };
     });
 

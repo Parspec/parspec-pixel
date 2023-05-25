@@ -120,6 +120,12 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
         onCheckboxChange((_a = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _a === void 0 ? void 0 : _a.getSelectedRecords());
         setSelectedForBanner((_c = (_b = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _b === void 0 ? void 0 : _b.getSelectedRecords()) === null || _c === void 0 ? void 0 : _c.length);
     };
+    const scrollTo = (id) => {
+        var _a;
+        const { index } = (_a = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _a === void 0 ? void 0 : _a.flatData.find((value) => value.id === id);
+        const rowHeight = tableRef.current.getRows()[index].scrollHeight;
+        tableRef.current.getContent().children[0].scrollTop = rowHeight * index;
+    };
     const rowSelected = (args) => {
         onRowSelection(tableRef.current.getSelectedRecords());
     };
@@ -149,7 +155,8 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
         };
         return {
             clearSelection,
-            setSelectedForBanner
+            setSelectedForBanner,
+            scrollTo
         };
     });
     const closeBanner = () => {

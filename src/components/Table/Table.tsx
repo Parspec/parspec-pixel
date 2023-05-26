@@ -20,6 +20,7 @@ import {
     SearchSettingsModel
 } from '@syncfusion/ej2-react-treegrid';
 import { addClass, isNullOrUndefined, registerLicense } from '@syncfusion/ej2-base';
+
 import './styles.css';
 import { Box } from '../Box';
 import {
@@ -229,7 +230,9 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     };
     const scrollTo = (id: any) => {
         const { index } = tableRef?.current?.flatData.find((value: any) => value.id === id);
-        const rowHeight = tableRef.current.getRows()[index].scrollHeight;
+        const targetElement = tableRef.current.getRows()[index];
+        addClass([targetElement], 'highLightScroll');
+        const rowHeight = targetElement.scrollHeight;
         tableRef.current.getContent().children[0].scrollTop = rowHeight * index;
     };
     const rowSelected = (args: RowSelectEventArgs) => {

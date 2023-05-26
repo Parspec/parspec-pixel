@@ -123,7 +123,9 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
     const scrollTo = (id) => {
         var _a;
         const { index } = (_a = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _a === void 0 ? void 0 : _a.flatData.find((value) => value.id === id);
-        const rowHeight = tableRef.current.getRows()[index].scrollHeight;
+        const targetElement = tableRef.current.getRows()[index];
+        (0, ej2_base_1.addClass)([targetElement], 'highLightScroll');
+        const rowHeight = targetElement.scrollHeight;
         tableRef.current.getContent().children[0].scrollTop = rowHeight * index;
     };
     const rowSelected = (args) => {

@@ -62,7 +62,7 @@ SingleSelect.args = {
 const coltemplate = (props: any) => {
     if (props?.taskData?.type?.includes('section')) {
         return (
-            <Box height={50} display={'flex'} alignItems={'center'}>
+            <Box display={'flex'} alignItems={'center'}>
                 <Button size="small" id={props.id} color="primary">
                     Section
                 </Button>
@@ -147,10 +147,10 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
                         <Button
                             color="primary"
                             onClick={() => {
-                                tableRef.current.scrollTo(124);
+                                tableRef?.current?.scrollTo(14);
                             }}
                         >
-                            scroll to 124
+                            scroll to 14
                         </Button>
                     </Box>
                 </Box>

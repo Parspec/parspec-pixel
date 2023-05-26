@@ -39,7 +39,7 @@ import {
     SelectionSettingsModel,
     SortEventArgs
 } from '@syncfusion/ej2-grids';
-import { forwardRef, useEffect, useImperativeHandle, useRef, useState, useMemo } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState, useMemo, useCallback } from 'react';
 import { TextField } from '../TextField';
 import { IconButton } from '../IconButton';
 import { CloseIcon, ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffIcon, FilterAltOffIcon, SearchIcon } from '../Icons';
@@ -282,18 +282,18 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     const rightSection = useMemo(() => toolbarRightSection, [toolbarRightSection]);
 
     const [tableHeight, setTableHeight] = useState<number>();
-    const tableContainerRef = useRef<any>();
-    const toolbarContainerRef = useRef<any>();
-
-    useEffect(() => {
-        const toolbarHeight = showToolbar && toolbarContainerRef?.current ? toolbarContainerRef?.current?.offsetHeight : 0;
-        const paginationHeight = allowPaging ? 47 : 0;
-        const tableHeader = 42 + 10;
-        if (tableContainerRef?.current?.offsetHeight) {
-            setTableHeight(tableContainerRef?.current?.offsetHeight - toolbarHeight - paginationHeight - tableHeader);
+    const tableContainerRef = useCallback((node: HTMLDivElement) => {
+        if (node !== null) {
+            const toolbarHeight = showToolbar && toolbarContainerRef?.current ? toolbarContainerRef?.current?.offsetHeight : 0;
+            const paginationHeight = allowPaging ? 47 : 0;
+            const tableHeader = 42 + 10;
+            if (node.offsetHeight) {
+                setTableHeight(node.offsetHeight - toolbarHeight - paginationHeight - tableHeader);
+            }
         }
         // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
-    }, [[tableContainerRef?.current]]);
+    }, []);
+    const toolbarContainerRef = useRef<any>();
 
     // const resizestart = () => {
     //     tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });

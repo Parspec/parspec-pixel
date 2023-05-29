@@ -26,7 +26,7 @@ import { CheckBoxChangeEventArgs, FilterSettingsModel, getObject, HeaderCellInfo
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState, useMemo } from 'react';
 import { TextField } from '../TextField';
 import { IconButton } from '../IconButton';
-import { CloseIcon, ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffIcon, FilterAltOffIcon, SearchIcon, SaveAsIcon } from '../Icons';
+import { CloseIcon, ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffIcon, FilterAltOffIcon, SearchIcon, SaveAsIcon, AddCircleOutlineIcon } from '../Icons';
 import { BodySmall } from '../Typography';
 import { Tooltip } from '../Tooltip';
 import { InputAdornment } from '../InputAdornment';
@@ -34,7 +34,7 @@ import { InputAdornment } from '../InputAdornment';
 const license = window.localStorage.getItem('syncfusionLicense');
 registerLicense(license!);
 
-type ToolbarT = 'delete' | 'search' | 'clearFilters' | 'hide' | 'unhide' | 'selectedItems' | 'duplicate' | 'save';
+type ToolbarT = 'delete' | 'search' | 'clearFilters' | 'hide' | 'unhide' | 'selectedItems' | 'duplicate' | 'save' | 'add';
 export type ToolbarType = ToolbarT[];
 export interface TableProps {
     children: React.ReactNode;
@@ -59,7 +59,7 @@ export interface TableProps {
     onCheckboxChange?: (data: Object[]) => void;
     onAddDuplicates?: (data: Object[]) => void;
     onDragEnd?: (data: Object) => void;
-    onAdd?: (data: Object) => void;
+    onAdd?: () => void;
     onEdit?: (data: Object) => void;
     onDelete?: (data: Object) => void;
     onSearch?: (data: Object) => void;
@@ -95,6 +95,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         editSettings,
         filterSettings,
         onHideUnhide,
+        onAdd,
         onAddDuplicates,
         onCheckboxChange,
         onDragEnd,
@@ -353,6 +354,15 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                                 />
                             </Box>
                         )}
+                        {toolBarOptions?.includes('add') && (
+                            <Tooltip title={'Add'}>
+                                <Box>
+                                    <IconButton onClick={() => onAdd!()}>
+                                        <AddCircleOutlineIcon fontSize="medium" />
+                                    </IconButton>
+                                </Box>
+                            </Tooltip>
+                        )}
                         {toolBarOptions?.includes('duplicate') && (
                             <Tooltip title={disabled ? 'Select Item(s) First' : 'Duplicate'}>
                                 <Box>
@@ -505,7 +515,7 @@ Table.defaultProps = {
     onHideUnhide: (data: Object[]) => {},
     onCheckboxChange: (data: Object[]) => {},
     onDragEnd: (data: Object) => {},
-    onAdd: (data: Object) => {},
+    onAdd: () => {},
     onEdit: (data: Object) => {},
     onDelete: (data: Object) => {},
     onSearch: (data: Object) => {},

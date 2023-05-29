@@ -118,8 +118,8 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
     const onDragEnd = (data: Object) => {
         console.log('onDragEnd===>\n', data);
     };
-    const onAdd = (data: Object) => {
-        console.log('onAdd===>\n', data);
+    const onAdd = () => {
+        console.log('onAdd called');
     };
     const onEdit = (data: Object) => {
         console.log('onEdit===>\n', data);
@@ -137,7 +137,7 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
         console.log('onAddDuplicates (selected data)===>\n', data);
     };
     const getTableProps = (args: any) => {
-        const toolBarItems: ToolbarType = ['delete', 'search', 'clearFilters', 'hide', 'unhide', 'selectedItems', 'duplicate', 'save'];
+        const toolBarItems: ToolbarType = ['add', 'delete', 'search', 'clearFilters', 'hide', 'unhide', 'selectedItems', 'duplicate', 'save'];
         return {
             toolBarOptions: toolBarItems,
             toolbarRightSection: <Button>Import Products</Button>,

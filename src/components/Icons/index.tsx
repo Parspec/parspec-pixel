@@ -60,5 +60,6 @@ export {
     DocumentScanner as DocumentScannerIcon,
     CropFree as CropFreeIcon,
     SentimentVeryDissatisfied as SadFaceIcon,
-    SaveAs as SaveAsIcon
+    SaveAs as SaveAsIcon,
+    AddCircleOutline as AddCircleOutlineIcon
 } from '@mui/icons-material';

@@ -172,18 +172,19 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
     };
     const rightSection = (0, react_1.useMemo)(() => toolbarRightSection, [toolbarRightSection]);
     const [tableHeight, setTableHeight] = (0, react_1.useState)();
-    const tableContainerRef = (0, react_1.useRef)();
-    const toolbarContainerRef = (0, react_1.useRef)();
-    (0, react_1.useEffect)(() => {
-        var _a, _b, _c;
-        const toolbarHeight = showToolbar && (toolbarContainerRef === null || toolbarContainerRef === void 0 ? void 0 : toolbarContainerRef.current) ? (_a = toolbarContainerRef === null || toolbarContainerRef === void 0 ? void 0 : toolbarContainerRef.current) === null || _a === void 0 ? void 0 : _a.offsetHeight : 0;
-        const paginationHeight = allowPaging ? 47 : 0;
-        const tableHeader = 42 + 10;
-        if ((_b = tableContainerRef === null || tableContainerRef === void 0 ? void 0 : tableContainerRef.current) === null || _b === void 0 ? void 0 : _b.offsetHeight) {
-            setTableHeight(((_c = tableContainerRef === null || tableContainerRef === void 0 ? void 0 : tableContainerRef.current) === null || _c === void 0 ? void 0 : _c.offsetHeight) - toolbarHeight - paginationHeight - tableHeader);
+    const tableContainerRef = (0, react_1.useCallback)((node) => {
+        var _a;
+        if (node !== null) {
+            const toolbarHeight = showToolbar && (toolbarContainerRef === null || toolbarContainerRef === void 0 ? void 0 : toolbarContainerRef.current) ? (_a = toolbarContainerRef === null || toolbarContainerRef === void 0 ? void 0 : toolbarContainerRef.current) === null || _a === void 0 ? void 0 : _a.offsetHeight : 0;
+            const paginationHeight = allowPaging ? 47 : 0;
+            const tableHeader = 42 + 10;
+            if (node.offsetHeight) {
+                setTableHeight(node.offsetHeight - toolbarHeight - paginationHeight - tableHeader);
+            }
         }
         // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
-    }, [[tableContainerRef === null || tableContainerRef === void 0 ? void 0 : tableContainerRef.current]]);
+    }, []);
+    const toolbarContainerRef = (0, react_1.useRef)();
     // const resizestart = () => {
     //     tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     // };

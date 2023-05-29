@@ -12,6 +12,7 @@ type SelectedFileProps = {
     file: {
         name: string;
         size?: number;
+        filepath?: string;
     };
     onDelete: (arg: { name: string }) => void;
     url: string;
@@ -58,7 +59,7 @@ const SelectedFile = (props: SelectedFileProps) => {
                 if (err?.message !== 'canceled') return handleResults({ file, error: err.message }, index);
             }
         };
-        if (url) onUpload();
+        if (url && !file.filepath) onUpload();
         else handleResults({ file, progress: 100 }, index);
         return () => {
             if (progress !== 1) source.cancel();

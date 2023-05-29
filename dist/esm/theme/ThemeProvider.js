@@ -63,7 +63,8 @@ export const theme = createTheme({
         },
         neutral: {
             light: '#F8FAFC',
-            main: '#F1F5F9',
+            // main: '#F1F5F9',
+            main: '#E2E8F0',
             dark: '#64748B',
             contrastText: '#091535'
         },

@@ -128,7 +128,7 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                             height={'100%'}
                         >
                             <Box width={'100%'} textAlign="center">
-                                <BodySmall>{placeholder}</BodySmall>
+                                <BodySmall limit={false}>{placeholder}</BodySmall>
                             </Box>
                             <Box mt={6} mb={3}>
                                 <Avatar>

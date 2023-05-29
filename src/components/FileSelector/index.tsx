@@ -15,6 +15,7 @@ export interface FileSelectorFileType {
     size?: number;
     type?: string;
     webkitRelativePath?: string;
+    filepath?: string;
 }
 interface FileSelectorProps {
     maxFiles?: number;

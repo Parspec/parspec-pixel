@@ -3,6 +3,7 @@ type SelectedFileProps = {
     file: {
         name: string;
         size?: number;
+        filepath?: string;
     };
     onDelete: (arg: {
         name: string;

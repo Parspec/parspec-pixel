@@ -117,7 +117,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     const [selected, setSelectedForBanner] = useState(0);
 
     useEffect(() => {
-        let obj = (document.getElementsByClassName('e-grid')[0] as any)?.ej2_instances?.[0]?.localeObj?.localeStrings;
+        const obj = (document.getElementsByClassName('e-grid')[0] as any)?.ej2_instances?.[0]?.localeObj?.localeStrings;
         if (loading) {
             if (obj && obj?.EmptyRecord) {
                 obj.EmptyRecord = '';
@@ -294,11 +294,9 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     // const expanding = () => {
     //     tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     // };
-    let treegridObj;
-    const load = () => {
-        treegridObj = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];
-        let instance = treegridObj;
 
+    const load = () => {
+        const instance = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];
         if (instance != null) {
             instance.element.addEventListener('mousedown', function (e: any) {
                 if (
@@ -308,14 +306,14 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                     !e.target.classList.contains('e-treegridcollapse') &&
                     e.target.closest('td').getAttribute('aria-colIndex') !== null
                 ) {
-                    let target = e.target.closest('td');
+                    const target = e.target.closest('td');
                     if (instance.grid.isEdit && !target.classList.contains('e-editedbatchcell') && !document.getElementsByClassName('e-addedrow').length) {
                         instance.grid.saveCell(); // calling saveCell method
                     }
                     if (!instance.grid.isEdit) {
-                        let index = parseInt(target.getAttribute('Index'));
-                        let colindex = parseInt(target.getAttribute('aria-colindex'));
-                        let field = instance.getColumns()[colindex - 1].field;
+                        const index = parseInt(target.getAttribute('Index'));
+                        const colindex = parseInt(target.getAttribute('aria-colindex'));
+                        const field = instance.getColumns()[colindex - 1].field;
                         setTimeout(function () {
                             instance.editCell(index, field); // calling editCell method
                         });

@@ -57,7 +57,7 @@ const SelectedFile = (props) => {
                     return handleResults({ file, error: err.message }, index);
             }
         });
-        if (url)
+        if (url && !file.filepath)
             onUpload();
         else
             handleResults({ file, progress: 100 }, index);

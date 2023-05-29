@@ -26,7 +26,7 @@ import { CheckBoxChangeEventArgs, FilterSettingsModel, getObject, HeaderCellInfo
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState, useMemo } from 'react';
 import { TextField } from '../TextField';
 import { IconButton } from '../IconButton';
-import { CloseIcon, ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffIcon, FilterAltOffIcon, SearchIcon, SaveAsIcon, AddCircleOutlineIcon } from '../Icons';
+import { CloseIcon, ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffIcon, FilterAltOffIcon, SearchIcon, SaveAsIcon, AddIcon } from '../Icons';
 import { BodySmall } from '../Typography';
 import { Tooltip } from '../Tooltip';
 import { InputAdornment } from '../InputAdornment';
@@ -356,7 +356,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             <Tooltip title={'Add'}>
                                 <Box>
                                     <IconButton onClick={() => onAdd!()}>
-                                        <AddCircleOutlineIcon fontSize="medium" />
+                                        <AddIcon fontSize="medium" />
                                     </IconButton>
                                 </Box>
                             </Tooltip>

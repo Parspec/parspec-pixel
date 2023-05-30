@@ -24,12 +24,13 @@ export interface AutocompleteProps {
     helperText?: string;
     error?: boolean;
     onTextFieldChange?: (e: React.SyntheticEvent<Element, Event>) => void;
+    limitTags?: number;
 }
 
 const filter = createFilterOptions<OptionType>();
 
 export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivElement, AutocompleteProps>(
-    ({ id, label, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur, helperText, error, options, onTextFieldChange, ...props }, ref) => {
+    ({ id, label, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur, helperText, error, options, onTextFieldChange, limitTags, ...props }, ref) => {
         const [state, setState] = useState<OptionType | string>();
         const handleOnChange = (event: any, newValue: string | OptionType | (string | OptionType)[] | null) => {
             onChange({ ...event, target: { ...event.target, value: newValue } });
@@ -82,6 +83,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
 
                         return option;
                     }}
+                    limitTags={limitTags}
                     filterOptions={filterOptions}
                     onInputChange={handleOnInputChange}
                     freeSolo={freeSolo}

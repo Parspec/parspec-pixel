@@ -28978,9 +28978,18 @@ tr.singleSelect:hover {
     background: #e3e3ff;
     cursor: pointer;
 }
-
-tr.highLightScroll {
-    background: #e3e3ff;
+@keyframes scrollanimate {
+    0% {
+        background-color: #e3e3ff;
+    }
+    100% {
+        background-color: #fff;
+    }
+}
+tr.e-highlightscroll {
+    animation: scrollanimate;
+    animation-iteration-count: 1;
+    animation-duration: 7s;
 }
 .e-treegrid td.e-active {
     background-color: #e3e3ff;

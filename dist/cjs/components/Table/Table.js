@@ -122,11 +122,23 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
     };
     const scrollTo = (id) => {
         var _a;
-        const { index } = (_a = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _a === void 0 ? void 0 : _a.flatData.find((value) => value.id === id);
-        const targetElement = tableRef.current.getRows()[index];
-        (0, ej2_base_1.addClass)([targetElement], 'highLightScroll');
-        const rowHeight = targetElement.scrollHeight;
-        tableRef.current.getContent().children[0].scrollTop = rowHeight * index;
+        try {
+            const matchedElement = (_a = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _a === void 0 ? void 0 : _a.flatData.find((value) => value.id === id);
+            if (matchedElement) {
+                const targetElement = tableRef.current.getRows()[matchedElement.index];
+                if (targetElement) {
+                    (0, ej2_base_1.addClass)([targetElement], 'e-highlightscroll');
+                    const rowHeight = targetElement.scrollHeight;
+                    tableRef.current.getContent().children[0].scrollTop = rowHeight * matchedElement.index;
+                }
+            }
+            else {
+                console.error('scroll to Id is not found');
+            }
+        }
+        catch (err) {
+            console.error('ScrollTo ', err);
+        }
     };
     const rowSelected = (args) => {
         onRowSelection(tableRef.current.getSelectedRecords());

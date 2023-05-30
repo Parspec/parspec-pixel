@@ -230,11 +230,21 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         setSelectedForBanner(tableRef?.current?.getSelectedRecords()?.length);
     };
     const scrollTo = (id: any) => {
-        const { index } = tableRef?.current?.flatData.find((value: any) => value.id === id);
-        const targetElement = tableRef.current.getRows()[index];
-        addClass([targetElement], 'highLightScroll');
-        const rowHeight = targetElement.scrollHeight;
-        tableRef.current.getContent().children[0].scrollTop = rowHeight * index;
+        try {
+            const matchedElement = tableRef?.current?.flatData.find((value: any) => value.id === id);
+            if (matchedElement) {
+                const targetElement = tableRef.current.getRows()[matchedElement.index];
+                if (targetElement) {
+                    addClass([targetElement], 'e-highlightscroll');
+                    const rowHeight = targetElement.scrollHeight;
+                    tableRef.current.getContent().children[0].scrollTop = rowHeight * matchedElement.index;
+                }
+            } else {
+                console.error('scroll to Id is not found');
+            }
+        } catch (err) {
+            console.error('ScrollTo ', err);
+        }
     };
     const rowSelected = (args: RowSelectEventArgs) => {
         onRowSelection!(tableRef.current.getSelectedRecords());

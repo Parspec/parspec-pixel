@@ -229,7 +229,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         onCheckboxChange!(tableRef?.current?.getSelectedRecords());
         setSelectedForBanner(tableRef?.current?.getSelectedRecords()?.length);
     };
-    const scrollTo = (id: any) => {
+    const scrollTo = (id: number) => {
         try {
             const matchedElement = tableRef?.current?.flatData.find((value: any) => value.id === id);
             if (matchedElement) {

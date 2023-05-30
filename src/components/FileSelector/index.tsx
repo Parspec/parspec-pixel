@@ -15,6 +15,7 @@ export interface FileSelectorFileType {
     size?: number;
     type?: string;
     webkitRelativePath?: string;
+    filepath?: string;
 }
 interface FileSelectorProps {
     maxFiles?: number;
@@ -125,15 +126,14 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                             alignItems="center"
                             sx={{ cursor: 'pointer' }}
                             height={'100%'}
+                            gap="16px"
                         >
                             <Box width={'100%'} textAlign="center">
-                                <BodySmall>{placeholder}</BodySmall>
+                                <BodySmall limit={false}>{placeholder}</BodySmall>
                             </Box>
-                            <Box mt={6} mb={3}>
-                                <Avatar>
-                                    <UploadIcon />
-                                </Avatar>
-                            </Box>
+                            <Avatar>
+                                <UploadIcon />
+                            </Avatar>
                             <BodySmall>Browse</BodySmall>
                         </Box>
                     </Box>

@@ -46,7 +46,9 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
 
         const handleFocusOut = (event: any) => {
             if (onBlur) {
-                let result = options.filter((item) => item[optionlabelkeyname] === event.target.value);
+                let result = options.filter((item) =>
+                    typeof item[optionlabelkeyname] === 'string' ? item[optionlabelkeyname].toString().toLowerCase() : item[optionlabelkeyname] === event.target.value.toLowerCase()
+                );
                 if (!result.length) {
                     result = event.target.value;
                 }

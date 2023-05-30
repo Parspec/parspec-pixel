@@ -19,7 +19,7 @@ const license = window.localStorage.getItem('syncfusionLicense');
 exports.Table = (0, react_1.forwardRef)((props, ref) => {
     const { children, data, childMappingKey, allowExports, allowRowDragAndDrop, frozenColumns, treeColumnIndex, allowPaging, pageSettings, allowResizing, allowSorting, showToolbar, toolBarOptions, height, allowFiltering, editSettings, filterSettings, onHideUnhide, onAdd, onAddDuplicates, onCheckboxChange, onDragEnd, onEdit, onSearch, onDelete, selectionSettings, onRowSelection, loading, toolbarRightSection, searchSettings, hiddenProperty, rowHeight, 
     // defaultFilter,
-    customFiltersFunction } = props;
+    customFiltersFunction, dataBoundCallBack } = props;
     const tableRef = (0, react_1.useRef)();
     const [selected, setSelectedForBanner] = (0, react_1.useState)(0);
     (0, react_1.useEffect)(() => {
@@ -190,6 +190,9 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
         if (((_b = (_a = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _a === void 0 ? void 0 : _a.getVisibleRecords()) === null || _b === void 0 ? void 0 : _b.length) === 0) {
             document.getElementById('_gridcontrol_content_table').classList.add('empty');
         }
+        else {
+            dataBoundCallBack();
+        }
     };
     const rightSection = (0, react_1.useMemo)(() => toolbarRightSection, [toolbarRightSection]);
     const [tableHeight, setTableHeight] = (0, react_1.useState)();
@@ -276,6 +279,7 @@ exports.Table.defaultProps = {
     onDelete: (data) => { },
     onSearch: (data) => { },
     onRowSelection: (data) => { },
+    dataBoundCallBack: () => { },
     customFiltersFunction: (data) => { },
     loading: false,
     showToolbar: true,

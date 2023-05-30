@@ -82,6 +82,7 @@ export interface TableProps {
     onSearch?: (data: Object) => void;
     onRowSelection?: (data: Object) => void;
     customFiltersFunction?: (data: Object) => void;
+    dataBoundCallBack?: () => void;
     loading?: boolean;
     toolbarRightSection?: React.ReactNode;
     searchSettings?: SearchSettingsModel;
@@ -127,7 +128,8 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         hiddenProperty,
         rowHeight,
         // defaultFilter,
-        customFiltersFunction
+        customFiltersFunction,
+        dataBoundCallBack
     } = props;
 
     const tableRef = useRef<any>();
@@ -296,6 +298,8 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     const dataBound = (args: Object) => {
         if (tableRef?.current?.getVisibleRecords()?.length === 0) {
             (document.getElementById('_gridcontrol_content_table') as any).classList.add('empty');
+        } else {
+            dataBoundCallBack!();
         }
     };
 
@@ -500,6 +504,7 @@ Table.defaultProps = {
     onDelete: (data: Object) => {},
     onSearch: (data: Object) => {},
     onRowSelection: (data: Object) => {},
+    dataBoundCallBack: () => {},
     customFiltersFunction: (data: Object) => {},
     loading: false,
     showToolbar: true,

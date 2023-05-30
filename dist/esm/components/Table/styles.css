@@ -28989,7 +28989,7 @@ tr.singleSelect:hover {
 tr.e-highlightscroll {
     animation: scrollanimate;
     animation-iteration-count: 1;
-    animation-duration: 7s;
+    animation-duration: 10s;
 }
 .e-treegrid td.e-active {
     background-color: #e3e3ff;

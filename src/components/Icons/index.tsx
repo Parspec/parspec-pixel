@@ -58,5 +58,6 @@ export {
     Warning as WarningIcon,
     Error as ErrorIcon,
     DocumentScanner as DocumentScannerIcon,
-    CropFree as CropFreeIcon
+    CropFree as CropFreeIcon,
+    SentimentVeryDissatisfied as SadFaceIcon
 } from '@mui/icons-material';

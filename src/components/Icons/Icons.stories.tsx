@@ -52,7 +52,8 @@ import {
     SignalCellular4BarIcon,
     OpenInNewIcon,
     WarningIcon,
-    ErrorIcon
+    ErrorIcon,
+    SadFaceIcon
 } from './index';
 import { Grid } from '../Grid';
 import { BodySmall } from '../Typography';
@@ -138,7 +139,8 @@ MUIImportedIcons.args = {
         { icon: SignalCellular4BarIcon, name: 'SignalCellular4BarIcon' },
         { icon: OpenInNewIcon, name: 'OpenInNewIcon' },
         { icon: WarningIcon, name: 'WarningIcon' },
-        { icon: ErrorIcon, name: 'ErroIcon' }
+        { icon: ErrorIcon, name: 'ErroIcon' },
+        { icon: SadFaceIcon, name: 'SadFaceIcon' }
     ],
     fontSize: 'medium',
     color: 'tertiary'

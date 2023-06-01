@@ -21,14 +21,6 @@ export const theme = createTheme({
                 })
             }
         }
-        // MuiAccordionSummary: {
-        //     styleOverrides: {
-        //         root: {
-        //             borderBottom: '1px solid',
-        //             borderColor: 'neutral'
-        //         }
-        //     }
-        // }
         // MuiSnackbarContent: {
         //     styleOverrides: {
         //         root: {

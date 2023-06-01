@@ -10,6 +10,7 @@ export type OptionType = {
 export interface AutocompleteProps {
     id: string;
     label: string;
+    placeholder?: string;
     optionlabelkeyname: string;
     options: OptionType[];
     color?: 'error' | 'primary' | 'secondary' | 'info' | 'success' | 'warning';
@@ -29,7 +30,7 @@ export interface AutocompleteProps {
 const filter = createFilterOptions<OptionType>();
 
 export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivElement, AutocompleteProps>(
-    ({ id, label, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur, helperText, error, options, onTextFieldChange, ...props }, ref) => {
+    ({ id, label, placeholder, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur, helperText, error, options, onTextFieldChange, ...props }, ref) => {
         const [state, setState] = useState<OptionType | string>();
         const handleOnChange = (event: any, newValue: string | OptionType | (string | OptionType)[] | null) => {
             onChange({ ...event, target: { ...event.target, value: newValue } });
@@ -85,7 +86,9 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
                     filterOptions={filterOptions}
                     onInputChange={handleOnInputChange}
                     freeSolo={freeSolo}
-                    renderInput={({ size, ...params }) => <TextField size={fieldSize} helperText={helperText} error={error} {...params} variant={variant} color={color} label={label} />}
+                    renderInput={({ size, ...params }) => (
+                        <TextField size={fieldSize} helperText={helperText} error={error} {...params} variant={variant} color={color} label={label} placeholder={placeholder} />
+                    )}
                 />
             </>
         );

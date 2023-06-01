@@ -33,7 +33,9 @@ export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, Ac
                     <MUIAccordion key={index} ref={ref} TransitionProps={{ unmountOnExit: true }} {...rest} expanded={expanded === item.labelId} onChange={handleAccordionOnChange(item.labelId)}>
                         <AccordionSummary
                             sx={{
-                                flexDirection: 'row-reverse'
+                                flexDirection: 'row-reverse',
+                                borderBottom: '1px solid',
+                                borderColor: 'neutral.main'
                             }}
                             expandIcon={<ExpandMoreIcon />}
                         >

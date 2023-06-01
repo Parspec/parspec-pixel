@@ -20,13 +20,6 @@ exports.theme = (0, styles_1.createTheme)({
                     padding: '2px 8px'
                 })))
             }
-        },
-        MuiAccordionSummary: {
-            styleOverrides: {
-                root: {
-                    borderBottom: '1px solid #E2E8F0'
-                }
-            }
         }
         // MuiSnackbarContent: {
         //     styleOverrides: {

@@ -53,7 +53,8 @@ import {
     OpenInNewIcon,
     WarningIcon,
     ErrorIcon,
-    SadFaceIcon
+    SadFaceIcon,
+    TroubleshootIcon
 } from './index';
 import { Grid } from '../Grid';
 import { BodySmall } from '../Typography';
@@ -140,7 +141,8 @@ MUIImportedIcons.args = {
         { icon: OpenInNewIcon, name: 'OpenInNewIcon' },
         { icon: WarningIcon, name: 'WarningIcon' },
         { icon: ErrorIcon, name: 'ErroIcon' },
-        { icon: SadFaceIcon, name: 'SadFaceIcon' }
+        { icon: SadFaceIcon, name: 'SadFaceIcon' },
+        { icon: TroubleshootIcon, name: 'TroubleshootIcon' }
     ],
     fontSize: 'medium',
     color: 'tertiary'

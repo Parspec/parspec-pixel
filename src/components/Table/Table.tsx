@@ -91,6 +91,7 @@ export interface TableProps {
     rowHeight?: number;
     height?: number | string;
     // defaultFilter?: 'equal' | 'contains';
+    tableKey?: number | string;
 }
 
 export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
@@ -129,7 +130,8 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         rowHeight,
         // defaultFilter,
         customFiltersFunction,
-        dataBoundCallBack
+        dataBoundCallBack,
+        tableKey
     } = props;
 
     const tableRef = useRef<any>();
@@ -447,6 +449,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             filterSettings={filterSettings}
                             checkboxChange={checkboxChange}
                             rowHeight={rowHeight}
+                            {...(tableKey && { key: tableKey })}
                         >
                             <ColumnsDirective>{children}</ColumnsDirective>
                             <Inject services={[Freeze, RowDD, Selection, Sort, Edit, Page, ExcelExport, PdfExport, Resize, Filter, ContextMenu]} />

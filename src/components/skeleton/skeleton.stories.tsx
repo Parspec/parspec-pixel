@@ -14,5 +14,7 @@ export const Basic: ComponentStory<typeof Skeleton> = (props) => {
 Basic.args = {
     variant: 'rectangular',
     width: 374,
-    height: 40
+    height: 40,
+    color: 'light'
 };
+

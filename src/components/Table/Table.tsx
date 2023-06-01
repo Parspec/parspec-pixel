@@ -39,10 +39,10 @@ import {
     SelectionSettingsModel,
     SortEventArgs
 } from '@syncfusion/ej2-grids';
-import { forwardRef, useEffect, useImperativeHandle, useRef, useState, useMemo } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState, useMemo, useCallback } from 'react';
 import { TextField } from '../TextField';
 import { IconButton } from '../IconButton';
-import { CloseIcon, ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffIcon, FilterAltOffIcon, SearchIcon } from '../Icons';
+import { CloseIcon, ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffIcon, FilterAltOffIcon, SearchIcon, AddIcon } from '../Icons';
 import { BodySmall } from '../Typography';
 import { Tooltip } from '../Tooltip';
 import { InputAdornment } from '../InputAdornment';
@@ -50,7 +50,7 @@ import { InputAdornment } from '../InputAdornment';
 const license = window.localStorage.getItem('syncfusionLicense');
 registerLicense(license!);
 
-type ToolbarT = 'delete' | 'search' | 'clearFilters' | 'hide' | 'unhide' | 'selectedItems' | 'duplicate';
+type ToolbarT = 'delete' | 'search' | 'clearFilters' | 'hide' | 'unhide' | 'selectedItems' | 'duplicate' | 'add';
 export type ToolbarType = ToolbarT[];
 export interface TableProps {
     children: React.ReactNode;
@@ -75,7 +75,7 @@ export interface TableProps {
     onCheckboxChange?: (data: Object[]) => void;
     onAddDuplicates?: (data: Object[]) => void;
     onDragEnd?: (data: Object) => void;
-    onAdd?: (data: Object) => void;
+    onAdd?: () => void;
     onEdit?: (data: Object) => void;
     onDelete?: (data: Object) => void;
     onSearch?: (data: Object) => void;
@@ -111,6 +111,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         editSettings,
         filterSettings,
         onHideUnhide,
+        onAdd,
         onAddDuplicates,
         onCheckboxChange,
         onDragEnd,
@@ -282,18 +283,18 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     const rightSection = useMemo(() => toolbarRightSection, [toolbarRightSection]);
 
     const [tableHeight, setTableHeight] = useState<number>();
-    const tableContainerRef = useRef<any>();
-    const toolbarContainerRef = useRef<any>();
-
-    useEffect(() => {
-        const toolbarHeight = showToolbar && toolbarContainerRef?.current ? toolbarContainerRef?.current?.offsetHeight : 0;
-        const paginationHeight = allowPaging ? 47 : 0;
-        const tableHeader = 42 + 10;
-        if (tableContainerRef?.current?.offsetHeight) {
-            setTableHeight(tableContainerRef?.current?.offsetHeight - toolbarHeight - paginationHeight - tableHeader);
+    const tableContainerRef = useCallback((node: HTMLDivElement) => {
+        if (node !== null) {
+            const toolbarHeight = showToolbar && toolbarContainerRef?.current ? toolbarContainerRef?.current?.offsetHeight : 0;
+            const paginationHeight = allowPaging ? 47 : 0;
+            const tableHeader = 42 + 10;
+            if (node.offsetHeight) {
+                setTableHeight(node.offsetHeight - toolbarHeight - paginationHeight - tableHeader);
+            }
         }
         // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
-    }, [[tableContainerRef?.current]]);
+    }, []);
+    const toolbarContainerRef = useRef<any>();
 
     // const resizestart = () => {
     //     tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
@@ -325,6 +326,15 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                                     onChange={(t: React.ChangeEvent<HTMLInputElement>) => tableRef.current.search(t?.target?.value?.trim())}
                                 />
                             </Box>
+                        )}
+                        {toolBarOptions?.includes('add') && (
+                            <Tooltip title={'Add'}>
+                                <Box>
+                                    <IconButton onClick={() => onAdd!()}>
+                                        <AddIcon fontSize="medium" />
+                                    </IconButton>
+                                </Box>
+                            </Tooltip>
                         )}
                         {toolBarOptions?.includes('duplicate') && (
                             <Tooltip title={disabled ? 'Select Item(s) First' : 'Duplicate'}>
@@ -466,7 +476,7 @@ Table.defaultProps = {
     onHideUnhide: (data: Object[]) => {},
     onCheckboxChange: (data: Object[]) => {},
     onDragEnd: (data: Object) => {},
-    onAdd: (data: Object) => {},
+    onAdd: () => {},
     onEdit: (data: Object) => {},
     onDelete: (data: Object) => {},
     onSearch: (data: Object) => {},

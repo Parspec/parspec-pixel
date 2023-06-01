@@ -41,6 +41,7 @@ export interface TableProps {
     allowSorting?: boolean;
     rowHeight?: number;
     height?: number | string;
+    tableKey?: number | string;
 }
 export declare const Table: React.FC<TableProps>;
 export {};

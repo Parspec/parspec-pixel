@@ -19,7 +19,7 @@ const license = window.localStorage.getItem('syncfusionLicense');
 exports.Table = (0, react_1.forwardRef)((props, ref) => {
     const { children, data, childMappingKey, allowExports, allowRowDragAndDrop, frozenColumns, treeColumnIndex, allowPaging, pageSettings, allowResizing, allowSorting, showToolbar, toolBarOptions, height, allowFiltering, editSettings, filterSettings, onHideUnhide, onAdd, onAddDuplicates, onCheckboxChange, onDragEnd, onEdit, onSearch, onDelete, selectionSettings, onRowSelection, loading, toolbarRightSection, searchSettings, hiddenProperty, rowHeight, 
     // defaultFilter,
-    customFiltersFunction } = props;
+    customFiltersFunction, dataBoundCallBack } = props;
     const tableRef = (0, react_1.useRef)();
     const [selected, setSelectedForBanner] = (0, react_1.useState)(0);
     (0, react_1.useEffect)(() => {
@@ -120,6 +120,26 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
         onCheckboxChange((_a = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _a === void 0 ? void 0 : _a.getSelectedRecords());
         setSelectedForBanner((_c = (_b = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _b === void 0 ? void 0 : _b.getSelectedRecords()) === null || _c === void 0 ? void 0 : _c.length);
     };
+    const scrollTo = (id) => {
+        var _a;
+        try {
+            const matchedElement = (_a = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _a === void 0 ? void 0 : _a.flatData.find((value) => value.id === id);
+            if (matchedElement) {
+                const targetElement = tableRef.current.getRows()[matchedElement.index];
+                if (targetElement) {
+                    (0, ej2_base_1.addClass)([targetElement], 'e-highlightscroll');
+                    const rowHeight = targetElement.scrollHeight;
+                    tableRef.current.getContent().children[0].scrollTop = rowHeight * matchedElement.index;
+                }
+            }
+            else {
+                console.error('scroll to Id is not found');
+            }
+        }
+        catch (err) {
+            console.error('ScrollTo ', err);
+        }
+    };
     const rowSelected = (args) => {
         onRowSelection(tableRef.current.getSelectedRecords());
     };
@@ -149,7 +169,8 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
         };
         return {
             clearSelection,
-            setSelectedForBanner
+            setSelectedForBanner,
+            scrollTo
         };
     });
     const closeBanner = () => {
@@ -168,6 +189,9 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
         var _a, _b;
         if (((_b = (_a = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _a === void 0 ? void 0 : _a.getVisibleRecords()) === null || _b === void 0 ? void 0 : _b.length) === 0) {
             document.getElementById('_gridcontrol_content_table').classList.add('empty');
+        }
+        else {
+            dataBoundCallBack();
         }
     };
     const rightSection = (0, react_1.useMemo)(() => toolbarRightSection, [toolbarRightSection]);
@@ -255,6 +279,7 @@ exports.Table.defaultProps = {
     onDelete: (data) => { },
     onSearch: (data) => { },
     onRowSelection: (data) => { },
+    dataBoundCallBack: () => { },
     customFiltersFunction: (data) => { },
     loading: false,
     showToolbar: true,

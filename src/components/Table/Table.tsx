@@ -20,6 +20,7 @@ import {
     SearchSettingsModel
 } from '@syncfusion/ej2-react-treegrid';
 import { addClass, isNullOrUndefined, registerLicense } from '@syncfusion/ej2-base';
+
 import './styles.css';
 import { Box } from '../Box';
 import {
@@ -81,6 +82,7 @@ export interface TableProps {
     onSearch?: (data: Object) => void;
     onRowSelection?: (data: Object) => void;
     customFiltersFunction?: (data: Object) => void;
+    dataBoundCallBack?: () => void;
     loading?: boolean;
     toolbarRightSection?: React.ReactNode;
     searchSettings?: SearchSettingsModel;
@@ -126,7 +128,8 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         hiddenProperty,
         rowHeight,
         // defaultFilter,
-        customFiltersFunction
+        customFiltersFunction,
+        dataBoundCallBack
     } = props;
 
     const tableRef = useRef<any>();
@@ -228,6 +231,23 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         onCheckboxChange!(tableRef?.current?.getSelectedRecords());
         setSelectedForBanner(tableRef?.current?.getSelectedRecords()?.length);
     };
+    const scrollTo = (id: number) => {
+        try {
+            const matchedElement = tableRef?.current?.flatData.find((value: any) => value.id === id);
+            if (matchedElement) {
+                const targetElement = tableRef.current.getRows()[matchedElement.index];
+                if (targetElement) {
+                    addClass([targetElement], 'e-highlightscroll');
+                    const rowHeight = targetElement.scrollHeight;
+                    tableRef.current.getContent().children[0].scrollTop = rowHeight * matchedElement.index;
+                }
+            } else {
+                console.error('scroll to Id is not found');
+            }
+        } catch (err) {
+            console.error('ScrollTo ', err);
+        }
+    };
     const rowSelected = (args: RowSelectEventArgs) => {
         onRowSelection!(tableRef.current.getSelectedRecords());
     };
@@ -257,7 +277,8 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         };
         return {
             clearSelection,
-            setSelectedForBanner
+            setSelectedForBanner,
+            scrollTo
         };
     });
 
@@ -277,6 +298,8 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     const dataBound = (args: Object) => {
         if (tableRef?.current?.getVisibleRecords()?.length === 0) {
             (document.getElementById('_gridcontrol_content_table') as any).classList.add('empty');
+        } else {
+            dataBoundCallBack!();
         }
     };
 
@@ -481,6 +504,7 @@ Table.defaultProps = {
     onDelete: (data: Object) => {},
     onSearch: (data: Object) => {},
     onRowSelection: (data: Object) => {},
+    dataBoundCallBack: () => {},
     customFiltersFunction: (data: Object) => {},
     loading: false,
     showToolbar: true,

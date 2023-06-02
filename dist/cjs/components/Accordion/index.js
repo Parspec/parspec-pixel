@@ -32,7 +32,9 @@ exports.Accordion = (0, react_1.forwardRef)((_a, ref) => {
     };
     return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: options.map((item, index) => {
             return ((0, jsx_runtime_1.jsxs)(Accordion_1.default, Object.assign({ ref: ref, TransitionProps: { unmountOnExit: true } }, rest, { expanded: expanded === item.labelId, onChange: handleAccordionOnChange(item.labelId) }, { children: [(0, jsx_runtime_1.jsx)(AccordionSummary_1.default, Object.assign({ sx: {
-                            flexDirection: 'row-reverse'
+                            flexDirection: 'row-reverse',
+                            borderBottom: '1px solid',
+                            borderColor: 'neutral.main'
                         }, expandIcon: (0, jsx_runtime_1.jsx)(ExpandMore_1.default, {}) }, { children: item.summary })), (0, jsx_runtime_1.jsx)(AccordionDetails_1.default, { children: item.details })] }), index));
         }) }));
 });

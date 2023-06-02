@@ -11,7 +11,8 @@ const fileFormats = {
     '.xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     '.xml': 'application/xml',
     '.csv': 'text/csv',
-    '.xls': 'application/vnd.ms-excel'
+    '.xls': 'application/vnd.ms-excel',
+    '.xlsm': 'application/vnd.ms-excel.sheet.macroEnabled.12'
 };
 const getAcceptedFormats = (formats) => {
     let acceptedFormats = {};

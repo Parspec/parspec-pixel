@@ -71,7 +71,7 @@ const SelectedFile = (props: SelectedFileProps) => {
     };
     return (
         <Paper variant="outlined" sx={{ padding: 2 }}>
-            <Box display="flex" justifyContent="space-between" alignItems="flex-start">
+            <Box display="flex" justifyContent="space-between" alignItems="center">
                 <Box>
                     <BodySmall fontWeight={600}>{file.name}</BodySmall>
                     {file?.size && <BodySmall>{(file.size! / 1000).toFixed(2)} kb</BodySmall>}
@@ -81,7 +81,7 @@ const SelectedFile = (props: SelectedFileProps) => {
                     {url && showProgress ? <ProgressBar progress={progress} /> : null}
 
                     <Box ml={2} display="flex" alignItems="center" gap="8px">
-                        {!url && isLoading ? <CircularProgress /> : null}
+                        {!url && isLoading ? <CircularProgress color="primary" /> : null}
                         {!isLoading && (
                             <IconButton onClick={handleDelete} size="small">
                                 <DeleteIcon />

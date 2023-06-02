@@ -65,3 +65,22 @@ AutocompleteWithCreateOption.args = {
     optionlabelkeyname: 'title',
     freeSolo: true
 };
+
+export const MultiSelectWithChipLimit: ComponentStory<typeof Autocomplete> = (args) => (
+    <Autocomplete
+        {...args}
+        onChange={(e: any) => {
+            console.log(e.target.value);
+        }}
+    />
+);
+
+MultiSelectWithChipLimit.args = {
+    id: 'multiselect-demo',
+    label: 'MultiSelect',
+    multiple: true,
+    options: top100Films,
+    optionlabelkeyname: 'title',
+    defaultValue: ['Hello'],
+    limitTags: 1
+};

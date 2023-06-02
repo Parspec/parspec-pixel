@@ -28978,7 +28978,19 @@ tr.singleSelect:hover {
     background: #e3e3ff;
     cursor: pointer;
 }
-
+@keyframes scrollanimate {
+    0% {
+        background-color: #e3e3ff;
+    }
+    100% {
+        background-color: #fff;
+    }
+}
+tr.e-highlightscroll {
+    animation: scrollanimate;
+    animation-iteration-count: 1;
+    animation-duration: 10s;
+}
 .e-treegrid td.e-active {
     background-color: #e3e3ff;
 }
@@ -29089,10 +29101,10 @@ tr.singleSelect:hover {
 
 /*  to be removed in V2 middle segment no border */
 tr.e-row td.e-childborder {
-  border-color: #dee2e6 !important;
-  border-top-width: 1px !important;
-  border-bottom-width: 0px !important;
-  border-left-width: 0px !important;
-  border-right-width: 0px !important;
+    border-color: #dee2e6 !important;
+    border-top-width: 1px !important;
+    border-bottom-width: 0px !important;
+    border-left-width: 0px !important;
+    border-right-width: 0px !important;
 }
 /*  to be removed in V2 middle segment no border */

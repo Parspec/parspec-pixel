@@ -5,6 +5,7 @@ export type OptionType = {
 export interface AutocompleteProps {
     id: string;
     label: string;
+    placeholder?: string;
     optionlabelkeyname: string;
     options: OptionType[];
     color?: 'error' | 'primary' | 'secondary' | 'info' | 'success' | 'warning';
@@ -19,5 +20,6 @@ export interface AutocompleteProps {
     helperText?: string;
     error?: boolean;
     onTextFieldChange?: (e: React.SyntheticEvent<Element, Event>) => void;
+    limitTags?: number;
 }
 export declare const Autocomplete: React.FC<AutocompleteProps>;

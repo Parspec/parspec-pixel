@@ -23,23 +23,8 @@ import { addClass, isNullOrUndefined, registerLicense } from '@syncfusion/ej2-ba
 
 import './styles.css';
 import { Box } from '../Box';
-import {
-    AddEventArgs,
-    CheckBoxChangeEventArgs,
-    DeleteEventArgs,
-    EditEventArgs,
-    FilterEventArgs,
-    FilterSettingsModel,
-    getObject,
-    HeaderCellInfoEventArgs,
-    PageEventArgs,
-    RowDeselectEventArgs,
-    RowSelectEventArgs,
-    SaveEventArgs,
-    SearchEventArgs,
-    SelectionSettingsModel,
-    SortEventArgs
-} from '@syncfusion/ej2-grids';
+import { CheckBoxChangeEventArgs, FilterSettingsModel, getObject, HeaderCellInfoEventArgs, RowDeselectEventArgs, RowSelectEventArgs, SelectionSettingsModel } from '@syncfusion/ej2-grids';
+
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState, useMemo, useCallback } from 'react';
 import { TextField } from '../TextField';
 import { IconButton } from '../IconButton';
@@ -154,14 +139,26 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         }
         // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     }, [loading]);
+    let isFilterSearch: boolean;
 
-    const actionComplete = (args: PageEventArgs | FilterEventArgs | SortEventArgs | SearchEventArgs | AddEventArgs | SaveEventArgs | EditEventArgs | DeleteEventArgs) => {
+    const actionComplete = (args: any) => {
         if (args?.type === 'save') {
             onEdit!(args);
         }
         if (args?.requestType === 'searching') {
+            args.filteredRecords = tableRef?.current?.filterModule?.filteredResult;
             onSearch!(args);
         }
+        if (args)
+            if (args.requestType === 'filterchoicerequest' && isFilterSearch) {
+                if (
+                    !isNullOrUndefined(args?.filterModel?.dlg?.querySelector('.e-checkboxlist')?.children[1]) &&
+                    args?.filterModel?.dlg?.querySelector('.e-checkboxlist').children[1].innerText == 'Add current selection to filter'
+                ) {
+                    args?.filterModel?.dlg.querySelector('.e-checkboxlist').children[1].remove();
+                    isFilterSearch = false;
+                }
+            }
         // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     };
 
@@ -175,6 +172,9 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         }
         if (e.type === 'edit') {
             e.cell.getElementsByTagName('input')[0].setAttribute('maxLength', 255);
+        }
+        if (e.requestType === 'filtersearchbegin' && !isNullOrUndefined(e.value)) {
+            isFilterSearch = true;
         }
     };
 

@@ -15,7 +15,7 @@ import { TextField } from '../TextField';
 import { default as MUIAutocomplete, createFilterOptions } from '@mui/material/Autocomplete';
 const filter = createFilterOptions();
 export const Autocomplete = forwardRef((_a, ref) => {
-    var { id, label, placeholder, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur, helperText, error, options, onTextFieldChange, limitTags } = _a, props = __rest(_a, ["id", "label", "placeholder", "color", "variant", "onChange", "optionlabelkeyname", "freeSolo", "fieldSize", "onBlur", "helperText", "error", "options", "onTextFieldChange", "limitTags"]);
+    var { id, label, placeholder, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur = () => { }, helperText, error, options, onTextFieldChange, limitTags } = _a, props = __rest(_a, ["id", "label", "placeholder", "color", "variant", "onChange", "optionlabelkeyname", "freeSolo", "fieldSize", "onBlur", "helperText", "error", "options", "onTextFieldChange", "limitTags"]);
     const [state, setState] = useState();
     const handleOnChange = (event, newValue) => {
         onChange(Object.assign(Object.assign({}, event), { target: Object.assign(Object.assign({}, event.target), { value: newValue }) }));
@@ -28,14 +28,20 @@ export const Autocomplete = forwardRef((_a, ref) => {
         return filteredOptions;
     };
     const handleFocusOut = (event) => {
-        if (onBlur) {
-            let result = options.filter((item) => typeof item[optionlabelkeyname] === 'string' ? item[optionlabelkeyname].toString().toLowerCase() : item[optionlabelkeyname] === event.target.value.toLowerCase());
-            if (!result.length) {
-                result = event.target.value;
+        var _a;
+        let customValue = (_a = event === null || event === void 0 ? void 0 : event.target) === null || _a === void 0 ? void 0 : _a.value;
+        if (customValue) {
+            const result = [];
+            for (let item of options) {
+                if (typeof item[optionlabelkeyname] === 'number') {
+                    break;
+                }
+                else if (customValue.includes(item[optionlabelkeyname])) {
+                    result.push(item);
+                }
             }
-            let _result = typeof result === 'object' ? result[0] : result;
-            setState(_result);
-            onBlur(_result);
+            setState(result[0]);
+            onBlur(result[0]);
         }
     };
     const handleOnInputChange = (event, value) => {

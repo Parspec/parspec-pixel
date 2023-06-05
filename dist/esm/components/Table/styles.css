@@ -28978,7 +28978,12 @@ tr.singleSelect:hover {
     background: #e3e3ff;
     cursor: pointer;
 }
-@keyframes scrollanimate {
+@keyframes fade-in {
+    100% {
+        background-color: #e3e3ff;
+    }
+}
+@keyframes fade-out {
     0% {
         background-color: #e3e3ff;
     }
@@ -28987,9 +28992,7 @@ tr.singleSelect:hover {
     }
 }
 tr.e-highlightscroll {
-    animation: scrollanimate;
-    animation-iteration-count: 1;
-    animation-duration: 10s;
+    animation: fade-in 2s ease-in forwards 2, fade-out 4s 1s ease-out forwards 2;
 }
 .e-treegrid td.e-active {
     background-color: #e3e3ff;

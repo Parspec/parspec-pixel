@@ -12,12 +12,13 @@ export default {
 } as ComponentMeta<typeof Select>;
 
 export const Basic: ComponentStory<typeof Select> = (args) => {
-    const [selectedValue, setSelectedValue] = useState('');
+    const [selectedValue, setSelectedValue] = useState('10');
 
     const handleOnChange = (event: any) => {
-        setSelectedValue(event.target.value as string);
-        console.log(selectedValue);
+        setSelectedValue(event.target.value + '');
     };
+
+    console.log(selectedValue);
 
     return <Select {...args} onChange={handleOnChange} value={selectedValue} />;
 };

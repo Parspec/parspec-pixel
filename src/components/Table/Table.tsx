@@ -140,6 +140,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     }, [loading]);
     const actionComplete = (args: any) => {
+        //PageEventArgs | FilterEventArgs | SortEventArgs | SearchEventArgs | AddEventArgs | SaveEventArgs | EditEventArgs | DeleteEventArgs
         if (args?.type === 'save') {
             onEdit!(args);
         }

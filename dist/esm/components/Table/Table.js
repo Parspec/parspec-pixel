@@ -40,6 +40,7 @@ export const Table = forwardRef((props, ref) => {
     }, [loading]);
     const actionComplete = (args) => {
         var _a, _b, _c, _d, _e, _f, _g, _h;
+        //PageEventArgs | FilterEventArgs | SortEventArgs | SearchEventArgs | AddEventArgs | SaveEventArgs | EditEventArgs | DeleteEventArgs
         if ((args === null || args === void 0 ? void 0 : args.type) === 'save') {
             onEdit(args);
         }

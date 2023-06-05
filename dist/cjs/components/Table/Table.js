@@ -41,7 +41,6 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
         }
         // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     }, [loading]);
-    let isFilterSearch;
     const actionComplete = (args) => {
         var _a, _b, _c, _d, _e, _f, _g, _h;
         if ((args === null || args === void 0 ? void 0 : args.type) === 'save') {
@@ -51,14 +50,12 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
             args.filteredRecords = (_b = (_a = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _a === void 0 ? void 0 : _a.filterModule) === null || _b === void 0 ? void 0 : _b.filteredResult;
             onSearch(args);
         }
-        if (args)
-            if (args.requestType === 'filterchoicerequest' && isFilterSearch) {
-                if (!(0, ej2_base_1.isNullOrUndefined)((_e = (_d = (_c = args === null || args === void 0 ? void 0 : args.filterModel) === null || _c === void 0 ? void 0 : _c.dlg) === null || _d === void 0 ? void 0 : _d.querySelector('.e-checkboxlist')) === null || _e === void 0 ? void 0 : _e.children[1]) &&
-                    ((_g = (_f = args === null || args === void 0 ? void 0 : args.filterModel) === null || _f === void 0 ? void 0 : _f.dlg) === null || _g === void 0 ? void 0 : _g.querySelector('.e-checkboxlist').children[1].innerText) == 'Add current selection to filter') {
-                    (_h = args === null || args === void 0 ? void 0 : args.filterModel) === null || _h === void 0 ? void 0 : _h.dlg.querySelector('.e-checkboxlist').children[1].remove();
-                    isFilterSearch = false;
-                }
+        if (args.requestType === 'filterchoicerequest') {
+            if (!(0, ej2_base_1.isNullOrUndefined)((_e = (_d = (_c = args === null || args === void 0 ? void 0 : args.filterModel) === null || _c === void 0 ? void 0 : _c.dlg) === null || _d === void 0 ? void 0 : _d.querySelector('.e-checkboxlist')) === null || _e === void 0 ? void 0 : _e.children[1]) &&
+                ((_g = (_f = args === null || args === void 0 ? void 0 : args.filterModel) === null || _f === void 0 ? void 0 : _f.dlg) === null || _g === void 0 ? void 0 : _g.querySelector('.e-checkboxlist').children[1].innerText) == 'Add current selection to filter') {
+                (_h = args === null || args === void 0 ? void 0 : args.filterModel) === null || _h === void 0 ? void 0 : _h.dlg.querySelector('.e-checkboxlist').children[1].remove();
             }
+        }
         // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     };
     const actionBegin = (e) => {
@@ -71,9 +68,6 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
         }
         if (e.type === 'edit') {
             e.cell.getElementsByTagName('input')[0].setAttribute('maxLength', 255);
-        }
-        if (e.requestType === 'filtersearchbegin' && !(0, ej2_base_1.isNullOrUndefined)(e.value)) {
-            isFilterSearch = true;
         }
     };
     const rowDrop = (args) => {

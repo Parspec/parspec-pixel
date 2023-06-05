@@ -139,8 +139,6 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         }
         // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     }, [loading]);
-    let isFilterSearch: boolean;
-
     const actionComplete = (args: any) => {
         if (args?.type === 'save') {
             onEdit!(args);
@@ -149,16 +147,14 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
             args.filteredRecords = tableRef?.current?.filterModule?.filteredResult;
             onSearch!(args);
         }
-        if (args)
-            if (args.requestType === 'filterchoicerequest' && isFilterSearch) {
-                if (
-                    !isNullOrUndefined(args?.filterModel?.dlg?.querySelector('.e-checkboxlist')?.children[1]) &&
-                    args?.filterModel?.dlg?.querySelector('.e-checkboxlist').children[1].innerText == 'Add current selection to filter'
-                ) {
-                    args?.filterModel?.dlg.querySelector('.e-checkboxlist').children[1].remove();
-                    isFilterSearch = false;
-                }
+        if (args.requestType === 'filterchoicerequest') {
+            if (
+                !isNullOrUndefined(args?.filterModel?.dlg?.querySelector('.e-checkboxlist')?.children[1]) &&
+                args?.filterModel?.dlg?.querySelector('.e-checkboxlist').children[1].innerText == 'Add current selection to filter'
+            ) {
+                args?.filterModel?.dlg.querySelector('.e-checkboxlist').children[1].remove();
             }
+        }
         // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     };
 
@@ -172,9 +168,6 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         }
         if (e.type === 'edit') {
             e.cell.getElementsByTagName('input')[0].setAttribute('maxLength', 255);
-        }
-        if (e.requestType === 'filtersearchbegin' && !isNullOrUndefined(e.value)) {
-            isFilterSearch = true;
         }
     };
 

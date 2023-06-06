@@ -63,7 +63,7 @@ AutocompleteWithCreateOption.args = {
     id: 'autocomplete-demo',
     label: 'Movies',
     optionlabelkeyname: 'title',
-    freeSolo: true
+    freeSolo: true,
     value: { title: 'The Shawshank Redemption', year: 1994 }
 };
 

@@ -35,7 +35,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
         { id, label, placeholder, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur = () => {}, helperText, error, options, onTextFieldChange, limitTags, value, ...props },
         ref
     ) => {
-        const [state, setState] = useState<OptionType | string>();
+        const [state, setState] = useState<OptionType | string>(value || '');
         const handleOnChange = (event: any, newValue: string | OptionType | (string | OptionType)[] | null) => {
             onChange({ ...event, target: { ...event.target, value: newValue } });
         };
@@ -44,7 +44,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
             if (value) {
                 setState(value);
             }
-        }, []);
+        }, [value]);
 
         const filterOptions = (options: OptionType[], params: any) => {
             let filteredOptions = filter(options, params);
@@ -56,18 +56,18 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
         };
 
         const handleFocusOut = (event: any) => {
-            let customValue = event?.target?.value;
+            let inputValue = event?.target?.value;
 
-            if (customValue) {
+            if (inputValue) {
                 for (let item of options) {
-                    if (item[optionlabelkeyname] === customValue) {
+                    if (item[optionlabelkeyname] === inputValue) {
                         setState(item);
                         onBlur(item);
                         return;
                     }
                 }
-                setState(customValue);
-                onBlur(customValue);
+                setState(inputValue);
+                onBlur(inputValue);
             }
         };
 

@@ -34,7 +34,7 @@ import { InputAdornment } from '../InputAdornment';
 const license = window.localStorage.getItem('syncfusionLicense');
 registerLicense(license!);
 
-type ToolbarT = 'delete' | 'search' | 'clearFilters' | 'hide' | 'unhide' | 'selectedItems' | 'duplicate' | 'add' | 'save' | 'add';
+type ToolbarT = 'delete' | 'search' | 'clearFilters' | 'hide' | 'unhide' | 'selectedItems' | 'duplicate' | 'add' | 'save';
 export type ToolbarType = ToolbarT[];
 export interface TableProps {
     children: React.ReactNode;

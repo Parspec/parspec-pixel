@@ -9,14 +9,15 @@ export interface ModalFooterProps {
     continueButtonColor?: 'primary' | 'secondary' | 'tertiary' | 'error';
     isLoading?: boolean;
     helperText?: React.ReactNode;
+    isCancelButtonDisabled?: boolean;
 }
 
-export const ModalFooter: React.FC<ModalFooterProps> = ({ onAccept, onReject, cancelButtonLabel, continueButtonLabel, continueButtonColor, isLoading, helperText }) => {
+export const ModalFooter: React.FC<ModalFooterProps> = ({ onAccept, onReject, cancelButtonLabel, continueButtonLabel, continueButtonColor, isLoading, helperText, isCancelButtonDisabled = false }) => {
     return (
         <Box display="flex" justifyContent="space-between" alignItems={'center'}>
             <Box>{helperText}</Box>
             <Box display={'flex'} gap={2}>
-                <Button color="secondary" variant="outlined" onClick={onReject}>
+                <Button color="secondary" variant="outlined" onClick={onReject} disabled={isCancelButtonDisabled ? true : false}>
                     {cancelButtonLabel}
                 </Button>
                 <Button color={continueButtonColor} variant="contained" onClick={onAccept} isLoading={isLoading}>
@@ -29,7 +30,7 @@ export const ModalFooter: React.FC<ModalFooterProps> = ({ onAccept, onReject, ca
 
 ModalFooter.defaultProps = {
     cancelButtonLabel: 'Cancel',
-    continueButtonLabel: 'Submit',
+    continueButtonLabel: 'Confirm',
     continueButtonColor: 'tertiary',
     onAccept: () => {},
     onReject: () => {},

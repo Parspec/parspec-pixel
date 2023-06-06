@@ -52,3 +52,14 @@ declare module '@mui/material/Icon' {
         tertiary: true;
     }
 }
+declare module '@mui/material/Chip' {
+    interface ChipPropsColorOverrides {
+        tertiary: true;
+    }
+}
+declare module '@mui/material/SvgIcon' {
+    interface SvgIconPropsColorOverrides {
+        tertiary: true;
+        neutral: true;
+    }
+}

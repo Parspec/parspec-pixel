@@ -10,27 +10,54 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 import { jsx as _jsx, Fragment as _Fragment } from "react/jsx-runtime";
-import { forwardRef } from 'react';
+import { forwardRef, useState } from 'react';
 import { TextField } from '../TextField';
-import { default as MUIAutocomplete } from '@mui/material/Autocomplete';
+import { default as MUIAutocomplete, createFilterOptions } from '@mui/material/Autocomplete';
+const filter = createFilterOptions();
 export const Autocomplete = forwardRef((_a, ref) => {
-    var { id, label, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur, helperText, isError } = _a, props = __rest(_a, ["id", "label", "color", "variant", "onChange", "optionlabelkeyname", "freeSolo", "fieldSize", "onBlur", "helperText", "isError"]);
+    var { id, label, placeholder, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur = () => { }, helperText, error, options, onTextFieldChange, limitTags } = _a, props = __rest(_a, ["id", "label", "placeholder", "color", "variant", "onChange", "optionlabelkeyname", "freeSolo", "fieldSize", "onBlur", "helperText", "error", "options", "onTextFieldChange", "limitTags"]);
+    const [state, setState] = useState();
     const handleOnChange = (event, newValue) => {
         onChange(Object.assign(Object.assign({}, event), { target: Object.assign(Object.assign({}, event.target), { value: newValue }) }));
     };
+    const filterOptions = (options, params) => {
+        let filteredOptions = filter(options, params);
+        if (typeof state === 'object') {
+            filteredOptions = options.filter((option) => option[optionlabelkeyname] === state[optionlabelkeyname]);
+        }
+        return filteredOptions;
+    };
     const handleFocusOut = (event) => {
-        if (onBlur) {
-            onBlur(event.target.value);
+        var _a;
+        let customValue = (_a = event === null || event === void 0 ? void 0 : event.target) === null || _a === void 0 ? void 0 : _a.value;
+        if (customValue) {
+            const result = [];
+            for (let item of options) {
+                if (typeof item[optionlabelkeyname] === 'number') {
+                    break;
+                }
+                else if (customValue.includes(item[optionlabelkeyname])) {
+                    result.push(item);
+                }
+            }
+            setState(result[0]);
+            onBlur(result[0]);
         }
     };
-    return (_jsx(_Fragment, { children: _jsx(MUIAutocomplete, Object.assign({ fullWidth: true }, props, { ref: ref, id: id, onBlur: handleFocusOut, onChange: handleOnChange, getOptionLabel: (option) => {
+    const handleOnInputChange = (event, value) => {
+        setState(value);
+        if (onTextFieldChange) {
+            onTextFieldChange(event);
+        }
+    };
+    return (_jsx(_Fragment, { children: _jsx(MUIAutocomplete, Object.assign({ fullWidth: true }, props, { options: options, ref: ref, id: id, onBlur: handleFocusOut, onChange: handleOnChange, getOptionLabel: (option) => {
                 if (typeof option === 'object') {
                     return `${option[optionlabelkeyname]}`;
                 }
                 return option;
-            }, freeSolo: freeSolo, renderInput: (_a) => {
+            }, limitTags: limitTags, filterOptions: filterOptions, onInputChange: handleOnInputChange, freeSolo: freeSolo, renderInput: (_a) => {
                 var { size } = _a, params = __rest(_a, ["size"]);
-                return _jsx(TextField, Object.assign({ size: fieldSize, helperText: helperText, error: isError }, params, { variant: variant, color: color, label: label }));
+                return (_jsx(TextField, Object.assign({ size: fieldSize, helperText: helperText, error: error }, params, { variant: variant, color: color, label: label, placeholder: placeholder })));
             } })) }));
 });
 Autocomplete.defaultProps = {
@@ -40,6 +67,6 @@ Autocomplete.defaultProps = {
     fieldSize: 'small',
     multiple: false,
     helperText: '',
-    isError: false
+    error: false
 };
 //# sourceMappingURL=Autocomplete.js.map

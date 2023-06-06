@@ -54,9 +54,7 @@ export const AutocompleteWithCreateOption: ComponentStory<typeof Autocomplete> =
         onChange={(e: any) => {
             console.log(e.target.value);
         }}
-        onBlur={(event: any) => {
-            console.log('Yolooo', event.target.value);
-        }}
+        onBlur={(value: any) => console.log(`[on blur]`, value)}
     />
 );
 
@@ -65,5 +63,25 @@ AutocompleteWithCreateOption.args = {
     id: 'autocomplete-demo',
     label: 'Movies',
     optionlabelkeyname: 'title',
-    freeSolo: true
+    freeSolo: true,
+    value: { title: 'The Shawshank Redemption', year: 1994 }
+};
+
+export const MultiSelectWithChipLimit: ComponentStory<typeof Autocomplete> = (args) => (
+    <Autocomplete
+        {...args}
+        onChange={(e: any) => {
+            console.log(e.target.value);
+        }}
+    />
+);
+
+MultiSelectWithChipLimit.args = {
+    id: 'multiselect-demo',
+    label: 'MultiSelect',
+    multiple: true,
+    options: top100Films,
+    optionlabelkeyname: 'title',
+    defaultValue: ['Hello'],
+    limitTags: 1
 };

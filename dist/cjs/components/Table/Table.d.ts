@@ -2,7 +2,7 @@
 import { TreeGridExcelExportProperties, TreeGridPdfExportProperties, PageSettingsModel, EditSettingsModel, SearchSettingsModel } from '@syncfusion/ej2-react-treegrid';
 import './styles.css';
 import { FilterSettingsModel, SelectionSettingsModel } from '@syncfusion/ej2-grids';
-type ToolbarT = 'delete' | 'search' | 'clearFilters' | 'hide' | 'unhide' | 'selectedItems' | 'duplicate';
+type ToolbarT = 'delete' | 'search' | 'clearFilters' | 'hide' | 'unhide' | 'selectedItems' | 'duplicate' | 'add';
 export type ToolbarType = ToolbarT[];
 export interface TableProps {
     children: React.ReactNode;
@@ -19,7 +19,6 @@ export interface TableProps {
     toolBarOptions?: ToolbarType;
     excelExportProperties?: TreeGridExcelExportProperties;
     pdfExportProperties?: TreeGridPdfExportProperties;
-    height?: number;
     allowFiltering?: boolean;
     filterSettings?: FilterSettingsModel;
     selectionSettings?: SelectionSettingsModel;
@@ -28,15 +27,21 @@ export interface TableProps {
     onCheckboxChange?: (data: Object[]) => void;
     onAddDuplicates?: (data: Object[]) => void;
     onDragEnd?: (data: Object) => void;
-    onAdd?: (data: Object) => void;
+    onAdd?: () => void;
     onEdit?: (data: Object) => void;
     onDelete?: (data: Object) => void;
     onSearch?: (data: Object) => void;
     onRowSelection?: (data: Object) => void;
+    customFiltersFunction?: (data: Object) => void;
+    dataBoundCallBack?: () => void;
     loading?: boolean;
     toolbarRightSection?: React.ReactNode;
     searchSettings?: SearchSettingsModel;
     hiddenProperty?: string;
+    allowSorting?: boolean;
+    rowHeight?: number;
+    height?: number | string;
+    tableKey?: number | string;
 }
 export declare const Table: React.FC<TableProps>;
 export {};

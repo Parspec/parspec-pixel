@@ -8,7 +8,6 @@ import { Button } from '../Button';
 import { ViewArrayIcon } from '../Icons';
 import { Box } from '../Box';
 import { BodyMedium } from '../Typography';
-import { FilterSettingsModel } from '@syncfusion/ej2-grids';
 import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
 
 export default {
@@ -35,32 +34,39 @@ export const SingleSelect: ComponentStory<typeof Table> = (props) => {
     const onRowSelection = (selectedData) => {
         console.log(selectedData);
     };
+    const customFiltersFunction = (e: any) => {
+        // if (e.columnName === 'available') {
+        //     e.filterModel.options.dataSource = [{ available: 'Yes' }, { available: 'No' }];
+        // }
+    };
 
     return (
-        <>
-            <Table {...getTableProps({ ...props, onRowSelection, onDragEnd })} data={data} ref={tableRef}>
+        <Box height={500}>
+            <Table {...getTableProps({ ...props, onRowSelection, onDragEnd, customFiltersFunction })} data={data} ref={tableRef}>
                 <ColumnDirective field="id" isPrimaryKey={true} visible={false} />
-                <ColumnDirective field="taskID" allowEditing={false} headerText="Task ID" width="150" editType="numericedit" />
-                <ColumnDirective field="name" headerText="Task Name" minWidth="200" />
-                <ColumnDirective field="reporter" headerText="Reporter" minWidth="200" />
-                <ColumnDirective field="available" headerText="Availability" minWidth="200" />
+                <ColumnDirective field="taskID" allowEditing={false} headerText="Task ID" minWidth="100" width="130" editType="numericedit" />
+                <ColumnDirective field="name" headerText="Task Name" />
+                <ColumnDirective field="reporter" headerText="Reporter" />
+                <ColumnDirective field="available" filter={{ type: 'Menu', operator: 'contains' }} filterTemplate={filterTemplateOptions} headerText="Availability" />
             </Table>
-        </>
+        </Box>
     );
 };
 SingleSelect.args = {
-    height: 400,
     childMappingKey: 'subtasks',
     allowRowDragAndDrop: true,
-    treeColumnIndex: 3
+    treeColumnIndex: 3,
+    allowPaging: false
 };
 
 const coltemplate = (props: any) => {
     if (props?.taskData?.type?.includes('section')) {
         return (
-            <Button size="small" id={props.id}>
-                Section
-            </Button>
+            <Box display={'flex'} alignItems={'center'}>
+                <Button size="small" id={props.id} color="primary">
+                    Section
+                </Button>
+            </Box>
         );
     } else if (props?.taskData?.type?.includes('product')) {
         return (
@@ -77,6 +83,10 @@ const coltemplate = (props: any) => {
     } else {
         return <></>;
     }
+};
+const filterTemplateOptions = (props: any): any => {
+    const dataSource = ['Yes', 'No'];
+    return <DropDownListComponent id={props.column.field} popupHeight="250px" dataSource={dataSource} enablePersistence={true} />;
 };
 
 const customFn = (args: { [key: string]: string }): boolean => {
@@ -99,16 +109,6 @@ const customHeaderTemplate = () => {
 };
 
 export const Basic: ComponentStory<typeof Table> = (props) => {
-    const checkboxFilter: FilterSettingsModel = {
-        type: 'CheckBox'
-    };
-    const menuFilter: FilterSettingsModel = {
-        type: 'Menu'
-    };
-    const filterTemplateOptions = (props: any): any => {
-        const dataSource: string[] = ['Yes', 'No'];
-        return <DropDownListComponent id={props.column.field} popupHeight="250px" dataSource={dataSource} />;
-    };
     const onHideUnhide = (data: Object[]) => {
         console.log('onHideUnhide===>\n', data);
     };
@@ -140,19 +140,43 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
         const toolBarItems: ToolbarType = ['delete', 'search', 'clearFilters', 'hide', 'unhide', 'selectedItems', 'duplicate'];
         return {
             toolBarOptions: toolBarItems,
-            toolbarRightSection: <Button>Import Products</Button>,
+            toolbarRightSection: (
+                <Box display={'flex'} gap={5} justifyContent={'flex-end'}>
+                    <Button>Import Products</Button>
+                    <Box display={'flex'} alignItems={'center'}>
+                        <Button
+                            color="primary"
+                            onClick={() => {
+                                tableRef?.current?.scrollTo(14);
+                            }}
+                        >
+                            scroll to 14
+                        </Button>
+                    </Box>
+                </Box>
+            ),
+            // rowHeight: 40,
             ...args
         };
     };
+
     const tableRef = useRef<any>();
+    const customFiltersFunction = (e: any) => {
+        // if (e.columnName === 'available') {
+        //     e.filterModel.options.dataSource = [{ available: 'Yes' }, { available: 'No' }];
+        // }
+    };
 
     return (
-        <>
-            <Table {...getTableProps({ ...props, onAdd, onCheckboxChange, onDelete, onDragEnd, onEdit, onSearch, onRowSelection, onHideUnhide, onAddDuplicates })} ref={tableRef}>
+        <Box height={'100vh'}>
+            <Table
+                {...getTableProps({ ...props, onAdd, onCheckboxChange, onDelete, onDragEnd, onEdit, onSearch, onRowSelection, onHideUnhide, onAddDuplicates, customFiltersFunction })}
+                ref={tableRef}
+            >
                 <ColumnDirective type="checkbox" width="50" />
                 <ColumnDirective field="id" isPrimaryKey={true} visible={false} />
-                <ColumnDirective field="taskID" headerText="Task ID" width="150" filter={checkboxFilter} editType="numericedit" />
-                <ColumnDirective field="name" headerText="Task Name" minWidth="200" filter={menuFilter} />
+                <ColumnDirective field="taskID" headerText="Task ID" minWidth="100" width="130" editType="numericedit" />
+                <ColumnDirective field="name" headerText="Task Name" minWidth="200" />
                 <ColumnDirective
                     allowEditing={false}
                     allowSorting={false}
@@ -164,21 +188,32 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
                     allowFiltering={false}
                 />
                 <ColumnDirective field="reporter" headerText="Reporter" minWidth="200" validationRules={validateReporter} />
-                <ColumnDirective field="available" headerText="Availability" minWidth="200" filter={menuFilter} filterTemplate={filterTemplateOptions} />
+                <ColumnDirective field="available" headerText="Availability" minWidth="200" filterTemplate={filterTemplateOptions} />
             </Table>
-        </>
+        </Box>
     );
 };
+
+// const Abc: React.FC = () => {
+//     const [a, setA] = useState(1);
+//     return (
+//         <Box display={'flex'} alignItems={'center'}>
+//             <Button color="primary" onClick={() => setA((p) => p + 1)}>
+//                 Right Section {a}
+//             </Button>
+//         </Box>
+//     );
+// };
+
 // Arg properties with value as true and their corresponding settings are not required to be passed to table component as they are already present as default props, we have passed them here to get controls in stories
 Basic.args = {
-    height: 400,
     data: dDataP,
     childMappingKey: 'subtasks',
     allowRowDragAndDrop: true,
-    frozenColumns: 4,
+    // frozenColumns: 4,
     treeColumnIndex: 3,
-    allowPaging: true,
-    pageSettings: { pageSize: 10 },
+    allowPaging: false,
+    // pageSettings: { pageSize: 10 },
     allowResizing: true,
     allowExports: true,
     excelExportProperties: {
@@ -190,17 +225,10 @@ Basic.args = {
         isCollapsedStatePersist: false
     },
     allowFiltering: true,
-    filterSettings: {
-        type: 'Excel'
-    },
     loading: false,
     searchSettings: {
         fields: ['taskID', 'name', 'reported', 'available'],
         hierarchyMode: 'Both'
-    },
-    toolbarRightSection: (
-        <Box display={'flex'} alignItems={'center'}>
-            <Button>Right Section</Button>
-        </Box>
-    )
+    }
+    // toolbarRightSection: <Abc />
 };

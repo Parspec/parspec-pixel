@@ -22,9 +22,9 @@ export const RadioGroupRow: ComponentStory<typeof RadioGroup> = (args) => {
 };
 
 const options = [
-    { value: 'female', label: '', helper: <Box>Hello</Box> },
-    { value: 'male', label: '' },
-    { value: 'other', label: '' }
+    { value: 'female', label: 'Female', helper: <Box>Hello</Box> },
+    { value: 'male', label: 'Male' },
+    { value: 'other', label: 'Other' }
 ];
 
 RadioGroupRow.args = {
@@ -33,6 +33,29 @@ RadioGroupRow.args = {
     options: options,
     label: 'Gender',
     size: 'small'
+};
+
+export const ErrorRadioGroup: ComponentStory<typeof RadioGroup> = (args) => {
+    const [selectedValue, setSelectedValue] = useState('');
+
+    const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSelectedValue(() => event.target.value);
+    };
+
+    return <RadioGroup {...args} onChange={handleOnChange} value={selectedValue} />;
+};
+
+ErrorRadioGroup.args = {
+    name: 'error-feature',
+    options: [
+        { value: 'female', label: 'Male' },
+        { value: 'male', label: 'Female' },
+        { value: 'other', label: 'Other' }
+    ],
+    label: 'Gender',
+    size: 'small',
+    error: true,
+    helperText: '*required'
 };
 
 export const RadioGroupColumn: ComponentStory<typeof RadioGroup> = (args) => {

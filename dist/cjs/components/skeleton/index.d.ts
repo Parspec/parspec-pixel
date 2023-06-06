@@ -1,3 +1,11 @@
 /// <reference types="react" />
-import { SkeletonProps } from '@mui/material/Skeleton';
-export declare const Skeleton: (props: SkeletonProps) => JSX.Element;
+import { SkeletonProps as MUISkeletonProps } from '@mui/material/Skeleton';
+export interface SkeletonProps extends Omit<MUISkeletonProps, 'classes'> {
+    color?: 'light' | 'dark';
+}
+export declare const Skeleton: {
+    (props: SkeletonProps): JSX.Element;
+    defaultProps: {
+        color: string;
+    };
+};

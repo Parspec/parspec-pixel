@@ -1,6 +1,6 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { createTheme, ThemeProvider as MUIThemeProvider } from '@mui/material/styles';
-const theme = createTheme({
+export const theme = createTheme({
     components: {
         MuiTooltip: {
             styleOverrides: {
@@ -18,6 +18,13 @@ const theme = createTheme({
                 })))
             }
         }
+        // MuiSnackbarContent: {
+        //     styleOverrides: {
+        //         root: {
+        //             padding :
+        //         }
+        //     }
+        // }
     },
     spacing: 4,
     // shape: {
@@ -34,7 +41,7 @@ const theme = createTheme({
         action: {},
         text: {
             primary: '#091535',
-            secondary: '#00000099'
+            secondary: '#6B7280'
         },
         tertiary: {
             light: '#ffe4bd',
@@ -49,30 +56,33 @@ const theme = createTheme({
             contrastText: '#ffffff'
         },
         primary: {
-            light: '#B8B9F9',
+            light: '#E3E3FF',
             main: '#6467F2',
             dark: '#4749AC',
             contrastText: '#ffffff'
         },
         neutral: {
             light: '#F8FAFC',
-            main: '#F1F5F9',
+            // main: '#F1F5F9',
+            main: '#E2E8F0',
             dark: '#64748B',
             contrastText: '#091535'
         },
         success: {
-            light: '#6EE7B7',
+            light: '#D1FAE5',
             main: '#10B981',
             dark: '#047857',
             contrastText: '#ffffff'
         },
-        // info: {
-        //     main: ''
-        // },
+        info: {
+            light: '#DBEAFE',
+            main: '#3B82F6'
+        },
         // warning: {
         //     main: ''
         // }
         error: {
+            light: '#FFE4E6',
             main: '#F43F5E'
         }
     }

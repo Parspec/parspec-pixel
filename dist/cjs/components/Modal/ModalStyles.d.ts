@@ -8,4 +8,7 @@ export declare const ModalContainerStyle: {
     border: string;
     boxShadow: number;
     p: number;
+    '&:focus-visible': {
+        outline: string;
+    };
 };

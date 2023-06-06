@@ -2,7 +2,8 @@
 type SelectedFileProps = {
     file: {
         name: string;
-        size: number;
+        size?: number;
+        filepath?: string;
     };
     onDelete: (arg: {
         name: string;
@@ -10,6 +11,7 @@ type SelectedFileProps = {
     url: string;
     index: number;
     handleResults: (data: {}, index: number) => void;
+    isLoading?: boolean;
 };
 declare const SelectedFile: (props: SelectedFileProps) => JSX.Element;
 export default SelectedFile;

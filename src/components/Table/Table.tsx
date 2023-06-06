@@ -20,6 +20,7 @@ import {
     SearchSettingsModel
 } from '@syncfusion/ej2-react-treegrid';
 import { addClass, isNullOrUndefined, registerLicense } from '@syncfusion/ej2-base';
+
 import './styles.css';
 import { Box } from '../Box';
 import {
@@ -39,17 +40,18 @@ import {
     SelectionSettingsModel,
     SortEventArgs
 } from '@syncfusion/ej2-grids';
-import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState, useMemo, useCallback } from 'react';
 import { TextField } from '../TextField';
 import { IconButton } from '../IconButton';
-import { CloseIcon, ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffIcon, FilterAltOffIcon } from '../Icons';
+import { CloseIcon, ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffIcon, FilterAltOffIcon, SearchIcon, AddIcon } from '../Icons';
 import { BodySmall } from '../Typography';
 import { Tooltip } from '../Tooltip';
+import { InputAdornment } from '../InputAdornment';
 
 const license = window.localStorage.getItem('syncfusionLicense');
 registerLicense(license!);
 
-type ToolbarT = 'delete' | 'search' | 'clearFilters' | 'hide' | 'unhide' | 'selectedItems' | 'duplicate';
+type ToolbarT = 'delete' | 'search' | 'clearFilters' | 'hide' | 'unhide' | 'selectedItems' | 'duplicate' | 'add';
 export type ToolbarType = ToolbarT[];
 export interface TableProps {
     children: React.ReactNode;
@@ -66,7 +68,6 @@ export interface TableProps {
     toolBarOptions?: ToolbarType;
     excelExportProperties?: TreeGridExcelExportProperties;
     pdfExportProperties?: TreeGridPdfExportProperties;
-    height?: number;
     allowFiltering?: boolean;
     filterSettings?: FilterSettingsModel;
     selectionSettings?: SelectionSettingsModel;
@@ -75,15 +76,22 @@ export interface TableProps {
     onCheckboxChange?: (data: Object[]) => void;
     onAddDuplicates?: (data: Object[]) => void;
     onDragEnd?: (data: Object) => void;
-    onAdd?: (data: Object) => void;
+    onAdd?: () => void;
     onEdit?: (data: Object) => void;
     onDelete?: (data: Object) => void;
     onSearch?: (data: Object) => void;
     onRowSelection?: (data: Object) => void;
+    customFiltersFunction?: (data: Object) => void;
+    dataBoundCallBack?: () => void;
     loading?: boolean;
     toolbarRightSection?: React.ReactNode;
     searchSettings?: SearchSettingsModel;
     hiddenProperty?: string;
+    allowSorting?: boolean;
+    rowHeight?: number;
+    height?: number | string;
+    // defaultFilter?: 'equal' | 'contains';
+    tableKey?: number | string;
 }
 
 export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
@@ -98,6 +106,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         allowPaging,
         pageSettings,
         allowResizing,
+        allowSorting,
         showToolbar,
         toolBarOptions,
         height,
@@ -105,6 +114,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         editSettings,
         filterSettings,
         onHideUnhide,
+        onAdd,
         onAddDuplicates,
         onCheckboxChange,
         onDragEnd,
@@ -116,7 +126,12 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         loading,
         toolbarRightSection,
         searchSettings,
-        hiddenProperty
+        hiddenProperty,
+        rowHeight,
+        // defaultFilter,
+        customFiltersFunction,
+        dataBoundCallBack,
+        tableKey
     } = props;
 
     const tableRef = useRef<any>();
@@ -132,22 +147,37 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
             tableRef?.current?.refresh();
         } else {
             tableRef?.current?.hideSpinner();
-            if (data.length === 0) {
-                if (obj && obj?.EmptyRecord) {
-                    obj.EmptyRecord = 'No records to display';
-                }
+            if (!data.length && obj && !obj?.EmptyRecord.length) {
+                obj.EmptyRecord = 'No records to display';
                 tableRef?.current?.refresh();
             }
         }
+        // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     }, [loading]);
 
     const actionComplete = (args: PageEventArgs | FilterEventArgs | SortEventArgs | SearchEventArgs | AddEventArgs | SaveEventArgs | EditEventArgs | DeleteEventArgs) => {
-        if (args.type === 'save') {
+        if (args?.type === 'save') {
             onEdit!(args);
-        } else if (args.requestType === 'searching') {
+        }
+        if (args?.requestType === 'searching') {
             onSearch!(args);
         }
+        // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     };
+
+    const actionBegin = (e: any) => {
+        if (e.requestType === 'filtering' && !isNullOrUndefined(e.currentFilterObject) && isNullOrUndefined(e?.currentFilterObject?.value)) {
+            e.cancel = true;
+        }
+
+        if (e.requestType === 'filterbeforeopen') {
+            customFiltersFunction!(e);
+        }
+        if (e.type === 'edit') {
+            e.cell.getElementsByTagName('input')[0].setAttribute('maxLength', 255);
+        }
+    };
+
     const rowDrop = (args: any) => {
         let notAllowed = false;
         const droppedData = tableRef?.current?.getRowInfo(args.target.parentElement).rowData; //dropped data
@@ -162,7 +192,6 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                 draggedId = args.data[0].taskID; // dragged data
             }
         }
-
         //Here we prevent for top / bottom position
         if (droppedId != draggedId && args.data[0].level != droppedData.level) {
             args.cancel = true;
@@ -195,7 +224,6 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                 notAllowed = true;
             }
         }
-        // setTimeout(() => onDragEnd!(tableRef?.current?.getDataModule()?.treeModule?.dataResults), 300);
         if (!notAllowed) {
             onDragEnd!({ fromIndex: args.fromIndex, data: args.data[0] });
         }
@@ -204,6 +232,23 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     const checkboxChange = (args: CheckBoxChangeEventArgs) => {
         onCheckboxChange!(tableRef?.current?.getSelectedRecords());
         setSelectedForBanner(tableRef?.current?.getSelectedRecords()?.length);
+    };
+    const scrollTo = (id: number) => {
+        try {
+            const matchedElement = tableRef?.current?.flatData.find((value: any) => value.id === id);
+            if (matchedElement) {
+                const targetElement = tableRef.current.getRows()[matchedElement.index];
+                if (targetElement) {
+                    addClass([targetElement], 'e-highlightscroll');
+                    const rowHeight = targetElement.scrollHeight;
+                    tableRef.current.getContent().children[0].scrollTop = rowHeight * matchedElement.index;
+                }
+            } else {
+                console.error('scroll to Id is not found');
+            }
+        } catch (err) {
+            console.error('ScrollTo ', err);
+        }
     };
     const rowSelected = (args: RowSelectEventArgs) => {
         onRowSelection!(tableRef.current.getSelectedRecords());
@@ -221,6 +266,9 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         if (selectionSettings?.type === 'Single') {
             addClass([args.row], 'singleSelect');
         }
+        if (tableRef?.current?.getVisibleRecords()?.length !== 0) {
+            (document.getElementById('_gridcontrol_content_table') as any).classList.remove('empty');
+        }
     };
 
     useImperativeHandle(ref, () => {
@@ -231,7 +279,8 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         };
         return {
             clearSelection,
-            setSelectedForBanner
+            setSelectedForBanner,
+            scrollTo
         };
     });
 
@@ -247,40 +296,101 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         }
     };
     const disabled = (() => !tableRef?.current || tableRef?.current?.getSelectedRecords()?.length === 0)();
+
+    const dataBound = (args: Object) => {
+        if (tableRef?.current?.getVisibleRecords()?.length === 0) {
+            (document.getElementById('_gridcontrol_content_table') as any).classList.add('empty');
+        } else {
+            dataBoundCallBack!();
+        }
+    };
+
+    const rightSection = useMemo(() => toolbarRightSection, [toolbarRightSection]);
+
+    const [tableHeight, setTableHeight] = useState<number>();
+    const tableContainerRef = useCallback((node: HTMLDivElement) => {
+        if (node !== null) {
+            const toolbarHeight = showToolbar && toolbarContainerRef?.current ? toolbarContainerRef?.current?.offsetHeight : 0;
+            const paginationHeight = allowPaging ? 47 : 0;
+            const tableHeader = 42 + 10;
+            if (node.offsetHeight) {
+                setTableHeight(node.offsetHeight - toolbarHeight - paginationHeight - tableHeader);
+            }
+        }
+        // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
+    }, []);
+    const toolbarContainerRef = useRef<any>();
+
+    // const resizestart = () => {
+    //     tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
+    // };
+    // const collapsing = () => {
+    //     tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
+    // };
+    // const expanding = () => {
+    //     tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
+    // };
     return (
-        <Box position={'relative'}>
+        <Box position={'relative'} height={'100%'} width={'100%'} ref={tableContainerRef}>
             {showToolbar && (
-                <Box display={'flex'} justifyContent="space-between" alignItems={'flex-end'} mb={2} sx={loading ? { PointerEvent: 'none' } : {}}>
+                <Box display={'flex'} ref={toolbarContainerRef} justifyContent="space-between" alignItems={'flex-end'} mb={2} sx={loading ? { PointerEvent: 'none' } : {}}>
                     <Box display="flex" alignItems="center" gap={1}>
                         {toolBarOptions?.includes('search') && (
                             <Box width={300}>
-                                <TextField label="" placeholder="Search..." size="small" onChange={(t: React.ChangeEvent<HTMLInputElement>) => tableRef.current.search(t?.target?.value)} />
+                                <TextField
+                                    label=""
+                                    placeholder="Search..."
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <SearchIcon fontSize="small" />
+                                            </InputAdornment>
+                                        )
+                                    }}
+                                    size="small"
+                                    onChange={(t: React.ChangeEvent<HTMLInputElement>) => tableRef.current.search(t?.target?.value?.trim())}
+                                />
                             </Box>
                         )}
+                        {toolBarOptions?.includes('add') && (
+                            <Tooltip title={'Add'}>
+                                <Box>
+                                    <IconButton onClick={() => onAdd!()}>
+                                        <AddIcon fontSize="medium" />
+                                    </IconButton>
+                                </Box>
+                            </Tooltip>
+                        )}
                         {toolBarOptions?.includes('duplicate') && (
-                            <Tooltip title="Add Duplicate Record(s)">
-                                <IconButton onClick={() => onAddDuplicates!(tableRef.current.getSelectedRecords())} disabled={disabled}>
-                                    <ControlPointDuplicateIcon fontSize="medium" />
-                                </IconButton>
+                            <Tooltip title={disabled ? 'Select Item(s) First' : 'Duplicate'}>
+                                <Box>
+                                    <IconButton onClick={() => onAddDuplicates!(tableRef.current.getSelectedRecords())} disabled={disabled}>
+                                        <ControlPointDuplicateIcon fontSize="medium" />
+                                    </IconButton>
+                                </Box>
                             </Tooltip>
                         )}
                         {toolBarOptions?.includes('delete') && (
-                            <Tooltip title="Delete Record(s)">
-                                <IconButton
-                                    disabled={disabled}
-                                    onClick={() => {
-                                        onDelete!(tableRef?.current?.getSelectedRecords());
-                                    }}
-                                >
-                                    <DeleteOutlineIcon fontSize="medium" />
-                                </IconButton>
+                            <Tooltip title={disabled ? 'Select Item(s) First' : 'Delete'}>
+                                <Box>
+                                    <IconButton
+                                        disabled={disabled}
+                                        onClick={() => {
+                                            onDelete!(tableRef?.current?.getSelectedRecords());
+                                        }}
+                                    >
+                                        <DeleteOutlineIcon fontSize="medium" />
+                                    </IconButton>
+                                </Box>
                             </Tooltip>
                         )}
                         {toolBarOptions?.includes('hide') && (
-                            <Tooltip title="Hide/Unhide Record(s)">
-                                <IconButton onClick={() => onHideUnhide!(tableRef.current.getSelectedRecords())} disabled={disabled}>
-                                    <VisibilityOffIcon fontSize="medium" />
-                                </IconButton>
+                            <Tooltip title={disabled ? 'Select Item(s) First' : 'Hide / Unhide'}>
+                                <Box>
+                                    <IconButton onClick={() => onHideUnhide!(tableRef.current.getSelectedRecords())} disabled={disabled}>
+                                        <VisibilityOffIcon fontSize="medium" />
+                                    </IconButton>
+                                </Box>
                             </Tooltip>
                         )}
                         {toolBarOptions?.includes('clearFilters') && (
@@ -291,27 +401,34 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             </Tooltip>
                         )}
                         {toolBarOptions?.includes('selectedItems') && selected > 0 && (
-                            <Box p={1} pl={3} pr={2} bgcolor={'tertiary.main'} color={'secondary.contrastText'} display="flex" alignItems="center" gap={2}>
-                                <BodySmall color="secondary.contrastText">{selected} item(s) selected</BodySmall>
+                            <Box p={1} pl={3} pr={2} bgcolor={'primary.main'} color={'secondary.contrastText'} display="flex" alignItems="center" gap={2}>
+                                <BodySmall color="secondary.contrastText" limit={false}>
+                                    {selected} item(s) selected
+                                </BodySmall>
                                 <IconButton onClick={closeBanner} sx={{ color: 'secondary.contrastText', margin: 0, padding: 0 }}>
                                     <CloseIcon fontSize="small" />
                                 </IconButton>
                             </Box>
                         )}
                     </Box>
-                    <Box>{toolbarRightSection}</Box>
+                    <Box>{rightSection}</Box>
                 </Box>
             )}
             <Box className="control-pane">
                 <Box className="control-section">
                     {data && (
                         <TreeGridComponent
+                            // expanding={expanding}
+                            // collapsing={collapsing}
+                            // resizeStart={resizestart}
+                            actionBegin={actionBegin}
+                            dataBound={dataBound}
                             actionComplete={actionComplete}
                             headerCellInfo={headerCellInfo}
                             rowSelected={rowSelected}
                             rowDeselected={rowDeselected}
                             rowDataBound={rowDataBound}
-                            height={height}
+                            height={height || tableHeight}
                             ref={tableRef}
                             dataSource={data}
                             treeColumnIndex={treeColumnIndex}
@@ -323,7 +440,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             selectionSettings={selectionSettings}
                             rowDrop={rowDrop}
                             frozenColumns={frozenColumns}
-                            allowSorting={true}
+                            allowSorting={allowSorting}
                             editSettings={editSettings}
                             searchSettings={searchSettings}
                             pageSettings={pageSettings}
@@ -331,6 +448,8 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             allowFiltering={allowFiltering}
                             filterSettings={filterSettings}
                             checkboxChange={checkboxChange}
+                            rowHeight={rowHeight}
+                            {...(tableKey && { key: tableKey })}
                         >
                             <ColumnsDirective>{children}</ColumnsDirective>
                             <Inject services={[Freeze, RowDD, Selection, Sort, Edit, Page, ExcelExport, PdfExport, Resize, Filter, ContextMenu]} />
@@ -361,9 +480,10 @@ Table.defaultProps = {
         pageSize: 10
     },
     allowResizing: true,
+    allowSorting: true,
     allowFiltering: true,
     filterSettings: {
-        type: 'Excel'
+        type: 'CheckBox'
     },
     selectionSettings: {
         checkboxOnly: true,
@@ -382,11 +502,13 @@ Table.defaultProps = {
     onHideUnhide: (data: Object[]) => {},
     onCheckboxChange: (data: Object[]) => {},
     onDragEnd: (data: Object) => {},
-    onAdd: (data: Object) => {},
+    onAdd: () => {},
     onEdit: (data: Object) => {},
     onDelete: (data: Object) => {},
     onSearch: (data: Object) => {},
     onRowSelection: (data: Object) => {},
+    dataBoundCallBack: () => {},
+    customFiltersFunction: (data: Object) => {},
     loading: false,
     showToolbar: true,
     toolBarOptions: [],
@@ -395,4 +517,5 @@ Table.defaultProps = {
         hierarchyMode: 'Both'
     },
     hiddenProperty: 'is_hidden'
+    // defaultFilter: 'equal'
 };

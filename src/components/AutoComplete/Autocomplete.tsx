@@ -1,7 +1,7 @@
-import { forwardRef } from 'react';
+import { forwardRef, useState } from 'react';
 
 import { TextField } from '../TextField';
-import { default as MUIAutocomplete } from '@mui/material/Autocomplete';
+import { default as MUIAutocomplete, createFilterOptions } from '@mui/material/Autocomplete';
 
 export type OptionType = {
     [index: string]: string | number;
@@ -10,37 +10,72 @@ export type OptionType = {
 export interface AutocompleteProps {
     id: string;
     label: string;
+    placeholder?: string;
     optionlabelkeyname: string;
     options: OptionType[];
     color?: 'error' | 'primary' | 'secondary' | 'info' | 'success' | 'warning';
     variant?: 'outlined' | 'filled' | 'standard';
-    onChange: (event: React.SyntheticEvent) => void;
+    onChange: (event: React.SyntheticEvent<Element, Event>) => void;
     freeSolo?: boolean;
     fieldSize?: 'small' | 'medium';
     multiple?: boolean;
     value?: string | OptionType | (string | OptionType)[] | null;
     defaultValue?: string | OptionType | (string | OptionType)[] | null;
-    onBlur?: (event: React.SyntheticEvent) => void;
+    onBlur?: (params: OptionType | string) => void;
     helperText?: string;
-    isError?: boolean;
+    error?: boolean;
+    onTextFieldChange?: (e: React.SyntheticEvent<Element, Event>) => void;
+    limitTags?: number;
 }
 
+const filter = createFilterOptions<OptionType>();
+
 export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivElement, AutocompleteProps>(
-    ({ id, label, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur, helperText, isError, ...props }, ref) => {
+    ({ id, label, placeholder, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur = () => {}, helperText, error, options, onTextFieldChange, limitTags, ...props }, ref) => {
+        const [state, setState] = useState<OptionType | string>();
         const handleOnChange = (event: any, newValue: string | OptionType | (string | OptionType)[] | null) => {
             onChange({ ...event, target: { ...event.target, value: newValue } });
         };
 
+        const filterOptions = (options: OptionType[], params: any) => {
+            let filteredOptions = filter(options, params);
+            if (typeof state === 'object') {
+                filteredOptions = options.filter((option) => option[optionlabelkeyname] === state[optionlabelkeyname]);
+            }
+
+            return filteredOptions;
+        };
+
         const handleFocusOut = (event: any) => {
-            if (onBlur) {
-                onBlur(event.target.value);
+            let customValue = event?.target?.value;
+            if (customValue) {
+                const result: OptionType[] = [];
+
+                for (let item of options) {
+                    if (typeof item[optionlabelkeyname] === 'number') {
+                        break;
+                    } else if (customValue.includes(item[optionlabelkeyname])) {
+                        result.push(item);
+                    }
+                }
+                setState(result[0]);
+                onBlur(result[0]);
             }
         };
+
+        const handleOnInputChange = (event: React.SyntheticEvent<Element, Event>, value: string) => {
+            setState(value);
+            if (onTextFieldChange) {
+                onTextFieldChange(event);
+            }
+        };
+
         return (
             <>
                 <MUIAutocomplete
                     fullWidth
                     {...props}
+                    options={options}
                     ref={ref}
                     id={id}
                     onBlur={handleFocusOut}
@@ -52,8 +87,13 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
 
                         return option;
                     }}
+                    limitTags={limitTags}
+                    filterOptions={filterOptions}
+                    onInputChange={handleOnInputChange}
                     freeSolo={freeSolo}
-                    renderInput={({ size, ...params }) => <TextField size={fieldSize} helperText={helperText} error={isError} {...params} variant={variant} color={color} label={label} />}
+                    renderInput={({ size, ...params }) => (
+                        <TextField size={fieldSize} helperText={helperText} error={error} {...params} variant={variant} color={color} label={label} placeholder={placeholder} />
+                    )}
                 />
             </>
         );
@@ -67,5 +107,5 @@ Autocomplete.defaultProps = {
     fieldSize: 'small',
     multiple: false,
     helperText: '',
-    isError: false
+    error: false
 };

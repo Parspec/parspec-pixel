@@ -31,10 +31,7 @@ import {
     VisibilityOffIcon,
     DeleteOutlineIcon,
     ControlPointDuplicateIcon,
-    RedirectIcon,
-    AnnotateIcon,
     SyncIcon,
-    AnnotateColoredIcon,
     FileDownloadOutlinedIcon,
     SyncProblemIcon,
     ContentCopyIcon,
@@ -44,39 +41,57 @@ import {
     ClockIcon,
     LanguageIcon,
     DatasheetSelectInfoIcon,
-    InfoIcon
+    InfoIcon,
+    ShareIcon,
+    NotificationsOffOutlinedIcon,
+    TableHeaderMenuIcon,
+    SignalCellular0BarIcon,
+    SignalCellular1BarIcon,
+    SignalCellular2BarIcon,
+    SignalCellular3BarIcon,
+    SignalCellular4BarIcon,
+    OpenInNewIcon,
+    WarningIcon,
+    ErrorIcon,
+    SadFaceIcon,
+    TroubleshootIcon
 } from './index';
 import { Grid } from '../Grid';
-import { Box } from '../Box';
+import { BodySmall } from '../Typography';
 
 export default {
     title: 'Icons',
-    component: SearchIcon
+    component: SearchIcon,
+    argTypes: {
+        color: {
+            options: ['primary', 'secondary', 'tertiary', 'neutral'],
+            control: { type: 'select' }
+        },
+        fontSize: {
+            options: ['xs', 'small', 'medium', 'large', 'xl', 'xxl'],
+            control: { type: 'select' }
+        }
+    }
 } as ComponentMeta<typeof SearchIcon>;
 
-const Template: ComponentStory<any> = (args) => {
-    return Array.isArray(args.icons) ? (
+export const MUIImportedIcons = ({ icons, fontSize, color }) => {
+    return (
         <Grid container>
-            {args.icons.map((element) => {
+            {icons.map((element) => {
                 return (
                     <Grid item xs={4} sm={3} md={2} gap={5} mb={12}>
                         <>
-                            <element.icon fontSize={args.fontSize} />
-                            <Box>{element.name}</Box>
+                            <element.icon fontSize={fontSize} color={color} />
+                            <BodySmall>{element.name}</BodySmall>
                         </>
                     </Grid>
                 );
             })}
         </Grid>
-    ) : (
-        <args.icons fontSize={args.fontSize} />
     );
 };
-
-export const AllIcons = Template.bind({});
-AllIcons.args = {
+MUIImportedIcons.args = {
     icons: [
-        { icon: ParspecLogoIcon, name: 'ParspecLogoIcon' },
         { icon: TrendingUpIcon, name: 'TrendingUpIcon' },
         { icon: SearchIcon, name: 'SearchIcon' },
         { icon: UnfoldMoreIcon, name: 'UnfoldMoreIcon' },
@@ -107,9 +122,6 @@ AllIcons.args = {
         { icon: VisibilityIcon, name: 'VisibilityIcon ' },
         { icon: FilterAltOffIcon, name: 'FilterAltOffIcon ' },
         { icon: SyncIcon, name: 'SyncIcon ' },
-        { icon: RedirectIcon, name: 'RedirectIcon' },
-        { icon: AnnotateIcon, name: 'AnnotateIcon' },
-        { icon: AnnotateColoredIcon, name: 'AnnotateColoredIcon' },
         { icon: FileDownloadOutlinedIcon, name: 'FileDownloadOutlinedIcon' },
         { icon: SyncProblemIcon, name: 'SyncProblemIcon' },
         { icon: ContentCopyIcon, name: 'ContentCopyIcon' },
@@ -117,16 +129,48 @@ AllIcons.args = {
         { icon: SyncIcon, name: 'SyncIcon' },
         { icon: DeleteIcon, name: 'DeleteIcon' },
         { icon: VisibilityOffOutlinedIcon, name: 'VisibilityOffOutlinedIcon' },
-        { icon: ClockIcon, name: 'ClockIcon' },
         { icon: LanguageIcon, name: 'LanguageIcon' },
-        { icon: DatasheetSelectInfoIcon, name: 'DatasheetSelectInfoIcon' },
-        { icon: InfoIcon, name: 'InfoIcon' }
+        { icon: InfoIcon, name: 'InfoIcon' },
+        { icon: ShareIcon, name: 'ShareIcon' },
+        { icon: NotificationsOffOutlinedIcon, name: 'NotificationsOffOutlinedIcon' },
+        { icon: SignalCellular0BarIcon, name: 'SignalCellular0BarIcon' },
+        { icon: SignalCellular1BarIcon, name: 'SignalCellular1BarIcon' },
+        { icon: SignalCellular2BarIcon, name: 'SignalCellular2BarIcon' },
+        { icon: SignalCellular3BarIcon, name: 'SignalCellular3BarIcon' },
+        { icon: SignalCellular4BarIcon, name: 'SignalCellular4BarIcon' },
+        { icon: OpenInNewIcon, name: 'OpenInNewIcon' },
+        { icon: WarningIcon, name: 'WarningIcon' },
+        { icon: ErrorIcon, name: 'ErroIcon' },
+        { icon: SadFaceIcon, name: 'SadFaceIcon' },
+        { icon: TroubleshootIcon, name: 'TroubleshootIcon' }
     ],
-    fontSize: 'medium'
+    fontSize: 'medium',
+    color: 'tertiary'
 };
 
-export const ParspecLogo = Template.bind({});
-ParspecLogo.args = {
-    icons: ParspecLogoIcon,
-    fontSize: 'large'
+export const SvgIcons = ({ icons, fontSize, color, fill, stroke }) => {
+    return (
+        <Grid container>
+            {icons.map((element) => {
+                return (
+                    <Grid item xs={4} sm={3} md={2} gap={5} mb={12}>
+                        <>
+                            <element.icon fontSize={fontSize} color={color} fill={fill} stroke={stroke} />
+                            <BodySmall>{element.name}</BodySmall>
+                        </>
+                    </Grid>
+                );
+            })}
+        </Grid>
+    );
+};
+SvgIcons.args = {
+    icons: [
+        { icon: ParspecLogoIcon, name: 'ParspecLogoIcon' },
+        { icon: ClockIcon, name: 'ClockIcon' },
+        { icon: DatasheetSelectInfoIcon, name: 'DatasheetSelectInfoIcon' },
+        { icon: TableHeaderMenuIcon, name: 'TableHeaderMenuIcon' }
+    ],
+    fontSize: 'xxl',
+    color: 'tertiary'
 };

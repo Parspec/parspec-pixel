@@ -9,7 +9,10 @@ const fileFormats = {
     '.docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     '.pdf': 'application/pdf',
     '.xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    '.xml': 'pplication/xml'
+    '.xml': 'application/xml',
+    '.csv': 'text/csv',
+    '.xls': 'application/vnd.ms-excel',
+    '.xlsm': 'application/vnd.ms-excel.sheet.macroEnabled.12'
 };
 const getAcceptedFormats = (formats) => {
     let acceptedFormats = {};

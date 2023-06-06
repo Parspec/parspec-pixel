@@ -2,7 +2,7 @@
 import { TreeGridExcelExportProperties, TreeGridPdfExportProperties, PageSettingsModel, EditSettingsModel, SearchSettingsModel } from '@syncfusion/ej2-react-treegrid';
 import './styles.css';
 import { FilterSettingsModel, SelectionSettingsModel } from '@syncfusion/ej2-grids';
-type ToolbarT = 'delete' | 'search' | 'clearFilters' | 'hide' | 'unhide' | 'selectedItems' | 'duplicate' | 'add';
+type ToolbarT = 'delete' | 'search' | 'clearFilters' | 'hide' | 'unhide' | 'selectedItems' | 'duplicate' | 'add' | 'save';
 export type ToolbarType = ToolbarT[];
 export interface TableProps {
     children: React.ReactNode;

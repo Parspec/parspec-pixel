@@ -12,15 +12,13 @@ interface SelectMenuOption {
 
 type ColorType = 'primary' | 'secondary' | 'tertiary' | 'info' | 'warning' | 'success' | 'error';
 
-export interface SelectProps extends Omit<MUISelectProps, 'classes' | 'label' | 'labelId' | 'input' | 'sx'> {
+export interface StatusSelectProps extends Omit<MUISelectProps, 'classes' | 'label' | 'labelId' | 'input' | 'sx'> {
     options: SelectMenuOption[];
     id?: string;
     optionLabelKeyname?: string;
     optionValueKeyname?: string;
     type?: ColorType;
 }
-
-export { SelectChangeEvent } from '@mui/material';
 
 interface FormControlProps extends MUIFormControlProps {
     colorType: ColorType;
@@ -76,7 +74,7 @@ const StyledMenuItem = styled(MenuItem)<StyledMenuItemProps>(({ theme, type }) =
     }
 }));
 
-export const StatusSelect = forwardRef<HTMLDivElement, SelectProps>(({ id, options, optionLabelKeyname = 'label', optionValueKeyname = 'value', type = 'primary', ...rest }, ref) => (
+export const StatusSelect = forwardRef<HTMLDivElement, StatusSelectProps>(({ id, options, optionLabelKeyname = 'label', optionValueKeyname = 'value', type = 'primary', ...rest }, ref) => (
     <StyledFormControl fullWidth ref={ref} colorType={type}>
         <MUISelect {...rest} size="small" id={id}>
             {options.map((item, index) => (

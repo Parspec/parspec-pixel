@@ -139,6 +139,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     }, [loading]);
 
     const actionComplete = (args: any) => {
+        //PageEventArgs | FilterEventArgs | SortEventArgs | SearchEventArgs | AddEventArgs | SaveEventArgs | EditEventArgs | DeleteEventArgs
         if (args?.type === 'save') {
             const field = args?.column?.field;
             const previousData = args?.previousData;

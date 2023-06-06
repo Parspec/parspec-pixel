@@ -59,7 +59,6 @@ const StyledFormControl = (0, styled_1.default)(FormControl_1.default, {
 const StyledMenuItem = (0, styled_1.default)(MenuItem_1.default)(({ theme, type }) => {
     var _a, _b;
     return ({
-        fontWeight: 500,
         fontSize: '12px',
         lineHeight: '16px',
         '&.Mui-selected': {

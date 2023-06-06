@@ -53,7 +53,6 @@ const StyledFormControl = styled(FormControl, {
 const StyledMenuItem = styled(MenuItem)(({ theme, type }) => {
     var _a, _b;
     return ({
-        fontWeight: 500,
         fontSize: '12px',
         lineHeight: '16px',
         '&.Mui-selected': {

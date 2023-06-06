@@ -46,7 +46,7 @@ const StyledFormControl = (0, styled_1.default)(FormControl_1.default, {
                 borderColor: bgColorValFromTheme
             }
         },
-        '& .MuiSelect-select': Object.assign(Object.assign({}, selectRootCss), { padding: '4px 24px 4px 8px' }),
+        '& .MuiSelect-select': Object.assign(Object.assign({}, selectRootCss), { padding: '4px 8px', paddingRight: '24px !important' }),
         '& .MuiSelect-select:hover': selectRootCss,
         '& .MuiSelect-icon': {
             color: colorValFromTheme,

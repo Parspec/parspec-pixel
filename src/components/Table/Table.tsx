@@ -20,15 +20,13 @@ import {
     SearchSettingsModel
 } from '@syncfusion/ej2-react-treegrid';
 import { addClass, isNullOrUndefined, registerLicense } from '@syncfusion/ej2-base';
-
 import './styles.css';
 import { Box } from '../Box';
 import { CheckBoxChangeEventArgs, FilterSettingsModel, getObject, HeaderCellInfoEventArgs, RowDeselectEventArgs, RowSelectEventArgs, SelectionSettingsModel } from '@syncfusion/ej2-grids';
-
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState, useMemo, useCallback } from 'react';
 import { TextField } from '../TextField';
 import { IconButton } from '../IconButton';
-import { CloseIcon, ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffIcon, FilterAltOffIcon, SearchIcon, AddIcon } from '../Icons';
+import { CloseIcon, ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffIcon, FilterAltOffIcon, SearchIcon, AddIcon, SaveAsIcon } from '../Icons';
 import { BodySmall } from '../Typography';
 import { Tooltip } from '../Tooltip';
 import { InputAdornment } from '../InputAdornment';
@@ -36,7 +34,7 @@ import { InputAdornment } from '../InputAdornment';
 const license = window.localStorage.getItem('syncfusionLicense');
 registerLicense(license!);
 
-type ToolbarT = 'delete' | 'search' | 'clearFilters' | 'hide' | 'unhide' | 'selectedItems' | 'duplicate' | 'add';
+type ToolbarT = 'delete' | 'search' | 'clearFilters' | 'hide' | 'unhide' | 'selectedItems' | 'duplicate' | 'add' | 'save';
 export type ToolbarType = ToolbarT[];
 export interface TableProps {
     children: React.ReactNode;
@@ -123,7 +121,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     const [selected, setSelectedForBanner] = useState(0);
 
     useEffect(() => {
-        let obj = (document.getElementsByClassName('e-grid')[0] as any)?.ej2_instances?.[0]?.localeObj?.localeStrings;
+        const obj = (document.getElementsByClassName('e-grid')[0] as any)?.ej2_instances?.[0]?.localeObj?.localeStrings;
         if (loading) {
             if (obj && obj?.EmptyRecord) {
                 obj.EmptyRecord = '';
@@ -139,10 +137,15 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         }
         // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     }, [loading]);
+
     const actionComplete = (args: any) => {
-        //PageEventArgs | FilterEventArgs | SortEventArgs | SearchEventArgs | AddEventArgs | SaveEventArgs | EditEventArgs | DeleteEventArgs
         if (args?.type === 'save') {
-            onEdit!(args);
+            const field = args?.column?.field;
+            const previousData = args?.previousData;
+            const newData = args?.data?.[field];
+            if (previousData !== newData) {
+                onEdit!(args);
+            }
         }
         if (args?.requestType === 'searching') {
             args.filteredRecords = tableRef?.current?.filterModule?.filteredResult;
@@ -324,6 +327,42 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     // const expanding = () => {
     //     tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     // };
+
+    const load = () => {
+        const instance = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];
+        if (instance != null) {
+            instance.element.addEventListener('mousedown', function (e: any) {
+                if (
+                    e.target.closest('td') !== null &&
+                    e.target.closest('td').classList.contains('e-rowcell') &&
+                    !e.target.classList.contains('e-treegridexpand') &&
+                    !e.target.classList.contains('e-treegridcollapse') &&
+                    e.target.closest('td').getAttribute('aria-colIndex') !== null
+                ) {
+                    const target = e.target.closest('td');
+                    if (instance.grid.isEdit && !target.classList.contains('e-editedbatchcell') && !document.getElementsByClassName('e-addedrow').length) {
+                        instance.grid.saveCell(); // calling saveCell method
+                    }
+                    if (!instance.grid.isEdit) {
+                        const index = parseInt(target.getAttribute('Index'));
+                        const colindex = parseInt(target.getAttribute('aria-colindex'));
+                        const field = instance.getColumns()[colindex - 1].field;
+                        setTimeout(function () {
+                            instance.editCell(index, field); // calling editCell method
+                        });
+                    }
+                }
+            });
+        }
+    };
+
+    const [editState, setEditState] = useState(false);
+    const cellEdit = () => {
+        setEditState(true);
+    };
+    const cellSaved = () => {
+        setEditState(false);
+    };
     return (
         <Box position={'relative'} height={'100%'} width={'100%'} ref={tableContainerRef}>
             {showToolbar && (
@@ -387,6 +426,15 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                                 </Box>
                             </Tooltip>
                         )}
+                        {toolBarOptions?.includes('save') && (
+                            <Tooltip title="Save">
+                                <Box>
+                                    <IconButton onClick={() => tableRef.current.endEdit()} disabled={!editState}>
+                                        <SaveAsIcon fontSize="medium" />
+                                    </IconButton>
+                                </Box>
+                            </Tooltip>
+                        )}
                         {toolBarOptions?.includes('clearFilters') && (
                             <Tooltip title="Clear Filter(s)">
                                 <IconButton onClick={() => tableRef.current.clearFiltering()}>
@@ -444,6 +492,9 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             checkboxChange={checkboxChange}
                             rowHeight={rowHeight}
                             {...(tableKey && { key: tableKey })}
+                            load={load}
+                            cellEdit={cellEdit}
+                            cellSave={cellSaved}
                         >
                             <ColumnsDirective>{children}</ColumnsDirective>
                             <Inject services={[Freeze, RowDD, Selection, Sort, Edit, Page, ExcelExport, PdfExport, Resize, Filter, ContextMenu]} />

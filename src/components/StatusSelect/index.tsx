@@ -63,7 +63,6 @@ interface StyledMenuItemProps extends MenuItemProps {
 }
 
 const StyledMenuItem = styled(MenuItem)<StyledMenuItemProps>(({ theme, type }) => ({
-    fontWeight: 500,
     fontSize: '12px',
     lineHeight: '16px',
     '&.Mui-selected': {

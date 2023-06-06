@@ -19,3 +19,11 @@ fileSelector.args = {
     onUpload: (data) => console.log('uploaded', data),
     borderColor: 'secondary'
 };
+
+export const fileSelectorWithColor: ComponentStory<typeof FileSelector> = (args) => (
+    <FileSelector {...args} url="https://hotfix-staging.parspec.xyz/api/generate_signed_url/" error="Wrong format" maxFiles={2} onUpload={(data) => console.log('uploaded', data)} />
+);
+
+fileSelectorWithColor.args = {
+    bgColor: 'tertiary.main'
+};

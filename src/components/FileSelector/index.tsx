@@ -30,6 +30,7 @@ interface FileSelectorProps {
     preSelectedFile?: FileSelectorFileType[] | File[];
     onDeleteFile?: () => void;
     isLoading?: boolean;
+    bgColor?: string;
 }
 
 export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
@@ -46,7 +47,8 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
             borderColor,
             preSelectedFile,
             onDeleteFile = () => {},
-            isLoading = false
+            isLoading = false,
+            bgColor
         },
         ref
     ) => {
@@ -131,7 +133,7 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                             <Box width={'100%'} textAlign="center">
                                 <BodySmall limit={false}>{placeholder}</BodySmall>
                             </Box>
-                            <Avatar>
+                            <Avatar sx={{ backgroundColor: bgColor }}>
                                 <UploadIcon />
                             </Avatar>
                             <BodySmall>Browse</BodySmall>
@@ -160,6 +162,6 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
 );
 
 FileSelector.defaultProps = {
-    borderColor: 'secondary'
-    // bgColor: 'primary.main'
+    borderColor: 'secondary',
+    bgColor: 'primary.main'
 };

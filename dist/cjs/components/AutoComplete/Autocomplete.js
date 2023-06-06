@@ -41,7 +41,7 @@ const TextField_1 = require("../TextField");
 const Autocomplete_1 = __importStar(require("@mui/material/Autocomplete"));
 const filter = (0, Autocomplete_1.createFilterOptions)();
 exports.Autocomplete = (0, react_1.forwardRef)((_a, ref) => {
-    var { id, label, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur, helperText, error, options, onTextFieldChange } = _a, props = __rest(_a, ["id", "label", "color", "variant", "onChange", "optionlabelkeyname", "freeSolo", "fieldSize", "onBlur", "helperText", "error", "options", "onTextFieldChange"]);
+    var { id, label, placeholder, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur = () => { }, helperText, error, options, onTextFieldChange, limitTags } = _a, props = __rest(_a, ["id", "label", "placeholder", "color", "variant", "onChange", "optionlabelkeyname", "freeSolo", "fieldSize", "onBlur", "helperText", "error", "options", "onTextFieldChange", "limitTags"]);
     const [state, setState] = (0, react_1.useState)();
     const handleOnChange = (event, newValue) => {
         onChange(Object.assign(Object.assign({}, event), { target: Object.assign(Object.assign({}, event.target), { value: newValue }) }));
@@ -54,14 +54,20 @@ exports.Autocomplete = (0, react_1.forwardRef)((_a, ref) => {
         return filteredOptions;
     };
     const handleFocusOut = (event) => {
-        if (onBlur) {
-            let result = options.filter((item) => typeof item[optionlabelkeyname] === 'string' ? item[optionlabelkeyname].toString().toLowerCase() : item[optionlabelkeyname] === event.target.value.toLowerCase());
-            if (!result.length) {
-                result = event.target.value;
+        var _a;
+        let customValue = (_a = event === null || event === void 0 ? void 0 : event.target) === null || _a === void 0 ? void 0 : _a.value;
+        if (customValue) {
+            const result = [];
+            for (let item of options) {
+                if (typeof item[optionlabelkeyname] === 'number') {
+                    break;
+                }
+                else if (customValue.includes(item[optionlabelkeyname])) {
+                    result.push(item);
+                }
             }
-            let _result = typeof result === 'object' ? result[0] : result;
-            setState(_result);
-            onBlur(_result);
+            setState(result[0]);
+            onBlur(result[0]);
         }
     };
     const handleOnInputChange = (event, value) => {
@@ -75,9 +81,9 @@ exports.Autocomplete = (0, react_1.forwardRef)((_a, ref) => {
                     return `${option[optionlabelkeyname]}`;
                 }
                 return option;
-            }, filterOptions: filterOptions, onInputChange: handleOnInputChange, freeSolo: freeSolo, renderInput: (_a) => {
+            }, limitTags: limitTags, filterOptions: filterOptions, onInputChange: handleOnInputChange, freeSolo: freeSolo, renderInput: (_a) => {
                 var { size } = _a, params = __rest(_a, ["size"]);
-                return (0, jsx_runtime_1.jsx)(TextField_1.TextField, Object.assign({ size: fieldSize, helperText: helperText, error: error }, params, { variant: variant, color: color, label: label }));
+                return ((0, jsx_runtime_1.jsx)(TextField_1.TextField, Object.assign({ size: fieldSize, helperText: helperText, error: error }, params, { variant: variant, color: color, label: label, placeholder: placeholder })));
             } })) }));
 });
 exports.Autocomplete.defaultProps = {

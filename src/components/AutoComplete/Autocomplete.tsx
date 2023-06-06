@@ -10,6 +10,7 @@ export type OptionType = {
 export interface AutocompleteProps {
     id: string;
     label: string;
+    placeholder?: string;
     optionlabelkeyname: string;
     options: OptionType[];
     color?: 'error' | 'primary' | 'secondary' | 'info' | 'success' | 'warning';
@@ -20,16 +21,17 @@ export interface AutocompleteProps {
     multiple?: boolean;
     value?: string | OptionType | (string | OptionType)[] | null;
     defaultValue?: string | OptionType | (string | OptionType)[] | null;
-    onBlur?: (event: any) => void;
+    onBlur?: (params: OptionType | string) => void;
     helperText?: string;
     error?: boolean;
     onTextFieldChange?: (e: React.SyntheticEvent<Element, Event>) => void;
+    limitTags?: number;
 }
 
 const filter = createFilterOptions<OptionType>();
 
 export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivElement, AutocompleteProps>(
-    ({ id, label, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur, helperText, error, options, onTextFieldChange, ...props }, ref) => {
+    ({ id, label, placeholder, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur = () => {}, helperText, error, options, onTextFieldChange, limitTags, ...props }, ref) => {
         const [state, setState] = useState<OptionType | string>();
         const handleOnChange = (event: any, newValue: string | OptionType | (string | OptionType)[] | null) => {
             onChange({ ...event, target: { ...event.target, value: newValue } });
@@ -45,16 +47,19 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
         };
 
         const handleFocusOut = (event: any) => {
-            if (onBlur) {
-                let result = options.filter((item) =>
-                    typeof item[optionlabelkeyname] === 'string' ? item[optionlabelkeyname].toString().toLowerCase() : item[optionlabelkeyname] === event.target.value.toLowerCase()
-                );
-                if (!result.length) {
-                    result = event.target.value;
+            let customValue = event?.target?.value;
+            if (customValue) {
+                const result: OptionType[] = [];
+
+                for (let item of options) {
+                    if (typeof item[optionlabelkeyname] === 'number') {
+                        break;
+                    } else if (customValue.includes(item[optionlabelkeyname])) {
+                        result.push(item);
+                    }
                 }
-                let _result = typeof result === 'object' ? result[0] : result;
-                setState(_result);
-                onBlur(_result);
+                setState(result[0]);
+                onBlur(result[0]);
             }
         };
 
@@ -82,10 +87,13 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
 
                         return option;
                     }}
+                    limitTags={limitTags}
                     filterOptions={filterOptions}
                     onInputChange={handleOnInputChange}
                     freeSolo={freeSolo}
-                    renderInput={({ size, ...params }) => <TextField size={fieldSize} helperText={helperText} error={error} {...params} variant={variant} color={color} label={label} />}
+                    renderInput={({ size, ...params }) => (
+                        <TextField size={fieldSize} helperText={helperText} error={error} {...params} variant={variant} color={color} label={label} placeholder={placeholder} />
+                    )}
                 />
             </>
         );

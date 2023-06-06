@@ -42,7 +42,8 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
         // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     }, [loading]);
     const actionComplete = (args) => {
-        var _a, _b;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
+        //PageEventArgs | FilterEventArgs | SortEventArgs | SearchEventArgs | AddEventArgs | SaveEventArgs | EditEventArgs | DeleteEventArgs
         if ((args === null || args === void 0 ? void 0 : args.type) === 'save') {
             const field = (_a = args === null || args === void 0 ? void 0 : args.column) === null || _a === void 0 ? void 0 : _a.field;
             const previousData = args === null || args === void 0 ? void 0 : args.previousData;
@@ -52,7 +53,14 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
             }
         }
         if ((args === null || args === void 0 ? void 0 : args.requestType) === 'searching') {
+            args.filteredRecords = (_d = (_c = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _c === void 0 ? void 0 : _c.filterModule) === null || _d === void 0 ? void 0 : _d.filteredResult;
             onSearch(args);
+        }
+        if (args.requestType === 'filterchoicerequest') {
+            if (!(0, ej2_base_1.isNullOrUndefined)((_g = (_f = (_e = args === null || args === void 0 ? void 0 : args.filterModel) === null || _e === void 0 ? void 0 : _e.dlg) === null || _f === void 0 ? void 0 : _f.querySelector('.e-checkboxlist')) === null || _g === void 0 ? void 0 : _g.children[1]) &&
+                ((_j = (_h = args === null || args === void 0 ? void 0 : args.filterModel) === null || _h === void 0 ? void 0 : _h.dlg) === null || _j === void 0 ? void 0 : _j.querySelector('.e-checkboxlist').children[1].innerText) == 'Add current selection to filter') {
+                (_k = args === null || args === void 0 ? void 0 : args.filterModel) === null || _k === void 0 ? void 0 : _k.dlg.querySelector('.e-checkboxlist').children[1].remove();
+            }
         }
         // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     };

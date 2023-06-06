@@ -139,6 +139,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     }, [loading]);
 
     const actionComplete = (args: any) => {
+        //PageEventArgs | FilterEventArgs | SortEventArgs | SearchEventArgs | AddEventArgs | SaveEventArgs | EditEventArgs | DeleteEventArgs
         if (args?.type === 'save') {
             const field = args?.column?.field;
             const previousData = args?.previousData;
@@ -148,7 +149,16 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
             }
         }
         if (args?.requestType === 'searching') {
+            args.filteredRecords = tableRef?.current?.filterModule?.filteredResult;
             onSearch!(args);
+        }
+        if (args.requestType === 'filterchoicerequest') {
+            if (
+                !isNullOrUndefined(args?.filterModel?.dlg?.querySelector('.e-checkboxlist')?.children[1]) &&
+                args?.filterModel?.dlg?.querySelector('.e-checkboxlist').children[1].innerText == 'Add current selection to filter'
+            ) {
+                args?.filterModel?.dlg.querySelector('.e-checkboxlist').children[1].remove();
+            }
         }
         // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     };

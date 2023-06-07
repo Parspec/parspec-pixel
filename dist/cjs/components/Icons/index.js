@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NotificationsOffOutlinedIcon = exports.ShareIcon = exports.InfoIcon = exports.LanguageIcon = exports.VisibilityOffOutlinedIcon = exports.DeeletIcon = exports.TuneIcon = exports.ContentCopyIcon = exports.SyncProblemIcon = exports.FileDownloadOutlinedIcon = exports.FilterAltOffIcon = exports.VisibilityIcon = exports.VisibilityOffIcon = exports.DeleteOutlineIcon = exports.ControlPointDuplicateIcon = exports.FormatListBulletedIcon = exports.ImageIcon = exports.DownloadIcon = exports.LinkIcon = exports.SyncIcon = exports.ViewArrayIcon = exports.ChangeHistoryIcon = exports.SwapHorizIcon = exports.CheckCircleIcon = exports.MoreVertIcon = exports.EditIcon = exports.RemoveIcon = exports.AddIcon = exports.PanToolIcon = exports.CheckCircleOutlineIcon = exports.ArrowDownwardIcon = exports.ArrowUpwardIcon = exports.ArrowCircleRightIcon = exports.ArrowCircleLeftIcon = exports.LastPageIcon = exports.FirstPageIcon = exports.KeyboardArrowRightIcon = exports.KeyboardArrowLeftIcon = exports.UnfoldMoreIcon = exports.UploadIcon = exports.DeleteIcon = exports.TrendingUpIcon = exports.SearchIcon = exports.DragIndicatorIcon = exports.CancelIcon = exports.CloseIcon = exports.TableHeaderMenuIcon = exports.DatasheetSelectInfoIcon = exports.ClockIcon = exports.ParspecLogoIcon = void 0;
-exports.TroubleshootIcon = exports.SaveAsIcon = exports.SadFaceIcon = exports.CropFreeIcon = exports.DocumentScannerIcon = exports.ErrorIcon = exports.WarningIcon = exports.OpenInNewIcon = exports.SignalCellular4BarIcon = exports.SignalCellular3BarIcon = exports.SignalCellular2BarIcon = exports.SignalCellular1BarIcon = exports.SignalCellular0BarIcon = void 0;
+exports.TroubleshootIcon = exports.SadFaceIcon = exports.CropFreeIcon = exports.DocumentScannerIcon = exports.ErrorIcon = exports.WarningIcon = exports.OpenInNewIcon = exports.SignalCellular4BarIcon = exports.SignalCellular3BarIcon = exports.SignalCellular2BarIcon = exports.SignalCellular1BarIcon = exports.SignalCellular0BarIcon = void 0;
 var ParspecLogoIcon_1 = require("./SvgIcons/ParspecLogoIcon");
 Object.defineProperty(exports, "ParspecLogoIcon", { enumerable: true, get: function () { return ParspecLogoIcon_1.ParspecLogoIcon; } });
 var ClockIcon_1 = require("./SvgIcons/ClockIcon");
@@ -68,6 +68,5 @@ Object.defineProperty(exports, "ErrorIcon", { enumerable: true, get: function ()
 Object.defineProperty(exports, "DocumentScannerIcon", { enumerable: true, get: function () { return icons_material_1.DocumentScanner; } });
 Object.defineProperty(exports, "CropFreeIcon", { enumerable: true, get: function () { return icons_material_1.CropFree; } });
 Object.defineProperty(exports, "SadFaceIcon", { enumerable: true, get: function () { return icons_material_1.SentimentVeryDissatisfied; } });
-Object.defineProperty(exports, "SaveAsIcon", { enumerable: true, get: function () { return icons_material_1.SaveAs; } });
 Object.defineProperty(exports, "TroubleshootIcon", { enumerable: true, get: function () { return icons_material_1.Troubleshoot; } });
 //# sourceMappingURL=index.js.map

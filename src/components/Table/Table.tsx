@@ -155,11 +155,13 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     }, [loading]);
 
-    const actionComplete = (args: PageEventArgs | FilterEventArgs | SortEventArgs | SearchEventArgs | AddEventArgs | SaveEventArgs | EditEventArgs | DeleteEventArgs) => {
+    const actionComplete = (args: any) => {
+        //PageEventArgs | FilterEventArgs | SortEventArgs | SearchEventArgs | AddEventArgs | SaveEventArgs | EditEventArgs | DeleteEventArgs
         if (args?.type === 'save') {
             onEdit!(args);
         }
         if (args?.requestType === 'searching') {
+            args.filteredRecords = tableRef?.current?.filterModule?.filteredResult;
             onSearch!(args);
         }
         // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });

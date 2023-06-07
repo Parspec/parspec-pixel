@@ -39,10 +39,13 @@ export const Table = forwardRef((props, ref) => {
         // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     }, [loading]);
     const actionComplete = (args) => {
+        var _a, _b;
+        //PageEventArgs | FilterEventArgs | SortEventArgs | SearchEventArgs | AddEventArgs | SaveEventArgs | EditEventArgs | DeleteEventArgs
         if ((args === null || args === void 0 ? void 0 : args.type) === 'save') {
             onEdit(args);
         }
         if ((args === null || args === void 0 ? void 0 : args.requestType) === 'searching') {
+            args.filteredRecords = (_b = (_a = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _a === void 0 ? void 0 : _a.filterModule) === null || _b === void 0 ? void 0 : _b.filteredResult;
             onSearch(args);
         }
         // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });

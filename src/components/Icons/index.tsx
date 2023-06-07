@@ -60,5 +60,6 @@ export {
     DocumentScanner as DocumentScannerIcon,
     CropFree as CropFreeIcon,
     SentimentVeryDissatisfied as SadFaceIcon,
-    Troubleshoot as TroubleshootIcon
+    Troubleshoot as TroubleshootIcon,
+    PlagiarismOutlined as PlagiarismOutlinedIcon
 } from '@mui/icons-material';

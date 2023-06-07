@@ -14,12 +14,7 @@ import { default as MUICheckbox } from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 export const Checkbox = (_a) => {
     var { label } = _a, rest = __rest(_a, ["label"]);
-    return (_jsx(FormControlLabel, { control: _jsx(MUICheckbox, Object.assign({ sx: {
-                padding: 0,
-                backgroundColor: 'white',
-                borderRadius: 0,
-                '&:hover': { bgcolor: 'white' }
-            } }, rest)), label: label }));
+    return _jsx(FormControlLabel, { control: _jsx(MUICheckbox, Object.assign({}, rest)), label: label });
 };
 Checkbox.defaultProps = {
     size: 'small'

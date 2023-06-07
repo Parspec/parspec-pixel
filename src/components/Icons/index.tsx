@@ -61,5 +61,7 @@ export {
     CropFree as CropFreeIcon,
     SentimentVeryDissatisfied as SadFaceIcon,
     Troubleshoot as TroubleshootIcon,
-    PlagiarismOutlined as PlagiarismOutlinedIcon
+    PlagiarismOutlined as PlagiarismOutlinedIcon,
+    Lock as LockIcon,
+    LockOpen as LockOpenIcon
 } from '@mui/icons-material';

@@ -32,7 +32,7 @@ const react_1 = __importStar(require("react"));
 const material_1 = require("@mui/material");
 const MenuItem_1 = __importDefault(require("@mui/material/MenuItem"));
 const Icons_1 = require("../Icons");
-const Menu = ({ options, children }) => {
+const Menu = ({ options, children, anchorOrigin, transformOrigin }) => {
     const [anchorEl, setAnchorEl] = (0, react_1.useState)(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -41,10 +41,20 @@ const Menu = ({ options, children }) => {
     const handleClose = () => {
         setAnchorEl(null);
     };
-    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [children ? (react_1.default.cloneElement(children, { onClick: handleClick })) : ((0, jsx_runtime_1.jsx)(material_1.IconButton, Object.assign({ onClick: handleClick }, { children: (0, jsx_runtime_1.jsx)(Icons_1.MoreVertIcon, {}) }))), (0, jsx_runtime_1.jsx)(material_1.Menu, Object.assign({ id: "basic-menu", anchorEl: anchorEl, open: open, onClose: handleClose }, { children: options.map(({ label, onClick, color }) => ((0, jsx_runtime_1.jsx)(MenuItem_1.default, Object.assign({ sx: Object.assign({}, (color && { color })), onClick: () => {
+    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [children ? (react_1.default.cloneElement(children, { onClick: handleClick })) : ((0, jsx_runtime_1.jsx)(material_1.IconButton, Object.assign({ onClick: handleClick }, { children: (0, jsx_runtime_1.jsx)(Icons_1.MoreVertIcon, {}) }))), (0, jsx_runtime_1.jsx)(material_1.Menu, Object.assign({ id: "basic-menu", anchorEl: anchorEl, open: open, onClose: handleClose, transformOrigin: transformOrigin, anchorOrigin: anchorOrigin }, { children: options.map(({ label, onClick, color }) => ((0, jsx_runtime_1.jsx)(MenuItem_1.default, Object.assign({ sx: Object.assign({}, (color && { color })), onClick: () => {
                         onClick();
                         handleClose();
                     } }, { children: label }), label))) }))] }));
 };
 exports.Menu = Menu;
+exports.Menu.defaultProps = {
+    anchorOrigin: {
+        vertical: 'bottom',
+        horizontal: 'left'
+    },
+    transformOrigin: {
+        vertical: 'top',
+        horizontal: 'left'
+    }
+};
 //# sourceMappingURL=index.js.map

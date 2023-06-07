@@ -1,20 +1,3 @@
-// import React from 'react';
-// import { ComponentStory, ComponentMeta } from '@storybook/react';
-
-// import { Radio } from './';
-
-// export default {
-//     title: 'Radio',
-//     component: Radio,
-//     argTypes: { onChange: { action: 'onChange' } }
-// } as ComponentMeta<typeof Radio>;
-
-// export const Basic: ComponentStory<typeof Radio> = (args) => <Radio {...args} />;
-
-// Basic.args = {
-//     size: 'small'
-// };
-
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
@@ -29,9 +12,32 @@ export default {
 export const Basic: ComponentStory<typeof Slider> = (args) => <Slider {...args} />;
 
 Basic.args = {
-    // color: 'tertiary.main',
     size: 'small',
-    defaultValue: 70,
+    defaultValue: 50,
     name: 'slider',
     onChange: (event) => console.log(event.target)
+};
+
+export const RangeSlider: ComponentStory<typeof Slider> = (args) => <Slider {...args} />;
+
+RangeSlider.args = {
+    size: 'small',
+    defaultValue: [10, 60],
+    min: 0,
+    max: 100,
+    name: 'slider',
+    onChange: (event) => console.log(event.target)
+};
+
+export const StepRangeSlider: ComponentStory<typeof Slider> = (args) => <Slider {...args} />;
+
+StepRangeSlider.args = {
+    size: 'small',
+    defaultValue: [20, 60],
+    name: 'slider',
+    onChange: (event) => console.log(event.target),
+    step: 10,
+    marks: true,
+    min: 0,
+    max: 100
 };

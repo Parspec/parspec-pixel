@@ -1,29 +1,32 @@
-// import { default as MUIRadio, RadioProps as MUIRadioProps } from '@mui/material/Radio';
-
-// export interface RadioProps extends Omit<MUIRadioProps, 'classes' | 'sx' | 'color' | 'size'> {
-//     color?: 'primary' | 'secondary' | 'tertiary';
-//     size: 'small' | 'medium';
-// }
-
-// export const Radio: React.FC<RadioProps> = (props) => {
-//     return <MUIRadio {...props} />;
-// };
-
-// Radio.defaultProps = {
-//     size: 'small'
-// };
-
+import { forwardRef } from 'react';
 import { default as MUISlider, SliderProps as MUISliderProps } from '@mui/material/Slider';
 
-export interface SliderProps extends Omit<MUISliderProps, 'classes'> {
-    // color?: 'primary' | 'secondary' | 'tertiary';
-    size: 'small' | 'medium';
+export interface mark {
+    value: number;
+    label: string | number;
 }
 
-export const Slider: React.FC<SliderProps> = (props) => {
-    return <MUISlider {...props} />;
-};
+export interface SliderProps extends Omit<MUISliderProps, 'classes'> {
+    value: number | [number, number];
+    size?: 'small' | 'medium';
+    step?: number;
+    min: number;
+    max: number;
+    color: 'primary' | 'secondary' | 'tertiary' | 'neutral';
+    marks?: boolean | mark[];
+    disabled?: boolean;
+    disableSwap?: boolean;
+}
+
+export const Slider = forwardRef<HTMLButtonElement, SliderProps>(({ size, step, min, max, color, marks, disabled, disableSwap, ...rest }, ref) => {
+    return <MUISlider ref={ref} size={size} marks={marks} step={step} min={min} max={max} color={color} disabled={disabled} disableSwap={disableSwap} {...rest} />;
+});
 
 Slider.defaultProps = {
-    size: 'small'
+    size: 'small',
+    color: 'primary',
+    disabled: false,
+    min: 0,
+    max: 100,
+    disableSwap: true
 };

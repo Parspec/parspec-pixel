@@ -21,7 +21,7 @@ const Link_1 = require("../Link");
 const skeleton_1 = require("../skeleton");
 const Typography_1 = require("../Typography");
 const Box_1 = require("../Box");
-const MUIBreadCrumbText = (props) => ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ maxWidth: "40ch" }, { children: (0, jsx_runtime_1.jsx)(Typography_1.BodyXS, Object.assign({}, props, { limit: true, lines: 1 })) })));
+const MUIBreadCrumbText = (props) => ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ maxWidth: "160px" }, { children: (0, jsx_runtime_1.jsx)(Typography_1.BodyXS, Object.assign({}, props, { limit: true, lines: 1 })) })));
 const Breadcrumb = (_a) => {
     var { options, component, isLoading = false } = _a, rest = __rest(_a, ["options", "component", "isLoading"]);
     return ((0, jsx_runtime_1.jsx)(Breadcrumbs_1.default, Object.assign({ separator: ">" }, rest, { children: options.map((item, index) => {

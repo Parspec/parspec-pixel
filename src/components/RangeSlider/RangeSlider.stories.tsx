@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { RangeSlider } from './';
+import { RangeSlider } from './RangeSlider';
 
 export default {
     title: 'Range Slider',
@@ -10,7 +10,7 @@ export default {
 } as ComponentMeta<typeof RangeSlider>;
 
 export const Basic: ComponentStory<typeof RangeSlider> = (args) => {
-    const [rangeValue, setRangeValue] = useState<[number, number]>([41, 22]);
+    const [rangeValue, setRangeValue] = useState<[number, number]>([22, 45]);
 
     const changeHandler = (data: [number, number]) => {
         console.log(data);

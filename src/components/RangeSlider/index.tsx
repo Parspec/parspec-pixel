@@ -7,7 +7,6 @@ import { mark } from '../Slider';
 
 interface RangeSliderProps {
     value: [number, number];
-    setValue?: (data: any) => void;
     min: number;
     max: number;
     size?: 'small' | 'medium';
@@ -23,7 +22,7 @@ interface RangeSliderProps {
 }
 
 export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, ref) => {
-    const { value, setValue, size, step, marks, min, max, color, headerTitle, disabled, textfieldWidth, textfieldHeight, onChange: onRangeChange, disableSwap } = props;
+    const { value, size, step, marks, min, max, color, headerTitle, disabled, textfieldWidth, textfieldHeight, onChange: onRangeChange, disableSwap } = props;
 
     const [currThumbValue, setCurrThumbValue] = useState({ smallerThumb: value[0], greaterThumb: value[1] });
 
@@ -64,10 +63,8 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
     }
 
     useEffect(() => {
-        console.log('useeffect');
         const adjustedValues = adjustValues(value, min, max);
         setCurrThumbValue(() => ({ ...currThumbValue, smallerThumb: adjustedValues[0], greaterThumb: adjustedValues[1] }));
-        setValue?.(() => adjustedValues);
     }, []);
 
     const changeHandler = (event: any) => {
@@ -137,7 +134,19 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
                 </Box>
 
                 <Box pl={4} pr={4} width={1}>
-                    <Slider value={value} min={min} max={max} color={color} size={size} marks={marks} step={step} onChange={changeHandler} disabled={disabled} disableSwap={disableSwap} />
+                    <Slider
+                        value={[currThumbValue.smallerThumb, currThumbValue.greaterThumb]}
+                        // value={value}
+                        min={min}
+                        max={max}
+                        color={color}
+                        size={size}
+                        marks={marks}
+                        step={step}
+                        onChange={changeHandler}
+                        disabled={disabled}
+                        disableSwap={disableSwap}
+                    />
                 </Box>
 
                 <Box width={textfieldWidth ? textfieldWidth : 64} height={textfieldHeight ? textfieldHeight : 36}>

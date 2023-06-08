@@ -94,3 +94,10 @@ declare module '@mui/material/SvgIcon' {
         neutral: true;
     }
 }
+
+declare module '@mui/material/Pagination' {
+    interface PaginationPropsColorOverrides {
+        tertiary: true;
+        neutral: true;
+    }
+}

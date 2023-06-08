@@ -17,7 +17,7 @@ export const Basic: ComponentStory<typeof Pagination> = (args) => {
         console.log(pageValue);
     };
     return (
-        <Box width={500}>
+        <Box>
             <BodyXS mb={4}>Page number: {page}</BodyXS>
             <Pagination {...args} onChange={handleChange} page={page} />
         </Box>

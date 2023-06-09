@@ -309,24 +309,27 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
 
     const [tableHeight, setTableHeight] = useState<number>();
     const tableNodeObserverRef = useRef<ResizeObserver | null>(null);
-    const tableContainerRef = useCallback((node: HTMLDivElement) => {
-        if (node !== null) {
-            const nodeHeightSetter = () => {
-                const toolbarHeight = showToolbar && toolbarContainerRef?.current ? toolbarContainerRef?.current?.offsetHeight : 0;
-                const paginationHeight = allowPaging ? 47 : 0;
-                const tableHeader = 42 + 10;
-                if (node.offsetHeight) {
-                    setTableHeight(node.offsetHeight - toolbarHeight - paginationHeight - tableHeader);
-                }
-            };
-            tableNodeObserverRef.current = new ResizeObserver(nodeHeightSetter);
-            tableNodeObserverRef.current?.observe(node);
-            nodeHeightSetter();
-        } else if (tableNodeObserverRef.current) {
-            tableNodeObserverRef.current.disconnect();
-        }
-        // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
-    }, []);
+    const tableContainerRef = useCallback(
+        (node: HTMLDivElement) => {
+            if (node !== null) {
+                const nodeHeightSetter = () => {
+                    const toolbarHeight = showToolbar && toolbarContainerRef?.current ? toolbarContainerRef?.current?.offsetHeight : 0;
+                    const paginationHeight = allowPaging ? 47 : 0;
+                    const tableHeader = 42 + 10;
+                    if (node.offsetHeight) {
+                        setTableHeight(node.offsetHeight - toolbarHeight - paginationHeight - tableHeader);
+                    }
+                };
+                tableNodeObserverRef.current = new ResizeObserver(nodeHeightSetter);
+                tableNodeObserverRef.current?.observe(node);
+                nodeHeightSetter();
+            } else if (tableNodeObserverRef.current) {
+                tableNodeObserverRef.current.disconnect();
+            }
+            // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
+        },
+        [showToolbar]
+    );
     const toolbarContainerRef = useRef<any>();
 
     // const resizestart = () => {

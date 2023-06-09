@@ -217,7 +217,7 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
             tableNodeObserverRef.current.disconnect();
         }
         // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
-    }, []);
+    }, [showToolbar]);
     const toolbarContainerRef = (0, react_1.useRef)();
     // const resizestart = () => {
     //     tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });

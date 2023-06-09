@@ -5,6 +5,8 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl, { FormControlProps as MUIFormControlProps } from '@mui/material/FormControl';
 import { default as MUISelect, SelectProps as MUISelectProps } from '@mui/material/Select';
 import styled from '@mui/material/styles/styled';
+import { Box } from '../Box';
+import { BodyXS } from '../Typography';
 
 interface SelectMenuOption {
     [index: string]: string | number;
@@ -20,6 +22,7 @@ export interface SelectProps extends Omit<MUISelectProps, 'classes'> {
     optionLabelKeyname?: string;
     optionValueKeyname?: string;
     borderColor?: BorderColorType;
+    helperText?: string;
 }
 
 export { SelectChangeEvent } from '@mui/material';
@@ -55,18 +58,25 @@ const StyledFormControl = styled(FormControl, {
     };
 });
 
-export const Select = forwardRef<HTMLDivElement, SelectProps>(({ id, labelId, options, size, label, optionLabelKeyname = 'label', optionValueKeyname = 'value', borderColor, ...rest }, ref) => (
-    <StyledFormControl fullWidth ref={ref} size={size} borderColor={borderColor}>
-        <InputLabel id={labelId}>{label}</InputLabel>
-        <MUISelect {...rest} labelId={labelId} label={label} id={id}>
-            {options.map((item, index) => (
-                <MenuItem key={index} value={item[optionValueKeyname]}>
-                    {item[optionLabelKeyname]}
-                </MenuItem>
-            ))}
-        </MUISelect>
-    </StyledFormControl>
-));
+export const Select = forwardRef<HTMLDivElement, SelectProps>(
+    ({ id, labelId, options, size, label, optionLabelKeyname = 'label', optionValueKeyname = 'value', borderColor, helperText, ...rest }, ref) => (
+        <StyledFormControl fullWidth ref={ref} size={size} borderColor={borderColor}>
+            <InputLabel id={labelId}>{label}</InputLabel>
+            <MUISelect {...rest} labelId={labelId} label={label} id={id}>
+                {options.map((item, index) => (
+                    <MenuItem key={index} value={item[optionValueKeyname]}>
+                        {item[optionLabelKeyname]}
+                    </MenuItem>
+                ))}
+            </MUISelect>
+            <Box>
+                <BodyXS mt={1} color="error">
+                    {helperText}
+                </BodyXS>
+            </Box>
+        </StyledFormControl>
+    )
+);
 
 Select.defaultProps = {
     label: 'Select',

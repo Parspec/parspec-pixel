@@ -200,7 +200,7 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
     const tableContainerRef = (0, react_1.useCallback)((node) => {
         var _a;
         if (node !== null) {
-            tableNodeObserverRef.current = new ResizeObserver(() => {
+            const nodeHeightSetter = () => {
                 var _a;
                 const toolbarHeight = showToolbar && (toolbarContainerRef === null || toolbarContainerRef === void 0 ? void 0 : toolbarContainerRef.current) ? (_a = toolbarContainerRef === null || toolbarContainerRef === void 0 ? void 0 : toolbarContainerRef.current) === null || _a === void 0 ? void 0 : _a.offsetHeight : 0;
                 const paginationHeight = allowPaging ? 47 : 0;
@@ -208,8 +208,10 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
                 if (node.offsetHeight) {
                     setTableHeight(node.offsetHeight - toolbarHeight - paginationHeight - tableHeader);
                 }
-            });
+            };
+            tableNodeObserverRef.current = new ResizeObserver(nodeHeightSetter);
             (_a = tableNodeObserverRef.current) === null || _a === void 0 ? void 0 : _a.observe(node);
+            nodeHeightSetter();
         }
         else if (tableNodeObserverRef.current) {
             tableNodeObserverRef.current.disconnect();

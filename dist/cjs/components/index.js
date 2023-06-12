@@ -49,4 +49,6 @@ __exportStar(require("./FormControl"), exports);
 __exportStar(require("./Info"), exports);
 __exportStar(require("./Status"), exports);
 __exportStar(require("./StatusSelect"), exports);
+__exportStar(require("./Slider"), exports);
+__exportStar(require("./RangeSlider"), exports);
 //# sourceMappingURL=index.js.map

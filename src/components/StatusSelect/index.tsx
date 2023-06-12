@@ -4,6 +4,7 @@ import MenuItem, { MenuItemProps } from '@mui/material/MenuItem';
 import FormControl, { FormControlProps as MUIFormControlProps } from '@mui/material/FormControl';
 import { default as MUISelect, SelectProps as MUISelectProps } from '@mui/material/Select';
 import styled from '@mui/material/styles/styled';
+import { Box, InputLabel } from '@mui/material';
 
 interface SelectMenuOption {
     [index: string]: string | number | ColorType;
@@ -18,6 +19,8 @@ export interface StatusSelectProps extends Omit<MUISelectProps, 'classes' | 'lab
     optionValueKeyname?: string;
     optionColorKeyName?: string;
     type?: ColorType;
+    label?: String;
+    labelId?: string;
 }
 
 interface FormControlProps extends MUIFormControlProps {
@@ -31,26 +34,23 @@ const StyledFormControl = styled(FormControl, {
 })<FormControlProps>(({ theme, colorType }) => {
     const bgColorValFromTheme = theme.palette?.[colorType]?.light;
     const colorValFromTheme = theme.palette?.[colorType]?.main;
-    const selectRootCss = { backgroundColor: bgColorValFromTheme, color: colorValFromTheme };
+
     return {
         '& .MuiOutlinedInput-root': {
-            fontWeight: 500,
+            fontWeight: 'bold',
             fontSize: '12px',
-            lineHeight: '16px',
-            '& fieldset': {
-                borderColor: bgColorValFromTheme
-            },
-            '&:hover fieldset': {
-                borderColor: bgColorValFromTheme
-            },
-            '&.Mui-focused fieldset': {
-                borderColor: bgColorValFromTheme
+            lineHeight: '16px'
+        },
+        '& .MuiSelect-select': {
+            '& .optionLabel': {
+                maxWidth: '12%',
+                display: 'flex',
+                justifyContent: 'center',
+                backgroundColor: bgColorValFromTheme,
+                color: colorValFromTheme
             }
         },
-        '& .MuiSelect-select': { ...selectRootCss, padding: '4px 8px', paddingRight: '24px !important' },
-        '& .MuiSelect-select:hover': selectRootCss,
         '& .MuiSelect-icon': {
-            color: colorValFromTheme,
             width: '16px',
             height: '16px',
             top: 'calc(50% - 0.35em)'
@@ -65,11 +65,13 @@ interface StyledMenuItemProps extends MenuItemProps {
 const StyledMenuItem = styled(MenuItem)<StyledMenuItemProps>(({ theme, type }) => ({
     fontSize: '12px',
     lineHeight: '16px',
-    backgroundColor: theme.palette?.[type].light,
     color: theme.palette?.[type].dark,
+    '& .optionLabel': {
+        backgroundColor: theme.palette?.[type].light
+    },
     '&.Mui-selected': {
         backgroundColor: theme.palette?.[type].light,
-        color: theme.palette?.[type].main
+        color: theme.palette?.[type].dark
     },
     '&.Mui-selected:hover, &.MuiMenuItem-root:hover': {
         backgroundColor: theme.palette?.neutral.light,
@@ -78,18 +80,21 @@ const StyledMenuItem = styled(MenuItem)<StyledMenuItemProps>(({ theme, type }) =
 }));
 
 const getFormControlColorType = (value: unknown, options: SelectMenuOption[]) => {
-    const selectedOption = options.find((option: SelectMenuOption) => option.value == value);
+    const selectedOption = options?.find((option: SelectMenuOption) => option.value == value);
 
     return selectedOption?.type as ColorType;
 };
 
 export const StatusSelect = forwardRef<HTMLDivElement, StatusSelectProps>(
-    ({ id, options, optionLabelKeyname = 'label', optionValueKeyname = 'value', type = 'primary', optionColorKeyName = 'type', value, ...rest }, ref) => (
-        <StyledFormControl fullWidth ref={ref} colorType={getFormControlColorType(value, options)}>
-            <MUISelect {...rest} size="small" id={id} value={value}>
+    ({ id, options, optionLabelKeyname = 'label', optionValueKeyname = 'value', type = 'primary', optionColorKeyName = 'type', value, label, labelId, size = 'small', ...rest }, ref) => (
+        <StyledFormControl fullWidth ref={ref} size={size} colorType={getFormControlColorType(value, options)}>
+            <InputLabel id={labelId}>{label}</InputLabel>
+            <MUISelect {...rest} id={id} value={value} label={label} labelId={labelId}>
                 {options.map((item, index) => (
                     <StyledMenuItem key={index} value={item[optionValueKeyname]} type={item[optionColorKeyName] as ColorType}>
-                        {item[optionLabelKeyname]}
+                        <Box pr={2} pl={2} pt={1} pb={1} borderRadius={1} className="optionLabel">
+                            {item[optionLabelKeyname]}
+                        </Box>
                     </StyledMenuItem>
                 ))}
             </MUISelect>

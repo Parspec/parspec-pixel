@@ -24,9 +24,9 @@ export const Basic: ComponentStory<typeof StatusSelect> = (args) => {
 };
 
 const options = [
-    { value: 10, label: 'Ten' },
-    { value: 20, label: 'Twenty' },
-    { value: 30, label: 'Thirty' }
+    { value: 10, label: 'Ten', type: 'primary' },
+    { value: 20, label: 'Twenty', type: 'success' },
+    { value: 30, label: 'Thirty', type: 'tertiary' }
 ];
 
 Basic.args = {

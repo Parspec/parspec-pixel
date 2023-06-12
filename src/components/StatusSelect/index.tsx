@@ -37,13 +37,12 @@ const StyledFormControl = styled(FormControl, {
 
     return {
         '& .MuiOutlinedInput-root': {
-            fontWeight: 'bold',
+            fontWeight: 400,
             fontSize: '12px',
             lineHeight: '16px'
         },
         '& .MuiSelect-select': {
             '& .optionLabel': {
-                maxWidth: '12%',
                 display: 'flex',
                 justifyContent: 'center',
                 backgroundColor: bgColorValFromTheme,

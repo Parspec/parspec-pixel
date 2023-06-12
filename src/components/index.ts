@@ -33,3 +33,5 @@ export * from './FormControl';
 export * from './Info';
 export * from './Status';
 export * from './StatusSelect';
+export * from './Slider';
+export * from './RangeSlider';

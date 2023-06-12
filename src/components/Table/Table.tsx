@@ -165,6 +165,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     };
 
+    let multiSelectFilterVal: any = [];
     const actionBegin = (e: any) => {
         if (e.requestType === 'filtering' && !isNullOrUndefined(e.currentFilterObject) && isNullOrUndefined(e?.currentFilterObject?.value)) {
             e.cancel = true;
@@ -175,6 +176,11 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         }
         if (e.type === 'edit') {
             e.cell.getElementsByTagName('input')[0].setAttribute('maxLength', 255);
+        }
+
+        if (e.action === 'clearFilter') {
+            //After clearing the filter we empty the value
+            multiSelectFilterVal = [];
         }
     };
 
@@ -277,10 +283,20 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
             setSelectedForBanner(() => 0);
             onCheckboxChange!([]);
         };
+        const clearFiltering = () => {
+            tableRef.current.clearFiltering();
+        };
+        const setMultiSelectVal = (val: any) => {
+            multiSelectFilterVal = val;
+        };
+        const getMultiSelectVal = () => multiSelectFilterVal;
         return {
             clearSelection,
             setSelectedForBanner,
-            scrollTo
+            scrollTo,
+            clearFiltering,
+            setMultiSelectVal,
+            getMultiSelectVal
         };
     });
 

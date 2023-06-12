@@ -73,8 +73,7 @@ const StyledMenuItem = styled(MenuItem)<StyledMenuItemProps>(({ theme, type }) =
         color: theme.palette?.[type].dark
     },
     '&.Mui-selected:hover, &.MuiMenuItem-root:hover': {
-        backgroundColor: theme.palette?.neutral.light,
-        color: theme.palette?.neutral.dark
+        backgroundColor: theme.palette?.neutral.light
     }
 }));
 

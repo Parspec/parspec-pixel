@@ -47,6 +47,7 @@ export const Table = forwardRef((props, ref) => {
         }
         // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     };
+    let multiSelectFilterVal = [];
     const actionBegin = (e) => {
         var _a;
         if (e.requestType === 'filtering' && !isNullOrUndefined(e.currentFilterObject) && isNullOrUndefined((_a = e === null || e === void 0 ? void 0 : e.currentFilterObject) === null || _a === void 0 ? void 0 : _a.value)) {
@@ -57,6 +58,10 @@ export const Table = forwardRef((props, ref) => {
         }
         if (e.type === 'edit') {
             e.cell.getElementsByTagName('input')[0].setAttribute('maxLength', 255);
+        }
+        if (e.action === 'clearFilter') {
+            //After clearing the filter we empty the value
+            multiSelectFilterVal = [];
         }
     };
     const rowDrop = (args) => {
@@ -164,10 +169,20 @@ export const Table = forwardRef((props, ref) => {
             setSelectedForBanner(() => 0);
             onCheckboxChange([]);
         };
+        const clearFiltering = () => {
+            tableRef.current.clearFiltering();
+        };
+        const setMultiSelectVal = (val) => {
+            multiSelectFilterVal = val;
+        };
+        const getMultiSelectVal = () => multiSelectFilterVal;
         return {
             clearSelection,
             setSelectedForBanner,
-            scrollTo
+            scrollTo,
+            clearFiltering,
+            setMultiSelectVal,
+            getMultiSelectVal
         };
     });
     const closeBanner = () => {

@@ -17,8 +17,8 @@ const filter = createFilterOptions();
 export const Autocomplete = forwardRef((_a, ref) => {
     var { id, label, placeholder, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur = () => { }, helperText, error, options, onTextFieldChange, limitTags } = _a, props = __rest(_a, ["id", "label", "placeholder", "color", "variant", "onChange", "optionlabelkeyname", "freeSolo", "fieldSize", "onBlur", "helperText", "error", "options", "onTextFieldChange", "limitTags"]);
     const [state, setState] = useState();
-    const handleOnChange = (event, newValue) => {
-        onChange(Object.assign(Object.assign({}, event), { target: Object.assign(Object.assign({}, event.target), { value: newValue }) }));
+    const handleOnChange = (_event, newValue) => {
+        onChange(newValue);
     };
     const filterOptions = (options, params) => {
         let filteredOptions = filter(options, params);

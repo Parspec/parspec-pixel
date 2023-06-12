@@ -10,7 +10,7 @@ export interface AutocompleteProps {
     options: OptionType[];
     color?: 'error' | 'primary' | 'secondary' | 'info' | 'success' | 'warning';
     variant?: 'outlined' | 'filled' | 'standard';
-    onChange: (event: React.SyntheticEvent<Element, Event>) => void;
+    onChange: (value: string | OptionType | (string | OptionType)[] | null) => void;
     freeSolo?: boolean;
     fieldSize?: 'small' | 'medium';
     multiple?: boolean;

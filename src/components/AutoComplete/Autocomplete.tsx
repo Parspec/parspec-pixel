@@ -15,7 +15,7 @@ export interface AutocompleteProps {
     options: OptionType[];
     color?: 'error' | 'primary' | 'secondary' | 'info' | 'success' | 'warning';
     variant?: 'outlined' | 'filled' | 'standard';
-    onChange: (event: React.SyntheticEvent<Element, Event>) => void;
+    onChange: (value: string | OptionType | (string | OptionType)[] | null) => void;
     freeSolo?: boolean;
     fieldSize?: 'small' | 'medium';
     multiple?: boolean;
@@ -33,8 +33,8 @@ const filter = createFilterOptions<OptionType>();
 export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivElement, AutocompleteProps>(
     ({ id, label, placeholder, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur = () => {}, helperText, error, options, onTextFieldChange, limitTags, ...props }, ref) => {
         const [state, setState] = useState<OptionType | string>();
-        const handleOnChange = (event: any, newValue: string | OptionType | (string | OptionType)[] | null) => {
-            onChange({ ...event, target: { ...event.target, value: newValue } });
+        const handleOnChange = (_event: React.SyntheticEvent<Element, Event>, newValue: string | OptionType | (string | OptionType)[] | null) => {
+            onChange(newValue);
         };
 
         const filterOptions = (options: OptionType[], params: any) => {

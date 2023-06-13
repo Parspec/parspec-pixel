@@ -26,7 +26,7 @@ Basic.args = {
     id: 'autocomplete-demo',
     label: 'Movies',
     optionlabelkeyname: 'title',
-    fieldSize: 'small',
+    size: 'small',
     defaultValue: 'I am default'
 };
 
@@ -49,9 +49,7 @@ MultiSelect.args = {
     multiple: true,
     options: top100Films,
     optionlabelkeyname: 'title',
-    fieldSize: 'small',
-    size: 'small',
-    error: true
+    size: 'medium'
 };
 
 export const AutocompleteWithCreateOption: ComponentStory<typeof Autocomplete> = (args) => (

@@ -15,7 +15,7 @@ import { TextField } from '../TextField';
 import { default as MUIAutocomplete, createFilterOptions } from '@mui/material/Autocomplete';
 const filter = createFilterOptions();
 export const Autocomplete = forwardRef((_a, ref) => {
-    var { id, label, placeholder, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur = () => { }, helperText, error, options, onTextFieldChange, limitTags } = _a, props = __rest(_a, ["id", "label", "placeholder", "color", "variant", "onChange", "optionlabelkeyname", "freeSolo", "fieldSize", "onBlur", "helperText", "error", "options", "onTextFieldChange", "limitTags"]);
+    var { id, label, placeholder, color, variant, onChange, optionlabelkeyname, size, freeSolo, onBlur = () => { }, helperText, error, options, onTextFieldChange, limitTags } = _a, props = __rest(_a, ["id", "label", "placeholder", "color", "variant", "onChange", "optionlabelkeyname", "size", "freeSolo", "onBlur", "helperText", "error", "options", "onTextFieldChange", "limitTags"]);
     const [state, setState] = useState();
     const handleOnChange = (_event, newValue) => {
         onChange(newValue);
@@ -50,21 +50,21 @@ export const Autocomplete = forwardRef((_a, ref) => {
             onTextFieldChange(event);
         }
     };
-    return (_jsx(_Fragment, { children: _jsx(MUIAutocomplete, Object.assign({ fullWidth: true }, props, { options: options, ref: ref, id: id, onBlur: handleFocusOut, onChange: handleOnChange, getOptionLabel: (option) => {
+    return (_jsx(_Fragment, { children: _jsx(MUIAutocomplete, Object.assign({ fullWidth: true }, props, { size: size, options: options, ref: ref, id: id, onBlur: handleFocusOut, onChange: handleOnChange, getOptionLabel: (option) => {
                 if (typeof option === 'object') {
                     return `${option[optionlabelkeyname]}`;
                 }
                 return option;
             }, limitTags: limitTags, filterOptions: filterOptions, onInputChange: handleOnInputChange, freeSolo: freeSolo, renderInput: (_a) => {
-                var { size } = _a, params = __rest(_a, ["size"]);
-                return (_jsx(TextField, Object.assign({ size: fieldSize, helperText: helperText, error: error }, params, { variant: variant, color: color, label: label, placeholder: placeholder })));
+                var { size: _fieldSize } = _a, params = __rest(_a, ["size"]);
+                return (_jsx(TextField, Object.assign({ helperText: helperText, error: error, size: size }, params, { variant: variant, color: color, label: label, placeholder: placeholder })));
             } })) }));
 });
 Autocomplete.defaultProps = {
     color: 'primary',
     variant: 'outlined',
     freeSolo: false,
-    fieldSize: 'small',
+    size: 'small',
     multiple: false,
     helperText: '',
     error: false

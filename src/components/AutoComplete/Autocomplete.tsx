@@ -17,7 +17,6 @@ export interface AutocompleteProps {
     variant?: 'outlined' | 'filled' | 'standard';
     onChange: (value: string | OptionType | (string | OptionType)[] | null) => void;
     freeSolo?: boolean;
-    fieldSize?: 'small' | 'medium';
     size?: 'small' | 'medium';
     multiple?: boolean;
     value?: string | OptionType | (string | OptionType)[] | null;
@@ -32,7 +31,7 @@ export interface AutocompleteProps {
 const filter = createFilterOptions<OptionType>();
 
 export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivElement, AutocompleteProps>(
-    ({ id, label, placeholder, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur = () => {}, helperText, error, options, onTextFieldChange, limitTags, ...props }, ref) => {
+    ({ id, label, placeholder, color, variant, onChange, optionlabelkeyname, size, freeSolo, onBlur = () => {}, helperText, error, options, onTextFieldChange, limitTags, ...props }, ref) => {
         const [state, setState] = useState<OptionType | string>();
         const handleOnChange = (_event: React.SyntheticEvent<Element, Event>, newValue: string | OptionType | (string | OptionType)[] | null) => {
             onChange(newValue);
@@ -76,6 +75,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
                 <MUIAutocomplete
                     fullWidth
                     {...props}
+                    size={size}
                     options={options}
                     ref={ref}
                     id={id}
@@ -92,8 +92,8 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
                     filterOptions={filterOptions}
                     onInputChange={handleOnInputChange}
                     freeSolo={freeSolo}
-                    renderInput={({ size, ...params }) => (
-                        <TextField size={fieldSize} helperText={helperText} error={error} {...params} variant={variant} color={color} label={label} placeholder={placeholder} />
+                    renderInput={({ size: _fieldSize, ...params }) => (
+                        <TextField helperText={helperText} error={error} size={size} {...params} variant={variant} color={color} label={label} placeholder={placeholder} />
                     )}
                 />
             </>
@@ -105,7 +105,7 @@ Autocomplete.defaultProps = {
     color: 'primary',
     variant: 'outlined',
     freeSolo: false,
-    fieldSize: 'small',
+    size: 'small',
     multiple: false,
     helperText: '',
     error: false

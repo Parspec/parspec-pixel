@@ -41,7 +41,7 @@ const TextField_1 = require("../TextField");
 const Autocomplete_1 = __importStar(require("@mui/material/Autocomplete"));
 const filter = (0, Autocomplete_1.createFilterOptions)();
 exports.Autocomplete = (0, react_1.forwardRef)((_a, ref) => {
-    var { id, label, placeholder, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur = () => { }, helperText, error, options, onTextFieldChange, limitTags } = _a, props = __rest(_a, ["id", "label", "placeholder", "color", "variant", "onChange", "optionlabelkeyname", "freeSolo", "fieldSize", "onBlur", "helperText", "error", "options", "onTextFieldChange", "limitTags"]);
+    var { id, label, placeholder, color, variant, onChange, optionlabelkeyname, size, freeSolo, onBlur = () => { }, helperText, error, options, onTextFieldChange, limitTags } = _a, props = __rest(_a, ["id", "label", "placeholder", "color", "variant", "onChange", "optionlabelkeyname", "size", "freeSolo", "onBlur", "helperText", "error", "options", "onTextFieldChange", "limitTags"]);
     const [state, setState] = (0, react_1.useState)();
     const handleOnChange = (_event, newValue) => {
         onChange(newValue);
@@ -76,21 +76,21 @@ exports.Autocomplete = (0, react_1.forwardRef)((_a, ref) => {
             onTextFieldChange(event);
         }
     };
-    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: (0, jsx_runtime_1.jsx)(Autocomplete_1.default, Object.assign({ fullWidth: true }, props, { options: options, ref: ref, id: id, onBlur: handleFocusOut, onChange: handleOnChange, getOptionLabel: (option) => {
+    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: (0, jsx_runtime_1.jsx)(Autocomplete_1.default, Object.assign({ fullWidth: true }, props, { size: size, options: options, ref: ref, id: id, onBlur: handleFocusOut, onChange: handleOnChange, getOptionLabel: (option) => {
                 if (typeof option === 'object') {
                     return `${option[optionlabelkeyname]}`;
                 }
                 return option;
             }, limitTags: limitTags, filterOptions: filterOptions, onInputChange: handleOnInputChange, freeSolo: freeSolo, renderInput: (_a) => {
-                var { size } = _a, params = __rest(_a, ["size"]);
-                return ((0, jsx_runtime_1.jsx)(TextField_1.TextField, Object.assign({ size: fieldSize, helperText: helperText, error: error }, params, { variant: variant, color: color, label: label, placeholder: placeholder })));
+                var { size: _fieldSize } = _a, params = __rest(_a, ["size"]);
+                return ((0, jsx_runtime_1.jsx)(TextField_1.TextField, Object.assign({ helperText: helperText, error: error, size: size }, params, { variant: variant, color: color, label: label, placeholder: placeholder })));
             } })) }));
 });
 exports.Autocomplete.defaultProps = {
     color: 'primary',
     variant: 'outlined',
     freeSolo: false,
-    fieldSize: 'small',
+    size: 'small',
     multiple: false,
     helperText: '',
     error: false

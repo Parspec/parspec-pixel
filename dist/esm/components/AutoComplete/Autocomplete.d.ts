@@ -12,7 +12,6 @@ export interface AutocompleteProps {
     variant?: 'outlined' | 'filled' | 'standard';
     onChange: (value: string | OptionType | (string | OptionType)[] | null) => void;
     freeSolo?: boolean;
-    fieldSize?: 'small' | 'medium';
     size?: 'small' | 'medium';
     multiple?: boolean;
     value?: string | OptionType | (string | OptionType)[] | null;

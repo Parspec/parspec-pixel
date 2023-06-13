@@ -25,7 +25,7 @@ interface FileSelectorProps {
     error?: string;
     helperText?: string;
     onSelect?: (args: FileSelectorFileType[] | File[]) => void;
-    placeholder?: string;
+    placeholder?: string | React.ReactNode;
     borderColor?: 'primary' | 'secondary' | 'tertiary';
     preSelectedFile?: FileSelectorFileType[] | File[];
     onDeleteFile?: () => void;

@@ -41,7 +41,7 @@ const TextField_1 = require("../TextField");
 const Autocomplete_1 = __importStar(require("@mui/material/Autocomplete"));
 const filter = (0, Autocomplete_1.createFilterOptions)();
 exports.Autocomplete = (0, react_1.forwardRef)((_a, ref) => {
-    var { id, label, placeholder, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur = () => { }, helperText, error, options, onTextFieldChange, limitTags, value } = _a, props = __rest(_a, ["id", "label", "placeholder", "color", "variant", "onChange", "optionlabelkeyname", "freeSolo", "fieldSize", "onBlur", "helperText", "error", "options", "onTextFieldChange", "limitTags", "value"]);
+    var { id, label, placeholder, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur = () => { }, helperText, error, options, onTextFieldChange, limitTags, disabled, value } = _a, props = __rest(_a, ["id", "label", "placeholder", "color", "variant", "onChange", "optionlabelkeyname", "freeSolo", "fieldSize", "onBlur", "helperText", "error", "options", "onTextFieldChange", "limitTags", "disabled", "value"]);
     const [state, setState] = (0, react_1.useState)(value || '');
     const handleOnChange = (event, newValue) => {
         onChange(Object.assign(Object.assign({}, event), { target: Object.assign(Object.assign({}, event.target), { value: newValue }) }));
@@ -87,7 +87,7 @@ exports.Autocomplete = (0, react_1.forwardRef)((_a, ref) => {
             }, value: value, limitTags: limitTags, filterOptions: filterOptions, onInputChange: handleOnInputChange, freeSolo: freeSolo, renderInput: (_a) => {
                 var { size } = _a, params = __rest(_a, ["size"]);
                 return ((0, jsx_runtime_1.jsx)(TextField_1.TextField, Object.assign({ size: fieldSize, helperText: helperText, error: error }, params, { variant: variant, color: color, label: label, placeholder: placeholder })));
-            } })) }));
+            }, disabled: disabled })) }));
 });
 exports.Autocomplete.defaultProps = {
     color: 'primary',

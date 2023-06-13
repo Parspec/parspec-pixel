@@ -9,13 +9,13 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import { jsx as _jsx } from "react/jsx-runtime";
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { forwardRef } from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import { default as MUISelect } from '@mui/material/Select';
 import styled from '@mui/material/styles/styled';
-import { alpha } from '@mui/material';
+import { Box, InputLabel } from '@mui/material';
 const StyledFormControl = styled(FormControl, {
     shouldForwardProp(propName) {
         return !(propName === 'borderColor');
@@ -24,26 +24,21 @@ const StyledFormControl = styled(FormControl, {
     var _a, _b, _c, _d;
     const bgColorValFromTheme = (_b = (_a = theme.palette) === null || _a === void 0 ? void 0 : _a[colorType]) === null || _b === void 0 ? void 0 : _b.light;
     const colorValFromTheme = (_d = (_c = theme.palette) === null || _c === void 0 ? void 0 : _c[colorType]) === null || _d === void 0 ? void 0 : _d.main;
-    const selectRootCss = { backgroundColor: bgColorValFromTheme, color: colorValFromTheme };
     return {
         '& .MuiOutlinedInput-root': {
-            fontWeight: 500,
+            fontWeight: 400,
             fontSize: '12px',
-            lineHeight: '16px',
-            '& fieldset': {
-                borderColor: bgColorValFromTheme
-            },
-            '&:hover fieldset': {
-                borderColor: bgColorValFromTheme
-            },
-            '&.Mui-focused fieldset': {
-                borderColor: bgColorValFromTheme
+            lineHeight: '16px'
+        },
+        '& .MuiSelect-select': {
+            '& .optionLabel': {
+                display: 'flex',
+                justifyContent: 'center',
+                backgroundColor: bgColorValFromTheme,
+                color: colorValFromTheme
             }
         },
-        '& .MuiSelect-select': Object.assign(Object.assign({}, selectRootCss), { padding: '4px 8px', paddingRight: '24px !important' }),
-        '& .MuiSelect-select:hover': selectRootCss,
         '& .MuiSelect-icon': {
-            color: colorValFromTheme,
             width: '16px',
             height: '16px',
             top: 'calc(50% - 0.35em)'
@@ -51,21 +46,30 @@ const StyledFormControl = styled(FormControl, {
     };
 });
 const StyledMenuItem = styled(MenuItem)(({ theme, type }) => {
-    var _a, _b;
+    var _a, _b, _c, _d, _e;
     return ({
         fontSize: '12px',
         lineHeight: '16px',
-        '&.Mui-selected': {
-            backgroundColor: alpha((_a = theme.palette) === null || _a === void 0 ? void 0 : _a[type].main, 0.08)
+        color: (_a = theme.palette) === null || _a === void 0 ? void 0 : _a[type].dark,
+        '& .optionLabel': {
+            backgroundColor: (_b = theme.palette) === null || _b === void 0 ? void 0 : _b[type].light
         },
-        '&.Mui-selected:hover, &.Mui-focusVisible.Mui-selected': {
-            backgroundColor: alpha((_b = theme.palette) === null || _b === void 0 ? void 0 : _b[type].main, 0.12)
+        '&.Mui-selected': {
+            backgroundColor: (_c = theme.palette) === null || _c === void 0 ? void 0 : _c[type].light,
+            color: (_d = theme.palette) === null || _d === void 0 ? void 0 : _d[type].dark
+        },
+        '&.Mui-selected:hover, &.MuiMenuItem-root:hover': {
+            backgroundColor: (_e = theme.palette) === null || _e === void 0 ? void 0 : _e.neutral.light
         }
     });
 });
+const getFormControlColorType = (value, options) => {
+    const selectedOption = options === null || options === void 0 ? void 0 : options.find((option) => option.value == value);
+    return selectedOption === null || selectedOption === void 0 ? void 0 : selectedOption.type;
+};
 export const StatusSelect = forwardRef((_a, ref) => {
-    var { id, options, optionLabelKeyname = 'label', optionValueKeyname = 'value', type = 'primary' } = _a, rest = __rest(_a, ["id", "options", "optionLabelKeyname", "optionValueKeyname", "type"]);
-    return (_jsx(StyledFormControl, Object.assign({ fullWidth: true, ref: ref, colorType: type }, { children: _jsx(MUISelect, Object.assign({}, rest, { size: "small", id: id }, { children: options.map((item, index) => (_jsx(StyledMenuItem, Object.assign({ value: item[optionValueKeyname], type: type }, { children: item[optionLabelKeyname] }), index))) })) })));
+    var { id, options, optionLabelKeyname = 'label', optionValueKeyname = 'value', type = 'primary', optionColorKeyName = 'type', value, label, labelId, size = 'small' } = _a, rest = __rest(_a, ["id", "options", "optionLabelKeyname", "optionValueKeyname", "type", "optionColorKeyName", "value", "label", "labelId", "size"]);
+    return (_jsxs(StyledFormControl, Object.assign({ fullWidth: true, ref: ref, size: size, colorType: getFormControlColorType(value, options) }, { children: [_jsx(InputLabel, Object.assign({ id: labelId }, { children: label })), _jsx(MUISelect, Object.assign({}, rest, { id: id, value: value, label: label, labelId: labelId }, { children: options.map((item, index) => (_jsx(StyledMenuItem, Object.assign({ value: item[optionValueKeyname], type: item[optionColorKeyName] }, { children: _jsx(Box, Object.assign({ pr: 2, pl: 2, pt: 1, pb: 1, borderRadius: 1, className: "optionLabel" }, { children: item[optionLabelKeyname] })) }), index))) }))] })));
 });
 StatusSelect.defaultProps = {
     id: 'demo-status-select'

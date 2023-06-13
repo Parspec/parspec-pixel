@@ -1,7 +1,9 @@
 /* @import url('https://cdn.syncfusion.com/ej2/20.3.47/material.css');
 */
-
-@import '../../../node_modules/@syncfusion/ej2-react-dropdowns/styles/material.css';
+@import "@syncfusion/ej2-base/styles/material.css";
+@import "@syncfusion/ej2-buttons/styles/material.css";
+@import "@syncfusion/ej2-inputs/styles/material.css";
+@import '@syncfusion/ej2-react-dropdowns/styles/material.css';
 @import url('https://cdn.syncfusion.com/ej2/ej2-icons/styles/fabric.css');
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,500');
 /*! common core */

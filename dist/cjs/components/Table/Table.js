@@ -208,6 +208,7 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
         else {
             dataBoundCallBack();
         }
+        console.log(tableRef === null || tableRef === void 0 ? void 0 : tableRef.current);
     };
     const rightSection = (0, react_1.useMemo)(() => toolbarRightSection, [toolbarRightSection]);
     const [tableHeight, setTableHeight] = (0, react_1.useState)();

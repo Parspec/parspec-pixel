@@ -50,7 +50,7 @@ export const SingleSelect: ComponentStory<typeof Table> = (props) => {
             const obj = (document?.getElementById('multi_check_box') as any)?.ej2_instances?.[0];
             console.log(obj);
             obj.value = tableRef?.current?.getMultiSelectVal(); //Here update the selected value of dropdown
-            tableRef?.current?.setMultiSelectVal(null); //after assigning we empty the value
+            tableRef?.current?.setMultiSelectVal([]); //after assigning we empty the value
         };
         const change = (args) => {
             const obj = (document?.getElementById('multi_check_box') as any)?.ej2_instances?.[0];

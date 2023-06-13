@@ -319,7 +319,6 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         } else {
             dataBoundCallBack!();
         }
-        console.log(tableRef?.current);
     };
 
     const rightSection = useMemo(() => toolbarRightSection, [toolbarRightSection]);

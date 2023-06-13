@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { topFilms as top100Films } from './topfilm';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
@@ -15,8 +15,8 @@ export default {
 export const Basic: ComponentStory<typeof Autocomplete> = (args) => (
     <Autocomplete
         {...args}
-        onChange={(e: any) => {
-            console.log(e.target.value);
+        onChange={(value: any) => {
+            console.log(value);
         }}
     />
 );
@@ -30,14 +30,18 @@ Basic.args = {
     defaultValue: 'I am default'
 };
 
-export const MultiSelect: ComponentStory<typeof Autocomplete> = (args) => (
-    <Autocomplete
-        {...args}
-        onChange={(e: any) => {
-            console.log(e.target.value);
-        }}
-    />
-);
+export const MultiSelect: ComponentStory<typeof Autocomplete> = (args) => {
+    const [selected, updateSelected] = useState<Array<any>>([]);
+    return (
+        <Autocomplete
+            {...args}
+            value={selected}
+            onChange={(value: any) => {
+                updateSelected([...(value as Array<any>)]);
+            }}
+        />
+    );
+};
 
 MultiSelect.args = {
     id: 'multiselect-demo',
@@ -45,14 +49,16 @@ MultiSelect.args = {
     multiple: true,
     options: top100Films,
     optionlabelkeyname: 'title',
-    defaultValue: ['Hello']
+    fieldSize: 'small',
+    size: 'small',
+    error: true
 };
 
 export const AutocompleteWithCreateOption: ComponentStory<typeof Autocomplete> = (args) => (
     <Autocomplete
         {...args}
         onChange={(e: any) => {
-            console.log(e.target.value);
+            console.log(e);
         }}
         onBlur={(value: any) => console.log(`[on blur]`, value)}
     />
@@ -71,7 +77,7 @@ export const MultiSelectWithChipLimit: ComponentStory<typeof Autocomplete> = (ar
     <Autocomplete
         {...args}
         onChange={(e: any) => {
-            console.log(e.target.value);
+            console.log(e);
         }}
     />
 );

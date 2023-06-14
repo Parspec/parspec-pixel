@@ -12,10 +12,11 @@ export default {
 export const Basic: ComponentStory<typeof Pagination> = (args) => {
     const [page, setPage] = React.useState(1);
 
-    const handleChange = (event: React.ChangeEvent<unknown>, pageValue: number) => {
-        setPage(pageValue);
-        console.log(pageValue);
+    const handleChange = (event: React.ChangeEvent<unknown>, currPage: any) => {
+        setPage(currPage);
+        console.log(currPage);
     };
+
     return (
         <Box>
             <BodyXS mb={4}>Page number: {page}</BodyXS>
@@ -26,5 +27,7 @@ export const Basic: ComponentStory<typeof Pagination> = (args) => {
 
 Basic.args = {
     count: 20,
-    size: 'small'
+    size: 'small',
+    boundaryCount: 0,
+    siblingCount: 2
 };

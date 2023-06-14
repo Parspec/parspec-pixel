@@ -1,8 +1,8 @@
-import { forwardRef, useState, useEffect } from 'react';
+import { forwardRef, useState } from 'react';
 import { default as MUIPagination, PaginationProps as MUIPaginationProps } from '@mui/material/Pagination';
 import PaginationItem from '@mui/material/PaginationItem';
-// import PaginationItemProps from '@mui/material/PaginationItem';
-import { Box, Button } from '@mui/material';
+import { Box } from '@mui/material';
+import usePagination from '@mui/material/usePagination';
 
 export interface PaginationProps extends Omit<MUIPaginationProps, 'classes'> {
     count: number; // Number of pages
@@ -17,42 +17,66 @@ export interface PaginationProps extends Omit<MUIPaginationProps, 'classes'> {
     defaultPage?: number;
 }
 
-export const Pagination = forwardRef<HTMLDivElement, PaginationProps>(({ size, color, count, disabled, page, onChange, boundaryCount, siblingCount, defaultPage, ...rest }, ref) => {
-    const [currentPage, setCurrentPage] = useState(page);
-    const calculateDisplayedPages = (currentPage: any) => {
-        const totalPages = count; // Replace with the actual total number of pages
-        const totalDisplayedPages = siblingCount * 2 + 1;
-        const startPage = Math.max(currentPage - siblingCount, 1);
-        const endPage = Math.min(startPage + totalDisplayedPages - 1, totalPages);
+interface ItemProps {
+    disabled: boolean;
+    onClick: (data: any) => void;
+    page: any;
+    selected: boolean;
+    type: string;
+}
 
-        return Array.from({ length: endPage - startPage + 1 }, (_, index) => index + startPage);
-    };
-    const [displayedPages, setDisplayedPages] = useState(calculateDisplayedPages(1));
+function calculateDisplayedPages(currentPage: number, items: ItemProps[]) {
+    const displayedPages = [];
+    let prevPage = null;
+
+    for (const item of items) {
+        if (item.type === 'page') {
+            const { page } = item;
+
+            if (prevPage !== null && page - prevPage !== 1) {
+                displayedPages.push('...');
+            }
+
+            displayedPages.push(page);
+            prevPage = page;
+        }
+    }
+
+    return displayedPages;
+}
+
+export const Pagination = forwardRef<HTMLDivElement, PaginationProps>(({ size, color, count, disabled, page, onChange, boundaryCount, siblingCount, defaultPage, ...rest }, ref) => {
+    const { items } = usePagination({
+        count: count, // Total number of items
+        page: page, // Current page
+        boundaryCount: boundaryCount,
+        siblingCount: siblingCount
+    });
+
+    // Calculate the currently displayed pages
+    const displayedPages = calculateDisplayedPages(page, items);
+
+    const [currentPage, setCurrentPage] = useState(page);
 
     const pageChangeHandler = (event: React.ChangeEvent<unknown>, page: any) => {
         setCurrentPage(() => page);
-        setDisplayedPages(calculateDisplayedPages(page));
         onChange(event, page);
     };
 
     const startEllipsisClickHandler = (event: React.MouseEvent<HTMLElement>, page: any) => {
-        // const targetPage = page;
-        // setCurrentPage(() => targetPage);
-        // onChange(event, targetPage);
-        console.log('start');
+        const targetPage = displayedPages[0] - 1;
+        setCurrentPage(() => targetPage);
+        onChange(event, targetPage);
     };
 
     const endEllipsisClickHandler = (event: React.MouseEvent<HTMLElement>, page: any) => {
-        // const targetPage = page;
-        // setCurrentPage(() => targetPage);
-        // onChange(event, targetPage);
-        console.log('end');
+        const targetPage = displayedPages[displayedPages.length - 1] + 1;
+        setCurrentPage(() => targetPage);
+        onChange(event, targetPage);
     };
 
     return (
         <>
-            <Button onClick={() => console.log(displayedPages)}>click</Button>
-
             <MUIPagination
                 ref={ref}
                 count={count}
@@ -69,7 +93,7 @@ export const Pagination = forwardRef<HTMLDivElement, PaginationProps>(({ size, c
 
                     if (item.type === 'start-ellipsis') {
                         return (
-                            <Box onClick={(event: any) => startEllipsisClickHandler(event, item.page)}>
+                            <Box onClick={(event: any) => startEllipsisClickHandler(event, item.page)} sx={{ cursor: 'pointer' }}>
                                 <PaginationItem component="button" disabled={currentPage <= siblingCount + 1} {...rest} />
                             </Box>
                         );
@@ -77,7 +101,7 @@ export const Pagination = forwardRef<HTMLDivElement, PaginationProps>(({ size, c
 
                     if (item.type === 'end-ellipsis') {
                         return (
-                            <Box onClick={(event: any) => endEllipsisClickHandler(event, item.page)}>
+                            <Box onClick={(event: any) => endEllipsisClickHandler(event, item.page)} sx={{ cursor: 'pointer' }}>
                                 <PaginationItem component="button" disabled={currentPage >= count - siblingCount} {...rest} />
                             </Box>
                         );

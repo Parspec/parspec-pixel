@@ -1,3 +1,4 @@
+/// <reference types="react" />
 import { MenuProps } from '@mui/material';
 interface MProps extends Pick<MenuProps, 'anchorOrigin' | 'transformOrigin'> {
     options: {
@@ -8,7 +9,7 @@ interface MProps extends Pick<MenuProps, 'anchorOrigin' | 'transformOrigin'> {
     children?: any;
 }
 export declare const Menu: {
-    ({ options, children, anchorOrigin, transformOrigin }: MProps): import("react/jsx-runtime").JSX.Element;
+    ({ options, children, anchorOrigin, transformOrigin }: MProps): JSX.Element;
     defaultProps: {
         anchorOrigin: {
             vertical: string;

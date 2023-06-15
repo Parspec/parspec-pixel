@@ -205,7 +205,12 @@ export const Table = forwardRef((props, ref) => {
         else {
             dataBoundCallBack();
         }
+<<<<<<< HEAD
         console.log(tableRef === null || tableRef === void 0 ? void 0 : tableRef.current);
+=======
+        tableRef.current.keyConfigs.upArrow = '';
+        tableRef.current.keyConfigs.downArrow = '';
+>>>>>>> b31bf55ee91d9a6fbc204556f12e1516daf1859f
     };
     const rightSection = useMemo(() => toolbarRightSection, [toolbarRightSection]);
     const [tableHeight, setTableHeight] = useState();

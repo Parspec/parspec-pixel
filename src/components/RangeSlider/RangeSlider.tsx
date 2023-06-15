@@ -1,4 +1,4 @@
-import { useState, forwardRef, FocusEvent, useEffect } from 'react';
+import { forwardRef, FocusEvent, useEffect } from 'react';
 import { Box } from '../Box';
 import { BodyXS } from '../Typography';
 import { TextField } from '../TextField';
@@ -14,6 +14,7 @@ interface RangeSliderProps {
     color: 'primary' | 'secondary' | 'tertiary' | 'neutral';
     headerTitle?: string;
     onChange: (data: [number, number]) => void;
+    onBlur: (data: FocusEvent<HTMLInputElement>) => void;
     marks?: boolean | mark[];
     disabled?: boolean;
     textfieldWidth?: number;
@@ -22,9 +23,7 @@ interface RangeSliderProps {
 }
 
 export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, ref) => {
-    const { value, size, step, marks, min, max, color, headerTitle, disabled, textfieldWidth, textfieldHeight, onChange: onRangeChange, disableSwap } = props;
-
-    const [currThumbValue, setCurrThumbValue] = useState({ smallerThumb: value[0], greaterThumb: value[1] });
+    const { value, size, step, marks, min, max, color, headerTitle, disabled, textfieldWidth, textfieldHeight, onChange: onRangeChange, onBlur: onBlurChange, disableSwap } = props;
 
     function adjustValues(valueArr: [number, number], minVal: number, maxVal: number): [number, number] {
         let [value1, value2] = valueArr;
@@ -64,79 +63,62 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
 
     useEffect(() => {
         const adjustedValues = adjustValues(value, min, max);
-        setCurrThumbValue(() => ({ ...currThumbValue, smallerThumb: adjustedValues[0], greaterThumb: adjustedValues[1] }));
+        onRangeChange(adjustedValues);
     }, []);
 
-    const changeHandler = (event: any) => {
-        const data = event.target.value;
-        setCurrThumbValue(() => ({ ...currThumbValue, smallerThumb: data[0], greaterThumb: data[1] }));
-        onRangeChange(data);
+    const changeHandler = (e: any) => {
+        console.log(e);
+        const data = e.target.value;
+        const newData: [number, number] = [Number(data[0]), Number(data[1])];
+        onRangeChange(newData);
     };
 
-    const minChangeHandler = (event: any) => {
+    const minChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         const currValue = Number(event.target.value);
-        setCurrThumbValue(() => ({ ...currThumbValue, smallerThumb: currValue }));
+        const newData: [number, number] = [currValue, value[1]];
+        onRangeChange(newData);
     };
 
-    const minBlurHandler = (event: FocusEvent<HTMLInputElement>) => {
-        const currValueArr: [number, number] = [currThumbValue.smallerThumb, currThumbValue.greaterThumb];
-        const newVal = adjustValues(currValueArr, min, max)[0];
-        onRangeChange([newVal, currThumbValue.greaterThumb]);
-        setCurrThumbValue(() => ({ ...currThumbValue, smallerThumb: newVal }));
-    };
-
-    const minKeyDownHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
-        if (event.key === 'Enter') {
-            const currValueArr: [number, number] = [currThumbValue.smallerThumb, currThumbValue.greaterThumb];
-            const newVal = adjustValues(currValueArr, min, max)[0];
-            onRangeChange([newVal, currThumbValue.greaterThumb]);
-            setCurrThumbValue(() => ({ ...currThumbValue, smallerThumb: newVal }));
-        }
-    };
-
-    const maxChangeHandler = (event: any) => {
+    const maxChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         const currValue = Number(event.target.value);
-        setCurrThumbValue(() => ({ ...currThumbValue, greaterThumb: currValue }));
+        const newData: [number, number] = [value[0], currValue];
+        onRangeChange(newData);
     };
 
-    const maxBlurHandler = (event: FocusEvent<HTMLInputElement>) => {
-        const currValueArr: [number, number] = [currThumbValue.smallerThumb, currThumbValue.greaterThumb];
-        const newVal = adjustValues(currValueArr, min, max)[1];
-        onRangeChange([currThumbValue.smallerThumb, newVal]);
-        setCurrThumbValue(() => ({ ...currThumbValue, greaterThumb: newVal }));
+    const blurHandler = (event: FocusEvent<HTMLInputElement>) => {
+        const newVal = adjustValues(value, min, max);
+        onRangeChange(newVal);
+        onBlurChange(event);
     };
 
-    const maxKeyDownHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const keyDownHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
-            const currValueArr: [number, number] = [currThumbValue.smallerThumb, currThumbValue.greaterThumb];
-            const newVal = adjustValues(currValueArr, min, max)[1];
-            onRangeChange([currThumbValue.smallerThumb, newVal]);
-            setCurrThumbValue(() => ({ ...currThumbValue, greaterThumb: newVal }));
+            const newVal = adjustValues(value, min, max);
+            onRangeChange(newVal);
         }
     };
 
     return (
         <Box ref={ref} width={1} display={'flex'} flexDirection={'column'} alignItems={'flex-start'}>
             <BodyXS color={'text.secondary'}>{headerTitle}</BodyXS>
-            <Box mt={2} display={'flex'} justifyContent={'space-between'} alignItems={'center'} width={1}>
+            <Box mt={headerTitle ? 2 : 0} display={'flex'} justifyContent={'space-between'} alignItems={'center'} width={1}>
                 <Box width={textfieldWidth ? textfieldWidth : 64} height={textfieldHeight ? textfieldHeight : 36}>
                     <TextField
                         label=""
                         type="number"
                         //doing .toString() to eliminate the leading zero bug
-                        value={currThumbValue.smallerThumb.toString()}
+                        value={value[0].toString()}
                         inputProps={{ style: { textAlign: 'center' } }}
                         onChange={minChangeHandler}
-                        onBlur={minBlurHandler}
-                        onKeyDown={minKeyDownHandler}
+                        onBlur={blurHandler}
+                        onKeyDown={keyDownHandler}
                         disabled={disabled}
                     />
                 </Box>
 
                 <Box pl={4} pr={4} width={1}>
                     <Slider
-                        value={[currThumbValue.smallerThumb, currThumbValue.greaterThumb]}
-                        // value={value}
+                        value={value}
                         min={min}
                         max={max}
                         color={color}
@@ -144,6 +126,7 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
                         marks={marks}
                         step={step}
                         onChange={changeHandler}
+                        onBlur={onBlurChange}
                         disabled={disabled}
                         disableSwap={disableSwap}
                     />
@@ -154,11 +137,11 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
                         label=""
                         type="number"
                         //doing .toString() to eliminate the leading zero bug
-                        value={currThumbValue.greaterThumb.toString()}
+                        value={value[1].toString()}
                         inputProps={{ style: { textAlign: 'center' } }}
                         onChange={maxChangeHandler}
-                        onBlur={maxBlurHandler}
-                        onKeyDown={maxKeyDownHandler}
+                        onBlur={blurHandler}
+                        onKeyDown={keyDownHandler}
                         disabled={disabled}
                     />
                 </Box>

@@ -29114,3 +29114,6 @@ tr.e-row td.e-childborder {
     border-right-width: 0px !important;
 }
 /*  to be removed in V2 middle segment no border */
+.e-multi-select-wrapper{
+    margin-top: 10px;
+}

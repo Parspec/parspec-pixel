@@ -49,12 +49,15 @@ export const Table = forwardRef((props, ref) => {
     };
     let multiSelectFilterVal = [];
     const actionBegin = (e) => {
-        var _a;
+        var _a, _b, _c, _d, _e;
         if (e.requestType === 'filtering' && !isNullOrUndefined(e.currentFilterObject) && isNullOrUndefined((_a = e === null || e === void 0 ? void 0 : e.currentFilterObject) === null || _a === void 0 ? void 0 : _a.value)) {
             e.cancel = true;
         }
         if (e.requestType === 'filterbeforeopen') {
             customFiltersFunction(e);
+            if (((_b = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _b === void 0 ? void 0 : _b.isFiltered) || !((_e = (_d = (_c = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _c === void 0 ? void 0 : _c.filterModule) === null || _d === void 0 ? void 0 : _d.filteredResult) === null || _e === void 0 ? void 0 : _e.length)) {
+                multiSelectFilterVal = [];
+            }
         }
         if (e.type === 'edit') {
             e.cell.getElementsByTagName('input')[0].setAttribute('maxLength', 255);
@@ -143,10 +146,14 @@ export const Table = forwardRef((props, ref) => {
         }
     };
     const rowSelected = (args) => {
+        var _a, _b;
         onRowSelection(tableRef.current.getSelectedRecords());
+        setSelectedForBanner((_b = (_a = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _a === void 0 ? void 0 : _a.getSelectedRecords()) === null || _b === void 0 ? void 0 : _b.length);
     };
     const rowDeselected = (args) => {
+        var _a, _b;
         onRowSelection(tableRef.current.getSelectedRecords());
+        setSelectedForBanner((_b = (_a = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _a === void 0 ? void 0 : _a.getSelectedRecords()) === null || _b === void 0 ? void 0 : _b.length);
     };
     const rowDataBound = (args) => {
         var _a, _b;
@@ -170,7 +177,8 @@ export const Table = forwardRef((props, ref) => {
             onCheckboxChange([]);
         };
         const clearFiltering = () => {
-            tableRef.current.clearFiltering();
+            var _a;
+            (_a = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _a === void 0 ? void 0 : _a.clearFiltering();
         };
         const setMultiSelectVal = (val) => {
             multiSelectFilterVal = val;
@@ -205,12 +213,8 @@ export const Table = forwardRef((props, ref) => {
         else {
             dataBoundCallBack();
         }
-<<<<<<< HEAD
-        console.log(tableRef === null || tableRef === void 0 ? void 0 : tableRef.current);
-=======
         tableRef.current.keyConfigs.upArrow = '';
         tableRef.current.keyConfigs.downArrow = '';
->>>>>>> b31bf55ee91d9a6fbc204556f12e1516daf1859f
     };
     const rightSection = useMemo(() => toolbarRightSection, [toolbarRightSection]);
     const [tableHeight, setTableHeight] = useState();

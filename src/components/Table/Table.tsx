@@ -173,6 +173,9 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
 
         if (e.requestType === 'filterbeforeopen') {
             customFiltersFunction!(e);
+            if (tableRef?.current?.isFiltered || !tableRef?.current?.filterModule?.filteredResult?.length) {
+                multiSelectFilterVal = [];
+            }
         }
         if (e.type === 'edit') {
             e.cell.getElementsByTagName('input')[0].setAttribute('maxLength', 255);
@@ -258,9 +261,11 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     };
     const rowSelected = (args: RowSelectEventArgs) => {
         onRowSelection!(tableRef.current.getSelectedRecords());
+        setSelectedForBanner(tableRef?.current?.getSelectedRecords()?.length);
     };
     const rowDeselected = (args: RowDeselectEventArgs) => {
         onRowSelection!(tableRef.current.getSelectedRecords());
+        setSelectedForBanner(tableRef?.current?.getSelectedRecords()?.length);
     };
 
     const rowDataBound = (args: any) => {
@@ -284,7 +289,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
             onCheckboxChange!([]);
         };
         const clearFiltering = () => {
-            tableRef.current.clearFiltering();
+            tableRef?.current?.clearFiltering();
         };
         const setMultiSelectVal = (val: any) => {
             multiSelectFilterVal = val;

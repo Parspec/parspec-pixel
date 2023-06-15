@@ -40,28 +40,23 @@ export const SingleSelect: ComponentStory<typeof Table> = (props) => {
         // }
     };
 
-    //Filter template
     const templateOptions = (args) => {
-        //Here we have define the datasource
         const dataSource = ['Yes', 'No'];
-
         const created = (args) => {
             //Multi select instance
             const obj = (document?.getElementById('multi_check_box') as any)?.ej2_instances?.[0];
-            console.log(obj);
-            obj.value = tableRef?.current?.getMultiSelectVal(); //Here update the selected value of dropdown
-            tableRef?.current?.setMultiSelectVal([]); //after assigning we empty the value
+            obj.value = tableRef?.current?.getMultiSelectVal();
+            tableRef?.current?.setMultiSelectVal([]);
         };
         const change = (args) => {
             const obj = (document?.getElementById('multi_check_box') as any)?.ej2_instances?.[0];
-            tableRef?.current?.setMultiSelectVal(obj.value); //here we have assign the selected value into the local var
+            tableRef?.current?.setMultiSelectVal(obj.value);
             if (tableRef?.current?.getMultiSelectVal()?.length == 0) {
                 tableRef?.current?.clearFiltering();
             }
         };
         return (
-            //Here we render the multi select dropdown
-            <MultiSelectComponent id="multi_check_box" dataSource={dataSource} placeholder="Select" mode="CheckBox" created={created} change={change}>
+            <MultiSelectComponent id="multi_check_box" dataSource={dataSource} placeholder="Select" created={created} change={change} sortOrder="Ascending" mode="CheckBox">
                 <Inject services={[CheckBoxSelection]} />
             </MultiSelectComponent>
         );

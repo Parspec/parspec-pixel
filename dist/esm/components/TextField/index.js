@@ -11,7 +11,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { default as MUITextField } from '@mui/material/TextField';
-import styled from '@mui/material/styles/styled';
+import { styled } from '@mui/material/styles';
 import InputAdornment from '@mui/material/InputAdornment';
 import { forwardRef } from 'react';
 import { Box } from '../Box';

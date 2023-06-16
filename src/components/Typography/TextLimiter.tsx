@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import styled from '@mui/material/styles/styled';
+import { styled } from '@mui/material/styles';
 import { tooltipClasses, TooltipProps } from '@mui/material/Tooltip';
 
 import { Box } from '../Box';

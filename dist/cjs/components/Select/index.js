@@ -21,8 +21,8 @@ const InputLabel_1 = __importDefault(require("@mui/material/InputLabel"));
 const MenuItem_1 = __importDefault(require("@mui/material/MenuItem"));
 const FormControl_1 = __importDefault(require("@mui/material/FormControl"));
 const Select_1 = __importDefault(require("@mui/material/Select"));
-const styled_1 = __importDefault(require("@mui/material/styles/styled"));
-const StyledFormControl = (0, styled_1.default)(FormControl_1.default, {
+const styles_1 = require("@mui/material/styles");
+const StyledFormControl = (0, styles_1.styled)(FormControl_1.default, {
     shouldForwardProp(propName) {
         return !(propName === 'borderColor');
     }

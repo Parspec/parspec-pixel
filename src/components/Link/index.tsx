@@ -1,5 +1,5 @@
 import { Link as MUILink, LinkProps as MUILinkProps } from '@mui/material';
-import { styled } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
 const StyledLink = styled(MUILink)(({ theme }) => ({
     '&:hover': {

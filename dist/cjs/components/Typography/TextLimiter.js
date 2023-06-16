@@ -10,18 +10,15 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TextLimiter = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const react_1 = require("react");
-const styled_1 = __importDefault(require("@mui/material/styles/styled"));
+const styles_1 = require("@mui/material/styles");
 const Tooltip_1 = require("@mui/material/Tooltip");
 const Box_1 = require("../Box");
 const Tooltip_2 = require("../Tooltip");
-const StyledToolTip = (0, styled_1.default)((_a) => {
+const StyledToolTip = (0, styles_1.styled)((_a) => {
     var { className } = _a, props = __rest(_a, ["className"]);
     return (0, jsx_runtime_1.jsx)(Tooltip_2.Tooltip, Object.assign({}, props, { classes: { popper: className } }));
 })({

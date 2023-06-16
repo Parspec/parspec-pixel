@@ -14,7 +14,7 @@ import { forwardRef } from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import { default as MUISelect } from '@mui/material/Select';
-import styled from '@mui/material/styles/styled';
+import { styled } from '@mui/material/styles';
 import { alpha } from '@mui/material';
 const StyledFormControl = styled(FormControl, {
     shouldForwardProp(propName) {

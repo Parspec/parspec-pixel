@@ -4,7 +4,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl, { FormControlProps as MUIFormControlProps } from '@mui/material/FormControl';
 import { default as MUISelect, SelectProps as MUISelectProps } from '@mui/material/Select';
-import styled from '@mui/material/styles/styled';
+import { styled } from '@mui/material/styles';
 
 interface SelectMenuOption {
     [index: string]: string | number;

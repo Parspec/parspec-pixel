@@ -3,7 +3,7 @@ import { forwardRef } from 'react';
 import MenuItem, { MenuItemProps } from '@mui/material/MenuItem';
 import FormControl, { FormControlProps as MUIFormControlProps } from '@mui/material/FormControl';
 import { default as MUISelect, SelectProps as MUISelectProps } from '@mui/material/Select';
-import styled from '@mui/material/styles/styled';
+import { styled } from '@mui/material/styles';
 import { alpha } from '@mui/material';
 
 interface SelectMenuOption {

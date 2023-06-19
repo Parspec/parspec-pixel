@@ -4,4 +4,4 @@ export interface ModalProps extends Pick<MUIModalProps, 'open' | 'onClose' | 'ch
     header?: React.ReactNode;
     footer?: React.ReactNode;
 }
-export declare const Modal: React.FC<ModalProps>;
+export declare const Modal: import("react").ForwardRefExoticComponent<ModalProps & import("react").RefAttributes<HTMLDivElement>>;

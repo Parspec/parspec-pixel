@@ -8,7 +8,7 @@ export interface ModalProps extends Pick<MUIModalProps, 'open' | 'onClose' | 'ch
     footer?: React.ReactNode;
 }
 
-export const Modal: React.FC<ModalProps> = forwardRef<HTMLDivElement, ModalProps>(({ open, onClose, children, header, footer, ...rest }, ref) => {
+export const Modal = forwardRef<HTMLDivElement, ModalProps>(({ open, onClose, children, header, footer, ...rest }, ref) => {
     return (
         <MUIModal open={open} onClose={onClose} {...rest} ref={ref}>
             <Box sx={ModalContainerStyle}>

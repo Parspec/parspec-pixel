@@ -1,6 +1,6 @@
 /// <reference types="react" />
 import { ModalProps as MUIModalProps } from '@mui/material/Modal';
-export interface ModalProps extends Pick<MUIModalProps, 'open' | 'onClose' | 'children'> {
+export interface ModalProps extends Pick<MUIModalProps, 'open' | 'onClose' | 'children' | 'keepMounted'> {
     header?: React.ReactNode;
     footer?: React.ReactNode;
 }

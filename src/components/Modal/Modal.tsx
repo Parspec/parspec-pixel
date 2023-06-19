@@ -3,14 +3,14 @@ import { Box } from '../Box';
 import { ModalContainerStyle } from './ModalStyles';
 import { forwardRef } from 'react';
 
-export interface ModalProps extends Pick<MUIModalProps, 'open' | 'onClose' | 'children'> {
+export interface ModalProps extends Pick<MUIModalProps, 'open' | 'onClose' | 'children' | 'keepMounted'> {
     header?: React.ReactNode;
     footer?: React.ReactNode;
 }
 
-export const Modal = forwardRef<HTMLDivElement, ModalProps>(({ open, onClose, children, header, footer, ...rest }, ref) => {
+export const Modal = forwardRef<HTMLDivElement, ModalProps>(({ open, onClose, children, header, footer, keepMounted, ...rest }, ref) => {
     return (
-        <MUIModal open={open} onClose={onClose} {...rest} ref={ref}>
+        <MUIModal keepMounted={keepMounted} open={open} onClose={onClose} {...rest} ref={ref}>
             <Box sx={ModalContainerStyle}>
                 <Box width="100%" pb={2}>
                     {header}

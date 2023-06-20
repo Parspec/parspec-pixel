@@ -40,17 +40,17 @@ import {
     SelectionSettingsModel,
     SortEventArgs
 } from '@syncfusion/ej2-grids';
-import { forwardRef, useEffect, useImperativeHandle, useRef, useState, useMemo } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState, useMemo, useCallback } from 'react';
 import { TextField } from '../TextField';
 import { IconButton } from '../IconButton';
-import { CloseIcon, ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffIcon, FilterAltOffIcon, SearchIcon } from '../Icons';
+import { CloseIcon, ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffIcon, FilterAltOffIcon, SearchIcon, AddIcon } from '../Icons';
 import { BodySmall } from '../Typography';
 import { Tooltip } from '../Tooltip';
 import { InputAdornment } from '../InputAdornment';
 const license = window.localStorage.getItem('syncfusionLicense');
 registerLicense(license!);
 
-type ToolbarT = 'delete' | 'search' | 'clearFilters' | 'hide' | 'unhide' | 'selectedItems' | 'duplicate';
+type ToolbarT = 'delete' | 'search' | 'clearFilters' | 'hide' | 'unhide' | 'selectedItems' | 'duplicate' | 'add';
 export type ToolbarType = ToolbarT[];
 export interface TableProps {
     children: React.ReactNode;
@@ -75,12 +75,13 @@ export interface TableProps {
     onCheckboxChange?: (data: Object[]) => void;
     onAddDuplicates?: (data: Object[]) => void;
     onDragEnd?: (data: Object) => void;
-    onAdd?: (data: Object) => void;
+    onAdd?: () => void;
     onEdit?: (data: Object) => void;
     onDelete?: (data: Object) => void;
     onSearch?: (data: Object) => void;
     onRowSelection?: (data: Object) => void;
     customFiltersFunction?: (data: Object) => void;
+    dataBoundCallBack?: () => void;
     loading?: boolean;
     toolbarRightSection?: React.ReactNode;
     searchSettings?: SearchSettingsModel;
@@ -89,6 +90,7 @@ export interface TableProps {
     rowHeight?: number;
     height?: number | string;
     // defaultFilter?: 'equal' | 'contains';
+    tableKey?: number | string;
 }
 
 export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
@@ -111,6 +113,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         editSettings,
         filterSettings,
         onHideUnhide,
+        onAdd,
         onAddDuplicates,
         onCheckboxChange,
         onDragEnd,
@@ -125,7 +128,9 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         hiddenProperty,
         rowHeight,
         // defaultFilter,
-        customFiltersFunction
+        customFiltersFunction,
+        dataBoundCallBack,
+        tableKey
     } = props;
     const tableRef = useRef<any>();
     const [selected, setSelectedForBanner] = useState(0);
@@ -280,6 +285,23 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         onCheckboxChange!(tableRef?.current?.getSelectedRecords());
         setSelectedForBanner(tableRef?.current?.getSelectedRecords()?.length);
     };
+    const scrollTo = (id: number) => {
+        try {
+            const matchedElement = tableRef?.current?.flatData.find((value: any) => value.id === id);
+            if (matchedElement) {
+                const targetElement = tableRef.current.getRows()[matchedElement.index];
+                if (targetElement) {
+                    addClass([targetElement], 'e-highlightscroll');
+                    const rowHeight = targetElement.scrollHeight;
+                    tableRef.current.getContent().children[0].scrollTop = rowHeight * matchedElement.index;
+                }
+            } else {
+                console.error('scroll to Id is not found');
+            }
+        } catch (err) {
+            console.error('ScrollTo ', err);
+        }
+    };
     const rowSelected = (args: RowSelectEventArgs) => {
         onRowSelection!(tableRef.current.getSelectedRecords());
     };
@@ -309,7 +331,8 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         };
         return {
             clearSelection,
-            setSelectedForBanner
+            setSelectedForBanner,
+            scrollTo
         };
     });
 
@@ -329,24 +352,28 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     const dataBound = (args: Object) => {
         if (tableRef?.current?.getVisibleRecords()?.length === 0) {
             (document.getElementById('_gridcontrol_content_table') as any).classList.add('empty');
+        } else {
+            dataBoundCallBack!();
         }
+        tableRef.current.keyConfigs.upArrow = '';
+        tableRef.current.keyConfigs.downArrow = '';
     };
 
     const rightSection = useMemo(() => toolbarRightSection, [toolbarRightSection]);
 
     const [tableHeight, setTableHeight] = useState<number>();
-    const tableContainerRef = useRef<any>();
-    const toolbarContainerRef = useRef<any>();
-
-    useEffect(() => {
-        const toolbarHeight = showToolbar && toolbarContainerRef?.current ? toolbarContainerRef?.current?.offsetHeight : 0;
-        const paginationHeight = allowPaging ? 47 : 0;
-        const tableHeader = 42 + 10;
-        if (tableContainerRef?.current?.offsetHeight) {
-            setTableHeight(tableContainerRef?.current?.offsetHeight - toolbarHeight - paginationHeight - tableHeader);
+    const tableContainerRef = useCallback((node: HTMLDivElement) => {
+        if (node !== null) {
+            const toolbarHeight = showToolbar && toolbarContainerRef?.current ? toolbarContainerRef?.current?.offsetHeight : 0;
+            const paginationHeight = allowPaging ? 47 : 0;
+            const tableHeader = 42 + 10;
+            if (node.offsetHeight) {
+                setTableHeight(node.offsetHeight - toolbarHeight - paginationHeight - tableHeader);
+            }
         }
         // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
-    }, [[tableContainerRef?.current]]);
+    }, []);
+    const toolbarContainerRef = useRef<any>();
 
     // const resizestart = () => {
     //     tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
@@ -378,6 +405,15 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                                     onChange={(t: React.ChangeEvent<HTMLInputElement>) => tableRef.current.search(t?.target?.value?.trim())}
                                 />
                             </Box>
+                        )}
+                        {toolBarOptions?.includes('add') && (
+                            <Tooltip title={'Add'}>
+                                <Box>
+                                    <IconButton onClick={() => onAdd!()}>
+                                        <AddIcon fontSize="medium" />
+                                    </IconButton>
+                                </Box>
+                            </Tooltip>
                         )}
                         {toolBarOptions?.includes('duplicate') && (
                             <Tooltip title={disabled ? 'Select Item(s) First' : 'Duplicate'}>
@@ -467,6 +503,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             filterSettings={filterSettings}
                             checkboxChange={checkboxChange}
                             rowHeight={rowHeight}
+                            {...(tableKey && { key: tableKey })}
                         >
                             <ColumnsDirective>{children}</ColumnsDirective>
                             <Inject services={[Freeze, RowDD, Selection, Sort, Edit, Page, ExcelExport, PdfExport, Resize, Filter, ContextMenu]} />
@@ -519,11 +556,12 @@ Table.defaultProps = {
     onHideUnhide: (data: Object[]) => {},
     onCheckboxChange: (data: Object[]) => {},
     onDragEnd: (data: Object) => {},
-    onAdd: (data: Object) => {},
+    onAdd: () => {},
     onEdit: (data: Object) => {},
     onDelete: (data: Object) => {},
     onSearch: (data: Object) => {},
     onRowSelection: (data: Object) => {},
+    dataBoundCallBack: () => {},
     customFiltersFunction: (data: Object) => {},
     loading: false,
     showToolbar: true,

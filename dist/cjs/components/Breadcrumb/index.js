@@ -20,6 +20,8 @@ const Breadcrumbs_1 = __importDefault(require("@mui/material/Breadcrumbs"));
 const Link_1 = require("../Link");
 const skeleton_1 = require("../skeleton");
 const Typography_1 = require("../Typography");
+const Box_1 = require("../Box");
+const MUIBreadCrumbText = (props) => ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ maxWidth: "160px" }, { children: (0, jsx_runtime_1.jsx)(Typography_1.BodyXS, Object.assign({}, props, { limit: true, lines: 1 })) })));
 const Breadcrumb = (_a) => {
     var { options, component, isLoading = false } = _a, rest = __rest(_a, ["options", "component", "isLoading"]);
     return ((0, jsx_runtime_1.jsx)(Breadcrumbs_1.default, Object.assign({ separator: ">" }, rest, { children: options.map((item, index) => {
@@ -27,9 +29,9 @@ const Breadcrumb = (_a) => {
                 return (0, jsx_runtime_1.jsx)(skeleton_1.Skeleton, { variant: "rectangular", width: "116px", height: "16px" }, index);
             }
             if (index === options.length - 1) {
-                return ((0, jsx_runtime_1.jsx)(Typography_1.BodyXS, Object.assign({ color: 'secondary' }, { children: item.displaytext }), index));
+                return ((0, jsx_runtime_1.jsx)(MUIBreadCrumbText, Object.assign({ color: 'secondary' }, { children: item.displaytext }), index));
             }
-            return ((0, jsx_runtime_1.jsx)(Link_1.Link, Object.assign({ fontWeight: "400", fontFamily: "Inter", fontSize: '12px', color: "secondary", underline: 'hover', to: item.href, component: component }, { children: item.displaytext }), index));
+            return ((0, jsx_runtime_1.jsx)(Link_1.Link, Object.assign({ color: "secondary", underline: 'hover', to: item.href, component: component }, { children: (0, jsx_runtime_1.jsx)(MUIBreadCrumbText, Object.assign({ sx: { '&:hover': { color: 'inherit' } } }, { children: item.displaytext })) }), index));
         }) })));
 };
 exports.Breadcrumb = Breadcrumb;

@@ -10,16 +10,21 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 import { jsx as _jsx, Fragment as _Fragment } from "react/jsx-runtime";
-import { forwardRef, useState } from 'react';
+import { forwardRef, useState, useEffect } from 'react';
 import { TextField } from '../TextField';
 import { default as MUIAutocomplete, createFilterOptions } from '@mui/material/Autocomplete';
 const filter = createFilterOptions();
 export const Autocomplete = forwardRef((_a, ref) => {
-    var { id, label, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur, helperText, error, options, onTextFieldChange } = _a, props = __rest(_a, ["id", "label", "color", "variant", "onChange", "optionlabelkeyname", "freeSolo", "fieldSize", "onBlur", "helperText", "error", "options", "onTextFieldChange"]);
-    const [state, setState] = useState();
+    var { id, label, placeholder, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur = () => { }, helperText, error, options, onTextFieldChange, limitTags, value } = _a, props = __rest(_a, ["id", "label", "placeholder", "color", "variant", "onChange", "optionlabelkeyname", "freeSolo", "fieldSize", "onBlur", "helperText", "error", "options", "onTextFieldChange", "limitTags", "value"]);
+    const [state, setState] = useState(value || '');
     const handleOnChange = (event, newValue) => {
         onChange(Object.assign(Object.assign({}, event), { target: Object.assign(Object.assign({}, event.target), { value: newValue }) }));
     };
+    useEffect(() => {
+        if (value) {
+            setState(value);
+        }
+    }, [value]);
     const filterOptions = (options, params) => {
         let filteredOptions = filter(options, params);
         if (typeof state === 'object') {
@@ -28,20 +33,24 @@ export const Autocomplete = forwardRef((_a, ref) => {
         return filteredOptions;
     };
     const handleFocusOut = (event) => {
-        if (onBlur) {
-            let result = options.filter((item) => item[optionlabelkeyname] === event.target.value);
-            if (!result.length) {
-                result = event.target.value;
+        var _a;
+        let inputValue = (_a = event === null || event === void 0 ? void 0 : event.target) === null || _a === void 0 ? void 0 : _a.value;
+        if (inputValue) {
+            for (let item of options) {
+                if (item[optionlabelkeyname] === inputValue) {
+                    setState(item);
+                    onBlur(item);
+                    return;
+                }
             }
-            let _result = typeof result === 'object' ? result[0] : result;
-            setState(_result);
-            onBlur(_result);
+            setState(inputValue);
+            onBlur(inputValue);
         }
     };
     const handleOnInputChange = (event, value) => {
         setState(value);
         if (onTextFieldChange) {
-            onTextFieldChange(event);
+            onTextFieldChange(event, value);
         }
     };
     return (_jsx(_Fragment, { children: _jsx(MUIAutocomplete, Object.assign({ fullWidth: true }, props, { options: options, ref: ref, id: id, onBlur: handleFocusOut, onChange: handleOnChange, getOptionLabel: (option) => {
@@ -49,9 +58,9 @@ export const Autocomplete = forwardRef((_a, ref) => {
                     return `${option[optionlabelkeyname]}`;
                 }
                 return option;
-            }, filterOptions: filterOptions, onInputChange: handleOnInputChange, freeSolo: freeSolo, renderInput: (_a) => {
+            }, value: value, limitTags: limitTags, filterOptions: filterOptions, onInputChange: handleOnInputChange, freeSolo: freeSolo, renderInput: (_a) => {
                 var { size } = _a, params = __rest(_a, ["size"]);
-                return _jsx(TextField, Object.assign({ size: fieldSize, helperText: helperText, error: error }, params, { variant: variant, color: color, label: label }));
+                return (_jsx(TextField, Object.assign({ size: fieldSize, helperText: helperText, error: error }, params, { variant: variant, color: color, label: label, placeholder: placeholder })));
             } })) }));
 });
 Autocomplete.defaultProps = {

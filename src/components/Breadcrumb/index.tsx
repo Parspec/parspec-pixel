@@ -1,7 +1,9 @@
 import { default as MUIBreadcrumb, BreadcrumbsProps as MUIBreadcrumbsProps } from '@mui/material/Breadcrumbs';
+import { TypographyProps } from '@mui/material';
 import { Link } from '../Link';
 import { Skeleton } from '../skeleton';
 import { BodyXS } from '../Typography';
+import { Box } from '../Box';
 
 interface OptionTypes {
     displaytext: string;
@@ -14,6 +16,12 @@ export interface BreadcrumbsProps extends Omit<MUIBreadcrumbsProps, 'classes' | 
     isLoading?: boolean;
 }
 
+const MUIBreadCrumbText = (props: TypographyProps) => (
+    <Box maxWidth="160px">
+        <BodyXS {...props} limit lines={1} />
+    </Box>
+);
+
 export const Breadcrumb: React.FC<BreadcrumbsProps> = ({ options, component, isLoading = false, ...rest }) => {
     return (
         <MUIBreadcrumb separator=">" {...rest}>
@@ -23,14 +31,14 @@ export const Breadcrumb: React.FC<BreadcrumbsProps> = ({ options, component, isL
                 }
                 if (index === options.length - 1) {
                     return (
-                        <BodyXS color={'secondary'} key={index}>
+                        <MUIBreadCrumbText color={'secondary'} key={index}>
                             {item.displaytext}
-                        </BodyXS>
+                        </MUIBreadCrumbText>
                     );
                 }
                 return (
-                    <Link fontWeight="400" fontFamily="Inter" fontSize={'12px'} key={index} color="secondary" underline={'hover'} to={item.href} component={component}>
-                        {item.displaytext}
+                    <Link key={index} color="secondary" underline={'hover'} to={item.href} component={component}>
+                        <MUIBreadCrumbText sx={{ '&:hover': { color: 'inherit' } }}>{item.displaytext}</MUIBreadCrumbText>
                     </Link>
                 );
             })}

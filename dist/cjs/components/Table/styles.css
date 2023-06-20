@@ -28978,7 +28978,22 @@ tr.singleSelect:hover {
     background: #e3e3ff;
     cursor: pointer;
 }
-
+@keyframes fade-in {
+    100% {
+        background-color: #e3e3ff;
+    }
+}
+@keyframes fade-out {
+    0% {
+        background-color: #e3e3ff;
+    }
+    100% {
+        background-color: #fff;
+    }
+}
+tr.e-highlightscroll {
+    animation: fade-in 2s ease-in forwards 2, fade-out 4s 1s ease-out forwards 2;
+}
 .e-treegrid td.e-active {
     background-color: #e3e3ff;
 }
@@ -29088,11 +29103,11 @@ tr.singleSelect:hover {
 }
 
 /*  to be removed in V2 middle segment no border */
-/* tr.e-row td.e-childborder {
-  border-color: #dee2e6 !important;
-  border-top-width: 1px !important;
-  border-bottom-width: 0px !important;
-  border-left-width: 0px !important;
-  border-right-width: 0px !important;
-} */
+tr.e-row td.e-childborder {
+    border-color: #dee2e6 !important;
+    border-top-width: 1px !important;
+    border-bottom-width: 0px !important;
+    border-left-width: 0px !important;
+    border-right-width: 0px !important;
+}
 /*  to be removed in V2 middle segment no border */

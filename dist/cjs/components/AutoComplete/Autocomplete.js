@@ -41,11 +41,16 @@ const TextField_1 = require("../TextField");
 const Autocomplete_1 = __importStar(require("@mui/material/Autocomplete"));
 const filter = (0, Autocomplete_1.createFilterOptions)();
 exports.Autocomplete = (0, react_1.forwardRef)((_a, ref) => {
-    var { id, label, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur, helperText, error, options, onTextFieldChange } = _a, props = __rest(_a, ["id", "label", "color", "variant", "onChange", "optionlabelkeyname", "freeSolo", "fieldSize", "onBlur", "helperText", "error", "options", "onTextFieldChange"]);
-    const [state, setState] = (0, react_1.useState)();
+    var { id, label, placeholder, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur = () => { }, helperText, error, options, onTextFieldChange, limitTags, value } = _a, props = __rest(_a, ["id", "label", "placeholder", "color", "variant", "onChange", "optionlabelkeyname", "freeSolo", "fieldSize", "onBlur", "helperText", "error", "options", "onTextFieldChange", "limitTags", "value"]);
+    const [state, setState] = (0, react_1.useState)(value || '');
     const handleOnChange = (event, newValue) => {
         onChange(Object.assign(Object.assign({}, event), { target: Object.assign(Object.assign({}, event.target), { value: newValue }) }));
     };
+    (0, react_1.useEffect)(() => {
+        if (value) {
+            setState(value);
+        }
+    }, [value]);
     const filterOptions = (options, params) => {
         let filteredOptions = filter(options, params);
         if (typeof state === 'object') {
@@ -54,20 +59,24 @@ exports.Autocomplete = (0, react_1.forwardRef)((_a, ref) => {
         return filteredOptions;
     };
     const handleFocusOut = (event) => {
-        if (onBlur) {
-            let result = options.filter((item) => item[optionlabelkeyname] === event.target.value);
-            if (!result.length) {
-                result = event.target.value;
+        var _a;
+        let inputValue = (_a = event === null || event === void 0 ? void 0 : event.target) === null || _a === void 0 ? void 0 : _a.value;
+        if (inputValue) {
+            for (let item of options) {
+                if (item[optionlabelkeyname] === inputValue) {
+                    setState(item);
+                    onBlur(item);
+                    return;
+                }
             }
-            let _result = typeof result === 'object' ? result[0] : result;
-            setState(_result);
-            onBlur(_result);
+            setState(inputValue);
+            onBlur(inputValue);
         }
     };
     const handleOnInputChange = (event, value) => {
         setState(value);
         if (onTextFieldChange) {
-            onTextFieldChange(event);
+            onTextFieldChange(event, value);
         }
     };
     return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: (0, jsx_runtime_1.jsx)(Autocomplete_1.default, Object.assign({ fullWidth: true }, props, { options: options, ref: ref, id: id, onBlur: handleFocusOut, onChange: handleOnChange, getOptionLabel: (option) => {
@@ -75,9 +84,9 @@ exports.Autocomplete = (0, react_1.forwardRef)((_a, ref) => {
                     return `${option[optionlabelkeyname]}`;
                 }
                 return option;
-            }, filterOptions: filterOptions, onInputChange: handleOnInputChange, freeSolo: freeSolo, renderInput: (_a) => {
+            }, value: value, limitTags: limitTags, filterOptions: filterOptions, onInputChange: handleOnInputChange, freeSolo: freeSolo, renderInput: (_a) => {
                 var { size } = _a, params = __rest(_a, ["size"]);
-                return (0, jsx_runtime_1.jsx)(TextField_1.TextField, Object.assign({ size: fieldSize, helperText: helperText, error: error }, params, { variant: variant, color: color, label: label }));
+                return ((0, jsx_runtime_1.jsx)(TextField_1.TextField, Object.assign({ size: fieldSize, helperText: helperText, error: error }, params, { variant: variant, color: color, label: label, placeholder: placeholder })));
             } })) }));
 });
 exports.Autocomplete.defaultProps = {

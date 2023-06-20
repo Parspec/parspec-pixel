@@ -7,5 +7,6 @@ export interface ModalFooterProps {
     continueButtonColor?: 'primary' | 'secondary' | 'tertiary' | 'error';
     isLoading?: boolean;
     helperText?: React.ReactNode;
+    isCancelButtonDisabled?: boolean;
 }
 export declare const ModalFooter: React.FC<ModalFooterProps>;

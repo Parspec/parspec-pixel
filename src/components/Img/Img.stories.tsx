@@ -8,9 +8,9 @@ export default {
     component: Img
 };
 
-export const Basic: ComponentStory<typeof Img> = (props) => {
-    return <Img {...props} />;
+export const Basic: ComponentStory<typeof Img> = (args) => {
+    return <Img {...args} />;
 };
 Basic.args = {
-    src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzwy6VxbPiiGqzsNndB5HarWfGalTCWHEYD-uwKrukdC9eD5Z1YH5huQMzPQcHu6oLyp0&usqp=CAU'
+    src: 'https://c4.wallpaperflare.com/wallpaper/805/955/805/serrin-angel-warrior-rebirth-league-of-angels-play-free-online-games-desktop-wallpaper-hd-1920-1080-wallpaper-preview.jpg'
 };

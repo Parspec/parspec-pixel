@@ -32,6 +32,7 @@ import {
     FilterSettingsModel,
     getObject,
     HeaderCellInfoEventArgs,
+    RowSelectingEventArgs,
     PageEventArgs,
     RowDeselectEventArgs,
     RowSelectEventArgs,
@@ -155,12 +156,17 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     }, [loading]);
 
-    const actionComplete = (args: PageEventArgs | FilterEventArgs | SortEventArgs | SearchEventArgs | AddEventArgs | SaveEventArgs | EditEventArgs | DeleteEventArgs) => {
+    let isEscPressed = false;
+    const actionComplete = (args: any) => {
         if (args?.type === 'save') {
             onEdit!(args);
         }
         if (args?.requestType === 'searching') {
             onSearch!(args);
+        }
+
+        if (isNullOrUndefined(args.data)) {
+            isEscPressed = true;
         }
         // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     };
@@ -353,6 +359,15 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     // const expanding = () => {
     //     tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     // };
+
+    const rowSelecting = (args: RowSelectingEventArgs) => {
+        if (isEscPressed) {
+            args.cancel = true;
+        }
+
+        isEscPressed = false;
+    };
+
     return (
         <Box position={'relative'} height={'100%'} width={'100%'} ref={tableContainerRef}>
             {showToolbar && (
@@ -444,6 +459,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             // expanding={expanding}
                             // collapsing={collapsing}
                             // resizeStart={resizestart}
+                            rowSelecting={rowSelecting}
                             actionBegin={actionBegin}
                             dataBound={dataBound}
                             actionComplete={actionComplete}

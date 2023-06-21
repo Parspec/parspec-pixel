@@ -4,10 +4,11 @@ import { Box } from '../Box';
 
 export interface ImgProps {
     src: string;
+    width: string;
+    height: string;
 }
-export const Img = (props: ImgProps) => {
-    const { src, ...rest } = props;
-    const [imgSrc, setImgSrc] = useState('');
+export const Img = ({ src, width, height, ...rest }: ImgProps) => {
+    const [imgSrc, setImgSrc] = useState(src);
 
     useEffect(() => {
         const img = new Image();
@@ -18,7 +19,7 @@ export const Img = (props: ImgProps) => {
     }, [src]);
     if (!imgSrc) {
         return (
-            <Box width="220px" height="219px" display="flex" justifyContent="center" alignItems="center">
+            <Box width={width} height={height} display="flex" justifyContent="center" alignItems="center">
                 <CircularProgress />
             </Box>
         );

@@ -24,22 +24,14 @@ import { addClass, isNullOrUndefined, registerLicense } from '@syncfusion/ej2-ba
 import './styles.css';
 import { Box } from '../Box';
 import {
-    AddEventArgs,
     CheckBoxChangeEventArgs,
-    DeleteEventArgs,
-    EditEventArgs,
-    FilterEventArgs,
     FilterSettingsModel,
     getObject,
     HeaderCellInfoEventArgs,
     RowSelectingEventArgs,
-    PageEventArgs,
     RowDeselectEventArgs,
     RowSelectEventArgs,
-    SaveEventArgs,
-    SearchEventArgs,
-    SelectionSettingsModel,
-    SortEventArgs
+    SelectionSettingsModel
 } from '@syncfusion/ej2-grids';
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState, useMemo, useCallback } from 'react';
 import { TextField } from '../TextField';

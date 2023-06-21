@@ -32,4 +32,5 @@ export * from './Link';
 export * from './FormControl';
 export * from './Info';
 export * from './Status';
+export * from './Portal';
 //# sourceMappingURL=index.js.map

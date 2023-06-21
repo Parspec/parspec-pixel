@@ -48,4 +48,5 @@ __exportStar(require("./Link"), exports);
 __exportStar(require("./FormControl"), exports);
 __exportStar(require("./Info"), exports);
 __exportStar(require("./Status"), exports);
+__exportStar(require("./Portal"), exports);
 //# sourceMappingURL=index.js.map

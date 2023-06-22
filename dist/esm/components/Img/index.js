@@ -15,7 +15,7 @@ import { CircularProgress } from '../CircularProgress';
 import { Box } from '../Box';
 export const Img = (_a) => {
     var { src, width, height } = _a, rest = __rest(_a, ["src", "width", "height"]);
-    const [imgSrc, setImgSrc] = useState(src);
+    const [imgSrc, setImgSrc] = useState('');
     useEffect(() => {
         const img = new Image();
         img.src = src;

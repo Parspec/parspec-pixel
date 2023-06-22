@@ -18,7 +18,7 @@ const CircularProgress_1 = require("../CircularProgress");
 const Box_1 = require("../Box");
 const Img = (_a) => {
     var { src, width, height } = _a, rest = __rest(_a, ["src", "width", "height"]);
-    const [imgSrc, setImgSrc] = (0, react_1.useState)(src);
+    const [imgSrc, setImgSrc] = (0, react_1.useState)('');
     (0, react_1.useEffect)(() => {
         const img = new Image();
         img.src = src;

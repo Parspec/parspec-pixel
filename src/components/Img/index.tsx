@@ -8,7 +8,7 @@ export interface ImgProps {
     height: string;
 }
 export const Img = ({ src, width, height, ...rest }: ImgProps) => {
-    const [imgSrc, setImgSrc] = useState(src);
+    const [imgSrc, setImgSrc] = useState('');
 
     useEffect(() => {
         const img = new Image();

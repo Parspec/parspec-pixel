@@ -41,7 +41,7 @@ export const SingleSelect: ComponentStory<typeof Table> = (props) => {
     };
 
     const templateOptions = (args) => {
-        const dataSource = ['Yes', 'No'];
+        const dataSource = ['Yes', 'No', 'Hi'];
         const created = (args) => {
             //Multi select instance
             const obj = (document?.getElementById('multi_check_box') as any)?.ej2_instances?.[0];

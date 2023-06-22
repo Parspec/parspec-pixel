@@ -149,14 +149,21 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     }, [loading]);
 
     let isEscPressed = false;
+    let filterApplied = false;
     const actionComplete = (args: any) => {
+        if (args?.requestType === 'filtering') {
+            if (args?.action === 'filter') {
+                filterApplied = true;
+            } else if (args?.action === 'clearFilter') {
+                filterApplied = false;
+            }
+        }
         if (args?.type === 'save') {
             onEdit!(args);
         }
         if (args?.requestType === 'searching') {
             onSearch!(args);
         }
-
         if (isNullOrUndefined(args.data)) {
             isEscPressed = true;
         }
@@ -171,8 +178,10 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
 
         if (e.requestType === 'filterbeforeopen') {
             customFiltersFunction!(e);
-            if (tableRef?.current?.isFiltered || !tableRef?.current?.filterModule?.filteredResult?.length) {
-                multiSelectFilterVal = [];
+            if (!tableRef?.current?.filterModule?.filteredResult?.length) {
+                if (filterApplied === false) {
+                    multiSelectFilterVal = [];
+                }
             }
         }
         if (e.type === 'edit') {
@@ -378,7 +387,10 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                                         )
                                     }}
                                     size="small"
-                                    onChange={(t: React.ChangeEvent<HTMLInputElement>) => tableRef.current.search(t?.target?.value?.trim())}
+                                    onChange={(t: React.ChangeEvent<HTMLInputElement>) => {
+                                        t.target.value = t?.target?.value?.replace(/[^a-zA-Z0-9-_ ]/g, '');
+                                        tableRef.current.search(t?.target?.value?.replace(/[^a-zA-Z0-9-_ ]/g, '').trim());
+                                    }}
                                 />
                             </Box>
                         )}

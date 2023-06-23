@@ -63,3 +63,9 @@ declare module '@mui/material/SvgIcon' {
         neutral: true;
     }
 }
+declare module '@mui/material/Slider' {
+    interface SliderPropsColorOverrides {
+        tertiary: true;
+        neutral: true;
+    }
+}

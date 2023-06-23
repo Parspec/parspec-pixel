@@ -15,7 +15,7 @@ import { Link } from '../Link';
 import { Skeleton } from '../skeleton';
 import { BodyXS } from '../Typography';
 import { Box } from '../Box';
-const MUIBreadCrumbText = (props) => (_jsx(Box, Object.assign({ maxWidth: "40ch" }, { children: _jsx(BodyXS, Object.assign({}, props, { limit: true, lines: 1 })) })));
+const MUIBreadCrumbText = (props) => (_jsx(Box, Object.assign({ maxWidth: "160px" }, { children: _jsx(BodyXS, Object.assign({}, props, { limit: true, lines: 1 })) })));
 export const Breadcrumb = (_a) => {
     var { options, component, isLoading = false } = _a, rest = __rest(_a, ["options", "component", "isLoading"]);
     return (_jsx(MUIBreadcrumb, Object.assign({ separator: ">" }, rest, { children: options.map((item, index) => {

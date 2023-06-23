@@ -34,3 +34,4 @@ export * from './Info';
 export * from './Status';
 export * from './Slider';
 export * from './RangeSlider';
+export * from './Img';

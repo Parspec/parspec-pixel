@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import { FocusEvent } from 'react';
 import { mark } from '../Slider';
 interface RangeSliderProps {
     value: [number, number];
@@ -9,6 +9,7 @@ interface RangeSliderProps {
     color: 'primary' | 'secondary' | 'tertiary' | 'neutral';
     headerTitle?: string;
     onChange: (data: [number, number]) => void;
+    onBlur: (data: FocusEvent<HTMLInputElement>) => void;
     marks?: boolean | mark[];
     disabled?: boolean;
     textfieldWidth?: number;

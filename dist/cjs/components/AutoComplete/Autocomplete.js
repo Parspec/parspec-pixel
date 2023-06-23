@@ -69,6 +69,9 @@ exports.Autocomplete = (0, react_1.forwardRef)((_a, ref) => {
             setState(result[0]);
             onBlur(result[0]);
         }
+        else {
+            onBlur();
+        }
     };
     const handleOnInputChange = (event, value) => {
         setState(value);

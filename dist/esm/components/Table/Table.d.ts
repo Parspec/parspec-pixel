@@ -1,6 +1,6 @@
 /// <reference types="react" />
 import { TreeGridExcelExportProperties, TreeGridPdfExportProperties, PageSettingsModel, EditSettingsModel, SearchSettingsModel } from '@syncfusion/ej2-react-treegrid';
-import './styles.css';
+import './Treegrid.scss';
 import { FilterSettingsModel, SelectionSettingsModel } from '@syncfusion/ej2-grids';
 type ToolbarT = 'delete' | 'search' | 'clearFilters' | 'hide' | 'unhide' | 'selectedItems' | 'duplicate' | 'add';
 export type ToolbarType = ToolbarT[];

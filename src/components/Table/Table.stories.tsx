@@ -44,7 +44,7 @@ export const SingleSelect: ComponentStory<typeof Table> = (props) => {
         <Box height={500}>
             <Table {...getTableProps({ ...props, onRowSelection, onDragEnd, customFiltersFunction })} data={data} ref={tableRef}>
                 <ColumnDirective field="id" isPrimaryKey={true} visible={false} />
-                <ColumnDirective field="taskID" allowEditing={false} headerText="Task ID" minWidth="100" width="130" editType="numericedit" />
+                <ColumnDirective field="taskID" allowEditing={false} headerText="Task ID" width="130" editType="numericedit" />
                 <ColumnDirective field="name" headerText="Task Name" />
                 <ColumnDirective field="reporter" headerText="Reporter" />
                 <ColumnDirective field="available" filter={{ type: 'Menu', operator: 'contains' }} filterTemplate={filterTemplateOptions} headerText="Availability" />

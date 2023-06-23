@@ -1,7 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { TreeGridComponent, ColumnsDirective, Selection, RowDD, Inject, Freeze, Sort, Edit, Page, PdfExport, ExcelExport, Resize, Filter, ContextMenu } from '@syncfusion/ej2-react-treegrid';
 import { addClass, isNullOrUndefined, registerLicense } from '@syncfusion/ej2-base';
-import './styles.css';
+import './Treegrid.scss';
+// import './styles.css';
 import { Box } from '../Box';
 import { getObject } from '@syncfusion/ej2-grids';
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState, useMemo, useCallback } from 'react';
@@ -59,55 +60,108 @@ export const Table = forwardRef((props, ref) => {
             e.cell.getElementsByTagName('input')[0].setAttribute('maxLength', 255);
         }
     };
+    // const rowDragStartHelper = (args) => {
+    //     console.log('rowDragStartHelper====>', args);
+    // };
     const rowDrop = (args) => {
-        var _a;
+        // // console.log('data', data);
+        // let notAllowed = false;
+        var _a, _b, _c;
+        // const { dropIndex, fromIndex } = args;
+        // const targetIndex = dropIndex === 0 ? 0 : Math.abs(dropIndex - fromIndex);
+        // const { childRecords, parentItem, type } = tableRef?.current?.flatData[targetIndex];
+        // console.log(args, '/n ===>args', tableRef?.current?.flatData, '/n == tabel ref', tableRef?.current?.flatData[Math.abs(dropIndex - fromIndex)]);
+        // if ((childRecords || parentItem) && !['product', 'accessory'].includes(type)) {
+        //     args.cancel = true;
+        //     notAllowed = true;
+        // }
+        // console.log(childRecords, parentItem, 'childRecords, parentItem ');
+        // if()
+        // let notAllowed = false;
+        // const droppedData = tableRef?.current?.getRowInfo(args.target.parentElement).rowData; //dropped data
+        // // console.log(args, 'args', droppedData);
+        // let droppedId, draggedId;
+        // //here collect the taskid value based on parent records
+        // if (!isNullOrUndefined(droppedData)) {
+        //     if (!isNullOrUndefined(droppedData.parentItem) && args.data[0].parentItem != null) {
+        //         droppedId = droppedData.parentItem.taskID; //dropped data
+        //         draggedId = args.data[0].parentItem.taskID; // dragged data
+        //     } else if (droppedData.hasChildRecords == true) {
+        //         droppedId = droppedData.taskID; //dropped data
+        //         draggedId = args.data[0].taskID; // dragged data
+        //     }
+        // }
+        // // //Here we prevent for top / bottom position
+        // // // debugger;
+        // // if (droppedId != draggedId && args.data[0].level != droppedData.level) {
+        // //     args.cancel = true;
+        // //     notAllowed = true;
+        // // } else if (args.dropPosition == 'topSegment' || args.dropPosition == 'bottomSegment') {
+        // //     //here prevent the drop for within child parent
+        // //     if (args.data[0].level != droppedData.level) {
+        // //         args.cancel = true;
+        // //         notAllowed = true;
+        // //     } else if (args.data[0].level != 0 && droppedData.level != 0) {
+        // //         if (
+        // //             args.data[0].level == droppedData.level &&
+        // //             (isNullOrUndefined(args.data[0].hasChildRecords) || isNullOrUndefined(droppedData.hasChildRecords) || args.data[0].hasChildRecords == true) &&
+        // //             droppedId != draggedId
+        // //         ) {
+        // //             args.cancel = true; //here we prevent drop the record in top of another parent's child
+        // //             notAllowed = true;
+        // //         }
+        // //     }
+        // // }
+        console.log(typeof args.dropPosition, ' ====current positon ');
+        // if (args.dropPosition === 'topSegment' || args.dropPosition == 'bottomSegment') {
+        //     if (args.data[0].level < droppedData.level && args.data[0].type === 'section') {
+        //         args.cancel = true;
+        //         notAllowed = true;
+        //     }
+        //     if (args.data[0].level === 2 && droppedData.level === 0) {
+        //     }
+        // }
+        // if (args.dropPosition === 'middleSegment') {
+        //     //Here we prevent the drop for child position
+        //     if (!isNullOrUndefined(draggedId) && !isNullOrUndefined(droppedId)) {
+        //         if (droppedId == draggedId || args.data[0].level == droppedData.level) {
+        //             args.cancel = true;
+        //             notAllowed = true;
+        //         }
+        //     } else if (args.data[0].level == droppedData.level || (args.data[0].level != droppedData.level && isNullOrUndefined(draggedId) && isNullOrUndefined(droppedId))) {
+        //         args.cancel = true;
+        //         notAllowed = true;
+        //     }
+        // }
         let notAllowed = false;
-        const droppedData = (_a = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _a === void 0 ? void 0 : _a.getRowInfo(args.target.parentElement).rowData; //dropped data
-        let droppedId, draggedId;
-        //here collect the taskid value based on parent records
-        if (!isNullOrUndefined(droppedData)) {
-            if (!isNullOrUndefined(droppedData.parentItem) && args.data[0].parentItem != null) {
-                droppedId = droppedData.parentItem.taskID; //dropped data
-                draggedId = args.data[0].parentItem.taskID; // dragged data
-            }
-            else if (droppedData.hasChildRecords == true) {
-                droppedId = droppedData.taskID; //dropped data
-                draggedId = args.data[0].taskID; // dragged data
-            }
+        const targetData = (_c = (_a = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _a === void 0 ? void 0 : _a.getRowInfo((_b = args === null || args === void 0 ? void 0 : args.target) === null || _b === void 0 ? void 0 : _b.parentElement)) === null || _c === void 0 ? void 0 : _c.rowData; //dropped data
+        let data, parent;
+        data = args.data[0];
+        if (args.dropPosition === 'middleSegment') {
+            parent = targetData;
         }
-        //Here we prevent for top / bottom position
-        if (droppedId != draggedId && args.data[0].level != droppedData.level) {
-            args.cancel = true;
-            notAllowed = true;
+        else {
+            parent = targetData === null || targetData === void 0 ? void 0 : targetData.parentItem;
         }
-        else if (args.dropPosition == 'topSegment' || args.dropPosition == 'bottomSegment') {
-            //here prevent the drop for within child parent
-            if (args.data[0].level != droppedData.level) {
-                args.cancel = true;
-                notAllowed = true;
-            }
-            else if (args.data[0].level != 0 && droppedData.level != 0) {
-                if (args.data[0].level == droppedData.level &&
-                    (isNullOrUndefined(args.data[0].hasChildRecords) || isNullOrUndefined(droppedData.hasChildRecords) || args.data[0].hasChildRecords == true) &&
-                    droppedId != draggedId) {
-                    args.cancel = true; //here we prevent drop the record in top of another parent's child
-                    notAllowed = true;
-                }
-            }
-        }
-        //Here we prevent the drop for child position
-        if (args.dropPosition == 'middleSegment') {
-            if (!isNullOrUndefined(draggedId) && !isNullOrUndefined(droppedId)) {
-                if (droppedId == draggedId || args.data[0].level == droppedData.level) {
-                    args.cancel = true;
-                    notAllowed = true;
-                }
-            }
-            else if (args.data[0].level == droppedData.level || (args.data[0].level != droppedData.level && isNullOrUndefined(draggedId) && isNullOrUndefined(droppedId))) {
+        if ((data === null || data === void 0 ? void 0 : data.type) === 'section') {
+            if ((parent === null || parent === void 0 ? void 0 : parent.type) !== undefined) {
                 args.cancel = true;
                 notAllowed = true;
             }
         }
+        else if ((data === null || data === void 0 ? void 0 : data.type) === 'product') {
+            if ((parent === null || parent === void 0 ? void 0 : parent.type) !== 'section' && (parent === null || parent === void 0 ? void 0 : parent.type) !== undefined) {
+                args.cancel = true;
+                notAllowed = true;
+            }
+        }
+        else {
+            if ((parent === null || parent === void 0 ? void 0 : parent.type) !== 'product' && (parent === null || parent === void 0 ? void 0 : parent.type) !== undefined) {
+                args.cancel = true;
+                notAllowed = true;
+            }
+        }
+        console.log('data=>', data, '\nparent=>', parent, '\narg=>', args, '\ntarget=>', targetData);
         if (!notAllowed) {
             onDragEnd({ fromIndex: args.fromIndex, data: args.data[0] });
         }

@@ -1,0 +1,151 @@
+$accent: #6467f2;
+$grey-light-font: #000;
+$grey-300: #e3e3ff;
+$grey-900: #091535;
+$grid-font-size: 14px;
+$pager-font-size: 14px;
+$grid-header-cell-color: #f1f5f9;
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500');
+@import '@syncfusion/ej2-icons/styles/fabric.scss';
+@import '@syncfusion/ej2-base/styles/material.scss';
+@import '@syncfusion/ej2-buttons/styles/material.scss';
+@import '@syncfusion/ej2-calendars/styles/material.scss';
+@import '@syncfusion/ej2-dropdowns/styles/material.scss';
+@import '@syncfusion/ej2-inputs/styles/material.scss';
+@import '@syncfusion/ej2-navigations/styles/material.scss';
+@import '@syncfusion/ej2-popups/styles/material.scss';
+@import '@syncfusion/ej2-splitbuttons/styles/material.scss';
+@import '@syncfusion/ej2-grids/styles/material.scss';
+@import '@syncfusion/ej2-react-treegrid/styles/material.scss';
+
+.e-grid .e-icon-filter::before,
+.e-grid-menu .e-icon-filter::before {
+    content: '\e250';
+    font-weight: bold;
+}
+.e-grid .e-gridheader thead .e-icons:not(.e-check):not(.e-stop) {
+    font-size: 12px;
+}
+tr.singleSelect:hover {
+    background: $grey-300;
+    cursor: pointer;
+}
+
+.e-treegrid td.e-active {
+    background-color: $grey-300;
+}
+
+.e-grid td.e-updatedtd {
+    background-color: #e0e0e0;
+    color: $grey-light-font;
+}
+
+.e-grid .e-gridheader {
+    color: $grey-900;
+}
+
+.e-treegrid .customicon .e-sortfilterdiv:not(.e-icon-ascending):not(.e-icon-descending)::before {
+    font-size: 12px;
+    content: '\e666';
+    padding-right: 3px;
+    position: relative;
+    z-index: 999;
+    background-color: $grid-header-cell-color;
+}
+.e-grid .e-gridheader .e-icons:not(.e-icon-hide):not(.e-check):not(.e-stop):not(.e-icon-reorderuparrow):not(.e-icon-reorderdownarrow) {
+    color: $grey-900;
+}
+
+.e-excel-ascending.e-menu-item,
+.e-excel-descending.e-menu-item {
+    display: none;
+}
+
+.e-grid .e-gridheader {
+    background-color: $grid-header-cell-color;
+}
+
+.e-grid .e-headercell,
+.e-grid .e-detailheadercell {
+    background-color: $grid-header-cell-color;
+}
+
+.e-grid .e-rowdragheader {
+    background-color: $grid-header-cell-color;
+}
+
+.e-pager {
+    background-color: transparent;
+    color: $grey-900;
+}
+.e-pager .e-pagercontainer {
+    background-color: transparent;
+    color: $grey-900;
+}
+
+.e-spinner-pane.e-spin-show {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.e-input-group.e-control-wrapper.e-popup-flmenu.e-ddl.e-lib.e-keyboard.e-valid-input {
+    display: none;
+}
+
+#_gridcontrol_content_table.empty {
+    border-right: none;
+}
+
+.e-grid .e-flmenu-valuediv {
+    padding: 0;
+}
+
+.e-parentmsgbar {
+    color: $grey-900;
+}
+
+.e-pager .e-numericitem {
+    color: $grey-900;
+}
+
+.e-pager .e-currentitem {
+    color: #fff;
+}
+
+.e-pager div.e-icons.e-pager-default {
+    color: $grey-900;
+}
+
+.e-pager div.e-icons.e-disable {
+    pointer-events: none;
+}
+
+#_gridcontrol > div.e-gridheader.e-lib.e-droppable {
+    padding-right: 0 !important;
+}
+
+/* .e-sortfilterdiv, */
+.e-filtermenudiv.e-icons {
+    background-color: $grid-header-cell-color;
+    position: relative;
+    z-index: 999;
+}
+
+.e-rcursor {
+    position: relative;
+    z-index: 9999;
+}
+
+.e-grid .e-rowcell {
+    font-size: 14px;
+}
+
+/*  to be removed in V2 middle segment no border */
+/* tr.e-row td.e-childborder {
+  border-color: #dee2e6 !important;
+  border-top-width: 1px !important;
+  border-bottom-width: 0px !important;
+  border-left-width: 0px !important;
+  border-right-width: 0px !important;
+} */
+/*  to be removed in V2 middle segment no border */

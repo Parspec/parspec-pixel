@@ -10,13 +10,17 @@ export default {
 } as ComponentMeta<typeof RangeSlider>;
 
 export const Basic: ComponentStory<typeof RangeSlider> = (args) => {
-    const [rangeValue, setRangeValue] = useState<[number, number]>([22, 45]);
+    const [rangeValue, setRangeValue] = useState<[number, number]>([25, 30]);
 
     const changeHandler = (data: [number, number]) => {
         console.log(data);
         setRangeValue(() => data);
     };
-    return <RangeSlider {...args} onChange={changeHandler} value={rangeValue} />;
+
+    const onBlurHandler = (event: any) => {
+        console.log(event);
+    };
+    return <RangeSlider {...args} onChange={changeHandler} onBlur={onBlurHandler} value={rangeValue} />;
 };
 
 Basic.args = {

@@ -4,6 +4,17 @@ import { BodyXS } from '../Typography';
 import { TextField } from '../TextField';
 import { Slider } from '../Slider';
 import { mark } from '../Slider';
+import { styled } from '@mui/material/styles';
+
+const NumberTextField = styled(TextField)(({ theme }) => ({
+    '& input[type=number]': {
+        '-moz-appearance': 'textfield',
+        '&::-webkit-outer-spin-button, &::-webkit-inner-spin-button': {
+            '-webkit-appearance': 'none',
+            margin: 0
+        }
+    }
+}));
 
 interface RangeSliderProps {
     value: [number, number];
@@ -111,7 +122,7 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
             <BodyXS color={'text.secondary'}>{headerTitle}</BodyXS>
             <Box mt={headerTitle ? 2 : 0} display={'flex'} justifyContent={'space-between'} alignItems={'center'} width={1}>
                 <Box width={textfieldWidth ? textfieldWidth : 64} height={textfieldHeight ? textfieldHeight : 36}>
-                    <TextField
+                    <NumberTextField
                         label=""
                         type="number"
                         //doing .toString() to eliminate the leading zero bug
@@ -142,7 +153,7 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
                 </Box>
 
                 <Box width={textfieldWidth ? textfieldWidth : 64} height={textfieldHeight ? textfieldHeight : 36}>
-                    <TextField
+                    <NumberTextField
                         label=""
                         type="number"
                         //doing .toString() to eliminate the leading zero bug

@@ -1,4 +1,4 @@
-import { forwardRef, useState, useEffect } from 'react';
+import { forwardRef, useState } from 'react';
 
 import { TextField } from '../TextField';
 import { default as MUIAutocomplete, createFilterOptions } from '@mui/material/Autocomplete';
@@ -19,29 +19,23 @@ export interface AutocompleteProps {
     freeSolo?: boolean;
     size?: 'small' | 'medium';
     multiple?: boolean;
-    value?: string | OptionType | null;
+    value?: string | OptionType | (string | OptionType)[] | null;
     defaultValue?: string | OptionType | (string | OptionType)[] | null;
     onBlur?: (params?: OptionType | string) => void;
     helperText?: string;
     error?: boolean;
-    onTextFieldChange?: (e: React.SyntheticEvent<Element, Event>, value: string) => void;
+    onTextFieldChange?: (e: React.SyntheticEvent<Element, Event>) => void;
     limitTags?: number;
 }
 
 const filter = createFilterOptions<OptionType>();
 
 export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivElement, AutocompleteProps>(
-    ({ id, label, placeholder, color, variant, onChange, optionlabelkeyname, size, freeSolo, onBlur = () => {}, helperText, error, options, onTextFieldChange, limitTags, value, ...props }, ref) => {
+    ({ id, label, placeholder, color, variant, onChange, optionlabelkeyname, size, freeSolo, onBlur = () => {}, helperText, error, options, onTextFieldChange, limitTags, ...props }, ref) => {
         const [state, setState] = useState<OptionType | string>();
         const handleOnChange = (_event: React.SyntheticEvent<Element, Event>, newValue: string | OptionType | (string | OptionType)[] | null) => {
             onChange(newValue);
         };
-
-        useEffect(() => {
-            if (value) {
-                setState(value);
-            }
-        }, [value]);
 
         const filterOptions = (options: OptionType[], params: any) => {
             let filteredOptions = filter(options, params);
@@ -53,18 +47,19 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
         };
 
         const handleFocusOut = (event: any) => {
-            let inputValue = event?.target?.value;
+            let customValue = event?.target?.value;
+            if (customValue) {
+                const result: OptionType[] = [];
 
-            if (inputValue) {
                 for (let item of options) {
-                    if (item[optionlabelkeyname] === inputValue) {
-                        setState(item);
-                        onBlur(item);
-                        return;
+                    if (typeof item[optionlabelkeyname] === 'number') {
+                        break;
+                    } else if (customValue.includes(item[optionlabelkeyname])) {
+                        result.push(item);
                     }
                 }
-                setState(inputValue);
-                onBlur(inputValue);
+                setState(result[0]);
+                onBlur(result[0]);
             } else {
                 onBlur();
             }
@@ -73,7 +68,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
         const handleOnInputChange = (event: React.SyntheticEvent<Element, Event>, value: string) => {
             setState(value);
             if (onTextFieldChange) {
-                onTextFieldChange(event, value);
+                onTextFieldChange(event);
             }
         };
 
@@ -95,7 +90,6 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
 
                         return option;
                     }}
-                    value={value}
                     limitTags={limitTags}
                     filterOptions={filterOptions}
                     onInputChange={handleOnInputChange}

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { topFilms as top100Films } from './topfilm';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { Autocomplete } from './';
+import { Autocomplete, OptionType } from './';
 
 export default {
     title: 'Autocomplete/Autocomplete',
@@ -58,7 +58,7 @@ export const AutocompleteWithCreateOption: ComponentStory<typeof Autocomplete> =
         onChange={(e: any) => {
             console.log(e);
         }}
-        onBlur={(value: any) => console.log(`[on blur]`, value)}
+        onBlur={(value: OptionType | string) => console.log(`[on blur]`, value)}
     />
 );
 

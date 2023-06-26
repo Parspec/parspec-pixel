@@ -30,10 +30,10 @@ interface RangeSliderProps {
     textfieldHeight?: number;
     disableSwap?: boolean;
     onChange: (data: [number, number]) => void;
-    onRangeBlur: (event: FocusEvent<HTMLInputElement>, data: [number, number]) => void;
-    onSliderMouseUp: (event: MouseEvent<HTMLButtonElement>, data: [number, number]) => void;
-    onTextfieldBlur: (event: FocusEvent<HTMLInputElement>, data: [number, number]) => void;
-    onTextfieldEnterKeyDown: (event: React.KeyboardEvent<HTMLInputElement>, data: [number, number]) => void;
+    onRangeBlur?: (event: FocusEvent<HTMLInputElement>, data: [number, number]) => void;
+    onSliderMouseUp?: (event: MouseEvent<HTMLButtonElement>, data: [number, number]) => void;
+    onTextfieldBlur?: (event: FocusEvent<HTMLInputElement>, data: [number, number]) => void;
+    onTextfieldEnterKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>, data: [number, number]) => void;
 }
 
 function getAdjustedValues(valueArr: [number, number], minVal: number, maxVal: number): [number, number] {

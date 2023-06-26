@@ -51,4 +51,5 @@ __exportStar(require("./Status"), exports);
 __exportStar(require("./StatusSelect"), exports);
 __exportStar(require("./Slider"), exports);
 __exportStar(require("./RangeSlider"), exports);
+__exportStar(require("./Img"), exports);
 //# sourceMappingURL=index.js.map

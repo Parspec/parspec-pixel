@@ -41,16 +41,11 @@ const TextField_1 = require("../TextField");
 const Autocomplete_1 = __importStar(require("@mui/material/Autocomplete"));
 const filter = (0, Autocomplete_1.createFilterOptions)();
 exports.Autocomplete = (0, react_1.forwardRef)((_a, ref) => {
-    var { id, label, placeholder, color, variant, onChange, optionlabelkeyname, size, freeSolo, onBlur = () => { }, helperText, error, options, onTextFieldChange, limitTags, value } = _a, props = __rest(_a, ["id", "label", "placeholder", "color", "variant", "onChange", "optionlabelkeyname", "size", "freeSolo", "onBlur", "helperText", "error", "options", "onTextFieldChange", "limitTags", "value"]);
+    var { id, label, placeholder, color, variant, onChange, optionlabelkeyname, size, freeSolo, onBlur = () => { }, helperText, error, options, onTextFieldChange, limitTags } = _a, props = __rest(_a, ["id", "label", "placeholder", "color", "variant", "onChange", "optionlabelkeyname", "size", "freeSolo", "onBlur", "helperText", "error", "options", "onTextFieldChange", "limitTags"]);
     const [state, setState] = (0, react_1.useState)();
     const handleOnChange = (_event, newValue) => {
         onChange(newValue);
     };
-    (0, react_1.useEffect)(() => {
-        if (value) {
-            setState(value);
-        }
-    }, [value]);
     const filterOptions = (options, params) => {
         let filteredOptions = filter(options, params);
         if (typeof state === 'object') {
@@ -60,17 +55,19 @@ exports.Autocomplete = (0, react_1.forwardRef)((_a, ref) => {
     };
     const handleFocusOut = (event) => {
         var _a;
-        let inputValue = (_a = event === null || event === void 0 ? void 0 : event.target) === null || _a === void 0 ? void 0 : _a.value;
-        if (inputValue) {
+        let customValue = (_a = event === null || event === void 0 ? void 0 : event.target) === null || _a === void 0 ? void 0 : _a.value;
+        if (customValue) {
+            const result = [];
             for (let item of options) {
-                if (item[optionlabelkeyname] === inputValue) {
-                    setState(item);
-                    onBlur(item);
-                    return;
+                if (typeof item[optionlabelkeyname] === 'number') {
+                    break;
+                }
+                else if (customValue.includes(item[optionlabelkeyname])) {
+                    result.push(item);
                 }
             }
-            setState(inputValue);
-            onBlur(inputValue);
+            setState(result[0]);
+            onBlur(result[0]);
         }
         else {
             onBlur();
@@ -79,7 +76,7 @@ exports.Autocomplete = (0, react_1.forwardRef)((_a, ref) => {
     const handleOnInputChange = (event, value) => {
         setState(value);
         if (onTextFieldChange) {
-            onTextFieldChange(event, value);
+            onTextFieldChange(event);
         }
     };
     return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: (0, jsx_runtime_1.jsx)(Autocomplete_1.default, Object.assign({ fullWidth: true }, props, { size: size, options: options, ref: ref, id: id, onBlur: handleFocusOut, onChange: handleOnChange, getOptionLabel: (option) => {
@@ -87,7 +84,7 @@ exports.Autocomplete = (0, react_1.forwardRef)((_a, ref) => {
                     return `${option[optionlabelkeyname]}`;
                 }
                 return option;
-            }, value: value, limitTags: limitTags, filterOptions: filterOptions, onInputChange: handleOnInputChange, freeSolo: freeSolo, renderInput: (_a) => {
+            }, limitTags: limitTags, filterOptions: filterOptions, onInputChange: handleOnInputChange, freeSolo: freeSolo, renderInput: (_a) => {
                 var { size: _fieldSize } = _a, params = __rest(_a, ["size"]);
                 return ((0, jsx_runtime_1.jsx)(TextField_1.TextField, Object.assign({ helperText: helperText, error: error, size: size }, params, { variant: variant, color: color, label: label, placeholder: placeholder })));
             } })) }));

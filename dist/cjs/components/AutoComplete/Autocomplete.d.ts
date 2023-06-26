@@ -14,12 +14,12 @@ export interface AutocompleteProps {
     freeSolo?: boolean;
     size?: 'small' | 'medium';
     multiple?: boolean;
-    value?: string | OptionType | null;
+    value?: string | OptionType | (string | OptionType)[] | null;
     defaultValue?: string | OptionType | (string | OptionType)[] | null;
     onBlur?: (params?: OptionType | string) => void;
     helperText?: string;
     error?: boolean;
-    onTextFieldChange?: (e: React.SyntheticEvent<Element, Event>, value: string) => void;
+    onTextFieldChange?: (e: React.SyntheticEvent<Element, Event>) => void;
     limitTags?: number;
 }
 export declare const Autocomplete: React.FC<AutocompleteProps>;

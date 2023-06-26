@@ -10,21 +10,16 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 import { jsx as _jsx, Fragment as _Fragment } from "react/jsx-runtime";
-import { forwardRef, useState, useEffect } from 'react';
+import { forwardRef, useState } from 'react';
 import { TextField } from '../TextField';
 import { default as MUIAutocomplete, createFilterOptions } from '@mui/material/Autocomplete';
 const filter = createFilterOptions();
 export const Autocomplete = forwardRef((_a, ref) => {
-    var { id, label, placeholder, color, variant, onChange, optionlabelkeyname, size, freeSolo, onBlur = () => { }, helperText, error, options, onTextFieldChange, limitTags, value } = _a, props = __rest(_a, ["id", "label", "placeholder", "color", "variant", "onChange", "optionlabelkeyname", "size", "freeSolo", "onBlur", "helperText", "error", "options", "onTextFieldChange", "limitTags", "value"]);
+    var { id, label, placeholder, color, variant, onChange, optionlabelkeyname, size, freeSolo, onBlur = () => { }, helperText, error, options, onTextFieldChange, limitTags } = _a, props = __rest(_a, ["id", "label", "placeholder", "color", "variant", "onChange", "optionlabelkeyname", "size", "freeSolo", "onBlur", "helperText", "error", "options", "onTextFieldChange", "limitTags"]);
     const [state, setState] = useState();
     const handleOnChange = (_event, newValue) => {
         onChange(newValue);
     };
-    useEffect(() => {
-        if (value) {
-            setState(value);
-        }
-    }, [value]);
     const filterOptions = (options, params) => {
         let filteredOptions = filter(options, params);
         if (typeof state === 'object') {
@@ -34,17 +29,19 @@ export const Autocomplete = forwardRef((_a, ref) => {
     };
     const handleFocusOut = (event) => {
         var _a;
-        let inputValue = (_a = event === null || event === void 0 ? void 0 : event.target) === null || _a === void 0 ? void 0 : _a.value;
-        if (inputValue) {
+        let customValue = (_a = event === null || event === void 0 ? void 0 : event.target) === null || _a === void 0 ? void 0 : _a.value;
+        if (customValue) {
+            const result = [];
             for (let item of options) {
-                if (item[optionlabelkeyname] === inputValue) {
-                    setState(item);
-                    onBlur(item);
-                    return;
+                if (typeof item[optionlabelkeyname] === 'number') {
+                    break;
+                }
+                else if (customValue.includes(item[optionlabelkeyname])) {
+                    result.push(item);
                 }
             }
-            setState(inputValue);
-            onBlur(inputValue);
+            setState(result[0]);
+            onBlur(result[0]);
         }
         else {
             onBlur();
@@ -53,7 +50,7 @@ export const Autocomplete = forwardRef((_a, ref) => {
     const handleOnInputChange = (event, value) => {
         setState(value);
         if (onTextFieldChange) {
-            onTextFieldChange(event, value);
+            onTextFieldChange(event);
         }
     };
     return (_jsx(_Fragment, { children: _jsx(MUIAutocomplete, Object.assign({ fullWidth: true }, props, { size: size, options: options, ref: ref, id: id, onBlur: handleFocusOut, onChange: handleOnChange, getOptionLabel: (option) => {
@@ -61,7 +58,7 @@ export const Autocomplete = forwardRef((_a, ref) => {
                     return `${option[optionlabelkeyname]}`;
                 }
                 return option;
-            }, value: value, limitTags: limitTags, filterOptions: filterOptions, onInputChange: handleOnInputChange, freeSolo: freeSolo, renderInput: (_a) => {
+            }, limitTags: limitTags, filterOptions: filterOptions, onInputChange: handleOnInputChange, freeSolo: freeSolo, renderInput: (_a) => {
                 var { size: _fieldSize } = _a, params = __rest(_a, ["size"]);
                 return (_jsx(TextField, Object.assign({ helperText: helperText, error: error, size: size }, params, { variant: variant, color: color, label: label, placeholder: placeholder })));
             } })) }));

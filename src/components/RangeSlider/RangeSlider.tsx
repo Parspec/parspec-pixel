@@ -118,7 +118,7 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
         const newVal = getAdjustedValues(rawData, min, max);
         setTextFieldVal({ ...textFieldVal, lowerField: newVal[0], upperField: newVal[1] });
         onRangeChange(newVal);
-        onTextfieldBlur(event, value);
+        onTextfieldBlur?.(event, value);
     };
 
     const textfieldKeyDownHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -127,7 +127,7 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
             const newVal = getAdjustedValues(rawData, min, max);
             setTextFieldVal({ ...textFieldVal, lowerField: newVal[0], upperField: newVal[1] });
             onRangeChange(newVal);
-            onTextfieldEnterKeyDown(event, value);
+            onTextfieldEnterKeyDown?.(event, value);
         }
     };
 
@@ -160,8 +160,8 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
                         marks={marks}
                         step={step}
                         onChange={sliderChangeHandler}
-                        onBlur={(e: any) => onRangeBlur(e, value)}
-                        onMouseUp={(e: any) => onSliderMouseUp(e, value)}
+                        onBlur={(e: FocusEvent<HTMLInputElement>) => onRangeBlur?.(e, value)}
+                        onMouseUp={(e: MouseEvent<HTMLButtonElement>) => onSliderMouseUp?.(e, value)}
                         disabled={disabled}
                         disableSwap={disableSwap}
                     />

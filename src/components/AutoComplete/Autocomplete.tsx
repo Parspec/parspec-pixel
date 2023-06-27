@@ -22,7 +22,7 @@ export interface AutocompleteProps {
     value?: string | OptionType | null;
     defaultValue?: string | OptionType | (string | OptionType)[] | null;
     onBlur?: (params: OptionType | string) => void;
-    helperText?: string;
+    helperText?: string | React.ReactNode;
     error?: boolean;
     onTextFieldChange?: (e: React.SyntheticEvent<Element, Event>, value: string) => void;
     limitTags?: number;

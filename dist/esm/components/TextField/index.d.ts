@@ -8,7 +8,7 @@ export interface TextFieldProps extends Omit<MUITextFieldProps, 'margin' | 'clas
     size?: 'small' | 'medium';
     chips?: Array<string>;
     onChipDelete?: (index: number) => void;
-    helperText?: string;
+    helperText?: string | React.ReactNode;
     icon?: React.ReactNode;
     scrollAreaHeight?: number;
 }

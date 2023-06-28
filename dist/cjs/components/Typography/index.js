@@ -44,7 +44,7 @@ const H3 = (props) => (0, jsx_runtime_1.jsx)(Heading, Object.assign({}, props, {
 exports.H3 = H3;
 const H4 = (props) => (0, jsx_runtime_1.jsx)(Heading, Object.assign({}, props, { variant: "h4", fontSize: '34px' }));
 exports.H4 = H4;
-const H5 = (props) => (0, jsx_runtime_1.jsx)(Heading, Object.assign({}, props, { variant: "h5", fontSize: '24px' }));
+const H5 = (props) => (0, jsx_runtime_1.jsx)(Heading, Object.assign({}, props, { variant: "h5", fontSize: '24px', fontWeight: 700 }));
 exports.H5 = H5;
 const H6 = (props) => (0, jsx_runtime_1.jsx)(Heading, Object.assign({}, props, { variant: "h6", fontSize: '20px' }));
 exports.H6 = H6;

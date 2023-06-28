@@ -26,9 +26,15 @@ export const Autocomplete = forwardRef((_a, ref) => {
         }
     }, [value]);
     const filterOptions = (options, params) => {
-        let filteredOptions = filter(options, params);
-        if (typeof state === 'object') {
-            filteredOptions = disableDefaultFilter ? options : options.filter((option) => option[optionlabelkeyname] === state[optionlabelkeyname]);
+        let filteredOptions;
+        if (disableDefaultFilter) {
+            filteredOptions = options;
+        }
+        else {
+            filteredOptions = filter(options, params);
+            if (typeof state === 'object') {
+                filteredOptions = options.filter((option) => option[optionlabelkeyname] === state[optionlabelkeyname]);
+            }
         }
         return filteredOptions;
     };

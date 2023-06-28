@@ -49,7 +49,7 @@ export const MultiSelect = forwardRef(function (_a, ref) {
     function getDefaultFilterOption(options, state) {
         return options.filter((option) => option.label.toLowerCase().includes(state.inputValue.toLowerCase()));
     }
-    return (_jsx(Autocomplete, Object.assign({}, restParams, { value: value, options: sortedOptions, multiple: true, size: size, ref: ref, filterOptions: filterOptions ? filterOptions : getDefaultFilterOption, getOptionLabel: (option) => option.label, isOptionEqualToValue: (option, value) => option.label === value.label, renderInput: (_a) => {
+    return (_jsx(Autocomplete, Object.assign({}, restParams, { fullWidth: true, value: value, options: sortedOptions, multiple: true, size: size, ref: ref, filterOptions: filterOptions ? filterOptions : getDefaultFilterOption, getOptionLabel: (option) => option.label, isOptionEqualToValue: (option, value) => option.label === value.label, renderInput: (_a) => {
             var { size: _fieldSize } = _a, params = __rest(_a, ["size"]);
             const { InputProps: _InputProps } = params, restParams = __rest(params, ["InputProps"]);
             const { startAdornment } = _InputProps, restInputProps = __rest(_InputProps, ["startAdornment"]);

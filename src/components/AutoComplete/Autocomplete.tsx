@@ -28,6 +28,7 @@ export interface AutocompleteProps {
     limitTags?: number;
     disabled?: boolean;
     disableDefaultFilter?: boolean;
+    clearOnBlur?: boolean;
 }
 
 const filter = createFilterOptions<OptionType>();

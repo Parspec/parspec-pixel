@@ -23,5 +23,6 @@ export interface AutocompleteProps {
     limitTags?: number;
     disabled?: boolean;
     disableDefaultFilter?: boolean;
+    clearOnBlur?: boolean;
 }
 export declare const Autocomplete: React.FC<AutocompleteProps>;

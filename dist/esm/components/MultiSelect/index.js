@@ -1,2 +1,2 @@
-"use strict";
+export * from './MultiSelect';
 //# sourceMappingURL=index.js.map

@@ -17,10 +17,10 @@ export interface MultiSelectOptionType {
 interface MultiSelectProps extends AutocompleteProps<MultiSelectOptionType, true, boolean | undefined, false> {
     helperText?: string;
     error?: boolean;
-    variant: TextFieldProps['variant'];
-    color: TextFieldProps['color'];
+    variant?: TextFieldProps['variant'];
+    color?: TextFieldProps['color'];
     label: string;
-    placeholder: TextFieldProps['placeholder'];
+    placeholder?: TextFieldProps['placeholder'];
 }
 
 function sortOptions(options: readonly MultiSelectOptionType[], values?: MultiSelectOptionType[]) {

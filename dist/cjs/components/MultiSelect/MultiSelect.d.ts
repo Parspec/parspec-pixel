@@ -7,10 +7,10 @@ export interface MultiSelectOptionType {
 interface MultiSelectProps extends AutocompleteProps<MultiSelectOptionType, true, boolean | undefined, false> {
     helperText?: string;
     error?: boolean;
-    variant: TextFieldProps['variant'];
-    color: TextFieldProps['color'];
+    variant?: TextFieldProps['variant'];
+    color?: TextFieldProps['color'];
     label: string;
-    placeholder: TextFieldProps['placeholder'];
+    placeholder?: TextFieldProps['placeholder'];
 }
 export declare const MultiSelect: import("react").ForwardRefExoticComponent<Omit<MultiSelectProps, "ref"> & import("react").RefAttributes<HTMLDivElement>>;
 export {};

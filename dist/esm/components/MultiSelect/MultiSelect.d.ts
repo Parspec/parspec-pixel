@@ -4,7 +4,7 @@ export interface MultiSelectOptionType {
     label: string;
     [index: string]: string | number;
 }
-interface MultiSelectProps extends AutocompleteProps<MultiSelectOptionType, true, boolean | undefined, false> {
+interface MultiSelectProps extends Omit<AutocompleteProps<MultiSelectOptionType, true, boolean | undefined, false>, 'renderInput'> {
     helperText?: string;
     error?: boolean;
     variant?: TextFieldProps['variant'];

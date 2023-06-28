@@ -14,7 +14,7 @@ export interface MultiSelectOptionType {
     [index: string]: string | number;
 }
 
-interface MultiSelectProps extends AutocompleteProps<MultiSelectOptionType, true, boolean | undefined, false> {
+interface MultiSelectProps extends Omit<AutocompleteProps<MultiSelectOptionType, true, boolean | undefined, false>, 'renderInput'> {
     helperText?: string;
     error?: boolean;
     variant?: TextFieldProps['variant'];
@@ -86,7 +86,7 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(function
                             startAdornment: (
                                 <Box
                                     style={{
-                                        maxHeight: '114px',
+                                        maxHeight: size === 'medium' ? '114px' : '84px',
                                         overflowY: 'auto'
                                     }}
                                 >

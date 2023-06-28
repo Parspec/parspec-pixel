@@ -54,7 +54,7 @@ export const MultiSelect = forwardRef(function (_a, ref) {
             const { InputProps: _InputProps } = params, restParams = __rest(params, ["InputProps"]);
             const { startAdornment } = _InputProps, restInputProps = __rest(_InputProps, ["startAdornment"]);
             return (_jsx(TextField, Object.assign({ helperText: helperText, error: error, size: size }, restParams, { InputProps: Object.assign(Object.assign({}, restInputProps), { startAdornment: (_jsx(Box, Object.assign({ style: {
-                            maxHeight: '114px',
+                            maxHeight: size === 'medium' ? '114px' : '84px',
                             overflowY: 'auto'
                         } }, { children: startAdornment }))) }), variant: variant, color: color, label: label, placeholder: placeholder })));
         }, renderOption: (props, option, { selected }) => (_jsxs("li", Object.assign({}, props, { children: [_jsx(Checkbox, { color: color, icon: icon, checkedIcon: checkedIcon, style: { marginRight: 2 }, checked: selected }), option.label] }))) })));

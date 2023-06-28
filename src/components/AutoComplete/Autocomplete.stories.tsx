@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { topFilms as top100Films } from './topfilm';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
@@ -15,8 +15,8 @@ export default {
 export const Basic: ComponentStory<typeof Autocomplete> = (args) => (
     <Autocomplete
         {...args}
-        onChange={(value: any) => {
-            console.log(value);
+        onChange={(e: any) => {
+            console.log(e.target.value);
         }}
     />
 );
@@ -26,22 +26,18 @@ Basic.args = {
     id: 'autocomplete-demo',
     label: 'Movies',
     optionlabelkeyname: 'title',
-    size: 'small',
+    fieldSize: 'small',
     defaultValue: 'I am default'
 };
 
-export const MultiSelect: ComponentStory<typeof Autocomplete> = (args) => {
-    const [selected, updateSelected] = useState<Array<any>>([]);
-    return (
-        <Autocomplete
-            {...args}
-            value={selected}
-            onChange={(value: any) => {
-                updateSelected([...(value as Array<any>)]);
-            }}
-        />
-    );
-};
+export const MultiSelect: ComponentStory<typeof Autocomplete> = (args) => (
+    <Autocomplete
+        {...args}
+        onChange={(e: any) => {
+            console.log(e.target.value);
+        }}
+    />
+);
 
 MultiSelect.args = {
     id: 'multiselect-demo',
@@ -49,14 +45,14 @@ MultiSelect.args = {
     multiple: true,
     options: top100Films,
     optionlabelkeyname: 'title',
-    size: 'medium'
+    defaultValue: ['Hello']
 };
 
 export const AutocompleteWithCreateOption: ComponentStory<typeof Autocomplete> = (args) => (
     <Autocomplete
         {...args}
         onChange={(e: any) => {
-            console.log(e);
+            console.log(e.target.value);
         }}
         onBlur={(value: OptionType | string) => console.log(`[on blur]`, value)}
     />
@@ -75,7 +71,7 @@ export const MultiSelectWithChipLimit: ComponentStory<typeof Autocomplete> = (ar
     <Autocomplete
         {...args}
         onChange={(e: any) => {
-            console.log(e);
+            console.log(e.target.value);
         }}
     />
 );

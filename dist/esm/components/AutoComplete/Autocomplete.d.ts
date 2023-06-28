@@ -22,5 +22,6 @@ export interface AutocompleteProps {
     onTextFieldChange?: (e: React.SyntheticEvent<Element, Event>, value: string) => void;
     limitTags?: number;
     disabled?: boolean;
+    disableDefaultFilter?: boolean;
 }
 export declare const Autocomplete: React.FC<AutocompleteProps>;

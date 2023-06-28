@@ -27,13 +27,14 @@ export interface AutocompleteProps {
     onTextFieldChange?: (e: React.SyntheticEvent<Element, Event>, value: string) => void;
     limitTags?: number;
     disabled?: boolean;
+    disableDefaultFilter?: boolean;
 }
 
 const filter = createFilterOptions<OptionType>();
 
 export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivElement, AutocompleteProps>(
     (
-        { id, label, placeholder, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur = () => {}, helperText, error, options, onTextFieldChange, limitTags, disabled, value, ...props },
+        { id, label, placeholder, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur = () => {}, helperText, error, options, onTextFieldChange, limitTags, disabled, value, disableDefaultFilter, ...props },
         ref
     ) => {
         const [state, setState] = useState<OptionType | string>(value || '');
@@ -51,7 +52,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
         const filterOptions = (options: OptionType[], params: any) => {
             let filteredOptions = filter(options, params);
             if (typeof state === 'object') {
-                filteredOptions = options.filter((option) => option[optionlabelkeyname] === state[optionlabelkeyname]);
+                filteredOptions = disableDefaultFilter ? options : options.filter((option) => option[optionlabelkeyname] === state[optionlabelkeyname]);
             }
 
             return filteredOptions;

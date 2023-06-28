@@ -41,7 +41,7 @@ const TextField_1 = require("../TextField");
 const Autocomplete_1 = __importStar(require("@mui/material/Autocomplete"));
 const filter = (0, Autocomplete_1.createFilterOptions)();
 exports.Autocomplete = (0, react_1.forwardRef)((_a, ref) => {
-    var { id, label, placeholder, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur = () => { }, helperText, error, options, onTextFieldChange, limitTags, disabled, value } = _a, props = __rest(_a, ["id", "label", "placeholder", "color", "variant", "onChange", "optionlabelkeyname", "freeSolo", "fieldSize", "onBlur", "helperText", "error", "options", "onTextFieldChange", "limitTags", "disabled", "value"]);
+    var { id, label, placeholder, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur = () => { }, helperText, error, options, onTextFieldChange, limitTags, disabled, value, disableDefaultFilter } = _a, props = __rest(_a, ["id", "label", "placeholder", "color", "variant", "onChange", "optionlabelkeyname", "freeSolo", "fieldSize", "onBlur", "helperText", "error", "options", "onTextFieldChange", "limitTags", "disabled", "value", "disableDefaultFilter"]);
     const [state, setState] = (0, react_1.useState)(value || '');
     const handleOnChange = (event, newValue) => {
         onChange(Object.assign(Object.assign({}, event), { target: Object.assign(Object.assign({}, event.target), { value: newValue }) }));
@@ -54,7 +54,7 @@ exports.Autocomplete = (0, react_1.forwardRef)((_a, ref) => {
     const filterOptions = (options, params) => {
         let filteredOptions = filter(options, params);
         if (typeof state === 'object') {
-            filteredOptions = options.filter((option) => option[optionlabelkeyname] === state[optionlabelkeyname]);
+            filteredOptions = disableDefaultFilter ? options : options.filter((option) => option[optionlabelkeyname] === state[optionlabelkeyname]);
         }
         return filteredOptions;
     };

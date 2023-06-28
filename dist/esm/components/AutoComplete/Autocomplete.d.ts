@@ -10,16 +10,16 @@ export interface AutocompleteProps {
     options: OptionType[];
     color?: 'error' | 'primary' | 'secondary' | 'info' | 'success' | 'warning';
     variant?: 'outlined' | 'filled' | 'standard';
-    onChange: (value: string | OptionType | (string | OptionType)[] | null) => void;
+    onChange: (event: React.SyntheticEvent<Element, Event>) => void;
     freeSolo?: boolean;
-    size?: 'small' | 'medium';
+    fieldSize?: 'small' | 'medium';
     multiple?: boolean;
-    value?: string | OptionType | (string | OptionType)[] | null;
+    value?: string | OptionType | null;
     defaultValue?: string | OptionType | (string | OptionType)[] | null;
-    onBlur?: (params?: OptionType | string) => void;
+    onBlur?: (params: OptionType | string) => void;
     helperText?: string;
     error?: boolean;
-    onTextFieldChange?: (e: React.SyntheticEvent<Element, Event>) => void;
+    onTextFieldChange?: (e: React.SyntheticEvent<Element, Event>, value: string) => void;
     limitTags?: number;
 }
 export declare const Autocomplete: React.FC<AutocompleteProps>;

@@ -1,6 +1,7 @@
+/// <reference types="react" />
 import { SvgIconProps } from '../SvgIcon';
 export declare const DatasheetSelectInfoIcon: {
-    ({ fontSize, color }: SvgIconProps): import("react/jsx-runtime").JSX.Element;
+    ({ fontSize, color }: SvgIconProps): JSX.Element;
     defaultProps: {
         fontSize: string;
         color: string;

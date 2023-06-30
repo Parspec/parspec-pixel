@@ -17,15 +17,75 @@ const react_1 = require("react");
 const material_1 = require("@mui/material");
 const icons_material_1 = require("@mui/icons-material");
 const icons_material_2 = require("@mui/icons-material");
+const styles_1 = require("@mui/material/styles");
+const react_window_1 = require("react-window");
 const TextField_1 = require("../TextField");
 const icon = (0, jsx_runtime_1.jsx)(icons_material_1.CheckBoxOutlineBlank, { fontSize: "small" });
 const checkedIcon = (0, jsx_runtime_1.jsx)(icons_material_2.CheckBox, { fontSize: "small" });
+const LISTBOX_PADDING = 8;
+function renderRow(props) {
+    const { data, index, style } = props;
+    const currentRowData = data[index];
+    const _a = currentRowData[0], { color } = _a, rowProp = __rest(_a, ["color"]);
+    const option = currentRowData[1];
+    const optionState = currentRowData[2];
+    const inlineStyle = Object.assign(Object.assign({}, style), { top: style.top + LISTBOX_PADDING });
+    return ((0, jsx_runtime_1.jsxs)(material_1.Typography, Object.assign({ component: "li" }, rowProp, { noWrap: true, style: inlineStyle }, { children: [(0, jsx_runtime_1.jsx)(material_1.Checkbox, { color: rowProp.color, icon: icon, checkedIcon: checkedIcon, style: { marginRight: 2 }, checked: optionState.selected }), option.label] })));
+}
+const OuterElementContext = (0, react_1.createContext)({});
+const OuterElementType = (0, react_1.forwardRef)((props, ref) => {
+    const outerProps = (0, react_1.useContext)(OuterElementContext);
+    return (0, jsx_runtime_1.jsx)("div", Object.assign({ ref: ref }, props, outerProps));
+});
+function useResetCache(data) {
+    const ref = (0, react_1.useRef)(null);
+    (0, react_1.useEffect)(() => {
+        if (ref.current != null) {
+            ref.current.resetAfterIndex(0, true);
+        }
+    }, [data]);
+    return ref;
+}
+// Adapter for react-window
+const ListboxComponent = (0, react_1.forwardRef)(function ListboxComponent(props, ref) {
+    const { children } = props, other = __rest(props, ["children"]);
+    const itemData = [];
+    children.forEach((item) => {
+        itemData.push(item);
+        itemData.push(...(item.children || []));
+    });
+    const theme = (0, styles_1.useTheme)();
+    const smUp = (0, material_1.useMediaQuery)(theme.breakpoints.up('sm'), {
+        noSsr: true
+    });
+    const itemCount = itemData.length;
+    const itemSize = smUp ? 36 : 48;
+    const getChildSize = () => {
+        return itemSize;
+    };
+    const getHeight = () => {
+        if (itemCount > 8) {
+            return 8 * itemSize;
+        }
+        return itemData.map(getChildSize).reduce((a, b) => a + b, 0);
+    };
+    const gridRef = useResetCache(itemCount);
+    return ((0, jsx_runtime_1.jsx)("div", Object.assign({ ref: ref }, { children: (0, jsx_runtime_1.jsx)(OuterElementContext.Provider, Object.assign({ value: other }, { children: (0, jsx_runtime_1.jsx)(react_window_1.VariableSizeList, Object.assign({ itemData: itemData, height: getHeight() + 2 * LISTBOX_PADDING, width: "100%", ref: gridRef, outerElementType: OuterElementType, innerElementType: "ul", itemSize: getChildSize, overscanCount: 5, itemCount: itemCount }, { children: renderRow })) })) })));
+});
+const StyledPopper = (0, material_1.styled)(material_1.Popper)({
+    [`& .${material_1.autocompleteClasses.listbox}`]: {
+        boxSizing: 'border-box',
+        '& ul': {
+            padding: 0,
+            margin: 0
+        }
+    }
+});
 function sortOptions(options, values) {
     let selected = new Set();
     for (let value of values || []) {
         selected.add(value.label);
     }
-    console.log(selected);
     return [...options].sort((option1, option2) => {
         const isOption1Selected = selected.has(option1.label);
         const isOption2Selected = selected.has(option2.label);
@@ -52,7 +112,7 @@ exports.MultiSelect = (0, react_1.forwardRef)(function (_a, ref) {
     function getDefaultFilterOption(options, state) {
         return options.filter((option) => option.label.toLowerCase().includes(state.inputValue.toLowerCase()));
     }
-    return ((0, jsx_runtime_1.jsx)(material_1.Autocomplete, Object.assign({}, restParams, { fullWidth: true, value: value, options: sortedOptions, multiple: true, size: size, ref: ref, filterOptions: filterOptions ? filterOptions : getDefaultFilterOption, getOptionLabel: (option) => option.label, isOptionEqualToValue: (option, value) => option.label === value.label, renderInput: (_a) => {
+    return ((0, jsx_runtime_1.jsx)(material_1.Autocomplete, Object.assign({}, restParams, { fullWidth: true, value: value, options: sortedOptions, multiple: true, size: size, ref: ref, filterOptions: filterOptions ? filterOptions : getDefaultFilterOption, getOptionLabel: (option) => option.label, isOptionEqualToValue: (option, value) => option.label === value.label, ListboxComponent: ListboxComponent, PopperComponent: StyledPopper, renderInput: (_a) => {
             var { size: _fieldSize } = _a, params = __rest(_a, ["size"]);
             const { InputProps: _InputProps } = params, restParams = __rest(params, ["InputProps"]);
             const { startAdornment } = _InputProps, restInputProps = __rest(_InputProps, ["startAdornment"]);
@@ -60,7 +120,7 @@ exports.MultiSelect = (0, react_1.forwardRef)(function (_a, ref) {
                             maxHeight: size === 'medium' ? '114px' : '84px',
                             overflowY: 'auto'
                         } }, { children: startAdornment }))) }), variant: variant, color: color, label: label, placeholder: placeholder })));
-        }, renderOption: (props, option, { selected }) => ((0, jsx_runtime_1.jsxs)("li", Object.assign({}, props, { children: [(0, jsx_runtime_1.jsx)(material_1.Checkbox, { color: color, icon: icon, checkedIcon: checkedIcon, style: { marginRight: 2 }, checked: selected }), option.label] }))) })));
+        }, renderOption: (props, option, state) => [Object.assign(Object.assign({}, props), { color }), option, state] })));
 });
 exports.MultiSelect.defaultProps = {
     color: 'primary',

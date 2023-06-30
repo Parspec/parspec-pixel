@@ -4,5 +4,5 @@ interface TextLimiterProps {
     text: React.ReactNode;
     lines: number;
 }
-export declare const TextLimiter: (props: TextLimiterProps) => JSX.Element;
+export declare const TextLimiter: (props: TextLimiterProps) => import("react/jsx-runtime").JSX.Element;
 export {};

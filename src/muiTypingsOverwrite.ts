@@ -40,6 +40,12 @@ declare module '@mui/material/Button' {
         xs: true;
     }
 }
+declare module '@mui/material/Slider' {
+    interface SliderPropsColorOverrides {
+        tertiary: true;
+        neutral: true;
+    }
+}
 
 declare module '@mui/material/Radio' {
     interface RadioPropsColorOverrides {

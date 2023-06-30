@@ -1,8 +1,10 @@
-import { forwardRef, useMemo } from 'react';
+import { forwardRef, useMemo, useRef, useEffect, createContext, useContext } from 'react';
 
-import { Autocomplete, AutocompleteProps, Box, Checkbox, FilterOptionsState, TextFieldProps } from '@mui/material';
+import { Autocomplete, AutocompleteProps, Box, Checkbox, FilterOptionsState, Popper, TextFieldProps, Typography, autocompleteClasses, styled, useMediaQuery } from '@mui/material';
 import { CheckBoxOutlineBlank as CheckBoxOutlineBlankIcon } from '@mui/icons-material';
 import { CheckBox as CheckBoxIcon } from '@mui/icons-material';
+import { useTheme } from '@mui/material/styles';
+import { VariableSizeList, ListChildComponentProps } from 'react-window';
 
 import { TextField } from '../TextField';
 
@@ -14,21 +16,111 @@ export interface MultiSelectOptionType {
     [index: string]: string | number;
 }
 
-interface MultiSelectProps extends Omit<AutocompleteProps<MultiSelectOptionType, true, boolean | undefined, false>, 'renderInput'> {
-    helperText?: string;
-    error?: boolean;
-    variant?: TextFieldProps['variant'];
-    color?: TextFieldProps['color'];
-    label: string;
-    placeholder?: TextFieldProps['placeholder'];
+const LISTBOX_PADDING = 8;
+
+function renderRow(props: ListChildComponentProps) {
+    const { data, index, style } = props;
+    const currentRowData = data[index];
+    const { color, ...rowProp } = currentRowData[0];
+    const option = currentRowData[1];
+    const optionState = currentRowData[2];
+
+    const inlineStyle = {
+        ...style,
+        top: (style.top as number) + LISTBOX_PADDING
+    };
+
+    return (
+        <Typography component="li" {...rowProp} noWrap style={inlineStyle}>
+            <Checkbox color={rowProp.color} icon={icon} checkedIcon={checkedIcon} style={{ marginRight: 2 }} checked={optionState.selected} />
+            {option.label}
+        </Typography>
+    );
 }
+
+const OuterElementContext = createContext({});
+
+const OuterElementType = forwardRef<HTMLDivElement>((props, ref) => {
+    const outerProps = useContext(OuterElementContext);
+    return <div ref={ref} {...props} {...outerProps} />;
+});
+
+function useResetCache(data: any) {
+    const ref = useRef<VariableSizeList>(null);
+    useEffect(() => {
+        if (ref.current != null) {
+            ref.current.resetAfterIndex(0, true);
+        }
+    }, [data]);
+    return ref;
+}
+
+// Adapter for react-window
+const ListboxComponent = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLElement>>(function ListboxComponent(props, ref) {
+    const { children, ...other } = props;
+    const itemData: React.ReactChild[] = [];
+    (children as React.ReactChild[]).forEach((item: React.ReactChild & { children?: React.ReactChild[] }) => {
+        itemData.push(item);
+        itemData.push(...(item.children || []));
+    });
+
+    const theme = useTheme();
+    const smUp = useMediaQuery(theme.breakpoints.up('sm'), {
+        noSsr: true
+    });
+    const itemCount = itemData.length;
+    const itemSize = smUp ? 36 : 48;
+
+    const getChildSize = () => {
+        return itemSize;
+    };
+
+    const getHeight = () => {
+        if (itemCount > 8) {
+            return 8 * itemSize;
+        }
+        return itemData.map(getChildSize).reduce((a, b) => a + b, 0);
+    };
+
+    const gridRef = useResetCache(itemCount);
+
+    return (
+        <div ref={ref}>
+            <OuterElementContext.Provider value={other}>
+                <VariableSizeList
+                    itemData={itemData}
+                    height={getHeight() + 2 * LISTBOX_PADDING}
+                    width="100%"
+                    ref={gridRef}
+                    outerElementType={OuterElementType}
+                    innerElementType="ul"
+                    itemSize={getChildSize}
+                    overscanCount={5}
+                    itemCount={itemCount}
+                >
+                    {renderRow}
+                </VariableSizeList>
+            </OuterElementContext.Provider>
+        </div>
+    );
+});
+
+const StyledPopper = styled(Popper)({
+    [`& .${autocompleteClasses.listbox}`]: {
+        boxSizing: 'border-box',
+        '& ul': {
+            padding: 0,
+            margin: 0
+        }
+    }
+});
 
 function sortOptions(options: readonly MultiSelectOptionType[], values?: MultiSelectOptionType[]) {
     let selected = new Set();
     for (let value of values || []) {
         selected.add(value.label);
     }
-    console.log(selected);
+
     return [...options].sort((option1, option2) => {
         const isOption1Selected = selected.has(option1.label);
         const isOption2Selected = selected.has(option2.label);
@@ -49,6 +141,15 @@ function sortOptions(options: readonly MultiSelectOptionType[], values?: MultiSe
 
         return 0;
     });
+}
+
+interface MultiSelectProps extends Omit<AutocompleteProps<MultiSelectOptionType, true, boolean | undefined, false>, 'renderInput'> {
+    helperText?: string;
+    error?: boolean;
+    variant?: TextFieldProps['variant'];
+    color?: TextFieldProps['color'];
+    label: string;
+    placeholder?: TextFieldProps['placeholder'];
 }
 
 export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(function (
@@ -73,6 +174,8 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(function
             filterOptions={filterOptions ? filterOptions : getDefaultFilterOption}
             getOptionLabel={(option: MultiSelectOptionType) => option.label}
             isOptionEqualToValue={(option: MultiSelectOptionType, value: MultiSelectOptionType) => option.label === value.label}
+            ListboxComponent={ListboxComponent}
+            PopperComponent={StyledPopper}
             renderInput={({ size: _fieldSize, ...params }) => {
                 const { InputProps: _InputProps, ...restParams } = params;
                 const { startAdornment, ...restInputProps } = _InputProps;
@@ -102,12 +205,7 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(function
                     />
                 );
             }}
-            renderOption={(props, option, { selected }) => (
-                <li {...props}>
-                    <Checkbox color={color} icon={icon} checkedIcon={checkedIcon} style={{ marginRight: 2 }} checked={selected} />
-                    {option.label}
-                </li>
-            )}
+            renderOption={(props, option, state) => [{ ...props, color }, option, state] as React.ReactNode}
         />
     );
 });

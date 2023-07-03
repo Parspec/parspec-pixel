@@ -33,4 +33,5 @@ export * from './FormControl';
 export * from './Info';
 export * from './Status';
 export * from './Pagination';
+export * from './Img';
 //# sourceMappingURL=index.js.map

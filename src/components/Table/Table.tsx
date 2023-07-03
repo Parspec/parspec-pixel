@@ -24,21 +24,14 @@ import { addClass, isNullOrUndefined, registerLicense } from '@syncfusion/ej2-ba
 import './styles.css';
 import { Box } from '../Box';
 import {
-    AddEventArgs,
     CheckBoxChangeEventArgs,
-    DeleteEventArgs,
-    EditEventArgs,
-    FilterEventArgs,
     FilterSettingsModel,
     getObject,
     HeaderCellInfoEventArgs,
-    PageEventArgs,
+    RowSelectingEventArgs,
     RowDeselectEventArgs,
     RowSelectEventArgs,
-    SaveEventArgs,
-    SearchEventArgs,
-    SelectionSettingsModel,
-    SortEventArgs
+    SelectionSettingsModel
 } from '@syncfusion/ej2-grids';
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState, useMemo, useCallback } from 'react';
 import { TextField } from '../TextField';
@@ -155,16 +148,29 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     }, [loading]);
 
-    const actionComplete = (args: PageEventArgs | FilterEventArgs | SortEventArgs | SearchEventArgs | AddEventArgs | SaveEventArgs | EditEventArgs | DeleteEventArgs) => {
+    let isEscPressed = false;
+    let filterApplied = false;
+    const actionComplete = (args: any) => {
+        if (args?.requestType === 'filtering') {
+            if (args?.action === 'filter') {
+                filterApplied = true;
+            } else if (args?.action === 'clearFilter') {
+                filterApplied = false;
+            }
+        }
         if (args?.type === 'save') {
             onEdit!(args);
         }
         if (args?.requestType === 'searching') {
             onSearch!(args);
         }
+        if (isNullOrUndefined(args.data)) {
+            isEscPressed = true;
+        }
         // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     };
 
+    let multiSelectFilterVal: any = [];
     const actionBegin = (e: any) => {
         if (e.requestType === 'filtering' && !isNullOrUndefined(e.currentFilterObject) && isNullOrUndefined(e?.currentFilterObject?.value)) {
             e.cancel = true;
@@ -172,9 +178,19 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
 
         if (e.requestType === 'filterbeforeopen') {
             customFiltersFunction!(e);
+            if (!tableRef?.current?.filterModule?.filteredResult?.length) {
+                if (filterApplied === false) {
+                    multiSelectFilterVal = [];
+                }
+            }
         }
         if (e.type === 'edit') {
             e.cell.getElementsByTagName('input')[0].setAttribute('maxLength', 255);
+        }
+
+        if (e.action === 'clearFilter') {
+            //After clearing the filter we empty the value
+            multiSelectFilterVal = [];
         }
     };
 
@@ -252,9 +268,11 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     };
     const rowSelected = (args: RowSelectEventArgs) => {
         onRowSelection!(tableRef.current.getSelectedRecords());
+        setSelectedForBanner(tableRef?.current?.getSelectedRecords()?.length);
     };
     const rowDeselected = (args: RowDeselectEventArgs) => {
         onRowSelection!(tableRef.current.getSelectedRecords());
+        setSelectedForBanner(tableRef?.current?.getSelectedRecords()?.length);
     };
 
     const rowDataBound = (args: any) => {
@@ -277,10 +295,20 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
             setSelectedForBanner(() => 0);
             onCheckboxChange!([]);
         };
+        const clearFiltering = () => {
+            tableRef?.current?.clearFiltering();
+        };
+        const setMultiSelectVal = (val: any) => {
+            multiSelectFilterVal = val;
+        };
+        const getMultiSelectVal = () => multiSelectFilterVal;
         return {
             clearSelection,
             setSelectedForBanner,
-            scrollTo
+            scrollTo,
+            clearFiltering,
+            setMultiSelectVal,
+            getMultiSelectVal
         };
     });
 
@@ -303,6 +331,8 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         } else {
             dataBoundCallBack!();
         }
+        tableRef.current.keyConfigs.upArrow = '';
+        tableRef.current.keyConfigs.downArrow = '';
     };
 
     const rightSection = useMemo(() => toolbarRightSection, [toolbarRightSection]);
@@ -330,6 +360,15 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     // const expanding = () => {
     //     tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     // };
+
+    const rowSelecting = (args: RowSelectingEventArgs) => {
+        if (isEscPressed) {
+            args.cancel = true;
+        }
+
+        isEscPressed = false;
+    };
+
     return (
         <Box position={'relative'} height={'100%'} width={'100%'} ref={tableContainerRef}>
             {showToolbar && (
@@ -348,7 +387,10 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                                         )
                                     }}
                                     size="small"
-                                    onChange={(t: React.ChangeEvent<HTMLInputElement>) => tableRef.current.search(t?.target?.value?.trim())}
+                                    onChange={(t: React.ChangeEvent<HTMLInputElement>) => {
+                                        t.target.value = t?.target?.value?.replace(/[^a-zA-Z0-9-_ ]/g, '');
+                                        tableRef.current.search(t?.target?.value?.replace(/[^a-zA-Z0-9-_ ]/g, '').trim());
+                                    }}
                                 />
                             </Box>
                         )}
@@ -421,6 +463,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             // expanding={expanding}
                             // collapsing={collapsing}
                             // resizeStart={resizestart}
+                            rowSelecting={rowSelecting}
                             actionBegin={actionBegin}
                             dataBound={dataBound}
                             actionComplete={actionComplete}

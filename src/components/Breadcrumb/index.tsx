@@ -17,7 +17,7 @@ export interface BreadcrumbsProps extends Omit<MUIBreadcrumbsProps, 'classes' | 
 }
 
 const MUIBreadCrumbText = (props: TypographyProps) => (
-    <Box maxWidth="40ch">
+    <Box maxWidth="160px">
         <BodyXS {...props} limit lines={1} />
     </Box>
 );

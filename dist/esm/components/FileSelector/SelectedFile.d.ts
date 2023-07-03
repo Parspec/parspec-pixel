@@ -1,4 +1,3 @@
-/// <reference types="react" />
 type SelectedFileProps = {
     file: {
         name: string;
@@ -13,5 +12,5 @@ type SelectedFileProps = {
     handleResults: (data: {}, index: number) => void;
     isLoading?: boolean;
 };
-declare const SelectedFile: (props: SelectedFileProps) => JSX.Element;
+declare const SelectedFile: (props: SelectedFileProps) => import("react/jsx-runtime").JSX.Element;
 export default SelectedFile;

@@ -13,6 +13,7 @@ interface RangeSliderProps {
     textfieldWidth?: number;
     textfieldHeight?: number;
     disableSwap?: boolean;
+    showPlusSignInMaxField?: boolean;
     onChange: (data: [number, number]) => void;
     onRangeBlur?: (event: FocusEvent<HTMLInputElement>, data: [number, number]) => void;
     onSliderMouseUp?: (event: MouseEvent<HTMLButtonElement>, data: [number, number]) => void;

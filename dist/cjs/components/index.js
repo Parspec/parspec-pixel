@@ -24,6 +24,7 @@ __exportStar(require("./Icons"), exports);
 __exportStar(require("./Checkbox"), exports);
 __exportStar(require("./FileSelector"), exports);
 __exportStar(require("./AutoComplete"), exports);
+__exportStar(require("./GroupedAutoComplete"), exports);
 __exportStar(require("./CircularProgress"), exports);
 __exportStar(require("./Chip"), exports);
 __exportStar(require("./Select"), exports);

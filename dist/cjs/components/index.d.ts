@@ -8,6 +8,7 @@ export * from './Icons';
 export * from './Checkbox';
 export * from './FileSelector';
 export * from './AutoComplete';
+export * from './GroupedAutoComplete';
 export * from './CircularProgress';
 export * from './Chip';
 export * from './Select';

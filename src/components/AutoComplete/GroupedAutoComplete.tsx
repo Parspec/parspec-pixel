@@ -9,7 +9,7 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import IndeterminateCheckBoxIcon from '@mui/icons-material/IndeterminateCheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 
-export type OptionType = {
+type OptionType = {
     [index: string]: string | number | number[];
 };
 
@@ -37,13 +37,19 @@ export interface GroupedAutoCompleteProps {
     error?: boolean;
     onTextFieldChange?: (e: React.SyntheticEvent<Element, Event>, value: string) => void;
     limitTags?: number;
+    filterOptionsCallBack?: (options: OptionType[], params: any) => OptionType[];
 }
 
 const filter = createFilterOptions<OptionType>();
 
+const StyledGroupListItem = styled('li')({
+    '&:first-child': {
+        borderBottom: `1px solid ${theme.palette.neutral.main}`
+    }
+});
+
 const GroupItems = styled('ul')({
-    padding: 0,
-    borderBottom: `1px solid ${theme.palette.neutral.main}`
+    padding: 0
 });
 
 const OptionsListItem = styled('li')({
@@ -71,6 +77,14 @@ export const GroupedAutoComplete: React.FC<GroupedAutoCompleteProps> = forwardRe
             limitTags,
             value,
             staticFilters,
+            filterOptionsCallBack = (options: OptionType[], params: any) => {
+                let filteredOptions = filter(options, params);
+                if (typeof state === 'object') {
+                    filteredOptions = options.filter((option) => option.type !== 'filters' && option[optionlabelkeyname] === state[optionlabelkeyname]);
+                }
+
+                return filteredOptions;
+            },
             ...props
         },
         ref
@@ -140,17 +154,9 @@ export const GroupedAutoComplete: React.FC<GroupedAutoCompleteProps> = forwardRe
         useEffect(() => {
             if (value) {
                 setState(value);
+                console.log(value);
             }
         }, [value]);
-
-        const filterOptions = (options: OptionType[], params: any) => {
-            let filteredOptions = filter(options, params);
-            if (typeof state === 'object') {
-                filteredOptions = options.filter((option) => option.type !== 'filters' && option[optionlabelkeyname] === state[optionlabelkeyname]);
-            }
-
-            return filteredOptions;
-        };
 
         const handleFocusOut = (event: any) => {
             let inputValue = event?.target?.value;
@@ -175,6 +181,12 @@ export const GroupedAutoComplete: React.FC<GroupedAutoCompleteProps> = forwardRe
             }
         };
 
+        const filterOptions = (options: OptionType[], params: any) => {
+            if (!params.inputValue) return options;
+            const searchResults = filterOptionsCallBack(options, params);
+            return searchResults.filter((result) => result.type !== 'filters');
+        };
+
         const isSelectedOption = (option: OptionType) => {
             return Boolean(selectedOptions.find((selectedOption: OptionType) => selectedOption.title === option.title));
         };
@@ -197,7 +209,9 @@ export const GroupedAutoComplete: React.FC<GroupedAutoCompleteProps> = forwardRe
         return (
             <>
                 <MUIAutocomplete
+                    open
                     fullWidth
+                    multiple
                     {...props}
                     options={getAutoCompleteOptions()}
                     ref={ref}
@@ -230,11 +244,17 @@ export const GroupedAutoComplete: React.FC<GroupedAutoCompleteProps> = forwardRe
                             )}
                         </OptionsListItem>
                     )}
-                    renderGroup={(params) => (
-                        <li key={params.key}>
-                            <GroupItems>{params.children}</GroupItems>
-                        </li>
-                    )}
+                    renderGroup={(params) => {
+                        return params.group === 'filters' ? (
+                            <StyledGroupListItem key={params.key}>
+                                <GroupItems>{params.children}</GroupItems>
+                            </StyledGroupListItem>
+                        ) : (
+                            <li key={params.key}>
+                                <GroupItems>{params.children}</GroupItems>
+                            </li>
+                        );
+                    }}
                 />
             </>
         );

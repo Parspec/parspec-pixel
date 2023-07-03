@@ -13,6 +13,9 @@ const NumberTextField = styled(TextField)(({ theme }) => ({
             '-webkit-appearance': 'none',
             margin: 0
         }
+    },
+    '& .MuiInputBase-input': {
+        padding: theme.spacing(2)
     }
 }));
 
@@ -146,7 +149,6 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
                 <Box width={textfieldWidth ? textfieldWidth : 64} height={textfieldHeight ? textfieldHeight : 36}>
                     <NumberTextField
                         label=""
-                        // type="number"
                         //doing .toString() to eliminate the leading zero bug
                         value={textFieldVal.lowerField.toString()}
                         // value={value[0].toString()}
@@ -178,7 +180,6 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
                 <Box width={textfieldWidth ? textfieldWidth : 64} height={textfieldHeight ? textfieldHeight : 36}>
                     <NumberTextField
                         label=""
-                        // type="number"
                         //doing .toString() to eliminate the leading zero bug
                         value={textFieldVal.upperField === max && showPlusSignInMaxField ? `${textFieldVal.upperField}+` : textFieldVal.upperField.toString()}
                         // value={value[1].toString()}

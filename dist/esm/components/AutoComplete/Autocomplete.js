@@ -27,7 +27,7 @@ export const Autocomplete = forwardRef((_a, ref) => {
     }, [value]);
     const filterOptions = (options, params) => {
         let filteredOptions = filter(options, params);
-        if (typeof state === 'object') {
+        if (typeof state === 'object' && state[optionlabelkeyname]) {
             filteredOptions = options.filter((option) => option[optionlabelkeyname] === state[optionlabelkeyname]);
         }
         return filteredOptions;

@@ -11,10 +11,9 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { forwardRef, useMemo, useRef, useEffect, createContext, useContext } from 'react';
-import { Autocomplete, Box, Checkbox, Popper, Typography, autocompleteClasses, styled, useMediaQuery } from '@mui/material';
+import { Autocomplete, Box, Checkbox, Popper, Typography, autocompleteClasses, styled } from '@mui/material';
 import { CheckBoxOutlineBlank as CheckBoxOutlineBlankIcon } from '@mui/icons-material';
 import { CheckBox as CheckBoxIcon } from '@mui/icons-material';
-import { useTheme } from '@mui/material/styles';
 import { VariableSizeList } from 'react-window';
 import { TextField } from '../TextField';
 const icon = _jsx(CheckBoxOutlineBlankIcon, { fontSize: "small" });
@@ -27,7 +26,7 @@ function renderRow(props) {
     const option = currentRowData[1];
     const optionState = currentRowData[2];
     const inlineStyle = Object.assign(Object.assign({}, style), { top: style.top + LISTBOX_PADDING });
-    return (_jsxs(Typography, Object.assign({ component: "li" }, rowProp, { noWrap: true, style: inlineStyle }, { children: [_jsx(Checkbox, { color: rowProp.color, icon: icon, checkedIcon: checkedIcon, style: { marginRight: 2 }, checked: optionState.selected }), option.label] })));
+    return (_jsxs(Typography, Object.assign({ component: "li" }, rowProp, { noWrap: true, style: inlineStyle, fontSize: "14px" }, { children: [_jsx(Checkbox, { color: rowProp.color, icon: icon, checkedIcon: checkedIcon, sx: { marginRight: 2, paddingLeft: 0 }, checked: optionState.selected }), option.label] })));
 }
 const OuterElementContext = createContext({});
 const OuterElementType = forwardRef((props, ref) => {
@@ -51,18 +50,14 @@ const ListboxComponent = forwardRef(function ListboxComponent(props, ref) {
         itemData.push(item);
         itemData.push(...(item.children || []));
     });
-    const theme = useTheme();
-    const smUp = useMediaQuery(theme.breakpoints.up('sm'), {
-        noSsr: true
-    });
     const itemCount = itemData.length;
-    const itemSize = smUp ? 36 : 48;
+    const itemSize = 32.56;
     const getChildSize = () => {
         return itemSize;
     };
     const getHeight = () => {
-        if (itemCount > 8) {
-            return 8 * itemSize;
+        if (itemCount > 10) {
+            return 10 * itemSize;
         }
         return itemData.map(getChildSize).reduce((a, b) => a + b, 0);
     };
@@ -109,7 +104,7 @@ export const MultiSelect = forwardRef(function (_a, ref) {
     function getDefaultFilterOption(options, state) {
         return options.filter((option) => option.label.toLowerCase().includes(state.inputValue.toLowerCase()));
     }
-    return (_jsx(Autocomplete, Object.assign({}, restParams, { fullWidth: true, value: value, options: sortedOptions, multiple: true, size: size, ref: ref, filterOptions: filterOptions ? filterOptions : getDefaultFilterOption, getOptionLabel: (option) => option.label, isOptionEqualToValue: (option, value) => option.label === value.label, ListboxComponent: ListboxComponent, PopperComponent: StyledPopper, renderInput: (_a) => {
+    return (_jsx(Autocomplete, Object.assign({}, restParams, { open: true, fullWidth: true, value: value, options: sortedOptions, multiple: true, size: size, ref: ref, filterOptions: filterOptions ? filterOptions : getDefaultFilterOption, getOptionLabel: (option) => option.label, isOptionEqualToValue: (option, value) => option.label === value.label, ListboxComponent: ListboxComponent, PopperComponent: StyledPopper, renderInput: (_a) => {
             var { size: _fieldSize } = _a, params = __rest(_a, ["size"]);
             const { InputProps: _InputProps } = params, restParams = __rest(params, ["InputProps"]);
             const { startAdornment } = _InputProps, restInputProps = __rest(_InputProps, ["startAdornment"]);

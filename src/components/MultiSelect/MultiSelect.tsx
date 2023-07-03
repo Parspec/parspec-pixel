@@ -1,9 +1,8 @@
 import { forwardRef, useMemo, useRef, useEffect, createContext, useContext } from 'react';
 
-import { Autocomplete, AutocompleteProps, Box, Checkbox, FilterOptionsState, Popper, TextFieldProps, Typography, autocompleteClasses, styled, useMediaQuery } from '@mui/material';
+import { Autocomplete, AutocompleteProps, Box, Checkbox, FilterOptionsState, Popper, TextFieldProps, Typography, autocompleteClasses, styled } from '@mui/material';
 import { CheckBoxOutlineBlank as CheckBoxOutlineBlankIcon } from '@mui/icons-material';
 import { CheckBox as CheckBoxIcon } from '@mui/icons-material';
-import { useTheme } from '@mui/material/styles';
 import { VariableSizeList, ListChildComponentProps } from 'react-window';
 
 import { TextField } from '../TextField';
@@ -31,8 +30,8 @@ function renderRow(props: ListChildComponentProps) {
     };
 
     return (
-        <Typography component="li" {...rowProp} noWrap style={inlineStyle}>
-            <Checkbox color={rowProp.color} icon={icon} checkedIcon={checkedIcon} style={{ marginRight: 2 }} checked={optionState.selected} />
+        <Typography component="li" {...rowProp} noWrap style={inlineStyle} fontSize="14px">
+            <Checkbox color={rowProp.color} icon={icon} checkedIcon={checkedIcon} sx={{ marginRight: 2, paddingLeft: 0 }} checked={optionState.selected} />
             {option.label}
         </Typography>
     );
@@ -64,21 +63,18 @@ const ListboxComponent = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLEle
         itemData.push(...(item.children || []));
     });
 
-    const theme = useTheme();
-    const smUp = useMediaQuery(theme.breakpoints.up('sm'), {
-        noSsr: true
-    });
     const itemCount = itemData.length;
-    const itemSize = smUp ? 36 : 48;
+    const itemSize = 32.56;
 
     const getChildSize = () => {
         return itemSize;
     };
 
     const getHeight = () => {
-        if (itemCount > 8) {
-            return 8 * itemSize;
+        if (itemCount > 10) {
+            return 10 * itemSize;
         }
+
         return itemData.map(getChildSize).reduce((a, b) => a + b, 0);
     };
 
@@ -165,6 +161,7 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(function
     return (
         <Autocomplete
             {...restParams}
+            open
             fullWidth
             value={value}
             options={sortedOptions}

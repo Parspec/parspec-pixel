@@ -186,6 +186,9 @@ export const GroupedAutoComplete: React.FC<GroupedAutoCompleteProps> = forwardRe
         const getCheckedIcon = (option: OptionType): React.ReactNode => {
             const actualOptionCount = optionsWithType.filter((optionObj: OptionType) => Array.isArray(optionObj.group) && optionObj.group.includes(Number(option.value))).length;
             const currentGroup = selectedGroup.filter((group: GroupType) => String(option.title) in group)[0];
+
+            if (!currentGroup) return <CheckBoxOutlineBlankIcon />;
+
             if (currentGroup[String(option.title)] === 0) return <CheckBoxOutlineBlankIcon />;
             else if (currentGroup[String(option.title)] < actualOptionCount) return <IndeterminateCheckBoxIcon />;
             return <CheckBoxIcon />;

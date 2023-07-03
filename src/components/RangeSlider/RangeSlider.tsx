@@ -29,6 +29,7 @@ interface RangeSliderProps {
     textfieldWidth?: number;
     textfieldHeight?: number;
     disableSwap?: boolean;
+    showPlusSignInMaxField?: boolean;
     onChange: (data: [number, number]) => void;
     onRangeBlur?: (event: FocusEvent<HTMLInputElement>, data: [number, number]) => void;
     onSliderMouseUp?: (event: MouseEvent<HTMLButtonElement>, data: [number, number]) => void;
@@ -78,6 +79,7 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
         onSliderMouseUp,
         onTextfieldBlur,
         onTextfieldEnterKeyDown,
+        showPlusSignInMaxField,
         disableSwap
     } = props;
 
@@ -102,15 +104,21 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
     };
 
     const minChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const currValue = Number(event.target.value);
-        const newData: [number, number] = [currValue, value[1]];
-        setTextFieldVal({ ...textFieldVal, lowerField: newData[0], upperField: newData[1] });
+        const inputValue = event.target.value;
+        const numericValue = Number(inputValue);
+        if (!isNaN(numericValue)) {
+            const newData: [number, number] = [numericValue, value[1]];
+            setTextFieldVal({ ...textFieldVal, lowerField: newData[0], upperField: newData[1] });
+        }
     };
 
     const maxChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const currValue = Number(event.target.value);
-        const newData: [number, number] = [value[0], currValue];
-        setTextFieldVal({ ...textFieldVal, lowerField: newData[0], upperField: newData[1] });
+        const inputValue = event.target.value;
+        const numericValue = Number(inputValue);
+        if (!isNaN(numericValue)) {
+            const newData: [number, number] = [value[0], numericValue];
+            setTextFieldVal({ ...textFieldVal, lowerField: newData[0], upperField: newData[1] });
+        }
     };
 
     const textfieldBlurHandler = (event: FocusEvent<HTMLInputElement>) => {
@@ -138,7 +146,7 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
                 <Box width={textfieldWidth ? textfieldWidth : 64} height={textfieldHeight ? textfieldHeight : 36}>
                     <NumberTextField
                         label=""
-                        type="number"
+                        // type="number"
                         //doing .toString() to eliminate the leading zero bug
                         value={textFieldVal.lowerField.toString()}
                         // value={value[0].toString()}
@@ -170,9 +178,9 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
                 <Box width={textfieldWidth ? textfieldWidth : 64} height={textfieldHeight ? textfieldHeight : 36}>
                     <NumberTextField
                         label=""
-                        type="number"
+                        // type="number"
                         //doing .toString() to eliminate the leading zero bug
-                        value={textFieldVal.upperField.toString()}
+                        value={textFieldVal.upperField === max && showPlusSignInMaxField ? `${textFieldVal.upperField}+` : textFieldVal.upperField.toString()}
                         // value={value[1].toString()}
                         inputProps={{ style: { textAlign: 'center' } }}
                         onChange={maxChangeHandler}
@@ -191,7 +199,8 @@ RangeSlider.defaultProps = {
     size: 'small',
     color: 'primary',
     disabled: false,
-    disableSwap: true
+    disableSwap: true,
+    showPlusSignInMaxField: false
 };
 
 // function getAdjustedValues(valueArr: [number, number], minVal: number, maxVal: number): [number, number] {

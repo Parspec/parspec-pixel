@@ -161,7 +161,6 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(function
     return (
         <Autocomplete
             {...restParams}
-            open
             fullWidth
             value={value}
             options={sortedOptions}

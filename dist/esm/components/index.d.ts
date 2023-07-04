@@ -33,4 +33,3 @@ export * from './FormControl';
 export * from './Info';
 export * from './Status';
 export * from './Img';
-export * from './Drawer';

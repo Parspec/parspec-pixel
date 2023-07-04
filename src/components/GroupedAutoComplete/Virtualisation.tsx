@@ -45,7 +45,7 @@ function renderRow(props: ListChildComponentProps) {
         return (
             <Box display={'flex'} gap={1} alignItems="center">
                 <BodySmall>{String(option[optionlabelkeyname])}</BodySmall>
-                <BodyXS>{`(${actualOptionCount})`}</BodyXS>
+                <BodyXS color={theme.palette.neutral.dark}>{`(${actualOptionCount})`}</BodyXS>
             </Box>
         );
     };

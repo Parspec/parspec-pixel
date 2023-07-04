@@ -11,22 +11,23 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { forwardRef, useMemo, useRef, useEffect, createContext, useContext } from 'react';
-import { Autocomplete, Box, Checkbox, Popper, Typography, autocompleteClasses, styled } from '@mui/material';
+import { Autocomplete, Box, Checkbox, Chip, Popper, Typography, autocompleteClasses, createFilterOptions, styled } from '@mui/material';
 import { CheckBoxOutlineBlank as CheckBoxOutlineBlankIcon } from '@mui/icons-material';
 import { CheckBox as CheckBoxIcon } from '@mui/icons-material';
 import { VariableSizeList } from 'react-window';
 import { TextField } from '../TextField';
+import { sortOptions } from '../GroupedAutoComplete/Virtualisation';
 const icon = _jsx(CheckBoxOutlineBlankIcon, { fontSize: "small" });
 const checkedIcon = _jsx(CheckBoxIcon, { fontSize: "small" });
 const LISTBOX_PADDING = 8;
 function renderRow(props) {
     const { data, index, style } = props;
     const currentRowData = data[index];
-    const _a = currentRowData[0], { color } = _a, rowProp = __rest(_a, ["color"]);
+    const _a = currentRowData[0], { color, optionlabelkeyname } = _a, rowProp = __rest(_a, ["color", "optionlabelkeyname"]);
     const option = currentRowData[1];
     const optionState = currentRowData[2];
     const inlineStyle = Object.assign(Object.assign({}, style), { top: style.top + LISTBOX_PADDING });
-    return (_jsxs(Typography, Object.assign({ component: "li" }, rowProp, { noWrap: true, style: inlineStyle, fontSize: "14px" }, { children: [_jsx(Checkbox, { color: rowProp.color, icon: icon, checkedIcon: checkedIcon, sx: { marginRight: 2, paddingLeft: 0 }, checked: optionState.selected }), option.label] })));
+    return (_jsxs(Typography, Object.assign({ component: "li" }, rowProp, { noWrap: true, style: inlineStyle, fontSize: "14px" }, { children: [_jsx(Checkbox, { color: rowProp.color, icon: icon, checkedIcon: checkedIcon, sx: { marginRight: 2, paddingLeft: 0 }, checked: optionState.selected }), option[optionlabelkeyname]] })));
 }
 const OuterElementContext = createContext({});
 const OuterElementType = forwardRef((props, ref) => {
@@ -73,38 +74,13 @@ const StyledPopper = styled(Popper)({
         }
     }
 });
-function sortOptions(options, values) {
-    let selected = new Set();
-    for (let value of values || []) {
-        selected.add(value.label);
-    }
-    return [...options].sort((option1, option2) => {
-        const isOption1Selected = selected.has(option1.label);
-        const isOption2Selected = selected.has(option2.label);
-        if (isOption1Selected && !isOption2Selected) {
-            return -1;
-        }
-        else if (!isOption1Selected && isOption2Selected) {
-            return 1;
-        }
-        const option1Label = option1.label.toLowerCase();
-        const option2Label = option2.label.toLowerCase();
-        if (option1Label < option2Label) {
-            return -1;
-        }
-        else if (option1Label > option2Label) {
-            return 1;
-        }
-        return 0;
-    });
-}
 export const MultiSelect = forwardRef(function (_a, ref) {
-    var { value, size, helperText, error, options, variant, color, label, placeholder, id, filterOptions } = _a, restParams = __rest(_a, ["value", "size", "helperText", "error", "options", "variant", "color", "label", "placeholder", "id", "filterOptions"]);
-    const sortedOptions = useMemo(() => sortOptions(options, value), [options, value]);
+    var { value, size, helperText, error, options, variant, color, placeholder, id, filterOptions, label, optionlabelkeyname = 'label' } = _a, restParams = __rest(_a, ["value", "size", "helperText", "error", "options", "variant", "color", "placeholder", "id", "filterOptions", "label", "optionlabelkeyname"]);
+    const sortedOptions = useMemo(() => sortOptions(options, optionlabelkeyname, value), [options, value]);
     function getDefaultFilterOption(options, state) {
-        return options.filter((option) => option.label.toLowerCase().includes(state.inputValue.toLowerCase()));
+        return createFilterOptions()(options, state);
     }
-    return (_jsx(Autocomplete, Object.assign({}, restParams, { fullWidth: true, value: value, options: sortedOptions, multiple: true, size: size, ref: ref, filterOptions: filterOptions ? filterOptions : getDefaultFilterOption, getOptionLabel: (option) => option.label, isOptionEqualToValue: (option, value) => option.label === value.label, ListboxComponent: ListboxComponent, PopperComponent: StyledPopper, renderInput: (_a) => {
+    return (_jsx(Autocomplete, Object.assign({}, restParams, { fullWidth: true, value: value, options: sortedOptions, multiple: true, size: size, ref: ref, filterOptions: filterOptions ? filterOptions : getDefaultFilterOption, getOptionLabel: (option) => option[optionlabelkeyname], isOptionEqualToValue: (option, value) => option[optionlabelkeyname] === value[optionlabelkeyname], ListboxComponent: ListboxComponent, PopperComponent: StyledPopper, renderInput: (_a) => {
             var { size: _fieldSize } = _a, params = __rest(_a, ["size"]);
             const { InputProps: _InputProps } = params, restParams = __rest(params, ["InputProps"]);
             const { startAdornment } = _InputProps, restInputProps = __rest(_InputProps, ["startAdornment"]);
@@ -112,7 +88,20 @@ export const MultiSelect = forwardRef(function (_a, ref) {
                             maxHeight: size === 'medium' ? '114px' : '84px',
                             overflowY: 'auto'
                         } }, { children: startAdornment }))) }), variant: variant, color: color, label: label, placeholder: placeholder })));
-        }, renderOption: (props, option, state) => [Object.assign(Object.assign({}, props), { color }), option, state] })));
+        }, renderOption: (props, option, state) => [Object.assign(Object.assign({}, props), { color, optionlabelkeyname }), option, state], renderTags: (value, getTagProps, ownerState) => {
+            const { focused, ChipProps, limitTags = -1 } = ownerState;
+            const limit = 50;
+            const valueGreaterThanLimit = value.length > limit;
+            const optionsToShow = valueGreaterThanLimit ? value.slice(0, limit) : value;
+            const tagsArray = optionsToShow.map((option, index) => _jsx(Chip, Object.assign({ label: `${option[optionlabelkeyname]}`, size: size }, getTagProps({ index }), ChipProps)));
+            if (valueGreaterThanLimit && (limitTags === -1 || (limitTags > -1 && focused))) {
+                tagsArray.push(_jsxs("span", Object.assign({ className: `MuiAutocomplete-tag MuiAutocomplete-tagSize${size === null || size === void 0 ? void 0 : size.toUpperCase()}` }, { children: ["+", value.length - limit] })));
+            }
+            if (limitTags > -1 && !focused && valueGreaterThanLimit) {
+                tagsArray.push(...Array(value.length - tagsArray.length).fill(null));
+            }
+            return tagsArray;
+        } })));
 });
 MultiSelect.defaultProps = {
     color: 'primary',

@@ -141,7 +141,7 @@ export const ListboxComponent = forwardRef<HTMLDivElement, React.HTMLAttributes<
     );
 });
 
-export function sortOptions(options: readonly GroupedOptionType[], optionlabelkeyname: string, values?: GroupedOptionType[]) {
+export function sortOptions<T extends GroupedOptionType, MultiSelectOptionType>(options: readonly T[], optionlabelkeyname: string, values?: T[]) {
     let selected = new Set();
     for (let value of values || []) {
         selected.add(value[optionlabelkeyname]);

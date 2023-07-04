@@ -1,17 +1,17 @@
 import { forwardRef, useMemo, useRef, useEffect, createContext, useContext } from 'react';
 
-import { Autocomplete, AutocompleteProps, Box, Checkbox, FilterOptionsState, Popper, TextFieldProps, Typography, autocompleteClasses, styled } from '@mui/material';
+import { Autocomplete, AutocompleteProps, Box, Checkbox, Chip, FilterOptionsState, Popper, TextFieldProps, Typography, autocompleteClasses, createFilterOptions, styled } from '@mui/material';
 import { CheckBoxOutlineBlank as CheckBoxOutlineBlankIcon } from '@mui/icons-material';
 import { CheckBox as CheckBoxIcon } from '@mui/icons-material';
 import { VariableSizeList, ListChildComponentProps } from 'react-window';
 
 import { TextField } from '../TextField';
+import { sortOptions } from '../GroupedAutoComplete/Virtualisation';
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 export interface MultiSelectOptionType {
-    label: string;
     [index: string]: string | number;
 }
 
@@ -20,7 +20,7 @@ const LISTBOX_PADDING = 8;
 function renderRow(props: ListChildComponentProps) {
     const { data, index, style } = props;
     const currentRowData = data[index];
-    const { color, ...rowProp } = currentRowData[0];
+    const { color, optionlabelkeyname, ...rowProp } = currentRowData[0];
     const option = currentRowData[1];
     const optionState = currentRowData[2];
 
@@ -32,7 +32,7 @@ function renderRow(props: ListChildComponentProps) {
     return (
         <Typography component="li" {...rowProp} noWrap style={inlineStyle} fontSize="14px">
             <Checkbox color={rowProp.color} icon={icon} checkedIcon={checkedIcon} sx={{ marginRight: 2, paddingLeft: 0 }} checked={optionState.selected} />
-            {option.label}
+            {option[optionlabelkeyname]}
         </Typography>
     );
 }
@@ -111,34 +111,6 @@ const StyledPopper = styled(Popper)({
     }
 });
 
-function sortOptions(options: readonly MultiSelectOptionType[], values?: MultiSelectOptionType[]) {
-    let selected = new Set();
-    for (let value of values || []) {
-        selected.add(value.label);
-    }
-
-    return [...options].sort((option1, option2) => {
-        const isOption1Selected = selected.has(option1.label);
-        const isOption2Selected = selected.has(option2.label);
-
-        if (isOption1Selected && !isOption2Selected) {
-            return -1;
-        } else if (!isOption1Selected && isOption2Selected) {
-            return 1;
-        }
-
-        const option1Label = option1.label.toLowerCase();
-        const option2Label = option2.label.toLowerCase();
-        if (option1Label < option2Label) {
-            return -1;
-        } else if (option1Label > option2Label) {
-            return 1;
-        }
-
-        return 0;
-    });
-}
-
 interface MultiSelectProps extends Omit<AutocompleteProps<MultiSelectOptionType, true, boolean | undefined, false>, 'renderInput'> {
     helperText?: string;
     error?: boolean;
@@ -146,16 +118,17 @@ interface MultiSelectProps extends Omit<AutocompleteProps<MultiSelectOptionType,
     color?: TextFieldProps['color'];
     label: string;
     placeholder?: TextFieldProps['placeholder'];
+    optionlabelkeyname?: string;
 }
 
 export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(function (
-    { value, size, helperText, error, options, variant, color, label, placeholder, id, filterOptions, ...restParams },
+    { value, size, helperText, error, options, variant, color, placeholder, id, filterOptions, label, optionlabelkeyname = 'label', ...restParams },
     ref
 ) {
-    const sortedOptions = useMemo(() => sortOptions(options, value), [options, value]);
+    const sortedOptions = useMemo(() => sortOptions(options, optionlabelkeyname, value), [options, value]);
 
     function getDefaultFilterOption(options: MultiSelectOptionType[], state: FilterOptionsState<MultiSelectOptionType>): MultiSelectOptionType[] {
-        return options.filter((option) => option.label.toLowerCase().includes(state.inputValue.toLowerCase()));
+        return createFilterOptions<MultiSelectOptionType>()(options, state);
     }
 
     return (
@@ -168,8 +141,8 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(function
             size={size}
             ref={ref}
             filterOptions={filterOptions ? filterOptions : getDefaultFilterOption}
-            getOptionLabel={(option: MultiSelectOptionType) => option.label}
-            isOptionEqualToValue={(option: MultiSelectOptionType, value: MultiSelectOptionType) => option.label === value.label}
+            getOptionLabel={(option: MultiSelectOptionType) => option[optionlabelkeyname] as string}
+            isOptionEqualToValue={(option: MultiSelectOptionType, value: MultiSelectOptionType) => option[optionlabelkeyname] === value[optionlabelkeyname]}
             ListboxComponent={ListboxComponent}
             PopperComponent={StyledPopper}
             renderInput={({ size: _fieldSize, ...params }) => {
@@ -201,7 +174,22 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(function
                     />
                 );
             }}
-            renderOption={(props, option, state) => [{ ...props, color }, option, state] as React.ReactNode}
+            renderOption={(props, option, state) => [{ ...props, color, optionlabelkeyname }, option, state] as React.ReactNode}
+            renderTags={(value, getTagProps, ownerState) => {
+                const { focused, ChipProps, limitTags = -1 } = ownerState;
+                const limit = 50;
+                const valueGreaterThanLimit = value.length > limit;
+                const optionsToShow = valueGreaterThanLimit ? value.slice(0, limit) : value;
+
+                const tagsArray = optionsToShow.map((option, index) => <Chip label={`${option[optionlabelkeyname]}`} size={size} {...getTagProps({ index })} {...ChipProps} />);
+                if (valueGreaterThanLimit && (limitTags === -1 || (limitTags > -1 && focused))) {
+                    tagsArray.push(<span className={`MuiAutocomplete-tag MuiAutocomplete-tagSize${size?.toUpperCase()}`}>+{value.length - limit}</span>);
+                }
+                if (limitTags > -1 && !focused && valueGreaterThanLimit) {
+                    tagsArray.push(...Array(value.length - tagsArray.length).fill(null));
+                }
+                return tagsArray;
+            }}
         />
     );
 });

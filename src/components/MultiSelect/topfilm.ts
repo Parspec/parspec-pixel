@@ -1,4 +1,4 @@
-export const topFilms = [
+const films = [
     { label: 'The Shawshank Redemption', year: 1994 },
     { label: 'The Godfather', year: 1972 },
     { label: 'The Godfather: Part II', year: 1974 },
@@ -124,3 +124,10 @@ export const topFilms = [
     { label: '3 Idiots', year: 2009 },
     { label: 'Monty Python and the Holy Grail', year: 1975 }
 ];
+
+export const topFilms = [...films];
+
+for (let i = 1; i < 50; i++) {
+    const current = films.map((film) => ({ ...film, label: film.label + i }));
+    topFilms.push(...current);
+}

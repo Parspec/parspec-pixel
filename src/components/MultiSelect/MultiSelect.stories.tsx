@@ -6,22 +6,19 @@ import { MultiSelect, MultiSelectOptionType } from './';
 import { Box } from '../Box';
 
 export const Basic: ComponentStory<typeof MultiSelect> = (args) => {
-    const [values, setValues] = useState<MultiSelectOptionType[]>([]);
+    const [values, setValues] = useState<MultiSelectOptionType[]>(args.options as []);
     function handleOnChange(_event: React.SyntheticEvent<Element, Event>, value: MultiSelectOptionType[]) {
         setValues(value);
     }
-    return (
-        <Box width="50%">
-            <MultiSelect value={values} onChange={handleOnChange} {...args} />
-        </Box>
-    );
+    return <MultiSelect value={values} onChange={handleOnChange} {...args} />;
 };
 
 Basic.args = {
     id: 'multiselect-demo',
     label: 'MultiSelect',
     options: top100Films,
-    size: 'medium'
+    size: 'medium',
+    limitTags: 4
 };
 
 export default {

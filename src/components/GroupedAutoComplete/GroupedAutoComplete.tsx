@@ -6,7 +6,7 @@ import { Popper, TextFieldProps, styled } from '@mui/material';
 import { ListboxComponent, sortOptions } from './Virtualisation';
 
 export type GroupedOptionType = {
-    [index: string]: string | number | number[];
+    [index: string]: string | number | number[] | string[] | boolean | {};
 };
 
 export type GroupType = {
@@ -15,6 +15,7 @@ export type GroupType = {
 
 export interface GroupedAutoCompleteProps extends Omit<AutocompleteProps<GroupedOptionType, true, boolean | undefined, false>, 'renderInput'> {
     staticFilters: GroupedOptionType[];
+    selectedOptions: GroupedOptionType[];
     helperText?: string;
     error?: boolean;
     variant?: TextFieldProps['variant'];
@@ -23,7 +24,7 @@ export interface GroupedAutoCompleteProps extends Omit<AutocompleteProps<Grouped
     placeholder?: TextFieldProps['placeholder'];
     fieldSize?: 'small' | 'medium';
     optionlabelkeyname: string;
-    onChange: (event: React.SyntheticEvent<Element, Event>) => void;
+    onChange: (event: React.SyntheticEvent<Element, Event>, value: GroupedOptionType[]) => void;
     filterOptionsCallBack?: (options: GroupedOptionType[], params: any) => GroupedOptionType[];
     onTextFieldChange?: (e: React.SyntheticEvent<Element, Event>, value: string) => void;
 }
@@ -60,6 +61,7 @@ export const GroupedAutoComplete = forwardRef<HTMLDivElement, GroupedAutoComplet
             limitTags,
             value,
             staticFilters,
+            selectedOptions,
             filterOptionsCallBack = (options: GroupedOptionType[], params: any) => {
                 let filteredOptions = filter(options, params);
                 filteredOptions = options.filter((option: GroupedOptionType) => String(option[optionlabelkeyname]).toLowerCase().includes(params.inputValue.toLowerCase()));
@@ -69,16 +71,17 @@ export const GroupedAutoComplete = forwardRef<HTMLDivElement, GroupedAutoComplet
         },
         ref
     ) => {
-        const [selectedOptions, setSelectedOptions] = useState([]);
         const [selectedGroup, setSelectedGroup] = useState<GroupType[]>([]);
 
         let optionsWithType: GroupedOptionType[] = [];
 
         const sortedOptions = useMemo(() => sortOptions(options, optionlabelkeyname, selectedOptions), [options, optionlabelkeyname, selectedOptions]);
 
-        const handleOnChange = (event: any, newValue: any, reason: string) => {
+        const handleOnChange = (event: any, newValue: GroupedOptionType[], reason: string) => {
             if (newValue.length && newValue[newValue.length - 1].type === 'filters') {
-                const { title: filterName, value: filterValue } = newValue.find((value: GroupedOptionType) => value.type === 'filters');
+                const filterObj = newValue.find((value: GroupedOptionType) => value.type === 'filters');
+                const filterName = String(filterObj?.[optionlabelkeyname]) || '';
+                const filterValue = Number(filterObj?.value);
                 if (!selectedGroup.find((group) => group[filterName] > 0)) {
                     console.log(getFilteredOptions(filterValue));
                     newValue = [...newValue, ...getFilteredOptions(filterValue)];
@@ -88,22 +91,21 @@ export const GroupedAutoComplete = forwardRef<HTMLDivElement, GroupedAutoComplet
                 }
             } else if (newValue.length && newValue[newValue.length - 1].type === 'options' && reason === 'selectOption') {
                 const lastEl = newValue[newValue.length - 1];
-                const alreadySelected = Boolean(selectedOptions.find((option: GroupedOptionType) => option.title === lastEl.title));
+                const alreadySelected = Boolean(selectedOptions.find((option: GroupedOptionType) => option[optionlabelkeyname] === lastEl[optionlabelkeyname]));
                 if (alreadySelected) {
-                    newValue = newValue.filter((value: GroupedOptionType) => value.title !== lastEl.title);
+                    newValue = newValue.filter((value: GroupedOptionType) => value[optionlabelkeyname] !== lastEl[optionlabelkeyname]);
                 }
             }
 
             if (reason === 'clear') setSelectedGroup([]);
-            setSelectedOptions(newValue);
-            onChange({ ...event, target: { ...event.target, value: newValue } });
+            onChange(event, newValue);
         };
 
         useEffect(() => {
             const groupCount: GroupType[] = [];
             staticFilters.map((filter) => {
                 const eleInFilter = selectedOptions.filter((selectedOption: GroupedOptionType) => Array.isArray(selectedOption.group) && selectedOption.group.includes(Number(filter.value))).length;
-                groupCount.push({ [String(filter.title)]: eleInFilter });
+                groupCount.push({ [String(filter[optionlabelkeyname])]: eleInFilter });
             });
             setSelectedGroup(groupCount);
         }, [selectedOptions]);

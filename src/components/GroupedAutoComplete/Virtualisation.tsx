@@ -21,21 +21,21 @@ function renderRow(props: ListChildComponentProps) {
     const option = currentRowData[1];
 
     const isSelectedOption = (option: GroupedOptionType) => {
-        return Boolean(selectedOptions.find((selectedOption: GroupedOptionType) => selectedOption.title === option.title));
+        return Boolean(selectedOptions.find((selectedOption: GroupedOptionType) => selectedOption[optionlabelkeyname] === option[optionlabelkeyname]));
     };
 
     const isSelectedGroup = (group: GroupedOptionType) => {
-        return Boolean(selectedGroup.find((selectedGroup: GroupType) => selectedGroup[String(group.title)]));
+        return Boolean(selectedGroup.find((selectedGroup: GroupType) => selectedGroup[String(group[optionlabelkeyname])]));
     };
 
     const getCheckedIcon = (option: GroupedOptionType): React.ReactNode => {
         const actualOptionCount = optionsWithType.filter((optionObj: GroupedOptionType) => Array.isArray(optionObj.group) && optionObj.group.includes(Number(option.value))).length;
-        const currentGroup = selectedGroup.filter((group: GroupType) => String(option.title) in group)[0];
+        const currentGroup = selectedGroup.filter((group: GroupType) => String(option[optionlabelkeyname]) in group)[0];
 
         if (!currentGroup) return <CheckBoxOutlineBlankIcon />;
 
-        if (currentGroup[String(option.title)] === 0) return <CheckBoxOutlineBlankIcon />;
-        else if (currentGroup[String(option.title)] < actualOptionCount) return <IndeterminateCheckBoxIcon />;
+        if (currentGroup[String(option[optionlabelkeyname])] === 0) return <CheckBoxOutlineBlankIcon />;
+        else if (currentGroup[String(option[optionlabelkeyname])] < actualOptionCount) return <IndeterminateCheckBoxIcon />;
         return <CheckBoxIcon />;
     };
 
@@ -44,7 +44,7 @@ function renderRow(props: ListChildComponentProps) {
 
         return (
             <Box display={'flex'} gap={1} alignItems="center">
-                <BodySmall>{option[optionlabelkeyname]}</BodySmall>
+                <BodySmall>{String(option[optionlabelkeyname])}</BodySmall>
                 <BodyXS>{`(${actualOptionCount})`}</BodyXS>
             </Box>
         );

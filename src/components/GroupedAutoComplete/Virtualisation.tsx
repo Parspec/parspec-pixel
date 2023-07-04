@@ -17,25 +17,25 @@ const LISTBOX_PADDING = 8;
 function renderRow(props: ListChildComponentProps) {
     const { data, index, style } = props;
     const currentRowData = data[index];
-    const { color, optionlabelkeyname, firstOptionIndex, selectedOptions, selectedGroup, optionsWithType, ...rowProp } = currentRowData[0];
+    const { color, optionlabelkeyname, lastFilterIndex, selectedOptions, selectedGroup, optionsWithType, ...rowProp } = currentRowData[0];
     const option = currentRowData[1];
 
     const isSelectedOption = (option: GroupedOptionType) => {
-        return Boolean(selectedOptions.find((selectedOption: GroupedOptionType) => selectedOption.title === option.title));
+        return Boolean(selectedOptions.find((selectedOption: GroupedOptionType) => selectedOption[optionlabelkeyname] === option[optionlabelkeyname]));
     };
 
     const isSelectedGroup = (group: GroupedOptionType) => {
-        return Boolean(selectedGroup.find((selectedGroup: GroupType) => selectedGroup[String(group.title)]));
+        return Boolean(selectedGroup.find((selectedGroup: GroupType) => selectedGroup[String(group[optionlabelkeyname])]));
     };
 
     const getCheckedIcon = (option: GroupedOptionType): React.ReactNode => {
         const actualOptionCount = optionsWithType.filter((optionObj: GroupedOptionType) => Array.isArray(optionObj.group) && optionObj.group.includes(Number(option.value))).length;
-        const currentGroup = selectedGroup.filter((group: GroupType) => String(option.title) in group)[0];
+        const currentGroup = selectedGroup.filter((group: GroupType) => String(option[optionlabelkeyname]) in group)[0];
 
         if (!currentGroup) return <CheckBoxOutlineBlankIcon />;
 
-        if (currentGroup[String(option.title)] === 0) return <CheckBoxOutlineBlankIcon />;
-        else if (currentGroup[String(option.title)] < actualOptionCount) return <IndeterminateCheckBoxIcon />;
+        if (currentGroup[String(option[optionlabelkeyname])] === 0) return <CheckBoxOutlineBlankIcon />;
+        else if (currentGroup[String(option[optionlabelkeyname])] < actualOptionCount) return <IndeterminateCheckBoxIcon />;
         return <CheckBoxIcon />;
     };
 
@@ -44,8 +44,8 @@ function renderRow(props: ListChildComponentProps) {
 
         return (
             <Box display={'flex'} gap={1} alignItems="center">
-                <BodySmall>{option[optionlabelkeyname]}</BodySmall>
-                <BodyXS>{`(${actualOptionCount})`}</BodyXS>
+                <BodySmall>{String(option[optionlabelkeyname])}</BodySmall>
+                <BodyXS color={theme.palette.neutral.dark}>{`(${actualOptionCount})`}</BodyXS>
             </Box>
         );
     };
@@ -53,7 +53,7 @@ function renderRow(props: ListChildComponentProps) {
     const inlineStyle = {
         ...style,
         top: (style.top as number) + LISTBOX_PADDING,
-        borderTop: index === firstOptionIndex ? `1px solid ${theme.palette.neutral.main}` : 'none'
+        borderBottom: option.type !== 'options' && index === lastFilterIndex ? `1px solid ${theme.palette.neutral.main}` : 'none'
     };
 
     return (

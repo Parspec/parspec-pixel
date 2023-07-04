@@ -25,30 +25,30 @@ const LISTBOX_PADDING = 8;
 function renderRow(props) {
     const { data, index, style } = props;
     const currentRowData = data[index];
-    const _a = currentRowData[0], { color, optionlabelkeyname, firstOptionIndex, selectedOptions, selectedGroup, optionsWithType } = _a, rowProp = __rest(_a, ["color", "optionlabelkeyname", "firstOptionIndex", "selectedOptions", "selectedGroup", "optionsWithType"]);
+    const _a = currentRowData[0], { color, optionlabelkeyname, lastFilterIndex, selectedOptions, selectedGroup, optionsWithType } = _a, rowProp = __rest(_a, ["color", "optionlabelkeyname", "lastFilterIndex", "selectedOptions", "selectedGroup", "optionsWithType"]);
     const option = currentRowData[1];
     const isSelectedOption = (option) => {
-        return Boolean(selectedOptions.find((selectedOption) => selectedOption.title === option.title));
+        return Boolean(selectedOptions.find((selectedOption) => selectedOption[optionlabelkeyname] === option[optionlabelkeyname]));
     };
     const isSelectedGroup = (group) => {
-        return Boolean(selectedGroup.find((selectedGroup) => selectedGroup[String(group.title)]));
+        return Boolean(selectedGroup.find((selectedGroup) => selectedGroup[String(group[optionlabelkeyname])]));
     };
     const getCheckedIcon = (option) => {
         const actualOptionCount = optionsWithType.filter((optionObj) => Array.isArray(optionObj.group) && optionObj.group.includes(Number(option.value))).length;
-        const currentGroup = selectedGroup.filter((group) => String(option.title) in group)[0];
+        const currentGroup = selectedGroup.filter((group) => String(option[optionlabelkeyname]) in group)[0];
         if (!currentGroup)
             return _jsx(CheckBoxOutlineBlankIcon, {});
-        if (currentGroup[String(option.title)] === 0)
+        if (currentGroup[String(option[optionlabelkeyname])] === 0)
             return _jsx(CheckBoxOutlineBlankIcon, {});
-        else if (currentGroup[String(option.title)] < actualOptionCount)
+        else if (currentGroup[String(option[optionlabelkeyname])] < actualOptionCount)
             return _jsx(IndeterminateCheckBoxIcon, {});
         return _jsx(CheckBoxIcon, {});
     };
     const getGroupOptionLabel = (option) => {
         const actualOptionCount = optionsWithType.filter((optionObj) => Array.isArray(optionObj.group) && optionObj.group.includes(Number(option.value))).length;
-        return (_jsxs(Box, Object.assign({ display: 'flex', gap: 1, alignItems: "center" }, { children: [_jsx(BodySmall, { children: option[optionlabelkeyname] }), _jsx(BodyXS, { children: `(${actualOptionCount})` })] })));
+        return (_jsxs(Box, Object.assign({ display: 'flex', gap: 1, alignItems: "center" }, { children: [_jsx(BodySmall, { children: String(option[optionlabelkeyname]) }), _jsx(BodyXS, Object.assign({ color: theme.palette.neutral.dark }, { children: `(${actualOptionCount})` }))] })));
     };
-    const inlineStyle = Object.assign(Object.assign({}, style), { top: style.top + LISTBOX_PADDING, borderTop: index === firstOptionIndex ? `1px solid ${theme.palette.neutral.main}` : 'none' });
+    const inlineStyle = Object.assign(Object.assign({}, style), { top: style.top + LISTBOX_PADDING, borderBottom: option.type !== 'options' && index === lastFilterIndex ? `1px solid ${theme.palette.neutral.main}` : 'none' });
     return (_jsx(Typography, Object.assign({ component: "li" }, rowProp, { noWrap: true, style: inlineStyle }, { children: option.type === 'options' ? (_jsx(Checkbox, { style: { marginRight: 8 }, checked: isSelectedOption(option), label: String(option[optionlabelkeyname]), color: rowProp.color, icon: _jsx(CheckBoxOutlineBlankIcon, {}), checkedIcon: _jsx(CheckBoxIcon, {}) })) : (_jsx(Checkbox, { style: { marginRight: 8 }, checked: isSelectedGroup(option), label: getGroupOptionLabel(option), checkedIcon: getCheckedIcon(option), color: rowProp.color })) })));
 }
 const OuterElementContext = createContext({});

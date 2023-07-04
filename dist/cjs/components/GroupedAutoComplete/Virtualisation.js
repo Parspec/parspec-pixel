@@ -31,30 +31,30 @@ const LISTBOX_PADDING = 8;
 function renderRow(props) {
     const { data, index, style } = props;
     const currentRowData = data[index];
-    const _a = currentRowData[0], { color, optionlabelkeyname, firstOptionIndex, selectedOptions, selectedGroup, optionsWithType } = _a, rowProp = __rest(_a, ["color", "optionlabelkeyname", "firstOptionIndex", "selectedOptions", "selectedGroup", "optionsWithType"]);
+    const _a = currentRowData[0], { color, optionlabelkeyname, lastFilterIndex, selectedOptions, selectedGroup, optionsWithType } = _a, rowProp = __rest(_a, ["color", "optionlabelkeyname", "lastFilterIndex", "selectedOptions", "selectedGroup", "optionsWithType"]);
     const option = currentRowData[1];
     const isSelectedOption = (option) => {
-        return Boolean(selectedOptions.find((selectedOption) => selectedOption.title === option.title));
+        return Boolean(selectedOptions.find((selectedOption) => selectedOption[optionlabelkeyname] === option[optionlabelkeyname]));
     };
     const isSelectedGroup = (group) => {
-        return Boolean(selectedGroup.find((selectedGroup) => selectedGroup[String(group.title)]));
+        return Boolean(selectedGroup.find((selectedGroup) => selectedGroup[String(group[optionlabelkeyname])]));
     };
     const getCheckedIcon = (option) => {
         const actualOptionCount = optionsWithType.filter((optionObj) => Array.isArray(optionObj.group) && optionObj.group.includes(Number(option.value))).length;
-        const currentGroup = selectedGroup.filter((group) => String(option.title) in group)[0];
+        const currentGroup = selectedGroup.filter((group) => String(option[optionlabelkeyname]) in group)[0];
         if (!currentGroup)
             return (0, jsx_runtime_1.jsx)(CheckBoxOutlineBlank_1.default, {});
-        if (currentGroup[String(option.title)] === 0)
+        if (currentGroup[String(option[optionlabelkeyname])] === 0)
             return (0, jsx_runtime_1.jsx)(CheckBoxOutlineBlank_1.default, {});
-        else if (currentGroup[String(option.title)] < actualOptionCount)
+        else if (currentGroup[String(option[optionlabelkeyname])] < actualOptionCount)
             return (0, jsx_runtime_1.jsx)(IndeterminateCheckBox_1.default, {});
         return (0, jsx_runtime_1.jsx)(CheckBox_1.default, {});
     };
     const getGroupOptionLabel = (option) => {
         const actualOptionCount = optionsWithType.filter((optionObj) => Array.isArray(optionObj.group) && optionObj.group.includes(Number(option.value))).length;
-        return ((0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ display: 'flex', gap: 1, alignItems: "center" }, { children: [(0, jsx_runtime_1.jsx)(Typography_1.BodySmall, { children: option[optionlabelkeyname] }), (0, jsx_runtime_1.jsx)(Typography_1.BodyXS, { children: `(${actualOptionCount})` })] })));
+        return ((0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ display: 'flex', gap: 1, alignItems: "center" }, { children: [(0, jsx_runtime_1.jsx)(Typography_1.BodySmall, { children: String(option[optionlabelkeyname]) }), (0, jsx_runtime_1.jsx)(Typography_1.BodyXS, Object.assign({ color: theme_1.theme.palette.neutral.dark }, { children: `(${actualOptionCount})` }))] })));
     };
-    const inlineStyle = Object.assign(Object.assign({}, style), { top: style.top + LISTBOX_PADDING, borderTop: index === firstOptionIndex ? `1px solid ${theme_1.theme.palette.neutral.main}` : 'none' });
+    const inlineStyle = Object.assign(Object.assign({}, style), { top: style.top + LISTBOX_PADDING, borderBottom: option.type !== 'options' && index === lastFilterIndex ? `1px solid ${theme_1.theme.palette.neutral.main}` : 'none' });
     return ((0, jsx_runtime_1.jsx)(material_1.Typography, Object.assign({ component: "li" }, rowProp, { noWrap: true, style: inlineStyle }, { children: option.type === 'options' ? ((0, jsx_runtime_1.jsx)(Checkbox_1.Checkbox, { style: { marginRight: 8 }, checked: isSelectedOption(option), label: String(option[optionlabelkeyname]), color: rowProp.color, icon: (0, jsx_runtime_1.jsx)(CheckBoxOutlineBlank_1.default, {}), checkedIcon: (0, jsx_runtime_1.jsx)(CheckBox_1.default, {}) })) : ((0, jsx_runtime_1.jsx)(Checkbox_1.Checkbox, { style: { marginRight: 8 }, checked: isSelectedGroup(option), label: getGroupOptionLabel(option), checkedIcon: getCheckedIcon(option), color: rowProp.color })) })));
 }
 const OuterElementContext = (0, react_1.createContext)({});

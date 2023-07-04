@@ -4,6 +4,7 @@ export { DatasheetSelectInfoIcon } from './SvgIcons/DatasheetSelectInfoIcon';
 export { TableHeaderMenuIcon } from './SvgIcons/TableHeaderMenuIcon';
 export {
     Close as CloseIcon,
+    Check as CheckIcon,
     Cancel as CancelIcon,
     DragIndicator as DragIndicatorIcon,
     Search as SearchIcon,

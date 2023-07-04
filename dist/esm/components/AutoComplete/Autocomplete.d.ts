@@ -22,7 +22,7 @@ export interface AutocompleteProps {
     onTextFieldChange?: (e: React.SyntheticEvent<Element, Event>, value: string) => void;
     limitTags?: number;
     disabled?: boolean;
-    disableDefaultFilter?: boolean;
     clearOnBlur?: boolean;
+    filterOptionsCallBack?: (options: OptionType[], params: any) => OptionType[];
 }
 export declare const Autocomplete: React.FC<AutocompleteProps>;

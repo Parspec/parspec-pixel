@@ -27,16 +27,24 @@ export interface AutocompleteProps {
     onTextFieldChange?: (e: React.SyntheticEvent<Element, Event>, value: string) => void;
     limitTags?: number;
     disabled?: boolean;
-    disableDefaultFilter?: boolean;
     clearOnBlur?: boolean;
+    filterOptionsCallBack?: (options: OptionType[], params: any) => OptionType[];
 }
 
 const filter = createFilterOptions<OptionType>();
 
 export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivElement, AutocompleteProps>(
     (
-        { id, label, placeholder, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur = () => {}, helperText, error, options, onTextFieldChange, limitTags, disabled, value, disableDefaultFilter, ...props },
-        ref
+        { id, label, placeholder, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur = () => {}, helperText, error, options, onTextFieldChange, limitTags, disabled, value,
+        filterOptionsCallBack = (options: OptionType[], params: any) => {
+            let filteredOptions = filter(options, params);
+            if (typeof state === 'object') {
+                filteredOptions = options.filter((option) => option[optionlabelkeyname] === state[optionlabelkeyname]);
+            }
+            return filteredOptions;
+        }, 
+        ...props 
+        }, ref
     ) => {
         const [state, setState] = useState<OptionType | string>(value || '');
       
@@ -51,17 +59,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
         }, [value]);
 
         const filterOptions = (options: OptionType[], params: any) => {
-            let filteredOptions;
-            if(disableDefaultFilter){
-                filteredOptions = options;
-            }else{
-                filteredOptions = filter(options, params);
-                if (typeof state === 'object') {
-                    filteredOptions = options.filter((option) => option[optionlabelkeyname] === state[optionlabelkeyname]);
-                }
-            }
-
-            return filteredOptions;
+            return filterOptionsCallBack(options, params);
         };
 
         const handleFocusOut = (event: any) => {

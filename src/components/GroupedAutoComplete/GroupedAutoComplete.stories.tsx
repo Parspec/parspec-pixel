@@ -33,7 +33,7 @@ MultiSelectWithGroups.args = {
     color: 'primary',
     options: JSON.parse(JSON.stringify(mockOptions)),
     optionlabelkeyname: 'label',
-    limitTags: 1,
+    limitTags: 0,
     staticFilters: [
         {
             label: 'group1',

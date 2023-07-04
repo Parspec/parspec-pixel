@@ -2,7 +2,7 @@ import { forwardRef, useState, useEffect, useMemo } from 'react';
 
 import { TextField } from '../TextField';
 import { AutocompleteProps, default as MUIAutocomplete, autocompleteClasses, createFilterOptions } from '@mui/material/Autocomplete';
-import { Popper, TextFieldProps, styled } from '@mui/material';
+import { Popper, TextFieldProps, styled, Chip } from '@mui/material';
 import { ListboxComponent, sortOptions } from './Virtualisation';
 
 export type GroupedOptionType = {
@@ -22,7 +22,7 @@ export interface GroupedAutoCompleteProps extends Omit<AutocompleteProps<Grouped
     color?: TextFieldProps['color'];
     label: string;
     placeholder?: TextFieldProps['placeholder'];
-    fieldSize?: 'small' | 'medium';
+    size?: 'small' | 'medium';
     optionlabelkeyname: string;
     onChange: (event: React.SyntheticEvent<Element, Event>, value: GroupedOptionType[]) => void;
     filterOptionsCallBack?: (options: GroupedOptionType[], params: any) => GroupedOptionType[];
@@ -52,7 +52,7 @@ export const GroupedAutoComplete = forwardRef<HTMLDivElement, GroupedAutoComplet
             onChange,
             optionlabelkeyname,
             freeSolo,
-            fieldSize,
+            size,
             onBlur = () => {},
             helperText,
             error,
@@ -179,14 +179,14 @@ export const GroupedAutoComplete = forwardRef<HTMLDivElement, GroupedAutoComplet
                             <TextField
                                 helperText={helperText}
                                 error={error}
-                                size={fieldSize}
+                                size={size}
                                 {...restParams}
                                 InputProps={{
                                     ...restInputProps,
                                     startAdornment: (
                                         <div
                                             style={{
-                                                maxHeight: '140px',
+                                                maxHeight: size === 'medium' ? '114px' : '84px',
                                                 overflowY: 'auto'
                                             }}
                                         >
@@ -204,6 +204,21 @@ export const GroupedAutoComplete = forwardRef<HTMLDivElement, GroupedAutoComplet
                     renderOption={(props, option, state) =>
                         [{ ...props, color, optionlabelkeyname, lastFilterIndex: staticFilters.length - 1, selectedOptions, selectedGroup, optionsWithType }, option, state] as React.ReactNode
                     }
+                    renderTags={(value, getTagProps, ownerState) => {
+                        const { focused, ChipProps, limitTags = -1 } = ownerState;
+                        const limit = 50;
+                        const valueGreaterThanLimit = value.length > limit;
+                        const optionsToShow = valueGreaterThanLimit ? value.slice(0, limit) : value;
+
+                        const tagsArray = optionsToShow.map((option, index) => <Chip label={`${option[optionlabelkeyname]}`} size={size} {...getTagProps({ index })} {...ChipProps} />);
+                        if (valueGreaterThanLimit && (limitTags === -1 || (limitTags > -1 && focused))) {
+                            tagsArray.push(<span className={`MuiAutocomplete-tag MuiAutocomplete-tagSize${size?.toUpperCase()}`}>+{value.length - limit}</span>);
+                        }
+                        if (limitTags > -1 && !focused && valueGreaterThanLimit) {
+                            tagsArray.push(...Array(value.length - tagsArray.length).fill(null));
+                        }
+                        return tagsArray;
+                    }}
                 />
             </>
         );
@@ -214,7 +229,7 @@ GroupedAutoComplete.defaultProps = {
     color: 'primary',
     variant: 'outlined',
     freeSolo: false,
-    fieldSize: 'small',
+    size: 'small',
     helperText: '',
     error: false
 };

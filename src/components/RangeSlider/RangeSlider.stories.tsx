@@ -52,5 +52,5 @@ Basic.args = {
     max: 150,
     headerTitle: 'Range Slider Example',
     textfieldWidth: 100,
-    showPlusSignInMaxField: true
+    showPlus: true
 };

@@ -32,7 +32,7 @@ interface RangeSliderProps {
     textfieldWidth?: number;
     textfieldHeight?: number;
     disableSwap?: boolean;
-    showPlusSignInMaxField?: boolean;
+    showPlus?: boolean;
     onChange: (data: [number, number]) => void;
     onRangeBlur?: (event: FocusEvent<HTMLInputElement>, data: [number, number]) => void;
     onSliderMouseUp?: (event: MouseEvent<HTMLButtonElement>, data: [number, number]) => void;
@@ -82,7 +82,7 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
         onSliderMouseUp,
         onTextfieldBlur,
         onTextfieldEnterKeyDown,
-        showPlusSignInMaxField,
+        showPlus,
         disableSwap
     } = props;
 
@@ -181,7 +181,7 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
                     <NumberTextField
                         label=""
                         //doing .toString() to eliminate the leading zero bug
-                        value={textFieldVal.upperField === max && showPlusSignInMaxField ? `${textFieldVal.upperField}+` : textFieldVal.upperField.toString()}
+                        value={textFieldVal.upperField === max && showPlus ? `${textFieldVal.upperField}+` : textFieldVal.upperField.toString()}
                         // value={value[1].toString()}
                         inputProps={{ style: { textAlign: 'center' } }}
                         onChange={maxChangeHandler}
@@ -201,7 +201,7 @@ RangeSlider.defaultProps = {
     color: 'primary',
     disabled: false,
     disableSwap: true,
-    showPlusSignInMaxField: false
+    showPlus: false
 };
 
 // function getAdjustedValues(valueArr: [number, number], minVal: number, maxVal: number): [number, number] {

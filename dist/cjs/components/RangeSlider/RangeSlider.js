@@ -41,7 +41,7 @@ function getAdjustedValues(valueArr, minVal, maxVal) {
     return [value1, value2];
 }
 exports.RangeSlider = (0, react_1.forwardRef)((props, ref) => {
-    const { value, size, step, marks, min, max, color, headerTitle, disabled, textfieldWidth, textfieldHeight, onChange: onRangeChange, onRangeBlur, onSliderMouseUp, onTextfieldBlur, onTextfieldEnterKeyDown, showPlusSignInMaxField, disableSwap } = props;
+    const { value, size, step, marks, min, max, color, headerTitle, disabled, textfieldWidth, textfieldHeight, onChange: onRangeChange, onRangeBlur, onSliderMouseUp, onTextfieldBlur, onTextfieldEnterKeyDown, showPlus, disableSwap } = props;
     const [textFieldVal, setTextFieldVal] = (0, react_1.useState)({ lowerField: value[0], upperField: value[1] });
     (0, react_1.useEffect)(() => {
         setTextFieldVal(() => (Object.assign(Object.assign({}, textFieldVal), { lowerField: value[0], upperField: value[1] })));
@@ -96,7 +96,7 @@ exports.RangeSlider = (0, react_1.forwardRef)((props, ref) => {
                             // value={value[0].toString()}
                             inputProps: { style: { textAlign: 'center' } }, onChange: minChangeHandler, onBlur: textfieldBlurHandler, onKeyDown: textfieldKeyDownHandler, disabled: disabled }) })), (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ pl: 4, pr: 4, width: 1 }, { children: (0, jsx_runtime_1.jsx)(Slider_1.Slider, { value: value, min: min, max: max, color: color ? color : 'primary', size: size, marks: marks, step: step, onChange: sliderChangeHandler, onBlur: (e) => onRangeBlur === null || onRangeBlur === void 0 ? void 0 : onRangeBlur(e, value), onMouseUp: (e) => onSliderMouseUp === null || onSliderMouseUp === void 0 ? void 0 : onSliderMouseUp(e, value), disabled: disabled, disableSwap: disableSwap }) })), (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ width: textfieldWidth ? textfieldWidth : 64, height: textfieldHeight ? textfieldHeight : 36 }, { children: (0, jsx_runtime_1.jsx)(NumberTextField, { label: "", 
                             //doing .toString() to eliminate the leading zero bug
-                            value: textFieldVal.upperField === max && showPlusSignInMaxField ? `${textFieldVal.upperField}+` : textFieldVal.upperField.toString(), 
+                            value: textFieldVal.upperField === max && showPlus ? `${textFieldVal.upperField}+` : textFieldVal.upperField.toString(), 
                             // value={value[1].toString()}
                             inputProps: { style: { textAlign: 'center' } }, onChange: maxChangeHandler, onBlur: textfieldBlurHandler, onKeyDown: textfieldKeyDownHandler, disabled: disabled }) }))] }))] })));
 });
@@ -106,6 +106,6 @@ exports.RangeSlider.defaultProps = {
     color: 'primary',
     disabled: false,
     disableSwap: true,
-    showPlusSignInMaxField: false
+    showPlus: false
 };
 //# sourceMappingURL=RangeSlider.js.map

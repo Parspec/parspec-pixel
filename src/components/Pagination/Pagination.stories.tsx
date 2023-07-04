@@ -29,5 +29,5 @@ Basic.args = {
     count: 20,
     size: 'small',
     boundaryCount: 0,
-    siblingCount: 3
+    siblingCount: 2
 };

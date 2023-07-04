@@ -91,6 +91,24 @@ export const Pagination = forwardRef<HTMLDivElement, PaginationProps>(({ size, c
                 renderItem={(item) => {
                     const { color, onClick, disabled: ellipsisDisabled, ...rest } = item;
 
+                    if (item.type === 'first') {
+                        console.log(item.type, item.page);
+
+                        return <PaginationItem component="button" onClick={(event: any) => pageChangeHandler(event, item.page)} disabled={currentPage === 1} {...rest} />;
+                    }
+
+                    if (item.type === 'previous') {
+                        return <PaginationItem component="button" onClick={(event: any) => pageChangeHandler(event, item.page)} disabled={currentPage === 1} {...rest} />;
+                    }
+
+                    if (item.type === 'next') {
+                        return <PaginationItem component="button" onClick={(event: any) => pageChangeHandler(event, item.page)} disabled={currentPage === count} {...rest} />;
+                    }
+
+                    if (item.type === 'last') {
+                        return <PaginationItem component="button" onClick={(event: any) => pageChangeHandler(event, item.page)} disabled={currentPage === count} {...rest} />;
+                    }
+
                     if (item.type === 'start-ellipsis') {
                         return (
                             <Box onClick={(event: any) => startEllipsisClickHandler(event, item.page)} sx={{ cursor: 'pointer' }}>

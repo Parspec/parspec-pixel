@@ -17,7 +17,7 @@ const LISTBOX_PADDING = 8;
 function renderRow(props: ListChildComponentProps) {
     const { data, index, style } = props;
     const currentRowData = data[index];
-    const { color, optionlabelkeyname, firstOptionIndex, selectedOptions, selectedGroup, optionsWithType, ...rowProp } = currentRowData[0];
+    const { color, optionlabelkeyname, lastFilterIndex, selectedOptions, selectedGroup, optionsWithType, ...rowProp } = currentRowData[0];
     const option = currentRowData[1];
 
     const isSelectedOption = (option: GroupedOptionType) => {
@@ -53,7 +53,7 @@ function renderRow(props: ListChildComponentProps) {
     const inlineStyle = {
         ...style,
         top: (style.top as number) + LISTBOX_PADDING,
-        borderTop: index === firstOptionIndex ? `1px solid ${theme.palette.neutral.main}` : 'none'
+        borderBottom: option.type !== 'options' && index === lastFilterIndex ? `1px solid ${theme.palette.neutral.main}` : 'none'
     };
 
     return (

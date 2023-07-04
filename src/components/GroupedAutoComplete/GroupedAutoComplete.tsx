@@ -202,7 +202,7 @@ export const GroupedAutoComplete = forwardRef<HTMLDivElement, GroupedAutoComplet
                         );
                     }}
                     renderOption={(props, option, state) =>
-                        [{ ...props, color, optionlabelkeyname, firstOptionIndex: staticFilters.length, selectedOptions, selectedGroup, optionsWithType }, option, state] as React.ReactNode
+                        [{ ...props, color, optionlabelkeyname, lastFilterIndex: staticFilters.length - 1, selectedOptions, selectedGroup, optionsWithType }, option, state] as React.ReactNode
                     }
                 />
             </>
@@ -218,15 +218,3 @@ GroupedAutoComplete.defaultProps = {
     helperText: '',
     error: false
 };
-/**
- * renderOption={(props, option) => (
-                        <OptionsListItem {...props}>
-                            {option.type === 'options' ? (
-                                <Checkbox style={{ marginRight: 8 }} checked={isSelectedOption(option)} label={String(option[optionlabelkeyname])} />
-                            ) : (
-                                <Checkbox style={{ marginRight: 8 }} checked={isSelectedGroup(option)} label={getGroupOptionLabel(option)} checkedIcon={getCheckedIcon(option)} />
-                            )}
-                        </OptionsListItem>
-                    )}
- * 
- */

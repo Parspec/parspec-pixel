@@ -1,4 +1,5 @@
 /// <reference types="react" />
+import { FilterOptionsState } from '@mui/material/useAutocomplete';
 export type OptionType<T = {}> = {
     [index: string]: string | number;
 } & T;
@@ -23,6 +24,6 @@ export interface AutocompleteProps {
     limitTags?: number;
     disabled?: boolean;
     clearOnBlur?: boolean;
-    filterOptionsCallBack?: (options: OptionType[], params: any) => OptionType[];
+    filterOptionsCallBack?: (options: OptionType[], params: FilterOptionsState<OptionType>) => OptionType[];
 }
 export declare const Autocomplete: React.FC<AutocompleteProps>;

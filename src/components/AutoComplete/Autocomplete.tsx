@@ -2,6 +2,7 @@ import { forwardRef, useState, useEffect } from 'react';
 
 import { TextField } from '../TextField';
 import { default as MUIAutocomplete, createFilterOptions } from '@mui/material/Autocomplete';
+import { FilterOptionsState } from '@mui/material/useAutocomplete';
 
 export type OptionType<T = {}> = {
     [index: string]: string | number;
@@ -28,7 +29,7 @@ export interface AutocompleteProps {
     limitTags?: number;
     disabled?: boolean;
     clearOnBlur?: boolean;
-    filterOptionsCallBack?: (options: OptionType[], params: any) => OptionType[];
+    filterOptionsCallBack?: (options: OptionType[], params: FilterOptionsState<OptionType>) => OptionType[];
 }
 
 const filter = createFilterOptions<OptionType>();
@@ -36,7 +37,7 @@ const filter = createFilterOptions<OptionType>();
 export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivElement, AutocompleteProps>(
     (
         { id, label, placeholder, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur = () => {}, helperText, error, options, onTextFieldChange, limitTags, disabled, value,
-        filterOptionsCallBack = (options: OptionType[], params: any) => {
+        filterOptionsCallBack = (options: OptionType[], params: FilterOptionsState<OptionType>) => {
             let filteredOptions = filter(options, params);
             if (typeof state === 'object') {
                 filteredOptions = options.filter((option) => option[optionlabelkeyname] === state[optionlabelkeyname]);
@@ -58,7 +59,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
             }
         }, [value]);
 
-        const filterOptions = (options: OptionType[], params: any) => {
+        const filterOptions = (options: OptionType[], params: FilterOptionsState<OptionType>) => {
             return filterOptionsCallBack(options, params);
         };
 

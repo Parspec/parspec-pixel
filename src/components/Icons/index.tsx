@@ -64,5 +64,7 @@ export {
     Troubleshoot as TroubleshootIcon,
     PlagiarismOutlined as PlagiarismOutlinedIcon,
     Lock as LockIcon,
-    LockOpen as LockOpenIcon
+    LockOpen as LockOpenIcon,
+    Settings as SettingsIcon,
+    Logout as LogoutIcon
 } from '@mui/icons-material';

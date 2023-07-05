@@ -3,9 +3,9 @@ import { forwardRef, useState, useEffect } from 'react';
 import { TextField } from '../TextField';
 import { default as MUIAutocomplete, createFilterOptions } from '@mui/material/Autocomplete';
 
-export type OptionType = {
+export type OptionType<T = {}> = {
     [index: string]: string | number;
-};
+} & T;
 
 export interface AutocompleteProps {
     id: string;

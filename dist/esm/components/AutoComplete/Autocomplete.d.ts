@@ -1,7 +1,7 @@
 /// <reference types="react" />
-export type OptionType = {
+export type OptionType<T = {}> = {
     [index: string]: string | number;
-};
+} & T;
 export interface AutocompleteProps {
     id: string;
     label: string;

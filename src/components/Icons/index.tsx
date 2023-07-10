@@ -61,5 +61,6 @@ export {
     DocumentScanner as DocumentScannerIcon,
     CropFree as CropFreeIcon,
     SentimentVeryDissatisfied as SadFaceIcon,
-    Troubleshoot as TroubleshootIcon
+    Troubleshoot as TroubleshootIcon,
+    FolderOffOutlined as NoProductFoundIcon
 } from '@mui/icons-material';

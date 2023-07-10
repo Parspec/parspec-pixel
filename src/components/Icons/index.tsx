@@ -61,6 +61,7 @@ export {
     CropFree as CropFreeIcon,
     SentimentVeryDissatisfied as SadFaceIcon,
     Troubleshoot as TroubleshootIcon,
+    WarningAmber as WarningOutlinedIcon,
     Settings as SettingsIcon,
     Logout as LogoutIcon
 } from '@mui/icons-material';

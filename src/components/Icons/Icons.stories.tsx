@@ -144,7 +144,7 @@ MUIImportedIcons.args = {
         { icon: ErrorIcon, name: 'ErroIcon' },
         { icon: SadFaceIcon, name: 'SadFaceIcon' },
         { icon: TroubleshootIcon, name: 'TroubleshootIcon' },
-        { icon: warningOutlinedIcon, name: 'warningOutlinedIcon' }
+        { icon: WarningOutlinedIcon, name: 'WarningOutlinedIcon' }
     ],
     fontSize: 'medium',
     color: 'tertiary'

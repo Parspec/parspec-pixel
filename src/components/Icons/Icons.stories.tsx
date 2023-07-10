@@ -57,7 +57,8 @@ import {
     SadFaceIcon,
     TroubleshootIcon,
     SettingsIcon,
-    LogoutIcon
+    LogoutIcon,
+    NoProductFoundIcon
 } from './index';
 import { Grid } from '../Grid';
 import { BodySmall } from '../Typography';
@@ -148,7 +149,8 @@ MUIImportedIcons.args = {
         { icon: SadFaceIcon, name: 'SadFaceIcon' },
         { icon: TroubleshootIcon, name: 'TroubleshootIcon' },
         { icon: SettingsIcon, name: 'SettingsIcon' },
-        { icon: LogoutIcon, name: 'LogoutIcon' }
+        { icon: LogoutIcon, name: 'LogoutIcon' },
+        { icon: NoProductFoundIcon, name: 'NoProductFoundIcon' }
     ],
     fontSize: 'medium',
     color: 'tertiary'

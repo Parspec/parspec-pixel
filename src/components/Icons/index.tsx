@@ -66,5 +66,6 @@ export {
     Lock as LockIcon,
     LockOpen as LockOpenIcon,
     Settings as SettingsIcon,
-    Logout as LogoutIcon
+    Logout as LogoutIcon,
+    FolderOffOutlined as NoProductFoundIcon
 } from '@mui/icons-material';

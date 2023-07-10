@@ -54,7 +54,8 @@ import {
     WarningIcon,
     ErrorIcon,
     SadFaceIcon,
-    TroubleshootIcon
+    TroubleshootIcon,
+    WarningOutlinedIcon
 } from './index';
 import { Grid } from '../Grid';
 import { BodySmall } from '../Typography';
@@ -142,7 +143,8 @@ MUIImportedIcons.args = {
         { icon: WarningIcon, name: 'WarningIcon' },
         { icon: ErrorIcon, name: 'ErroIcon' },
         { icon: SadFaceIcon, name: 'SadFaceIcon' },
-        { icon: TroubleshootIcon, name: 'TroubleshootIcon' }
+        { icon: TroubleshootIcon, name: 'TroubleshootIcon' },
+        { icon: warningOutlinedIcon, name: 'warningOutlinedIcon' }
     ],
     fontSize: 'medium',
     color: 'tertiary'

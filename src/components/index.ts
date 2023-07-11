@@ -32,5 +32,8 @@ export * from './Link';
 export * from './FormControl';
 export * from './Info';
 export * from './Status';
+<<<<<<< HEAD
 export * from './Pagination';
+=======
+>>>>>>> 60d593eec4a44c15f7d201cdeb47d93b65ca6fa3
 export * from './Img';

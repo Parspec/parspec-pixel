@@ -65,6 +65,7 @@ export {
     LocationOnOutlined as LocationOnOutlinedIcon,
     DriveFileRenameOutline as DriveFileRenameOutlineIcon,
     Help as HelpIcon,
+    WarningAmber as WarningOutlinedIcon,
     Settings as SettingsIcon,
     Logout as LogoutIcon
 } from '@mui/icons-material';

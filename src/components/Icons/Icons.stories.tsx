@@ -56,7 +56,8 @@ import {
     SadFaceIcon,
     TroubleshootIcon,
     SettingsIcon,
-    LogoutIcon
+    LogoutIcon,
+    WarningOutlinedIcon
 } from './index';
 import { Grid } from '../Grid';
 import { BodySmall } from '../Typography';
@@ -145,6 +146,7 @@ MUIImportedIcons.args = {
         { icon: ErrorIcon, name: 'ErroIcon' },
         { icon: SadFaceIcon, name: 'SadFaceIcon' },
         { icon: TroubleshootIcon, name: 'TroubleshootIcon' },
+        { icon: WarningOutlinedIcon, name: 'WarningOutlinedIcon' },
         { icon: SettingsIcon, name: 'SettingsIcon' },
         { icon: LogoutIcon, name: 'LogoutIcon' }
     ],

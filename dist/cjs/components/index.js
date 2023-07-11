@@ -24,6 +24,7 @@ __exportStar(require("./Icons"), exports);
 __exportStar(require("./Checkbox"), exports);
 __exportStar(require("./FileSelector"), exports);
 __exportStar(require("./AutoComplete"), exports);
+__exportStar(require("./GroupedAutoComplete"), exports);
 __exportStar(require("./CircularProgress"), exports);
 __exportStar(require("./Chip"), exports);
 __exportStar(require("./Select"), exports);
@@ -48,7 +49,9 @@ __exportStar(require("./Link"), exports);
 __exportStar(require("./FormControl"), exports);
 __exportStar(require("./Info"), exports);
 __exportStar(require("./Status"), exports);
+__exportStar(require("./StatusSelect"), exports);
 __exportStar(require("./Slider"), exports);
 __exportStar(require("./RangeSlider"), exports);
 __exportStar(require("./Img"), exports);
+__exportStar(require("./MultiSelect"), exports);
 //# sourceMappingURL=index.js.map

@@ -63,6 +63,9 @@ export {
     SentimentVeryDissatisfied as SadFaceIcon,
     Troubleshoot as TroubleshootIcon,
     FolderOffOutlined as NoProductFoundIcon,
+    PlagiarismOutlined as PlagiarismOutlinedIcon,
+    Lock as LockIcon,
+    LockOpen as LockOpenIcon,
     WarningAmber as WarningOutlinedIcon,
     Settings as SettingsIcon,
     Logout as LogoutIcon

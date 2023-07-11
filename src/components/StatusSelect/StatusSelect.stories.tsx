@@ -16,9 +16,8 @@ export const Basic: ComponentStory<typeof StatusSelect> = (args) => {
 
     const handleOnChange = (event: any) => {
         setSelectedValue(event.target.value + '');
+        console.log(selectedValue);
     };
-
-    console.log(selectedValue);
 
     return <StatusSelect {...args} onChange={handleOnChange} value={selectedValue} />;
 };
@@ -28,9 +27,8 @@ export const WithLabel: ComponentStory<typeof StatusSelect> = (args) => {
 
     const handleOnChange = (event: any) => {
         setSelectedValue(event.target.value + '');
+        console.log(selectedValue);
     };
-
-    console.log(selectedValue);
 
     return <StatusSelect {...args} onChange={handleOnChange} value={selectedValue} />;
 };

@@ -203,39 +203,3 @@ RangeSlider.defaultProps = {
     disableSwap: true,
     showPlus: false
 };
-
-// function getAdjustedValues(valueArr: [number, number], minVal: number, maxVal: number): [number, number] {
-//     let [value1, value2] = valueArr;
-
-//     // Check if value1 exceeds maxVal and adjust if necessary
-//     if (value1 > maxVal) {
-//         value1 = maxVal;
-//     }
-
-//     // Check if value2 exceeds maxVal and adjust if necessary
-//     if (value2 > maxVal) {
-//         value2 = maxVal;
-//     }
-
-//     // Check if value1 is greater than value2 and adjust if necessary
-//     if (value1 > value2) {
-//         value1 = value2;
-//     }
-
-//     // Check if value1 is smaller than minVal and adjust if necessary
-//     if (value1 < minVal) {
-//         value1 = minVal;
-//     }
-
-//     // Check if value2 is smaller than minVal and adjust if necessary
-//     if (value2 < minVal) {
-//         value2 = minVal;
-//     }
-
-//     // Check if value2 is smaller than value1 and adjust if necessary
-//     if (value2 < value1) {
-//         value2 = value1;
-//     }
-
-//     return [value1, value2];
-// }

@@ -60,5 +60,8 @@ export {
     DocumentScanner as DocumentScannerIcon,
     CropFree as CropFreeIcon,
     SentimentVeryDissatisfied as SadFaceIcon,
-    Troubleshoot as TroubleshootIcon
+    Troubleshoot as TroubleshootIcon,
+    WarningAmber as WarningOutlinedIcon,
+    Settings as SettingsIcon,
+    Logout as LogoutIcon
 } from '@mui/icons-material';

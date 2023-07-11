@@ -49,6 +49,7 @@ __exportStar(require("./Link"), exports);
 __exportStar(require("./FormControl"), exports);
 __exportStar(require("./Info"), exports);
 __exportStar(require("./Status"), exports);
+__exportStar(require("./Pagination"), exports);
 __exportStar(require("./StatusSelect"), exports);
 __exportStar(require("./Slider"), exports);
 __exportStar(require("./RangeSlider"), exports);

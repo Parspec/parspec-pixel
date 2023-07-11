@@ -33,6 +33,7 @@ export * from './Link';
 export * from './FormControl';
 export * from './Info';
 export * from './Status';
+export * from './Pagination';
 export * from './StatusSelect';
 export * from './Slider';
 export * from './RangeSlider';

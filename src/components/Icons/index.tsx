@@ -62,6 +62,7 @@ export {
     CropFree as CropFreeIcon,
     SentimentVeryDissatisfied as SadFaceIcon,
     Troubleshoot as TroubleshootIcon,
+    FolderOffOutlined as NoProductFoundIcon,
     PlagiarismOutlined as PlagiarismOutlinedIcon,
     Lock as LockIcon,
     LockOpen as LockOpenIcon,

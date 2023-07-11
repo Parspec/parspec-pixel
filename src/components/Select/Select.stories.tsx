@@ -16,9 +16,8 @@ export const Basic: ComponentStory<typeof Select> = (args) => {
 
     const handleOnChange = (event: any) => {
         setSelectedValue(event.target.value + '');
+        console.log(selectedValue);
     };
-
-    console.log(selectedValue);
 
     return <Select {...args} onChange={handleOnChange} value={selectedValue} />;
 };

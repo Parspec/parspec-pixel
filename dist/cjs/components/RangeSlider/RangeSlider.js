@@ -15,6 +15,9 @@ const NumberTextField = (0, styles_1.styled)(TextField_1.TextField)(({ theme }) 
             '-webkit-appearance': 'none',
             margin: 0
         }
+    },
+    '& .MuiInputBase-input': {
+        padding: theme.spacing(2)
     }
 }));
 function getAdjustedValues(valueArr, minVal, maxVal) {
@@ -38,7 +41,7 @@ function getAdjustedValues(valueArr, minVal, maxVal) {
     return [value1, value2];
 }
 exports.RangeSlider = (0, react_1.forwardRef)((props, ref) => {
-    const { value, size, step, marks, min, max, color, headerTitle, disabled, textfieldWidth, textfieldHeight, onChange: onRangeChange, onRangeBlur, onSliderMouseUp, onTextfieldBlur, onTextfieldEnterKeyDown, disableSwap } = props;
+    const { value, size, step, marks, min, max, color, headerTitle, disabled, textfieldWidth, textfieldHeight, onChange: onRangeChange, onRangeBlur, onSliderMouseUp, onTextfieldBlur, onTextfieldEnterKeyDown, showPlus, disableSwap } = props;
     const [textFieldVal, setTextFieldVal] = (0, react_1.useState)({ lowerField: value[0], upperField: value[1] });
     (0, react_1.useEffect)(() => {
         setTextFieldVal(() => (Object.assign(Object.assign({}, textFieldVal), { lowerField: value[0], upperField: value[1] })));
@@ -56,21 +59,27 @@ exports.RangeSlider = (0, react_1.forwardRef)((props, ref) => {
         onRangeChange(newData);
     };
     const minChangeHandler = (event) => {
-        const currValue = Number(event.target.value);
-        const newData = [currValue, value[1]];
-        setTextFieldVal(Object.assign(Object.assign({}, textFieldVal), { lowerField: newData[0], upperField: newData[1] }));
+        const inputValue = event.target.value;
+        const numericValue = Number(inputValue);
+        if (!isNaN(numericValue)) {
+            const newData = [numericValue, value[1]];
+            setTextFieldVal(Object.assign(Object.assign({}, textFieldVal), { lowerField: newData[0], upperField: newData[1] }));
+        }
     };
     const maxChangeHandler = (event) => {
-        const currValue = Number(event.target.value);
-        const newData = [value[0], currValue];
-        setTextFieldVal(Object.assign(Object.assign({}, textFieldVal), { lowerField: newData[0], upperField: newData[1] }));
+        const inputValue = event.target.value;
+        const numericValue = Number(inputValue);
+        if (!isNaN(numericValue)) {
+            const newData = [value[0], numericValue];
+            setTextFieldVal(Object.assign(Object.assign({}, textFieldVal), { lowerField: newData[0], upperField: newData[1] }));
+        }
     };
     const textfieldBlurHandler = (event) => {
         const rawData = [textFieldVal.lowerField, textFieldVal.upperField];
         const newVal = getAdjustedValues(rawData, min, max);
         setTextFieldVal(Object.assign(Object.assign({}, textFieldVal), { lowerField: newVal[0], upperField: newVal[1] }));
         onRangeChange(newVal);
-        onTextfieldBlur(event, value);
+        onTextfieldBlur === null || onTextfieldBlur === void 0 ? void 0 : onTextfieldBlur(event, value);
     };
     const textfieldKeyDownHandler = (event) => {
         if (event.key === 'Enter') {
@@ -78,16 +87,16 @@ exports.RangeSlider = (0, react_1.forwardRef)((props, ref) => {
             const newVal = getAdjustedValues(rawData, min, max);
             setTextFieldVal(Object.assign(Object.assign({}, textFieldVal), { lowerField: newVal[0], upperField: newVal[1] }));
             onRangeChange(newVal);
-            onTextfieldEnterKeyDown(event, value);
+            onTextfieldEnterKeyDown === null || onTextfieldEnterKeyDown === void 0 ? void 0 : onTextfieldEnterKeyDown(event, value);
         }
     };
-    return ((0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ ref: ref, width: 1, display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }, { children: [(0, jsx_runtime_1.jsx)(Typography_1.BodyXS, Object.assign({ color: 'text.secondary' }, { children: headerTitle })), (0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ mt: headerTitle ? 2 : 0, display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: 1 }, { children: [(0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ width: textfieldWidth ? textfieldWidth : 64, height: textfieldHeight ? textfieldHeight : 36 }, { children: (0, jsx_runtime_1.jsx)(NumberTextField, { label: "", type: "number", 
+    return ((0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ ref: ref, width: 1, display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }, { children: [(0, jsx_runtime_1.jsx)(Typography_1.BodyXS, Object.assign({ color: 'text.secondary' }, { children: headerTitle })), (0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ mt: headerTitle ? 2 : 0, display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: 1 }, { children: [(0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ width: textfieldWidth ? textfieldWidth : 64, height: textfieldHeight ? textfieldHeight : 36 }, { children: (0, jsx_runtime_1.jsx)(NumberTextField, { label: "", 
                             //doing .toString() to eliminate the leading zero bug
                             value: textFieldVal.lowerField.toString(), 
                             // value={value[0].toString()}
-                            inputProps: { style: { textAlign: 'center' } }, onChange: minChangeHandler, onBlur: textfieldBlurHandler, onKeyDown: textfieldKeyDownHandler, disabled: disabled }) })), (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ pl: 4, pr: 4, width: 1 }, { children: (0, jsx_runtime_1.jsx)(Slider_1.Slider, { value: value, min: min, max: max, color: color ? color : 'primary', size: size, marks: marks, step: step, onChange: sliderChangeHandler, onBlur: (e) => onRangeBlur(e, value), onMouseUp: (e) => onSliderMouseUp(e, value), disabled: disabled, disableSwap: disableSwap }) })), (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ width: textfieldWidth ? textfieldWidth : 64, height: textfieldHeight ? textfieldHeight : 36 }, { children: (0, jsx_runtime_1.jsx)(NumberTextField, { label: "", type: "number", 
+                            inputProps: { style: { textAlign: 'center' } }, onChange: minChangeHandler, onBlur: textfieldBlurHandler, onKeyDown: textfieldKeyDownHandler, disabled: disabled }) })), (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ pl: 4, pr: 4, width: 1 }, { children: (0, jsx_runtime_1.jsx)(Slider_1.Slider, { value: value, min: min, max: max, color: color ? color : 'primary', size: size, marks: marks, step: step, onChange: sliderChangeHandler, onBlur: (e) => onRangeBlur === null || onRangeBlur === void 0 ? void 0 : onRangeBlur(e, value), onMouseUp: (e) => onSliderMouseUp === null || onSliderMouseUp === void 0 ? void 0 : onSliderMouseUp(e, value), disabled: disabled, disableSwap: disableSwap }) })), (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ width: textfieldWidth ? textfieldWidth : 64, height: textfieldHeight ? textfieldHeight : 36 }, { children: (0, jsx_runtime_1.jsx)(NumberTextField, { label: "", 
                             //doing .toString() to eliminate the leading zero bug
-                            value: textFieldVal.upperField.toString(), 
+                            value: textFieldVal.upperField === max && showPlus ? `${textFieldVal.upperField}+` : textFieldVal.upperField.toString(), 
                             // value={value[1].toString()}
                             inputProps: { style: { textAlign: 'center' } }, onChange: maxChangeHandler, onBlur: textfieldBlurHandler, onKeyDown: textfieldKeyDownHandler, disabled: disabled }) }))] }))] })));
 });
@@ -96,6 +105,7 @@ exports.RangeSlider.defaultProps = {
     size: 'small',
     color: 'primary',
     disabled: false,
-    disableSwap: true
+    disableSwap: true,
+    showPlus: false
 };
 //# sourceMappingURL=RangeSlider.js.map

@@ -49,7 +49,8 @@ export const Basic: ComponentStory<typeof RangeSlider> = (args) => {
 Basic.args = {
     size: 'medium',
     min: 45,
-    max: 350,
+    max: 150,
     headerTitle: 'Range Slider Example',
-    textfieldWidth: 100
+    textfieldWidth: 100,
+    showPlus: true
 };

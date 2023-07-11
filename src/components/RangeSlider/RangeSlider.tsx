@@ -13,6 +13,9 @@ const NumberTextField = styled(TextField)(({ theme }) => ({
             '-webkit-appearance': 'none',
             margin: 0
         }
+    },
+    '& .MuiInputBase-input': {
+        padding: theme.spacing(2)
     }
 }));
 
@@ -29,11 +32,12 @@ interface RangeSliderProps {
     textfieldWidth?: number;
     textfieldHeight?: number;
     disableSwap?: boolean;
+    showPlus?: boolean;
     onChange: (data: [number, number]) => void;
-    onRangeBlur: (event: FocusEvent<HTMLInputElement>, data: [number, number]) => void;
-    onSliderMouseUp: (event: MouseEvent<HTMLButtonElement>, data: [number, number]) => void;
-    onTextfieldBlur: (event: FocusEvent<HTMLInputElement>, data: [number, number]) => void;
-    onTextfieldEnterKeyDown: (event: React.KeyboardEvent<HTMLInputElement>, data: [number, number]) => void;
+    onRangeBlur?: (event: FocusEvent<HTMLInputElement>, data: [number, number]) => void;
+    onSliderMouseUp?: (event: MouseEvent<HTMLButtonElement>, data: [number, number]) => void;
+    onTextfieldBlur?: (event: FocusEvent<HTMLInputElement>, data: [number, number]) => void;
+    onTextfieldEnterKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>, data: [number, number]) => void;
 }
 
 function getAdjustedValues(valueArr: [number, number], minVal: number, maxVal: number): [number, number] {
@@ -78,6 +82,7 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
         onSliderMouseUp,
         onTextfieldBlur,
         onTextfieldEnterKeyDown,
+        showPlus,
         disableSwap
     } = props;
 
@@ -102,15 +107,21 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
     };
 
     const minChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const currValue = Number(event.target.value);
-        const newData: [number, number] = [currValue, value[1]];
-        setTextFieldVal({ ...textFieldVal, lowerField: newData[0], upperField: newData[1] });
+        const inputValue = event.target.value;
+        const numericValue = Number(inputValue);
+        if (!isNaN(numericValue)) {
+            const newData: [number, number] = [numericValue, value[1]];
+            setTextFieldVal({ ...textFieldVal, lowerField: newData[0], upperField: newData[1] });
+        }
     };
 
     const maxChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const currValue = Number(event.target.value);
-        const newData: [number, number] = [value[0], currValue];
-        setTextFieldVal({ ...textFieldVal, lowerField: newData[0], upperField: newData[1] });
+        const inputValue = event.target.value;
+        const numericValue = Number(inputValue);
+        if (!isNaN(numericValue)) {
+            const newData: [number, number] = [value[0], numericValue];
+            setTextFieldVal({ ...textFieldVal, lowerField: newData[0], upperField: newData[1] });
+        }
     };
 
     const textfieldBlurHandler = (event: FocusEvent<HTMLInputElement>) => {
@@ -118,7 +129,7 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
         const newVal = getAdjustedValues(rawData, min, max);
         setTextFieldVal({ ...textFieldVal, lowerField: newVal[0], upperField: newVal[1] });
         onRangeChange(newVal);
-        onTextfieldBlur(event, value);
+        onTextfieldBlur?.(event, value);
     };
 
     const textfieldKeyDownHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -127,7 +138,7 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
             const newVal = getAdjustedValues(rawData, min, max);
             setTextFieldVal({ ...textFieldVal, lowerField: newVal[0], upperField: newVal[1] });
             onRangeChange(newVal);
-            onTextfieldEnterKeyDown(event, value);
+            onTextfieldEnterKeyDown?.(event, value);
         }
     };
 
@@ -138,7 +149,6 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
                 <Box width={textfieldWidth ? textfieldWidth : 64} height={textfieldHeight ? textfieldHeight : 36}>
                     <NumberTextField
                         label=""
-                        type="number"
                         //doing .toString() to eliminate the leading zero bug
                         value={textFieldVal.lowerField.toString()}
                         // value={value[0].toString()}
@@ -160,8 +170,8 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
                         marks={marks}
                         step={step}
                         onChange={sliderChangeHandler}
-                        onBlur={(e: any) => onRangeBlur(e, value)}
-                        onMouseUp={(e: any) => onSliderMouseUp(e, value)}
+                        onBlur={(e: FocusEvent<HTMLInputElement>) => onRangeBlur?.(e, value)}
+                        onMouseUp={(e: MouseEvent<HTMLButtonElement>) => onSliderMouseUp?.(e, value)}
                         disabled={disabled}
                         disableSwap={disableSwap}
                     />
@@ -170,9 +180,8 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
                 <Box width={textfieldWidth ? textfieldWidth : 64} height={textfieldHeight ? textfieldHeight : 36}>
                     <NumberTextField
                         label=""
-                        type="number"
                         //doing .toString() to eliminate the leading zero bug
-                        value={textFieldVal.upperField.toString()}
+                        value={textFieldVal.upperField === max && showPlus ? `${textFieldVal.upperField}+` : textFieldVal.upperField.toString()}
                         // value={value[1].toString()}
                         inputProps={{ style: { textAlign: 'center' } }}
                         onChange={maxChangeHandler}
@@ -191,41 +200,6 @@ RangeSlider.defaultProps = {
     size: 'small',
     color: 'primary',
     disabled: false,
-    disableSwap: true
+    disableSwap: true,
+    showPlus: false
 };
-
-// function getAdjustedValues(valueArr: [number, number], minVal: number, maxVal: number): [number, number] {
-//     let [value1, value2] = valueArr;
-
-//     // Check if value1 exceeds maxVal and adjust if necessary
-//     if (value1 > maxVal) {
-//         value1 = maxVal;
-//     }
-
-//     // Check if value2 exceeds maxVal and adjust if necessary
-//     if (value2 > maxVal) {
-//         value2 = maxVal;
-//     }
-
-//     // Check if value1 is greater than value2 and adjust if necessary
-//     if (value1 > value2) {
-//         value1 = value2;
-//     }
-
-//     // Check if value1 is smaller than minVal and adjust if necessary
-//     if (value1 < minVal) {
-//         value1 = minVal;
-//     }
-
-//     // Check if value2 is smaller than minVal and adjust if necessary
-//     if (value2 < minVal) {
-//         value2 = minVal;
-//     }
-
-//     // Check if value2 is smaller than value1 and adjust if necessary
-//     if (value2 < value1) {
-//         value2 = value1;
-//     }
-
-//     return [value1, value2];
-// }

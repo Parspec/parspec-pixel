@@ -1,14 +1,14 @@
 import React, { useRef, useState } from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { Table, ToolbarType } from './Table';
-import { ColumnDirective, SelectionSettingsModel } from '@syncfusion/ej2-react-treegrid';
+import { ColumnDirective, Inject, SelectionSettingsModel } from '@syncfusion/ej2-react-treegrid';
 import { getValue } from '@syncfusion/ej2-base';
 import { dDataP, dDataP2 } from './data';
 import { Button } from '../Button';
 import { ViewArrayIcon } from '../Icons';
 import { Box } from '../Box';
 import { BodyMedium } from '../Typography';
-import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
+import { CheckBoxSelection, DropDownListComponent, MultiSelectComponent } from '@syncfusion/ej2-react-dropdowns';
 
 export default {
     title: 'Table',
@@ -40,6 +40,27 @@ export const SingleSelect: ComponentStory<typeof Table> = (props) => {
         // }
     };
 
+    const templateOptions = (args) => {
+        const dataSource = ['Yes', 'No', 'Hi'];
+        const created = (args) => {
+            //Multi select instance
+            const obj = (document?.getElementById('multi_check_box') as any)?.ej2_instances?.[0];
+            obj.value = tableRef?.current?.getMultiSelectVal();
+            tableRef?.current?.setMultiSelectVal([]);
+        };
+        const change = (args) => {
+            const obj = (document?.getElementById('multi_check_box') as any)?.ej2_instances?.[0];
+            tableRef?.current?.setMultiSelectVal(obj.value);
+            if (tableRef?.current?.getMultiSelectVal()?.length == 0) {
+                tableRef?.current?.clearFiltering();
+            }
+        };
+        return (
+            <MultiSelectComponent id="multi_check_box" dataSource={dataSource} placeholder="Select" created={created} change={change} sortOrder="Ascending" mode="CheckBox">
+                <Inject services={[CheckBoxSelection]} />
+            </MultiSelectComponent>
+        );
+    };
     return (
         <Box height={500}>
             <Table {...getTableProps({ ...props, onRowSelection, onDragEnd, customFiltersFunction })} data={data} ref={tableRef}>
@@ -47,7 +68,7 @@ export const SingleSelect: ComponentStory<typeof Table> = (props) => {
                 <ColumnDirective field="taskID" allowEditing={false} headerText="Task ID" minWidth="100" width="130" editType="numericedit" />
                 <ColumnDirective field="name" headerText="Task Name" />
                 <ColumnDirective field="reporter" headerText="Reporter" />
-                <ColumnDirective field="available" filter={{ type: 'Menu', operator: 'contains' }} filterTemplate={filterTemplateOptions} headerText="Availability" />
+                <ColumnDirective field="available" filter={{ type: 'Menu', operator: 'contains' }} filterTemplate={templateOptions} headerText="Availability" />
             </Table>
         </Box>
     );

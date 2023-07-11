@@ -65,6 +65,8 @@ declare module '@mui/material/SvgIcon' {
 }
 declare module '@mui/material/Pagination' {
     interface PaginationPropsColorOverrides {
+declare module '@mui/material/Slider' {
+    interface SliderPropsColorOverrides {
         tertiary: true;
         neutral: true;
     }

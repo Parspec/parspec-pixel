@@ -61,7 +61,6 @@ exports.Pagination = (0, react_1.forwardRef)((_a, ref) => {
         setCurrentPage(() => targetPage);
         onChange(event, targetPage);
     };
-    // console.log(count.max, count.min)
     return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: (0, jsx_runtime_1.jsx)(Pagination_1.default, Object.assign({ ref: ref, count: count, page: currentPage, size: size, boundaryCount: boundaryCount, siblingCount: siblingCount, defaultPage: defaultPage, disabled: disabled, showFirstButton: true, showLastButton: true, renderItem: (item) => {
                 const { color, onClick, disabled: ellipsisDisabled } = item, rest = __rest(item, ["color", "onClick", "disabled"]);
                 if (item.type === 'first') {

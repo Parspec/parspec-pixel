@@ -55,7 +55,6 @@ export const Pagination = forwardRef((_a, ref) => {
         setCurrentPage(() => targetPage);
         onChange(event, targetPage);
     };
-    // console.log(count.max, count.min)
     return (_jsx(_Fragment, { children: _jsx(MUIPagination, Object.assign({ ref: ref, count: count, page: currentPage, size: size, boundaryCount: boundaryCount, siblingCount: siblingCount, defaultPage: defaultPage, disabled: disabled, showFirstButton: true, showLastButton: true, renderItem: (item) => {
                 const { color, onClick, disabled: ellipsisDisabled } = item, rest = __rest(item, ["color", "onClick", "disabled"]);
                 if (item.type === 'first') {

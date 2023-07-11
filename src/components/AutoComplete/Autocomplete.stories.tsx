@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { topFilms as top100Films } from './topfilm';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 

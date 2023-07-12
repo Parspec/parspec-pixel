@@ -85,6 +85,7 @@ export interface TableProps {
     height?: number | string;
     // defaultFilter?: 'equal' | 'contains';
     tableKey?: number | string;
+    selectedItemsBelowSearch?: boolean;
 }
 
 export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
@@ -124,7 +125,8 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         // defaultFilter,
         customFiltersFunction,
         dataBoundCallBack,
-        tableKey
+        tableKey,
+        selectedItemsBelowSearch
     } = props;
 
     const tableRef = useRef<any>();
@@ -442,7 +444,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                                 </IconButton>
                             </Tooltip>
                         )}
-                        {toolBarOptions?.includes('selectedItems') && selected > 0 && (
+                        {toolBarOptions?.includes('selectedItems') && selected > 0 && !selectedItemsBelowSearch && (
                             <Box p={1} pl={3} pr={2} bgcolor={'primary.main'} color={'secondary.contrastText'} display="flex" alignItems="center" gap={2}>
                                 <BodySmall color="secondary.contrastText" limit={false}>
                                     {selected} item(s) selected
@@ -454,6 +456,16 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                         )}
                     </Box>
                     <Box>{rightSection}</Box>
+                </Box>
+            )}
+            {toolBarOptions?.includes('selectedItems') && selected > 0 && selectedItemsBelowSearch && (
+                <Box p={1} pl={3} pr={2} mb={2} bgcolor={'primary.main'} color={'secondary.contrastText'} display="flex" alignItems="center" gap={2} width={'max-content'}>
+                    <BodySmall color="secondary.contrastText" limit={false}>
+                        {selected} item(s) selected
+                    </BodySmall>
+                    <IconButton onClick={closeBanner} sx={{ color: 'secondary.contrastText', margin: 0, padding: 0 }}>
+                        <CloseIcon fontSize="small" />
+                    </IconButton>
                 </Box>
             )}
             <Box className="control-pane">
@@ -559,6 +571,7 @@ Table.defaultProps = {
     searchSettings: {
         hierarchyMode: 'Both'
     },
-    hiddenProperty: 'is_hidden'
+    hiddenProperty: 'is_hidden',
+    selectedItemsBelowSearch: false
     // defaultFilter: 'equal'
 };

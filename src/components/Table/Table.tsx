@@ -129,7 +129,6 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
 
     const tableRef = useRef<any>();
     const [selected, setSelectedForBanner] = useState(0);
-    const [count, setCount] = useState(0);
 
     useEffect(() => {
         let obj = (document.getElementsByClassName('e-grid')[0] as any)?.ej2_instances?.[0]?.localeObj?.localeStrings;
@@ -165,11 +164,8 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         if (args?.requestType === 'searching') {
             onSearch!(args);
         }
-        if (isNullOrUndefined(args.data)) {
-            //this is a short term solution to make sure that isEscPressed is not set to true during initial render
-            if (count > 0) {
-                isEscPressed = true;
-            } else setCount(count + 1);
+        if (args?.requestType !== 'refresh' && isNullOrUndefined(args.data)) {
+            isEscPressed = true;
         }
         // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     };

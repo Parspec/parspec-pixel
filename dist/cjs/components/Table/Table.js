@@ -22,7 +22,6 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
     customFiltersFunction, dataBoundCallBack, tableKey } = props;
     const tableRef = (0, react_1.useRef)();
     const [selected, setSelectedForBanner] = (0, react_1.useState)(0);
-    const [count, setCount] = (0, react_1.useState)(0);
     (0, react_1.useEffect)(() => {
         var _a, _b, _c, _d, _e, _f, _g, _h;
         let obj = (_d = (_c = (_b = (_a = document.getElementsByClassName('e-grid')[0]) === null || _a === void 0 ? void 0 : _a.ej2_instances) === null || _b === void 0 ? void 0 : _b[0]) === null || _c === void 0 ? void 0 : _c.localeObj) === null || _d === void 0 ? void 0 : _d.localeStrings;
@@ -59,13 +58,8 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
         if ((args === null || args === void 0 ? void 0 : args.requestType) === 'searching') {
             onSearch(args);
         }
-        if ((0, ej2_base_1.isNullOrUndefined)(args.data)) {
-            //this is a short term solution to make sure that isEscPressed is not set to true during initial render
-            if (count > 0) {
-                isEscPressed = true;
-            }
-            else
-                setCount(count + 1);
+        if ((args === null || args === void 0 ? void 0 : args.requestType) !== 'refresh' && (0, ej2_base_1.isNullOrUndefined)(args.data)) {
+            isEscPressed = true;
         }
         // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     };

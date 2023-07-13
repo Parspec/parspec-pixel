@@ -29,7 +29,8 @@ interface RangeSliderProps {
     headerTitle?: string;
     marks?: boolean | mark[];
     disabled?: boolean;
-    textfieldWidth?: number;
+    rightTextfieldWidth: number;
+    leftTextfieldWidth: number;
     textfieldHeight?: number;
     disableSwap?: boolean;
     showPlus?: boolean;
@@ -75,7 +76,8 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
         color,
         headerTitle,
         disabled,
-        textfieldWidth,
+        rightTextfieldWidth,
+        leftTextfieldWidth,
         textfieldHeight,
         onChange: onRangeChange,
         onRangeBlur,
@@ -146,7 +148,7 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
         <Box ref={ref} width={1} display={'flex'} flexDirection={'column'} alignItems={'flex-start'}>
             <BodyXS color={'text.secondary'}>{headerTitle}</BodyXS>
             <Box mt={headerTitle ? 2 : 0} display={'flex'} justifyContent={'space-between'} alignItems={'center'} width={1}>
-                <Box width={textfieldWidth ? textfieldWidth : 64} height={textfieldHeight ? textfieldHeight : 36}>
+                <Box width={leftTextfieldWidth ? leftTextfieldWidth : 64} height={textfieldHeight ? textfieldHeight : 36}>
                     <NumberTextField
                         label=""
                         //doing .toString() to eliminate the leading zero bug
@@ -177,7 +179,7 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
                     />
                 </Box>
 
-                <Box width={textfieldWidth ? textfieldWidth : 64} height={textfieldHeight ? textfieldHeight : 36}>
+                <Box width={rightTextfieldWidth ? rightTextfieldWidth : 64} height={textfieldHeight ? textfieldHeight : 36}>
                     <NumberTextField
                         label=""
                         //doing .toString() to eliminate the leading zero bug

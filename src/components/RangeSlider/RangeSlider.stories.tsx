@@ -51,6 +51,7 @@ Basic.args = {
     min: 45,
     max: 150,
     headerTitle: 'Range Slider Example',
-    textfieldWidth: 100,
+    leftTextfieldWidth: 50,
+    rightTextfieldWidth: 100,
     showPlus: true
 };

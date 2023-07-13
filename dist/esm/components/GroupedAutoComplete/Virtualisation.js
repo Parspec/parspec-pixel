@@ -44,12 +44,12 @@ function renderRow(props) {
             return _jsx(IndeterminateCheckBoxIcon, {});
         return _jsx(CheckBoxIcon, {});
     };
+    const getActualOptionCount = (option) => optionsWithType.filter((optionObj) => Array.isArray(optionObj.group) && optionObj.group.includes(Number(option.value))).length;
     const getGroupOptionLabel = (option) => {
-        const actualOptionCount = optionsWithType.filter((optionObj) => Array.isArray(optionObj.group) && optionObj.group.includes(Number(option.value))).length;
-        return (_jsxs(Box, Object.assign({ display: 'flex', gap: 1, alignItems: "center" }, { children: [_jsx(BodySmall, { children: String(option[optionlabelkeyname]) }), _jsx(BodyXS, Object.assign({ color: theme.palette.neutral.dark }, { children: `(${actualOptionCount})` }))] })));
+        return (_jsxs(Box, Object.assign({ display: 'flex', gap: 1, alignItems: "center" }, { children: [_jsx(BodySmall, { children: String(option[optionlabelkeyname]) }), _jsx(BodyXS, Object.assign({ color: theme.palette.neutral.dark }, { children: `(${getActualOptionCount(option)})` }))] })));
     };
     const inlineStyle = Object.assign(Object.assign({}, style), { top: style.top + LISTBOX_PADDING, borderBottom: option.type !== 'options' && index === lastFilterIndex ? `1px solid ${theme.palette.neutral.main}` : 'none' });
-    return (_jsx(Typography, Object.assign({ component: "li" }, rowProp, { noWrap: true, style: inlineStyle }, { children: option.type === 'options' ? (_jsx(Checkbox, { style: { marginRight: 8 }, checked: isSelectedOption(option), label: String(option[optionlabelkeyname]), color: rowProp.color, icon: _jsx(CheckBoxOutlineBlankIcon, {}), checkedIcon: _jsx(CheckBoxIcon, {}) })) : (_jsx(Checkbox, { style: { marginRight: 8 }, checked: isSelectedGroup(option), label: getGroupOptionLabel(option), checkedIcon: getCheckedIcon(option), color: rowProp.color })) })));
+    return (_jsx(Typography, Object.assign({ component: "li" }, rowProp, { noWrap: true, style: inlineStyle }, { children: option.type === 'options' ? (_jsx(Checkbox, { style: { marginRight: 8 }, checked: isSelectedOption(option), label: String(option[optionlabelkeyname]), color: rowProp.color, icon: _jsx(CheckBoxOutlineBlankIcon, {}), checkedIcon: _jsx(CheckBoxIcon, {}) })) : (_jsx(Checkbox, { style: { marginRight: 8 }, disabled: getActualOptionCount(option) === 0, checked: isSelectedGroup(option), label: getGroupOptionLabel(option), checkedIcon: getCheckedIcon(option), color: rowProp.color })) })));
 }
 const OuterElementContext = createContext({});
 const OuterElementType = forwardRef((props, ref) => {

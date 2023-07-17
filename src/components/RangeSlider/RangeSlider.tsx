@@ -17,28 +17,31 @@ const NumberTextField = styled(TextField)(({ theme }) => ({
     '& .MuiInputBase-input': {
         padding: theme.spacing(2)
     }
+    // '& .MuiInputAdornment-positionEnd': {
+    //     marginRight: 0
+    // }
 }));
 
 interface RangeSliderProps {
     value: [number, number];
     min: number;
     max: number;
+    onChange: (data: [number, number]) => void;
+    onRangeBlur?: (event: FocusEvent<HTMLInputElement>, data: [number, number]) => void;
+    onSliderMouseUp?: (event: MouseEvent<HTMLButtonElement>, data: [number, number]) => void;
+    onTextfieldBlur?: (event: FocusEvent<HTMLInputElement>, data: [number, number]) => void;
+    onTextfieldEnterKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>, data: [number, number]) => void;
     size?: 'small' | 'medium';
     step?: number;
     color?: 'primary' | 'secondary' | 'tertiary' | 'neutral';
     headerTitle?: string;
     marks?: boolean | mark[];
     disabled?: boolean;
-    rightTextfieldWidth: number;
-    leftTextfieldWidth: number;
+    rightTextfieldWidth?: number;
+    leftTextfieldWidth?: number;
     textfieldHeight?: number;
     disableSwap?: boolean;
     showPlus?: boolean;
-    onChange: (data: [number, number]) => void;
-    onRangeBlur?: (event: FocusEvent<HTMLInputElement>, data: [number, number]) => void;
-    onSliderMouseUp?: (event: MouseEvent<HTMLButtonElement>, data: [number, number]) => void;
-    onTextfieldBlur?: (event: FocusEvent<HTMLInputElement>, data: [number, number]) => void;
-    onTextfieldEnterKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>, data: [number, number]) => void;
 }
 
 function getAdjustedValues(valueArr: [number, number], minVal: number, maxVal: number): [number, number] {
@@ -131,7 +134,7 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
         const newVal = getAdjustedValues(rawData, min, max);
         setTextFieldVal({ ...textFieldVal, lowerField: newVal[0], upperField: newVal[1] });
         onRangeChange(newVal);
-        onTextfieldBlur?.(event, value);
+        onTextfieldBlur?.(event, newVal);
     };
 
     const textfieldKeyDownHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -140,29 +143,29 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
             const newVal = getAdjustedValues(rawData, min, max);
             setTextFieldVal({ ...textFieldVal, lowerField: newVal[0], upperField: newVal[1] });
             onRangeChange(newVal);
-            onTextfieldEnterKeyDown?.(event, value);
+            onTextfieldEnterKeyDown?.(event, newVal);
         }
     };
 
     return (
-        <Box ref={ref} width={1} display={'flex'} flexDirection={'column'} alignItems={'flex-start'}>
+        <Box ref={ref} display={'flex'} flexDirection={'column'} alignItems={'flex-start'} flex={1}>
             <BodyXS color={'text.secondary'}>{headerTitle}</BodyXS>
-            <Box mt={headerTitle ? 2 : 0} display={'flex'} justifyContent={'space-between'} alignItems={'center'} width={1}>
+            <Box mt={headerTitle ? 2 : 0} display={'flex'} justifyContent={'space-between'} alignItems={'center'} width={'100%'}>
                 <Box width={leftTextfieldWidth ? leftTextfieldWidth : 64} height={textfieldHeight ? textfieldHeight : 36}>
                     <NumberTextField
                         label=""
                         //doing .toString() to eliminate the leading zero bug
                         value={textFieldVal.lowerField.toString()}
-                        // value={value[0].toString()}
-                        inputProps={{ style: { textAlign: 'center' } }}
                         onChange={minChangeHandler}
                         onBlur={textfieldBlurHandler}
                         onKeyDown={textfieldKeyDownHandler}
                         disabled={disabled}
+                        inputProps={{ style: { textAlign: 'center' } }}
+                        // inputProps={{ style: { textAlign: 'center', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' } }}
                     />
                 </Box>
 
-                <Box pl={4} pr={4} width={1}>
+                <Box pl={4} pr={4} display={'flex'} flex={1}>
                     <Slider
                         value={value}
                         min={min}
@@ -183,13 +186,18 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
                     <NumberTextField
                         label=""
                         //doing .toString() to eliminate the leading zero bug
+                        // value={textFieldVal.upperField.toString()}
                         value={textFieldVal.upperField === max && showPlus ? `${textFieldVal.upperField}+` : textFieldVal.upperField.toString()}
-                        // value={value[1].toString()}
-                        inputProps={{ style: { textAlign: 'center' } }}
                         onChange={maxChangeHandler}
                         onBlur={textfieldBlurHandler}
                         onKeyDown={textfieldKeyDownHandler}
                         disabled={disabled}
+                        inputProps={{ style: { textAlign: 'center' } }}
+                        // Fpr ellipsis and + sign
+                        // inputProps={{ style: { textAlign: 'center', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' } }}
+                        // InputProps={{
+                        //     endAdornment: textFieldVal.upperField === max && showPlus ? '+' : null
+                        // }}
                     />
                 </Box>
             </Box>
@@ -203,5 +211,5 @@ RangeSlider.defaultProps = {
     color: 'primary',
     disabled: false,
     disableSwap: true,
-    showPlus: false
+    showPlus: true
 };

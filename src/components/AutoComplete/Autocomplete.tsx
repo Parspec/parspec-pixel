@@ -48,7 +48,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
 
         const filterOptions = (options: OptionType[], params: any) => {
             let filteredOptions = filter(options, params);
-            if (typeof state === 'object') {
+            if (typeof state === 'object' && state[optionlabelkeyname]) {
                 filteredOptions = options.filter((option) => option[optionlabelkeyname] === state[optionlabelkeyname]);
             }
 

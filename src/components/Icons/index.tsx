@@ -68,5 +68,6 @@ export {
     LockOpen as LockOpenIcon,
     WarningAmber as WarningOutlinedIcon,
     Settings as SettingsIcon,
-    Logout as LogoutIcon
+    Logout as LogoutIcon,
+    HistoryOutlined as HistoryOutlinedIcon
 } from '@mui/icons-material';

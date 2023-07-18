@@ -10,7 +10,8 @@ interface RangeSliderProps {
     headerTitle?: string;
     marks?: boolean | mark[];
     disabled?: boolean;
-    textfieldWidth?: number;
+    rightTextfieldWidth: number;
+    leftTextfieldWidth: number;
     textfieldHeight?: number;
     disableSwap?: boolean;
     showPlus?: boolean;

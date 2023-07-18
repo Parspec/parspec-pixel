@@ -39,13 +39,14 @@ function renderRow(props: ListChildComponentProps) {
         return <CheckBoxIcon />;
     };
 
-    const getGroupOptionLabel = (option: GroupedOptionType): React.ReactNode => {
-        const actualOptionCount = optionsWithType.filter((optionObj: GroupedOptionType) => Array.isArray(optionObj.group) && optionObj.group.includes(Number(option.value))).length;
+    const getActualOptionCount = (option: GroupedOptionType) =>
+        optionsWithType.filter((optionObj: GroupedOptionType) => Array.isArray(optionObj.group) && optionObj.group.includes(Number(option.value))).length;
 
+    const getGroupOptionLabel = (option: GroupedOptionType): React.ReactNode => {
         return (
             <Box display={'flex'} gap={1} alignItems="center">
                 <BodySmall>{String(option[optionlabelkeyname])}</BodySmall>
-                <BodyXS color={theme.palette.neutral.dark}>{`(${actualOptionCount})`}</BodyXS>
+                <BodyXS color={theme.palette.neutral.dark}>{`(${getActualOptionCount(option)})`}</BodyXS>
             </Box>
         );
     };
@@ -68,7 +69,14 @@ function renderRow(props: ListChildComponentProps) {
                     checkedIcon={<CheckBoxIcon />}
                 />
             ) : (
-                <Checkbox style={{ marginRight: 8 }} checked={isSelectedGroup(option)} label={getGroupOptionLabel(option)} checkedIcon={getCheckedIcon(option)} color={rowProp.color} />
+                <Checkbox
+                    style={{ marginRight: 8 }}
+                    disabled={getActualOptionCount(option) === 0}
+                    checked={isSelectedGroup(option)}
+                    label={getGroupOptionLabel(option)}
+                    checkedIcon={getCheckedIcon(option)}
+                    color={rowProp.color}
+                />
             )}
         </Typography>
     );

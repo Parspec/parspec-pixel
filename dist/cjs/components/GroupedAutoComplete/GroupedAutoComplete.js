@@ -83,7 +83,7 @@ exports.GroupedAutoComplete = (0, react_1.forwardRef)((_a, ref) => {
         }
         if (reason === 'clear')
             setSelectedGroup([]);
-        onChange(event, newValue);
+        onChange(event, newValue, reason);
     };
     (0, react_1.useEffect)(() => {
         const groupCount = [];

@@ -1,8 +1,8 @@
 import { forwardRef, useState, useEffect, useMemo } from 'react';
 
 import { TextField } from '../TextField';
-import { AutocompleteProps, default as MUIAutocomplete, autocompleteClasses, createFilterOptions } from '@mui/material/Autocomplete';
-import { Popper, TextFieldProps, styled, Chip } from '@mui/material';
+import { AutocompleteChangeReason, AutocompleteProps, default as MUIAutocomplete, autocompleteClasses, createFilterOptions } from '@mui/material/Autocomplete';
+import { Popper, TextFieldProps, styled, Chip, FilterOptionsState } from '@mui/material';
 import { ListboxComponent, sortOptions } from './Virtualisation';
 
 export type GroupedOptionType = {
@@ -24,8 +24,8 @@ export interface GroupedAutoCompleteProps extends Omit<AutocompleteProps<Grouped
     placeholder?: TextFieldProps['placeholder'];
     size?: 'small' | 'medium';
     optionlabelkeyname: string;
-    onChange: (event: React.SyntheticEvent<Element, Event>, value: GroupedOptionType[]) => void;
-    filterOptionsCallBack?: (options: GroupedOptionType[], params: any) => GroupedOptionType[];
+    onChange: (event: React.SyntheticEvent<Element, Event>, value: GroupedOptionType[], reason: AutocompleteChangeReason) => void;
+    filterOptionsCallBack?: (options: GroupedOptionType[], params: FilterOptionsState<GroupedOptionType>) => GroupedOptionType[];
     onTextFieldChange?: (e: React.SyntheticEvent<Element, Event>, value: string) => void;
 }
 
@@ -62,7 +62,7 @@ export const GroupedAutoComplete = forwardRef<HTMLDivElement, GroupedAutoComplet
             value,
             staticFilters,
             selectedOptions,
-            filterOptionsCallBack = (options: GroupedOptionType[], params: any) => {
+            filterOptionsCallBack = (options: GroupedOptionType[], params: FilterOptionsState<GroupedOptionType>) => {
                 let filteredOptions = filter(options, params);
                 filteredOptions = options.filter((option: GroupedOptionType) => String(option[optionlabelkeyname]).toLowerCase().includes(params.inputValue.toLowerCase()));
                 return filteredOptions;
@@ -77,7 +77,7 @@ export const GroupedAutoComplete = forwardRef<HTMLDivElement, GroupedAutoComplet
 
         const sortedOptions = useMemo(() => sortOptions(options, optionlabelkeyname, selectedOptions), [options, optionlabelkeyname, selectedOptions]);
 
-        const handleOnChange = (event: any, newValue: GroupedOptionType[], reason: string) => {
+        const handleOnChange = (event: any, newValue: GroupedOptionType[], reason: AutocompleteChangeReason) => {
             if (newValue.length && newValue[newValue.length - 1].type === 'filters') {
                 const filterObj = newValue.find((value: GroupedOptionType) => value.type === 'filters');
                 const filterName = String(filterObj?.[optionlabelkeyname]) || '';
@@ -98,7 +98,7 @@ export const GroupedAutoComplete = forwardRef<HTMLDivElement, GroupedAutoComplet
             }
 
             if (reason === 'clear') setSelectedGroup([]);
-            onChange(event, newValue);
+            onChange(event, newValue, reason);
         };
 
         useEffect(() => {
@@ -140,7 +140,7 @@ export const GroupedAutoComplete = forwardRef<HTMLDivElement, GroupedAutoComplet
             }
         };
 
-        const filterOptions = (options: GroupedOptionType[], params: any) => {
+        const filterOptions = (options: GroupedOptionType[], params: FilterOptionsState<GroupedOptionType>) => {
             if (!params.inputValue) return options;
             const searchResults = filterOptionsCallBack(options, params);
             return searchResults.filter((result) => result.type !== 'filters');

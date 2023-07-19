@@ -27,10 +27,10 @@ interface RangeSliderProps {
     min: number;
     max: number;
     onChange: (data: [number, number]) => void;
-    onRangeBlur?: (event: FocusEvent<HTMLInputElement>, data: [number, number]) => void;
-    onSliderMouseUp?: (event: MouseEvent<HTMLButtonElement>, data: [number, number]) => void;
-    onTextfieldBlur?: (event: FocusEvent<HTMLInputElement>, data: [number, number]) => void;
-    onTextfieldEnterKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>, data: [number, number]) => void;
+    onRangeBlur: (event: FocusEvent<HTMLInputElement>, data: [number, number]) => void;
+    onSliderMouseUp: (event: MouseEvent<HTMLButtonElement>, data: [number, number]) => void;
+    onTextfieldBlur: (event: FocusEvent<HTMLInputElement>, data: [number, number]) => void;
+    onTextfieldEnterKeyDown: (event: React.KeyboardEvent<HTMLInputElement>, data: [number, number]) => void;
     size?: 'small' | 'medium';
     step?: number;
     color?: 'primary' | 'secondary' | 'tertiary' | 'neutral';
@@ -134,7 +134,7 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
         const newVal = getAdjustedValues(rawData, min, max);
         setTextFieldVal({ ...textFieldVal, lowerField: newVal[0], upperField: newVal[1] });
         onRangeChange(newVal);
-        onTextfieldBlur?.(event, newVal);
+        onTextfieldBlur(event, newVal);
     };
 
     const textfieldKeyDownHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -143,7 +143,7 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
             const newVal = getAdjustedValues(rawData, min, max);
             setTextFieldVal({ ...textFieldVal, lowerField: newVal[0], upperField: newVal[1] });
             onRangeChange(newVal);
-            onTextfieldEnterKeyDown?.(event, newVal);
+            onTextfieldEnterKeyDown(event, newVal);
         }
     };
 
@@ -161,7 +161,6 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
                         onKeyDown={textfieldKeyDownHandler}
                         disabled={disabled}
                         inputProps={{ style: { textAlign: 'center' } }}
-                        // inputProps={{ style: { textAlign: 'center', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' } }}
                     />
                 </Box>
 
@@ -175,8 +174,8 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
                         marks={marks}
                         step={step}
                         onChange={sliderChangeHandler}
-                        onBlur={(e: FocusEvent<HTMLInputElement>) => onRangeBlur?.(e, value)}
-                        onMouseUp={(e: MouseEvent<HTMLButtonElement>) => onSliderMouseUp?.(e, value)}
+                        onBlur={(e: FocusEvent<HTMLInputElement>) => onRangeBlur(e, value)}
+                        onMouseUp={(e: MouseEvent<HTMLButtonElement>) => onSliderMouseUp(e, value)}
                         disabled={disabled}
                         disableSwap={disableSwap}
                     />
@@ -186,18 +185,12 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
                     <NumberTextField
                         label=""
                         //doing .toString() to eliminate the leading zero bug
-                        // value={textFieldVal.upperField.toString()}
                         value={textFieldVal.upperField === max && showPlus ? `${textFieldVal.upperField}+` : textFieldVal.upperField.toString()}
                         onChange={maxChangeHandler}
                         onBlur={textfieldBlurHandler}
                         onKeyDown={textfieldKeyDownHandler}
                         disabled={disabled}
                         inputProps={{ style: { textAlign: 'center' } }}
-                        // Fpr ellipsis and + sign
-                        // inputProps={{ style: { textAlign: 'center', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' } }}
-                        // InputProps={{
-                        //     endAdornment: textFieldVal.upperField === max && showPlus ? '+' : null
-                        // }}
                     />
                 </Box>
             </Box>
@@ -211,5 +204,9 @@ RangeSlider.defaultProps = {
     color: 'primary',
     disabled: false,
     disableSwap: true,
-    showPlus: true
+    showPlus: false,
+    onRangeBlur: () => {},
+    onSliderMouseUp: () => {},
+    onTextfieldBlur: () => {},
+    onTextfieldEnterKeyDown: () => {}
 };

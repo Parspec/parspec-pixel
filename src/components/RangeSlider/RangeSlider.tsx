@@ -204,9 +204,5 @@ RangeSlider.defaultProps = {
     color: 'primary',
     disabled: false,
     disableSwap: true,
-    showPlus: false,
-    onRangeBlur: () => {},
-    onSliderMouseUp: () => {},
-    onTextfieldBlur: () => {},
-    onTextfieldEnterKeyDown: () => {}
+    showPlus: false
 };

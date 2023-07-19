@@ -41,7 +41,7 @@ function getAdjustedValues(valueArr, minVal, maxVal) {
     return [value1, value2];
 }
 export const RangeSlider = forwardRef((props, ref) => {
-    const { value, size, step, marks, min, max, color, headerTitle, disabled, rightTextfieldWidth, leftTextfieldWidth, textfieldHeight, onChange: onRangeChange, onRangeBlur, onSliderMouseUp, onTextfieldBlur, onTextfieldEnterKeyDown, showPlus, disableSwap } = props;
+    const { value, size, step, marks, min, max, color, headerTitle, disabled, rightTextfieldWidth, leftTextfieldWidth, textfieldHeight, onChange: onRangeChange, onRangeBlur = () => { }, onSliderMouseUp = () => { }, onTextfieldBlur = () => { }, onTextfieldEnterKeyDown = () => { }, showPlus, disableSwap } = props;
     const [textFieldVal, setTextFieldVal] = useState({ lowerField: value[0], upperField: value[1] });
     useEffect(() => {
         setTextFieldVal(() => (Object.assign(Object.assign({}, textFieldVal), { lowerField: value[0], upperField: value[1] })));
@@ -102,10 +102,6 @@ RangeSlider.defaultProps = {
     color: 'primary',
     disabled: false,
     disableSwap: true,
-    showPlus: false,
-    onRangeBlur: () => { },
-    onSliderMouseUp: () => { },
-    onTextfieldBlur: () => { },
-    onTextfieldEnterKeyDown: () => { }
+    showPlus: false
 };
 //# sourceMappingURL=RangeSlider.js.map

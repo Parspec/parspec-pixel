@@ -55,7 +55,7 @@ export const Table = forwardRef((props, ref) => {
         if ((args === null || args === void 0 ? void 0 : args.requestType) === 'searching') {
             onSearch(args);
         }
-        if (isNullOrUndefined(args.data)) {
+        if ((args === null || args === void 0 ? void 0 : args.requestType) !== 'refresh' && isNullOrUndefined(args.data)) {
             isEscPressed = true;
         }
         // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });

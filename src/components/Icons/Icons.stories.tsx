@@ -59,7 +59,8 @@ import {
     NoProductFoundIcon,
     SettingsIcon,
     LogoutIcon,
-    WarningOutlinedIcon
+    WarningOutlinedIcon,
+    HistoryOutlinedIcon
 } from './index';
 import { Grid } from '../Grid';
 import { BodySmall } from '../Typography';
@@ -152,7 +153,8 @@ MUIImportedIcons.args = {
         { icon: NoProductFoundIcon, name: 'NoProductFoundIcon' },
         { icon: WarningOutlinedIcon, name: 'WarningOutlinedIcon' },
         { icon: SettingsIcon, name: 'SettingsIcon' },
-        { icon: LogoutIcon, name: 'LogoutIcon' }
+        { icon: LogoutIcon, name: 'LogoutIcon' },
+        { icon: HistoryOutlinedIcon, name: 'HistoryOutlinedIcon' }
     ],
     fontSize: 'medium',
     color: 'tertiary'

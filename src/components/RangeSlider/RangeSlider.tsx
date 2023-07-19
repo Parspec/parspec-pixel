@@ -27,10 +27,10 @@ interface RangeSliderProps {
     min: number;
     max: number;
     onChange: (data: [number, number]) => void;
-    onRangeBlur: (event: FocusEvent<HTMLInputElement>, data: [number, number]) => void;
-    onSliderMouseUp: (event: MouseEvent<HTMLButtonElement>, data: [number, number]) => void;
-    onTextfieldBlur: (event: FocusEvent<HTMLInputElement>, data: [number, number]) => void;
-    onTextfieldEnterKeyDown: (event: React.KeyboardEvent<HTMLInputElement>, data: [number, number]) => void;
+    onRangeBlur?: (event: FocusEvent<HTMLInputElement>, data: [number, number]) => void;
+    onSliderMouseUp?: (event: MouseEvent<HTMLButtonElement>, data: [number, number]) => void;
+    onTextfieldBlur?: (event: FocusEvent<HTMLInputElement>, data: [number, number]) => void;
+    onTextfieldEnterKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>, data: [number, number]) => void;
     size?: 'small' | 'medium';
     step?: number;
     color?: 'primary' | 'secondary' | 'tertiary' | 'neutral';
@@ -83,10 +83,10 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
         leftTextfieldWidth,
         textfieldHeight,
         onChange: onRangeChange,
-        onRangeBlur,
-        onSliderMouseUp,
-        onTextfieldBlur,
-        onTextfieldEnterKeyDown,
+        onRangeBlur = () => {},
+        onSliderMouseUp = () => {},
+        onTextfieldBlur = () => {},
+        onTextfieldEnterKeyDown = () => {},
         showPlus,
         disableSwap
     } = props;

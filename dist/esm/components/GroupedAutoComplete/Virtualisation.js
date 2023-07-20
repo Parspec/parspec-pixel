@@ -9,12 +9,11 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { createContext, forwardRef, useContext, useEffect, useRef } from 'react';
 import { VariableSizeList } from 'react-window';
-import { Typography, useMediaQuery } from '@mui/material';
+import { Typography, useMediaQuery, Checkbox } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { Checkbox } from '../Checkbox';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import IndeterminateCheckBoxIcon from '@mui/icons-material/IndeterminateCheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
@@ -49,7 +48,7 @@ function renderRow(props) {
         return (_jsxs(Box, Object.assign({ display: 'flex', gap: 1, alignItems: "center" }, { children: [_jsx(BodySmall, { children: String(option[optionlabelkeyname]) }), _jsx(BodyXS, Object.assign({ color: theme.palette.neutral.dark }, { children: `(${getActualOptionCount(option)})` }))] })));
     };
     const inlineStyle = Object.assign(Object.assign({}, style), { top: style.top + LISTBOX_PADDING, borderBottom: option.type !== 'options' && index === lastFilterIndex ? `1px solid ${theme.palette.neutral.main}` : 'none' });
-    return (_jsx(Typography, Object.assign({ component: "li" }, rowProp, { noWrap: true, style: inlineStyle }, { children: option.type === 'options' ? (_jsx(Checkbox, { style: { marginRight: 8 }, checked: isSelectedOption(option), label: String(option[optionlabelkeyname]), color: rowProp.color, icon: _jsx(CheckBoxOutlineBlankIcon, {}), checkedIcon: _jsx(CheckBoxIcon, {}) })) : (_jsx(Checkbox, { style: { marginRight: 8 }, disabled: getActualOptionCount(option) === 0, checked: isSelectedGroup(option), label: getGroupOptionLabel(option), checkedIcon: getCheckedIcon(option), color: rowProp.color })) })));
+    return (_jsx(Typography, Object.assign({ component: "li" }, rowProp, { noWrap: true, style: inlineStyle, fontSize: "14px" }, { children: option.type === 'options' ? (_jsxs(_Fragment, { children: [_jsx(Checkbox, { size: "small", sx: { marginRight: 2 }, checked: isSelectedOption(option), color: rowProp.color, icon: _jsx(CheckBoxOutlineBlankIcon, {}), checkedIcon: _jsx(CheckBoxIcon, {}) }), String(option[optionlabelkeyname])] })) : (_jsxs(_Fragment, { children: [_jsx(Checkbox, { size: "small", sx: { marginRight: 2 }, disabled: getActualOptionCount(option) === 0, checked: isSelectedGroup(option), checkedIcon: getCheckedIcon(option), color: rowProp.color }), getGroupOptionLabel(option)] })) })));
 }
 const OuterElementContext = createContext({});
 const OuterElementType = forwardRef((props, ref) => {

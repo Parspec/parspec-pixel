@@ -30,7 +30,7 @@ function renderRow(props) {
     const option = currentRowData[1];
     const optionState = currentRowData[2];
     const inlineStyle = Object.assign(Object.assign({}, style), { top: style.top + LISTBOX_PADDING });
-    return ((0, jsx_runtime_1.jsxs)(material_1.Typography, Object.assign({ component: "li" }, rowProp, { noWrap: true, style: inlineStyle, fontSize: "14px" }, { children: [(0, jsx_runtime_1.jsx)(material_1.Checkbox, { color: rowProp.color, icon: icon, checkedIcon: checkedIcon, sx: { marginRight: 2, paddingLeft: 0 }, checked: optionState.selected }), option[optionlabelkeyname]] })));
+    return ((0, jsx_runtime_1.jsxs)(material_1.Typography, Object.assign({ component: "li" }, rowProp, { noWrap: true, style: inlineStyle, fontSize: "14px" }, { children: [(0, jsx_runtime_1.jsx)(material_1.Checkbox, { size: "small", sx: { marginRight: 2 }, icon: icon, checked: optionState.selected, checkedIcon: checkedIcon, color: rowProp.color }), option[optionlabelkeyname]] })));
 }
 const OuterElementContext = (0, react_1.createContext)({});
 const OuterElementType = (0, react_1.forwardRef)((props, ref) => {
@@ -54,14 +54,18 @@ const ListboxComponent = (0, react_1.forwardRef)(function ListboxComponent(props
         itemData.push(item);
         itemData.push(...(item.children || []));
     });
+    const theme = (0, material_1.useTheme)();
+    const smUp = (0, material_1.useMediaQuery)(theme.breakpoints.up('sm'), {
+        noSsr: true
+    });
     const itemCount = itemData.length;
-    const itemSize = 32.56;
+    const itemSize = smUp ? 36 : 48;
     const getChildSize = () => {
         return itemSize;
     };
     const getHeight = () => {
-        if (itemCount > 10) {
-            return 10 * itemSize;
+        if (itemCount > 8) {
+            return 8 * itemSize;
         }
         return itemData.map(getChildSize).reduce((a, b) => a + b, 0);
     };
@@ -83,7 +87,7 @@ exports.MultiSelect = (0, react_1.forwardRef)(function (_a, ref) {
     function getDefaultFilterOption(options, state) {
         return (0, material_1.createFilterOptions)()(options, state);
     }
-    return ((0, jsx_runtime_1.jsx)(material_1.Autocomplete, Object.assign({}, restParams, { fullWidth: true, value: value, options: sortedOptions, multiple: true, size: size, ref: ref, filterOptions: filterOptions ? filterOptions : getDefaultFilterOption, getOptionLabel: (option) => option[optionlabelkeyname], isOptionEqualToValue: (option, value) => option[optionlabelkeyname] === value[optionlabelkeyname], ListboxComponent: ListboxComponent, PopperComponent: StyledPopper, renderInput: (_a) => {
+    return ((0, jsx_runtime_1.jsx)(material_1.Autocomplete, Object.assign({}, restParams, { fullWidth: true, value: value, options: sortedOptions, multiple: true, size: size, ref: ref, disableCloseOnSelect: true, filterOptions: filterOptions ? filterOptions : getDefaultFilterOption, getOptionLabel: (option) => option[optionlabelkeyname], isOptionEqualToValue: (option, value) => option[optionlabelkeyname] === value[optionlabelkeyname], ListboxComponent: ListboxComponent, PopperComponent: StyledPopper, renderInput: (_a) => {
             var { size: _fieldSize } = _a, params = __rest(_a, ["size"]);
             const { InputProps: _InputProps } = params, restParams = __rest(params, ["InputProps"]);
             const { startAdornment } = _InputProps, restInputProps = __rest(_InputProps, ["startAdornment"]);

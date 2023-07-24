@@ -69,5 +69,6 @@ export {
     WarningAmber as WarningOutlinedIcon,
     Settings as SettingsIcon,
     Logout as LogoutIcon,
-    HistoryOutlined as HistoryOutlinedIcon
+    HistoryOutlined as HistoryOutlinedIcon,
+    InfoOutlined as InfoOutlinedIcon
 } from '@mui/icons-material';

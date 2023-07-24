@@ -60,7 +60,8 @@ import {
     SettingsIcon,
     LogoutIcon,
     WarningOutlinedIcon,
-    HistoryOutlinedIcon
+    HistoryOutlinedIcon,
+    InfoOutlinedIcon
 } from './index';
 import { Grid } from '../Grid';
 import { BodySmall } from '../Typography';
@@ -154,7 +155,8 @@ MUIImportedIcons.args = {
         { icon: WarningOutlinedIcon, name: 'WarningOutlinedIcon' },
         { icon: SettingsIcon, name: 'SettingsIcon' },
         { icon: LogoutIcon, name: 'LogoutIcon' },
-        { icon: HistoryOutlinedIcon, name: 'HistoryOutlinedIcon' }
+        { icon: HistoryOutlinedIcon, name: 'HistoryOutlinedIcon' },
+        { icon: InfoOutlinedIcon, name: 'InfoOutlinedIcon' }
     ],
     fontSize: 'medium',
     color: 'tertiary'

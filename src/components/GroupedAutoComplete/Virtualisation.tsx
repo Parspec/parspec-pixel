@@ -1,11 +1,12 @@
 import { createContext, forwardRef, useContext, useEffect, useRef } from 'react';
 import { ListChildComponentProps, VariableSizeList } from 'react-window';
-import { Typography, useMediaQuery } from '@mui/material';
+
+import { Typography, useMediaQuery, Checkbox } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { Checkbox } from '../Checkbox';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import IndeterminateCheckBoxIcon from '@mui/icons-material/IndeterminateCheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+
 import { theme } from '../../theme';
 import { GroupedOptionType } from './GroupedAutoComplete';
 import { GroupType } from './GroupedAutoComplete';
@@ -35,8 +36,8 @@ function renderRow(props: ListChildComponentProps) {
         if (!currentGroup) return <CheckBoxOutlineBlankIcon />;
 
         if (currentGroup[String(option[optionlabelkeyname])] === 0) return <CheckBoxOutlineBlankIcon />;
-        else if (currentGroup[String(option[optionlabelkeyname])] < actualOptionCount) return <IndeterminateCheckBoxIcon />;
-        return <CheckBoxIcon />;
+        else if (currentGroup[String(option[optionlabelkeyname])] < actualOptionCount) return <IndeterminateCheckBoxIcon sx={{ color: '#6467F2 ' }} />;
+        return <CheckBoxIcon sx={{ color: '#6467F2 ' }} />;
     };
 
     const getActualOptionCount = (option: GroupedOptionType) =>
@@ -58,25 +59,31 @@ function renderRow(props: ListChildComponentProps) {
     };
 
     return (
-        <Typography component="li" {...rowProp} noWrap style={inlineStyle}>
+        <Typography
+            component="li"
+            {...rowProp}
+            noWrap
+            style={inlineStyle}
+            fontSize="14px"
+            sx={option.type === 'filters' && getActualOptionCount(option) === 0 && { pointerEvents: 'none', opacity: '0.5' }}
+        >
             {option.type === 'options' ? (
-                <Checkbox
-                    style={{ marginRight: 8 }}
-                    checked={isSelectedOption(option)}
-                    label={String(option[optionlabelkeyname])}
-                    color={rowProp.color}
-                    icon={<CheckBoxOutlineBlankIcon />}
-                    checkedIcon={<CheckBoxIcon />}
-                />
+                <>
+                    <Checkbox size="small" sx={{ marginRight: 2 }} checked={isSelectedOption(option)} color={rowProp.color} icon={<CheckBoxOutlineBlankIcon />} checkedIcon={<CheckBoxIcon />} />
+                    {String(option[optionlabelkeyname])}
+                </>
             ) : (
-                <Checkbox
-                    style={{ marginRight: 8 }}
-                    disabled={getActualOptionCount(option) === 0}
-                    checked={isSelectedGroup(option)}
-                    label={getGroupOptionLabel(option)}
-                    checkedIcon={getCheckedIcon(option)}
-                    color={rowProp.color}
-                />
+                <>
+                    <Checkbox
+                        size="small"
+                        sx={{ marginRight: 2 }}
+                        disabled={getActualOptionCount(option) === 0}
+                        checked={isSelectedGroup(option)}
+                        checkedIcon={getCheckedIcon(option)}
+                        color={rowProp.color}
+                    />
+                    {getGroupOptionLabel(option)}
+                </>
             )}
         </Typography>
     );

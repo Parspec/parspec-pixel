@@ -2,7 +2,7 @@ import React from 'react';
 import { Box } from '../Box';
 
 interface StatusProps {
-    color?: 'primary' | 'info' | 'success' | 'error' | 'tertiary';
+    color?: 'primary' | 'secondary' | 'tertiary' | 'info' | 'warning' | 'success' | 'error';
     children?: React.ReactNode;
 }
 export const Status: React.FC<StatusProps> = ({ color, children }) => {

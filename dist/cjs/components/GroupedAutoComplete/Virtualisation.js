@@ -20,7 +20,6 @@ const react_1 = require("react");
 const react_window_1 = require("react-window");
 const material_1 = require("@mui/material");
 const styles_1 = require("@mui/material/styles");
-const Checkbox_1 = require("../Checkbox");
 const CheckBox_1 = __importDefault(require("@mui/icons-material/CheckBox"));
 const IndeterminateCheckBox_1 = __importDefault(require("@mui/icons-material/IndeterminateCheckBox"));
 const CheckBoxOutlineBlank_1 = __importDefault(require("@mui/icons-material/CheckBoxOutlineBlank"));
@@ -47,15 +46,15 @@ function renderRow(props) {
         if (currentGroup[String(option[optionlabelkeyname])] === 0)
             return (0, jsx_runtime_1.jsx)(CheckBoxOutlineBlank_1.default, {});
         else if (currentGroup[String(option[optionlabelkeyname])] < actualOptionCount)
-            return (0, jsx_runtime_1.jsx)(IndeterminateCheckBox_1.default, {});
-        return (0, jsx_runtime_1.jsx)(CheckBox_1.default, {});
+            return (0, jsx_runtime_1.jsx)(IndeterminateCheckBox_1.default, { sx: { color: '#6467F2 ' } });
+        return (0, jsx_runtime_1.jsx)(CheckBox_1.default, { sx: { color: '#6467F2 ' } });
     };
     const getActualOptionCount = (option) => optionsWithType.filter((optionObj) => Array.isArray(optionObj.group) && optionObj.group.includes(Number(option.value))).length;
     const getGroupOptionLabel = (option) => {
         return ((0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ display: 'flex', gap: 1, alignItems: "center" }, { children: [(0, jsx_runtime_1.jsx)(Typography_1.BodySmall, { children: String(option[optionlabelkeyname]) }), (0, jsx_runtime_1.jsx)(Typography_1.BodyXS, Object.assign({ color: theme_1.theme.palette.neutral.dark }, { children: `(${getActualOptionCount(option)})` }))] })));
     };
     const inlineStyle = Object.assign(Object.assign({}, style), { top: style.top + LISTBOX_PADDING, borderBottom: option.type !== 'options' && index === lastFilterIndex ? `1px solid ${theme_1.theme.palette.neutral.main}` : 'none' });
-    return ((0, jsx_runtime_1.jsx)(material_1.Typography, Object.assign({ component: "li" }, rowProp, { noWrap: true, style: inlineStyle }, { children: option.type === 'options' ? ((0, jsx_runtime_1.jsx)(Checkbox_1.Checkbox, { style: { marginRight: 8 }, checked: isSelectedOption(option), label: String(option[optionlabelkeyname]), color: rowProp.color, icon: (0, jsx_runtime_1.jsx)(CheckBoxOutlineBlank_1.default, {}), checkedIcon: (0, jsx_runtime_1.jsx)(CheckBox_1.default, {}) })) : ((0, jsx_runtime_1.jsx)(Checkbox_1.Checkbox, { style: { marginRight: 8 }, disabled: getActualOptionCount(option) === 0, checked: isSelectedGroup(option), label: getGroupOptionLabel(option), checkedIcon: getCheckedIcon(option), color: rowProp.color })) })));
+    return ((0, jsx_runtime_1.jsx)(material_1.Typography, Object.assign({ component: "li" }, rowProp, { noWrap: true, style: inlineStyle, fontSize: "14px", sx: option.type === 'filters' && getActualOptionCount(option) === 0 && { pointerEvents: 'none', opacity: '0.5' } }, { children: option.type === 'options' ? ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(material_1.Checkbox, { size: "small", sx: { marginRight: 2 }, checked: isSelectedOption(option), color: rowProp.color, icon: (0, jsx_runtime_1.jsx)(CheckBoxOutlineBlank_1.default, {}), checkedIcon: (0, jsx_runtime_1.jsx)(CheckBox_1.default, {}) }), String(option[optionlabelkeyname])] })) : ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(material_1.Checkbox, { size: "small", sx: { marginRight: 2 }, disabled: getActualOptionCount(option) === 0, checked: isSelectedGroup(option), checkedIcon: getCheckedIcon(option), color: rowProp.color }), getGroupOptionLabel(option)] })) })));
 }
 const OuterElementContext = (0, react_1.createContext)({});
 const OuterElementType = (0, react_1.forwardRef)((props, ref) => {

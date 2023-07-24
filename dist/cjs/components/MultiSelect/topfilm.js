@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.topFilms = void 0;
-const films = [
+exports.topFilm = void 0;
+exports.topFilm = [
     { label: 'The Shawshank Redemption', year: 1994 },
     { label: 'The Godfather', year: 1972 },
     { label: 'The Godfather: Part II', year: 1974 },
@@ -127,9 +127,4 @@ const films = [
     { label: '3 Idiots', year: 2009 },
     { label: 'Monty Python and the Holy Grail', year: 1975 }
 ];
-exports.topFilms = [...films];
-for (let i = 1; i < 50; i++) {
-    const current = films.map((film) => (Object.assign(Object.assign({}, film), { label: film.label + i })));
-    exports.topFilms.push(...current);
-}
 //# sourceMappingURL=topfilm.js.map

@@ -36,8 +36,8 @@ function renderRow(props: ListChildComponentProps) {
         if (!currentGroup) return <CheckBoxOutlineBlankIcon />;
 
         if (currentGroup[String(option[optionlabelkeyname])] === 0) return <CheckBoxOutlineBlankIcon />;
-        else if (currentGroup[String(option[optionlabelkeyname])] < actualOptionCount) return <IndeterminateCheckBoxIcon />;
-        return <CheckBoxIcon />;
+        else if (currentGroup[String(option[optionlabelkeyname])] < actualOptionCount) return <IndeterminateCheckBoxIcon sx={{ color: '#6467F2 ' }} />;
+        return <CheckBoxIcon sx={{ color: '#6467F2 ' }} />;
     };
 
     const getActualOptionCount = (option: GroupedOptionType) =>
@@ -59,7 +59,14 @@ function renderRow(props: ListChildComponentProps) {
     };
 
     return (
-        <Typography component="li" {...rowProp} noWrap style={inlineStyle} fontSize="14px">
+        <Typography
+            component="li"
+            {...rowProp}
+            noWrap
+            style={inlineStyle}
+            fontSize="14px"
+            sx={option.type === 'filters' && getActualOptionCount(option) === 0 && { pointerEvents: 'none', opacity: '0.5' }}
+        >
             {option.type === 'options' ? (
                 <>
                     <Checkbox size="small" sx={{ marginRight: 2 }} checked={isSelectedOption(option)} color={rowProp.color} icon={<CheckBoxOutlineBlankIcon />} checkedIcon={<CheckBoxIcon />} />

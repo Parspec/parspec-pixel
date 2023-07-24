@@ -6,7 +6,7 @@ export const mockOptions = [
         keyWords: ['1000 BULBS', '1000BULBS'],
         isCompanyPreferred: true,
         isUserPreferred: false,
-        group: [1, 2, 3, 4],
+        group: [2, 3, 4],
         locationPreference: {}
     },
     {
@@ -16,7 +16,7 @@ export const mockOptions = [
         keyWords: ['1254 INDUSTRIES', '1254INDUSTRIES'],
         isCompanyPreferred: true,
         isUserPreferred: false,
-        group: [1, 2, 3, 4],
+        group: [2, 3, 4],
         locationPreference: {}
     },
     {
@@ -26,7 +26,7 @@ export const mockOptions = [
         keyWords: ['1882', '1882 LIGHTING', '1882PRODUCTS', 'QSSILIGHTING', '1882 LIGHTING PRODUCTS', 'QSSI LIGHTING', '1882   PRODUCTS', 'QSSI', '1882LIGHTING', '1882LIGHTINGPRODUCTS'],
         isCompanyPreferred: true,
         isUserPreferred: true,
-        group: [1, 2, 3, 4],
+        group: [2, 3, 4],
         locationPreference: {}
     },
     { label: '2MODERN', value: '2MODERN', keyWords: ['2MODERN'], isCompanyPreferred: false, isUserPreferred: false, group: [4], locationPreference: {} },
@@ -37,7 +37,7 @@ export const mockOptions = [
         keyWords: ['365DISINFX', '365DISINFECTION', 'GECURRENT365', 'GE CURRENT 365', '365 DISINFECTION', '365 DISINFX'],
         isCompanyPreferred: true,
         isUserPreferred: true,
-        group: [1, 2, 3, 4],
+        group: [2, 3, 4],
         locationPreference: {}
     },
     {
@@ -46,7 +46,7 @@ export const mockOptions = [
         keyWords: ['LIGHTOLIER', 'LIGHTOLIER   SIGNIFY', '3D PRINTED', '3D PRINTED LIGHTING', 'LIGHTOLIERSIGNIFY', 'LIGHTOLIER BY SIGNIFY', '3DPRINTEDLIGHTING', '3DPRINTED', 'LIGHTOLIERBYSIGNIFY'],
         isCompanyPreferred: false,
         isUserPreferred: false,
-        group: [1, 2, 3, 4],
+        group: [2, 3, 4],
         locationPreference: {}
     },
     { label: '3F-FILIPPI', value: '3F-FILIPPI', keyWords: ['3F-FILIPPI', '3FFILIPPI'], isCompanyPreferred: false, isUserPreferred: false, group: [4], locationPreference: {} },
@@ -59,7 +59,7 @@ export const mockOptions = [
         keyWords: ['NO. EIGHT', '8LIGHTING', 'NO8LIGHTING', 'NO8', 'NO. 8', '8 LIGHTING', 'NO. 8 LIGHTING', 'NOEIGHT'],
         isCompanyPreferred: false,
         isUserPreferred: false,
-        group: [1, 4],
+        group: [4],
         locationPreference: {}
     },
     {
@@ -68,7 +68,7 @@ export const mockOptions = [
         keyWords: ['90LIGHTING', '90LIGHTINH', '90PLUSLIGHTING', '90+ LIGHTING', '90+LIGHTING', '90 PLUS LIGHTING', '90+', '90+LIGHTINH', '90'],
         isCompanyPreferred: false,
         isUserPreferred: false,
-        group: [1, 4],
+        group: [4],
         locationPreference: {}
     },
     { label: '9010 NOVANTADIECI', value: '9010 NOVANTADIECI', keyWords: ['9010', '9010 NOVANTADIECI'], isCompanyPreferred: false, isUserPreferred: false, group: [4], locationPreference: {} },
@@ -78,7 +78,7 @@ export const mockOptions = [
         keyWords: ['ACLIGHT', 'AC', 'A.C.', 'A.C.LIGHT', 'A.C.LIGHTING', 'ACLIGHTING', 'A C LIGHTING'],
         isCompanyPreferred: false,
         isUserPreferred: false,
-        group: [1, 4],
+        group: [4],
         locationPreference: {}
     },
     { label: 'A PLUS R STORE', value: 'A PLUS R STORE', keyWords: ['A PLUS R STORE'], isCompanyPreferred: false, isUserPreferred: false, group: [4], locationPreference: {} },
@@ -190,7 +190,7 @@ export const mockOptions = [
         ],
         isCompanyPreferred: false,
         isUserPreferred: false,
-        group: [1],
+        group: [2],
         locationPreference: {}
     },
     { label: 'ABB GLOBAL', value: 'ABB GLOBAL', keyWords: ['ABB', 'ABBGLOBAL', 'ABB GLOBAL'], isCompanyPreferred: false, isUserPreferred: false, group: [4], locationPreference: {} },
@@ -231,7 +231,7 @@ export const mockOptions = [
         keyWords: ['ACADEMYLIGHT', 'ACADEMY', 'ACADEMY LIGHT'],
         isCompanyPreferred: true,
         isUserPreferred: true,
-        group: [1, 2, 4],
+        group: [2, 4],
         locationPreference: {}
     },
     {
@@ -240,7 +240,7 @@ export const mockOptions = [
         keyWords: ['ACCENT ART AND MIRROR', 'ACCENTARTANDMIRROR'],
         isCompanyPreferred: false,
         isUserPreferred: false,
-        group: [1, 2, 4],
+        group: [2, 4],
         locationPreference: {}
     },
     {
@@ -249,7 +249,7 @@ export const mockOptions = [
         keyWords: ['ACCESS LIGHTING', 'ACCESSLTG', 'ACCESS', 'ACCESS LTG', 'ACCESSLIGHTING'],
         isCompanyPreferred: false,
         isUserPreferred: false,
-        group: [1, 2, 4],
+        group: [2, 4],
         locationPreference: {}
     },
     {
@@ -258,7 +258,7 @@ export const mockOptions = [
         keyWords: ['ACCLAIMLIGHTING', 'ACCLAIM', 'ELATION', 'ACCLAIM LIGHTING'],
         isCompanyPreferred: false,
         isUserPreferred: false,
-        group: [1, 2, 4],
+        group: [2, 4],
         locationPreference: {}
     },
     {
@@ -267,7 +267,7 @@ export const mockOptions = [
         keyWords: ['ACCORDILUMINACAO', 'ACCORD ILUMINACAO', 'ACCORDLIGHTING', 'ACCORD', 'ACCORD LIGHTING'],
         isCompanyPreferred: false,
         isUserPreferred: false,
-        group: [1, 2, 4],
+        group: [2, 4],
         locationPreference: {}
     },
     { label: 'ACDC', value: 'ACDC', keyWords: ['ACDC'], isCompanyPreferred: false, isUserPreferred: false, group: [4], locationPreference: {} },
@@ -417,7 +417,7 @@ export const mockOptions = [
         keyWords: ['ACUITY BRANDS', 'ACUITY BRANDS QUICKTRONIC', 'ABL', 'ACUITYBRANDSLIGHTING', 'ACUITYBRANDSQUICKTRONIC', 'ACUITYBRANDS', 'ACUITY', 'ACUITY BRANDS LIGHTING', 'QUICKTRONIC'],
         isCompanyPreferred: true,
         isUserPreferred: false,
-        group: [1, 3, 4],
+        group: [3, 4],
         locationPreference: {}
     },
     {
@@ -426,7 +426,7 @@ export const mockOptions = [
         keyWords: ['ACUITYROAM', 'ACUITY BRANDS ROAM', 'ACUITY   - ROAM', 'ACUITY CONTROLS - ROAM', 'ACUITYCONTROLSROAM', 'ACUITYBRANDSROAM'],
         isCompanyPreferred: false,
         isUserPreferred: false,
-        group: [1, 3, 4],
+        group: [3, 4],
         locationPreference: {}
     },
     {
@@ -435,7 +435,7 @@ export const mockOptions = [
         keyWords: ['ACUITY BRANDS', 'VERJURE', 'ACUITY BRANDS VERJURE', 'ABL', 'ACUITYBRANDSLIGHTING', 'ACUITYBRANDSVERJURE', 'ACUITYBRANDS', 'ACUITY', 'ACUITY BRANDS LIGHTING'],
         isCompanyPreferred: false,
         isUserPreferred: false,
-        group: [1, 3, 4],
+        group: [3, 4],
         locationPreference: {}
     },
     {
@@ -468,7 +468,7 @@ export const mockOptions = [
         ],
         isCompanyPreferred: false,
         isUserPreferred: false,
-        group: [1, 3, 4],
+        group: [3, 4],
         locationPreference: {}
     },
     {
@@ -498,7 +498,7 @@ export const mockOptions = [
         ],
         isCompanyPreferred: false,
         isUserPreferred: false,
-        group: [1, 3, 4],
+        group: [3, 4],
         locationPreference: {}
     },
     { label: 'ADALET', value: 'ADALET', keyWords: ['ADALET'], isCompanyPreferred: false, isUserPreferred: false, group: [4], locationPreference: {} },
@@ -531,7 +531,7 @@ export const mockOptions = [
         ],
         isCompanyPreferred: false,
         isUserPreferred: false,
-        group: [1, 2, 3],
+        group: [2, 3],
         locationPreference: {}
     },
     { label: 'ADVANCE BALLASTS', value: 'ADVANCE BALLASTS', keyWords: ['ADVANCE BALLASTS'], isCompanyPreferred: false, isUserPreferred: false, group: [4], locationPreference: {} },
@@ -542,7 +542,7 @@ export const mockOptions = [
         keyWords: ['ADVANT', 'ADVANTLIGHTING', 'ADVANT LIGHTING'],
         isCompanyPreferred: false,
         isUserPreferred: false,
-        group: [1, 2, 3],
+        group: [2, 3],
         locationPreference: {}
     },
     {
@@ -561,7 +561,7 @@ export const mockOptions = [
         ],
         isCompanyPreferred: false,
         isUserPreferred: false,
-        group: [1, 2, 3],
+        group: [2, 3],
         locationPreference: {}
     },
     {
@@ -583,7 +583,7 @@ export const mockOptions = [
         ],
         isCompanyPreferred: false,
         isUserPreferred: false,
-        group: [1, 2, 3],
+        group: [2, 3],
         locationPreference: {}
     },
     {
@@ -592,7 +592,7 @@ export const mockOptions = [
         keyWords: ['ALS', 'ADVANTAGE LIGHTING SOLUTIONS CA'],
         isCompanyPreferred: false,
         isUserPreferred: false,
-        group: [1, 2, 3],
+        group: [2, 3],
         locationPreference: {}
     },
     { label: 'ADVANTECH', value: 'ADVANTECH', keyWords: ['ADVANTECH'], isCompanyPreferred: false, isUserPreferred: false, group: [4], locationPreference: {} },
@@ -602,7 +602,7 @@ export const mockOptions = [
         keyWords: ['AECILLUMINATIONCORP', 'AEC ILLUMINATION  .', 'AEC ILLUMINATION CORP.', 'AEC ILLUMINATION', 'AECILLUMINATION', 'AEC ILLUMINATION CORP'],
         isCompanyPreferred: false,
         isUserPreferred: false,
-        group: [1, 2, 3],
+        group: [2, 3],
         locationPreference: {}
     },
     { label: 'AEI LIGHTING', value: 'AEI LIGHTING', keyWords: ['AEI', 'AEILIGHTING', 'AEI LIGHTING'], isCompanyPreferred: false, isUserPreferred: false, group: [4], locationPreference: {} },
@@ -612,7 +612,7 @@ export const mockOptions = [
         keyWords: ['AEON', 'AEONLED', 'AEONLIGHTING', 'AEON LIGHTING', 'AEON LED'],
         isCompanyPreferred: false,
         isUserPreferred: false,
-        group: [1, 2, 3],
+        group: [2, 3],
         locationPreference: {}
     },
     {
@@ -621,7 +621,7 @@ export const mockOptions = [
         keyWords: ['AERISHOSPITALITY', 'AERIS HOSPITALITY'],
         isCompanyPreferred: false,
         isUserPreferred: false,
-        group: [1, 2, 3],
+        group: [2, 3],
         locationPreference: {}
     },
     { label: 'AERO LITE', value: 'AERO LITE', keyWords: ['AERO LITE', 'AEROLITE'], isCompanyPreferred: false, isUserPreferred: false, group: [4], locationPreference: {} },
@@ -651,7 +651,7 @@ export const mockOptions = [
         ],
         isCompanyPreferred: false,
         isUserPreferred: false,
-        group: [1, 2, 3],
+        group: [2, 3],
         locationPreference: {}
     },
     {
@@ -660,7 +660,7 @@ export const mockOptions = [
         keyWords: ['AFL TELECOMMUNICATIONS', 'AFL TECHNOLOGIES'],
         isCompanyPreferred: false,
         isUserPreferred: false,
-        group: [1, 2, 3],
+        group: [2, 3],
         locationPreference: {}
     },
     { label: 'AFLIGHTING', value: 'AFLIGHTING', keyWords: ['AFLIGHTING'], isCompanyPreferred: false, isUserPreferred: false, group: [4], locationPreference: {} },
@@ -691,7 +691,7 @@ export const mockOptions = [
         keyWords: ['GENLEDBRANDS', 'GENLED BRANDS', 'GENLED', 'AGILIGHT', 'GEN LED', 'GEN'],
         isCompanyPreferred: false,
         isUserPreferred: false,
-        group: [1, 2, 3],
+        group: [2, 3],
         locationPreference: {}
     },
     {
@@ -700,7 +700,7 @@ export const mockOptions = [
         keyWords: ['A I FITTINGS', 'IFITTINGS', 'AI FITTINGS', 'ARLINGTON INDUSTRIES', 'AIFITTINGS', 'ARLINGTONFITTINGS', 'ARLINGTON', 'ARLINGTON FITTINGS', 'I FITTINGS', 'ARLINGTONINDUSTRIES'],
         isCompanyPreferred: false,
         isUserPreferred: false,
-        group: [1, 2, 3],
+        group: [2, 3],
         locationPreference: {}
     },
     { label: 'AIMLITE', value: 'AIMLITE', keyWords: ['AIMLITE'], isCompanyPreferred: false, isUserPreferred: false, group: [4], locationPreference: {} },
@@ -711,7 +711,7 @@ export const mockOptions = [
         keyWords: ['AIRKINGVENTILATIONPRODS', 'AIR KING', 'AIR KING VENTILATION PRODS', 'AIRKING'],
         isCompanyPreferred: false,
         isUserPreferred: false,
-        group: [1, 2, 3],
+        group: [2, 3],
         locationPreference: {}
     },
     { label: 'AIRBEAMTECH', value: 'AIRBEAMTECH', keyWords: ['AIRBEAMTECH', 'AIRBEAM'], isCompanyPreferred: false, isUserPreferred: false, group: [4], locationPreference: {} },
@@ -722,7 +722,7 @@ export const mockOptions = [
         keyWords: ['AIREY - THOMPSON', 'AIREYTHOMPSON', 'AIREY THOMPSON', 'AIREY-THOMPSON'],
         isCompanyPreferred: false,
         isUserPreferred: false,
-        group: [1, 2, 3],
+        group: [2, 3],
         locationPreference: {}
     },
     { label: 'AIRZONE', value: 'AIRZONE', keyWords: ['AIRZONE'], isCompanyPreferred: false, isUserPreferred: false, group: [4], locationPreference: {} },
@@ -732,7 +732,7 @@ export const mockOptions = [
         keyWords: ['ZAFFERANO AILATI LIGHTS', 'ZAFFERANOAILATILIGHTS', 'AL LATI', 'ALLATI'],
         isCompanyPreferred: false,
         isUserPreferred: false,
-        group: [1, 2, 3],
+        group: [2, 3],
         locationPreference: {}
     },
     { label: 'ALAN WIRE', value: 'ALAN WIRE', keyWords: ['ALAN', 'ALAN WIRE', 'ALANWIRE'], isCompanyPreferred: false, isUserPreferred: false, group: [4], locationPreference: {} },

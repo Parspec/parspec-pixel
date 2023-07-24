@@ -40,15 +40,15 @@ function renderRow(props) {
         if (currentGroup[String(option[optionlabelkeyname])] === 0)
             return _jsx(CheckBoxOutlineBlankIcon, {});
         else if (currentGroup[String(option[optionlabelkeyname])] < actualOptionCount)
-            return _jsx(IndeterminateCheckBoxIcon, {});
-        return _jsx(CheckBoxIcon, {});
+            return _jsx(IndeterminateCheckBoxIcon, { sx: { color: '#6467F2 ' } });
+        return _jsx(CheckBoxIcon, { sx: { color: '#6467F2 ' } });
     };
     const getActualOptionCount = (option) => optionsWithType.filter((optionObj) => Array.isArray(optionObj.group) && optionObj.group.includes(Number(option.value))).length;
     const getGroupOptionLabel = (option) => {
         return (_jsxs(Box, Object.assign({ display: 'flex', gap: 1, alignItems: "center" }, { children: [_jsx(BodySmall, { children: String(option[optionlabelkeyname]) }), _jsx(BodyXS, Object.assign({ color: theme.palette.neutral.dark }, { children: `(${getActualOptionCount(option)})` }))] })));
     };
     const inlineStyle = Object.assign(Object.assign({}, style), { top: style.top + LISTBOX_PADDING, borderBottom: option.type !== 'options' && index === lastFilterIndex ? `1px solid ${theme.palette.neutral.main}` : 'none' });
-    return (_jsx(Typography, Object.assign({ component: "li" }, rowProp, { noWrap: true, style: inlineStyle, fontSize: "14px" }, { children: option.type === 'options' ? (_jsxs(_Fragment, { children: [_jsx(Checkbox, { size: "small", sx: { marginRight: 2 }, checked: isSelectedOption(option), color: rowProp.color, icon: _jsx(CheckBoxOutlineBlankIcon, {}), checkedIcon: _jsx(CheckBoxIcon, {}) }), String(option[optionlabelkeyname])] })) : (_jsxs(_Fragment, { children: [_jsx(Checkbox, { size: "small", sx: { marginRight: 2 }, disabled: getActualOptionCount(option) === 0, checked: isSelectedGroup(option), checkedIcon: getCheckedIcon(option), color: rowProp.color }), getGroupOptionLabel(option)] })) })));
+    return (_jsx(Typography, Object.assign({ component: "li" }, rowProp, { noWrap: true, style: inlineStyle, fontSize: "14px", sx: option.type === 'filters' && getActualOptionCount(option) === 0 && { pointerEvents: 'none', opacity: '0.5' } }, { children: option.type === 'options' ? (_jsxs(_Fragment, { children: [_jsx(Checkbox, { size: "small", sx: { marginRight: 2 }, checked: isSelectedOption(option), color: rowProp.color, icon: _jsx(CheckBoxOutlineBlankIcon, {}), checkedIcon: _jsx(CheckBoxIcon, {}) }), String(option[optionlabelkeyname])] })) : (_jsxs(_Fragment, { children: [_jsx(Checkbox, { size: "small", sx: { marginRight: 2 }, disabled: getActualOptionCount(option) === 0, checked: isSelectedGroup(option), checkedIcon: getCheckedIcon(option), color: rowProp.color }), getGroupOptionLabel(option)] })) })));
 }
 const OuterElementContext = createContext({});
 const OuterElementType = forwardRef((props, ref) => {

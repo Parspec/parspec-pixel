@@ -17,9 +17,6 @@ const NumberTextField = styled(TextField)(({ theme }) => ({
     '& .MuiInputBase-input': {
         padding: theme.spacing(2)
     }
-    // '& .MuiInputAdornment-positionEnd': {
-    //     marginRight: 0
-    // }
 }));
 
 interface RangeSliderProps {
@@ -42,30 +39,6 @@ interface RangeSliderProps {
     textfieldHeight?: number;
     disableSwap?: boolean;
     showPlus?: boolean;
-}
-
-function getAdjustedValues(valueArr: [number, number], minVal: number, maxVal: number): [number, number] {
-    let [value1, value2] = valueArr;
-
-    if (value1 > value2 || value1 > maxVal) {
-        // console.log('1', [value1, value2]);
-        value1 = value2 - 1;
-    }
-    if (value1 < minVal) {
-        // console.log('2', [value1, value2]);
-        value1 = minVal;
-    }
-
-    if (value2 < value1 || value2 < minVal) {
-        // console.log('3', [value1, value2]);
-        value2 = value1 + 1;
-    }
-    if (value2 > maxVal) {
-        // console.log('4', [value1, value2]);
-        value2 = maxVal;
-    }
-
-    return [value1, value2];
 }
 
 export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, ref) => {
@@ -93,8 +66,55 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
 
     const [textFieldVal, setTextFieldVal] = useState<{ lowerField: number; upperField: number }>({ lowerField: value[0], upperField: value[1] });
 
+    const [activeThumbValue, setActiveThumbValue] = useState<number>(textFieldVal.upperField);
+
+    const [plusToggle, setPlusToggle] = useState<boolean>(true);
+
+    function getAdjustedValues(valueArr: [number, number], minVal: number, maxVal: number): [number, number] {
+        let [value1, value2] = valueArr;
+
+        if (value1 > value2 || value1 > maxVal) {
+            // console.log('1', [value1, value2]);
+            value1 = value2 - 1;
+        }
+        if (value1 < minVal) {
+            // console.log('2', [value1, value2]);
+            value1 = minVal;
+        }
+
+        if (value2 < value1 || value2 < minVal) {
+            // console.log('3', [value1, value2]);
+            value2 = value1 + 1;
+        }
+        if (value2 > maxVal) {
+            // console.log('4', [value1, value2]);
+            value2 = maxVal;
+        }
+
+        if (value1 === value2) {
+            if (activeThumbValue === 0) {
+                if (Math.min(value1, value2 - 1) < min) {
+                    value1 = min;
+                    value2 = value1 + 1;
+                } else {
+                    value1 = Math.min(value1, value2 - 1);
+                }
+            } else {
+                if (Math.max(value2, value1 + 1) > max) {
+                    value2 = max;
+                    value1 = value2 - 1;
+                } else {
+                    value2 = Math.max(value2, value1 + 1);
+                }
+            }
+        }
+
+        return [value1, value2];
+    }
+
     useEffect(() => {
         setTextFieldVal(() => ({ ...textFieldVal, lowerField: value[0], upperField: value[1] }));
+        setActiveThumbValue(textFieldVal.upperField);
     }, [value]);
 
     useEffect(() => {
@@ -104,10 +124,26 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
         }
     }, [value[0], value[1]]);
 
-    const sliderChangeHandler = (e: any) => {
-        const data = e.target.value;
-        const newData: [number, number] = [Number(data[0]), Number(data[1])];
-        setTextFieldVal({ ...textFieldVal, lowerField: newData[0], upperField: newData[1] });
+    useEffect(() => {
+        if (!plusToggle) {
+            setPlusToggle(true);
+        }
+    }, [textFieldVal.upperField]);
+
+    const sliderChangeHandler = (e: any, newValue: number | number[], activeThumb: number) => {
+        if (!Array.isArray(newValue)) {
+            return;
+        }
+        let newData: [number, number];
+        if (activeThumb === 0) {
+            newData = [Math.min(newValue[0], textFieldVal.upperField - 1), textFieldVal.upperField];
+            setTextFieldVal({ ...textFieldVal, lowerField: newData[0], upperField: newData[1] });
+        } else {
+            newData = [textFieldVal.lowerField, Math.max(newValue[1], textFieldVal.lowerField + 1)];
+            setTextFieldVal({ ...textFieldVal, lowerField: newData[0], upperField: newData[1] });
+        }
+
+        setActiveThumbValue(() => activeThumb);
         onRangeChange(newData);
     };
 
@@ -121,8 +157,18 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
     };
 
     const maxChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const inputValue = event.target.value;
+        let inputValue = event.target.value;
+
+        if (inputValue.includes('+')) {
+            inputValue = inputValue.replace(/\+/g, '');
+        }
+
         const numericValue = Number(inputValue);
+
+        if (numericValue === max) {
+            return setPlusToggle(false);
+        }
+
         if (!isNaN(numericValue)) {
             const newData: [number, number] = [value[0], numericValue];
             setTextFieldVal({ ...textFieldVal, lowerField: newData[0], upperField: newData[1] });
@@ -185,12 +231,13 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
                     <NumberTextField
                         label=""
                         //doing .toString() to eliminate the leading zero bug
-                        value={textFieldVal.upperField === max && showPlus ? `${textFieldVal.upperField}+` : textFieldVal.upperField.toString()}
+                        // value={textFieldVal.upperField.toString()}
+                        value={textFieldVal.upperField === max && showPlus && plusToggle ? `${textFieldVal.upperField}+` : textFieldVal.upperField.toString()}
                         onChange={maxChangeHandler}
                         onBlur={textfieldBlurHandler}
                         onKeyDown={textfieldKeyDownHandler}
                         disabled={disabled}
-                        inputProps={{ style: { textAlign: 'center' } }}
+                        inputProps={{ style: { textAlign: 'center' }, inputMode: 'numeric', pattern: '[0-9]*' }}
                     />
                 </Box>
             </Box>

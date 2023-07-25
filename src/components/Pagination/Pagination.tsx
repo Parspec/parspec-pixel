@@ -7,7 +7,7 @@ import usePagination from '@mui/material/usePagination';
 export interface PaginationProps extends Omit<MUIPaginationProps, 'classes'> {
     count: number; // Number of pages
     size?: 'small' | 'medium' | 'large';
-    color: 'primary' | 'secondary';
+    color: 'primary' | 'secondary' | 'tertiary' | 'neutral';
     disabled?: boolean;
     variant?: 'text' | 'outlined';
     page: number; //Current page
@@ -93,7 +93,7 @@ export const Pagination = forwardRef<HTMLDivElement, PaginationProps>(({ size, c
                 showFirstButton
                 showLastButton
                 renderItem={(item) => {
-                    const { color, onClick, disabled: ellipsisDisabled, ...rest } = item;
+                    const { color: itemColor, onClick, disabled: ellipsisDisabled, ...rest } = item;
 
                     if (item.type === 'first') {
                         return <PaginationItem component="button" onClick={(event: any) => pageChangeHandler(event, item.page)} disabled={currentPage === 1} {...rest} />;
@@ -127,7 +127,7 @@ export const Pagination = forwardRef<HTMLDivElement, PaginationProps>(({ size, c
                         );
                     }
 
-                    return <PaginationItem component="button" onClick={(event: any) => pageChangeHandler(event, item.page)} {...rest} />;
+                    return <PaginationItem color={color} component="button" onClick={(event: any) => pageChangeHandler(event, item.page)} {...rest} />;
                 }}
                 {...rest}
             />

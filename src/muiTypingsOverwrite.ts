@@ -102,6 +102,13 @@ declare module '@mui/material/Pagination' {
     }
 }
 
+declare module '@mui/material/PaginationItem' {
+    interface PaginationItemPropsColorOverrides {
+        tertiary: true;
+        neutral: true;
+    }
+}
+
 declare module '@mui/material/Slider' {
     interface SliderPropsColorOverrides {
         tertiary: true;

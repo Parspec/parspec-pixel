@@ -10,7 +10,7 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 import { jsx as _jsx, Fragment as _Fragment } from "react/jsx-runtime";
-import { forwardRef, useState } from 'react';
+import { forwardRef, useState, useEffect } from 'react';
 import { default as MUIPagination } from '@mui/material/Pagination';
 import PaginationItem from '@mui/material/PaginationItem';
 import { Box } from '@mui/material';
@@ -55,10 +55,12 @@ export const Pagination = forwardRef((_a, ref) => {
         setCurrentPage(() => targetPage);
         onChange(event, targetPage);
     };
+    useEffect(() => {
+        setCurrentPage(page);
+    }, [page]);
     return (_jsx(_Fragment, { children: _jsx(MUIPagination, Object.assign({ ref: ref, count: count, page: currentPage, size: size, boundaryCount: boundaryCount, siblingCount: siblingCount, defaultPage: defaultPage, disabled: disabled, showFirstButton: true, showLastButton: true, renderItem: (item) => {
                 const { color, onClick, disabled: ellipsisDisabled } = item, rest = __rest(item, ["color", "onClick", "disabled"]);
                 if (item.type === 'first') {
-                    console.log(item.type, item.page);
                     return _jsx(PaginationItem, Object.assign({ component: "button", onClick: (event) => pageChangeHandler(event, item.page), disabled: currentPage === 1 }, rest));
                 }
                 if (item.type === 'previous') {

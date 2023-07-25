@@ -93,7 +93,7 @@ export const Pagination = forwardRef<HTMLDivElement, PaginationProps>(({ size, c
                 showFirstButton
                 showLastButton
                 renderItem={(item) => {
-                    const { color: ButtonColor, onClick, disabled: ellipsisDisabled, ...rest } = item;
+                    const { color: itemColor, onClick, disabled: ellipsisDisabled, ...rest } = item;
 
                     if (item.type === 'first') {
                         return <PaginationItem component="button" onClick={(event: any) => pageChangeHandler(event, item.page)} disabled={currentPage === 1} {...rest} />;

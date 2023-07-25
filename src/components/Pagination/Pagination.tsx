@@ -1,4 +1,4 @@
-import { forwardRef, useState } from 'react';
+import { forwardRef, useState, useEffect } from 'react';
 import { default as MUIPagination, PaginationProps as MUIPaginationProps } from '@mui/material/Pagination';
 import PaginationItem from '@mui/material/PaginationItem';
 import { Box } from '@mui/material';
@@ -75,6 +75,10 @@ export const Pagination = forwardRef<HTMLDivElement, PaginationProps>(({ size, c
         onChange(event, targetPage);
     };
 
+    useEffect(() => {
+        setCurrentPage(page);
+    }, [page]);
+
     return (
         <>
             <MUIPagination
@@ -92,8 +96,6 @@ export const Pagination = forwardRef<HTMLDivElement, PaginationProps>(({ size, c
                     const { color, onClick, disabled: ellipsisDisabled, ...rest } = item;
 
                     if (item.type === 'first') {
-                        console.log(item.type, item.page);
-
                         return <PaginationItem component="button" onClick={(event: any) => pageChangeHandler(event, item.page)} disabled={currentPage === 1} {...rest} />;
                     }
 

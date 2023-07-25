@@ -65,7 +65,7 @@ exports.Pagination = (0, react_1.forwardRef)((_a, ref) => {
         setCurrentPage(page);
     }, [page]);
     return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: (0, jsx_runtime_1.jsx)(Pagination_1.default, Object.assign({ ref: ref, count: count, page: currentPage, size: size, boundaryCount: boundaryCount, siblingCount: siblingCount, defaultPage: defaultPage, disabled: disabled, showFirstButton: true, showLastButton: true, renderItem: (item) => {
-                const { color, onClick, disabled: ellipsisDisabled } = item, rest = __rest(item, ["color", "onClick", "disabled"]);
+                const { color: itemColor, onClick, disabled: ellipsisDisabled } = item, rest = __rest(item, ["color", "onClick", "disabled"]);
                 if (item.type === 'first') {
                     return (0, jsx_runtime_1.jsx)(PaginationItem_1.default, Object.assign({ component: "button", onClick: (event) => pageChangeHandler(event, item.page), disabled: currentPage === 1 }, rest));
                 }
@@ -84,7 +84,7 @@ exports.Pagination = (0, react_1.forwardRef)((_a, ref) => {
                 if (item.type === 'end-ellipsis') {
                     return ((0, jsx_runtime_1.jsx)(material_1.Box, Object.assign({ onClick: (event) => endEllipsisClickHandler(event, item.page), sx: { cursor: 'pointer' } }, { children: (0, jsx_runtime_1.jsx)(PaginationItem_1.default, Object.assign({ component: "button", disabled: currentPage >= count - siblingCount }, rest)) })));
                 }
-                return (0, jsx_runtime_1.jsx)(PaginationItem_1.default, Object.assign({ component: "button", onClick: (event) => pageChangeHandler(event, item.page) }, rest));
+                return (0, jsx_runtime_1.jsx)(PaginationItem_1.default, Object.assign({ color: color, component: "button", onClick: (event) => pageChangeHandler(event, item.page) }, rest));
             } }, rest)) }));
 });
 exports.Pagination.defaultProps = {

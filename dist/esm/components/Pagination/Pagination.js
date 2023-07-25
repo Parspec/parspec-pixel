@@ -59,7 +59,7 @@ export const Pagination = forwardRef((_a, ref) => {
         setCurrentPage(page);
     }, [page]);
     return (_jsx(_Fragment, { children: _jsx(MUIPagination, Object.assign({ ref: ref, count: count, page: currentPage, size: size, boundaryCount: boundaryCount, siblingCount: siblingCount, defaultPage: defaultPage, disabled: disabled, showFirstButton: true, showLastButton: true, renderItem: (item) => {
-                const { color, onClick, disabled: ellipsisDisabled } = item, rest = __rest(item, ["color", "onClick", "disabled"]);
+                const { color: itemColor, onClick, disabled: ellipsisDisabled } = item, rest = __rest(item, ["color", "onClick", "disabled"]);
                 if (item.type === 'first') {
                     return _jsx(PaginationItem, Object.assign({ component: "button", onClick: (event) => pageChangeHandler(event, item.page), disabled: currentPage === 1 }, rest));
                 }
@@ -78,7 +78,7 @@ export const Pagination = forwardRef((_a, ref) => {
                 if (item.type === 'end-ellipsis') {
                     return (_jsx(Box, Object.assign({ onClick: (event) => endEllipsisClickHandler(event, item.page), sx: { cursor: 'pointer' } }, { children: _jsx(PaginationItem, Object.assign({ component: "button", disabled: currentPage >= count - siblingCount }, rest)) })));
                 }
-                return _jsx(PaginationItem, Object.assign({ component: "button", onClick: (event) => pageChangeHandler(event, item.page) }, rest));
+                return _jsx(PaginationItem, Object.assign({ color: color, component: "button", onClick: (event) => pageChangeHandler(event, item.page) }, rest));
             } }, rest)) }));
 });
 Pagination.defaultProps = {

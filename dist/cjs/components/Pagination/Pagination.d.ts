@@ -3,7 +3,7 @@ import { PaginationProps as MUIPaginationProps } from '@mui/material/Pagination'
 export interface PaginationProps extends Omit<MUIPaginationProps, 'classes'> {
     count: number;
     size?: 'small' | 'medium' | 'large';
-    color: 'primary' | 'secondary';
+    color: 'primary' | 'secondary' | 'tertiary' | 'neutral';
     disabled?: boolean;
     variant?: 'text' | 'outlined';
     page: number;

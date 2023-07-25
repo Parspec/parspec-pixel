@@ -2,7 +2,6 @@ import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { Box } from '../Box';
 import { BodyXS } from '../Typography';
-import { Button } from '../Button';
 import { Pagination } from './Pagination';
 
 export default {

@@ -20,14 +20,14 @@ export const Basic: ComponentStory<typeof Pagination> = (args) => {
     return (
         <Box>
             <BodyXS mb={4}>Page number: {page}</BodyXS>
-            <Pagination {...args} onChange={handleChange} page={page} />
+            <Pagination count={20} size="small" boundaryCount={0} siblingCount={2} onChange={handleChange} page={page} color={'primary'} />
         </Box>
     );
 };
 
-Basic.args = {
-    count: 20,
-    size: 'small',
-    boundaryCount: 0,
-    siblingCount: 2
-};
+// Basic.args = {
+//     count: 20,
+//     size: 'small',
+//     boundaryCount: 0,
+//     siblingCount: 2
+// };

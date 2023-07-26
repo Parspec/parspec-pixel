@@ -42,6 +42,7 @@ export interface TableProps {
     rowHeight?: number;
     height?: number | string;
     tableKey?: number | string;
+    selectedItemsBelowSearch?: boolean;
 }
 export declare const Table: React.FC<TableProps>;
 export {};

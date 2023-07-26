@@ -15,7 +15,13 @@ import { TextField } from '../TextField';
 import { default as MUIAutocomplete, createFilterOptions } from '@mui/material/Autocomplete';
 const filter = createFilterOptions();
 export const Autocomplete = forwardRef((_a, ref) => {
-    var { id, label, placeholder, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur = () => { }, helperText, error, options, onTextFieldChange, limitTags, value } = _a, props = __rest(_a, ["id", "label", "placeholder", "color", "variant", "onChange", "optionlabelkeyname", "freeSolo", "fieldSize", "onBlur", "helperText", "error", "options", "onTextFieldChange", "limitTags", "value"]);
+    var { id, label, placeholder, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur = () => { }, helperText, error, options, onTextFieldChange, limitTags, disabled, value, filterOptionsCallBack = (options, params) => {
+        let filteredOptions = filter(options, params);
+        if (typeof state === 'object') {
+            filteredOptions = options.filter((option) => option[optionlabelkeyname] === state[optionlabelkeyname]);
+        }
+        return filteredOptions;
+    } } = _a, props = __rest(_a, ["id", "label", "placeholder", "color", "variant", "onChange", "optionlabelkeyname", "freeSolo", "fieldSize", "onBlur", "helperText", "error", "options", "onTextFieldChange", "limitTags", "disabled", "value", "filterOptionsCallBack"]);
     const [state, setState] = useState(value || '');
     const handleOnChange = (event, newValue) => {
         onChange(Object.assign(Object.assign({}, event), { target: Object.assign(Object.assign({}, event.target), { value: newValue }) }));
@@ -26,11 +32,7 @@ export const Autocomplete = forwardRef((_a, ref) => {
         }
     }, [value]);
     const filterOptions = (options, params) => {
-        let filteredOptions = filter(options, params);
-        if (typeof state === 'object' && state[optionlabelkeyname]) {
-            filteredOptions = options.filter((option) => option[optionlabelkeyname] === state[optionlabelkeyname]);
-        }
-        return filteredOptions;
+        return filterOptionsCallBack(options, params);
     };
     const handleFocusOut = (event) => {
         var _a;
@@ -61,7 +63,7 @@ export const Autocomplete = forwardRef((_a, ref) => {
             }, value: value, limitTags: limitTags, filterOptions: filterOptions, onInputChange: handleOnInputChange, freeSolo: freeSolo, renderInput: (_a) => {
                 var { size } = _a, params = __rest(_a, ["size"]);
                 return (_jsx(TextField, Object.assign({ size: fieldSize, helperText: helperText, error: error }, params, { variant: variant, color: color, label: label, placeholder: placeholder })));
-            } })) }));
+            }, disabled: disabled })) }));
 });
 Autocomplete.defaultProps = {
     color: 'primary',

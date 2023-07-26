@@ -36,10 +36,10 @@ import {
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState, useMemo, useCallback } from 'react';
 import { TextField } from '../TextField';
 import { IconButton } from '../IconButton';
-import { CloseIcon, ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffIcon, FilterAltOffIcon, SearchIcon, AddIcon } from '../Icons';
-import { BodySmall } from '../Typography';
+import { ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffIcon, FilterAltOffIcon, SearchIcon, AddIcon } from '../Icons';
 import { Tooltip } from '../Tooltip';
 import { InputAdornment } from '../InputAdornment';
+import { SelectedItemsCount } from './SelectedItemsCount';
 
 const license = window.localStorage.getItem('syncfusionLicense');
 registerLicense(license!);
@@ -445,27 +445,15 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             </Tooltip>
                         )}
                         {toolBarOptions?.includes('selectedItems') && selected > 0 && !selectedItemsBelowSearch && (
-                            <Box p={1} pl={3} pr={2} bgcolor={'primary.main'} color={'secondary.contrastText'} display="flex" alignItems="center" gap={2}>
-                                <BodySmall color="secondary.contrastText" limit={false}>
-                                    {selected} item(s) selected
-                                </BodySmall>
-                                <IconButton onClick={closeBanner} sx={{ color: 'secondary.contrastText', margin: 0, padding: 0 }}>
-                                    <CloseIcon fontSize="small" />
-                                </IconButton>
-                            </Box>
+                            <SelectedItemsCount count={selected} closeBanner={closeBanner} />
                         )}
                     </Box>
                     <Box>{rightSection}</Box>
                 </Box>
             )}
             {toolBarOptions?.includes('selectedItems') && selected > 0 && selectedItemsBelowSearch && (
-                <Box p={1} pl={3} pr={2} mb={2} bgcolor={'primary.main'} color={'secondary.contrastText'} display="flex" alignItems="center" gap={2} width={'max-content'}>
-                    <BodySmall color="secondary.contrastText" limit={false}>
-                        {selected} item(s) selected
-                    </BodySmall>
-                    <IconButton onClick={closeBanner} sx={{ color: 'secondary.contrastText', margin: 0, padding: 0 }}>
-                        <CloseIcon fontSize="small" />
-                    </IconButton>
+                <Box mb={2} width={'max-content'}>
+                    <SelectedItemsCount count={selected} closeBanner={closeBanner} />
                 </Box>
             )}
             <Box className="control-pane">

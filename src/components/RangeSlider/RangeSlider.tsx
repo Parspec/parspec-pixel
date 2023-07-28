@@ -41,6 +41,11 @@ interface RangeSliderProps {
     showPlus?: boolean;
 }
 
+enum TEXT_FIELD_SIDE {
+    LEFT = 'LEFT',
+    RIGHT = 'RIGHT'
+}
+
 export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, ref) => {
     const {
         value,
@@ -66,85 +71,43 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
 
     const [textFieldVal, setTextFieldVal] = useState<{ lowerField: number; upperField: number }>({ lowerField: value[0], upperField: value[1] });
 
-    const [activeThumbValue, setActiveThumbValue] = useState<number>(textFieldVal.upperField);
+    const [isMaxTextfieldFocused, setMaxTextfieldFocuse] = useState<boolean>(true);
 
-    const [plusToggle, setPlusToggle] = useState<boolean>(true);
-
-    function getAdjustedValues(valueArr: [number, number], minVal: number, maxVal: number): [number, number] {
+    function getAdjustedValues(valueArr: [number, number], minVal: number, maxVal: number, side: `${TEXT_FIELD_SIDE}`): [number, number] {
         let [value1, value2] = valueArr;
 
-        if (value1 > value2 || value1 > maxVal) {
+        if (value1 > maxVal || (side === TEXT_FIELD_SIDE.LEFT && value1 > value2)) {
             // console.log('1', [value1, value2]);
-            value1 = value2 - 1;
-        }
-        if (value1 < minVal) {
+            value1 = value2;
+        } else if (value1 < minVal) {
             // console.log('2', [value1, value2]);
             value1 = minVal;
         }
 
-        if (value2 < value1 || value2 < minVal) {
+        if (value2 < minVal || (side === TEXT_FIELD_SIDE.RIGHT && value1 > value2)) {
             // console.log('3', [value1, value2]);
-            value2 = value1 + 1;
-        }
-        if (value2 > maxVal) {
+            value2 = value1;
+        } else if (value2 > maxVal) {
             // console.log('4', [value1, value2]);
             value2 = maxVal;
-        }
-
-        if (value1 === value2) {
-            if (activeThumbValue === 0) {
-                if (Math.min(value1, value2 - 1) < min) {
-                    value1 = min;
-                    value2 = value1 + 1;
-                } else {
-                    value1 = Math.min(value1, value2 - 1);
-                }
-            } else {
-                if (Math.max(value2, value1 + 1) > max) {
-                    value2 = max;
-                    value1 = value2 - 1;
-                } else {
-                    value2 = Math.max(value2, value1 + 1);
-                }
-            }
         }
 
         return [value1, value2];
     }
 
     useEffect(() => {
-        setTextFieldVal(() => ({ ...textFieldVal, lowerField: value[0], upperField: value[1] }));
-        setActiveThumbValue(textFieldVal.upperField);
-    }, [value]);
-
-    useEffect(() => {
-        const adjustedValues = getAdjustedValues(value, min, max);
-        if (value[0] !== adjustedValues[0] || value[1] !== adjustedValues[1]) {
-            onRangeChange(adjustedValues);
+        if (value[0] != textFieldVal.lowerField || value[1] != textFieldVal.upperField) {
+            setTextFieldVal(() => ({ ...textFieldVal, lowerField: value[0], upperField: value[1] }));
         }
     }, [value[0], value[1]]);
 
-    useEffect(() => {
-        if (!plusToggle) {
-            setPlusToggle(true);
-        }
-    }, [textFieldVal.upperField]);
-
-    const sliderChangeHandler = (e: any, newValue: number | number[], activeThumb: number) => {
+    const sliderChangeHandler = (e: Event, newValue: number | number[]) => {
         if (!Array.isArray(newValue)) {
             return;
         }
-        let newData: [number, number];
-        if (activeThumb === 0) {
-            newData = [Math.min(newValue[0], textFieldVal.upperField - 1), textFieldVal.upperField];
-            setTextFieldVal({ ...textFieldVal, lowerField: newData[0], upperField: newData[1] });
-        } else {
-            newData = [textFieldVal.lowerField, Math.max(newValue[1], textFieldVal.lowerField + 1)];
-            setTextFieldVal({ ...textFieldVal, lowerField: newData[0], upperField: newData[1] });
-        }
 
-        setActiveThumbValue(() => activeThumb);
-        onRangeChange(newData);
+        setTextFieldVal({ ...textFieldVal, lowerField: newValue[0], upperField: newValue[1] });
+        onRangeChange([newValue[0], newValue[1]]);
     };
 
     const minChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -165,33 +128,34 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
 
         const numericValue = Number(inputValue);
 
-        if (numericValue === max) {
-            return setPlusToggle(false);
-        }
-
         if (!isNaN(numericValue)) {
             const newData: [number, number] = [value[0], numericValue];
             setTextFieldVal({ ...textFieldVal, lowerField: newData[0], upperField: newData[1] });
         }
     };
 
-    const textfieldBlurHandler = (event: FocusEvent<HTMLInputElement>) => {
+    const textfieldBlurHandler = (event: FocusEvent<HTMLInputElement>, side: `${TEXT_FIELD_SIDE}`) => {
         const rawData: [number, number] = [textFieldVal.lowerField, textFieldVal.upperField];
-        const newVal = getAdjustedValues(rawData, min, max);
+        const newVal = getAdjustedValues(rawData, min, max, side);
         setTextFieldVal({ ...textFieldVal, lowerField: newVal[0], upperField: newVal[1] });
         onRangeChange(newVal);
         onTextfieldBlur(event, newVal);
     };
 
-    const textfieldKeyDownHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const textfieldKeyDownHandler = (event: React.KeyboardEvent<HTMLInputElement>, side: `${TEXT_FIELD_SIDE}`) => {
         if (event.key === 'Enter') {
             const rawData: [number, number] = [textFieldVal.lowerField, textFieldVal.upperField];
-            const newVal = getAdjustedValues(rawData, min, max);
+            const newVal = getAdjustedValues(rawData, min, max, side);
             setTextFieldVal({ ...textFieldVal, lowerField: newVal[0], upperField: newVal[1] });
             onRangeChange(newVal);
             onTextfieldEnterKeyDown(event, newVal);
         }
     };
+
+    function handleMaxTextfieldBlur(event: FocusEvent<HTMLInputElement>) {
+        setMaxTextfieldFocuse(true);
+        textfieldBlurHandler(event, TEXT_FIELD_SIDE.RIGHT);
+    }
 
     return (
         <Box ref={ref} display={'flex'} flexDirection={'column'} alignItems={'flex-start'} flex={1}>
@@ -203,8 +167,10 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
                         //doing .toString() to eliminate the leading zero bug
                         value={textFieldVal.lowerField.toString()}
                         onChange={minChangeHandler}
-                        onBlur={textfieldBlurHandler}
-                        onKeyDown={textfieldKeyDownHandler}
+                        onBlur={(event) => {
+                            textfieldBlurHandler(event as FocusEvent<HTMLInputElement>, TEXT_FIELD_SIDE.LEFT);
+                        }}
+                        onKeyDown={(event) => textfieldKeyDownHandler(event as React.KeyboardEvent<HTMLInputElement>, TEXT_FIELD_SIDE.LEFT)}
                         disabled={disabled}
                         inputProps={{ style: { textAlign: 'center' } }}
                     />
@@ -232,10 +198,15 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
                         label=""
                         //doing .toString() to eliminate the leading zero bug
                         // value={textFieldVal.upperField.toString()}
-                        value={textFieldVal.upperField === max && showPlus && plusToggle ? `${textFieldVal.upperField}+` : textFieldVal.upperField.toString()}
+                        value={textFieldVal.upperField === max && showPlus && isMaxTextfieldFocused ? `${textFieldVal.upperField}+` : textFieldVal.upperField.toString()}
                         onChange={maxChangeHandler}
-                        onBlur={textfieldBlurHandler}
-                        onKeyDown={textfieldKeyDownHandler}
+                        onFocus={() => {
+                            setMaxTextfieldFocuse(false);
+                        }}
+                        onBlur={handleMaxTextfieldBlur}
+                        onKeyDown={(event) => {
+                            textfieldKeyDownHandler(event as React.KeyboardEvent<HTMLInputElement>, TEXT_FIELD_SIDE.RIGHT);
+                        }}
                         disabled={disabled}
                         inputProps={{ style: { textAlign: 'center' }, inputMode: 'numeric', pattern: '[0-9]*' }}
                     />

@@ -100,13 +100,13 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
         setTextFieldVal(() => ({ ...textFieldVal, lowerField: adjustedValues[0], upperField: adjustedValues[1] }));
     }, [value[0], value[1]]);
 
-    const sliderChangeHandler = (e: any, newValue: [number, number]) => {
+    const sliderChangeHandler = (e: Event, newValue: number | number[]) => {
         if (!Array.isArray(newValue)) {
             return;
         }
 
         setTextFieldVal({ ...textFieldVal, lowerField: newValue[0], upperField: newValue[1] });
-        onRangeChange(newValue);
+        onRangeChange([newValue[0], newValue[1]]);
     };
 
     const minChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {

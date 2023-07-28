@@ -15,7 +15,7 @@ export const Basic: ComponentStory<typeof RangeSlider> = (args) => {
     const [rangeValue, setRangeValue] = useState<[number, number]>([25, 30]);
 
     useEffect(() => {
-        setRangeValue(() => [90, 60]);
+        setRangeValue(() => [50, 60]);
     }, []);
 
     const changeHandler = (data: [number, number]) => {

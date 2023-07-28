@@ -166,7 +166,6 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         if (args?.requestType === 'searching') {
             onSearch!(args);
         }
-        console.log();
         if (args?.requestType !== 'refresh' && args?.requestType !== 'paging' && isNullOrUndefined(args.data)) {
             isEscPressed = true;
         }
@@ -445,9 +444,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                                 </IconButton>
                             </Tooltip>
                         )}
-                        {toolBarOptions?.includes('selectedItems') && selected > 0 && !selectedItemsBelowSearch && (
-                            <SelectedItemsCount count={selected} closeBanner={closeBanner} />
-                        )}
+                        {toolBarOptions?.includes('selectedItems') && selected > 0 && !selectedItemsBelowSearch && <SelectedItemsCount count={selected} closeBanner={closeBanner} />}
                     </Box>
                     <Box>{rightSection}</Box>
                 </Box>

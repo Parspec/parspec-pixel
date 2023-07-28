@@ -71,7 +71,7 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
 
     const [textFieldVal, setTextFieldVal] = useState<{ lowerField: number; upperField: number }>({ lowerField: value[0], upperField: value[1] });
 
-    const [plusToggle, setPlusToggle] = useState<boolean>(true);
+    const [isMaxTextfieldFocused, setMaxTextfieldFocuse] = useState<boolean>(true);
 
     function getAdjustedValues(valueArr: [number, number], minVal: number, maxVal: number, side: `${TEXT_FIELD_SIDE}`): [number, number] {
         let [value1, value2] = valueArr;
@@ -153,7 +153,7 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
     };
 
     function handleMaxTextfieldBlur(event: FocusEvent<HTMLInputElement>) {
-        setPlusToggle(true);
+        setMaxTextfieldFocuse(true);
         textfieldBlurHandler(event, TEXT_FIELD_SIDE.RIGHT);
     }
 
@@ -198,10 +198,10 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
                         label=""
                         //doing .toString() to eliminate the leading zero bug
                         // value={textFieldVal.upperField.toString()}
-                        value={textFieldVal.upperField === max && showPlus && plusToggle ? `${textFieldVal.upperField}+` : textFieldVal.upperField.toString()}
+                        value={textFieldVal.upperField === max && showPlus && isMaxTextfieldFocused ? `${textFieldVal.upperField}+` : textFieldVal.upperField.toString()}
                         onChange={maxChangeHandler}
                         onFocus={() => {
-                            setPlusToggle(false);
+                            setMaxTextfieldFocuse(false);
                         }}
                         onBlur={handleMaxTextfieldBlur}
                         onKeyDown={(event) => {

@@ -25,7 +25,7 @@ var TEXT_FIELD_SIDE;
 export const RangeSlider = forwardRef((props, ref) => {
     const { value, size, step, marks, min, max, color, headerTitle, disabled, rightTextfieldWidth, leftTextfieldWidth, textfieldHeight, onChange: onRangeChange, onRangeBlur = () => { }, onSliderMouseUp = () => { }, onTextfieldBlur = () => { }, onTextfieldEnterKeyDown = () => { }, showPlus, disableSwap } = props;
     const [textFieldVal, setTextFieldVal] = useState({ lowerField: value[0], upperField: value[1] });
-    const [plusToggle, setPlusToggle] = useState(true);
+    const [isMaxTextfieldFocused, setMaxTextfieldFocuse] = useState(true);
     function getAdjustedValues(valueArr, minVal, maxVal, side) {
         let [value1, value2] = valueArr;
         if (value1 > maxVal || (side === TEXT_FIELD_SIDE.LEFT && value1 > value2)) {
@@ -94,7 +94,7 @@ export const RangeSlider = forwardRef((props, ref) => {
         }
     };
     function handleMaxTextfieldBlur(event) {
-        setPlusToggle(true);
+        setMaxTextfieldFocuse(true);
         textfieldBlurHandler(event, TEXT_FIELD_SIDE.RIGHT);
     }
     return (_jsxs(Box, Object.assign({ ref: ref, display: 'flex', flexDirection: 'column', alignItems: 'flex-start', flex: 1 }, { children: [_jsx(BodyXS, Object.assign({ color: 'text.secondary' }, { children: headerTitle })), _jsxs(Box, Object.assign({ mt: headerTitle ? 2 : 0, display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }, { children: [_jsx(Box, Object.assign({ width: leftTextfieldWidth ? leftTextfieldWidth : 64, height: textfieldHeight ? textfieldHeight : 36 }, { children: _jsx(NumberTextField, { label: "", 
@@ -104,8 +104,8 @@ export const RangeSlider = forwardRef((props, ref) => {
                             }, onKeyDown: (event) => textfieldKeyDownHandler(event, TEXT_FIELD_SIDE.LEFT), disabled: disabled, inputProps: { style: { textAlign: 'center' } } }) })), _jsx(Box, Object.assign({ pl: 4, pr: 4, display: 'flex', flex: 1 }, { children: _jsx(Slider, { value: value, min: min, max: max, color: color ? color : 'primary', size: size, marks: marks, step: step, onChange: sliderChangeHandler, onBlur: (e) => onRangeBlur(e, value), onMouseUp: (e) => onSliderMouseUp(e, value), disabled: disabled, disableSwap: disableSwap }) })), _jsx(Box, Object.assign({ width: rightTextfieldWidth ? rightTextfieldWidth : 64, height: textfieldHeight ? textfieldHeight : 36 }, { children: _jsx(NumberTextField, { label: "", 
                             //doing .toString() to eliminate the leading zero bug
                             // value={textFieldVal.upperField.toString()}
-                            value: textFieldVal.upperField === max && showPlus && plusToggle ? `${textFieldVal.upperField}+` : textFieldVal.upperField.toString(), onChange: maxChangeHandler, onFocus: () => {
-                                setPlusToggle(false);
+                            value: textFieldVal.upperField === max && showPlus && isMaxTextfieldFocused ? `${textFieldVal.upperField}+` : textFieldVal.upperField.toString(), onChange: maxChangeHandler, onFocus: () => {
+                                setMaxTextfieldFocuse(false);
                             }, onBlur: handleMaxTextfieldBlur, onKeyDown: (event) => {
                                 textfieldKeyDownHandler(event, TEXT_FIELD_SIDE.RIGHT);
                             }, disabled: disabled, inputProps: { style: { textAlign: 'center' }, inputMode: 'numeric', pattern: '[0-9]*' } }) }))] }))] })));

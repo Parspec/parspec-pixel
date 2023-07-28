@@ -43,7 +43,7 @@ const filter = (0, Autocomplete_1.createFilterOptions)();
 exports.Autocomplete = (0, react_1.forwardRef)((_a, ref) => {
     var { id, label, placeholder, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur = () => { }, helperText, error, options, onTextFieldChange, limitTags, disabled, value, filterOptionsCallBack = (options, params) => {
         let filteredOptions = filter(options, params);
-        if (typeof state === 'object') {
+        if (typeof state === 'object' && state[optionlabelkeyname]) {
             filteredOptions = options.filter((option) => option[optionlabelkeyname] === state[optionlabelkeyname]);
         }
         return filteredOptions;

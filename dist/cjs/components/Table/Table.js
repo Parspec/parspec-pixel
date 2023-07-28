@@ -58,7 +58,8 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
         if ((args === null || args === void 0 ? void 0 : args.requestType) === 'searching') {
             onSearch(args);
         }
-        if ((args === null || args === void 0 ? void 0 : args.requestType) !== 'refresh' && (0, ej2_base_1.isNullOrUndefined)(args.data)) {
+        console.log();
+        if ((args === null || args === void 0 ? void 0 : args.requestType) !== 'refresh' && (args === null || args === void 0 ? void 0 : args.requestType) !== 'paging' && (0, ej2_base_1.isNullOrUndefined)(args.data)) {
             isEscPressed = true;
         }
         // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });

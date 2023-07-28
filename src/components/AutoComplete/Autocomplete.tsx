@@ -36,19 +36,37 @@ const filter = createFilterOptions<OptionType>();
 
 export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivElement, AutocompleteProps>(
     (
-        { id, label, placeholder, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur = () => {}, helperText, error, options, onTextFieldChange, limitTags, disabled, value,
-        filterOptionsCallBack = (options: OptionType[], params: FilterOptionsState<OptionType>) => {
-            let filteredOptions = filter(options, params);
-            if (typeof state === 'object') {
-                filteredOptions = options.filter((option) => option[optionlabelkeyname] === state[optionlabelkeyname]);
-            }
-            return filteredOptions;
-        }, 
-        ...props 
-        }, ref
+        {
+            id,
+            label,
+            placeholder,
+            color,
+            variant,
+            onChange,
+            optionlabelkeyname,
+            freeSolo,
+            fieldSize,
+            onBlur = () => {},
+            helperText,
+            error,
+            options,
+            onTextFieldChange,
+            limitTags,
+            disabled,
+            value,
+            filterOptionsCallBack = (options: OptionType[], params: FilterOptionsState<OptionType>) => {
+                let filteredOptions = filter(options, params);
+                if (typeof state === 'object' && state[optionlabelkeyname]) {
+                    filteredOptions = options.filter((option) => option[optionlabelkeyname] === state[optionlabelkeyname]);
+                }
+                return filteredOptions;
+            },
+            ...props
+        },
+        ref
     ) => {
         const [state, setState] = useState<OptionType | string>(value || '');
-      
+
         const handleOnChange = (event: any, newValue: string | OptionType | (string | OptionType)[] | null) => {
             onChange({ ...event, target: { ...event.target, value: newValue } });
         };

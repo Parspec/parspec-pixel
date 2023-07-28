@@ -41,6 +41,11 @@ interface RangeSliderProps {
     showPlus?: boolean;
 }
 
+enum TEXT_FIELD_SIDE {
+    LEFT = 'LEFT',
+    RIGHT = 'RIGHT'
+}
+
 export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, ref) => {
     const {
         value,
@@ -68,23 +73,21 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
 
     const [plusToggle, setPlusToggle] = useState<boolean>(true);
 
-    function getAdjustedValues(valueArr: [number, number], minVal: number, maxVal: number): [number, number] {
+    function getAdjustedValues(valueArr: [number, number], minVal: number, maxVal: number, side: `${TEXT_FIELD_SIDE}`): [number, number] {
         let [value1, value2] = valueArr;
 
-        if (value1 > value2 || value1 > maxVal) {
+        if (value1 > maxVal || (side === TEXT_FIELD_SIDE.LEFT && value1 > value2)) {
             // console.log('1', [value1, value2]);
             value1 = value2;
-        }
-        if (value1 < minVal) {
+        } else if (value1 < minVal) {
             // console.log('2', [value1, value2]);
             value1 = minVal;
         }
 
-        if (value2 < value1 || value2 < minVal) {
+        if (value2 < minVal || (side === TEXT_FIELD_SIDE.RIGHT && value1 > value2)) {
             // console.log('3', [value1, value2]);
             value2 = value1;
-        }
-        if (value2 > maxVal) {
+        } else if (value2 > maxVal) {
             // console.log('4', [value1, value2]);
             value2 = maxVal;
         }
@@ -93,11 +96,9 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
     }
 
     useEffect(() => {
-        const adjustedValues = getAdjustedValues(value, min, max);
-        if (value[0] !== adjustedValues[0] || value[1] !== adjustedValues[1]) {
-            onRangeChange(adjustedValues);
+        if (value[0] != textFieldVal.lowerField || value[1] != textFieldVal.upperField) {
+            setTextFieldVal(() => ({ ...textFieldVal, lowerField: value[0], upperField: value[1] }));
         }
-        setTextFieldVal(() => ({ ...textFieldVal, lowerField: adjustedValues[0], upperField: adjustedValues[1] }));
     }, [value[0], value[1]]);
 
     const sliderChangeHandler = (e: Event, newValue: number | number[]) => {
@@ -133,18 +134,18 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
         }
     };
 
-    const textfieldBlurHandler = (event: FocusEvent<HTMLInputElement>) => {
+    const textfieldBlurHandler = (event: FocusEvent<HTMLInputElement>, side: `${TEXT_FIELD_SIDE}`) => {
         const rawData: [number, number] = [textFieldVal.lowerField, textFieldVal.upperField];
-        const newVal = getAdjustedValues(rawData, min, max);
+        const newVal = getAdjustedValues(rawData, min, max, side);
         setTextFieldVal({ ...textFieldVal, lowerField: newVal[0], upperField: newVal[1] });
         onRangeChange(newVal);
         onTextfieldBlur(event, newVal);
     };
 
-    const textfieldKeyDownHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const textfieldKeyDownHandler = (event: React.KeyboardEvent<HTMLInputElement>, side: `${TEXT_FIELD_SIDE}`) => {
         if (event.key === 'Enter') {
             const rawData: [number, number] = [textFieldVal.lowerField, textFieldVal.upperField];
-            const newVal = getAdjustedValues(rawData, min, max);
+            const newVal = getAdjustedValues(rawData, min, max, side);
             setTextFieldVal({ ...textFieldVal, lowerField: newVal[0], upperField: newVal[1] });
             onRangeChange(newVal);
             onTextfieldEnterKeyDown(event, newVal);
@@ -153,7 +154,7 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
 
     function handleMaxTextfieldBlur(event: FocusEvent<HTMLInputElement>) {
         setPlusToggle(true);
-        textfieldBlurHandler(event);
+        textfieldBlurHandler(event, TEXT_FIELD_SIDE.RIGHT);
     }
 
     return (
@@ -166,8 +167,10 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
                         //doing .toString() to eliminate the leading zero bug
                         value={textFieldVal.lowerField.toString()}
                         onChange={minChangeHandler}
-                        onBlur={textfieldBlurHandler}
-                        onKeyDown={textfieldKeyDownHandler}
+                        onBlur={(event) => {
+                            textfieldBlurHandler(event as FocusEvent<HTMLInputElement>, TEXT_FIELD_SIDE.LEFT);
+                        }}
+                        onKeyDown={(event) => textfieldKeyDownHandler(event as React.KeyboardEvent<HTMLInputElement>, TEXT_FIELD_SIDE.LEFT)}
                         disabled={disabled}
                         inputProps={{ style: { textAlign: 'center' } }}
                     />
@@ -201,7 +204,9 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
                             setPlusToggle(false);
                         }}
                         onBlur={handleMaxTextfieldBlur}
-                        onKeyDown={textfieldKeyDownHandler}
+                        onKeyDown={(event) => {
+                            textfieldKeyDownHandler(event as React.KeyboardEvent<HTMLInputElement>, TEXT_FIELD_SIDE.RIGHT);
+                        }}
                         disabled={disabled}
                         inputProps={{ style: { textAlign: 'center' }, inputMode: 'numeric', pattern: '[0-9]*' }}
                     />

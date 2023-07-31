@@ -113,7 +113,7 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
     const minChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = event.target.value;
         const numericValue = Number(inputValue);
-        if (!isNaN(numericValue)) {
+        if (!isNaN(numericValue) && Number.isSafeInteger(numericValue)) {
             const newData: [number, number] = [numericValue, value[1]];
             setTextFieldVal({ ...textFieldVal, lowerField: newData[0], upperField: newData[1] });
         }
@@ -128,7 +128,7 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
 
         const numericValue = Number(inputValue);
 
-        if (!isNaN(numericValue)) {
+        if (!isNaN(numericValue) && Number.isSafeInteger(numericValue)) {
             const newData: [number, number] = [value[0], numericValue];
             setTextFieldVal({ ...textFieldVal, lowerField: newData[0], upperField: newData[1] });
         }
@@ -208,7 +208,7 @@ export const RangeSlider = forwardRef<HTMLDivElement, RangeSliderProps>((props, 
                             textfieldKeyDownHandler(event as React.KeyboardEvent<HTMLInputElement>, TEXT_FIELD_SIDE.RIGHT);
                         }}
                         disabled={disabled}
-                        inputProps={{ style: { textAlign: 'center' }, inputMode: 'numeric', pattern: '[0-9]*' }}
+                        inputProps={{ style: { textAlign: 'center' } }}
                     />
                 </Box>
             </Box>

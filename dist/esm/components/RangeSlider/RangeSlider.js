@@ -61,7 +61,7 @@ export const RangeSlider = forwardRef((props, ref) => {
     const minChangeHandler = (event) => {
         const inputValue = event.target.value;
         const numericValue = Number(inputValue);
-        if (!isNaN(numericValue)) {
+        if (!isNaN(numericValue) && Number.isSafeInteger(numericValue)) {
             const newData = [numericValue, value[1]];
             setTextFieldVal(Object.assign(Object.assign({}, textFieldVal), { lowerField: newData[0], upperField: newData[1] }));
         }
@@ -72,7 +72,7 @@ export const RangeSlider = forwardRef((props, ref) => {
             inputValue = inputValue.replace(/\+/g, '');
         }
         const numericValue = Number(inputValue);
-        if (!isNaN(numericValue)) {
+        if (!isNaN(numericValue) && Number.isSafeInteger(numericValue)) {
             const newData = [value[0], numericValue];
             setTextFieldVal(Object.assign(Object.assign({}, textFieldVal), { lowerField: newData[0], upperField: newData[1] }));
         }
@@ -108,7 +108,7 @@ export const RangeSlider = forwardRef((props, ref) => {
                                 setMaxTextfieldFocuse(false);
                             }, onBlur: handleMaxTextfieldBlur, onKeyDown: (event) => {
                                 textfieldKeyDownHandler(event, TEXT_FIELD_SIDE.RIGHT);
-                            }, disabled: disabled, inputProps: { style: { textAlign: 'center' }, inputMode: 'numeric', pattern: '[0-9]*' } }) }))] }))] })));
+                            }, disabled: disabled, inputProps: { style: { textAlign: 'center' } } }) }))] }))] })));
 });
 RangeSlider.defaultProps = {
     value: [0, 100],

@@ -17,5 +17,7 @@ fileSelector.args = {
     error: 'Wrong format',
     maxFiles: 2,
     onUpload: (data) => console.log('uploaded', data),
-    borderColor: 'secondary'
+    borderColor: 'secondary',
+    fontSize: 14,
+    gap: 4
 };

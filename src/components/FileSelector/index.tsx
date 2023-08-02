@@ -30,6 +30,8 @@ interface FileSelectorProps {
     preSelectedFile?: FileSelectorFileType[] | File[];
     onDeleteFile?: () => void;
     isLoading?: boolean;
+    gap?: number;
+    fontSize?: number;
 }
 
 export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
@@ -46,7 +48,9 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
             borderColor,
             preSelectedFile,
             onDeleteFile = () => {},
-            isLoading = false
+            isLoading = false,
+            gap = 4,
+            fontSize = 14
         },
         ref
     ) => {
@@ -126,15 +130,17 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                             alignItems="center"
                             sx={{ cursor: 'pointer' }}
                             height={'100%'}
-                            gap="16px"
+                            gap={gap}
                         >
                             <Box width={'100%'} textAlign="center">
-                                <BodySmall limit={false}>{placeholder}</BodySmall>
+                                <BodySmall sx={{ fontSize: fontSize }} limit={false}>
+                                    {placeholder}
+                                </BodySmall>
                             </Box>
-                            <Avatar>
-                                <UploadIcon />
+                            <Avatar sx={{ height: fontSize * 3, width: fontSize * 3 }}>
+                                <UploadIcon fontSize={fontSize < 10 ? 'small' : 'medium'} />
                             </Avatar>
-                            <BodySmall>Browse</BodySmall>
+                            <BodySmall sx={{ fontSize: fontSize }}>Browse</BodySmall>
                         </Box>
                     </Box>
                 ) : (

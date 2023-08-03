@@ -166,7 +166,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         if (args?.requestType === 'searching') {
             onSearch!(args);
         }
-        if (args?.requestType !== 'refresh' && args?.requestType !== 'paging' && isNullOrUndefined(args.data)) {
+        if (args?.requestType !== 'refresh' && args?.requestType !== 'paging' && args?.requestType !== 'searching' && isNullOrUndefined(args.data)) {
             isEscPressed = true;
         }
         // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });

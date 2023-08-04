@@ -55,4 +55,5 @@ __exportStar(require("./Slider"), exports);
 __exportStar(require("./RangeSlider"), exports);
 __exportStar(require("./Img"), exports);
 __exportStar(require("./MultiSelect"), exports);
+__exportStar(require("./Avatar"), exports);
 //# sourceMappingURL=index.js.map

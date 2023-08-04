@@ -183,7 +183,7 @@ export const GroupedAutoComplete = forwardRef<HTMLDivElement, GroupedAutoComplet
                                 {...restParams}
                                 InputProps={{
                                     ...restInputProps,
-                                    startAdornment: (
+                                    startAdornment: startAdornment ? (
                                         <div
                                             style={{
                                                 maxHeight: size === 'medium' ? '114px' : '84px',
@@ -192,6 +192,8 @@ export const GroupedAutoComplete = forwardRef<HTMLDivElement, GroupedAutoComplet
                                         >
                                             {startAdornment}
                                         </div>
+                                    ) : (
+                                        startAdornment
                                     )
                                 }}
                                 variant={variant}

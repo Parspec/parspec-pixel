@@ -174,7 +174,7 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(function
                         {...restParams}
                         InputProps={{
                             ...restInputProps,
-                            startAdornment: (
+                            startAdornment: startAdornment ? (
                                 <Box
                                     style={{
                                         maxHeight: size === 'medium' ? '114px' : '84px',
@@ -183,6 +183,8 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(function
                                 >
                                     {startAdornment}
                                 </Box>
+                            ) : (
+                                startAdornment
                             )
                         }}
                         variant={variant}

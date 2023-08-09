@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState, forwardRef } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Avatar } from '@mui/material';
 import { Box } from '../Box';
-import { BodySmall } from '../Typography';
+import { BodyXS } from '../Typography';
 import { UploadIcon } from '../Icons';
 import { getAcceptedFormats } from './fileFormats';
 import SelectedFile from './SelectedFile';
@@ -30,8 +30,6 @@ interface FileSelectorProps {
     preSelectedFile?: FileSelectorFileType[] | File[];
     onDeleteFile?: () => void;
     isLoading?: boolean;
-    gap?: number;
-    fontSize?: number;
 }
 
 export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
@@ -48,9 +46,7 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
             borderColor,
             preSelectedFile,
             onDeleteFile = () => {},
-            isLoading = false,
-            gap = 4,
-            fontSize = 14
+            isLoading = false
         },
         ref
     ) => {
@@ -114,33 +110,33 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
         });
 
         return (
-            <Box ref={ref} height={'100%'}>
+            <Box ref={ref} height={'100%'} width={'100%'}>
                 {!files.length ? (
-                    <Box {...getRootProps()} height={'100%'}>
+                    <Box {...getRootProps()} height={'100%'} width={'100%'}>
                         <input type="file" {...getInputProps()} />
                         <Box
-                            p={6}
-                            width={1}
+                            height={'100%'}
+                            width={'100%'}
                             border={'1px solid'}
                             borderColor={borderColor}
                             borderRadius={1}
                             display="flex"
                             flexDirection="column"
-                            justifyContent="center"
+                            justifyContent="space-evenly"
                             alignItems="center"
                             sx={{ cursor: 'pointer' }}
-                            height={'100%'}
-                            gap={gap}
                         >
-                            <Box width={'100%'} textAlign="center">
-                                <BodySmall sx={{ fontSize: fontSize }} limit={false}>
-                                    {placeholder}
-                                </BodySmall>
+                            <Box width={'100%'} textAlign="center" m={1}>
+                                <BodyXS limit={false}>{placeholder}</BodyXS>
                             </Box>
-                            <Avatar sx={{ height: fontSize * 3, width: fontSize * 3 }}>
-                                <UploadIcon fontSize={fontSize < 10 ? 'small' : 'medium'} />
-                            </Avatar>
-                            <BodySmall sx={{ fontSize: fontSize }}>Browse</BodySmall>
+                            <Box>
+                                <Avatar>
+                                    <UploadIcon />
+                                </Avatar>
+                            </Box>
+                            <Box m={1}>
+                                <BodyXS>Browse</BodyXS>
+                            </Box>
                         </Box>
                     </Box>
                 ) : (
@@ -152,12 +148,12 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                 )}
                 {error && (
                     <Box mt={1}>
-                        <BodySmall color="error">{error}</BodySmall>
+                        <BodyXS color="error">{error}</BodyXS>
                     </Box>
                 )}
                 {helperText && (
                     <Box mt={2}>
-                        <BodySmall color="secondary">{helperText}</BodySmall>
+                        <BodyXS color="secondary">{helperText}</BodyXS>
                     </Box>
                 )}
             </Box>

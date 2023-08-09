@@ -10,24 +10,12 @@ export default {
 } as ComponentMeta<typeof FileSelector>;
 
 export const fileSelector: ComponentStory<typeof FileSelector> = (args) => (
-    <FileSelector {...args} url="https://hotfix-staging.parspec.xyz/api/generate_signed_url/" error="Wrong format" maxFiles={2} onUpload={(data) => console.log('uploaded', data)} />
-);
-
-fileSelector.args = {
-    placeholder: 'Drag and drop files here, or:',
-    error: 'Wrong format',
-    maxFiles: 2,
-    onUpload: (data) => console.log('uploaded', data),
-    borderColor: 'secondary'
-};
-
-export const smallSizeFileSelector: ComponentStory<typeof FileSelector> = (args) => (
-    <Box width={'217px'} height={'172px'} border={'1px solid red'}>
+    <Box width={'217px'} height={'172px'}>
         <FileSelector {...args} url="https://hotfix-staging.parspec.xyz/api/generate_signed_url/" error="Wrong format" maxFiles={2} onUpload={(data) => console.log('uploaded', data)} />
     </Box>
 );
 
-smallSizeFileSelector.args = {
+fileSelector.args = {
     placeholder: 'Drag and drop files here, or:',
     error: 'Wrong format',
     maxFiles: 2,

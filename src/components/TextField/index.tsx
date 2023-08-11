@@ -1,5 +1,5 @@
 import { default as MUITextField, TextFieldProps as MUITextFieldProps } from '@mui/material/TextField';
-import styled from '@mui/material/styles/styled';
+import { styled } from '@mui/material/styles';
 import InputAdornment from '@mui/material/InputAdornment';
 
 import { forwardRef } from 'react';

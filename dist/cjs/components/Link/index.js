@@ -14,8 +14,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Link = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const material_1 = require("@mui/material");
-const material_2 = require("@mui/material");
-const StyledLink = (0, material_2.styled)(material_1.Link)(({ theme }) => ({
+const styles_1 = require("@mui/material/styles");
+const StyledLink = (0, styles_1.styled)(material_1.Link)(({ theme }) => ({
     '&:hover': {
         color: theme.palette.primary.main
     }

@@ -11,7 +11,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx } from "react/jsx-runtime";
 import { Link as MUILink } from '@mui/material';
-import { styled } from '@mui/material';
+import { styled } from '@mui/material/styles';
 const StyledLink = styled(MUILink)(({ theme }) => ({
     '&:hover': {
         color: theme.palette.primary.main

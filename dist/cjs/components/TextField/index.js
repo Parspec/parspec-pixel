@@ -17,13 +17,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TextField = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const TextField_1 = __importDefault(require("@mui/material/TextField"));
-const styled_1 = __importDefault(require("@mui/material/styles/styled"));
+const styles_1 = require("@mui/material/styles");
 const InputAdornment_1 = __importDefault(require("@mui/material/InputAdornment"));
 const react_1 = require("react");
 const Box_1 = require("../Box");
 const Chip_1 = require("../Chip");
 const Tooltip_1 = require("../Tooltip");
-const StyledMUITextField = (0, styled_1.default)(TextField_1.default)({
+const StyledMUITextField = (0, styles_1.styled)(TextField_1.default)({
     '& .MuiFormHelperText-root': {
         marginLeft: '0px'
     }

@@ -164,6 +164,8 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
             onEdit!(args);
         }
         if (args?.requestType === 'searching') {
+            args.filteredRecords = tableRef?.current?.filterModule?.filteredResult;
+            console.log(args, 'filteredRecords');
             onSearch!(args);
         }
         // if (args?.requestType !== 'refresh' && args?.requestType !== 'paging' && args?.requestType !== 'searching' && isNullOrUndefined(args.data)) {

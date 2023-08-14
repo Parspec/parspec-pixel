@@ -7,6 +7,9 @@ import { UploadIcon } from '../Icons';
 import { getAcceptedFormats } from './fileFormats';
 import SelectedFile from './SelectedFile';
 
+// @ts-ignore:next-line
+import { validateImage } from "image-validator";
+
 export interface FileSelectorFileType {
     path?: string;
     lastModified?: number;
@@ -50,8 +53,16 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
         },
         ref
     ) => {
+
+        // To validate a file
+        const fileValidation = async (file: File) => {
+        const isValidImage = await validateImage(file);
+        // expected output ==> true or false
+        return isValidImage;
+  };
         const [files, setFiles] = useState<any>([]);
         const [result, setResults] = useState([]);
+        const [isFileCorrupted, setIsFileCorrupted] = useState(false);
 
         useEffect(() => {
             if (preSelectedFile?.length) {
@@ -83,9 +94,19 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
         }, [result]);
 
         //Function called when file is selected
-        const onDrop = useCallback((acceptedFiles: any) => {
+        const onDrop =async (acceptedFiles: any) => {
+            // Check if we need this
+            setIsFileCorrupted(false);
+            error="";
+            const isFileValid = await fileValidation(acceptedFiles[0]);
+            if(!isFileValid){
+            setIsFileCorrupted(true);
+            console.log(isFileCorrupted);
+            error="Upload File is corrupt.";
+                return;
+            }
             setFiles(acceptedFiles);
-        }, []);
+        };
 
         //Function called when file is deleted
         const onDelete = (file: { name: string }) => {

@@ -95,9 +95,9 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
 
         //Function called when file is selected
         const onDrop = async(acceptedFiles: any) => {
+            setIsFileCorrupted(false);
             const isFileCorrupted = await fileValidation(acceptedFiles[0]);
             if(!isFileCorrupted){
-                error="Uploaded File is corrupted.";
                 setIsFileCorrupted(true);
                 return;
             }
@@ -169,7 +169,7 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
 
                      {isFileCorrupted && (
                     <Box mt={1}>
-                        <BodySmall color="error">Uploaded File is Corrupt.</BodySmall>
+                        <BodySmall color="error">Uploaded file is corrupt.</BodySmall>
                     </Box>
                 )}
 

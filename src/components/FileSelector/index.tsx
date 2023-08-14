@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, forwardRef } from 'react';
+import {useEffect, useState, forwardRef } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Avatar } from '@mui/material';
 import { Box } from '../Box';

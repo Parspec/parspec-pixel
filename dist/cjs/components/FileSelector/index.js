@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -13,9 +22,18 @@ const Typography_1 = require("../Typography");
 const Icons_1 = require("../Icons");
 const fileFormats_1 = require("./fileFormats");
 const SelectedFile_1 = __importDefault(require("./SelectedFile"));
+// @ts-ignore:next-line
+const image_validator_1 = require("image-validator");
 exports.FileSelector = (0, react_1.forwardRef)(({ maxFiles = 1, acceptedFormats = [], onUpload = () => { }, url = '', error = '', helperText = '', onSelect = () => { }, placeholder = '', borderColor, preSelectedFile, onDeleteFile = () => { }, isLoading = false }, ref) => {
+    // To validate a file
+    const fileValidation = (file) => __awaiter(void 0, void 0, void 0, function* () {
+        const isValidImage = yield (0, image_validator_1.validateImage)(file);
+        // expected output ==> true or false
+        return isValidImage;
+    });
     const [files, setFiles] = (0, react_1.useState)([]);
     const [result, setResults] = (0, react_1.useState)([]);
+    const [isFileCorrupted, setIsFileCorrupted] = (0, react_1.useState)(false);
     (0, react_1.useEffect)(() => {
         if (preSelectedFile === null || preSelectedFile === void 0 ? void 0 : preSelectedFile.length) {
             setFiles(preSelectedFile);
@@ -43,9 +61,19 @@ exports.FileSelector = (0, react_1.forwardRef)(({ maxFiles = 1, acceptedFormats 
         }
     }, [result]);
     //Function called when file is selected
-    const onDrop = (0, react_1.useCallback)((acceptedFiles) => {
+    const onDrop = (acceptedFiles) => __awaiter(void 0, void 0, void 0, function* () {
+        // Check if we need this
+        setIsFileCorrupted(false);
+        error = "";
+        const isFileValid = yield fileValidation(acceptedFiles[0]);
+        if (!isFileValid) {
+            setIsFileCorrupted(true);
+            console.log(isFileCorrupted);
+            error = "Upload File is corrupt.";
+            return;
+        }
         setFiles(acceptedFiles);
-    }, []);
+    });
     //Function called when file is deleted
     const onDelete = (file) => {
         setFiles((old) => old.filter((item) => item.name !== file.name));

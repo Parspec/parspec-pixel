@@ -95,9 +95,14 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
 
         //Function called when file is selected
         const onDrop = async(acceptedFiles: any) => {
+            const fileType = acceptedFiles[0].type;
+            const indexOfSlash = acceptedFiles[0].type.indexOf('/');
+            const fileExtension = fileType.substring(indexOfSlash+1);
+            const acceptedFileType = ['jpg','png','jpeg'];
+
             setIsFileCorrupted(false);
             const isFileCorrupted = await fileValidation(acceptedFiles[0]);
-            if(!isFileCorrupted){
+            if(acceptedFileType.includes(fileExtension) && !isFileCorrupted){
                 setIsFileCorrupted(true);
                 return;
             }

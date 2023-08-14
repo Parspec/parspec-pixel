@@ -55,6 +55,7 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
     ) => {
         const [files, setFiles] = useState<any>([]);
         const [result, setResults] = useState([]);
+        const [isFileCorrupted, setIsFileCorrupted] = useState(false);
 
         useEffect(() => {
             if (preSelectedFile?.length) {
@@ -96,7 +97,8 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
         const onDrop = async(acceptedFiles: any) => {
             const isFileCorrupted = await fileValidation(acceptedFiles[0]);
             if(!isFileCorrupted){
-                error="Uploaded File is corrupted."
+                error="Uploaded File is corrupted.";
+                setIsFileCorrupted(true);
                 return;
             }
             setFiles(acceptedFiles);
@@ -164,6 +166,13 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                         <BodySmall color="error">{error}</BodySmall>
                     </Box>
                 )}
+
+                     {isFileCorrupted && (
+                    <Box mt={1}>
+                        <BodySmall color="error">Uploaded File is Corrupt.</BodySmall>
+                    </Box>
+                )}
+
                 {helperText && (
                     <Box mt={2}>
                         <BodySmall color="secondary">{helperText}</BodySmall>

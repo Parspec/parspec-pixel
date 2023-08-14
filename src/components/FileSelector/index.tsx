@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, forwardRef } from 'react';
+import { useEffect, useState, forwardRef } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Avatar } from '@mui/material';
 import { Box } from '../Box';
@@ -6,6 +6,9 @@ import { BodySmall } from '../Typography';
 import { UploadIcon } from '../Icons';
 import { getAcceptedFormats } from './fileFormats';
 import SelectedFile from './SelectedFile';
+import { validateImage } from "image-validator";
+
+
 
 export interface FileSelectorFileType {
     path?: string;
@@ -82,10 +85,22 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
             }
         }, [result]);
 
+        // To validate a file
+        const fileValidation = async (file: File) => {
+        const isValidImage = await validateImage(file);
+        return isValidImage;
+        // expected output ==> true or false
+};
+
         //Function called when file is selected
-        const onDrop = useCallback((acceptedFiles: any) => {
+        const onDrop = async(acceptedFiles: any) => {
+            const isFileCorrupted = await fileValidation(acceptedFiles[0]);
+            if(!isFileCorrupted){
+                error="Uploaded File is corrupted."
+                return;
+            }
             setFiles(acceptedFiles);
-        }, []);
+        };
 
         //Function called when file is deleted
         const onDelete = (file: { name: string }) => {

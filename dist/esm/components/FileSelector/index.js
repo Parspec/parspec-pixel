@@ -1,5 +1,14 @@
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { useCallback, useEffect, useState, forwardRef } from 'react';
+import { useEffect, useState, forwardRef } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Avatar } from '@mui/material';
 import { Box } from '../Box';
@@ -7,6 +16,7 @@ import { BodySmall } from '../Typography';
 import { UploadIcon } from '../Icons';
 import { getAcceptedFormats } from './fileFormats';
 import SelectedFile from './SelectedFile';
+import { validateImage } from "image-validator";
 export const FileSelector = forwardRef(({ maxFiles = 1, acceptedFormats = [], onUpload = () => { }, url = '', error = '', helperText = '', onSelect = () => { }, placeholder = '', borderColor, preSelectedFile, onDeleteFile = () => { }, isLoading = false }, ref) => {
     const [files, setFiles] = useState([]);
     const [result, setResults] = useState([]);
@@ -36,10 +46,21 @@ export const FileSelector = forwardRef(({ maxFiles = 1, acceptedFormats = [], on
             }
         }
     }, [result]);
+    // To validate a file
+    const fileValidation = (file) => __awaiter(void 0, void 0, void 0, function* () {
+        const isValidImage = yield validateImage(file);
+        return isValidImage;
+        // expected output ==> true or false
+    });
     //Function called when file is selected
-    const onDrop = useCallback((acceptedFiles) => {
+    const onDrop = (acceptedFiles) => __awaiter(void 0, void 0, void 0, function* () {
+        const isFileCorrupted = yield fileValidation(acceptedFiles[0]);
+        if (!isFileCorrupted) {
+            error = "Uploaded File is corrupted.";
+            return;
+        }
         setFiles(acceptedFiles);
-    }, []);
+    });
     //Function called when file is deleted
     const onDelete = (file) => {
         setFiles((old) => old.filter((item) => item.name !== file.name));

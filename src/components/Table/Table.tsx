@@ -129,6 +129,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
 
     const tableRef = useRef<any>();
     const [selected, setSelectedForBanner] = useState(0);
+    const [customPageSettings, setCustomPageSettings] = useState({});
 
     useEffect(() => {
         let obj = (document.getElementsByClassName('e-grid')[0] as any)?.ej2_instances?.[0]?.localeObj?.localeStrings;
@@ -351,6 +352,19 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     }, []);
     const toolbarContainerRef = useRef<any>();
 
+    useEffect(() => {
+        //52 is the general row height in the table
+        let defaultRowHeight = rowHeight || 52;
+        const calculatedTableHeight = Number(height) || tableHeight;
+        const settings = { ...pageSettings };
+        if (calculatedTableHeight && calculatedTableHeight >= defaultRowHeight) {
+            const totalRows = Math.floor(calculatedTableHeight / defaultRowHeight);
+            setCustomPageSettings({ ...settings, pageSize: totalRows });
+        } else {
+            setCustomPageSettings({ ...settings });
+        }
+    }, [tableHeight]);
+
     // const resizestart = () => {
     //     tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     // };
@@ -458,7 +472,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
             )}
             <Box className="control-pane">
                 <Box className="control-section">
-                    {data && (
+                    {data && (allowPaging ? Object.keys(customPageSettings || {}).length : true) && (
                         <TreeGridComponent
                             // expanding={expanding}
                             // collapsing={collapsing}
@@ -486,7 +500,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             allowSorting={allowSorting}
                             editSettings={editSettings}
                             searchSettings={searchSettings}
-                            pageSettings={pageSettings}
+                            pageSettings={customPageSettings}
                             allowPaging={allowPaging}
                             allowFiltering={allowFiltering}
                             filterSettings={filterSettings}

@@ -168,7 +168,7 @@ export const dDataP2 = [
         is_hidden: false
     },
     {
-        id: 8,
+        id: 2,
         taskID: 8,
         name: 'section2',
         type: 'section',
@@ -177,7 +177,7 @@ export const dDataP2 = [
         is_hidden: false
     },
     {
-        id: 15,
+        id: 3,
         taskID: 15,
         name: 'section3',
         type: 'section',
@@ -186,7 +186,7 @@ export const dDataP2 = [
         is_hidden: false
     },
     {
-        id: 22,
+        id: 4,
         taskID: 22,
         name: 'section4',
         type: 'section',
@@ -195,7 +195,7 @@ export const dDataP2 = [
         is_hidden: false
     },
     {
-        id: 2,
+        id: 5,
         taskID: 2,
         name: 'section1',
         type: 'section',
@@ -204,7 +204,7 @@ export const dDataP2 = [
         is_hidden: false
     },
     {
-        id: 3,
+        id: 6,
         taskID: 3,
         name: 'section2',
         type: 'section',
@@ -213,7 +213,7 @@ export const dDataP2 = [
         is_hidden: false
     },
     {
-        id: 4,
+        id: 7,
         taskID: 4,
         name: 'section3',
         type: 'section',
@@ -222,7 +222,79 @@ export const dDataP2 = [
         is_hidden: false
     },
     {
-        id: 5,
+        id: 8,
+        taskID: 5,
+        name: 'section4',
+        type: 'section',
+        reporter: '',
+        available: 'Yes',
+        is_hidden: false
+    },
+    {
+        id: 9,
+        taskID: 1,
+        name: 'section1',
+        type: 'section',
+        reporter: '',
+        available: 'Yes, No',
+        is_hidden: false
+    },
+    {
+        id: 10,
+        taskID: 8,
+        name: 'section2',
+        type: 'section',
+        reporter: '',
+        available: 'Yes, Yes',
+        is_hidden: false
+    },
+    {
+        id: 31,
+        taskID: 15,
+        name: 'section3',
+        type: 'section',
+        reporter: '',
+        available: 'Yes',
+        is_hidden: false
+    },
+    {
+        id: 42,
+        taskID: 22,
+        name: 'section4',
+        type: 'section',
+        reporter: '',
+        available: 'No',
+        is_hidden: false
+    },
+    {
+        id: 53,
+        taskID: 2,
+        name: 'section1',
+        type: 'section',
+        reporter: '',
+        available: 'Yes',
+        is_hidden: false
+    },
+    {
+        id: 64,
+        taskID: 3,
+        name: 'section2',
+        type: 'section',
+        reporter: '',
+        available: 'Yes',
+        is_hidden: false
+    },
+    {
+        id: 75,
+        taskID: 4,
+        name: 'section3',
+        type: 'section',
+        reporter: '',
+        available: 'No',
+        is_hidden: false
+    },
+    {
+        id: 86,
         taskID: 5,
         name: 'section4',
         type: 'section',

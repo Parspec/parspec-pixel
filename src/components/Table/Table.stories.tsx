@@ -77,7 +77,7 @@ SingleSelect.args = {
     childMappingKey: 'subtasks',
     allowRowDragAndDrop: true,
     treeColumnIndex: 3,
-    allowPaging: false
+    height: 60
 };
 
 const coltemplate = (props: any) => {

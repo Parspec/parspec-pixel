@@ -55,9 +55,13 @@ export const FileSelector = forwardRef(({ maxFiles = 1, acceptedFormats = [], on
     });
     //Function called when file is selected
     const onDrop = (acceptedFiles) => __awaiter(void 0, void 0, void 0, function* () {
+        const fileType = acceptedFiles[0].type;
+        const indexOfSlash = acceptedFiles[0].type.indexOf('/');
+        const fileExtension = fileType.substring(indexOfSlash + 1);
+        const acceptedFileType = ['jpg', 'png', 'jpeg'];
+        setIsFileCorrupted(false);
         const isFileCorrupted = yield fileValidation(acceptedFiles[0]);
-        if (!isFileCorrupted) {
-            error = "Uploaded File is corrupted.";
+        if (acceptedFileType.includes(fileExtension) && !isFileCorrupted) {
             setIsFileCorrupted(true);
             return;
         }
@@ -82,7 +86,7 @@ export const FileSelector = forwardRef(({ maxFiles = 1, acceptedFormats = [], on
         maxFiles,
         accept: acceptedFormats.length ? getAcceptedFormats(acceptedFormats) : {}
     });
-    return (_jsxs(Box, Object.assign({ ref: ref, height: '100%' }, { children: [!files.length ? (_jsxs(Box, Object.assign({}, getRootProps(), { height: '100%' }, { children: [_jsx("input", Object.assign({ type: "file" }, getInputProps())), _jsxs(Box, Object.assign({ p: 6, width: 1, border: '1px solid', borderColor: borderColor, borderRadius: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", sx: { cursor: 'pointer' }, height: '100%', gap: "16px" }, { children: [_jsx(Box, Object.assign({ width: '100%', textAlign: "center" }, { children: _jsx(BodySmall, Object.assign({ limit: false }, { children: placeholder })) })), _jsx(Avatar, { children: _jsx(UploadIcon, {}) }), _jsx(BodySmall, { children: "Browse" })] }))] }))) : (_jsx(Box, { children: files.map((file, index) => (_jsx(SelectedFile, { file: file, onDelete: onDelete, url: url, index: index, handleResults: handleResults, isLoading: isLoading }, file.name))) })), error && (_jsx(Box, Object.assign({ mt: 1 }, { children: _jsx(BodySmall, Object.assign({ color: "error" }, { children: error })) }))), isFileCorrupted && (_jsx(Box, Object.assign({ mt: 1 }, { children: _jsx(BodySmall, Object.assign({ color: "error" }, { children: "Uploaded File is Corrupt." })) }))), helperText && (_jsx(Box, Object.assign({ mt: 2 }, { children: _jsx(BodySmall, Object.assign({ color: "secondary" }, { children: helperText })) })))] })));
+    return (_jsxs(Box, Object.assign({ ref: ref, height: '100%' }, { children: [!files.length ? (_jsxs(Box, Object.assign({}, getRootProps(), { height: '100%' }, { children: [_jsx("input", Object.assign({ type: "file" }, getInputProps())), _jsxs(Box, Object.assign({ p: 6, width: 1, border: '1px solid', borderColor: borderColor, borderRadius: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", sx: { cursor: 'pointer' }, height: '100%', gap: "16px" }, { children: [_jsx(Box, Object.assign({ width: '100%', textAlign: "center" }, { children: _jsx(BodySmall, Object.assign({ limit: false }, { children: placeholder })) })), _jsx(Avatar, { children: _jsx(UploadIcon, {}) }), _jsx(BodySmall, { children: "Browse" })] }))] }))) : (_jsx(Box, { children: files.map((file, index) => (_jsx(SelectedFile, { file: file, onDelete: onDelete, url: url, index: index, handleResults: handleResults, isLoading: isLoading }, file.name))) })), error && (_jsx(Box, Object.assign({ mt: 1 }, { children: _jsx(BodySmall, Object.assign({ color: "error" }, { children: error })) }))), isFileCorrupted && (_jsx(Box, Object.assign({ mt: 1 }, { children: _jsx(BodySmall, Object.assign({ color: "error" }, { children: "Uploaded file is corrupt." })) }))), helperText && (_jsx(Box, Object.assign({ mt: 2 }, { children: _jsx(BodySmall, Object.assign({ color: "secondary" }, { children: helperText })) })))] })));
 });
 FileSelector.defaultProps = {
     borderColor: 'secondary'

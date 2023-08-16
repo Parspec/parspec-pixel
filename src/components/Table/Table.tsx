@@ -404,8 +404,8 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                                     }}
                                     size="small"
                                     onChange={(t: React.ChangeEvent<HTMLInputElement>) => {
-                                        t.target.value = t?.target?.value?.replace(/[^a-zA-Z0-9-_ ]/g, '');
-                                        tableRef.current.search(t?.target?.value?.replace(/[^a-zA-Z0-9-_ ]/g, '').trim());
+                                        t.target.value = t?.target?.value?.replace(/[^a-zA-Z0-9-_& ]/g, '');
+                                        tableRef.current.search(t?.target?.value?.replace(/[^a-zA-Z0-9-_& ]/g, '').trim());
                                     }}
                                 />
                             </Box>

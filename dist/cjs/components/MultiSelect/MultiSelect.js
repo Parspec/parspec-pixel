@@ -91,10 +91,10 @@ exports.MultiSelect = (0, react_1.forwardRef)(function (_a, ref) {
             var { size: _fieldSize } = _a, params = __rest(_a, ["size"]);
             const { InputProps: _InputProps } = params, restParams = __rest(params, ["InputProps"]);
             const { startAdornment } = _InputProps, restInputProps = __rest(_InputProps, ["startAdornment"]);
-            return ((0, jsx_runtime_1.jsx)(TextField_1.TextField, Object.assign({ helperText: helperText, error: error, size: size }, restParams, { InputProps: Object.assign(Object.assign({}, restInputProps), { startAdornment: ((0, jsx_runtime_1.jsx)(material_1.Box, Object.assign({ style: {
+            return ((0, jsx_runtime_1.jsx)(TextField_1.TextField, Object.assign({ helperText: helperText, error: error, size: size }, restParams, { InputProps: Object.assign(Object.assign({}, restInputProps), { startAdornment: startAdornment ? ((0, jsx_runtime_1.jsx)(material_1.Box, Object.assign({ style: {
                             maxHeight: size === 'medium' ? '114px' : '84px',
                             overflowY: 'auto'
-                        } }, { children: startAdornment }))) }), variant: variant, color: color, label: label, placeholder: placeholder })));
+                        } }, { children: startAdornment }))) : (startAdornment) }), variant: variant, color: color, label: label, placeholder: placeholder })));
         }, renderOption: (props, option, state) => [Object.assign(Object.assign({}, props), { color, optionlabelkeyname }), option, state], renderTags: (value, getTagProps, ownerState) => {
             const { focused, ChipProps, limitTags = -1 } = ownerState;
             const limit = 50;

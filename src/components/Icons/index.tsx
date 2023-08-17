@@ -73,5 +73,6 @@ export {
     Settings as SettingsIcon,
     Logout as LogoutIcon,
     HistoryOutlined as HistoryOutlinedIcon,
-    InfoOutlined as InfoOutlinedIcon
+    InfoOutlined as InfoOutlinedIcon,
+    ThumbDownOffAlt as ThumbDownOffAltIcon
 } from '@mui/icons-material';

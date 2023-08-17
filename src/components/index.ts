@@ -39,3 +39,4 @@ export * from './Slider';
 export * from './RangeSlider';
 export * from './Img';
 export * from './MultiSelect';
+export * from './Avatar';

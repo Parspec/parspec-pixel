@@ -358,7 +358,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         const calculatedTableHeight = Number(height) || tableHeight;
         const settings = { ...pageSettings };
         if (calculatedTableHeight && calculatedTableHeight >= defaultRowHeight) {
-            const totalRows = Math.floor(calculatedTableHeight / defaultRowHeight);
+            const totalRows = Math.ceil(calculatedTableHeight / defaultRowHeight);
             return { ...settings, pageSize: totalRows };
         } else {
             return { ...settings };

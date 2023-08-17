@@ -254,7 +254,7 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
         const calculatedTableHeight = Number(height) || tableHeight;
         const settings = Object.assign({}, pageSettings);
         if (calculatedTableHeight && calculatedTableHeight >= defaultRowHeight) {
-            const totalRows = Math.floor(calculatedTableHeight / defaultRowHeight);
+            const totalRows = Math.ceil(calculatedTableHeight / defaultRowHeight);
             return Object.assign(Object.assign({}, settings), { pageSize: totalRows });
         }
         else {

@@ -194,7 +194,7 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
                 {...getTableProps({ ...props, onAdd, onCheckboxChange, onDelete, onDragEnd, onEdit, onSearch, onRowSelection, onHideUnhide, onAddDuplicates, customFiltersFunction })}
                 ref={tableRef}
             >
-                <ColumnDirective type="checkbox" width="50" />
+                <ColumnDirective type="checkbox" width="50" allowEditing={false} />
                 <ColumnDirective field="id" isPrimaryKey={true} visible={false} />
                 <ColumnDirective field="taskID" headerText="Task ID" minWidth="100" width="130" editType="numericedit" />
                 <ColumnDirective field="name" headerText="Task Name" minWidth="200" />

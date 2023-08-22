@@ -36,10 +36,10 @@ import {
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState, useMemo, useCallback } from 'react';
 import { TextField } from '../TextField';
 import { IconButton } from '../IconButton';
-import { CloseIcon, ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffIcon, FilterAltOffIcon, SearchIcon, AddIcon } from '../Icons';
-import { BodySmall } from '../Typography';
+import { ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffIcon, FilterAltOffIcon, SearchIcon, AddIcon } from '../Icons';
 import { Tooltip } from '../Tooltip';
 import { InputAdornment } from '../InputAdornment';
+import { SelectedItemsCount } from './SelectedItemsCount';
 
 const license = window.localStorage.getItem('syncfusionLicense');
 registerLicense(license!);
@@ -85,6 +85,7 @@ export interface TableProps {
     height?: number | string;
     // defaultFilter?: 'equal' | 'contains';
     tableKey?: number | string;
+    selectedItemsBelowSearch?: boolean;
 }
 
 export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
@@ -124,7 +125,8 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         // defaultFilter,
         customFiltersFunction,
         dataBoundCallBack,
-        tableKey
+        tableKey,
+        selectedItemsBelowSearch
     } = props;
 
     const tableRef = useRef<any>();
@@ -164,9 +166,9 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         if (args?.requestType === 'searching') {
             onSearch!(args);
         }
-        if (args?.requestType !== 'refresh' && isNullOrUndefined(args.data)) {
-            isEscPressed = true;
-        }
+        // if (args?.requestType !== 'refresh' && args?.requestType !== 'paging' && args?.requestType !== 'searching' && isNullOrUndefined(args.data)) {
+        //     isEscPressed = true;
+        // }
         // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     };
 
@@ -442,18 +444,14 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                                 </IconButton>
                             </Tooltip>
                         )}
-                        {toolBarOptions?.includes('selectedItems') && selected > 0 && (
-                            <Box p={1} pl={3} pr={2} bgcolor={'primary.main'} color={'secondary.contrastText'} display="flex" alignItems="center" gap={2}>
-                                <BodySmall color="secondary.contrastText" limit={false}>
-                                    {selected} item(s) selected
-                                </BodySmall>
-                                <IconButton onClick={closeBanner} sx={{ color: 'secondary.contrastText', margin: 0, padding: 0 }}>
-                                    <CloseIcon fontSize="small" />
-                                </IconButton>
-                            </Box>
-                        )}
+                        {toolBarOptions?.includes('selectedItems') && selected > 0 && !selectedItemsBelowSearch && <SelectedItemsCount count={selected} closeBanner={closeBanner} />}
                     </Box>
                     <Box>{rightSection}</Box>
+                </Box>
+            )}
+            {toolBarOptions?.includes('selectedItems') && selected > 0 && selectedItemsBelowSearch && (
+                <Box mb={2} width={'max-content'}>
+                    <SelectedItemsCount count={selected} closeBanner={closeBanner} />
                 </Box>
             )}
             <Box className="control-pane">
@@ -559,6 +557,7 @@ Table.defaultProps = {
     searchSettings: {
         hierarchyMode: 'Both'
     },
-    hiddenProperty: 'is_hidden'
+    hiddenProperty: 'is_hidden',
+    selectedItemsBelowSearch: false
     // defaultFilter: 'equal'
 };

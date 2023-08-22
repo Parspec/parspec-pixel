@@ -63,5 +63,6 @@ export {
     Troubleshoot as TroubleshootIcon,
     WarningAmber as WarningOutlinedIcon,
     Settings as SettingsIcon,
-    Logout as LogoutIcon
+    Logout as LogoutIcon,
+    Sort as SortIcon
 } from '@mui/icons-material';

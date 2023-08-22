@@ -57,7 +57,8 @@ import {
     TroubleshootIcon,
     SettingsIcon,
     LogoutIcon,
-    WarningOutlinedIcon
+    WarningOutlinedIcon,
+    SortIcon
 } from './index';
 import { Grid } from '../Grid';
 import { BodySmall } from '../Typography';
@@ -148,7 +149,8 @@ MUIImportedIcons.args = {
         { icon: TroubleshootIcon, name: 'TroubleshootIcon' },
         { icon: WarningOutlinedIcon, name: 'WarningOutlinedIcon' },
         { icon: SettingsIcon, name: 'SettingsIcon' },
-        { icon: LogoutIcon, name: 'LogoutIcon' }
+        { icon: LogoutIcon, name: 'LogoutIcon' },
+        {icon:SortIcon, name:'SortIcon'}
     ],
     fontSize: 'medium',
     color: 'tertiary'

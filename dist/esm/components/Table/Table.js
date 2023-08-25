@@ -41,6 +41,7 @@ export const Table = forwardRef((props, ref) => {
     let isEscPressed = false;
     let filterApplied = false;
     const actionComplete = (args) => {
+        var _a, _b;
         if ((args === null || args === void 0 ? void 0 : args.requestType) === 'filtering') {
             if ((args === null || args === void 0 ? void 0 : args.action) === 'filter') {
                 filterApplied = true;
@@ -53,6 +54,7 @@ export const Table = forwardRef((props, ref) => {
             onEdit(args);
         }
         if ((args === null || args === void 0 ? void 0 : args.requestType) === 'searching') {
+            args.filteredRecords = (_b = (_a = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _a === void 0 ? void 0 : _a.filterModule) === null || _b === void 0 ? void 0 : _b.filteredResult;
             onSearch(args);
         }
         // if (args?.requestType !== 'refresh' && args?.requestType !== 'paging' && args?.requestType !== 'searching' && isNullOrUndefined(args.data)) {

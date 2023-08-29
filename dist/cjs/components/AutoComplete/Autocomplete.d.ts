@@ -1,7 +1,8 @@
 /// <reference types="react" />
-export type OptionType = {
+import { FilterOptionsState } from '@mui/material/useAutocomplete';
+export type OptionType<T = {}> = {
     [index: string]: string | number;
-};
+} & T;
 export interface AutocompleteProps {
     id: string;
     label: string;
@@ -17,9 +18,12 @@ export interface AutocompleteProps {
     value?: string | OptionType | null;
     defaultValue?: string | OptionType | (string | OptionType)[] | null;
     onBlur?: (params: OptionType | string) => void;
-    helperText?: string;
+    helperText?: string | React.ReactNode;
     error?: boolean;
     onTextFieldChange?: (e: React.SyntheticEvent<Element, Event>, value: string) => void;
     limitTags?: number;
+    disabled?: boolean;
+    clearOnBlur?: boolean;
+    filterOptionsCallBack?: (options: OptionType[], params: FilterOptionsState<OptionType>) => OptionType[];
 }
 export declare const Autocomplete: React.FC<AutocompleteProps>;

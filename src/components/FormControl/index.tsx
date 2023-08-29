@@ -2,4 +2,4 @@ import { default as MUIFormControl, FormControlProps } from '@mui/material/FormC
 
 export const FormControl: React.FC<FormControlProps> = ({ children, ...props }) => <MUIFormControl {...props}>{children}</MUIFormControl>;
 
-export * from '@mui/material/FormGroup';
+export { FormGroup } from '@mui/material';

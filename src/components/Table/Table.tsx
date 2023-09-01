@@ -207,33 +207,99 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
             data = args.data[i];
             let error = '';
             if (args.dropPosition === 'middleSegment') {
+                // if (targetData?.parentItem) {
+                //     parent = targetData?.parentItem;
+                // } else {
                 parent = targetData;
+                // }
             } else {
                 parent = targetData?.parentItem;
             }
-            if (data?.type === 'section') {
-                if (parent?.type !== undefined) {
+            // if (data?.type === 'section') {
+            //     if (parent?.type !== undefined) {
+            //         args.cancel = true;
+            //         notAllowed = true;
+            //         error += `${data.type} can not be a child of ${parent?.type}`;
+            //     }
+            // } else if (data?.type === 'product') {
+            //     if (parent?.type !== 'section' && parent?.type !== undefined) {
+            //         args.cancel = true;
+            //         notAllowed = true;
+            //         error += `${data.type} can not be a child of ${parent?.type}`;
+            //     }
+            // } else {
+            //     if (parent?.type !== 'product' && parent?.type !== undefined) {
+            //         args.cancel = true;
+            //         notAllowed = true;
+            //         error += `${data.type} can not be a child of ${parent?.type}`;
+            //     }
+            // }
+            // if (data?.type === 'section') {
+            //     if (parent?.type !== undefined) {
+            //         args.cancel = true;
+            //         notAllowed = true;
+            //         error += `${data.type} can not be a child of ${parent?.type}`;
+            //     }
+            // }
+            // if(data?.childRecords ){
+
+            // }
+            if (data?.type === 'product') {
+                if (parent?.type === 'accessories' && parent?.type !== undefined) {
                     args.cancel = true;
                     notAllowed = true;
                     error += `${data.type} can not be a child of ${parent?.type}`;
-                }
-            } else if (data?.type === 'product') {
-                if (parent?.type !== 'section' && parent?.type !== undefined) {
+                } else if (data?.childRecords?.length > 1 && args.dropPosition === 'middleSegment') {
+                    // handle if selected item is a nested Product
                     args.cancel = true;
                     notAllowed = true;
-                    error += `${data.type} can not be a child of ${parent?.type}`;
+                    error += `Nested Product can not be a child of ${parent?.type}`;
+                } else if (parent?.parentItem && args.dropPosition === 'middleSegment') {
+                    // Drop location is nested child .
+                    args.cancel = true;
+                    notAllowed = true;
+                    error += `Product can not be a child of Nested ${parent?.type}`;
+                } else if (data?.hasChildRecords && parent?.hasChildRecords) {
+                    args.cancel = true;
+                    notAllowed = true;
+                    error += `Nested ${data.type} can not be a child of Nested ${parent?.type}`;
                 }
             } else {
-                if (parent?.type !== 'product' && parent?.type !== undefined) {
+                if (parent?.type === 'accessories' && parent?.type !== undefined) {
                     args.cancel = true;
                     notAllowed = true;
                     error += `${data.type} can not be a child of ${parent?.type}`;
+                } else if (data?.childRecords?.length > 1 && args.dropPosition === 'middleSegment') {
+                    // handle if selected item is a nested Product
+                    args.cancel = true;
+                    notAllowed = true;
+                    error += `Nested accessories can not be a child of ${parent?.type}`;
+                } else if (parent?.parentItem && args.dropPosition === 'middleSegment') {
+                    // Drop location is nested child .
+                    args.cancel = true;
+                    notAllowed = true;
+                    error += `${data.type} can not be a child of Nested ${parent?.type}`;
                 }
             }
+            // console.log(
+            //     data?.childRecords,
+            //     JSON.stringify(data?.parentItem) !== JSON.stringify(targetData?.parentItem),
+            //     data?.childRecords || JSON.stringify(data?.parentItem) !== JSON.stringify(targetData?.parentItem)
+            // );
+            // if (data?.childRecords) {
+            //     args.cancel = true;
+            //     notAllowed = true;
+            //     error += `Nested Product can't move to can not be a child of ${parent?.type}`;
+            // }
+            // if (args.dropPosition === 'middleSegment' && parent?.parentItem && parent?.taskData) {
+            //     args.cancel = true;
+            //     notAllowed = true;
+            //     error += `Nested middle Product can't move to can not be a child of ${parent?.type}`;
+            // }
             if (notAllowed) {
                 if (args.data.length > 1) {
                     alert(
-                        'Please note accessory can only be a child of product, product can only be a child of section and section cannot be a child of a product or accessory, please make sure that all your selected items follow the mentioned criteria'
+                        'Please note accessories can only be a child of product, product can only be a child of section and section cannot be a child of a product or accessories, please make sure that all your selected items follow the mentioned criteria'
                     );
                     break;
                 } else {

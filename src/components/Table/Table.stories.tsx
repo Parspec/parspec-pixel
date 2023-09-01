@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { Table, ToolbarType } from './Table';
 import { ColumnDirective, Inject, SelectionSettingsModel } from '@syncfusion/ej2-react-treegrid';
 import { getValue } from '@syncfusion/ej2-base';
-import { dDataP, dDataP2 } from './data';
+import { dDataP, dDataP2, dDataP4 } from './data';
 import { Button } from '../Button';
 import { ViewArrayIcon } from '../Icons';
 import { Box } from '../Box';
@@ -95,7 +95,7 @@ const coltemplate = (props: any) => {
                 Product
             </Button>
         );
-    } else if (props?.taskData?.type?.includes('accessory')) {
+    } else if (props?.taskData?.type?.includes('accessories')) {
         return (
             <Button size="small" color="tertiary" id={props.id}>
                 Accessory
@@ -228,7 +228,7 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
 
 // Arg properties with value as true and their corresponding settings are not required to be passed to table component as they are already present as default props, we have passed them here to get controls in stories
 Basic.args = {
-    data: dDataP,
+    data: dDataP4,
     childMappingKey: 'subtasks',
     allowRowDragAndDrop: true,
     // frozenColumns: 4,

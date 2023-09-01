@@ -24,9 +24,10 @@ export interface TextFieldProps extends Omit<MUITextFieldProps, 'margin' | 'clas
     helperText?: string | React.ReactNode;
     icon?: React.ReactNode;
     scrollAreaHeight?: number;
+    startIcon?: React.ReactNode;
 }
 
-export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(({ variant, color, error, size, label, chips, onChipDelete, helperText, icon, scrollAreaHeight, ...rest }, ref) => (
+export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(({ variant, color, error, size, label, chips, onChipDelete, helperText, icon, startIcon, scrollAreaHeight, ...rest }, ref) => (
     <>
         <StyledMUITextField
             fullWidth
@@ -38,7 +39,12 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(({ variant, 
             error={error}
             helperText={helperText}
             InputProps={{
-                endAdornment: icon && <InputAdornment position="end">{icon}</InputAdornment>
+                endAdornment: icon && <InputAdornment position="end">{icon}</InputAdornment>,
+                startAdornment: startIcon && (
+                    <InputAdornment position="start">
+                        {startIcon}
+                    </InputAdornment>
+                )
             }}
             {...rest}
         />

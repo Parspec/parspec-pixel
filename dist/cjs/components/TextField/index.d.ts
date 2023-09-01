@@ -11,5 +11,6 @@ export interface TextFieldProps extends Omit<MUITextFieldProps, 'margin' | 'clas
     helperText?: string | React.ReactNode;
     icon?: React.ReactNode;
     scrollAreaHeight?: number;
+    startIcon?: React.ReactNode;
 }
 export declare const TextField: import("react").ForwardRefExoticComponent<Omit<TextFieldProps, "ref"> & import("react").RefAttributes<HTMLDivElement>>;

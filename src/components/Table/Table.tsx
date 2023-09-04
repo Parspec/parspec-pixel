@@ -19,7 +19,7 @@ import {
     EditSettingsModel,
     SearchSettingsModel,
     Aggregate,
-    AggregateColumnsDirective
+    AggregatesDirective
 } from '@syncfusion/ej2-react-treegrid';
 import { addClass, isNullOrUndefined, registerLicense } from '@syncfusion/ej2-base';
 
@@ -497,7 +497,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             {...(tableKey && { key: tableKey })}
                         >
                             <ColumnsDirective>{children}</ColumnsDirective>
-                            {aggregateChildren && <AggregateColumnsDirective>{aggregateChildren}</AggregateColumnsDirective>}
+                            {aggregateChildren && <AggregatesDirective>{aggregateChildren}</AggregatesDirective>}
                             <Inject services={[Freeze, RowDD, Selection, Sort, Edit, Page, ExcelExport, PdfExport, Resize, Filter, ContextMenu, Aggregate]} />
                         </TreeGridComponent>
                     )}

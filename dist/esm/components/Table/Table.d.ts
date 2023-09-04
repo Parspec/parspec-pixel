@@ -43,6 +43,8 @@ export interface TableProps {
     height?: number | string;
     tableKey?: number | string;
     selectedItemsBelowSearch?: boolean;
+    cellSave?: (data: Object) => void;
+    beforePaste?: (data: Object) => void;
 }
 export declare const Table: React.FC<TableProps>;
 export {};

@@ -43,6 +43,7 @@ export interface TableProps {
     height?: number | string;
     tableKey?: number | string;
     selectedItemsBelowSearch?: boolean;
+    aggregateChildren?: React.ReactNode;
 }
 export declare const Table: React.FC<TableProps>;
 export {};

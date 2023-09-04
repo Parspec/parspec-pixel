@@ -15,5 +15,5 @@ export const FormControl = (_a) => {
     var { children } = _a, props = __rest(_a, ["children"]);
     return _jsx(MUIFormControl, Object.assign({}, props, { children: children }));
 };
-export { FormGroup } from '@mui/material';
+export { FormGroup, FormLabel } from '@mui/material';
 //# sourceMappingURL=index.js.map

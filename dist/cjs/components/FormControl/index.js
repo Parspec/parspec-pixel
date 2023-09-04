@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.FormGroup = exports.FormControl = void 0;
+exports.FormLabel = exports.FormGroup = exports.FormControl = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const FormControl_1 = __importDefault(require("@mui/material/FormControl"));
 const FormControl = (_a) => {
@@ -24,4 +24,5 @@ const FormControl = (_a) => {
 exports.FormControl = FormControl;
 var material_1 = require("@mui/material");
 Object.defineProperty(exports, "FormGroup", { enumerable: true, get: function () { return material_1.FormGroup; } });
+Object.defineProperty(exports, "FormLabel", { enumerable: true, get: function () { return material_1.FormLabel; } });
 //# sourceMappingURL=index.js.map

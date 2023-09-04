@@ -86,6 +86,8 @@ export interface TableProps {
     // defaultFilter?: 'equal' | 'contains';
     tableKey?: number | string;
     selectedItemsBelowSearch?: boolean;
+    cellSave?: (data: Object) => void;
+    beforePaste?: (data: Object) => void;
 }
 
 export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
@@ -126,7 +128,9 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         customFiltersFunction,
         dataBoundCallBack,
         tableKey,
-        selectedItemsBelowSearch
+        selectedItemsBelowSearch,
+        cellSave,
+        beforePaste
     } = props;
 
     const tableRef = useRef<any>();
@@ -383,6 +387,21 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         isEscPressed = false;
     };
 
+    function queryCellInfo(args: any) {
+        args.cell.addEventListener('mousedown', mouseDownHandler);
+    }
+    function mouseDownHandler(args: any) {
+        // treegrid instance
+        var instance = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];
+
+        // to check checkbox on mouse click
+        if (args.currentTarget.classList.contains('e-gridchkbox')) {
+            instance.selectionSettings.mode = 'Row';
+        } else {
+            instance.selectionSettings.mode = 'Cell';
+        }
+    }
+
     return (
         <Box position={'relative'} height={'100%'} width={'100%'} ref={tableContainerRef}>
             {showToolbar && (
@@ -473,6 +492,9 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             // expanding={expanding}
                             // collapsing={collapsing}
                             // resizeStart={resizestart}
+                            queryCellInfo={queryCellInfo}
+                            cellSave={cellSave}
+                            beforePaste={beforePaste}
                             rowSelecting={rowSelecting}
                             actionBegin={actionBegin}
                             dataBound={dataBound}

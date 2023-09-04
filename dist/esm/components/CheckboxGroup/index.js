@@ -9,4 +9,9 @@ export const CheckboxGroup = function ({ label, size, options, onChange, error, 
     }
     return (_jsxs(FormControl, Object.assign({ error: error }, { children: [_jsx(FormLabel, Object.assign({ component: "legend" }, { children: label })), _jsx(FormGroup, { children: options.map((checkboxInfo) => (_jsx(Checkbox, { checked: checkboxInfo.checked, onChange: handleCheckboxChange(checkboxInfo.name), name: checkboxInfo.name, label: checkboxInfo.label, size: size, color: color }))) }), helperText && _jsx(FormHelperText, { children: helperText })] })));
 };
+CheckboxGroup.defaultProps = {
+    size: 'small',
+    error: false,
+    color: 'primary'
+};
 //# sourceMappingURL=index.js.map

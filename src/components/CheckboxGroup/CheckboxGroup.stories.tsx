@@ -32,7 +32,6 @@ export const index: ComponentStory<typeof CheckboxGroup> = (args) => {
 
     const handleOnChange = (name, checked) => {
         const newState = checkboxOptions.map((option) => {
-            console.log(option, name, option.name === name);
             if (option.name === name) {
                 return { ...option, checked };
             }
@@ -46,12 +45,6 @@ export const index: ComponentStory<typeof CheckboxGroup> = (args) => {
 };
 
 index.args = {
-    label: 'Checbox group',
+    label: 'Checkbox group',
     size: 'small'
-};
-
-index.parameters = {
-    color: {
-        values: ['primary', 'secondary']
-    }
 };

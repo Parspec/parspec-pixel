@@ -10,9 +10,9 @@ interface CheckboxOptions {
 interface CheckboxGroupProps {
     label: string;
     options: Array<CheckboxOptions>;
-    size: 'small' | 'medium';
+    size?: 'small' | 'medium';
     onChange: (name: string, checked: boolean) => void;
-    error: boolean;
+    error?: boolean;
     helperText?: string;
     color?: 'primary' | 'secondary' | 'tertiary';
 }
@@ -34,4 +34,10 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = function ({ label, si
             {helperText && <FormHelperText>{helperText}</FormHelperText>}
         </FormControl>
     );
+};
+
+CheckboxGroup.defaultProps = {
+    size: 'small',
+    error: false,
+    color: 'primary'
 };

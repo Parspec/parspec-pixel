@@ -7,9 +7,9 @@ interface CheckboxOptions {
 interface CheckboxGroupProps {
     label: string;
     options: Array<CheckboxOptions>;
-    size: 'small' | 'medium';
+    size?: 'small' | 'medium';
     onChange: (name: string, checked: boolean) => void;
-    error: boolean;
+    error?: boolean;
     helperText?: string;
     color?: 'primary' | 'secondary' | 'tertiary';
 }

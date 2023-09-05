@@ -354,7 +354,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     const toolbarContainerRef = useRef<any>();
 
     const getPageSettings = () => {
-        let defaultRowHeight = rowHeight || 52;
+        const defaultRowHeight = rowHeight || 52;
         const calculatedTableHeight = Number(height) || tableHeight;
         const settings = { ...pageSettings };
         if (calculatedTableHeight && calculatedTableHeight >= defaultRowHeight) {

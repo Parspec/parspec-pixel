@@ -76,5 +76,6 @@ export {
     HistoryOutlined as HistoryOutlinedIcon,
     InfoOutlined as InfoOutlinedIcon,
     ThumbDownOffAlt as ThumbDownOffAltIcon,
-    MoveDown as MoveIcon
+    MoveDown as MoveIcon,
+    FileUpload as FileUploadIcon
 } from '@mui/icons-material';

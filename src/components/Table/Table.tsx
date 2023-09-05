@@ -17,7 +17,9 @@ import {
     Filter,
     ContextMenu,
     EditSettingsModel,
-    SearchSettingsModel
+    SearchSettingsModel,
+    Aggregate,
+    AggregatesDirective
 } from '@syncfusion/ej2-react-treegrid';
 import { addClass, isNullOrUndefined, registerLicense } from '@syncfusion/ej2-base';
 
@@ -86,6 +88,7 @@ export interface TableProps {
     // defaultFilter?: 'equal' | 'contains';
     tableKey?: number | string;
     selectedItemsBelowSearch?: boolean;
+    aggregateChildren?: React.ReactNode;
 }
 
 export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
@@ -126,7 +129,8 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         customFiltersFunction,
         dataBoundCallBack,
         tableKey,
-        selectedItemsBelowSearch
+        selectedItemsBelowSearch,
+        aggregateChildren
     } = props;
 
     const tableRef = useRef<any>();
@@ -493,7 +497,8 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             {...(tableKey && { key: tableKey })}
                         >
                             <ColumnsDirective>{children}</ColumnsDirective>
-                            <Inject services={[Freeze, RowDD, Selection, Sort, Edit, Page, ExcelExport, PdfExport, Resize, Filter, ContextMenu]} />
+                            {aggregateChildren && <AggregatesDirective>{aggregateChildren}</AggregatesDirective>}
+                            <Inject services={[Freeze, RowDD, Selection, Sort, Edit, Page, ExcelExport, PdfExport, Resize, Filter, ContextMenu, Aggregate]} />
                         </TreeGridComponent>
                     )}
                 </Box>

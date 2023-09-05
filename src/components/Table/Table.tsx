@@ -40,6 +40,7 @@ import { ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffIcon, Filter
 import { Tooltip } from '../Tooltip';
 import { InputAdornment } from '../InputAdornment';
 import { SelectedItemsCount } from './SelectedItemsCount';
+import { BodySmall } from '../Typography';
 
 const license = window.localStorage.getItem('syncfusionLicense');
 registerLicense(license!);
@@ -86,6 +87,7 @@ export interface TableProps {
     // defaultFilter?: 'equal' | 'contains';
     tableKey?: number | string;
     selectedItemsBelowSearch?: boolean;
+    title?: string;
 }
 
 export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
@@ -126,7 +128,8 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         customFiltersFunction,
         dataBoundCallBack,
         tableKey,
-        selectedItemsBelowSearch
+        selectedItemsBelowSearch,
+        title
     } = props;
 
     const tableRef = useRef<any>();
@@ -376,6 +379,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
             {showToolbar && (
                 <Box display={'flex'} ref={toolbarContainerRef} justifyContent="space-between" alignItems={'flex-end'} mb={2} sx={loading ? { PointerEvent: 'none' } : {}}>
                     <Box display="flex" alignItems="center" gap={1}>
+                        {title && <BodySmall color="neutral.dark">{title}</BodySmall>}
                         {toolBarOptions?.includes('search') && (
                             <Box width={300}>
                                 <TextField

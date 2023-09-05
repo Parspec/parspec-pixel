@@ -62,7 +62,8 @@ import {
     WarningOutlinedIcon,
     HistoryOutlinedIcon,
     InfoOutlinedIcon,
-    ThumbDownOffAltIcon
+    ThumbDownOffAltIcon,
+    FileUploadIcon
 } from './index';
 import { Grid } from '../Grid';
 import { BodySmall } from '../Typography';
@@ -158,7 +159,8 @@ MUIImportedIcons.args = {
         { icon: LogoutIcon, name: 'LogoutIcon' },
         { icon: HistoryOutlinedIcon, name: 'HistoryOutlinedIcon' },
         { icon: InfoOutlinedIcon, name: 'InfoOutlinedIcon' },
-        { icon: ThumbDownOffAltIcon, name: 'ThumbDownOffAltIcon' }
+        { icon: ThumbDownOffAltIcon, name: 'ThumbDownOffAltIcon' },
+        { icon: FileUploadIcon, name: 'FileUploadIcon' }
     ],
     fontSize: 'medium',
     color: 'tertiary'

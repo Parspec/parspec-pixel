@@ -87,7 +87,6 @@ export interface TableProps {
     tableKey?: number | string;
     selectedItemsBelowSearch?: boolean;
 }
-
 export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     const {
         children,
@@ -128,7 +127,6 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         tableKey,
         selectedItemsBelowSearch
     } = props;
-
     const tableRef = useRef<any>();
     const [selected, setSelectedForBanner] = useState(0);
 
@@ -202,48 +200,45 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         }
         let notAllowed = false;
         const targetData = tableRef?.current?.getRowInfo(args?.target?.parentElement)?.rowData; //dropped data
-        let data, parent;
+        let data;
         for (let i = 0; i < args.data.length; i++) {
             data = args.data[i];
             let error = '';
-            if (args.dropPosition === 'middleSegment') {
-                // if (targetData?.parentItem) {
-                //     parent = targetData?.parentItem;
-                // } else {
-                parent = targetData;
-                // }
-            } else {
-                parent = targetData?.parentItem;
-            }
-            // if (data?.type === 'section') {
-            //     if (parent?.type !== undefined) {
-            //         args.cancel = true;
-            //         notAllowed = true;
-            //         error += `${data.type} can not be a child of ${parent?.type}`;
-            //     }
-            // } else if (data?.type === 'product') {
-            //     if (parent?.type !== 'section' && parent?.type !== undefined) {
-            //         args.cancel = true;
-            //         notAllowed = true;
-            //         error += `${data.type} can not be a child of ${parent?.type}`;
-            //     }
-            // } else {
-            //     if (parent?.type !== 'product' && parent?.type !== undefined) {
-            //         args.cancel = true;
-            //         notAllowed = true;
-            //         error += `${data.type} can not be a child of ${parent?.type}`;
-            //     }
-            // }
-            // if (data?.type === 'section') {
-            //     if (parent?.type !== undefined) {
-            //         args.cancel = true;
-            //         notAllowed = true;
-            //         error += `${data.type} can not be a child of ${parent?.type}`;
-            //     }
-            // }
-            // if(data?.childRecords ){
+            const isProduct = data?.type === 'product';
+            const isMiddleSegment = args.dropPosition === 'middleSegment';
 
+            const parent = isMiddleSegment ? targetData : targetData?.parentItem;
+            // Check if selected records has child - PREVENT 2 Level Nesting
+            // if (data?.hasChildRecords && parent?.hasChildRecords) {
+            //     args.cancel = true;
+            //     notAllowed = true;
+            //     error += `Nested ${data.type} can not be a child of Nested ${parent.type}`;
             // }
+            // if (parent?.parentItem) {
+            //     args.cancel = true;
+            //     notAllowed = true;
+            //     error += `${isProduct ? 'Product' : 'Nested accessories'} can not be a child of Nested ${parent.type}`;
+            // }
+            // if (isMiddleSegment) {
+            //     if (parent?.type === 'accessories') {
+            //         args.cancel = true;
+            //         notAllowed = true;
+            //         error += `${data.type} can not be a child of ${parent.type}`;
+            //     } else if (parent?.parentItem) {
+            //         args.cancel = true;
+            //         notAllowed = true;
+            //         error += `${isProduct ? 'Product' : 'Nested accessories'} can not be a child of Nested ${parent.type}`;
+            //     } else if (data?.hasChildRecords && parent?.hasChildRecords) {
+            //         args.cancel = true;
+            //         notAllowed = true;
+            //         error += `Nested ${isProduct ? 'Product' : data.type} can not be a child of Nested ${parent.type}`;
+            //     }
+            // } else if (isProduct && parent?.type === 'accessories') {
+            //     args.cancel = true;
+            //     notAllowed = true;
+            //     error += `${data.type} can not be a child of ${parent.type}`;
+            // }
+
             if (data?.type === 'product') {
                 if (parent?.type === 'accessories' && parent?.type !== undefined) {
                     args.cancel = true;
@@ -281,21 +276,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                     error += `${data.type} can not be a child of Nested ${parent?.type}`;
                 }
             }
-            // console.log(
-            //     data?.childRecords,
-            //     JSON.stringify(data?.parentItem) !== JSON.stringify(targetData?.parentItem),
-            //     data?.childRecords || JSON.stringify(data?.parentItem) !== JSON.stringify(targetData?.parentItem)
-            // );
-            // if (data?.childRecords) {
-            //     args.cancel = true;
-            //     notAllowed = true;
-            //     error += `Nested Product can't move to can not be a child of ${parent?.type}`;
-            // }
-            // if (args.dropPosition === 'middleSegment' && parent?.parentItem && parent?.taskData) {
-            //     args.cancel = true;
-            //     notAllowed = true;
-            //     error += `Nested middle Product can't move to can not be a child of ${parent?.type}`;
-            // }
+
             if (notAllowed) {
                 if (args.data.length > 1) {
                     alert(
@@ -308,9 +289,38 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
             }
             console.log('data=>', data, '\nparent=>', parent, '\narg=>', args, '\ntarget=>', targetData);
             if (!notAllowed) {
-                onDragEnd!({ fromIndex: args.fromIndex, data: args.data[0] });
+                onDragEnd!({ fromIndex: args.fromIndex, dropIndex: args.dropIndex, data: args.data[0] });
             }
         }
+        /** if (data?.type === 'section') {
+                if (parent?.type !== undefined) {
+                    args.cancel = true;
+                    notAllowed = true;
+                    error += `${data.type} can not be a child of ${parent?.type}`;
+                }
+            } else if (data?.type === 'product') {
+                if (parent?.type !== 'section' && parent?.type !== undefined) {
+                    args.cancel = true;
+                    notAllowed = true;
+                    error += `${data.type} can not be a child of ${parent?.type}`;
+                }
+            } else {
+                if (parent?.type !== 'product' && parent?.type !== undefined) {
+                    args.cancel = true;
+                    notAllowed = true;
+                    error += `${data.type} can not be a child of ${parent?.type}`;
+                }
+            }
+            if (data?.type === 'section') {
+                if (parent?.type !== undefined) {
+                    args.cancel = true;
+                    notAllowed = true;
+                    error += `${data.type} can not be a child of ${parent?.type}`;
+                }
+            }
+            if(data?.childRecords ){
+
+            } */
     };
 
     const checkboxChange = (args: CheckBoxChangeEventArgs) => {

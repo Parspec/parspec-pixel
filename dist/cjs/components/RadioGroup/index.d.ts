@@ -12,6 +12,7 @@ export interface RadioGroupProps extends MUIRadioGroupProps {
     size?: 'small' | 'medium';
     error?: boolean;
     helperText?: string;
+    disabled?: boolean;
 }
 export declare const RadioGroup: import("react").ForwardRefExoticComponent<Omit<RadioGroupProps, "ref"> & import("react").RefAttributes<HTMLDivElement>>;
 export {};

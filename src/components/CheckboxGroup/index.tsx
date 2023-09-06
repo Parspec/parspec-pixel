@@ -15,9 +15,10 @@ interface CheckboxGroupProps {
     error?: boolean;
     helperText?: string;
     color?: 'primary' | 'secondary' | 'tertiary';
+    disabled?: boolean;
 }
 
-export const CheckboxGroup: React.FC<CheckboxGroupProps> = function ({ label, size, options, onChange, error, helperText, color }) {
+export const CheckboxGroup: React.FC<CheckboxGroupProps> = function ({ label, size, options, onChange, error, helperText, color, disabled }) {
     function handleCheckboxChange(name: string) {
         return (event: React.ChangeEvent<HTMLInputElement>) => {
             onChange(name, event.target.checked);
@@ -28,7 +29,15 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = function ({ label, si
             <FormLabel component="legend">{label}</FormLabel>
             <FormGroup>
                 {options.map((checkboxInfo) => (
-                    <Checkbox checked={checkboxInfo.checked} onChange={handleCheckboxChange(checkboxInfo.name)} name={checkboxInfo.name} label={checkboxInfo.label} size={size} color={color} />
+                    <Checkbox
+                        checked={checkboxInfo.checked}
+                        disabled={disabled}
+                        onChange={handleCheckboxChange(checkboxInfo.name)}
+                        name={checkboxInfo.name}
+                        label={checkboxInfo.label}
+                        size={size}
+                        color={color}
+                    />
                 ))}
             </FormGroup>
             {helperText && <FormHelperText>{helperText}</FormHelperText>}
@@ -39,5 +48,6 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = function ({ label, si
 CheckboxGroup.defaultProps = {
     size: 'small',
     error: false,
-    color: 'primary'
+    color: 'primary',
+    disabled: false
 };

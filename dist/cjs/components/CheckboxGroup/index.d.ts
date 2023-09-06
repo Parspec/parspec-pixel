@@ -12,6 +12,7 @@ interface CheckboxGroupProps {
     error?: boolean;
     helperText?: string;
     color?: 'primary' | 'secondary' | 'tertiary';
+    disabled?: boolean;
 }
 export declare const CheckboxGroup: React.FC<CheckboxGroupProps>;
 export {};

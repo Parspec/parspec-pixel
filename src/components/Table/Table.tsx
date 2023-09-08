@@ -93,7 +93,16 @@ export interface TableProps {
     aggregateChildren?: React.ReactNode;
 }
 
-export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
+interface TableRefType {
+    clearSelection: () => void;
+    setSelectedForBanner: React.Dispatch<React.SetStateAction<number>>;
+    scrollTo: (id: number) => void;
+    clearFiltering: () => void;
+    setMultiSelectVal: (val: any) => void;
+    getMultiSelectVal: () => any;
+}
+
+export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
     const {
         children,
         data,

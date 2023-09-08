@@ -46,5 +46,13 @@ export interface TableProps {
     title?: string;
     aggregateChildren?: React.ReactNode;
 }
-export declare const Table: React.FC<TableProps>;
+interface TableRefType {
+    clearSelection: () => void;
+    setSelectedForBanner: React.Dispatch<React.SetStateAction<number>>;
+    scrollTo: (id: number) => void;
+    clearFiltering: () => void;
+    setMultiSelectVal: (val: any) => void;
+    getMultiSelectVal: () => any;
+}
+export declare const Table: import("react").ForwardRefExoticComponent<TableProps & import("react").RefAttributes<TableRefType>>;
 export {};

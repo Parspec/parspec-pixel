@@ -93,7 +93,7 @@ export interface TableProps {
     aggregateChildren?: React.ReactNode;
 }
 
-interface TableRefType {
+export interface TableRefType {
     clearSelection: () => void;
     setSelectedForBanner: React.Dispatch<React.SetStateAction<number>>;
     scrollTo: (id: number) => void;

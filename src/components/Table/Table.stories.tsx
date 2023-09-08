@@ -256,8 +256,7 @@ export const TableWithFooter: ComponentStory<typeof Table> = (props) => {
                 aggregateChildren={
                     <AggregateDirective>
                         <AggregateColumnsDirective>
-                            <AggregateColumnDirective field="taskID" columnName="taskID" type="Sum" footerTemplate={() => <span> Total</span>} />
-                            <AggregateColumnDirective field="taskID" columnName="available" type="Sum" footerTemplate={(props) => <span> {getObject('Sum', props)}</span>} />
+                            <AggregateColumnDirective field="taskID" columnName="available" type="Sum" footerTemplate={(props) => <span>Total: {getObject('Sum', props)}</span>} />
                         </AggregateColumnsDirective>
                     </AggregateDirective>
                 }

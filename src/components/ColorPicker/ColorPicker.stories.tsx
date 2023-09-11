@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { ColorPicker } from './index';
+import { ColorPicker, TransitionsColorPicker } from './index';
 
 export default {
     title: 'ColorPicker',
@@ -31,4 +31,14 @@ Rgb.args = {
         b: 19,
         a: 1
     }
+};
+
+export const Transition: ComponentStory<typeof TransitionsColorPicker> = ({ color, ...args }) => {
+    const [colorState, setColorState] = useState(color);
+
+    return <TransitionsColorPicker {...args} color={colorState} onChange={(color) => setColorState(color.hex)} />;
+};
+
+Transition.args = {
+    color: '#37d67a'
 };

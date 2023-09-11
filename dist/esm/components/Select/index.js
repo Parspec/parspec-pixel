@@ -48,8 +48,6 @@ export const Select = forwardRef((_a, ref) => {
     return (_jsxs(StyledFormControl, Object.assign({ fullWidth: true, ref: ref, size: size, borderColor: borderColor }, { children: [_jsx(InputLabel, Object.assign({ id: labelId }, { children: label })), _jsx(MUISelect, Object.assign({}, rest, { labelId: labelId, label: label, id: id }, { children: options.map((item, index) => (_jsx(MenuItem, Object.assign({ value: item[optionValueKeyname] }, { children: item[optionLabelKeyname] }), index))) }))] })));
 });
 Select.defaultProps = {
-    label: 'Select',
-    labelId: 'demo-simple-select-label',
     id: 'demo-simple-select',
     size: 'small'
 };

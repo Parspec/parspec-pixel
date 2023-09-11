@@ -5,7 +5,7 @@ interface SelectMenuOption {
 }
 type BorderColorType = 'primary' | 'secondary' | 'tertiary' | 'info' | 'warning' | 'success' | 'error';
 export interface SelectProps extends Omit<MUISelectProps, 'classes'> {
-    label: string;
+    label?: string;
     options: SelectMenuOption[];
     labelId?: string;
     id?: string;

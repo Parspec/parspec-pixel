@@ -57,7 +57,7 @@ const StyledFormControl = styled(FormControl, {
 
 export const Select = forwardRef<HTMLDivElement, SelectProps>(({ id, labelId, options, size, label, optionLabelKeyname = 'label', optionValueKeyname = 'value', borderColor, ...rest }, ref) => (
     <StyledFormControl fullWidth ref={ref} size={size} borderColor={borderColor}>
-        <InputLabel id={labelId}>{label}</InputLabel>
+        {label && <InputLabel id={labelId}>{label}</InputLabel>}
         <MUISelect {...rest} labelId={labelId} label={label} id={id}>
             {options.map((item, index) => (
                 <MenuItem key={index} value={item[optionValueKeyname]}>
@@ -69,6 +69,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(({ id, labelId, op
 ));
 
 Select.defaultProps = {
+    labelId: 'demo-simple-select-label',
     id: 'demo-simple-select',
     size: 'small'
 };

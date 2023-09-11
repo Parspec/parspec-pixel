@@ -53,6 +53,7 @@ export interface TableRefType {
     clearFiltering: () => void;
     setMultiSelectVal: (val: any) => void;
     getMultiSelectVal: () => any;
+    refreshTable: () => void;
 }
 export declare const Table: import("react").ForwardRefExoticComponent<TableProps & import("react").RefAttributes<TableRefType>>;
 export {};

@@ -200,13 +200,18 @@ export const Table = forwardRef((props, ref) => {
             multiSelectFilterVal = val;
         };
         const getMultiSelectVal = () => multiSelectFilterVal;
+        const refreshTable = () => {
+            var _a;
+            (_a = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _a === void 0 ? void 0 : _a.refresh();
+        };
         return {
             clearSelection,
             setSelectedForBanner,
             scrollTo,
             clearFiltering,
             setMultiSelectVal,
-            getMultiSelectVal
+            getMultiSelectVal,
+            refreshTable
         };
     });
     const closeBanner = () => {

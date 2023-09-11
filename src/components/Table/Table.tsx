@@ -100,6 +100,7 @@ export interface TableRefType {
     clearFiltering: () => void;
     setMultiSelectVal: (val: any) => void;
     getMultiSelectVal: () => any;
+    refreshTable: () => void;
 }
 
 export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
@@ -320,13 +321,17 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
             multiSelectFilterVal = val;
         };
         const getMultiSelectVal = () => multiSelectFilterVal;
+        const refreshTable = () => {
+            tableRef?.current?.refresh();
+        };
         return {
             clearSelection,
             setSelectedForBanner,
             scrollTo,
             clearFiltering,
             setMultiSelectVal,
-            getMultiSelectVal
+            getMultiSelectVal,
+            refreshTable
         };
     });
 

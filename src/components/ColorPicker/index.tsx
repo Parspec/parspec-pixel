@@ -4,13 +4,11 @@ import { SketchPicker, SketchPickerProps } from 'react-color';
 import { Box } from '../Box';
 import { CustomPopper, Fade } from '../Popper';
 
-export interface CustomSketchPickerProps extends SketchPickerProps {}
-
-export const ColorPicker: React.FC<CustomSketchPickerProps> = (props) => {
+export const ColorPicker: React.FC<SketchPickerProps> = (props) => {
     return <SketchPicker {...props} />;
 };
 
-export const TransitionsColorPicker: React.FC<CustomSketchPickerProps> = (props) => {
+export const TransitionsColorPicker: React.FC<SketchPickerProps> = (props) => {
     const [open, setOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 

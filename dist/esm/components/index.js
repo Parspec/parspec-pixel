@@ -41,4 +41,5 @@ export * from './Img';
 export * from './MultiSelect';
 export * from './Avatar';
 export * from './ColorPicker';
+export * from './Popper';
 //# sourceMappingURL=index.js.map

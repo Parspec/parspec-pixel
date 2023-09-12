@@ -1,9 +1,8 @@
 import { useState } from 'react';
 
 import { SketchPicker, SketchPickerProps } from 'react-color';
-import Box from '@mui/material/Box';
-import Popper from '@mui/material/Popper';
-import Fade from '@mui/material/Fade';
+import { Box } from '../Box';
+import { CustomPopper, Fade } from '../Popper';
 
 export interface CustomSketchPickerProps extends SketchPickerProps {
     placement:
@@ -43,7 +42,7 @@ export const TransitionsColorPicker: React.FC<CustomSketchPickerProps> = (props)
     return (
         <>
             <Box onClick={handleClick} width={24} height={24} borderRadius={100} bgcolor={String(props.color)}></Box>
-            <Popper placement="auto" id={id} open={open} anchorEl={anchorEl} transition>
+            <CustomPopper placement="auto" id={id} open={open} anchorEl={anchorEl} transition>
                 {({ TransitionProps }) => (
                     <Fade {...TransitionProps} timeout={350}>
                         <Box sx={{ p: 2, bgcolor: 'background.paper' }}>
@@ -51,7 +50,7 @@ export const TransitionsColorPicker: React.FC<CustomSketchPickerProps> = (props)
                         </Box>
                     </Fade>
                 )}
-            </Popper>
+            </CustomPopper>
         </>
     );
 };

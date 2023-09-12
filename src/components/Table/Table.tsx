@@ -101,6 +101,7 @@ export interface TableRefType {
     setMultiSelectVal: (val: any) => void;
     getMultiSelectVal: () => any;
     refreshTable: () => void;
+    updateData: (data: Object[]) => void;
 }
 
 export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
@@ -324,6 +325,11 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
         const refreshTable = () => {
             tableRef?.current?.refresh();
         };
+        const updateData = (data: Object[]) => {
+            if (tableRef?.current) {
+                tableRef.current.changeDataSource(data);
+            }
+        };
         return {
             clearSelection,
             setSelectedForBanner,
@@ -331,7 +337,8 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
             clearFiltering,
             setMultiSelectVal,
             getMultiSelectVal,
-            refreshTable
+            refreshTable,
+            updateData
         };
     });
 

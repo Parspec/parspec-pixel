@@ -204,6 +204,11 @@ export const Table = forwardRef((props, ref) => {
             var _a;
             (_a = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _a === void 0 ? void 0 : _a.refresh();
         };
+        const updateData = (data) => {
+            if (tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) {
+                tableRef.current.changeDataSource(data);
+            }
+        };
         return {
             clearSelection,
             setSelectedForBanner,
@@ -211,7 +216,8 @@ export const Table = forwardRef((props, ref) => {
             clearFiltering,
             setMultiSelectVal,
             getMultiSelectVal,
-            refreshTable
+            refreshTable,
+            updateData
         };
     });
     const closeBanner = () => {

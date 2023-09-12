@@ -206,7 +206,7 @@ export const Table = forwardRef((props, ref) => {
         };
         const updateData = (data) => {
             if (tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) {
-                tableRef.current.changeDataSource(data);
+                tableRef.current.dataSource = data;
             }
         };
         return {

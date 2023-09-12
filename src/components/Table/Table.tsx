@@ -327,7 +327,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
         };
         const updateData = (data: Object[]) => {
             if (tableRef?.current) {
-                tableRef.current.changeDataSource(data);
+                tableRef.current.dataSource = data;
             }
         };
         return {

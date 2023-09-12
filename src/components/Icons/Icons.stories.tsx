@@ -63,6 +63,7 @@ import {
     HistoryOutlinedIcon,
     InfoOutlinedIcon,
     ThumbDownOffAltIcon,
+    FileUploadIcon,
     MoveIcon
 } from './index';
 import { Grid } from '../Grid';
@@ -160,6 +161,7 @@ MUIImportedIcons.args = {
         { icon: HistoryOutlinedIcon, name: 'HistoryOutlinedIcon' },
         { icon: InfoOutlinedIcon, name: 'InfoOutlinedIcon' },
         { icon: ThumbDownOffAltIcon, name: 'ThumbDownOffAltIcon' },
+        { icon: FileUploadIcon, name: 'FileUploadIcon' },
         { icon: MoveIcon, name: 'MoveIcon' }
     ],
     fontSize: 'medium',

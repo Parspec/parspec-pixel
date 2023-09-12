@@ -63,7 +63,8 @@ import {
     SortIcon,
     HistoryOutlinedIcon,
     InfoOutlinedIcon,
-    ThumbDownOffAltIcon
+    ThumbDownOffAltIcon,
+    MoveIcon
 } from './index';
 import { Grid } from '../Grid';
 import { BodySmall } from '../Typography';
@@ -160,7 +161,8 @@ MUIImportedIcons.args = {
         {icon:SortIcon, name:'SortIcon'},
         { icon: HistoryOutlinedIcon, name: 'HistoryOutlinedIcon' },
         { icon: InfoOutlinedIcon, name: 'InfoOutlinedIcon' },
-        { icon: ThumbDownOffAltIcon, name: 'ThumbDownOffAltIcon' }
+        { icon: ThumbDownOffAltIcon, name: 'ThumbDownOffAltIcon' },
+        { icon: MoveIcon, name: 'MoveIcon' }
     ],
     fontSize: 'medium',
     color: 'tertiary'

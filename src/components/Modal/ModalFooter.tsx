@@ -21,7 +21,7 @@ export const ModalFooter: React.FC<ModalFooterProps> = ({
     continueButtonColor,
     isLoading,
     helperText,
-    isCancelButtonDisabled = false,
+    isCancelButtonDisabled,
     isContinueButtonDisabled
 }) => {
     return (
@@ -46,5 +46,7 @@ ModalFooter.defaultProps = {
     onAccept: () => {},
     onReject: () => {},
     isLoading: false,
-    helperText: <></>
+    helperText: <></>,
+    isCancelButtonDisabled: false,
+    isContinueButtonDisabled: false
 };

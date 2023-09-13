@@ -20,7 +20,7 @@ export const TransitionsColorPicker: React.FC<SketchPickerProps> = (props) => {
     return (
         <>
             <Box sx={{ cursor: 'pointer' }} onClick={handleClick} width={24} height={24} borderRadius={100} bgcolor={String(props.color)}></Box>
-            <CustomPopper disablePortal={true} placement="auto" open={open} anchorEl={anchorEl} transition>
+            <CustomPopper placement="auto" open={open} anchorEl={anchorEl} transition>
                 {({ TransitionProps }) => (
                     <Fade {...TransitionProps} timeout={350}>
                         <Box sx={{ m: 2 }}>

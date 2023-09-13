@@ -17,7 +17,7 @@ const TransitionsColorPicker = (props) => {
         setAnchorEl(event.currentTarget);
         setOpen((previousOpen) => !previousOpen);
     };
-    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(Box_1.Box, { sx: { cursor: 'pointer' }, onClick: handleClick, width: 24, height: 24, borderRadius: 100, bgcolor: String(props.color) }), (0, jsx_runtime_1.jsx)(Popper_1.CustomPopper, Object.assign({ disablePortal: true, placement: "auto", open: open, anchorEl: anchorEl, transition: true }, { children: ({ TransitionProps }) => ((0, jsx_runtime_1.jsx)(Popper_1.Fade, Object.assign({}, TransitionProps, { timeout: 350 }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ sx: { m: 2 } }, { children: (0, jsx_runtime_1.jsx)(exports.ColorPicker, Object.assign({}, props)) })) }))) }))] }));
+    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(Box_1.Box, { sx: { cursor: 'pointer' }, onClick: handleClick, width: 24, height: 24, borderRadius: 100, bgcolor: String(props.color) }), (0, jsx_runtime_1.jsx)(Popper_1.CustomPopper, Object.assign({ placement: "auto", open: open, anchorEl: anchorEl, transition: true }, { children: ({ TransitionProps }) => ((0, jsx_runtime_1.jsx)(Popper_1.Fade, Object.assign({}, TransitionProps, { timeout: 350 }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ sx: { m: 2 } }, { children: (0, jsx_runtime_1.jsx)(exports.ColorPicker, Object.assign({}, props)) })) }))) }))] }));
 };
 exports.TransitionsColorPicker = TransitionsColorPicker;
 exports.TransitionsColorPicker.defaultProps = {

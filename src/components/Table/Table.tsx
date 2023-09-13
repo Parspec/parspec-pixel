@@ -79,6 +79,7 @@ export interface TableProps {
     onRowSelection?: (data: Object) => void;
     customFiltersFunction?: (data: Object) => void;
     dataBoundCallBack?: () => void;
+    onEditBegin: (data: Object) => void;
     loading?: boolean;
     toolbarRightSection?: React.ReactNode;
     searchSettings?: SearchSettingsModel;
@@ -144,7 +145,8 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
         tableKey,
         selectedItemsBelowSearch,
         title,
-        aggregateChildren
+        aggregateChildren,
+        onEditBegin
     } = props;
 
     const tableRef = useRef<any>();
@@ -211,6 +213,10 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
         if (e.action === 'clearFilter') {
             //After clearing the filter we empty the value
             multiSelectFilterVal = [];
+        }
+
+        if (e.requestType === 'beginEdit') {
+            onEditBegin(e);
         }
     };
 

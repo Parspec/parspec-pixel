@@ -8,7 +8,27 @@ export const ColorPicker: React.FC<SketchPickerProps> = (props) => {
     return <SketchPicker {...props} />;
 };
 
-export const TransitionsColorPicker: React.FC<SketchPickerProps> = (props) => {
+export interface ITransitionsColorPicker extends SketchPickerProps {
+    disablePortal?: boolean;
+    placement?:
+        | 'auto-end'
+        | 'auto-start'
+        | 'auto'
+        | 'bottom-end'
+        | 'bottom-start'
+        | 'bottom'
+        | 'left-end'
+        | 'left-start'
+        | 'left'
+        | 'right-end'
+        | 'right-start'
+        | 'right'
+        | 'top-end'
+        | 'top-start'
+        | 'top';
+}
+
+export const TransitionsColorPicker: React.FC<ITransitionsColorPicker> = ({ placement = 'auto', disablePortal = false, ...props }) => {
     const [open, setOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -17,16 +37,13 @@ export const TransitionsColorPicker: React.FC<SketchPickerProps> = (props) => {
         setOpen((previousOpen) => !previousOpen);
     };
 
-    const canBeOpen = open && Boolean(anchorEl);
-    const id = canBeOpen ? 'transition-popper' : undefined;
-
     return (
         <>
             <Box sx={{ cursor: 'pointer' }} onClick={handleClick} width={24} height={24} borderRadius={100} bgcolor={String(props.color)}></Box>
-            <CustomPopper disablePortal={true} placement="auto" id={id} open={open} anchorEl={anchorEl} transition>
+            <CustomPopper disablePortal={disablePortal} placement={placement} open={open} anchorEl={anchorEl} transition>
                 {({ TransitionProps }) => (
                     <Fade {...TransitionProps} timeout={350}>
-                        <Box sx={{ p: 2, bgcolor: 'background.paper' }}>
+                        <Box sx={{ m: 2 }}>
                             <ColorPicker {...props} />
                         </Box>
                     </Fade>

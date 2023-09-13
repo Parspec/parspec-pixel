@@ -34,7 +34,7 @@ export interface TableProps {
     onRowSelection?: (data: Object) => void;
     customFiltersFunction?: (data: Object) => void;
     dataBoundCallBack?: () => void;
-    onEditBegin?: (data: Object) => void;
+    onCellEdit?: (data: Object) => void;
     loading?: boolean;
     toolbarRightSection?: React.ReactNode;
     searchSettings?: SearchSettingsModel;

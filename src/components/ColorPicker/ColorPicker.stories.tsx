@@ -33,12 +33,8 @@ Rgb.args = {
     }
 };
 
-export const Transition: ComponentStory<typeof TransitionsColorPicker> = ({ color, ...args }) => {
-    const [colorState, setColorState] = useState(color);
+export const Transition: ComponentStory<typeof TransitionsColorPicker> = () => {
+    const [colorState, setColorState] = useState('#37d67a');
 
-    return <TransitionsColorPicker {...args} color={colorState} onChange={(color) => setColorState(color.hex)} />;
-};
-
-Rgb.args = {
-    color: '#37d67a'
+    return <TransitionsColorPicker color={colorState} onChange={(color) => setColorState(color.hex)} />;
 };

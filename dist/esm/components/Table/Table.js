@@ -83,7 +83,7 @@ export const Table = forwardRef((props, ref) => {
             multiSelectFilterVal = [];
         }
         if (e.requestType === 'beginEdit') {
-            onEditBegin(e);
+            onEditBegin === null || onEditBegin === void 0 ? void 0 : onEditBegin(e);
         }
     };
     const rowDrop = (args) => {

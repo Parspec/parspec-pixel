@@ -13,7 +13,7 @@ interface AccordionMetaData {
 
 export interface AccordionProps extends Omit<MUIAccordionProps, 'classes' | 'children'> {
     options: AccordionMetaData[];
-    getPanel?: (label: string, expandState?: boolean) => void;
+    getPanel?: (label: string) => void;
 }
 
 export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, AccordionProps>(({ options, getPanel, ...rest }, ref) => {
@@ -22,7 +22,7 @@ export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, Ac
     const handleAccordionOnChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
         setExpanded(isExpanded ? panel : false);
         if (getPanel) {
-            getPanel(panel, isExpanded);
+            getPanel(panel);
         }
     };
 

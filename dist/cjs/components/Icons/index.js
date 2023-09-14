@@ -51,7 +51,8 @@ exports.ShareIcon =
     exports.ClockIcon =
     exports.ParspecLogoIcon =
         void 0;
-exports.FileUploadIcon =
+exports.MoveDownIcon =
+    exports.FileUploadIcon =
     exports.ThumbDownOffAltIcon =
     exports.InfoOutlinedIcon =
     exports.HistoryOutlinedIcon =
@@ -522,12 +523,6 @@ Object.defineProperty(exports, 'LogoutIcon', {
         return icons_material_1.Logout;
     }
 });
-Object.defineProperty(exports, 'SortIcon', {
-    enumerable: true,
-    get: function () {
-        return icons_material_1.Sort;
-    }
-});
 Object.defineProperty(exports, 'HistoryOutlinedIcon', {
     enumerable: true,
     get: function () {
@@ -550,6 +545,12 @@ Object.defineProperty(exports, 'FileUploadIcon', {
     enumerable: true,
     get: function () {
         return icons_material_1.FileUpload;
+    }
+});
+Object.defineProperty(exports, 'MoveDownIcon', {
+    enumerable: true,
+    get: function () {
+        return icons_material_1.MoveDown;
     }
 });
 //# sourceMappingURL=index.js.map

@@ -445,6 +445,15 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                                 </Box>
                             </Tooltip>
                         )}
+                        {toolBarOptions?.includes('move') && (
+                            <Tooltip title={disabled ? 'Select Item(s) First' : 'Change Section'}>
+                                <Box>
+                                    <IconButton onClick={() => onMove!(tableRef.current.getSelectedRecords())} disabled={disabled}>
+                                        <MoveIcon fontSize="medium" />
+                                    </IconButton>
+                                </Box>
+                            </Tooltip>
+                        )}
                         {toolBarOptions?.includes('delete') && (
                             <Tooltip title={disabled ? 'Select Item(s) First' : 'Delete'}>
                                 <Box>

@@ -417,7 +417,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             </Tooltip>
                         )}
                         {toolBarOptions?.includes('move') && (
-                            <Tooltip title={disabled ? 'Select Item(s) First' : 'Move to Section'}>
+                            <Tooltip title={disabled ? 'Select Item(s) First' : 'Change Section'}>
                                 <Box>
                                     <IconButton onClick={() => onMove!(tableRef.current.getSelectedRecords())} disabled={disabled}>
                                         <MoveIcon fontSize="medium" />

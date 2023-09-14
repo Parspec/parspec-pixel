@@ -87,7 +87,6 @@ export interface TableProps {
     // defaultFilter?: 'equal' | 'contains';
     tableKey?: number | string;
     selectedItemsBelowSearch?: boolean;
-    tableIdentifier?: number | string;
 }
 
 export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
@@ -129,8 +128,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         dataBoundCallBack,
         tableKey,
         selectedItemsBelowSearch,
-        onMove,
-        tableIdentifier
+        onMove
     } = props;
 
     const tableRef = useRef<any>();
@@ -252,7 +250,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     };
 
     const checkboxChange = (args: CheckBoxChangeEventArgs) => {
-        onCheckboxChange!(tableRef?.current?.getSelectedRecords(), tableIdentifier);
+        onCheckboxChange!(tableRef?.current?.getSelectedRecords());
         setSelectedForBanner(tableRef?.current?.getSelectedRecords()?.length);
     };
     const scrollTo = (id: number) => {

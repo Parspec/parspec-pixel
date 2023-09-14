@@ -64,7 +64,7 @@ import {
     InfoOutlinedIcon,
     ThumbDownOffAltIcon,
     FileUploadIcon,
-    MoveIcon
+    MoveDownIcon
 } from './index';
 import { Grid } from '../Grid';
 import { BodySmall } from '../Typography';
@@ -162,7 +162,7 @@ MUIImportedIcons.args = {
         { icon: InfoOutlinedIcon, name: 'InfoOutlinedIcon' },
         { icon: ThumbDownOffAltIcon, name: 'ThumbDownOffAltIcon' },
         { icon: FileUploadIcon, name: 'FileUploadIcon' },
-        { icon: MoveIcon, name: 'MoveIcon' }
+        { icon: MoveDownIcon, name: 'MoveDownIcon' }
     ],
     fontSize: 'medium',
     color: 'tertiary'

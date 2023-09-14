@@ -36,7 +36,7 @@ import {
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState, useMemo, useCallback } from 'react';
 import { TextField } from '../TextField';
 import { IconButton } from '../IconButton';
-import { ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffIcon, FilterAltOffIcon, SearchIcon, AddIcon, MoveIcon } from '../Icons';
+import { ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffIcon, FilterAltOffIcon, SearchIcon, AddIcon, MoveDownIcon } from '../Icons';
 import { Tooltip } from '../Tooltip';
 import { InputAdornment } from '../InputAdornment';
 import { SelectedItemsCount } from './SelectedItemsCount';
@@ -420,7 +420,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             <Tooltip title={disabled ? 'Select Item(s) First' : 'Change Section'}>
                                 <Box>
                                     <IconButton onClick={() => onMove!(tableRef.current.getSelectedRecords())} disabled={disabled}>
-                                        <MoveIcon fontSize="medium" />
+                                        <MoveDownIcon fontSize="medium" />
                                     </IconButton>
                                 </Box>
                             </Tooltip>

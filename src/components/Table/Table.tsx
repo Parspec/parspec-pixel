@@ -146,7 +146,8 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
         selectedItemsBelowSearch,
         title,
         aggregateChildren,
-        onCellEdit: handleCellEdit
+        onCellEdit: handleCellEdit,
+        onMove
     } = props;
 
     const tableRef = useRef<any>();

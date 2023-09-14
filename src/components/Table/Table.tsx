@@ -66,7 +66,7 @@ export interface TableProps {
     selectionSettings?: SelectionSettingsModel;
     editSettings?: EditSettingsModel;
     onHideUnhide?: (data: Object[]) => void;
-    onCheckboxChange?: (data: Object[], key?: string | number) => void;
+    onCheckboxChange?: (data: Object[]) => void;
     onAddDuplicates?: (data: Object[]) => void;
     onDragEnd?: (data: Object) => void;
     onAdd?: () => void;

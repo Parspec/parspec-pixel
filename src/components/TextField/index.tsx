@@ -7,11 +7,14 @@ import { Box } from '../Box';
 import { Chip } from '../Chip';
 import { Tooltip } from '../Tooltip';
 
-const StyledMUITextField = styled(MUITextField)({
+const StyledMUITextField = styled(MUITextField)(({ size }) => ({
     '& .MuiFormHelperText-root': {
         marginLeft: '0px'
+    },
+    '& .Mui-error': {
+        fontSize: size
     }
-});
+}));
 
 export interface TextFieldProps extends Omit<MUITextFieldProps, 'margin' | 'classes'> {
     label: string;

@@ -23,11 +23,14 @@ const react_1 = require("react");
 const Box_1 = require("../Box");
 const Chip_1 = require("../Chip");
 const Tooltip_1 = require("../Tooltip");
-const StyledMUITextField = (0, styled_1.default)(TextField_1.default)({
+const StyledMUITextField = (0, styled_1.default)(TextField_1.default)(({ size }) => ({
     '& .MuiFormHelperText-root': {
         marginLeft: '0px'
+    },
+    '.Mui-error': {
+        fontSize: size
     }
-});
+}));
 exports.TextField = (0, react_1.forwardRef)((_a, ref) => {
     var { variant, color, error, size, label, chips, onChipDelete, helperText, icon, scrollAreaHeight } = _a, rest = __rest(_a, ["variant", "color", "error", "size", "label", "chips", "onChipDelete", "helperText", "icon", "scrollAreaHeight"]);
     return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(StyledMUITextField, Object.assign({ fullWidth: true, label: label, ref: ref, size: size, variant: variant, color: color, error: error, helperText: helperText, InputProps: {

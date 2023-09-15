@@ -12,7 +12,7 @@ const StyledMUITextField = styled(MUITextField)(({ size }) => ({
         marginLeft: '0px'
     },
     '& .Mui-error': {
-        fontSize: size
+        fontSize: '14px'
     }
 }));
 

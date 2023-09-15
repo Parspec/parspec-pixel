@@ -27,8 +27,8 @@ const StyledMUITextField = (0, styled_1.default)(TextField_1.default)(({ size })
     '& .MuiFormHelperText-root': {
         marginLeft: '0px'
     },
-    '.Mui-error': {
-        fontSize: size
+    '& .Mui-error': {
+        fontSize: '14px'
     }
 }));
 exports.TextField = (0, react_1.forwardRef)((_a, ref) => {

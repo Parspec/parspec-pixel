@@ -17,14 +17,14 @@ import { forwardRef } from 'react';
 import { Box } from '../Box';
 import { Chip } from '../Chip';
 import { Tooltip } from '../Tooltip';
-const StyledMUITextField = styled(MUITextField)(({ size }) => ({
+const StyledMUITextField = styled(MUITextField)({
     '& .MuiFormHelperText-root': {
         marginLeft: '0px'
     },
     '& .Mui-error': {
         fontSize: '14px'
     }
-}));
+});
 export const TextField = forwardRef((_a, ref) => {
     var { variant, color, error, size, label, chips, onChipDelete, helperText, icon, scrollAreaHeight } = _a, rest = __rest(_a, ["variant", "color", "error", "size", "label", "chips", "onChipDelete", "helperText", "icon", "scrollAreaHeight"]);
     return (_jsxs(_Fragment, { children: [_jsx(StyledMUITextField, Object.assign({ fullWidth: true, label: label, ref: ref, size: size, variant: variant, color: color, error: error, helperText: helperText, InputProps: {

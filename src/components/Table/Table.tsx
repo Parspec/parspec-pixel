@@ -38,7 +38,7 @@ import {
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState, useMemo, useCallback } from 'react';
 import { TextField } from '../TextField';
 import { IconButton } from '../IconButton';
-import { ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffIcon, FilterAltOffIcon, SearchIcon, AddIcon } from '../Icons';
+import { ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffIcon, FilterAltOffIcon, SearchIcon, AddIcon, MoveDownIcon } from '../Icons';
 import { Tooltip } from '../Tooltip';
 import { InputAdornment } from '../InputAdornment';
 import { SelectedItemsCount } from './SelectedItemsCount';
@@ -47,7 +47,7 @@ import { BodySmall } from '../Typography';
 const license = window.localStorage.getItem('syncfusionLicense');
 registerLicense(license!);
 
-type ToolbarT = 'delete' | 'search' | 'clearFilters' | 'hide' | 'unhide' | 'selectedItems' | 'duplicate' | 'add';
+type ToolbarT = 'delete' | 'search' | 'clearFilters' | 'hide' | 'unhide' | 'selectedItems' | 'duplicate' | 'add' | 'move';
 export type ToolbarType = ToolbarT[];
 export interface TableProps {
     children: React.ReactNode;
@@ -80,6 +80,7 @@ export interface TableProps {
     customFiltersFunction?: (data: Object) => void;
     dataBoundCallBack?: () => void;
     onCellEdit?: (data: Object) => void;
+    onMove?: (data: Object) => void;
     loading?: boolean;
     toolbarRightSection?: React.ReactNode;
     searchSettings?: SearchSettingsModel;
@@ -146,7 +147,8 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
         selectedItemsBelowSearch,
         title,
         aggregateChildren,
-        onCellEdit: handleCellEdit
+        onCellEdit: handleCellEdit,
+        onMove
     } = props;
 
     const tableRef = useRef<any>();
@@ -441,6 +443,15 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                                 <Box>
                                     <IconButton onClick={() => onAddDuplicates!(tableRef.current.getSelectedRecords())} disabled={disabled}>
                                         <ControlPointDuplicateIcon fontSize="medium" />
+                                    </IconButton>
+                                </Box>
+                            </Tooltip>
+                        )}
+                        {toolBarOptions?.includes('move') && (
+                            <Tooltip title={disabled ? 'Select Item(s) First' : 'Change Section'}>
+                                <Box>
+                                    <IconButton onClick={() => onMove!(tableRef.current.getSelectedRecords())} disabled={disabled}>
+                                        <MoveDownIcon fontSize="medium" />
                                     </IconButton>
                                 </Box>
                             </Tooltip>

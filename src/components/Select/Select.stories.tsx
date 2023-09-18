@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import { Select } from './';
-import { BorderColor } from '@mui/icons-material';
 
 export default {
     title: 'Select',

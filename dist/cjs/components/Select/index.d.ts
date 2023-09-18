@@ -4,7 +4,7 @@ interface SelectMenuOption {
     [index: string]: string | number;
 }
 type BorderColorType = 'primary' | 'secondary' | 'tertiary' | 'info' | 'warning' | 'success' | 'error';
-export interface SelectProps extends Omit<MUISelectProps, 'classes'> {
+export interface SelectProps extends Omit<MUISelectProps, 'color' | 'classes'> {
     label: string;
     options: SelectMenuOption[];
     labelId?: string;
@@ -13,6 +13,9 @@ export interface SelectProps extends Omit<MUISelectProps, 'classes'> {
     optionLabelKeyname?: string;
     optionValueKeyname?: string;
     borderColor?: BorderColorType;
+    helperText?: string | React.ReactNode;
+    error?: boolean;
+    color?: BorderColorType;
 }
 export { SelectChangeEvent } from '@mui/material';
 export declare const Select: import("react").ForwardRefExoticComponent<Omit<SelectProps, "ref"> & import("react").RefAttributes<HTMLDivElement>>;

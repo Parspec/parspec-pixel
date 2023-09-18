@@ -35,5 +35,8 @@ Basic.args = {
     label: 'Age',
     labelId: 'demo-simple-select-label',
     id: 'demo-simple-select',
-    size: 'small'
+    size: 'small',
+    error: true,
+    helperText: 'invalid input !!',
+    color: 'error'
 };

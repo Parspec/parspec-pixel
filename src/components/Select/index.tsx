@@ -106,6 +106,5 @@ Select.defaultProps = {
     labelId: 'demo-simple-select-label',
     id: 'demo-simple-select',
     size: 'small',
-    color: 'warning',
     helperText: ''
 };

@@ -36,7 +36,6 @@ Basic.args = {
     labelId: 'demo-simple-select-label',
     id: 'demo-simple-select',
     size: 'small',
-    error: true,
     helperText: 'invalid input !!',
     color: 'error'
 };

@@ -92,7 +92,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
                     ))}
                 </MUISelect>
             </StyledFormControl>
-            {helperText && (
+            {Boolean(helperText) && (
                 <StyleFormHelperText error color={color}>
                     {helperText}
                 </StyleFormHelperText>
@@ -106,7 +106,6 @@ Select.defaultProps = {
     labelId: 'demo-simple-select-label',
     id: 'demo-simple-select',
     size: 'small',
-    error: false,
     color: 'warning',
-    helperText: 'invalid input!!'
+    helperText: ''
 };

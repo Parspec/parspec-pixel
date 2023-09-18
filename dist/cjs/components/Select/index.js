@@ -69,15 +69,14 @@ const StyleFormHelperText = (0, styled_1.default)(FormHelperText_1.default, {
 });
 exports.Select = (0, react_1.forwardRef)((_a, ref) => {
     var { id, labelId, options, size, label, optionLabelKeyname = 'label', optionValueKeyname = 'value', borderColor, helperText, error, color } = _a, rest = __rest(_a, ["id", "labelId", "options", "size", "label", "optionLabelKeyname", "optionValueKeyname", "borderColor", "helperText", "error", "color"]);
-    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsxs)(StyledFormControl, Object.assign({ fullWidth: true, ref: ref, size: size, borderColor: borderColor }, { children: [(0, jsx_runtime_1.jsx)(InputLabel_1.default, Object.assign({ id: labelId }, { children: label })), (0, jsx_runtime_1.jsx)(Select_1.default, Object.assign({}, rest, { labelId: labelId, label: label, id: id }, { children: options.map((item, index) => ((0, jsx_runtime_1.jsx)(MenuItem_1.default, Object.assign({ value: item[optionValueKeyname] }, { children: item[optionLabelKeyname] }), index))) }))] })), helperText && ((0, jsx_runtime_1.jsx)(StyleFormHelperText, Object.assign({ error: true, color: color }, { children: helperText })))] }));
+    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsxs)(StyledFormControl, Object.assign({ fullWidth: true, ref: ref, size: size, borderColor: borderColor }, { children: [(0, jsx_runtime_1.jsx)(InputLabel_1.default, Object.assign({ id: labelId }, { children: label })), (0, jsx_runtime_1.jsx)(Select_1.default, Object.assign({}, rest, { labelId: labelId, label: label, id: id }, { children: options.map((item, index) => ((0, jsx_runtime_1.jsx)(MenuItem_1.default, Object.assign({ value: item[optionValueKeyname] }, { children: item[optionLabelKeyname] }), index))) }))] })), Boolean(helperText) && ((0, jsx_runtime_1.jsx)(StyleFormHelperText, Object.assign({ error: true, color: color }, { children: helperText })))] }));
 });
 exports.Select.defaultProps = {
     label: 'Select',
     labelId: 'demo-simple-select-label',
     id: 'demo-simple-select',
     size: 'small',
-    error: false,
     color: 'warning',
-    helperText: 'invalid input!!'
+    helperText: ''
 };
 //# sourceMappingURL=index.js.map

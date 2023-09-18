@@ -57,13 +57,14 @@ const StyleFormHelperText = styled(FormHelperText, {
     return {
         '&.Mui-error': {
             color: colorValFromTheme,
-            fontSize: '14px'
+            fontSize: '14px',
+            marginTop: '4px'
         }
     };
 });
 export const Select = forwardRef((_a, ref) => {
-    var { id, labelId, options, size, label, optionLabelKeyname = 'label', optionValueKeyname = 'value', borderColor, helperText, error, color } = _a, rest = __rest(_a, ["id", "labelId", "options", "size", "label", "optionLabelKeyname", "optionValueKeyname", "borderColor", "helperText", "error", "color"]);
-    return (_jsxs(_Fragment, { children: [_jsxs(StyledFormControl, Object.assign({ fullWidth: true, ref: ref, size: size, borderColor: borderColor }, { children: [_jsx(InputLabel, Object.assign({ id: labelId }, { children: label })), _jsx(MUISelect, Object.assign({}, rest, { labelId: labelId, label: label, id: id }, { children: options.map((item, index) => (_jsx(MenuItem, Object.assign({ value: item[optionValueKeyname] }, { children: item[optionLabelKeyname] }), index))) }))] })), Boolean(helperText) && (_jsx(StyleFormHelperText, Object.assign({ error: true, color: color }, { children: helperText })))] }));
+    var { id, labelId, options, size, label, optionLabelKeyname = 'label', optionValueKeyname = 'value', color, helperText, error } = _a, rest = __rest(_a, ["id", "labelId", "options", "size", "label", "optionLabelKeyname", "optionValueKeyname", "color", "helperText", "error"]);
+    return (_jsxs(_Fragment, { children: [_jsxs(StyledFormControl, Object.assign({ fullWidth: true, ref: ref, size: size, borderColor: color }, { children: [_jsx(InputLabel, Object.assign({ id: labelId }, { children: label })), _jsx(MUISelect, Object.assign({}, rest, { labelId: labelId, label: label, id: id }, { children: options.map((item, index) => (_jsx(MenuItem, Object.assign({ value: item[optionValueKeyname] }, { children: item[optionLabelKeyname] }), index))) }))] })), Boolean(helperText) && (_jsx(StyleFormHelperText, Object.assign({ error: true, color: color }, { children: helperText })))] }));
 });
 Select.defaultProps = {
     label: 'Select',

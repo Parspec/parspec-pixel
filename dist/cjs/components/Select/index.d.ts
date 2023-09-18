@@ -12,10 +12,9 @@ export interface SelectProps extends Omit<MUISelectProps, 'color' | 'classes'> {
     size?: 'small' | 'medium';
     optionLabelKeyname?: string;
     optionValueKeyname?: string;
-    borderColor?: BorderColorType;
+    color?: BorderColorType;
     helperText?: string | React.ReactNode;
     error?: boolean;
-    color?: BorderColorType;
 }
 export { SelectChangeEvent } from '@mui/material';
 export declare const Select: import("react").ForwardRefExoticComponent<Omit<SelectProps, "ref"> & import("react").RefAttributes<HTMLDivElement>>;

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import { Select } from './';
+import { BorderColor } from '@mui/icons-material';
 
 export default {
     title: 'Select',
@@ -37,5 +38,5 @@ Basic.args = {
     id: 'demo-simple-select',
     size: 'small',
     helperText: 'invalid input !!',
-    color: 'error'
+    color: 'warning'
 };

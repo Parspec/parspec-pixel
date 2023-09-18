@@ -20,10 +20,9 @@ export interface SelectProps extends Omit<MUISelectProps, 'color' | 'classes'> {
     size?: 'small' | 'medium';
     optionLabelKeyname?: string;
     optionValueKeyname?: string;
-    borderColor?: BorderColorType;
+    color?: BorderColorType;
     helperText?: string | React.ReactNode;
     error?: boolean;
-    color?: BorderColorType;
 }
 
 export { SelectChangeEvent } from '@mui/material';
@@ -75,14 +74,15 @@ const StyleFormHelperText = styled(FormHelperText, {
     return {
         '&.Mui-error': {
             color: colorValFromTheme,
-            fontSize: '14px'
+            fontSize: '14px',
+            marginTop: '4px'
         }
     };
 });
 export const Select = forwardRef<HTMLDivElement, SelectProps>(
-    ({ id, labelId, options, size, label, optionLabelKeyname = 'label', optionValueKeyname = 'value', borderColor, helperText, error, color, ...rest }, ref) => (
+    ({ id, labelId, options, size, label, optionLabelKeyname = 'label', optionValueKeyname = 'value', color, helperText, error, ...rest }, ref) => (
         <>
-            <StyledFormControl fullWidth ref={ref} size={size} borderColor={borderColor}>
+            <StyledFormControl fullWidth ref={ref} size={size} borderColor={color}>
                 <InputLabel id={labelId}>{label}</InputLabel>
                 <MUISelect {...rest} labelId={labelId} label={label} id={id}>
                     {options.map((item, index) => (

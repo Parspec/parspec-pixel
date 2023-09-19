@@ -353,7 +353,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     }, []);
     const toolbarContainerRef = useRef<any>();
 
-    const getPageSettings = () => {
+    const getPageSettings = useCallback(() => {
         const defaultRowHeight = rowHeight || 52;
         const calculatedTableHeight = Number(height) || tableHeight;
         const settings = { ...pageSettings };
@@ -363,7 +363,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         } else {
             return { ...settings };
         }
-    };
+    }, [height, tableHeight, rowHeight]);
 
     // const resizestart = () => {
     //     tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });

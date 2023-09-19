@@ -353,6 +353,18 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     }, []);
     const toolbarContainerRef = useRef<any>();
 
+    const getPageSettings = useMemo(() => {
+        const defaultRowHeight = rowHeight || 52;
+        const calculatedTableHeight = Number(height) || tableHeight;
+        const settings = { ...pageSettings };
+        if (calculatedTableHeight && calculatedTableHeight >= defaultRowHeight) {
+            const totalRows = Math.ceil(calculatedTableHeight / defaultRowHeight);
+            return { ...settings, pageSize: totalRows };
+        } else {
+            return { ...settings };
+        }
+    }, [height, tableHeight, rowHeight]);
+
     // const resizestart = () => {
     //     tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     // };
@@ -390,8 +402,8 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                                     }}
                                     size="small"
                                     onChange={(t: React.ChangeEvent<HTMLInputElement>) => {
-                                        t.target.value = t?.target?.value?.replace(/[^a-zA-Z0-9-_ ]/g, '');
-                                        tableRef.current.search(t?.target?.value?.replace(/[^a-zA-Z0-9-_ ]/g, '').trim());
+                                        t.target.value = t?.target?.value?.replace(/[^a-zA-Z0-9-_& ]/g, '');
+                                        tableRef.current.search(t?.target?.value?.replace(/[^a-zA-Z0-9-_& ]/g, '').trim());
                                     }}
                                 />
                             </Box>
@@ -484,7 +496,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             allowSorting={allowSorting}
                             editSettings={editSettings}
                             searchSettings={searchSettings}
-                            pageSettings={pageSettings}
+                            pageSettings={getPageSettings}
                             allowPaging={allowPaging}
                             allowFiltering={allowFiltering}
                             filterSettings={filterSettings}

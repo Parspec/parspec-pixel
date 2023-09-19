@@ -353,7 +353,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     }, []);
     const toolbarContainerRef = useRef<any>();
 
-    const getPageSettings = useCallback(() => {
+    const getPageSettings = useMemo(() => {
         const defaultRowHeight = rowHeight || 52;
         const calculatedTableHeight = Number(height) || tableHeight;
         const settings = { ...pageSettings };
@@ -496,7 +496,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             allowSorting={allowSorting}
                             editSettings={editSettings}
                             searchSettings={searchSettings}
-                            pageSettings={getPageSettings()}
+                            pageSettings={getPageSettings}
                             allowPaging={allowPaging}
                             allowFiltering={allowFiltering}
                             filterSettings={filterSettings}

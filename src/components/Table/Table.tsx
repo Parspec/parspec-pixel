@@ -69,7 +69,7 @@ export interface TableProps {
     selectionSettings?: SelectionSettingsModel;
     editSettings?: EditSettingsModel;
     onHideUnhide?: (data: Object[]) => void;
-    onCheckboxChange?: (data: Object[]) => void;
+    onCheckboxChange?: (data: Object[], key?: string | number) => void;
     onAddDuplicates?: (data: Object[]) => void;
     onDragEnd?: (data: Object) => void;
     onAdd?: () => void;
@@ -270,7 +270,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
     };
 
     const checkboxChange = (args: CheckBoxChangeEventArgs) => {
-        onCheckboxChange!(tableRef?.current?.getSelectedRecords());
+        onCheckboxChange!(tableRef?.current?.getSelectedRecords(), tableKey);
         setSelectedForBanner(tableRef?.current?.getSelectedRecords()?.length);
     };
     const scrollTo = (id: number) => {

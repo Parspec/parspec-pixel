@@ -348,8 +348,7 @@ Table.defaultProps = {
         hierarchyMode: 'Both'
     },
     hiddenProperty: 'is_hidden',
-    selectedItemsBelowSearch: false,
-    rowHeight: 52
+    selectedItemsBelowSearch: false
     // defaultFilter: 'equal'
 };
 //# sourceMappingURL=Table.js.map

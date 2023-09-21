@@ -4,7 +4,7 @@ export declare const ColorPicker: React.FC<SketchPickerProps>;
 interface ITransitionsColorPicker {
     color: string;
     onChange: (param: ColorResult) => void;
-    onClickAway: () => void;
+    onClickAway?: () => void;
 }
+export { ColorResult };
 export declare const TransitionsColorPicker: React.FC<ITransitionsColorPicker>;
-export {};

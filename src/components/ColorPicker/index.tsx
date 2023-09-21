@@ -12,10 +12,12 @@ export const ColorPicker: React.FC<SketchPickerProps> = (props) => {
 interface ITransitionsColorPicker {
     color: string;
     onChange: (param: ColorResult) => void;
-    onClickAway: () => void;
+    onClickAway?: () => void;
 }
 
-export const TransitionsColorPicker: React.FC<ITransitionsColorPicker> = ({ color, onChange, onClickAway }) => {
+export { ColorResult };
+
+export const TransitionsColorPicker: React.FC<ITransitionsColorPicker> = ({ color, onChange, onClickAway = () => {} }) => {
     const [open, setOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 

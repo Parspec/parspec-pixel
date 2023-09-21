@@ -11,7 +11,7 @@ const ColorPicker = (props) => {
     return (0, jsx_runtime_1.jsx)(react_color_1.SketchPicker, Object.assign({}, props));
 };
 exports.ColorPicker = ColorPicker;
-const TransitionsColorPicker = ({ color, onChange, onClickAway }) => {
+const TransitionsColorPicker = ({ color, onChange, onClickAway = () => { } }) => {
     const [open, setOpen] = (0, react_1.useState)(false);
     const [anchorEl, setAnchorEl] = (0, react_1.useState)(null);
     const handleClick = (event) => {

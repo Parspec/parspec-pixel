@@ -14,14 +14,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Fade = exports.CustomPopper = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const Popper_1 = __importDefault(require("@mui/material/Popper"));
-const material_1 = require("@mui/material");
-Object.defineProperty(exports, "Fade", { enumerable: true, get: function () { return material_1.Fade; } });
-const CustomPopper = (_a) => {
+function CustomPopper(_a) {
     var { children } = _a, props = __rest(_a, ["children"]);
     return (0, jsx_runtime_1.jsx)(Popper_1.default, Object.assign({}, props, { children: children }));
-};
-exports.CustomPopper = CustomPopper;
+}
+exports.default = CustomPopper;
 //# sourceMappingURL=index.js.map

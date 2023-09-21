@@ -11,10 +11,8 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx } from "react/jsx-runtime";
 import Popper from '@mui/material/Popper';
-import { Fade } from '@mui/material';
-export const CustomPopper = (_a) => {
+export default function CustomPopper(_a) {
     var { children } = _a, props = __rest(_a, ["children"]);
     return _jsx(Popper, Object.assign({}, props, { children: children }));
-};
-export { Fade };
+}
 //# sourceMappingURL=index.js.map

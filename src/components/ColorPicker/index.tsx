@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { SketchPicker, SketchPickerProps } from 'react-color';
+import { SketchPicker, SketchPickerProps, ColorResult } from 'react-color';
 import { Box } from '../Box';
 import { CustomPopper, Fade } from '../Popper';
 import { ClickAwayListener } from '@mui/material';
@@ -9,7 +9,13 @@ export const ColorPicker: React.FC<SketchPickerProps> = (props) => {
     return <SketchPicker {...props} />;
 };
 
-export const TransitionsColorPicker: React.FC<SketchPickerProps> = (props) => {
+interface ITransitionsColorPicker {
+    color: string;
+    onChange: (param: ColorResult) => void;
+    onClickAway: () => void;
+}
+
+export const TransitionsColorPicker: React.FC<ITransitionsColorPicker> = ({ color, onChange, onClickAway }) => {
     const [open, setOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -20,11 +26,16 @@ export const TransitionsColorPicker: React.FC<SketchPickerProps> = (props) => {
 
     function clickAwayHandler() {
         setOpen(false);
+        onClickAway();
+    }
+
+    function handleOnColorChange(color: ColorResult) {
+        onChange(color);
     }
 
     return (
         <>
-            <Box sx={{ cursor: 'pointer' }} onClick={handleClick} width={24} height={24} borderRadius={100} bgcolor={String(props.color)}></Box>
+            <Box sx={{ cursor: 'pointer' }} onClick={handleClick} width={24} height={24} borderRadius={100} bgcolor={color}></Box>
             {open && (
                 <ClickAwayListener onClickAway={clickAwayHandler}>
                     <Box>
@@ -32,7 +43,7 @@ export const TransitionsColorPicker: React.FC<SketchPickerProps> = (props) => {
                             {({ TransitionProps }) => (
                                 <Fade {...TransitionProps} timeout={350}>
                                     <Box sx={{ m: 2 }}>
-                                        <ColorPicker {...props} />
+                                        <ColorPicker color={color} onChange={(color: ColorResult) => handleOnColorChange(color)} />
                                     </Box>
                                 </Fade>
                             )}

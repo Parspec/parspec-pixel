@@ -1,4 +1,10 @@
 /// <reference types="react" />
-import { SketchPickerProps } from 'react-color';
+import { SketchPickerProps, ColorResult } from 'react-color';
 export declare const ColorPicker: React.FC<SketchPickerProps>;
-export declare const TransitionsColorPicker: React.FC<SketchPickerProps>;
+interface ITransitionsColorPicker {
+    color: string;
+    onChange: (param: ColorResult) => void;
+    onClickAway: () => void;
+}
+export declare const TransitionsColorPicker: React.FC<ITransitionsColorPicker>;
+export {};

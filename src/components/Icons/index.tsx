@@ -72,6 +72,7 @@ export {
     WarningAmber as WarningOutlinedIcon,
     Settings as SettingsIcon,
     Logout as LogoutIcon,
+    Sort as SortIcon,
     HistoryOutlined as HistoryOutlinedIcon,
     InfoOutlined as InfoOutlinedIcon,
     ThumbDownOffAlt as ThumbDownOffAltIcon,

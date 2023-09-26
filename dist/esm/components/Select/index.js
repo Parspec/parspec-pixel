@@ -46,7 +46,7 @@ const StyledFormControl = styled(FormControl, {
 });
 export const Select = forwardRef((_a, ref) => {
     var { id, labelId, options, size, label, optionLabelKeyname = 'label', optionValueKeyname = 'value', color, helperText } = _a, rest = __rest(_a, ["id", "labelId", "options", "size", "label", "optionLabelKeyname", "optionValueKeyname", "color", "helperText"]);
-    return (_jsxs(_Fragment, { children: [_jsxs(StyledFormControl, Object.assign({ fullWidth: true, ref: ref, size: size, borderColor: color }, { children: [_jsx(InputLabel, Object.assign({ id: labelId }, { children: label })), _jsx(MUISelect, Object.assign({}, rest, { labelId: labelId, label: label, id: id }, { children: options.map((item, index) => (_jsx(MenuItem, Object.assign({ value: item[optionValueKeyname] }, { children: item[optionLabelKeyname] }), index))) }))] })), Boolean(helperText) && (_jsx(BodyXS, Object.assign({ mt: 1, mr: '14px', sx: { lineHeight: 1.66 }, color: `${color}.main` }, { children: helperText })))] }));
+    return (_jsxs(_Fragment, { children: [_jsxs(StyledFormControl, Object.assign({ fullWidth: true, ref: ref, size: size, borderColor: color }, { children: [_jsx(InputLabel, Object.assign({ id: labelId }, { children: label })), _jsx(MUISelect, Object.assign({}, rest, { labelId: labelId, label: label, id: id }, { children: options.map((item, index) => (_jsx(MenuItem, Object.assign({ value: item[optionValueKeyname] }, { children: item[optionLabelKeyname] }), index))) }))] })), Boolean(helperText) && (_jsx(BodyXS, Object.assign({ mt: 1, mr: 3, sx: { lineHeight: 1.66 }, color: `${color}.main` }, { children: helperText })))] }));
 });
 Select.defaultProps = {
     label: 'Select',

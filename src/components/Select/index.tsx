@@ -70,7 +70,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(({ id, labelId, op
             </MUISelect>
         </StyledFormControl>
         {Boolean(helperText) && (
-            <BodyXS mt={1} mr={'14px'} sx={{ lineHeight: 1.66 }} color={`${color}.main`}>
+            <BodyXS mt={1} mr={3} sx={{ lineHeight: 1.66 }} color={`${color}.main`}>
                 {helperText}
             </BodyXS>
         )}

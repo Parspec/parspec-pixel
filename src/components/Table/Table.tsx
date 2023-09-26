@@ -21,7 +21,7 @@ import {
     Aggregate,
     AggregatesDirective
 } from '@syncfusion/ej2-react-treegrid';
-import { EmitType, addClass, isNullOrUndefined, registerLicense } from '@syncfusion/ej2-base';
+import { addClass, isNullOrUndefined, registerLicense } from '@syncfusion/ej2-base';
 
 import './styles.css';
 import { Box } from '../Box';
@@ -81,7 +81,6 @@ export interface TableProps {
     dataBoundCallBack?: () => void;
     onCellEdit?: (data: Object) => void;
     onMove?: (data: Object) => void;
-    queryCellInfo?: <T>(e: EmitType<T>) => void;
     loading?: boolean;
     toolbarRightSection?: React.ReactNode;
     searchSettings?: SearchSettingsModel;
@@ -105,7 +104,7 @@ export interface TableRefType {
     getMultiSelectVal: () => any;
     refreshTable: () => void;
     updateData: (data: Object[]) => void;
-    getData: () => Object[];
+    setRowData: (orderID: number, newRowData: Object) => void;
 }
 
 export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
@@ -150,8 +149,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
         title,
         aggregateChildren,
         onCellEdit: handleCellEdit,
-        onMove,
-        queryCellInfo
+        onMove
     } = props;
 
     const tableRef = useRef<any>();
@@ -337,8 +335,8 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                 tableRef.current.dataSource = data;
             }
         };
-        const getData = () => {
-            return tableRef?.current?.dataSource;
+        const setRowData = (orderID: number, newRowData: typeof data[0]) => {
+            tableRef?.current?.setRowData(orderID, newRowData);
         };
         return {
             clearSelection,
@@ -349,7 +347,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
             getMultiSelectVal,
             refreshTable,
             updateData,
-            getData
+            setRowData
         };
     });
 
@@ -540,7 +538,6 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                             filterSettings={filterSettings}
                             checkboxChange={checkboxChange}
                             rowHeight={rowHeight}
-                            queryCellInfo={queryCellInfo}
                             {...(tableKey && { key: tableKey })}
                         >
                             <ColumnsDirective>{children}</ColumnsDirective>

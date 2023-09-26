@@ -104,7 +104,7 @@ export interface TableRefType {
     getMultiSelectVal: () => any;
     refreshTable: () => void;
     updateData: (data: Object[]) => void;
-    setRowData: (orderID: number, newRowData: Object) => void;
+    setRowData: (rowPrimaryKey: number, newRowData: Object) => void;
 }
 
 export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {

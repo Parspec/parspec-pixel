@@ -57,7 +57,7 @@ export interface TableRefType {
     getMultiSelectVal: () => any;
     refreshTable: () => void;
     updateData: (data: Object[]) => void;
-    setRowData: (orderID: number, newRowData: Object) => void;
+    setRowData: (rowPrimaryKey: number, newRowData: Object) => void;
 }
 export declare const Table: import("react").ForwardRefExoticComponent<TableProps & import("react").RefAttributes<TableRefType>>;
 export {};

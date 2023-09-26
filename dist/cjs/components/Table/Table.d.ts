@@ -1,5 +1,6 @@
 /// <reference types="react" />
 import { TreeGridExcelExportProperties, TreeGridPdfExportProperties, PageSettingsModel, EditSettingsModel, SearchSettingsModel } from '@syncfusion/ej2-react-treegrid';
+import { EmitType } from '@syncfusion/ej2-base';
 import './styles.css';
 import { FilterSettingsModel, SelectionSettingsModel } from '@syncfusion/ej2-grids';
 type ToolbarT = 'delete' | 'search' | 'clearFilters' | 'hide' | 'unhide' | 'selectedItems' | 'duplicate' | 'add' | 'move';
@@ -36,6 +37,7 @@ export interface TableProps {
     dataBoundCallBack?: () => void;
     onCellEdit?: (data: Object) => void;
     onMove?: (data: Object) => void;
+    queryCellInfo: <T>(e: EmitType<T>) => {};
     loading?: boolean;
     toolbarRightSection?: React.ReactNode;
     searchSettings?: SearchSettingsModel;

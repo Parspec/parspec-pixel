@@ -21,7 +21,7 @@ import {
     Aggregate,
     AggregatesDirective
 } from '@syncfusion/ej2-react-treegrid';
-import { addClass, isNullOrUndefined, registerLicense } from '@syncfusion/ej2-base';
+import { EmitType, addClass, isNullOrUndefined, registerLicense } from '@syncfusion/ej2-base';
 
 import './styles.css';
 import { Box } from '../Box';
@@ -81,6 +81,7 @@ export interface TableProps {
     dataBoundCallBack?: () => void;
     onCellEdit?: (data: Object) => void;
     onMove?: (data: Object) => void;
+    queryCellInfo: <T>(e: EmitType<T>) => {};
     loading?: boolean;
     toolbarRightSection?: React.ReactNode;
     searchSettings?: SearchSettingsModel;
@@ -149,7 +150,8 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
         title,
         aggregateChildren,
         onCellEdit: handleCellEdit,
-        onMove
+        onMove,
+        queryCellInfo
     } = props;
 
     const tableRef = useRef<any>();
@@ -538,6 +540,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                             filterSettings={filterSettings}
                             checkboxChange={checkboxChange}
                             rowHeight={rowHeight}
+                            queryCellInfo={queryCellInfo}
                             {...(tableKey && { key: tableKey })}
                         >
                             <ColumnsDirective>{children}</ColumnsDirective>

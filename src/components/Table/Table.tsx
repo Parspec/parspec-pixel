@@ -81,7 +81,7 @@ export interface TableProps {
     dataBoundCallBack?: () => void;
     onCellEdit?: (data: Object) => void;
     onMove?: (data: Object) => void;
-    queryCellInfo: <T>(e: EmitType<T>) => {};
+    queryCellInfo?: <T>(e: EmitType<T>) => {};
     loading?: boolean;
     toolbarRightSection?: React.ReactNode;
     searchSettings?: SearchSettingsModel;

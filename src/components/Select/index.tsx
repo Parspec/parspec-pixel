@@ -2,10 +2,10 @@ import { forwardRef } from 'react';
 
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import FormHelperText, { FormHelperTextProps as MUIFormHelperTextProps } from '@mui/material/FormHelperText';
 import FormControl, { FormControlProps as MUIFormControlProps } from '@mui/material/FormControl';
 import { default as MUISelect, SelectProps as MUISelectProps } from '@mui/material/Select';
 import styled from '@mui/material/styles/styled';
+import { BodyXS } from '../Typography';
 
 interface SelectMenuOption {
     [index: string]: string | number;
@@ -22,17 +22,12 @@ export interface SelectProps extends Omit<MUISelectProps, 'color' | 'classes'> {
     optionValueKeyname?: string;
     color?: BorderColorType;
     helperText?: string | React.ReactNode;
-    error?: boolean;
 }
 
 export { SelectChangeEvent } from '@mui/material';
 
 interface FormControlProps extends MUIFormControlProps {
     borderColor?: BorderColorType;
-}
-
-interface FormHelperTextProps extends MUIFormHelperTextProps {
-    color?: BorderColorType;
 }
 
 const StyledFormControl = styled(FormControl, {
@@ -62,44 +57,25 @@ const StyledFormControl = styled(FormControl, {
     };
 });
 
-const StyleFormHelperText = styled(FormHelperText, {
-    shouldForwardProp(propName) {
-        return !(propName === 'color');
-    }
-})<FormHelperTextProps>(({ theme, color }) => {
-    if (!color) {
-        return {};
-    }
-    const colorValFromTheme = theme.palette?.[color]?.main;
-    return {
-        '&.Mui-error': {
-            color: colorValFromTheme,
-            fontSize: '14px',
-            marginTop: '4px'
-        }
-    };
-});
-export const Select = forwardRef<HTMLDivElement, SelectProps>(
-    ({ id, labelId, options, size, label, optionLabelKeyname = 'label', optionValueKeyname = 'value', color, helperText, error, ...rest }, ref) => (
-        <>
-            <StyledFormControl fullWidth ref={ref} size={size} borderColor={color}>
-                <InputLabel id={labelId}>{label}</InputLabel>
-                <MUISelect {...rest} labelId={labelId} label={label} id={id}>
-                    {options.map((item, index) => (
-                        <MenuItem key={index} value={item[optionValueKeyname]}>
-                            {item[optionLabelKeyname]}
-                        </MenuItem>
-                    ))}
-                </MUISelect>
-            </StyledFormControl>
-            {Boolean(helperText) && (
-                <StyleFormHelperText error color={color}>
-                    {helperText}
-                </StyleFormHelperText>
-            )}
-        </>
-    )
-);
+export const Select = forwardRef<HTMLDivElement, SelectProps>(({ id, labelId, options, size, label, optionLabelKeyname = 'label', optionValueKeyname = 'value', color, helperText, ...rest }, ref) => (
+    <>
+        <StyledFormControl fullWidth ref={ref} size={size} borderColor={color}>
+            <InputLabel id={labelId}>{label}</InputLabel>
+            <MUISelect {...rest} labelId={labelId} label={label} id={id}>
+                {options.map((item, index) => (
+                    <MenuItem key={index} value={item[optionValueKeyname]}>
+                        {item[optionLabelKeyname]}
+                    </MenuItem>
+                ))}
+            </MUISelect>
+        </StyledFormControl>
+        {Boolean(helperText) && (
+            <BodyXS mt={1} mr={'14px'} sx={{ lineHeight: 1.66 }} color={`${color}.main`}>
+                {helperText}
+            </BodyXS>
+        )}
+    </>
+));
 
 Select.defaultProps = {
     label: 'Select',

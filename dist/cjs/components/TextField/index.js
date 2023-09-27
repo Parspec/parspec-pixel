@@ -27,7 +27,7 @@ const StyledMUITextField = (0, styled_1.default)(TextField_1.default)({
     '& .MuiFormHelperText-root': {
         marginLeft: '0px'
     },
-    '&.MuiFormHelperText-root Mui-error': {
+    '& .MuiFormHelperText-root.Mui-error': {
         fontSize: '12px'
     }
 });

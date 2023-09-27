@@ -58,6 +58,7 @@ export interface TableRefType {
     refreshTable: () => void;
     updateData: (data: Object[]) => void;
     setRowData: (rowPrimaryKey: number, newRowData: Object) => void;
+    getData: () => Object[];
 }
 export declare const Table: import("react").ForwardRefExoticComponent<TableProps & import("react").RefAttributes<TableRefType>>;
 export {};

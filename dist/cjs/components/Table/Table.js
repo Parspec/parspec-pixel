@@ -216,6 +216,9 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
             var _a;
             (_a = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _a === void 0 ? void 0 : _a.setRowData(orderID, newRowData);
         };
+        const getData = () => {
+            return tableRef.current.dataSource;
+        };
         return {
             clearSelection,
             setSelectedForBanner,
@@ -225,7 +228,8 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
             getMultiSelectVal,
             refreshTable,
             updateData,
-            setRowData
+            setRowData,
+            getData
         };
     });
     const closeBanner = () => {

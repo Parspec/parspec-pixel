@@ -105,6 +105,7 @@ export interface TableRefType {
     refreshTable: () => void;
     updateData: (data: Object[]) => void;
     setRowData: (rowPrimaryKey: number, newRowData: Object) => void;
+    getData: () => Object[];
 }
 
 export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
@@ -338,6 +339,9 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
         const setRowData = (orderID: number, newRowData: typeof data[0]) => {
             tableRef?.current?.setRowData(orderID, newRowData);
         };
+        const getData = () => {
+            return tableRef.current.dataSource;
+        };
         return {
             clearSelection,
             setSelectedForBanner,
@@ -347,7 +351,8 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
             getMultiSelectVal,
             refreshTable,
             updateData,
-            setRowData
+            setRowData,
+            getData
         };
     });
 

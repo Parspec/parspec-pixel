@@ -21,7 +21,7 @@ const StyledMUITextField = styled(MUITextField)({
     '& .MuiFormHelperText-root': {
         marginLeft: '0px'
     },
-    '& .Mui-error': {
+    '&.MuiFormHelperText-root Mui-error': {
         fontSize: '12px'
     }
 });

@@ -26,6 +26,9 @@ const Tooltip_1 = require("../Tooltip");
 const StyledMUITextField = (0, styled_1.default)(TextField_1.default)({
     '& .MuiFormHelperText-root': {
         marginLeft: '0px'
+    },
+    '& .MuiFormHelperText-root.Mui-error': {
+        fontSize: '12px'
     }
 });
 exports.TextField = (0, react_1.forwardRef)((_a, ref) => {

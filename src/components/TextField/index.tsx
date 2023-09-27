@@ -10,6 +10,9 @@ import { Tooltip } from '../Tooltip';
 const StyledMUITextField = styled(MUITextField)({
     '& .MuiFormHelperText-root': {
         marginLeft: '0px'
+    },
+    '& .MuiFormHelperText-root.Mui-error': {
+        fontSize: '12px'
     }
 });
 

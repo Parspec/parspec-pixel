@@ -29098,7 +29098,7 @@ tr.e-highlightscroll {
 
 .e-rcursor {
     position: relative;
-    z-index: 9999;
+    z-index: 1;
 }
 
 .e-grid .e-rowcell {
@@ -29114,6 +29114,6 @@ tr.e-row td.e-childborder {
     border-right-width: 0px !important;
 }
 /*  to be removed in V2 middle segment no border */
-.e-multi-select-wrapper{
+.e-multi-select-wrapper {
     margin-top: 10px;
 }

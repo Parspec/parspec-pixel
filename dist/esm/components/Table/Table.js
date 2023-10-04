@@ -216,6 +216,9 @@ export const Table = forwardRef((props, ref) => {
         const getData = () => {
             return tableRef.current.dataSource;
         };
+        const endEdit = () => {
+            tableRef.current.endEdit();
+        };
         return {
             clearSelection,
             setSelectedForBanner,
@@ -226,7 +229,8 @@ export const Table = forwardRef((props, ref) => {
             refreshTable,
             updateData,
             setRowData,
-            getData
+            getData,
+            endEdit
         };
     });
     const closeBanner = () => {

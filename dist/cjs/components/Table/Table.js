@@ -219,6 +219,9 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
         const getData = () => {
             return tableRef.current.dataSource;
         };
+        const endEdit = () => {
+            tableRef.current.endEdit();
+        };
         return {
             clearSelection,
             setSelectedForBanner,
@@ -229,7 +232,8 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
             refreshTable,
             updateData,
             setRowData,
-            getData
+            getData,
+            endEdit
         };
     });
     const closeBanner = () => {

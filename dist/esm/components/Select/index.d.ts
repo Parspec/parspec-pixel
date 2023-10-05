@@ -1,7 +1,7 @@
 /// <reference types="react" />
 import { SelectProps as MUISelectProps } from '@mui/material/Select';
 interface SelectMenuOption {
-    [index: string]: string | number;
+    [index: string]: string | number | undefined;
 }
 type BorderColorType = 'primary' | 'secondary' | 'tertiary' | 'info' | 'warning' | 'success' | 'error';
 export interface SelectProps extends Omit<MUISelectProps, 'classes'> {

@@ -7,7 +7,7 @@ import { default as MUISelect, SelectProps as MUISelectProps } from '@mui/materi
 import styled from '@mui/material/styles/styled';
 
 interface SelectMenuOption {
-    [index: string]: string | number;
+    [index: string]: string | number | undefined;
 }
 
 type BorderColorType = 'primary' | 'secondary' | 'tertiary' | 'info' | 'warning' | 'success' | 'error';
@@ -60,7 +60,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(({ id, labelId, op
         {label && <InputLabel id={labelId}>{label}</InputLabel>}
         <MUISelect {...rest} labelId={labelId} label={label} id={id}>
             {options.map((item, index) => (
-                <MenuItem key={index} value={item[optionValueKeyname]}>
+                <MenuItem key={index} value={item[optionValueKeyname]} sx={item?.color ? { color: item.color } : undefined}>
                     {item[optionLabelKeyname]}
                 </MenuItem>
             ))}

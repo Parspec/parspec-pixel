@@ -47,6 +47,7 @@ export interface TableProps {
     selectedItemsBelowSearch?: boolean;
     title?: string;
     aggregateChildren?: React.ReactNode;
+    queryCellInfo?: (args: any) => void;
 }
 export interface TableRefType {
     clearSelection: () => void;

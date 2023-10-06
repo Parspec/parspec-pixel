@@ -93,6 +93,7 @@ export interface TableProps {
     selectedItemsBelowSearch?: boolean;
     title?: string;
     aggregateChildren?: React.ReactNode;
+    queryCellInfo?: (args: any) => void;
 }
 
 export interface TableRefType {
@@ -151,7 +152,8 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
         title,
         aggregateChildren,
         onCellEdit: handleCellEdit,
-        onMove
+        onMove,
+        queryCellInfo
     } = props;
 
     const tableRef = useRef<any>();
@@ -560,6 +562,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                             filterSettings={filterSettings}
                             checkboxChange={checkboxChange}
                             rowHeight={rowHeight}
+                            queryCellInfo={queryCellInfo}
                             {...(tableKey && { key: tableKey })}
                         >
                             <ColumnsDirective>{children}</ColumnsDirective>

@@ -30,7 +30,36 @@ export const SingleSelect: ComponentStory<typeof Table> = (props) => {
             ...args
         };
     };
-
+    const cellSave = async (args: any) => {
+        console.log('cellSave', args);
+        // const { previousValue, value, columnName, rowData } = args;
+        // if (previousValue !== value) {
+        //     try {
+        //         await updateData({
+        //             bomId: bomId!,
+        //             input: { id: rowData.id, [columnName]: value }
+        //         });
+        //     } catch (e) {
+        //         console.log('e', e);
+        //         setSnackbarMessage(someThingWentWrongMsg);
+        //     }
+        // }
+    };
+    const beforePaste = async (args: any) => {
+        const { data, column, rowIndex } = args;
+        // const rowData = bomData?.data[rowIndex]!;
+        // console.log('wow', rowData, data, name);
+        // console.log('beforePaste', args);
+        // try {
+        //     await updateData({
+        //         bomId: bomId!,
+        //         input: { id: rowData.id, [column.field]: data }
+        //     });
+        // } catch (e) {
+        //     console.log('e', e);
+        //     setSnackbarMessage(someThingWentWrongMsg);
+        // }
+    };
     const onRowSelection = (selectedData) => {
         console.log(selectedData);
     };
@@ -76,9 +105,70 @@ export const SingleSelect: ComponentStory<typeof Table> = (props) => {
 SingleSelect.args = {
     childMappingKey: 'subtasks',
     allowRowDragAndDrop: true,
+    // frozenColumns: 4,
     treeColumnIndex: 3,
-    allowPaging: false
+    filterSettings: {
+        type: 'CheckBox'
+    },
+    selectionSettings: {
+        // checkboxOnly: true,
+        // persistSelection: true,
+        type: 'Multiple',
+        mode: 'Cell',
+        cellSelectionMode: 'Box'
+    },
+    editSettings: {
+        allowAdding: true,
+        allowDeleting: true,
+        allowEditing: true,
+        mode: 'Batch',
+        // showDeleteConfirmDialog: true,
+        // showConfirmDialog: true,
+        newRowPosition: 'Bottom'
+    },
+    allowPaging: false,
+    // pageSettings: { pageSize: 10 },
+    allowResizing: true,
+    // allowExports: true,
+    // excelExportProperties: {
+    //     fileName: 'newExcel.xlsx',
+    //     isCollapsedStatePersist: false
+    // },
+    // pdfExportProperties: {
+    //     fileName: 'newPdf.pdf',
+    //     isCollapsedStatePersist: false
+    // },
+    allowFiltering: true,
+    loading: false
+    // searchSettings: {
+    //     fields: ['taskID', 'name', 'reported', 'available'],
+    //     hierarchyMode: 'Both'
+    // }
 };
+
+// data: dDataP,
+//     childMappingKey: 'subtasks',
+//     allowRowDragAndDrop: true,
+//     // frozenColumns: 4,
+//     treeColumnIndex: 3,
+//     allowPaging: false,
+//     // pageSettings: { pageSize: 10 },
+//     allowResizing: true,
+//     allowExports: true,
+//     excelExportProperties: {
+//         fileName: 'newExcel.xlsx',
+//         isCollapsedStatePersist: false
+//     },
+//     pdfExportProperties: {
+//         fileName: 'newPdf.pdf',
+//         isCollapsedStatePersist: false
+//     },
+//     allowFiltering: true,
+//     loading: false,
+//     searchSettings: {
+//         fields: ['taskID', 'name', 'reported', 'available'],
+//         hierarchyMode: 'Both'
+//     }
 
 const coltemplate = (props: any) => {
     if (props?.taskData?.type?.includes('section')) {

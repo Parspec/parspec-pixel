@@ -390,6 +390,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     function queryCellInfo(args: any) {
         args.cell.addEventListener('mousedown', mouseDownHandler);
     }
+
     function mouseDownHandler(args: any) {
         // treegrid instance
         var instance = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];

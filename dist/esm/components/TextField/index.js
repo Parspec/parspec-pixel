@@ -20,6 +20,13 @@ import { Tooltip } from '../Tooltip';
 const StyledMUITextField = styled(MUITextField)({
     '& .MuiFormHelperText-root': {
         marginLeft: '0px'
+    },
+    '& input[type=number]': {
+        '-moz-appearance': 'textfield',
+        '&::-webkit-outer-spin-button, &::-webkit-inner-spin-button': {
+            '-webkit-appearance': 'none',
+            margin: 0
+        }
     }
 });
 export const TextField = forwardRef((_a, ref) => {

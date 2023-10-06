@@ -26,6 +26,13 @@ const Tooltip_1 = require("../Tooltip");
 const StyledMUITextField = (0, styled_1.default)(TextField_1.default)({
     '& .MuiFormHelperText-root': {
         marginLeft: '0px'
+    },
+    '& input[type=number]': {
+        '-moz-appearance': 'textfield',
+        '&::-webkit-outer-spin-button, &::-webkit-inner-spin-button': {
+            '-webkit-appearance': 'none',
+            margin: 0
+        }
     }
 });
 exports.TextField = (0, react_1.forwardRef)((_a, ref) => {

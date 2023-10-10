@@ -234,14 +234,18 @@ export const Table = forwardRef((props, ref) => {
     const rightSection = useMemo(() => toolbarRightSection, [toolbarRightSection]);
     const [tableHeight, setTableHeight] = useState();
     const tableContainerRef = useCallback((node) => {
-        var _a;
         if (node !== null) {
-            const toolbarHeight = showToolbar && (toolbarContainerRef === null || toolbarContainerRef === void 0 ? void 0 : toolbarContainerRef.current) ? (_a = toolbarContainerRef === null || toolbarContainerRef === void 0 ? void 0 : toolbarContainerRef.current) === null || _a === void 0 ? void 0 : _a.offsetHeight : 0;
-            const paginationHeight = allowPaging ? 47 : 0;
-            const tableHeader = 42 + 10;
-            if (node.offsetHeight) {
-                setTableHeight(node.offsetHeight - toolbarHeight - paginationHeight - tableHeader);
+            function handleResize() {
+                var _a;
+                const toolbarHeight = showToolbar && (toolbarContainerRef === null || toolbarContainerRef === void 0 ? void 0 : toolbarContainerRef.current) ? (_a = toolbarContainerRef === null || toolbarContainerRef === void 0 ? void 0 : toolbarContainerRef.current) === null || _a === void 0 ? void 0 : _a.offsetHeight : 0;
+                const paginationHeight = allowPaging ? 47 : 0;
+                const tableHeader = 42 + 10;
+                if (node.offsetHeight) {
+                    setTableHeight(node.offsetHeight - toolbarHeight - paginationHeight - tableHeader);
+                }
             }
+            const resiveObserver = new ResizeObserver(handleResize);
+            resiveObserver.observe(node);
         }
         // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     }, []);

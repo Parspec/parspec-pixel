@@ -235,13 +235,14 @@ export const Table = forwardRef((props, ref) => {
     const [tableHeight, setTableHeight] = useState();
     const tableContainerRef = useCallback((node) => {
         if (node !== null) {
-            function handleResize() {
-                var _a;
-                const toolbarHeight = showToolbar && (toolbarContainerRef === null || toolbarContainerRef === void 0 ? void 0 : toolbarContainerRef.current) ? (_a = toolbarContainerRef === null || toolbarContainerRef === void 0 ? void 0 : toolbarContainerRef.current) === null || _a === void 0 ? void 0 : _a.offsetHeight : 0;
+            function handleResize(entries) {
+                var _a, _b;
+                const currentNode = ((_a = entries === null || entries === void 0 ? void 0 : entries[0]) === null || _a === void 0 ? void 0 : _a.target) || node;
+                const toolbarHeight = showToolbar && (toolbarContainerRef === null || toolbarContainerRef === void 0 ? void 0 : toolbarContainerRef.current) ? (_b = toolbarContainerRef === null || toolbarContainerRef === void 0 ? void 0 : toolbarContainerRef.current) === null || _b === void 0 ? void 0 : _b.clientHeight : 0;
                 const paginationHeight = allowPaging ? 47 : 0;
                 const tableHeader = 42 + 10;
-                if (node.offsetHeight) {
-                    setTableHeight(node.offsetHeight - toolbarHeight - paginationHeight - tableHeader);
+                if (currentNode.clientHeight) {
+                    setTableHeight(currentNode.clientHeight - toolbarHeight - paginationHeight - tableHeader);
                 }
             }
             const resiveObserver = new ResizeObserver(handleResize);

@@ -344,12 +344,13 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     const [tableHeight, setTableHeight] = useState<number>();
     const tableContainerRef = useCallback((node: HTMLDivElement) => {
         if (node !== null) {
-            function handleResize() {
-                const toolbarHeight = showToolbar && toolbarContainerRef?.current ? toolbarContainerRef?.current?.offsetHeight : 0;
+            function handleResize(entries?: Array<ResizeObserverEntry>) {
+                const currentNode = entries?.[0]?.target || node;
+                const toolbarHeight = showToolbar && toolbarContainerRef?.current ? toolbarContainerRef?.current?.clientHeight : 0;
                 const paginationHeight = allowPaging ? 47 : 0;
                 const tableHeader = 42 + 10;
-                if (node.offsetHeight) {
-                    setTableHeight(node.offsetHeight - toolbarHeight - paginationHeight - tableHeader);
+                if (currentNode.clientHeight) {
+                    setTableHeight(currentNode.clientHeight - toolbarHeight - paginationHeight - tableHeader);
                 }
             }
             const resiveObserver = new ResizeObserver(handleResize);

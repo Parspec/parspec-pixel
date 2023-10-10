@@ -478,7 +478,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                 </Box>
             )}
             <Box className="control-pane">
-                <Box className="control-section">
+                <Box className="control-section" height={height || tableHeight}>
                     {data && (
                         <TreeGridComponent
                             // expanding={expanding}
@@ -492,7 +492,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             rowSelected={rowSelected}
                             rowDeselected={rowDeselected}
                             rowDataBound={rowDataBound}
-                            height={height || tableHeight}
+                            height="100%"
                             ref={tableRef}
                             dataSource={data}
                             treeColumnIndex={treeColumnIndex}

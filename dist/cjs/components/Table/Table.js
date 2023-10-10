@@ -242,10 +242,8 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
                 var _a, _b;
                 const currentNode = ((_a = entries === null || entries === void 0 ? void 0 : entries[0]) === null || _a === void 0 ? void 0 : _a.target) || node;
                 const toolbarHeight = showToolbar && (toolbarContainerRef === null || toolbarContainerRef === void 0 ? void 0 : toolbarContainerRef.current) ? (_b = toolbarContainerRef === null || toolbarContainerRef === void 0 ? void 0 : toolbarContainerRef.current) === null || _b === void 0 ? void 0 : _b.clientHeight : 0;
-                const paginationHeight = allowPaging ? 47 : 0;
-                const tableHeader = 42 + 10;
                 if (currentNode.clientHeight) {
-                    setTableHeight(currentNode.clientHeight - toolbarHeight - paginationHeight - tableHeader);
+                    setTableHeight(currentNode.clientHeight - toolbarHeight - 8);
                 }
             }
             const resiveObserver = new ResizeObserver(handleResize);

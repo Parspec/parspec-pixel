@@ -347,10 +347,8 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
             function handleResize(entries?: Array<ResizeObserverEntry>) {
                 const currentNode = entries?.[0]?.target || node;
                 const toolbarHeight = showToolbar && toolbarContainerRef?.current ? toolbarContainerRef?.current?.clientHeight : 0;
-                const paginationHeight = allowPaging ? 47 : 0;
-                const tableHeader = 42 + 10;
                 if (currentNode.clientHeight) {
-                    setTableHeight(currentNode.clientHeight - toolbarHeight - paginationHeight - tableHeader);
+                    setTableHeight(currentNode.clientHeight - toolbarHeight - 8);
                 }
             }
             const resiveObserver = new ResizeObserver(handleResize);

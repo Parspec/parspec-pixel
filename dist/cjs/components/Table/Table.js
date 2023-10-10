@@ -249,6 +249,7 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
             }
             const resiveObserver = new ResizeObserver(handleResize);
             resiveObserver.observe(node);
+            handleResize();
         }
         // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     }, []);

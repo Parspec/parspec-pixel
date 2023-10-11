@@ -437,6 +437,15 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                                 </Box>
                             </Tooltip>
                         )}
+                        {toolBarOptions?.includes('hide') && (
+                            <Tooltip title={disabled ? 'Select Item(s) First' : 'Hide / Unhide'}>
+                                <Box>
+                                    <IconButton onClick={() => onHideUnhide!(tableRef.current.getSelectedRecords())} disabled={disabled}>
+                                        <VisibilityOffIcon fontSize="medium" />
+                                    </IconButton>
+                                </Box>
+                            </Tooltip>
+                        )}
                         {toolBarOptions?.includes('delete') && (
                             <Tooltip title={disabled ? 'Select Item(s) First' : 'Delete'}>
                                 <Box>
@@ -447,15 +456,6 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                                         }}
                                     >
                                         <DeleteOutlineIcon fontSize="medium" />
-                                    </IconButton>
-                                </Box>
-                            </Tooltip>
-                        )}
-                        {toolBarOptions?.includes('hide') && (
-                            <Tooltip title={disabled ? 'Select Item(s) First' : 'Hide / Unhide'}>
-                                <Box>
-                                    <IconButton onClick={() => onHideUnhide!(tableRef.current.getSelectedRecords())} disabled={disabled}>
-                                        <VisibilityOffIcon fontSize="medium" />
                                     </IconButton>
                                 </Box>
                             </Tooltip>

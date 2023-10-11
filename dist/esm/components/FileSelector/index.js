@@ -16,7 +16,7 @@ import { BodySmall } from '../Typography';
 import { UploadIcon } from '../Icons';
 import { getAcceptedFormats } from './fileFormats';
 import SelectedFile from './SelectedFile';
-import { validateImage } from "image-validator";
+import { validateImage } from 'image-validator';
 export const FileSelector = forwardRef(({ maxFiles = 1, acceptedFormats = [], onUpload = () => { }, url = '', error = '', helperText = '', onSelect = () => { }, placeholder = '', borderColor, preSelectedFile, onDeleteFile = () => { }, isLoading = false }, ref) => {
     const [files, setFiles] = useState([]);
     const [result, setResults] = useState([]);

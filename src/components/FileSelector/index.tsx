@@ -6,9 +6,7 @@ import { BodySmall } from '../Typography';
 import { UploadIcon } from '../Icons';
 import { getAcceptedFormats } from './fileFormats';
 import SelectedFile from './SelectedFile';
-import { validateImage } from "image-validator";
-
-
+import { validateImage } from 'image-validator';
 
 export interface FileSelectorFileType {
     path?: string;
@@ -23,11 +21,11 @@ export interface FileSelectorFileType {
 interface FileSelectorProps {
     maxFiles?: number;
     acceptedFormats?: string[];
-    onUpload?: (args: { file: FileSelectorFileType | File; error?: string; progress?: number }[]) => void;
+    onUpload?: (args: { file: FileSelectorFileType | File | Blob; error?: string; progress?: number }[]) => void;
     url?: string;
     error?: string;
     helperText?: string;
-    onSelect?: (args: FileSelectorFileType[] | File[]) => void;
+    onSelect?: (args: FileSelectorFileType[] | File[] | Blob) => void;
     placeholder?: string | React.ReactNode;
     borderColor?: 'primary' | 'secondary' | 'tertiary';
     preSelectedFile?: FileSelectorFileType[] | File[];
@@ -88,21 +86,21 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
 
         // To validate a file
         const fileValidation = async (file: File) => {
-        const isValidImage = await validateImage(file);
-        return isValidImage;
-        // expected output ==> true or false
-};
+            const isValidImage = await validateImage(file);
+            return isValidImage;
+            // expected output ==> true or false
+        };
 
         //Function called when file is selected
-        const onDrop = async(acceptedFiles: any) => {
+        const onDrop = async (acceptedFiles: any) => {
             const fileType = acceptedFiles[0].type;
             const indexOfSlash = acceptedFiles[0].type.indexOf('/');
-            const fileExtension = fileType.substring(indexOfSlash+1);
-            const acceptedFileType = ['jpg','png','jpeg'];
+            const fileExtension = fileType.substring(indexOfSlash + 1);
+            const acceptedFileType = ['jpg', 'png', 'jpeg'];
 
             setIsFileCorrupted(false);
             const isFileCorrupted = await fileValidation(acceptedFiles[0]);
-            if(acceptedFileType.includes(fileExtension) && !isFileCorrupted){
+            if (acceptedFileType.includes(fileExtension) && !isFileCorrupted) {
                 setIsFileCorrupted(true);
                 return;
             }
@@ -172,7 +170,7 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                     </Box>
                 )}
 
-                     {isFileCorrupted && (
+                {isFileCorrupted && (
                     <Box mt={1}>
                         <BodySmall color="error">Uploaded file is corrupt.</BodySmall>
                     </Box>

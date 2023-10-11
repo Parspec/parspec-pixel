@@ -11,6 +11,13 @@ export const theme = createTheme({
                 }
             }
         },
+        MuiAccordionSummary: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: ' #fff !important'
+                }
+            }
+        },
         MuiButton: {
             styleOverrides: {
                 root: ({ ownerState }) => (Object.assign({}, (ownerState.size === 'xs' && {

@@ -26177,9 +26177,7 @@ li.e-separator.e-menu-item.e-excel-separator {
 .e-grid .e-lastsummarycell {
     border-right: 1px solid;
 }
-.e-grid .e-footerpadding {
-    padding-right: 14px;
-}
+
 .e-grid .e-gridpopup span {
     border: 1px solid transparent;
     cursor: pointer;
@@ -29114,6 +29112,6 @@ tr.e-row td.e-childborder {
     border-right-width: 0px !important;
 }
 /*  to be removed in V2 middle segment no border */
-.e-multi-select-wrapper{
+.e-multi-select-wrapper {
     margin-top: 10px;
 }

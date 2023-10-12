@@ -7,7 +7,12 @@ import { UploadIcon } from '../Icons';
 import { getAcceptedFormats } from './fileFormats';
 import SelectedFile from './SelectedFile';
 import { validateImage } from 'image-validator';
+import WebViewer from '@pdftron/webviewer';
+import { PDFTRON_PATH, WEBVIEWER_FOLDER_NAME, pdftron_license_key } from '../../Shared/utils';
 
+// import {} from '../../public';
+
+console.log(WEBVIEWER_FOLDER_NAME);
 export interface FileSelectorFileType {
     path?: string;
     lastModified?: number;
@@ -97,7 +102,8 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
             const indexOfSlash = acceptedFiles[0].type.indexOf('/');
             const fileExtension = fileType.substring(indexOfSlash + 1);
             const acceptedFileType = ['jpg', 'png', 'jpeg'];
-
+            extractPdfText(acceptedFiles[0]);
+            console.log(acceptedFiles);
             setIsFileCorrupted(false);
             const isFileCorrupted = await fileValidation(acceptedFiles[0]);
             if (acceptedFileType.includes(fileExtension) && !isFileCorrupted) {
@@ -105,6 +111,34 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                 return;
             }
             setFiles(acceptedFiles);
+        };
+
+        const extractPdfText = async (url: any) => {
+            console.log('URL check=====>', url);
+            if (!url) return;
+
+            let fileReader = new FileReader();
+            const ans = fileReader.readAsDataURL(url);
+
+            fileReader.onload = async (event: any) => {
+                console.log(event.target.result);
+                console.log('Path', PDFTRON_PATH);
+                WebViewer(
+                    {
+                        path: `../../public`,
+                        initialDoc: event.target.result, // Replace with the path to your PDF
+                        licenseKey: pdftron_license_key
+                    },
+                    document.getElementById('viewer')!
+                ).then((instance) => {
+                    const { documentViewer } = instance.Core;
+                    documentViewer
+                        .loadDocument(event.target.result)
+                        .then((doc) => console.log('Loaded======>', doc))
+                        .catch((e) => console.log('Error=====>', e));
+                    console.log(ans);
+                });
+            };
         };
 
         //Function called when file is deleted
@@ -131,6 +165,7 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
 
         return (
             <Box ref={ref} height={'100%'}>
+                <Box id="viewer" visibility="hidden" />
                 {!files.length ? (
                     <Box {...getRootProps()} height={'100%'}>
                         <input type="file" {...getInputProps()} />

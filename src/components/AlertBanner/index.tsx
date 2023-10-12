@@ -1,7 +1,6 @@
 import { Box } from '../Box';
 import { Alert, AlertProps } from '@mui/material';
 import { CloseIcon } from '../Icons';
-
 export interface alertBannerProps extends Omit<AlertProps, 'classes'> {
     onClose: () => void;
     children?: React.ReactNode;

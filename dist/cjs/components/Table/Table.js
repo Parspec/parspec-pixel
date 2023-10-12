@@ -303,7 +303,7 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
     };
     function queryCellInfo(args) {
         args.cell.addEventListener('mousedown', mouseDownHandler);
-        customQueryCellInfo(args);
+        customQueryCellInfo === null || customQueryCellInfo === void 0 ? void 0 : customQueryCellInfo(args);
     }
     function mouseDownHandler(args) {
         // treegrid instance

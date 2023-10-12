@@ -438,7 +438,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
     };
     function queryCellInfo(args: any) {
         args.cell.addEventListener('mousedown', mouseDownHandler);
-        customQueryCellInfo!(args);
+        customQueryCellInfo?.(args);
     }
 
     function mouseDownHandler(args: any) {

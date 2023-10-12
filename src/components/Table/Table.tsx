@@ -94,6 +94,9 @@ export interface TableProps {
     title?: string;
     aggregateChildren?: React.ReactNode;
     queryCellInfo?: (args: any) => void;
+    cellSave?: (data: Object) => void;
+    beforePaste?: (data: Object) => void;
+    customQueryCellInfo?: (args: any) => void;
 }
 
 export interface TableRefType {
@@ -153,7 +156,9 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
         aggregateChildren,
         onCellEdit: handleCellEdit,
         onMove,
-        queryCellInfo
+        cellSave,
+        beforePaste,
+        customQueryCellInfo
     } = props;
 
     const tableRef = useRef<any>();
@@ -431,7 +436,22 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
 
         isEscPressed = false;
     };
+    function queryCellInfo(args: any) {
+        args.cell.addEventListener('mousedown', mouseDownHandler);
+        customQueryCellInfo!(args);
+    }
 
+    function mouseDownHandler(args: any) {
+        // treegrid instance
+        var instance = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];
+
+        // to check checkbox on mouse click
+        if (args.currentTarget.classList.contains('e-gridchkbox')) {
+            instance.selectionSettings.mode = 'Row';
+        } else {
+            instance.selectionSettings.mode = 'Cell';
+        }
+    }
     return (
         <Box position={'relative'} height={'100%'} width={'100%'} ref={tableContainerRef}>
             {showToolbar && (
@@ -562,8 +582,10 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                             filterSettings={filterSettings}
                             checkboxChange={checkboxChange}
                             rowHeight={rowHeight}
-                            queryCellInfo={queryCellInfo}
                             {...(tableKey && { key: tableKey })}
+                            queryCellInfo={queryCellInfo}
+                            cellSave={cellSave}
+                            beforePaste={beforePaste}
                         >
                             <ColumnsDirective>{children}</ColumnsDirective>
                             {aggregateChildren && <AggregatesDirective>{aggregateChildren}</AggregatesDirective>}
@@ -622,6 +644,8 @@ Table.defaultProps = {
     onDelete: (data: Object) => {},
     onSearch: (data: Object) => {},
     onRowSelection: (data: Object) => {},
+    customQueryCellInfo: (data: Object) => {},
+
     dataBoundCallBack: () => {},
     customFiltersFunction: (data: Object) => {},
     loading: false,

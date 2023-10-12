@@ -77,8 +77,46 @@ export const SingleSelect: ComponentStory<typeof Table> = (props) => {
 SingleSelect.args = {
     childMappingKey: 'subtasks',
     allowRowDragAndDrop: true,
-    treeColumnIndex: 3,
-    allowPaging: false
+    // frozenColumns: 4,
+    // treeColumnIndex: 3,
+    // allowPaging: false,
+    // filterSettings: {
+    //     type: 'CheckBox'
+    // },
+    selectionSettings: {
+        // checkboxOnly: true,
+        // persistSelection: true,
+        type: 'Multiple',
+        mode: 'Cell',
+        cellSelectionMode: 'Box'
+    },
+    editSettings: {
+        allowAdding: true,
+        allowDeleting: true,
+        allowEditing: true,
+        mode: 'Batch',
+        // showDeleteConfirmDialog: true,
+        // showConfirmDialog: true,
+        newRowPosition: 'Bottom'
+    },
+    allowPaging: false,
+    // pageSettings: { pageSize: 10 },
+    allowResizing: true,
+    // allowExports: true,
+    // excelExportProperties: {
+    //     fileName: 'newExcel.xlsx',
+    //     isCollapsedStatePersist: false
+    // },
+    // pdfExportProperties: {
+    //     fileName: 'newPdf.pdf',
+    //     isCollapsedStatePersist: false
+    // },
+    allowFiltering: true,
+    loading: false
+    // searchSettings: {
+    //     fields: ['taskID', 'name', 'reported', 'available'],
+    //     hierarchyMode: 'Both'
+    // }
 };
 
 const coltemplate = (props: any) => {

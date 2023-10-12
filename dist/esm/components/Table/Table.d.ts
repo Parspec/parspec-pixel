@@ -48,6 +48,9 @@ export interface TableProps {
     title?: string;
     aggregateChildren?: React.ReactNode;
     queryCellInfo?: (args: any) => void;
+    cellSave?: (data: Object) => void;
+    beforePaste?: (data: Object) => void;
+    customQueryCellInfo?: (args: any) => void;
 }
 export interface TableRefType {
     clearSelection: () => void;

@@ -17,7 +17,9 @@ import {
     Filter,
     ContextMenu,
     EditSettingsModel,
-    SearchSettingsModel
+    SearchSettingsModel,
+    Aggregate,
+    AggregatesDirective
 } from '@syncfusion/ej2-react-treegrid';
 import { addClass, isNullOrUndefined, registerLicense } from '@syncfusion/ej2-base';
 
@@ -36,15 +38,16 @@ import {
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState, useMemo, useCallback } from 'react';
 import { TextField } from '../TextField';
 import { IconButton } from '../IconButton';
-import { ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffIcon, FilterAltOffIcon, SearchIcon, AddIcon } from '../Icons';
+import { ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffIcon, FilterAltOffIcon, SearchIcon, AddIcon, MoveDownIcon } from '../Icons';
 import { Tooltip } from '../Tooltip';
 import { InputAdornment } from '../InputAdornment';
 import { SelectedItemsCount } from './SelectedItemsCount';
+import { BodySmall } from '../Typography';
 
 const license = window.localStorage.getItem('syncfusionLicense');
 registerLicense(license!);
 
-type ToolbarT = 'delete' | 'search' | 'clearFilters' | 'hide' | 'unhide' | 'selectedItems' | 'duplicate' | 'add';
+type ToolbarT = 'delete' | 'search' | 'clearFilters' | 'hide' | 'unhide' | 'selectedItems' | 'duplicate' | 'add' | 'move';
 export type ToolbarType = ToolbarT[];
 export interface TableProps {
     children: React.ReactNode;
@@ -66,7 +69,7 @@ export interface TableProps {
     selectionSettings?: SelectionSettingsModel;
     editSettings?: EditSettingsModel;
     onHideUnhide?: (data: Object[]) => void;
-    onCheckboxChange?: (data: Object[]) => void;
+    onCheckboxChange?: (data: Object[], key?: string | number) => void;
     onAddDuplicates?: (data: Object[]) => void;
     onDragEnd?: (data: Object) => void;
     onAdd?: () => void;
@@ -76,6 +79,8 @@ export interface TableProps {
     onRowSelection?: (data: Object) => void;
     customFiltersFunction?: (data: Object) => void;
     dataBoundCallBack?: () => void;
+    onCellEdit?: (data: Object) => void;
+    onMove?: (data: Object) => void;
     loading?: boolean;
     toolbarRightSection?: React.ReactNode;
     searchSettings?: SearchSettingsModel;
@@ -86,9 +91,26 @@ export interface TableProps {
     // defaultFilter?: 'equal' | 'contains';
     tableKey?: number | string;
     selectedItemsBelowSearch?: boolean;
+    title?: string;
+    aggregateChildren?: React.ReactNode;
+    queryCellInfo?: (args: any) => void;
 }
 
-export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
+export interface TableRefType {
+    clearSelection: () => void;
+    setSelectedForBanner: React.Dispatch<React.SetStateAction<number>>;
+    scrollTo: (id: number) => void;
+    clearFiltering: () => void;
+    setMultiSelectVal: (val: any) => void;
+    getMultiSelectVal: () => any;
+    refreshTable: () => void;
+    updateData: (data: Object[]) => void;
+    setRowData: (rowPrimaryKey: number, newRowData: Object) => void;
+    getData: () => Object[];
+    endEdit: () => void;
+}
+
+export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
     const {
         children,
         data,
@@ -126,7 +148,12 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
         customFiltersFunction,
         dataBoundCallBack,
         tableKey,
-        selectedItemsBelowSearch
+        selectedItemsBelowSearch,
+        title,
+        aggregateChildren,
+        onCellEdit: handleCellEdit,
+        onMove,
+        queryCellInfo
     } = props;
 
     const tableRef = useRef<any>();
@@ -248,7 +275,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
     };
 
     const checkboxChange = (args: CheckBoxChangeEventArgs) => {
-        onCheckboxChange!(tableRef?.current?.getSelectedRecords());
+        onCheckboxChange!(tableRef?.current?.getSelectedRecords(), tableKey);
         setSelectedForBanner(tableRef?.current?.getSelectedRecords()?.length);
     };
     const scrollTo = (id: number) => {
@@ -304,13 +331,35 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
             multiSelectFilterVal = val;
         };
         const getMultiSelectVal = () => multiSelectFilterVal;
+        const refreshTable = () => {
+            tableRef?.current?.refresh();
+        };
+        const updateData = (data: Object[]) => {
+            if (tableRef?.current) {
+                tableRef.current.dataSource = data;
+            }
+        };
+        const setRowData = (orderID: number, newRowData: typeof data[0]) => {
+            tableRef?.current?.setRowData(orderID, newRowData);
+        };
+        const getData = () => {
+            return tableRef.current.dataSource;
+        };
+        const endEdit = () => {
+            tableRef.current.endEdit();
+        };
         return {
             clearSelection,
             setSelectedForBanner,
             scrollTo,
             clearFiltering,
             setMultiSelectVal,
-            getMultiSelectVal
+            getMultiSelectVal,
+            refreshTable,
+            updateData,
+            setRowData,
+            getData,
+            endEdit
         };
     });
 
@@ -388,6 +437,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
             {showToolbar && (
                 <Box display={'flex'} ref={toolbarContainerRef} justifyContent="space-between" alignItems={'flex-end'} mb={2} sx={loading ? { PointerEvent: 'none' } : {}}>
                     <Box display="flex" alignItems="center" gap={1}>
+                        {title && <BodySmall color="neutral.dark">{title}</BodySmall>}
                         {toolBarOptions?.includes('search') && (
                             <Box width={300}>
                                 <TextField
@@ -426,6 +476,24 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                                 </Box>
                             </Tooltip>
                         )}
+                        {toolBarOptions?.includes('move') && (
+                            <Tooltip title={disabled ? 'Select Item(s) First' : 'Change Section'}>
+                                <Box>
+                                    <IconButton onClick={() => onMove!(tableRef.current.getSelectedRecords())} disabled={disabled}>
+                                        <MoveDownIcon fontSize="medium" />
+                                    </IconButton>
+                                </Box>
+                            </Tooltip>
+                        )}
+                        {toolBarOptions?.includes('hide') && (
+                            <Tooltip title={disabled ? 'Select Item(s) First' : 'Hide / Unhide'}>
+                                <Box>
+                                    <IconButton onClick={() => onHideUnhide!(tableRef.current.getSelectedRecords())} disabled={disabled}>
+                                        <VisibilityOffIcon fontSize="medium" />
+                                    </IconButton>
+                                </Box>
+                            </Tooltip>
+                        )}
                         {toolBarOptions?.includes('delete') && (
                             <Tooltip title={disabled ? 'Select Item(s) First' : 'Delete'}>
                                 <Box>
@@ -436,15 +504,6 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                                         }}
                                     >
                                         <DeleteOutlineIcon fontSize="medium" />
-                                    </IconButton>
-                                </Box>
-                            </Tooltip>
-                        )}
-                        {toolBarOptions?.includes('hide') && (
-                            <Tooltip title={disabled ? 'Select Item(s) First' : 'Hide / Unhide'}>
-                                <Box>
-                                    <IconButton onClick={() => onHideUnhide!(tableRef.current.getSelectedRecords())} disabled={disabled}>
-                                        <VisibilityOffIcon fontSize="medium" />
                                     </IconButton>
                                 </Box>
                             </Tooltip>
@@ -477,6 +536,7 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             actionBegin={actionBegin}
                             dataBound={dataBound}
                             actionComplete={actionComplete}
+                            cellEdit={handleCellEdit}
                             headerCellInfo={headerCellInfo}
                             rowSelected={rowSelected}
                             rowDeselected={rowDeselected}
@@ -502,10 +562,12 @@ export const Table: React.FC<TableProps> = forwardRef((props, ref) => {
                             filterSettings={filterSettings}
                             checkboxChange={checkboxChange}
                             rowHeight={rowHeight}
+                            queryCellInfo={queryCellInfo}
                             {...(tableKey && { key: tableKey })}
                         >
                             <ColumnsDirective>{children}</ColumnsDirective>
-                            <Inject services={[Freeze, RowDD, Selection, Sort, Edit, Page, ExcelExport, PdfExport, Resize, Filter, ContextMenu]} />
+                            {aggregateChildren && <AggregatesDirective>{aggregateChildren}</AggregatesDirective>}
+                            <Inject services={[Freeze, RowDD, Selection, Sort, Edit, Page, ExcelExport, PdfExport, Resize, Filter, ContextMenu, Aggregate]} />
                         </TreeGridComponent>
                     )}
                 </Box>

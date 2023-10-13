@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { Table, ToolbarType } from './Table';
-import { ColumnDirective, Inject, SelectionSettingsModel } from '@syncfusion/ej2-react-treegrid';
+import { AggregateColumnDirective, AggregateColumnsDirective, AggregateDirective, ColumnDirective, Inject, SelectionSettingsModel } from '@syncfusion/ej2-react-treegrid';
 import { getValue } from '@syncfusion/ej2-base';
 import { dDataP, dDataP2 } from './data';
 import { Button } from '../Button';
@@ -9,6 +9,7 @@ import { ViewArrayIcon } from '../Icons';
 import { Box } from '../Box';
 import { BodyMedium } from '../Typography';
 import { CheckBoxSelection, DropDownListComponent, MultiSelectComponent } from '@syncfusion/ej2-react-dropdowns';
+import { getObject } from '@syncfusion/ej2-grids';
 
 export default {
     title: 'Table',
@@ -63,7 +64,7 @@ export const SingleSelect: ComponentStory<typeof Table> = (props) => {
     };
     return (
         <Box height={500}>
-            <Table {...getTableProps({ ...props, onRowSelection, onDragEnd, customFiltersFunction })} data={data} ref={tableRef}>
+            <Table {...getTableProps({ ...props, onRowSelection, onDragEnd, customFiltersFunction })} data={data} ref={tableRef} title="Random title">
                 <ColumnDirective field="id" isPrimaryKey={true} visible={false} />
                 <ColumnDirective field="taskID" allowEditing={false} headerText="Task ID" minWidth="100" width="130" editType="numericedit" />
                 <ColumnDirective field="name" headerText="Task Name" />
@@ -158,7 +159,7 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
         console.log('onAddDuplicates (selected data)===>\n', data);
     };
     const getTableProps = (args: any) => {
-        const toolBarItems: ToolbarType = ['delete', 'search', 'clearFilters', 'hide', 'unhide', 'selectedItems', 'duplicate'];
+        const toolBarItems: ToolbarType = ['delete', 'search', 'clearFilters', 'hide', 'unhide', 'selectedItems', 'duplicate', 'move'];
         return {
             toolBarOptions: toolBarItems,
             toolbarRightSection: (
@@ -193,6 +194,72 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
             <Table
                 {...getTableProps({ ...props, onAdd, onCheckboxChange, onDelete, onDragEnd, onEdit, onSearch, onRowSelection, onHideUnhide, onAddDuplicates, customFiltersFunction })}
                 ref={tableRef}
+            >
+                <ColumnDirective type="checkbox" width="50" />
+                <ColumnDirective field="id" isPrimaryKey={true} visible={false} />
+                <ColumnDirective field="taskID" headerText="Task ID" minWidth="100" width="130" editType="numericedit" />
+                <ColumnDirective field="name" headerText="Task Name" minWidth="200" />
+                <ColumnDirective
+                    allowEditing={false}
+                    allowSorting={false}
+                    field="type"
+                    defaultValue={'product'}
+                    minWidth="240"
+                    template={coltemplate}
+                    headerTemplate={customHeaderTemplate}
+                    allowFiltering={false}
+                />
+                <ColumnDirective field="reporter" headerText="Reporter" minWidth="200" validationRules={validateReporter} />
+                <ColumnDirective field="available" headerText="Availability" minWidth="200" filterTemplate={filterTemplateOptions} />
+            </Table>
+        </Box>
+    );
+};
+
+export const TableWithFooter: ComponentStory<typeof Table> = (props) => {
+    const getTableProps = (args: any) => {
+        const toolBarItems: ToolbarType = ['delete', 'search', 'clearFilters', 'hide', 'unhide', 'selectedItems', 'duplicate'];
+        return {
+            toolBarOptions: toolBarItems,
+            toolbarRightSection: (
+                <Box display={'flex'} gap={5} justifyContent={'flex-end'}>
+                    <Button>Import Products</Button>
+                    <Box display={'flex'} alignItems={'center'}>
+                        <Button
+                            color="primary"
+                            onClick={() => {
+                                tableRef?.current?.scrollTo(14);
+                            }}
+                        >
+                            scroll to 14
+                        </Button>
+                    </Box>
+                </Box>
+            ),
+            // rowHeight: 40,
+            ...args
+        };
+    };
+
+    const tableRef = useRef<any>();
+
+    const footerSumTemplate = (props: Object) => {
+        return <span>Total: {getObject('Sum', props)}</span>;
+    };
+
+    return (
+        <Box height={'100vh'}>
+            <Table
+                {...getTableProps({ ...props })}
+                data={dDataP2}
+                ref={tableRef}
+                aggregateChildren={
+                    <AggregateDirective>
+                        <AggregateColumnsDirective>
+                            <AggregateColumnDirective field="taskID" columnName="available" type="Sum" footerTemplate={(props) => <span>Total: {getObject('Sum', props)}</span>} />
+                        </AggregateColumnsDirective>
+                    </AggregateDirective>
+                }
             >
                 <ColumnDirective type="checkbox" width="50" />
                 <ColumnDirective field="id" isPrimaryKey={true} visible={false} />

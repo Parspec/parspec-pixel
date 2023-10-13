@@ -40,4 +40,5 @@ export * from './RangeSlider';
 export * from './Img';
 export * from './MultiSelect';
 export * from './Avatar';
+export * from './CheckboxGroup';
 //# sourceMappingURL=index.js.map

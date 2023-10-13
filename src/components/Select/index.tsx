@@ -7,12 +7,12 @@ import { default as MUISelect, SelectProps as MUISelectProps } from '@mui/materi
 import styled from '@mui/material/styles/styled';
 
 interface SelectMenuOption {
-    [index: string]: string | number;
+    [index: string]: string | number | undefined;
 }
 
 type BorderColorType = 'primary' | 'secondary' | 'tertiary' | 'info' | 'warning' | 'success' | 'error';
 export interface SelectProps extends Omit<MUISelectProps, 'classes'> {
-    label: string;
+    label?: string;
     options: SelectMenuOption[];
     labelId?: string;
     id?: string;
@@ -57,10 +57,10 @@ const StyledFormControl = styled(FormControl, {
 
 export const Select = forwardRef<HTMLDivElement, SelectProps>(({ id, labelId, options, size, label, optionLabelKeyname = 'label', optionValueKeyname = 'value', borderColor, ...rest }, ref) => (
     <StyledFormControl fullWidth ref={ref} size={size} borderColor={borderColor}>
-        <InputLabel id={labelId}>{label}</InputLabel>
+        {label && <InputLabel id={labelId}>{label}</InputLabel>}
         <MUISelect {...rest} labelId={labelId} label={label} id={id}>
             {options.map((item, index) => (
-                <MenuItem key={index} value={item[optionValueKeyname]}>
+                <MenuItem key={index} value={item[optionValueKeyname]} sx={item?.color ? { color: item.color } : undefined}>
                     {item[optionLabelKeyname]}
                 </MenuItem>
             ))}
@@ -69,7 +69,6 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(({ id, labelId, op
 ));
 
 Select.defaultProps = {
-    label: 'Select',
     labelId: 'demo-simple-select-label',
     id: 'demo-simple-select',
     size: 'small'

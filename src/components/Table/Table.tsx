@@ -402,7 +402,6 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
             resiveObserver.observe(node);
             handleResize();
         }
-        // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     }, []);
     const toolbarContainerRef = useRef<any>();
 

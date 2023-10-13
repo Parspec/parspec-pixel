@@ -29118,7 +29118,7 @@ tr.e-row td.e-childborder {
 .e-multi-select-wrapper {
     margin-top: 10px;
 }
-/* .e-rowcell.e-inputbox.e-editedbatchcell{
+.e-rowcell.e-inputbox.e-editedbatchcell{
     box-shadow: 0 0 0 1px #4749ac inset;
     background: #e3e3ff;
-} */
+}

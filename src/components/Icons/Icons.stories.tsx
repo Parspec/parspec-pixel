@@ -60,9 +60,11 @@ import {
     SettingsIcon,
     LogoutIcon,
     WarningOutlinedIcon,
+    SortIcon,
     HistoryOutlinedIcon,
     InfoOutlinedIcon,
     ThumbDownOffAltIcon,
+    MoveIcon,
     FileUploadIcon,
     MoveDownIcon
 } from './index';
@@ -158,9 +160,11 @@ MUIImportedIcons.args = {
         { icon: WarningOutlinedIcon, name: 'WarningOutlinedIcon' },
         { icon: SettingsIcon, name: 'SettingsIcon' },
         { icon: LogoutIcon, name: 'LogoutIcon' },
+        { icon: SortIcon, name: 'SortIcon' },
         { icon: HistoryOutlinedIcon, name: 'HistoryOutlinedIcon' },
         { icon: InfoOutlinedIcon, name: 'InfoOutlinedIcon' },
         { icon: ThumbDownOffAltIcon, name: 'ThumbDownOffAltIcon' },
+        { icon: MoveIcon, name: 'MoveIcon' },
         { icon: FileUploadIcon, name: 'FileUploadIcon' },
         { icon: MoveDownIcon, name: 'MoveDownIcon' }
     ],

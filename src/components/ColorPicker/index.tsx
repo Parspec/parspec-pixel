@@ -4,7 +4,7 @@ import { ClickAwayListener, Fade } from '@mui/material';
 import { SketchPicker, SketchPickerProps, ColorResult } from 'react-color';
 
 import { Box } from '../Box';
-import CustomPopper from '../Popper';
+import Popper from '../Popper';
 
 export const ColorPicker: React.FC<SketchPickerProps> = (props) => {
     return <SketchPicker {...props} />;
@@ -42,7 +42,7 @@ export const TransitionsColorPicker: React.FC<ITransitionsColorPicker> = ({ colo
             {open && (
                 <ClickAwayListener onClickAway={clickAwayHandler}>
                     <Box>
-                        <CustomPopper placement="auto" open={open} anchorEl={anchorEl} transition>
+                        <Popper placement="auto" open={open} anchorEl={anchorEl} transition>
                             {({ TransitionProps }) => (
                                 <Fade {...TransitionProps} timeout={350}>
                                     <Box m={2}>
@@ -50,7 +50,7 @@ export const TransitionsColorPicker: React.FC<ITransitionsColorPicker> = ({ colo
                                     </Box>
                                 </Fade>
                             )}
-                        </CustomPopper>
+                        </Popper>
                     </Box>
                 </ClickAwayListener>
             )}

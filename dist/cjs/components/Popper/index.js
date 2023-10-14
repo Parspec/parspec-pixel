@@ -16,9 +16,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const jsx_runtime_1 = require("react/jsx-runtime");
 const Popper_1 = __importDefault(require("@mui/material/Popper"));
-function CustomPopper(_a) {
+function Popper(_a) {
     var { children } = _a, props = __rest(_a, ["children"]);
     return (0, jsx_runtime_1.jsx)(Popper_1.default, Object.assign({}, props, { children: children }));
 }
-exports.default = CustomPopper;
+exports.default = Popper;
 //# sourceMappingURL=index.js.map

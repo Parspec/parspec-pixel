@@ -1,5 +1,5 @@
-import Popper, { PopperProps } from '@mui/material/Popper';
+import { default as MUIPopper, PopperProps } from '@mui/material/Popper';
 
-export default function CustomPopper({ children, ...props }: PopperProps) {
-    return <Popper {...props}>{children}</Popper>;
+export default function Popper({ children, ...props }: PopperProps) {
+    return <MUIPopper {...props}>{children}</MUIPopper>;
 }

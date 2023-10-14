@@ -10,9 +10,9 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 import { jsx as _jsx } from "react/jsx-runtime";
-import Popper from '@mui/material/Popper';
-export default function CustomPopper(_a) {
+import { default as MUIPopper } from '@mui/material/Popper';
+export default function Popper(_a) {
     var { children } = _a, props = __rest(_a, ["children"]);
-    return _jsx(Popper, Object.assign({}, props, { children: children }));
+    return _jsx(MUIPopper, Object.assign({}, props, { children: children }));
 }
 //# sourceMappingURL=index.js.map

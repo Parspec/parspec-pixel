@@ -438,11 +438,11 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
     };
     function queryCellInfo(args: any) {
         args.cell.addEventListener('mousedown', mouseDownHandler);
-        args.cell.addEventListener('keydown', keydownHandler);
+        // args.cell.addEventListener('keydown', keydownHandler);
         customQueryCellInfo?.(args);
     }
     let eventTriggered = false;
-
+    keydownHandler;
     function keydownHandler(args: any) {
         var instance = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];
         var closesttd = args.target.closest('td');

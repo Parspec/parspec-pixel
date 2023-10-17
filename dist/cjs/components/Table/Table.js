@@ -303,10 +303,11 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
     };
     function queryCellInfo(args) {
         args.cell.addEventListener('mousedown', mouseDownHandler);
-        args.cell.addEventListener('keydown', keydownHandler);
+        // args.cell.addEventListener('keydown', keydownHandler);
         customQueryCellInfo === null || customQueryCellInfo === void 0 ? void 0 : customQueryCellInfo(args);
     }
     let eventTriggered = false;
+    keydownHandler;
     function keydownHandler(args) {
         var _a, _b, _c;
         var instance = document.getElementsByClassName('e-treegrid')[0].ej2_instances[0];

@@ -438,9 +438,54 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
     };
     function queryCellInfo(args: any) {
         args.cell.addEventListener('mousedown', mouseDownHandler);
+        args.cell.addEventListener('keydown', keydownHandler);
         customQueryCellInfo?.(args);
     }
+    let eventTriggered = false;
 
+    function keydownHandler(args: any) {
+        var instance = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];
+        var closesttd = args.target.closest('td');
+        // debugger;
+        if (args.keyCode == 13 && !isNullOrUndefined(closesttd.nextSibling)) {
+            //to prevent default actions
+            args.preventDefault();
+            args.stopPropagation();
+
+            //triggers while enter
+            editACell(closesttd.nextSibling);
+        }
+
+        const isAlphabet = (args.keyCode >= 65 && args.keyCode <= 90) || (args.keyCode >= 97 && args.keyCode <= 122);
+        const isNumeric = args.keyCode > 47 && args.keyCode < 58;
+        if (isAlphabet || isNumeric) {
+            if (!eventTriggered) {
+                eventTriggered = true;
+                //to prevent default actions
+                args.preventDefault();
+                args.stopPropagation();
+
+                // triggers while typing alphabet
+                var firstCell = instance.getSelectedRowCellIndexes()[0]?.cellIndexes[0];
+                var rowIndex = instance.getSelectedRowCellIndexes()[0]?.rowIndex;
+
+                if (!isNullOrUndefined(firstCell) && !isNullOrUndefined(rowIndex)) {
+                    instance.editCell(rowIndex, instance?.getColumns()[firstCell]?.field);
+                }
+            }
+        }
+
+        if (args.keyCode == 27 && instance.grid.isEdit) {
+            //triggers while Escape
+            eventTriggered = false;
+            instance.grid.editModule.batchSave();
+        }
+    }
+
+    function editACell(args: any) {
+        var instance = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];
+        instance.grid.editModule.editCell(parseInt(args.getAttribute('index')), instance.grid.getColumnByIndex(parseInt(args.getAttribute('data-colindex'))).field);
+    }
     function mouseDownHandler(args: any) {
         // treegrid instance
         var instance = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];

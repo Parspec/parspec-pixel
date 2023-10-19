@@ -463,7 +463,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                         )}
                         {toolBarOptions?.includes('add') && (
                             <Tooltip title={'Add'}>
-                                <Box>
+                                <Box data-testid="add-btn">
                                     <IconButton onClick={() => onAdd!()}>
                                         <AddIcon fontSize="medium" />
                                     </IconButton>
@@ -472,7 +472,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                         )}
                         {toolBarOptions?.includes('duplicate') && (
                             <Tooltip title={disabled ? 'Select Item(s) First' : 'Duplicate'}>
-                                <Box>
+                                <Box data-testid="duplicate-btn">
                                     <IconButton onClick={() => onAddDuplicates!(tableRef.current.getSelectedRecords())} disabled={disabled}>
                                         <ControlPointDuplicateIcon fontSize="medium" />
                                     </IconButton>
@@ -481,7 +481,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                         )}
                         {toolBarOptions?.includes('move') && (
                             <Tooltip title={disabled ? 'Select Item(s) First' : 'Change Section'}>
-                                <Box>
+                                <Box data-testid="move-btn">
                                     <IconButton onClick={() => onMove!(tableRef.current.getSelectedRecords())} disabled={disabled}>
                                         <MoveDownIcon fontSize="medium" />
                                     </IconButton>
@@ -490,7 +490,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                         )}
                         {toolBarOptions?.includes('hide') && (
                             <Tooltip title={disabled ? 'Select Item(s) First' : 'Hide / Unhide'}>
-                                <Box>
+                                <Box data-testid="hide-btn">
                                     <IconButton onClick={() => onHideUnhide!(tableRef.current.getSelectedRecords())} disabled={disabled}>
                                         <VisibilityOffIcon fontSize="medium" />
                                     </IconButton>
@@ -499,7 +499,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                         )}
                         {toolBarOptions?.includes('delete') && (
                             <Tooltip title={disabled ? 'Select Item(s) First' : 'Delete'}>
-                                <Box>
+                                <Box data-testid="delete-btn">
                                     <IconButton
                                         disabled={disabled}
                                         onClick={() => {

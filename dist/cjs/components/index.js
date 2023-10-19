@@ -56,5 +56,7 @@ __exportStar(require("./RangeSlider"), exports);
 __exportStar(require("./Img"), exports);
 __exportStar(require("./MultiSelect"), exports);
 __exportStar(require("./Avatar"), exports);
+__exportStar(require("./Popper"), exports);
+__exportStar(require("./ColorPicker"), exports);
 __exportStar(require("./CheckboxGroup"), exports);
 //# sourceMappingURL=index.js.map

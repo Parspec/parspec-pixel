@@ -391,14 +391,17 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
     const [tableHeight, setTableHeight] = useState<number>();
     const tableContainerRef = useCallback((node: HTMLDivElement) => {
         if (node !== null) {
-            const toolbarHeight = showToolbar && toolbarContainerRef?.current ? toolbarContainerRef?.current?.offsetHeight : 0;
-            const paginationHeight = allowPaging ? 47 : 0;
-            const tableHeader = 42 + 10;
-            if (node.offsetHeight) {
-                setTableHeight(node.offsetHeight - toolbarHeight - paginationHeight - tableHeader);
+            function handleResize(entries?: Array<ResizeObserverEntry>) {
+                const currentNode = entries?.[0]?.target || node;
+                const toolbarHeight = showToolbar && toolbarContainerRef?.current ? toolbarContainerRef?.current?.clientHeight : 0;
+                if (currentNode.clientHeight) {
+                    setTableHeight(currentNode.clientHeight - toolbarHeight - 8);
+                }
             }
+            const resiveObserver = new ResizeObserver(handleResize);
+            resiveObserver.observe(node);
+            handleResize();
         }
-        // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     }, []);
     const toolbarContainerRef = useRef<any>();
 
@@ -526,7 +529,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                 </Box>
             )}
             <Box className="control-pane">
-                <Box className="control-section">
+                <Box className="control-section" height={height || tableHeight}>
                     {data && (
                         <TreeGridComponent
                             // expanding={expanding}
@@ -541,7 +544,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                             rowSelected={rowSelected}
                             rowDeselected={rowDeselected}
                             rowDataBound={rowDataBound}
-                            height={height || tableHeight}
+                            height="100%"
                             ref={tableRef}
                             dataSource={data}
                             treeColumnIndex={treeColumnIndex}

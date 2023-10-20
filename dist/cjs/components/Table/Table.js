@@ -20,7 +20,7 @@ const license = window.localStorage.getItem('syncfusionLicense');
 exports.Table = (0, react_1.forwardRef)((props, ref) => {
     const { children, data, childMappingKey, allowExports, allowRowDragAndDrop, frozenColumns, treeColumnIndex, allowPaging, pageSettings, allowResizing, allowSorting, showToolbar, toolBarOptions, height, allowFiltering, editSettings, filterSettings, onHideUnhide, onAdd, onAddDuplicates, onCheckboxChange, onDragEnd, onEdit, onSearch, onDelete, selectionSettings, onRowSelection, loading, toolbarRightSection, searchSettings, hiddenProperty, rowHeight, 
     // defaultFilter,
-    customFiltersFunction, dataBoundCallBack, tableKey, selectedItemsBelowSearch, title, aggregateChildren, onCellEdit: handleCellEdit, onMove, cellSave, beforePaste, customQueryCellInfo } = props;
+    customFiltersFunction, dataBoundCallBack, tableKey, selectedItemsBelowSearch, title, aggregateChildren, onMove, cellSave, beforePaste, customQueryCellInfo } = props;
     const tableRef = (0, react_1.useRef)();
     const [selected, setSelectedForBanner] = (0, react_1.useState)(0);
     (0, react_1.useEffect)(() => {
@@ -262,16 +262,19 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
     const rightSection = (0, react_1.useMemo)(() => toolbarRightSection, [toolbarRightSection]);
     const [tableHeight, setTableHeight] = (0, react_1.useState)();
     const tableContainerRef = (0, react_1.useCallback)((node) => {
-        var _a;
         if (node !== null) {
-            const toolbarHeight = showToolbar && (toolbarContainerRef === null || toolbarContainerRef === void 0 ? void 0 : toolbarContainerRef.current) ? (_a = toolbarContainerRef === null || toolbarContainerRef === void 0 ? void 0 : toolbarContainerRef.current) === null || _a === void 0 ? void 0 : _a.offsetHeight : 0;
-            const paginationHeight = allowPaging ? 47 : 0;
-            const tableHeader = 42 + 10;
-            if (node.offsetHeight) {
-                setTableHeight(node.offsetHeight - toolbarHeight - paginationHeight - tableHeader);
+            function handleResize(entries) {
+                var _a, _b;
+                const currentNode = ((_a = entries === null || entries === void 0 ? void 0 : entries[0]) === null || _a === void 0 ? void 0 : _a.target) || node;
+                const toolbarHeight = showToolbar && (toolbarContainerRef === null || toolbarContainerRef === void 0 ? void 0 : toolbarContainerRef.current) ? (_b = toolbarContainerRef === null || toolbarContainerRef === void 0 ? void 0 : toolbarContainerRef.current) === null || _b === void 0 ? void 0 : _b.clientHeight : 0;
+                if (currentNode.clientHeight) {
+                    setTableHeight(currentNode.clientHeight - toolbarHeight - 8);
+                }
             }
+            const resiveObserver = new ResizeObserver(handleResize);
+            resiveObserver.observe(node);
+            handleResize();
         }
-        // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     }, []);
     const toolbarContainerRef = (0, react_1.useRef)();
     const getPageSettings = (0, react_1.useMemo)(() => {
@@ -309,7 +312,7 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
     let eventTriggered = false;
     keydownHandler;
     function keydownHandler(args) {
-        var _a, _b, _c;
+        var _a;
         var instance = document.getElementsByClassName('e-treegrid')[0].ej2_instances[0];
         var closesttd = args.target.closest('td');
         // debugger;
@@ -320,6 +323,15 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
             //triggers while enter
             editACell(closesttd.nextSibling);
         }
+        if (args.keyCode == 9) {
+            // triggers while pressing tab
+            var firstCell = parseInt(closesttd === null || closesttd === void 0 ? void 0 : closesttd.getAttribute('index'));
+            var rowIndex = (_a = instance === null || instance === void 0 ? void 0 : instance.getVisibleColumns()[args.currentTarget.cellIndex - 1]) === null || _a === void 0 ? void 0 : _a.field;
+            instance.grid.editModule.batchSave();
+            setTimeout(() => {
+                instance.editCell(firstCell, rowIndex);
+            }, 50);
+        }
         const isAlphabet = (args.keyCode >= 65 && args.keyCode <= 90) || (args.keyCode >= 97 && args.keyCode <= 122);
         const isNumeric = args.keyCode > 47 && args.keyCode < 58;
         if (isAlphabet || isNumeric) {
@@ -329,11 +341,11 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
                 args.preventDefault();
                 args.stopPropagation();
                 // triggers while typing alphabet
-                var firstCell = (_a = instance.getSelectedRowCellIndexes()[0]) === null || _a === void 0 ? void 0 : _a.cellIndexes[0];
-                var rowIndex = (_b = instance.getSelectedRowCellIndexes()[0]) === null || _b === void 0 ? void 0 : _b.rowIndex;
-                if (!(0, ej2_base_1.isNullOrUndefined)(firstCell) && !(0, ej2_base_1.isNullOrUndefined)(rowIndex)) {
-                    instance.editCell(rowIndex, (_c = instance === null || instance === void 0 ? void 0 : instance.getColumns()[firstCell]) === null || _c === void 0 ? void 0 : _c.field);
-                }
+                // var firstCell = instance.getSelectedRowCellIndexes()[0]?.cellIndexes[0] as any;
+                // var rowIndex: any = instance.getSelectedRowCellIndexes()[0]?.rowIndex as any;
+                // if (!isNullOrUndefined(firstCell) && !isNullOrUndefined(rowIndex)) {
+                //     instance.editCell(rowIndex, instance?.getColumns()[firstCell]?.field);
+                // }
             }
         }
         if (args.keyCode == 27 && instance.grid.isEdit) {
@@ -346,6 +358,9 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
         var instance = document.getElementsByClassName('e-treegrid')[0].ej2_instances[0];
         instance.grid.editModule.editCell(parseInt(args.getAttribute('index')), instance.grid.getColumnByIndex(parseInt(args.getAttribute('data-colindex'))).field);
     }
+    // const beginEdit = (args: any) => {
+    //     console.log(args, 'args');
+    // };
     function mouseDownHandler(args) {
         // treegrid instance
         var instance = document.getElementsByClassName('e-treegrid')[0].ej2_instances[0];
@@ -357,16 +372,27 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
             instance.selectionSettings.mode = 'Cell';
         }
     }
+    // const handleCellEdit = (args: any) => {
+    //     var instance = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];
+    //     var closesttd = args.cell.closest('td');
+    //     var firstCell = parseInt(closesttd?.getAttribute('index'));
+    //     var rowIndex = instance?.getVisibleColumns()[args.cell.cellIndex - 1]?.field;
+    //     console.log(args, 'handleCellEdit', firstCell, rowIndex);
+    //     // instance.grid.editModule.batchSave();
+    //     // setTimeout(() => {
+    //     //     // instance.editCell(firstCell, rowIndex);
+    //     // }, 50);
+    // };
     return ((0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ position: 'relative', height: '100%', width: '100%', ref: tableContainerRef }, { children: [showToolbar && ((0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ display: 'flex', ref: toolbarContainerRef, justifyContent: "space-between", alignItems: 'flex-end', mb: 2, sx: loading ? { PointerEvent: 'none' } : {} }, { children: [(0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ display: "flex", alignItems: "center", gap: 1 }, { children: [title && (0, jsx_runtime_1.jsx)(Typography_1.BodySmall, Object.assign({ color: "neutral.dark" }, { children: title })), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('search')) && ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ width: 300 }, { children: (0, jsx_runtime_1.jsx)(TextField_1.TextField, { label: "", placeholder: "Search...", InputProps: {
                                         startAdornment: ((0, jsx_runtime_1.jsx)(InputAdornment_1.InputAdornment, Object.assign({ position: "start" }, { children: (0, jsx_runtime_1.jsx)(Icons_1.SearchIcon, { fontSize: "small" }) })))
                                     }, size: "small", onChange: (t) => {
                                         var _a, _b, _c, _d;
                                         t.target.value = (_b = (_a = t === null || t === void 0 ? void 0 : t.target) === null || _a === void 0 ? void 0 : _a.value) === null || _b === void 0 ? void 0 : _b.replace(/[^a-zA-Z0-9-_& ]/g, '');
                                         tableRef.current.search((_d = (_c = t === null || t === void 0 ? void 0 : t.target) === null || _c === void 0 ? void 0 : _c.value) === null || _d === void 0 ? void 0 : _d.replace(/[^a-zA-Z0-9-_& ]/g, '').trim());
-                                    } }) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('add')) && ((0, jsx_runtime_1.jsx)(Tooltip_1.Tooltip, Object.assign({ title: 'Add' }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, { children: (0, jsx_runtime_1.jsx)(IconButton_1.IconButton, Object.assign({ onClick: () => onAdd() }, { children: (0, jsx_runtime_1.jsx)(Icons_1.AddIcon, { fontSize: "medium" }) })) }) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('duplicate')) && ((0, jsx_runtime_1.jsx)(Tooltip_1.Tooltip, Object.assign({ title: disabled ? 'Select Item(s) First' : 'Duplicate' }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, { children: (0, jsx_runtime_1.jsx)(IconButton_1.IconButton, Object.assign({ onClick: () => onAddDuplicates(tableRef.current.getSelectedRecords()), disabled: disabled }, { children: (0, jsx_runtime_1.jsx)(Icons_1.ControlPointDuplicateIcon, { fontSize: "medium" }) })) }) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('move')) && ((0, jsx_runtime_1.jsx)(Tooltip_1.Tooltip, Object.assign({ title: disabled ? 'Select Item(s) First' : 'Change Section' }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, { children: (0, jsx_runtime_1.jsx)(IconButton_1.IconButton, Object.assign({ onClick: () => onMove(tableRef.current.getSelectedRecords()), disabled: disabled }, { children: (0, jsx_runtime_1.jsx)(Icons_1.MoveDownIcon, { fontSize: "medium" }) })) }) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('hide')) && ((0, jsx_runtime_1.jsx)(Tooltip_1.Tooltip, Object.assign({ title: disabled ? 'Select Item(s) First' : 'Hide / Unhide' }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, { children: (0, jsx_runtime_1.jsx)(IconButton_1.IconButton, Object.assign({ onClick: () => onHideUnhide(tableRef.current.getSelectedRecords()), disabled: disabled }, { children: (0, jsx_runtime_1.jsx)(Icons_1.VisibilityOffIcon, { fontSize: "medium" }) })) }) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('delete')) && ((0, jsx_runtime_1.jsx)(Tooltip_1.Tooltip, Object.assign({ title: disabled ? 'Select Item(s) First' : 'Delete' }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, { children: (0, jsx_runtime_1.jsx)(IconButton_1.IconButton, Object.assign({ disabled: disabled, onClick: () => {
+                                    } }) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('add')) && ((0, jsx_runtime_1.jsx)(Tooltip_1.Tooltip, Object.assign({ title: 'Add' }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ "data-testid": "add-btn" }, { children: (0, jsx_runtime_1.jsx)(IconButton_1.IconButton, Object.assign({ onClick: () => onAdd() }, { children: (0, jsx_runtime_1.jsx)(Icons_1.AddIcon, { fontSize: "medium" }) })) })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('duplicate')) && ((0, jsx_runtime_1.jsx)(Tooltip_1.Tooltip, Object.assign({ title: disabled ? 'Select Item(s) First' : 'Duplicate' }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ "data-testid": "duplicate-btn" }, { children: (0, jsx_runtime_1.jsx)(IconButton_1.IconButton, Object.assign({ onClick: () => onAddDuplicates(tableRef.current.getSelectedRecords()), disabled: disabled }, { children: (0, jsx_runtime_1.jsx)(Icons_1.ControlPointDuplicateIcon, { fontSize: "medium" }) })) })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('move')) && ((0, jsx_runtime_1.jsx)(Tooltip_1.Tooltip, Object.assign({ title: disabled ? 'Select Item(s) First' : 'Change Section' }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ "data-testid": "move-btn" }, { children: (0, jsx_runtime_1.jsx)(IconButton_1.IconButton, Object.assign({ onClick: () => onMove(tableRef.current.getSelectedRecords()), disabled: disabled }, { children: (0, jsx_runtime_1.jsx)(Icons_1.MoveDownIcon, { fontSize: "medium" }) })) })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('hide')) && ((0, jsx_runtime_1.jsx)(Tooltip_1.Tooltip, Object.assign({ title: disabled ? 'Select Item(s) First' : 'Hide / Unhide' }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ "data-testid": "hide-btn" }, { children: (0, jsx_runtime_1.jsx)(IconButton_1.IconButton, Object.assign({ onClick: () => onHideUnhide(tableRef.current.getSelectedRecords()), disabled: disabled }, { children: (0, jsx_runtime_1.jsx)(Icons_1.VisibilityOffIcon, { fontSize: "medium" }) })) })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('delete')) && ((0, jsx_runtime_1.jsx)(Tooltip_1.Tooltip, Object.assign({ title: disabled ? 'Select Item(s) First' : 'Delete' }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ "data-testid": "delete-btn" }, { children: (0, jsx_runtime_1.jsx)(IconButton_1.IconButton, Object.assign({ disabled: disabled, onClick: () => {
                                             var _a;
                                             onDelete((_a = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _a === void 0 ? void 0 : _a.getSelectedRecords());
-                                        } }, { children: (0, jsx_runtime_1.jsx)(Icons_1.DeleteOutlineIcon, { fontSize: "medium" }) })) }) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('clearFilters')) && ((0, jsx_runtime_1.jsx)(Tooltip_1.Tooltip, Object.assign({ title: "Clear Filter(s)" }, { children: (0, jsx_runtime_1.jsx)(IconButton_1.IconButton, Object.assign({ onClick: () => tableRef.current.clearFiltering() }, { children: (0, jsx_runtime_1.jsx)(Icons_1.FilterAltOffIcon, { fontSize: "medium" }) })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('selectedItems')) && selected > 0 && !selectedItemsBelowSearch && (0, jsx_runtime_1.jsx)(SelectedItemsCount_1.SelectedItemsCount, { count: selected, closeBanner: closeBanner })] })), (0, jsx_runtime_1.jsx)(Box_1.Box, { children: rightSection })] }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('selectedItems')) && selected > 0 && selectedItemsBelowSearch && ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ mb: 2, width: 'max-content' }, { children: (0, jsx_runtime_1.jsx)(SelectedItemsCount_1.SelectedItemsCount, { count: selected, closeBanner: closeBanner }) }))), (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ className: "control-pane" }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ className: "control-section" }, { children: data && ((0, jsx_runtime_1.jsxs)(ej2_react_treegrid_1.TreeGridComponent
+                                        } }, { children: (0, jsx_runtime_1.jsx)(Icons_1.DeleteOutlineIcon, { fontSize: "medium" }) })) })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('clearFilters')) && ((0, jsx_runtime_1.jsx)(Tooltip_1.Tooltip, Object.assign({ title: "Clear Filter(s)" }, { children: (0, jsx_runtime_1.jsx)(IconButton_1.IconButton, Object.assign({ onClick: () => tableRef.current.clearFiltering() }, { children: (0, jsx_runtime_1.jsx)(Icons_1.FilterAltOffIcon, { fontSize: "medium" }) })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('selectedItems')) && selected > 0 && !selectedItemsBelowSearch && (0, jsx_runtime_1.jsx)(SelectedItemsCount_1.SelectedItemsCount, { count: selected, closeBanner: closeBanner })] })), (0, jsx_runtime_1.jsx)(Box_1.Box, { children: rightSection })] }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('selectedItems')) && selected > 0 && selectedItemsBelowSearch && ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ mb: 2, width: 'max-content' }, { children: (0, jsx_runtime_1.jsx)(SelectedItemsCount_1.SelectedItemsCount, { count: selected, closeBanner: closeBanner }) }))), (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ className: "control-pane" }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ className: "control-section", height: height || tableHeight }, { children: data && ((0, jsx_runtime_1.jsxs)(ej2_react_treegrid_1.TreeGridComponent
                     // expanding={expanding}
                     // collapsing={collapsing}
                     // resizeStart={resizestart}
@@ -374,7 +400,13 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
                         // expanding={expanding}
                         // collapsing={collapsing}
                         // resizeStart={resizestart}
-                        rowSelecting: rowSelecting, actionBegin: actionBegin, dataBound: dataBound, actionComplete: actionComplete, cellEdit: handleCellEdit, headerCellInfo: headerCellInfo, rowSelected: rowSelected, rowDeselected: rowDeselected, rowDataBound: rowDataBound, height: height || tableHeight, ref: tableRef, dataSource: data, treeColumnIndex: treeColumnIndex, childMapping: childMappingKey, allowPdfExport: allowExports, allowExcelExport: allowExports, allowRowDragAndDrop: allowRowDragAndDrop, allowResizing: allowResizing, selectionSettings: selectionSettings, rowDrop: rowDrop, frozenColumns: frozenColumns, allowSorting: allowSorting, editSettings: editSettings, searchSettings: searchSettings, pageSettings: getPageSettings, allowPaging: allowPaging, allowFiltering: allowFiltering, filterSettings: filterSettings, checkboxChange: checkboxChange, rowHeight: rowHeight }, (tableKey && { key: tableKey }), { queryCellInfo: queryCellInfo, cellSave: cellSave, beforePaste: beforePaste }, { children: [(0, jsx_runtime_1.jsx)(ej2_react_treegrid_1.ColumnsDirective, { children: children }), aggregateChildren && (0, jsx_runtime_1.jsx)(ej2_react_treegrid_1.AggregatesDirective, { children: aggregateChildren }), (0, jsx_runtime_1.jsx)(ej2_react_treegrid_1.Inject, { services: [ej2_react_treegrid_1.Freeze, ej2_react_treegrid_1.RowDD, ej2_react_treegrid_1.Selection, ej2_react_treegrid_1.Sort, ej2_react_treegrid_1.Edit, ej2_react_treegrid_1.Page, ej2_react_treegrid_1.ExcelExport, ej2_react_treegrid_1.PdfExport, ej2_react_treegrid_1.Resize, ej2_react_treegrid_1.Filter, ej2_react_treegrid_1.ContextMenu, ej2_react_treegrid_1.Aggregate] })] }))) })) }))] })));
+                        rowSelecting: rowSelecting, actionBegin: actionBegin, dataBound: dataBound, actionComplete: actionComplete, 
+                        // cellEdit={handleCellEdit}
+                        headerCellInfo: headerCellInfo, rowSelected: rowSelected, rowDeselected: rowDeselected, rowDataBound: rowDataBound, height: "100%", ref: tableRef, dataSource: data, treeColumnIndex: treeColumnIndex, childMapping: childMappingKey, allowPdfExport: allowExports, allowExcelExport: allowExports, allowRowDragAndDrop: allowRowDragAndDrop, allowResizing: allowResizing, selectionSettings: selectionSettings, rowDrop: rowDrop, frozenColumns: frozenColumns, allowSorting: allowSorting, editSettings: editSettings, searchSettings: searchSettings, pageSettings: getPageSettings, allowPaging: allowPaging, allowFiltering: allowFiltering, filterSettings: filterSettings, checkboxChange: checkboxChange, rowHeight: rowHeight }, (tableKey && { key: tableKey }), { queryCellInfo: queryCellInfo, 
+                        // cellSave={batchSave}
+                        // beforeBatchSave={beginEdit}
+                        // batchAdd={beginEdit}
+                        cellSave: cellSave, beforePaste: beforePaste }, { children: [(0, jsx_runtime_1.jsx)(ej2_react_treegrid_1.ColumnsDirective, { children: children }), aggregateChildren && (0, jsx_runtime_1.jsx)(ej2_react_treegrid_1.AggregatesDirective, { children: aggregateChildren }), (0, jsx_runtime_1.jsx)(ej2_react_treegrid_1.Inject, { services: [ej2_react_treegrid_1.Freeze, ej2_react_treegrid_1.RowDD, ej2_react_treegrid_1.Selection, ej2_react_treegrid_1.Sort, ej2_react_treegrid_1.Edit, ej2_react_treegrid_1.Page, ej2_react_treegrid_1.ExcelExport, ej2_react_treegrid_1.PdfExport, ej2_react_treegrid_1.Resize, ej2_react_treegrid_1.Filter, ej2_react_treegrid_1.ContextMenu, ej2_react_treegrid_1.Aggregate] })] }))) })) }))] })));
 });
 exports.Table.defaultProps = {
     excelExportProperties: {
@@ -423,6 +455,7 @@ exports.Table.defaultProps = {
     onSearch: (data) => { },
     onRowSelection: (data) => { },
     customQueryCellInfo: (data) => { },
+    // batchSave: (data: Object) => {},
     dataBoundCallBack: () => { },
     customFiltersFunction: (data) => { },
     loading: false,

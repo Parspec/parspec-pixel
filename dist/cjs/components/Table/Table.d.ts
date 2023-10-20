@@ -49,6 +49,7 @@ export interface TableProps {
     aggregateChildren?: React.ReactNode;
     queryCellInfo?: (args: any) => void;
     cellSave?: (data: Object) => void;
+    batchSave?: (data: Object) => void;
     beforePaste?: (data: Object) => void;
     customQueryCellInfo?: (args: any) => void;
 }

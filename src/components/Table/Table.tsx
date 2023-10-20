@@ -155,7 +155,6 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
         selectedItemsBelowSearch,
         title,
         aggregateChildren,
-        onCellEdit,
         onMove,
         cellSave,
         beforePaste,
@@ -284,11 +283,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
         onCheckboxChange!(tableRef?.current?.getSelectedRecords(), tableKey);
         setSelectedForBanner(tableRef?.current?.getSelectedRecords()?.length);
     };
-    const batchSave = (args: any) => {
-        var instance = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];
-        console.log(instance.grid.editModule, 'batchSave====>');
-        instance.grid.editModule.actionComplete('batchEdit');
-    };
+
     const scrollTo = (id: number) => {
         try {
             const matchedElement = tableRef?.current?.flatData.find((value: any) => value.id === id);
@@ -391,7 +386,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
         if (tableRef?.current?.getVisibleRecords()?.length === 0) {
             (document.getElementById('_gridcontrol_content_table') as any).classList.add('empty');
         } else {
-            // dataBoundCallBack!();
+            dataBoundCallBack!();
         }
         tableRef.current.keyConfigs.upArrow = '';
         tableRef.current.keyConfigs.downArrow = '';
@@ -484,12 +479,12 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                 args.stopPropagation();
 
                 // triggers while typing alphabet
-                var firstCell = instance.getSelectedRowCellIndexes()[0]?.cellIndexes[0];
-                var rowIndex = instance.getSelectedRowCellIndexes()[0]?.rowIndex;
+                // var firstCell = instance.getSelectedRowCellIndexes()[0]?.cellIndexes[0] as any;
+                // var rowIndex: any = instance.getSelectedRowCellIndexes()[0]?.rowIndex as any;
 
-                if (!isNullOrUndefined(firstCell) && !isNullOrUndefined(rowIndex)) {
-                    instance.editCell(rowIndex, instance?.getColumns()[firstCell]?.field);
-                }
+                // if (!isNullOrUndefined(firstCell) && !isNullOrUndefined(rowIndex)) {
+                //     instance.editCell(rowIndex, instance?.getColumns()[firstCell]?.field);
+                // }
             }
         }
 
@@ -504,9 +499,9 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
         var instance = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];
         instance.grid.editModule.editCell(parseInt(args.getAttribute('index')), instance.grid.getColumnByIndex(parseInt(args.getAttribute('data-colindex'))).field);
     }
-    const beginEdit = (args: any) => {
-        console.log(args, 'args');
-    };
+    // const beginEdit = (args: any) => {
+    //     console.log(args, 'args');
+    // };
     function mouseDownHandler(args: any) {
         // treegrid instance
         var instance = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];
@@ -518,18 +513,18 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
             instance.selectionSettings.mode = 'Cell';
         }
     }
-    const handleCellEdit = (args: any) => {
-        var instance = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];
-        var closesttd = args.cell.closest('td');
+    // const handleCellEdit = (args: any) => {
+    //     var instance = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];
+    //     var closesttd = args.cell.closest('td');
 
-        var firstCell = parseInt(closesttd?.getAttribute('index'));
-        var rowIndex = instance?.getVisibleColumns()[args.cell.cellIndex - 1]?.field;
-        console.log(args, 'handleCellEdit');
-        // instance.grid.editModule.batchSave();
-        // setTimeout(() => {
-        //     // instance.editCell(firstCell, rowIndex);
-        // }, 50);
-    };
+    //     var firstCell = parseInt(closesttd?.getAttribute('index'));
+    //     var rowIndex = instance?.getVisibleColumns()[args.cell.cellIndex - 1]?.field;
+    //     console.log(args, 'handleCellEdit', firstCell, rowIndex);
+    //     // instance.grid.editModule.batchSave();
+    //     // setTimeout(() => {
+    //     //     // instance.editCell(firstCell, rowIndex);
+    //     // }, 50);
+    // };
     return (
         <Box position={'relative'} height={'100%'} width={'100%'} ref={tableContainerRef}>
             {showToolbar && (
@@ -632,9 +627,9 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                             // resizeStart={resizestart}
                             rowSelecting={rowSelecting}
                             actionBegin={actionBegin}
-                            // dataBound={dataBound}
+                            dataBound={dataBound}
                             actionComplete={actionComplete}
-                            cellEdit={handleCellEdit}
+                            // cellEdit={handleCellEdit}
                             headerCellInfo={headerCellInfo}
                             rowSelected={rowSelected}
                             rowDeselected={rowDeselected}
@@ -666,8 +661,8 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                             // beforeBatchSave={beginEdit}
                             // batchAdd={beginEdit}
 
-                            // cellSave={cellSave}
-                            // beforePaste={beforePaste}
+                            cellSave={cellSave}
+                            beforePaste={beforePaste}
                         >
                             <ColumnsDirective>{children}</ColumnsDirective>
                             {aggregateChildren && <AggregatesDirective>{aggregateChildren}</AggregatesDirective>}

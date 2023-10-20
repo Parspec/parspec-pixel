@@ -95,6 +95,7 @@ export interface TableProps {
     aggregateChildren?: React.ReactNode;
     queryCellInfo?: (args: any) => void;
     cellSave?: (data: Object) => void;
+    batchSave?: (data: Object) => void;
     beforePaste?: (data: Object) => void;
     customQueryCellInfo?: (args: any) => void;
 }
@@ -154,7 +155,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
         selectedItemsBelowSearch,
         title,
         aggregateChildren,
-        onCellEdit: handleCellEdit,
+        onCellEdit,
         onMove,
         cellSave,
         beforePaste,
@@ -283,6 +284,11 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
         onCheckboxChange!(tableRef?.current?.getSelectedRecords(), tableKey);
         setSelectedForBanner(tableRef?.current?.getSelectedRecords()?.length);
     };
+    const batchSave = (args: any) => {
+        var instance = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];
+        console.log(instance.grid.editModule, 'batchSave====>');
+        instance.grid.editModule.actionComplete('batchEdit');
+    };
     const scrollTo = (id: number) => {
         try {
             const matchedElement = tableRef?.current?.flatData.find((value: any) => value.id === id);
@@ -385,7 +391,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
         if (tableRef?.current?.getVisibleRecords()?.length === 0) {
             (document.getElementById('_gridcontrol_content_table') as any).classList.add('empty');
         } else {
-            dataBoundCallBack!();
+            // dataBoundCallBack!();
         }
         tableRef.current.keyConfigs.upArrow = '';
         tableRef.current.keyConfigs.downArrow = '';
@@ -455,6 +461,15 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
             //triggers while enter
             editACell(closesttd.nextSibling);
         }
+        if (args.keyCode == 9) {
+            // triggers while pressing tab
+            var firstCell = parseInt(closesttd?.getAttribute('index'));
+            var rowIndex = instance?.getVisibleColumns()[args.currentTarget.cellIndex - 1]?.field;
+            instance.grid.editModule.batchSave();
+            setTimeout(() => {
+                instance.editCell(firstCell, rowIndex);
+            }, 50);
+        }
 
         const isAlphabet = (args.keyCode >= 65 && args.keyCode <= 90) || (args.keyCode >= 97 && args.keyCode <= 122);
         const isNumeric = args.keyCode > 47 && args.keyCode < 58;
@@ -486,6 +501,9 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
         var instance = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];
         instance.grid.editModule.editCell(parseInt(args.getAttribute('index')), instance.grid.getColumnByIndex(parseInt(args.getAttribute('data-colindex'))).field);
     }
+    const beginEdit = (args: any) => {
+        console.log(args, 'args');
+    };
     function mouseDownHandler(args: any) {
         // treegrid instance
         var instance = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];
@@ -497,6 +515,18 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
             instance.selectionSettings.mode = 'Cell';
         }
     }
+    const handleCellEdit = (args: any) => {
+        var instance = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];
+        var closesttd = args.cell.closest('td');
+
+        var firstCell = parseInt(closesttd?.getAttribute('index'));
+        var rowIndex = instance?.getVisibleColumns()[args.cell.cellIndex - 1]?.field;
+        console.log(args, 'handleCellEdit');
+        // instance.grid.editModule.batchSave();
+        // setTimeout(() => {
+        //     // instance.editCell(firstCell, rowIndex);
+        // }, 50);
+    };
     return (
         <Box position={'relative'} height={'100%'} width={'100%'} ref={tableContainerRef}>
             {showToolbar && (
@@ -599,7 +629,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                             // resizeStart={resizestart}
                             rowSelecting={rowSelecting}
                             actionBegin={actionBegin}
-                            dataBound={dataBound}
+                            // dataBound={dataBound}
                             actionComplete={actionComplete}
                             cellEdit={handleCellEdit}
                             headerCellInfo={headerCellInfo}
@@ -629,8 +659,12 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                             rowHeight={rowHeight}
                             {...(tableKey && { key: tableKey })}
                             queryCellInfo={queryCellInfo}
-                            cellSave={cellSave}
-                            beforePaste={beforePaste}
+                            // cellSave={batchSave}
+                            // beforeBatchSave={beginEdit}
+                            // batchAdd={beginEdit}
+
+                            // cellSave={cellSave}
+                            // beforePaste={beforePaste}
                         >
                             <ColumnsDirective>{children}</ColumnsDirective>
                             {aggregateChildren && <AggregatesDirective>{aggregateChildren}</AggregatesDirective>}
@@ -690,7 +724,7 @@ Table.defaultProps = {
     onSearch: (data: Object) => {},
     onRowSelection: (data: Object) => {},
     customQueryCellInfo: (data: Object) => {},
-
+    // batchSave: (data: Object) => {},
     dataBoundCallBack: () => {},
     customFiltersFunction: (data: Object) => {},
     loading: false,

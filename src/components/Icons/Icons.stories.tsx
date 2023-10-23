@@ -66,7 +66,8 @@ import {
     ThumbDownOffAltIcon,
     MoveIcon,
     FileUploadIcon,
-    MoveDownIcon
+    MoveDownIcon,
+    KeyboardArrowDownIcon
 } from './index';
 import { Grid } from '../Grid';
 import { BodySmall } from '../Typography';
@@ -166,7 +167,8 @@ MUIImportedIcons.args = {
         { icon: ThumbDownOffAltIcon, name: 'ThumbDownOffAltIcon' },
         { icon: MoveIcon, name: 'MoveIcon' },
         { icon: FileUploadIcon, name: 'FileUploadIcon' },
-        { icon: MoveDownIcon, name: 'MoveDownIcon' }
+        { icon: MoveDownIcon, name: 'MoveDownIcon' },
+        { icon: KeyboardArrowDownIcon, name: 'KeyboardArrowDownIcon' }
     ],
     fontSize: 'medium',
     color: 'tertiary'

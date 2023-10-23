@@ -78,5 +78,6 @@ export {
     ThumbDownOffAlt as ThumbDownOffAltIcon,
     MoveDown as MoveIcon,
     FileUpload as FileUploadIcon,
-    MoveDown as MoveDownIcon
+    MoveDown as MoveDownIcon,
+    KeyboardArrowDown as KeyboardArrowDownIcon
 } from '@mui/icons-material';

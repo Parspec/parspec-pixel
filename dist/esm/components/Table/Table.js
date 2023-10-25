@@ -17,7 +17,7 @@ registerLicense(license);
 export const Table = forwardRef((props, ref) => {
     const { children, data, childMappingKey, allowExports, allowRowDragAndDrop, frozenColumns, treeColumnIndex, allowPaging, pageSettings, allowResizing, allowSorting, showToolbar, toolBarOptions, height, allowFiltering, editSettings, filterSettings, onHideUnhide, onAdd, onAddDuplicates, onCheckboxChange, onDragEnd, onEdit, onSearch, onDelete, selectionSettings, onRowSelection, loading, toolbarRightSection, searchSettings, hiddenProperty, rowHeight, 
     // defaultFilter,
-    customFiltersFunction, dataBoundCallBack, tableKey, selectedItemsBelowSearch, title, aggregateChildren, onMove, cellSave, beforePaste, customQueryCellInfo } = props;
+    customFiltersFunction, dataBoundCallBack, tableKey, selectedItemsBelowSearch, title, aggregateChildren, onMove, cellSave, beforePaste, cellSaved, customQueryCellInfo } = props;
     const tableRef = useRef();
     const [selected, setSelectedForBanner] = useState(0);
     useEffect(() => {
@@ -294,6 +294,17 @@ export const Table = forwardRef((props, ref) => {
     // };
     // const expanding = () => {
     //     tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
+    // };cellSaved
+    // const cellSaved = (args: any) => {
+    //     if (args.previousValue != args.value) {
+    //         var instance = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];
+    //         instance.grid.editModule.batchSave();
+    //         var firstCell = parseInt(args?.cell?.getAttribute('index'));
+    //         var colName = instance.getColumns()[args.column.index + 1]?.field;
+    //         setTimeout(() => {
+    //             instance.editCell(firstCell, colName);
+    //         }, 50);
+    //     }
     // };
     const rowSelecting = (args) => {
         if (isEscPressed) {
@@ -403,7 +414,7 @@ export const Table = forwardRef((props, ref) => {
                         // cellSave={batchSave}
                         // beforeBatchSave={beginEdit}
                         // batchAdd={beginEdit}
-                        cellSave: cellSave, beforePaste: beforePaste }, { children: [_jsx(ColumnsDirective, { children: children }), aggregateChildren && _jsx(AggregatesDirective, { children: aggregateChildren }), _jsx(Inject, { services: [Freeze, RowDD, Selection, Sort, Edit, Page, ExcelExport, PdfExport, Resize, Filter, ContextMenu, Aggregate] })] }))) })) }))] })));
+                        cellSaved: cellSaved, cellSave: cellSave, beforePaste: beforePaste }, { children: [_jsx(ColumnsDirective, { children: children }), aggregateChildren && _jsx(AggregatesDirective, { children: aggregateChildren }), _jsx(Inject, { services: [Freeze, RowDD, Selection, Sort, Edit, Page, ExcelExport, PdfExport, Resize, Filter, ContextMenu, Aggregate] })] }))) })) }))] })));
 });
 Table.defaultProps = {
     excelExportProperties: {

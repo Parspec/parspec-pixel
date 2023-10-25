@@ -50,6 +50,7 @@ export interface TableProps {
     queryCellInfo?: (args: any) => void;
     cellSave?: (data: Object) => void;
     batchSave?: (data: Object) => void;
+    cellSaved?: (data: Object) => void;
     beforePaste?: (data: Object) => void;
     customQueryCellInfo?: (args: any) => void;
 }

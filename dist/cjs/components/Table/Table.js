@@ -20,7 +20,7 @@ const license = window.localStorage.getItem('syncfusionLicense');
 exports.Table = (0, react_1.forwardRef)((props, ref) => {
     const { children, data, childMappingKey, allowExports, allowRowDragAndDrop, frozenColumns, treeColumnIndex, allowPaging, pageSettings, allowResizing, allowSorting, showToolbar, toolBarOptions, height, allowFiltering, editSettings, filterSettings, onHideUnhide, onAdd, onAddDuplicates, onCheckboxChange, onDragEnd, onEdit, onSearch, onDelete, selectionSettings, onRowSelection, loading, toolbarRightSection, searchSettings, hiddenProperty, rowHeight, 
     // defaultFilter,
-    customFiltersFunction, dataBoundCallBack, tableKey, selectedItemsBelowSearch, title, aggregateChildren, onMove, cellSave, beforePaste, customQueryCellInfo } = props;
+    customFiltersFunction, dataBoundCallBack, tableKey, selectedItemsBelowSearch, title, aggregateChildren, onMove, cellSave, beforePaste, cellSaved, customQueryCellInfo } = props;
     const tableRef = (0, react_1.useRef)();
     const [selected, setSelectedForBanner] = (0, react_1.useState)(0);
     (0, react_1.useEffect)(() => {
@@ -297,6 +297,17 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
     // };
     // const expanding = () => {
     //     tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
+    // };cellSaved
+    // const cellSaved = (args: any) => {
+    //     if (args.previousValue != args.value) {
+    //         var instance = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];
+    //         instance.grid.editModule.batchSave();
+    //         var firstCell = parseInt(args?.cell?.getAttribute('index'));
+    //         var colName = instance.getColumns()[args.column.index + 1]?.field;
+    //         setTimeout(() => {
+    //             instance.editCell(firstCell, colName);
+    //         }, 50);
+    //     }
     // };
     const rowSelecting = (args) => {
         if (isEscPressed) {
@@ -406,7 +417,7 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
                         // cellSave={batchSave}
                         // beforeBatchSave={beginEdit}
                         // batchAdd={beginEdit}
-                        cellSave: cellSave, beforePaste: beforePaste }, { children: [(0, jsx_runtime_1.jsx)(ej2_react_treegrid_1.ColumnsDirective, { children: children }), aggregateChildren && (0, jsx_runtime_1.jsx)(ej2_react_treegrid_1.AggregatesDirective, { children: aggregateChildren }), (0, jsx_runtime_1.jsx)(ej2_react_treegrid_1.Inject, { services: [ej2_react_treegrid_1.Freeze, ej2_react_treegrid_1.RowDD, ej2_react_treegrid_1.Selection, ej2_react_treegrid_1.Sort, ej2_react_treegrid_1.Edit, ej2_react_treegrid_1.Page, ej2_react_treegrid_1.ExcelExport, ej2_react_treegrid_1.PdfExport, ej2_react_treegrid_1.Resize, ej2_react_treegrid_1.Filter, ej2_react_treegrid_1.ContextMenu, ej2_react_treegrid_1.Aggregate] })] }))) })) }))] })));
+                        cellSaved: cellSaved, cellSave: cellSave, beforePaste: beforePaste }, { children: [(0, jsx_runtime_1.jsx)(ej2_react_treegrid_1.ColumnsDirective, { children: children }), aggregateChildren && (0, jsx_runtime_1.jsx)(ej2_react_treegrid_1.AggregatesDirective, { children: aggregateChildren }), (0, jsx_runtime_1.jsx)(ej2_react_treegrid_1.Inject, { services: [ej2_react_treegrid_1.Freeze, ej2_react_treegrid_1.RowDD, ej2_react_treegrid_1.Selection, ej2_react_treegrid_1.Sort, ej2_react_treegrid_1.Edit, ej2_react_treegrid_1.Page, ej2_react_treegrid_1.ExcelExport, ej2_react_treegrid_1.PdfExport, ej2_react_treegrid_1.Resize, ej2_react_treegrid_1.Filter, ej2_react_treegrid_1.ContextMenu, ej2_react_treegrid_1.Aggregate] })] }))) })) }))] })));
 });
 exports.Table.defaultProps = {
     excelExportProperties: {

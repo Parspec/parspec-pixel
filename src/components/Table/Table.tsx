@@ -96,6 +96,8 @@ export interface TableProps {
     queryCellInfo?: (args: any) => void;
     cellSave?: (data: Object) => void;
     batchSave?: (data: Object) => void;
+    cellSaved?: (data: Object) => void;
+
     beforePaste?: (data: Object) => void;
     customQueryCellInfo?: (args: any) => void;
 }
@@ -158,6 +160,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
         onMove,
         cellSave,
         beforePaste,
+        cellSaved,
         customQueryCellInfo
     } = props;
 
@@ -431,8 +434,18 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
     // };
     // const expanding = () => {
     //     tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
+    // };cellSaved
+    // const cellSaved = (args: any) => {
+    //     if (args.previousValue != args.value) {
+    //         var instance = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];
+    //         instance.grid.editModule.batchSave();
+    //         var firstCell = parseInt(args?.cell?.getAttribute('index'));
+    //         var colName = instance.getColumns()[args.column.index + 1]?.field;
+    //         setTimeout(() => {
+    //             instance.editCell(firstCell, colName);
+    //         }, 50);
+    //     }
     // };
-
     const rowSelecting = (args: RowSelectingEventArgs) => {
         if (isEscPressed) {
             args.cancel = true;
@@ -660,7 +673,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                             // cellSave={batchSave}
                             // beforeBatchSave={beginEdit}
                             // batchAdd={beginEdit}
-
+                            cellSaved={cellSaved}
                             cellSave={cellSave}
                             beforePaste={beforePaste}
                         >

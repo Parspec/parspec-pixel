@@ -17,7 +17,9 @@ registerLicense(license);
 export const Table = forwardRef((props, ref) => {
     const { children, data, childMappingKey, allowExports, allowRowDragAndDrop, frozenColumns, treeColumnIndex, allowPaging, pageSettings, allowResizing, allowSorting, showToolbar, toolBarOptions, height, allowFiltering, editSettings, filterSettings, onHideUnhide, onAdd, onAddDuplicates, onCheckboxChange, onDragEnd, onEdit, onSearch, onDelete, selectionSettings, onRowSelection, loading, toolbarRightSection, searchSettings, hiddenProperty, rowHeight, 
     // defaultFilter,
-    customFiltersFunction, dataBoundCallBack, tableKey, selectedItemsBelowSearch, title, aggregateChildren, onMove, cellSave, beforePaste, cellSaved, customQueryCellInfo } = props;
+    customFiltersFunction, dataBoundCallBack, tableKey, selectedItemsBelowSearch, title, aggregateChildren, onMove, 
+    // cellSave,
+    beforePaste, cellSaved, customQueryCellInfo } = props;
     const tableRef = useRef();
     const [selected, setSelectedForBanner] = useState(0);
     useEffect(() => {
@@ -219,6 +221,16 @@ export const Table = forwardRef((props, ref) => {
         const endEdit = () => {
             tableRef.current.endEdit();
         };
+        const nextCell = (args) => {
+            var _a, _b;
+            const instan = tableRef.current;
+            instan.grid.editModule.batchSave();
+            var firstCell = parseInt((_a = args === null || args === void 0 ? void 0 : args.cell) === null || _a === void 0 ? void 0 : _a.getAttribute('index'));
+            var colName = (_b = instan.getColumns()[args.column.index + 1]) === null || _b === void 0 ? void 0 : _b.field;
+            setTimeout(() => {
+                instan.editCell(firstCell, colName);
+            }, 50);
+        };
         return {
             clearSelection,
             setSelectedForBanner,
@@ -230,7 +242,8 @@ export const Table = forwardRef((props, ref) => {
             updateData,
             setRowData,
             getData,
-            endEdit
+            endEdit,
+            nextCell
         };
     });
     const closeBanner = () => {
@@ -297,13 +310,21 @@ export const Table = forwardRef((props, ref) => {
     // };cellSaved
     // const cellSaved = (args: any) => {
     //     if (args.previousValue != undefined && args.previousValue != args.value) {
-    //         var instance = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];
-    //         instance.grid.editModule.batchSave();
+    //         // var instance = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];
+    //         // instance.grid.editModule.batchSave();
+    //         // var firstCell = parseInt(args?.cell?.getAttribute('index'));
+    //         // var colName = instance.getColumns()[args.column.index + 1]?.field;
+    //         // setTimeout(() => {
+    //         //     instance.editCell(firstCell, colName);
+    //         // }, 50);
+    //         const instan = tableRef.current;
+    //         instan.grid.editModule.batchSave();
     //         var firstCell = parseInt(args?.cell?.getAttribute('index'));
-    //         var colName = instance.getColumns()[args.column.index + 1]?.field;
+    //         var colName = instan.getColumns()[args.column.index + 1]?.field;
     //         setTimeout(() => {
-    //             instance.editCell(firstCell, colName);
+    //             instan.editCell(firstCell, colName);
     //         }, 50);
+    //         console.log('cellSaved', tableRef.current.grid);
     //     }
     // };
     const rowSelecting = (args) => {
@@ -413,7 +434,9 @@ export const Table = forwardRef((props, ref) => {
                         headerCellInfo: headerCellInfo, rowSelected: rowSelected, rowDeselected: rowDeselected, rowDataBound: rowDataBound, height: "100%", ref: tableRef, dataSource: data, treeColumnIndex: treeColumnIndex, childMapping: childMappingKey, allowPdfExport: allowExports, allowExcelExport: allowExports, allowRowDragAndDrop: allowRowDragAndDrop, allowResizing: allowResizing, selectionSettings: selectionSettings, rowDrop: rowDrop, frozenColumns: frozenColumns, allowSorting: allowSorting, editSettings: editSettings, searchSettings: searchSettings, pageSettings: getPageSettings, allowPaging: allowPaging, allowFiltering: allowFiltering, filterSettings: filterSettings, checkboxChange: checkboxChange, rowHeight: rowHeight }, (tableKey && { key: tableKey }), { queryCellInfo: queryCellInfo, 
                         // beforeBatchSave={beginEdit}
                         // batchAdd={beginEdit}
-                        cellSaved: cellSaved, cellSave: cellSave, beforePaste: beforePaste }, { children: [_jsx(ColumnsDirective, { children: children }), aggregateChildren && _jsx(AggregatesDirective, { children: aggregateChildren }), _jsx(Inject, { services: [Freeze, RowDD, Selection, Sort, Edit, Page, ExcelExport, PdfExport, Resize, Filter, ContextMenu, Aggregate] })] }))) })) }))] })));
+                        cellSaved: cellSaved, 
+                        // cellSave={cellSave}
+                        beforePaste: beforePaste }, { children: [_jsx(ColumnsDirective, { children: children }), aggregateChildren && _jsx(AggregatesDirective, { children: aggregateChildren }), _jsx(Inject, { services: [Freeze, RowDD, Selection, Sort, Edit, Page, ExcelExport, PdfExport, Resize, Filter, ContextMenu, Aggregate] })] }))) })) }))] })));
 });
 Table.defaultProps = {
     excelExportProperties: {

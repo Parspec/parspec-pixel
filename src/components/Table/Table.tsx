@@ -158,7 +158,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
         title,
         aggregateChildren,
         onMove,
-        cellSave,
+        // cellSave,
         beforePaste,
         cellSaved,
         customQueryCellInfo
@@ -357,6 +357,17 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
         const endEdit = () => {
             tableRef.current.endEdit();
         };
+        const nextCell = (args: any) => {
+            const instan = tableRef.current;
+            instan.grid.editModule.batchSave();
+            var firstCell = parseInt(args?.cell?.getAttribute('index'));
+
+            var colName = instan.getColumns()[args.column.index + 1]?.field;
+
+            setTimeout(() => {
+                instan.editCell(firstCell, colName);
+            }, 50);
+        };
         return {
             clearSelection,
             setSelectedForBanner,
@@ -368,7 +379,8 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
             updateData,
             setRowData,
             getData,
-            endEdit
+            endEdit,
+            nextCell
         };
     });
 
@@ -437,17 +449,27 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
     // };cellSaved
     // const cellSaved = (args: any) => {
     //     if (args.previousValue != undefined && args.previousValue != args.value) {
-    //         var instance = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];
+    //         // var instance = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];
 
-    //         instance.grid.editModule.batchSave();
+    //         // instance.grid.editModule.batchSave();
 
+    //         // var firstCell = parseInt(args?.cell?.getAttribute('index'));
+
+    //         // var colName = instance.getColumns()[args.column.index + 1]?.field;
+
+    //         // setTimeout(() => {
+    //         //     instance.editCell(firstCell, colName);
+    //         // }, 50);
+    //         const instan = tableRef.current;
+    //         instan.grid.editModule.batchSave();
     //         var firstCell = parseInt(args?.cell?.getAttribute('index'));
 
-    //         var colName = instance.getColumns()[args.column.index + 1]?.field;
+    //         var colName = instan.getColumns()[args.column.index + 1]?.field;
 
     //         setTimeout(() => {
-    //             instance.editCell(firstCell, colName);
+    //             instan.editCell(firstCell, colName);
     //         }, 50);
+    //         console.log('cellSaved', tableRef.current.grid);
     //     }
     // };
     const rowSelecting = (args: RowSelectingEventArgs) => {
@@ -677,7 +699,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                             // beforeBatchSave={beginEdit}
                             // batchAdd={beginEdit}
                             cellSaved={cellSaved}
-                            cellSave={cellSave}
+                            // cellSave={cellSave}
                             beforePaste={beforePaste}
                         >
                             <ColumnsDirective>{children}</ColumnsDirective>

@@ -31,6 +31,7 @@ export interface AutocompleteProps {
     clearOnBlur?: boolean;
     filterOptionsCallBack?: (options: OptionType[], params: FilterOptionsState<OptionType>) => OptionType[];
     autoFocus?: boolean;
+    blurOnEmptyInput?: (inputValue: OptionType | string) => void;
 }
 
 const filter = createFilterOptions<OptionType>();
@@ -56,6 +57,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
             disabled,
             value,
             autoFocus,
+            blurOnEmptyInput,
             filterOptionsCallBack = (options: OptionType[], params: FilterOptionsState<OptionType>) => {
                 let filteredOptions = filter(options, params);
                 if (typeof state === 'object' && state[optionlabelkeyname]) {
@@ -96,6 +98,8 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
                 }
                 setState(inputValue);
                 onBlur(inputValue);
+            } else {
+                if (blurOnEmptyInput) blurOnEmptyInput(inputValue);
             }
         };
 

@@ -66,6 +66,7 @@ export interface TableRefType {
     setRowData: (rowPrimaryKey: number, newRowData: Object) => void;
     getData: () => Object[];
     endEdit: () => void;
+    nextCell: (args: any) => void;
 }
 export declare const Table: import("react").ForwardRefExoticComponent<TableProps & import("react").RefAttributes<TableRefType>>;
 export {};

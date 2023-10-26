@@ -114,6 +114,7 @@ export interface TableRefType {
     setRowData: (rowPrimaryKey: number, newRowData: Object) => void;
     getData: () => Object[];
     endEdit: () => void;
+    nextCell: (args: any) => void;
 }
 
 export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {

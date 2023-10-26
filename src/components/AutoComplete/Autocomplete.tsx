@@ -1,4 +1,4 @@
-import { forwardRef, useState, useEffect } from 'react';
+import { forwardRef, useState, useEffect, ReactNode } from 'react';
 
 import { TextField } from '../TextField';
 import { default as MUIAutocomplete, createFilterOptions } from '@mui/material/Autocomplete';
@@ -32,6 +32,7 @@ export interface AutocompleteProps {
     filterOptionsCallBack?: (options: OptionType[], params: FilterOptionsState<OptionType>) => OptionType[];
     autoFocus?: boolean;
     blurOnEmptyInput?: (inputValue: OptionType | string) => void;
+    renderOption?: (props: any, option: OptionType | string) => ReactNode;
 }
 
 const filter = createFilterOptions<OptionType>();

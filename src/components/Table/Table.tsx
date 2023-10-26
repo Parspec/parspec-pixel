@@ -159,7 +159,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
         title,
         aggregateChildren,
         onMove,
-        // cellSave,
+        cellSave,
         beforePaste,
         cellSaved,
         customQueryCellInfo
@@ -544,7 +544,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
     // };
     function mouseDownHandler(args: any) {
         // treegrid instance
-        var instance = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];
+        var instance = tableRef?.current;
 
         // to check checkbox on mouse click
         if (args.currentTarget.classList.contains('e-gridchkbox')) {
@@ -700,7 +700,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                             // beforeBatchSave={beginEdit}
                             // batchAdd={beginEdit}
                             cellSaved={cellSaved}
-                            // cellSave={cellSave}
+                            cellSave={cellSave}
                             beforePaste={beforePaste}
                         >
                             <ColumnsDirective>{children}</ColumnsDirective>

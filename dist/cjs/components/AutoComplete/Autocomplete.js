@@ -41,13 +41,13 @@ const TextField_1 = require("../TextField");
 const Autocomplete_1 = __importStar(require("@mui/material/Autocomplete"));
 const filter = (0, Autocomplete_1.createFilterOptions)();
 exports.Autocomplete = (0, react_1.forwardRef)((_a, ref) => {
-    var { id, label, placeholder, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur = () => { }, helperText, error, options, onTextFieldChange, limitTags, disabled, value, autoFocus, filterOptionsCallBack = (options, params) => {
+    var { id, label, placeholder, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur = () => { }, helperText, error, options, onTextFieldChange, limitTags, disabled, value, autoFocus, blurOnEmptyInput, filterOptionsCallBack = (options, params) => {
         let filteredOptions = filter(options, params);
         if (typeof state === 'object' && state[optionlabelkeyname]) {
             filteredOptions = options.filter((option) => option[optionlabelkeyname] === state[optionlabelkeyname]);
         }
         return filteredOptions;
-    } } = _a, props = __rest(_a, ["id", "label", "placeholder", "color", "variant", "onChange", "optionlabelkeyname", "freeSolo", "fieldSize", "onBlur", "helperText", "error", "options", "onTextFieldChange", "limitTags", "disabled", "value", "autoFocus", "filterOptionsCallBack"]);
+    } } = _a, props = __rest(_a, ["id", "label", "placeholder", "color", "variant", "onChange", "optionlabelkeyname", "freeSolo", "fieldSize", "onBlur", "helperText", "error", "options", "onTextFieldChange", "limitTags", "disabled", "value", "autoFocus", "blurOnEmptyInput", "filterOptionsCallBack"]);
     const [state, setState] = (0, react_1.useState)(value || '');
     const handleOnChange = (event, newValue) => {
         onChange(Object.assign(Object.assign({}, event), { target: Object.assign(Object.assign({}, event.target), { value: newValue }) }));
@@ -73,6 +73,10 @@ exports.Autocomplete = (0, react_1.forwardRef)((_a, ref) => {
             }
             setState(inputValue);
             onBlur(inputValue);
+        }
+        else {
+            if (blurOnEmptyInput)
+                blurOnEmptyInput(inputValue);
         }
     };
     const handleOnInputChange = (event, value) => {

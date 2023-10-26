@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import { ReactNode } from 'react';
 import { FilterOptionsState } from '@mui/material/useAutocomplete';
 export type OptionType<T = {}> = {
     [index: string]: string | number;
@@ -26,5 +26,7 @@ export interface AutocompleteProps {
     clearOnBlur?: boolean;
     filterOptionsCallBack?: (options: OptionType[], params: FilterOptionsState<OptionType>) => OptionType[];
     autoFocus?: boolean;
+    blurOnEmptyInput?: (inputValue: OptionType | string) => void;
+    renderOption?: (props: any, option: OptionType | string) => ReactNode;
 }
 export declare const Autocomplete: React.FC<AutocompleteProps>;

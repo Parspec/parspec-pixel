@@ -116,6 +116,7 @@ export interface TableRefType {
     getData: () => Object[];
     endEdit: () => void;
     nextCell: (args: any) => void;
+    getBatchChanges: () => Object[];
 }
 
 export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
@@ -371,6 +372,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                 instan.editCell(firstCell, colName);
             }, 50);
         };
+        const getBatchChanges = () => tableRef.current.getBatchChanges();
         return {
             clearSelection,
             setSelectedForBanner,
@@ -383,7 +385,8 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
             setRowData,
             getData,
             endEdit,
-            nextCell
+            nextCell,
+            getBatchChanges
         };
     });
 

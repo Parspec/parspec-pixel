@@ -232,6 +232,7 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
                 instan.editCell(firstCell, colName);
             }, 50);
         };
+        const getBatchChanges = () => tableRef.current.getBatchChanges();
         return {
             clearSelection,
             setSelectedForBanner,
@@ -244,7 +245,8 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
             setRowData,
             getData,
             endEdit,
-            nextCell
+            nextCell,
+            getBatchChanges
         };
     });
     const closeBanner = () => {

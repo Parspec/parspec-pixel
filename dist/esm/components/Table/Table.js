@@ -229,6 +229,7 @@ export const Table = forwardRef((props, ref) => {
                 instan.editCell(firstCell, colName);
             }, 50);
         };
+        const getBatchChanges = () => tableRef.current.getBatchChanges();
         return {
             clearSelection,
             setSelectedForBanner,
@@ -241,7 +242,8 @@ export const Table = forwardRef((props, ref) => {
             setRowData,
             getData,
             endEdit,
-            nextCell
+            nextCell,
+            getBatchChanges
         };
     });
     const closeBanner = () => {

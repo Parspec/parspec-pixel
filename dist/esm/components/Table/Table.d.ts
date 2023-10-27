@@ -41,6 +41,7 @@ export interface TableProps {
     searchSettings?: SearchSettingsModel;
     hiddenProperty?: string;
     allowSorting?: boolean;
+    enableImmutableMode?: boolean;
     rowHeight?: number;
     height?: number | string;
     tableKey?: number | string;

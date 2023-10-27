@@ -17,7 +17,7 @@ registerLicense(license);
 export const Table = forwardRef((props, ref) => {
     const { children, data, childMappingKey, allowExports, allowRowDragAndDrop, frozenColumns, treeColumnIndex, allowPaging, pageSettings, allowResizing, allowSorting, showToolbar, toolBarOptions, height, allowFiltering, editSettings, filterSettings, onHideUnhide, onAdd, onAddDuplicates, onCheckboxChange, onDragEnd, onEdit, onSearch, onDelete, selectionSettings, onRowSelection, loading, toolbarRightSection, searchSettings, hiddenProperty, rowHeight, 
     // defaultFilter,
-    customFiltersFunction, dataBoundCallBack, tableKey, selectedItemsBelowSearch, title, aggregateChildren, onMove, cellSave, beforePaste, cellSaved, customQueryCellInfo } = props;
+    customFiltersFunction, dataBoundCallBack, tableKey, selectedItemsBelowSearch, title, aggregateChildren, onMove, cellSave, beforePaste, cellSaved, customQueryCellInfo, enableImmutableMode } = props;
     const tableRef = useRef();
     const [selected, setSelectedForBanner] = useState(0);
     useEffect(() => {
@@ -427,7 +427,7 @@ export const Table = forwardRef((props, ref) => {
                         // expanding={expanding}
                         // collapsing={collapsing}
                         // resizeStart={resizestart}
-                        rowSelecting: rowSelecting, actionBegin: actionBegin, dataBound: dataBound, actionComplete: actionComplete, 
+                        enableImmutableMode: enableImmutableMode, rowSelecting: rowSelecting, actionBegin: actionBegin, dataBound: dataBound, actionComplete: actionComplete, 
                         // cellEdit={handleCellEdit}
                         headerCellInfo: headerCellInfo, rowSelected: rowSelected, rowDeselected: rowDeselected, rowDataBound: rowDataBound, height: "100%", ref: tableRef, dataSource: data, treeColumnIndex: treeColumnIndex, childMapping: childMappingKey, allowPdfExport: allowExports, allowExcelExport: allowExports, allowRowDragAndDrop: allowRowDragAndDrop, allowResizing: allowResizing, selectionSettings: selectionSettings, rowDrop: rowDrop, frozenColumns: frozenColumns, allowSorting: allowSorting, editSettings: editSettings, searchSettings: searchSettings, pageSettings: getPageSettings, allowPaging: allowPaging, allowFiltering: allowFiltering, filterSettings: filterSettings, checkboxChange: checkboxChange, rowHeight: rowHeight }, (tableKey && { key: tableKey }), { queryCellInfo: queryCellInfo, 
                         // beforeBatchSave={beginEdit}

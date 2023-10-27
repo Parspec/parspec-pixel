@@ -86,6 +86,7 @@ export interface TableProps {
     searchSettings?: SearchSettingsModel;
     hiddenProperty?: string;
     allowSorting?: boolean;
+    enableImmutableMode?: boolean;
     rowHeight?: number;
     height?: number | string;
     // defaultFilter?: 'equal' | 'contains';
@@ -162,7 +163,8 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
         cellSave,
         beforePaste,
         cellSaved,
-        customQueryCellInfo
+        customQueryCellInfo,
+        enableImmutableMode
     } = props;
 
     const tableRef = useRef<any>();
@@ -665,6 +667,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                             // expanding={expanding}
                             // collapsing={collapsing}
                             // resizeStart={resizestart}
+                            enableImmutableMode={enableImmutableMode}
                             rowSelecting={rowSelecting}
                             actionBegin={actionBegin}
                             dataBound={dataBound}

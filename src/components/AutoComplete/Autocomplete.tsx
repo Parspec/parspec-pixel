@@ -33,6 +33,7 @@ export interface AutocompleteProps {
     autoFocus?: boolean;
     blurOnEmptyInput?: (inputValue: OptionType | string) => void;
     renderOption?: (props: any, option: OptionType | string) => ReactNode;
+    open?: boolean;
 }
 
 const filter = createFilterOptions<OptionType>();

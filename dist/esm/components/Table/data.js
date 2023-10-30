@@ -230,4 +230,116 @@ export const dDataP2 = [
         is_hidden: false
     }
 ];
+export let dDataP4 = [
+    {
+        id: 101,
+        taskID: 101,
+        name: 'prod101',
+        type: 'product',
+        reporter: '',
+        available: '',
+        is_hidden: false
+    },
+    {
+        id: 102,
+        taskID: 102,
+        name: 'acc102',
+        type: 'accessories',
+        reporter: '',
+        available: '',
+        is_hidden: false
+    },
+    {
+        id: 103,
+        taskID: 103,
+        name: 'prod103',
+        type: 'product',
+        reporter: '',
+        available: '',
+        is_hidden: false
+    },
+    {
+        id: 104,
+        taskID: 104,
+        name: 'acc104',
+        type: 'accessories',
+        reporter: '',
+        available: '',
+        is_hidden: false
+    },
+    {
+        id: 105,
+        taskID: 105,
+        name: 'prod105',
+        type: 'product',
+        reporter: '',
+        available: '',
+        is_hidden: false
+    },
+    {
+        id: 106,
+        taskID: 106,
+        name: 'prod106',
+        type: 'product',
+        reporter: '',
+        available: '',
+        is_hidden: false
+    },
+    {
+        id: 107,
+        taskID: 107,
+        name: 'prod107',
+        type: 'product',
+        reporter: '',
+        available: '',
+        is_hidden: false,
+        subtasks: [
+            {
+                id: 108,
+                taskID: 108,
+                name: 'prod108',
+                type: 'product',
+                reporter: 'Jolan',
+                available: 'Yes',
+                is_hidden: false
+            },
+            {
+                id: 109,
+                taskID: 109,
+                reporter: 'Abhijit',
+                name: 'product2',
+                type: 'product',
+                available: 'Yes',
+                is_hidden: false
+            }
+        ]
+    },
+    {
+        id: 110,
+        taskID: 110,
+        name: 'prod110',
+        type: 'product',
+        reporter: '',
+        available: '',
+        is_hidden: false
+    },
+    {
+        id: 111,
+        taskID: 111,
+        name: 'acc111',
+        type: 'accessories',
+        reporter: '',
+        available: '',
+        is_hidden: false
+    },
+    {
+        id: 112,
+        taskID: 112,
+        name: 'acc112',
+        type: 'accessories',
+        reporter: '',
+        available: '',
+        is_hidden: false
+    }
+];
 //# sourceMappingURL=data.js.map

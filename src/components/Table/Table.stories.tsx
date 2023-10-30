@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { Table, ToolbarType } from './Table';
 import { AggregateColumnDirective, AggregateColumnsDirective, AggregateDirective, ColumnDirective, Inject, SelectionSettingsModel } from '@syncfusion/ej2-react-treegrid';
 import { getValue } from '@syncfusion/ej2-base';
-import { dDataP, dDataP2 } from './data';
+import { dDataP, dDataP2, dDataP4 } from './data';
 import { Button } from '../Button';
 import { ViewArrayIcon } from '../Icons';
 import { Box } from '../Box';
@@ -96,7 +96,7 @@ const coltemplate = (props: any) => {
                 Product
             </Button>
         );
-    } else if (props?.taskData?.type?.includes('accessory')) {
+    } else if (props?.taskData?.type?.includes('accessories')) {
         return (
             <Button size="small" color="tertiary" id={props.id}>
                 Accessory
@@ -194,6 +194,7 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
             <Table
                 {...getTableProps({ ...props, onAdd, onCheckboxChange, onDelete, onDragEnd, onEdit, onSearch, onRowSelection, onHideUnhide, onAddDuplicates, customFiltersFunction })}
                 ref={tableRef}
+                data={dDataP4}
             >
                 <ColumnDirective type="checkbox" width="50" />
                 <ColumnDirective field="id" isPrimaryKey={true} visible={false} />

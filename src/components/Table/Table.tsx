@@ -435,6 +435,18 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
         isEscPressed = false;
     };
 
+    const clickHandler = () => {
+        if (tableRef.current.grid.isEdit) {
+            // save the record if Grid in edit state
+            tableRef.current.endEdit();
+        }
+    };
+
+    const onLoad = () => {
+        // bind click event on outside click in body
+        window.addEventListener('click', clickHandler);
+    };
+
     return (
         <Box position={'relative'} height={'100%'} width={'100%'} ref={tableContainerRef}>
             {showToolbar && (
@@ -535,6 +547,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                             // expanding={expanding}
                             // collapsing={collapsing}
                             // resizeStart={resizestart}
+                            load={onLoad}
                             rowSelecting={rowSelecting}
                             actionBegin={actionBegin}
                             dataBound={dataBound}

@@ -304,8 +304,9 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
         }
         isEscPressed = false;
     };
-    const clickHandler = () => {
-        if (tableRef.current.grid.isEdit) {
+    const clickHandler = (e) => {
+        console.log('e', e, tableRef.current.grid, !tableRef.current.contains(e.target));
+        if (tableRef.current.grid.isEdit && !tableRef.current.contains(e.target)) {
             // save the record if Grid in edit state
             tableRef.current.endEdit();
         }

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { ClickAwayListener, Fade } from '@mui/material';
-import { SketchPicker, SketchPickerProps, ColorResult } from 'react-color';
+import { SketchPicker, SketchPickerProps, ColorResult, Color } from 'react-color';
 
 import { Box } from '../Box';
 import Popper from '../Popper';
@@ -14,17 +14,19 @@ interface ITransitionsColorPicker {
     color: string;
     onChange: (param: ColorResult) => void;
     onClickAway?: () => void;
+    onClick?: (open: boolean) => void;
 }
 
-export { ColorResult };
+export { ColorResult, Color };
 
-export const TransitionsColorPicker: React.FC<ITransitionsColorPicker> = ({ color, onChange, onClickAway = () => {} }) => {
+export const TransitionsColorPicker: React.FC<ITransitionsColorPicker> = ({ color, onChange, onClickAway = () => {}, onClick = () => {} }) => {
     const [open, setOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
         setOpen((previousOpen) => !previousOpen);
+        onClick(open);
     };
 
     function clickAwayHandler() {

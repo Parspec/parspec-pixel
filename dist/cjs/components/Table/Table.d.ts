@@ -41,6 +41,7 @@ export interface TableProps {
     searchSettings?: SearchSettingsModel;
     hiddenProperty?: string;
     allowSorting?: boolean;
+    enableImmutableMode?: boolean;
     rowHeight?: number;
     height?: number | string;
     tableKey?: number | string;
@@ -48,6 +49,11 @@ export interface TableProps {
     title?: string;
     aggregateChildren?: React.ReactNode;
     queryCellInfo?: (args: any) => void;
+    cellSave?: (data: Object) => void;
+    batchSave?: (data: Object) => void;
+    cellSaved?: (data: Object) => void;
+    beforePaste?: (data: Object) => void;
+    customQueryCellInfo?: (args: any) => void;
 }
 export interface TableRefType {
     clearSelection: () => void;
@@ -61,6 +67,8 @@ export interface TableRefType {
     setRowData: (rowPrimaryKey: number, newRowData: Object) => void;
     getData: () => Object[];
     endEdit: () => void;
+    nextCell: (args: any) => void;
+    getBatchChanges: () => Object[];
 }
 export declare const Table: import("react").ForwardRefExoticComponent<TableProps & import("react").RefAttributes<TableRefType>>;
 export {};

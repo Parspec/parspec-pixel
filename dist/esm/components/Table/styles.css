@@ -27968,7 +27968,7 @@ li.e-separator.e-menu-item.e-excel-separator {
     background-color: #fff;
 }
 .e-grid .e-focused:not(.e-menu-item) {
-    box-shadow: 0 0 0 1px #9e9e9e inset;
+    box-shadow: 0 0 0 1px #4749ac inset;
 }
 .e-grid .e-gridheader .e-icons:not(.e-icon-hide):not(.e-check):not(.e-stop):not(.e-icon-reorderuparrow):not(.e-icon-reorderdownarrow) {
     color: #212121;
@@ -28183,9 +28183,10 @@ li.e-separator.e-menu-item.e-excel-separator {
     background-color: #e0e0e0;
 }
 .e-grid td.e-cellselectionbackground {
-    background: #e0e0e0;
+    background: #e3e3ff;
     color: #000;
 }
+
 .e-grid .e-filterbarcell,
 .e-grid .e-filterbarcelldisabled {
     background-color: #fff;
@@ -29114,6 +29115,15 @@ tr.e-row td.e-childborder {
     border-right-width: 0px !important;
 }
 /*  to be removed in V2 middle segment no border */
-.e-multi-select-wrapper{
+.e-multi-select-wrapper {
     margin-top: 10px;
+}
+.e-rowcell.e-inputbox.e-editedbatchcell {
+    box-shadow: 0 0 0 1px #4749ac inset;
+    background: #e3e3ff;
+}
+td.e-rowcell.e-focused.e-focus.e-cellselectionbackground {
+    box-shadow: 0 0 0 1px #4749ac inset;
+}
+td.e-rowcell.e-focused.e-focus {
 }

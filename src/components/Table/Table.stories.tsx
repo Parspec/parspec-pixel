@@ -10,6 +10,7 @@ import { Box } from '../Box';
 import { BodyMedium } from '../Typography';
 import { CheckBoxSelection, DropDownListComponent, MultiSelectComponent } from '@syncfusion/ej2-react-dropdowns';
 import { getObject } from '@syncfusion/ej2-grids';
+import { DataManager, Query } from '@syncfusion/ej2-data';
 
 export default {
     title: 'Table',
@@ -62,12 +63,59 @@ export const SingleSelect: ComponentStory<typeof Table> = (props) => {
             </MultiSelectComponent>
         );
     };
+    const specificationOptions = [
+        { label: 'Basis of Design', value: 'Basis of Design', type: 'primary' },
+        { label: 'Pending Alternate', value: 'Pending Alternate', type: 'tertiary' },
+        { label: 'Approved Alternate', value: 'Approved Alternate', type: 'success' },
+        { label: 'Lost Alternate', value: 'Lost Alternate', type: 'error' }
+    ];
+    const priority = {
+        params: {
+            actionComplete: () => {
+                console.log('DropDown called ');
+                return true;
+            },
+            change: (args) => {
+                console.log(args, 'chnage begin');
+            },
+
+            allowFiltering: false,
+            dataSource: specificationOptions,
+            fields: {
+                text: 'label',
+                value: 'value',
+                itemCreated: (item) => {
+                    debugger;
+                    const count = specificationOptions.findIndex((data) => data.label === item.curData.label);
+                    const colors = {
+                        0: 'lightgray',
+                        1: 'green',
+                        2: 'blue',
+                        3: 'yellow'
+                    };
+                    item.item.style.background = colors[count] || 'transparent';
+                }
+            },
+            searchParams: true,
+            query: new Query(),
+            write: (args) => {
+                console.log(args, 'write');
+            }
+        }
+    };
+    const cellSave = (args: any) => {
+        console.log(args, 'oncellSave');
+    };
+    const batchSave = (args: any) => {
+        console.log(args, 'batchSave');
+    };
     return (
         <Box height={500}>
-            <Table {...getTableProps({ ...props, onRowSelection, onDragEnd, customFiltersFunction })} data={data} ref={tableRef} title="Random title">
+            <Table {...getTableProps({ ...props, onRowSelection, onDragEnd, customFiltersFunction, cellSave, batchSave })} data={data} ref={tableRef} title="Random title">
                 <ColumnDirective field="id" isPrimaryKey={true} visible={false} />
                 <ColumnDirective field="taskID" allowEditing={false} headerText="Task ID" minWidth="100" width="130" editType="numericedit" />
                 <ColumnDirective field="name" headerText="Task Name" />
+                <ColumnDirective field="specification" headerText="Specification" editType="dropdownedit" textAlign="Center" edit={priority} />
                 <ColumnDirective field="reporter" headerText="Reporter" />
                 <ColumnDirective field="available" filter={{ type: 'Menu', operator: 'contains' }} filterTemplate={templateOptions} headerText="Availability" />
             </Table>
@@ -77,8 +125,46 @@ export const SingleSelect: ComponentStory<typeof Table> = (props) => {
 SingleSelect.args = {
     childMappingKey: 'subtasks',
     allowRowDragAndDrop: true,
-    treeColumnIndex: 3,
-    allowPaging: false
+    // frozenColumns: 4,
+    // treeColumnIndex: 3,
+    // allowPaging: false,
+    // filterSettings: {
+    //     type: 'CheckBox'
+    // },
+    selectionSettings: {
+        // checkboxOnly: true,
+        // persistSelection: true,
+        type: 'Multiple',
+        mode: 'Cell',
+        cellSelectionMode: 'Box'
+    },
+    editSettings: {
+        allowAdding: true,
+        allowDeleting: true,
+        allowEditing: true,
+        mode: 'Batch',
+        showDeleteConfirmDialog: false,
+        showConfirmDialog: false,
+        newRowPosition: 'Bottom'
+    },
+    allowPaging: false,
+    // pageSettings: { pageSize: 10 },
+    allowResizing: true,
+    // allowExports: true,
+    // excelExportProperties: {
+    //     fileName: 'newExcel.xlsx',
+    //     isCollapsedStatePersist: false
+    // },
+    // pdfExportProperties: {
+    //     fileName: 'newPdf.pdf',
+    //     isCollapsedStatePersist: false
+    // },
+    allowFiltering: true,
+    loading: false
+    // searchSettings: {
+    //     fields: ['taskID', 'name', 'reported', 'available'],
+    //     hierarchyMode: 'Both'
+    // }
 };
 
 const coltemplate = (props: any) => {

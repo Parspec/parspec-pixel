@@ -20,7 +20,7 @@ const license = window.localStorage.getItem('syncfusionLicense');
 exports.Table = (0, react_1.forwardRef)((props, ref) => {
     const { children, data, childMappingKey, allowExports, allowRowDragAndDrop, frozenColumns, treeColumnIndex, allowPaging, pageSettings, allowResizing, allowSorting, showToolbar, toolBarOptions, height, allowFiltering, editSettings, filterSettings, onHideUnhide, onAdd, onAddDuplicates, onCheckboxChange, onDragEnd, onEdit, onSearch, onDelete, selectionSettings, onRowSelection, loading, toolbarRightSection, searchSettings, hiddenProperty, rowHeight, 
     // defaultFilter,
-    customFiltersFunction, dataBoundCallBack, tableKey, selectedItemsBelowSearch, title, aggregateChildren, onCellEdit: handleCellEdit, onMove, queryCellInfo } = props;
+    customFiltersFunction, dataBoundCallBack, tableKey, selectedItemsBelowSearch, title, aggregateChildren, onMove, cellSave, beforePaste, cellSaved, customQueryCellInfo, enableImmutableMode } = props;
     const tableRef = (0, react_1.useRef)();
     const [selected, setSelectedForBanner] = (0, react_1.useState)(0);
     (0, react_1.useEffect)(() => {
@@ -300,6 +300,17 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
         const endEdit = () => {
             tableRef.current.endEdit();
         };
+        const nextCell = (args) => {
+            var _a, _b;
+            const instan = tableRef.current;
+            instan.grid.editModule.batchSave();
+            var firstCell = parseInt((_a = args === null || args === void 0 ? void 0 : args.cell) === null || _a === void 0 ? void 0 : _a.getAttribute('index'));
+            var colName = (_b = instan.getColumns()[args.column.index + 1]) === null || _b === void 0 ? void 0 : _b.field;
+            setTimeout(() => {
+                instan.editCell(firstCell, colName);
+            }, 50);
+        };
+        const getBatchChanges = () => tableRef.current.getBatchChanges();
         return {
             clearSelection,
             setSelectedForBanner,
@@ -311,7 +322,9 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
             updateData,
             setRowData,
             getData,
-            endEdit
+            endEdit,
+            nextCell,
+            getBatchChanges
         };
     });
     const closeBanner = () => {
@@ -375,6 +388,25 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
     // };
     // const expanding = () => {
     //     tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
+    // };cellSaved
+    // const cellSaved = (args: any) => {
+    //     if (args.previousValue != undefined && args.previousValue != args.value) {
+    //         // var instance = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];
+    //         // instance.grid.editModule.batchSave();
+    //         // var firstCell = parseInt(args?.cell?.getAttribute('index'));
+    //         // var colName = instance.getColumns()[args.column.index + 1]?.field;
+    //         // setTimeout(() => {
+    //         //     instance.editCell(firstCell, colName);
+    //         // }, 50);
+    //         const instan = tableRef.current;
+    //         instan.grid.editModule.batchSave();
+    //         var firstCell = parseInt(args?.cell?.getAttribute('index'));
+    //         var colName = instan.getColumns()[args.column.index + 1]?.field;
+    //         setTimeout(() => {
+    //             instan.editCell(firstCell, colName);
+    //         }, 50);
+    //         console.log('cellSaved', tableRef.current.grid);
+    //     }
     // };
     const rowSelecting = (args) => {
         if (isEscPressed) {
@@ -382,6 +414,85 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
         }
         isEscPressed = false;
     };
+    function queryCellInfo(args) {
+        args.cell.addEventListener('mousedown', mouseDownHandler);
+        // args.cell.addEventListener('keydown', keydownHandler);
+        customQueryCellInfo === null || customQueryCellInfo === void 0 ? void 0 : customQueryCellInfo(args);
+    }
+    let eventTriggered = false;
+    keydownHandler;
+    function keydownHandler(args) {
+        var _a;
+        var instance = document.getElementsByClassName('e-treegrid')[0].ej2_instances[0];
+        var closesttd = args.target.closest('td');
+        // debugger;
+        if (args.keyCode == 13 && !(0, ej2_base_1.isNullOrUndefined)(closesttd.nextSibling)) {
+            //to prevent default actions
+            args.preventDefault();
+            args.stopPropagation();
+            //triggers while enter
+            editACell(closesttd.nextSibling);
+        }
+        if (args.keyCode == 9) {
+            // triggers while pressing tab
+            var firstCell = parseInt(closesttd === null || closesttd === void 0 ? void 0 : closesttd.getAttribute('index'));
+            var rowIndex = (_a = instance === null || instance === void 0 ? void 0 : instance.getVisibleColumns()[args.currentTarget.cellIndex - 1]) === null || _a === void 0 ? void 0 : _a.field;
+            instance.grid.editModule.batchSave();
+            setTimeout(() => {
+                instance.editCell(firstCell, rowIndex);
+            }, 50);
+        }
+        const isAlphabet = (args.keyCode >= 65 && args.keyCode <= 90) || (args.keyCode >= 97 && args.keyCode <= 122);
+        const isNumeric = args.keyCode > 47 && args.keyCode < 58;
+        if (isAlphabet || isNumeric) {
+            if (!eventTriggered) {
+                eventTriggered = true;
+                //to prevent default actions
+                args.preventDefault();
+                args.stopPropagation();
+                // triggers while typing alphabet
+                // var firstCell = instance.getSelectedRowCellIndexes()[0]?.cellIndexes[0] as any;
+                // var rowIndex: any = instance.getSelectedRowCellIndexes()[0]?.rowIndex as any;
+                // if (!isNullOrUndefined(firstCell) && !isNullOrUndefined(rowIndex)) {
+                //     instance.editCell(rowIndex, instance?.getColumns()[firstCell]?.field);
+                // }
+            }
+        }
+        if (args.keyCode == 27 && instance.grid.isEdit) {
+            //triggers while Escape
+            eventTriggered = false;
+            instance.grid.editModule.batchSave();
+        }
+    }
+    function editACell(args) {
+        var instance = document.getElementsByClassName('e-treegrid')[0].ej2_instances[0];
+        instance.grid.editModule.editCell(parseInt(args.getAttribute('index')), instance.grid.getColumnByIndex(parseInt(args.getAttribute('data-colindex'))).field);
+    }
+    // const beginEdit = (args: any) => {
+    //     console.log(args, 'args');
+    // };
+    function mouseDownHandler(args) {
+        // treegrid instance
+        var instance = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current;
+        // to check checkbox on mouse click
+        if (args.currentTarget.classList.contains('e-gridchkbox')) {
+            instance.selectionSettings.mode = 'Row';
+        }
+        else {
+            instance.selectionSettings.mode = 'Cell';
+        }
+    }
+    // const handleCellEdit = (args: any) => {
+    //     var instance = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];
+    //     var closesttd = args.cell.closest('td');
+    //     var firstCell = parseInt(closesttd?.getAttribute('index'));
+    //     var rowIndex = instance?.getVisibleColumns()[args.cell.cellIndex - 1]?.field;
+    //     console.log(args, 'handleCellEdit', firstCell, rowIndex);
+    //     // instance.grid.editModule.batchSave();
+    //     // setTimeout(() => {
+    //     //     // instance.editCell(firstCell, rowIndex);
+    //     // }, 50);
+    // };
     return ((0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ position: 'relative', height: '100%', width: '100%', ref: tableContainerRef }, { children: [showToolbar && ((0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ display: 'flex', ref: toolbarContainerRef, justifyContent: "space-between", alignItems: 'flex-end', mb: 2, sx: loading ? { PointerEvent: 'none' } : {} }, { children: [(0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ display: "flex", alignItems: "center", gap: 1 }, { children: [title && (0, jsx_runtime_1.jsx)(Typography_1.BodySmall, Object.assign({ color: "neutral.dark" }, { children: title })), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('search')) && ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ width: 300 }, { children: (0, jsx_runtime_1.jsx)(TextField_1.TextField, { label: "", placeholder: "Search...", InputProps: {
                                         startAdornment: ((0, jsx_runtime_1.jsx)(InputAdornment_1.InputAdornment, Object.assign({ position: "start" }, { children: (0, jsx_runtime_1.jsx)(Icons_1.SearchIcon, { fontSize: "small" }) })))
                                     }, size: "small", onChange: (t) => {
@@ -399,7 +510,12 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
                         // expanding={expanding}
                         // collapsing={collapsing}
                         // resizeStart={resizestart}
-                        rowSelecting: rowSelecting, actionBegin: actionBegin, dataBound: dataBound, actionComplete: actionComplete, cellEdit: handleCellEdit, headerCellInfo: headerCellInfo, rowSelected: rowSelected, rowDeselected: rowDeselected, rowDataBound: rowDataBound, height: "100%", ref: tableRef, dataSource: data, treeColumnIndex: treeColumnIndex, childMapping: childMappingKey, allowPdfExport: allowExports, allowExcelExport: allowExports, allowRowDragAndDrop: allowRowDragAndDrop, allowResizing: allowResizing, selectionSettings: selectionSettings, rowDrop: rowDrop, frozenColumns: frozenColumns, allowSorting: allowSorting, editSettings: editSettings, searchSettings: searchSettings, pageSettings: getPageSettings, allowPaging: allowPaging, allowFiltering: allowFiltering, filterSettings: filterSettings, checkboxChange: checkboxChange, rowHeight: rowHeight, queryCellInfo: queryCellInfo }, (tableKey && { key: tableKey }), { children: [(0, jsx_runtime_1.jsx)(ej2_react_treegrid_1.ColumnsDirective, { children: children }), aggregateChildren && (0, jsx_runtime_1.jsx)(ej2_react_treegrid_1.AggregatesDirective, { children: aggregateChildren }), (0, jsx_runtime_1.jsx)(ej2_react_treegrid_1.Inject, { services: [ej2_react_treegrid_1.Freeze, ej2_react_treegrid_1.RowDD, ej2_react_treegrid_1.Selection, ej2_react_treegrid_1.Sort, ej2_react_treegrid_1.Edit, ej2_react_treegrid_1.Page, ej2_react_treegrid_1.ExcelExport, ej2_react_treegrid_1.PdfExport, ej2_react_treegrid_1.Resize, ej2_react_treegrid_1.Filter, ej2_react_treegrid_1.ContextMenu, ej2_react_treegrid_1.Aggregate] })] }))) })) }))] })));
+                        enableImmutableMode: enableImmutableMode, rowSelecting: rowSelecting, actionBegin: actionBegin, dataBound: dataBound, actionComplete: actionComplete, 
+                        // cellEdit={handleCellEdit}
+                        headerCellInfo: headerCellInfo, rowSelected: rowSelected, rowDeselected: rowDeselected, rowDataBound: rowDataBound, height: "100%", ref: tableRef, dataSource: data, treeColumnIndex: treeColumnIndex, childMapping: childMappingKey, allowPdfExport: allowExports, allowExcelExport: allowExports, allowRowDragAndDrop: allowRowDragAndDrop, allowResizing: allowResizing, selectionSettings: selectionSettings, rowDrop: rowDrop, frozenColumns: frozenColumns, allowSorting: allowSorting, editSettings: editSettings, searchSettings: searchSettings, pageSettings: getPageSettings, allowPaging: allowPaging, allowFiltering: allowFiltering, filterSettings: filterSettings, checkboxChange: checkboxChange, rowHeight: rowHeight }, (tableKey && { key: tableKey }), { queryCellInfo: queryCellInfo, 
+                        // beforeBatchSave={beginEdit}
+                        // batchAdd={beginEdit}
+                        cellSaved: cellSaved, cellSave: cellSave, beforePaste: beforePaste }, { children: [(0, jsx_runtime_1.jsx)(ej2_react_treegrid_1.ColumnsDirective, { children: children }), aggregateChildren && (0, jsx_runtime_1.jsx)(ej2_react_treegrid_1.AggregatesDirective, { children: aggregateChildren }), (0, jsx_runtime_1.jsx)(ej2_react_treegrid_1.Inject, { services: [ej2_react_treegrid_1.Freeze, ej2_react_treegrid_1.RowDD, ej2_react_treegrid_1.Selection, ej2_react_treegrid_1.Sort, ej2_react_treegrid_1.Edit, ej2_react_treegrid_1.Page, ej2_react_treegrid_1.ExcelExport, ej2_react_treegrid_1.PdfExport, ej2_react_treegrid_1.Resize, ej2_react_treegrid_1.Filter, ej2_react_treegrid_1.ContextMenu, ej2_react_treegrid_1.Aggregate] })] }))) })) }))] })));
 });
 exports.Table.defaultProps = {
     excelExportProperties: {
@@ -447,6 +563,8 @@ exports.Table.defaultProps = {
     onDelete: (data) => { },
     onSearch: (data) => { },
     onRowSelection: (data) => { },
+    customQueryCellInfo: (data) => { },
+    // batchSave: (data: Object) => {},
     dataBoundCallBack: () => { },
     customFiltersFunction: (data) => { },
     loading: false,

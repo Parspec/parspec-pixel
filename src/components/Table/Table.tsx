@@ -86,6 +86,7 @@ export interface TableProps {
     searchSettings?: SearchSettingsModel;
     hiddenProperty?: string;
     allowSorting?: boolean;
+    enableImmutableMode?: boolean;
     rowHeight?: number;
     height?: number | string;
     // defaultFilter?: 'equal' | 'contains';
@@ -94,6 +95,12 @@ export interface TableProps {
     title?: string;
     aggregateChildren?: React.ReactNode;
     queryCellInfo?: (args: any) => void;
+    cellSave?: (data: Object) => void;
+    batchSave?: (data: Object) => void;
+    cellSaved?: (data: Object) => void;
+
+    beforePaste?: (data: Object) => void;
+    customQueryCellInfo?: (args: any) => void;
 }
 
 export interface TableRefType {
@@ -108,6 +115,8 @@ export interface TableRefType {
     setRowData: (rowPrimaryKey: number, newRowData: Object) => void;
     getData: () => Object[];
     endEdit: () => void;
+    nextCell: (args: any) => void;
+    getBatchChanges: () => Object[];
 }
 
 export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
@@ -151,9 +160,12 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
         selectedItemsBelowSearch,
         title,
         aggregateChildren,
-        onCellEdit: handleCellEdit,
         onMove,
-        queryCellInfo
+        cellSave,
+        beforePaste,
+        cellSaved,
+        customQueryCellInfo,
+        enableImmutableMode
     } = props;
 
     const tableRef = useRef<any>();
@@ -356,6 +368,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
         onCheckboxChange!(tableRef?.current?.getSelectedRecords(), tableKey);
         setSelectedForBanner(tableRef?.current?.getSelectedRecords()?.length);
     };
+
     const scrollTo = (id: number) => {
         try {
             const matchedElement = tableRef?.current?.flatData.find((value: any) => value.id === id);
@@ -426,6 +439,18 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
         const endEdit = () => {
             tableRef.current.endEdit();
         };
+        const nextCell = (args: any) => {
+            const instan = tableRef.current;
+            instan.grid.editModule.batchSave();
+            var firstCell = parseInt(args?.cell?.getAttribute('index'));
+
+            var colName = instan.getColumns()[args.column.index + 1]?.field;
+
+            setTimeout(() => {
+                instan.editCell(firstCell, colName);
+            }, 50);
+        };
+        const getBatchChanges = () => tableRef.current.getBatchChanges();
         return {
             clearSelection,
             setSelectedForBanner,
@@ -437,7 +462,9 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
             updateData,
             setRowData,
             getData,
-            endEdit
+            endEdit,
+            nextCell,
+            getBatchChanges
         };
     });
 
@@ -503,8 +530,32 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
     // };
     // const expanding = () => {
     //     tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
-    // };
+    // };cellSaved
+    // const cellSaved = (args: any) => {
+    //     if (args.previousValue != undefined && args.previousValue != args.value) {
+    //         // var instance = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];
 
+    //         // instance.grid.editModule.batchSave();
+
+    //         // var firstCell = parseInt(args?.cell?.getAttribute('index'));
+
+    //         // var colName = instance.getColumns()[args.column.index + 1]?.field;
+
+    //         // setTimeout(() => {
+    //         //     instance.editCell(firstCell, colName);
+    //         // }, 50);
+    //         const instan = tableRef.current;
+    //         instan.grid.editModule.batchSave();
+    //         var firstCell = parseInt(args?.cell?.getAttribute('index'));
+
+    //         var colName = instan.getColumns()[args.column.index + 1]?.field;
+
+    //         setTimeout(() => {
+    //             instan.editCell(firstCell, colName);
+    //         }, 50);
+    //         console.log('cellSaved', tableRef.current.grid);
+    //     }
+    // };
     const rowSelecting = (args: RowSelectingEventArgs) => {
         if (isEscPressed) {
             args.cancel = true;
@@ -512,7 +563,91 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
 
         isEscPressed = false;
     };
+    function queryCellInfo(args: any) {
+        args.cell.addEventListener('mousedown', mouseDownHandler);
+        // args.cell.addEventListener('keydown', keydownHandler);
+        customQueryCellInfo?.(args);
+    }
+    let eventTriggered = false;
+    keydownHandler;
+    function keydownHandler(args: any) {
+        var instance = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];
+        var closesttd = args.target.closest('td');
+        // debugger;
+        if (args.keyCode == 13 && !isNullOrUndefined(closesttd.nextSibling)) {
+            //to prevent default actions
+            args.preventDefault();
+            args.stopPropagation();
 
+            //triggers while enter
+            editACell(closesttd.nextSibling);
+        }
+        if (args.keyCode == 9) {
+            // triggers while pressing tab
+            var firstCell = parseInt(closesttd?.getAttribute('index'));
+            var rowIndex = instance?.getVisibleColumns()[args.currentTarget.cellIndex - 1]?.field;
+            instance.grid.editModule.batchSave();
+            setTimeout(() => {
+                instance.editCell(firstCell, rowIndex);
+            }, 50);
+        }
+
+        const isAlphabet = (args.keyCode >= 65 && args.keyCode <= 90) || (args.keyCode >= 97 && args.keyCode <= 122);
+        const isNumeric = args.keyCode > 47 && args.keyCode < 58;
+        if (isAlphabet || isNumeric) {
+            if (!eventTriggered) {
+                eventTriggered = true;
+                //to prevent default actions
+                args.preventDefault();
+                args.stopPropagation();
+
+                // triggers while typing alphabet
+                // var firstCell = instance.getSelectedRowCellIndexes()[0]?.cellIndexes[0] as any;
+                // var rowIndex: any = instance.getSelectedRowCellIndexes()[0]?.rowIndex as any;
+
+                // if (!isNullOrUndefined(firstCell) && !isNullOrUndefined(rowIndex)) {
+                //     instance.editCell(rowIndex, instance?.getColumns()[firstCell]?.field);
+                // }
+            }
+        }
+
+        if (args.keyCode == 27 && instance.grid.isEdit) {
+            //triggers while Escape
+            eventTriggered = false;
+            instance.grid.editModule.batchSave();
+        }
+    }
+
+    function editACell(args: any) {
+        var instance = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];
+        instance.grid.editModule.editCell(parseInt(args.getAttribute('index')), instance.grid.getColumnByIndex(parseInt(args.getAttribute('data-colindex'))).field);
+    }
+    // const beginEdit = (args: any) => {
+    //     console.log(args, 'args');
+    // };
+    function mouseDownHandler(args: any) {
+        // treegrid instance
+        var instance = tableRef?.current;
+
+        // to check checkbox on mouse click
+        if (args.currentTarget.classList.contains('e-gridchkbox')) {
+            instance.selectionSettings.mode = 'Row';
+        } else {
+            instance.selectionSettings.mode = 'Cell';
+        }
+    }
+    // const handleCellEdit = (args: any) => {
+    //     var instance = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];
+    //     var closesttd = args.cell.closest('td');
+
+    //     var firstCell = parseInt(closesttd?.getAttribute('index'));
+    //     var rowIndex = instance?.getVisibleColumns()[args.cell.cellIndex - 1]?.field;
+    //     console.log(args, 'handleCellEdit', firstCell, rowIndex);
+    //     // instance.grid.editModule.batchSave();
+    //     // setTimeout(() => {
+    //     //     // instance.editCell(firstCell, rowIndex);
+    //     // }, 50);
+    // };
     return (
         <Box position={'relative'} height={'100%'} width={'100%'} ref={tableContainerRef}>
             {showToolbar && (
@@ -613,11 +748,12 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                             // expanding={expanding}
                             // collapsing={collapsing}
                             // resizeStart={resizestart}
+                            enableImmutableMode={enableImmutableMode}
                             rowSelecting={rowSelecting}
                             actionBegin={actionBegin}
                             dataBound={dataBound}
                             actionComplete={actionComplete}
-                            cellEdit={handleCellEdit}
+                            // cellEdit={handleCellEdit}
                             headerCellInfo={headerCellInfo}
                             rowSelected={rowSelected}
                             rowDeselected={rowDeselected}
@@ -643,8 +779,13 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                             filterSettings={filterSettings}
                             checkboxChange={checkboxChange}
                             rowHeight={rowHeight}
-                            queryCellInfo={queryCellInfo}
                             {...(tableKey && { key: tableKey })}
+                            queryCellInfo={queryCellInfo}
+                            // beforeBatchSave={beginEdit}
+                            // batchAdd={beginEdit}
+                            cellSaved={cellSaved}
+                            cellSave={cellSave}
+                            beforePaste={beforePaste}
                         >
                             <ColumnsDirective>{children}</ColumnsDirective>
                             {aggregateChildren && <AggregatesDirective>{aggregateChildren}</AggregatesDirective>}
@@ -703,6 +844,8 @@ Table.defaultProps = {
     onDelete: (data: Object) => {},
     onSearch: (data: Object) => {},
     onRowSelection: (data: Object) => {},
+    customQueryCellInfo: (data: Object) => {},
+    // batchSave: (data: Object) => {},
     dataBoundCallBack: () => {},
     customFiltersFunction: (data: Object) => {},
     loading: false,

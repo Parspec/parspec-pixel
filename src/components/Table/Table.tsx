@@ -391,14 +391,17 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
     const [tableHeight, setTableHeight] = useState<number>();
     const tableContainerRef = useCallback((node: HTMLDivElement) => {
         if (node !== null) {
-            const toolbarHeight = showToolbar && toolbarContainerRef?.current ? toolbarContainerRef?.current?.offsetHeight : 0;
-            const paginationHeight = allowPaging ? 47 : 0;
-            const tableHeader = 42 + 10;
-            if (node.offsetHeight) {
-                setTableHeight(node.offsetHeight - toolbarHeight - paginationHeight - tableHeader);
+            function handleResize(entries?: Array<ResizeObserverEntry>) {
+                const currentNode = entries?.[0]?.target || node;
+                const toolbarHeight = showToolbar && toolbarContainerRef?.current ? toolbarContainerRef?.current?.clientHeight : 0;
+                if (currentNode.clientHeight) {
+                    setTableHeight(currentNode.clientHeight - toolbarHeight - 8);
+                }
             }
+            const resiveObserver = new ResizeObserver(handleResize);
+            resiveObserver.observe(node);
+            handleResize();
         }
-        // tableRef.current.grid.notify('freezerender', { case: 'refreshHeight' });
     }, []);
     const toolbarContainerRef = useRef<any>();
 
@@ -432,6 +435,18 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
         isEscPressed = false;
     };
 
+    const clickHandler = () => {
+        if (tableRef.current.grid.isEdit) {
+            // save the record if Grid in edit state
+            tableRef.current.endEdit();
+        }
+    };
+
+    const onLoad = () => {
+        // bind click event on outside click in body
+        window.addEventListener('click', clickHandler);
+    };
+
     return (
         <Box position={'relative'} height={'100%'} width={'100%'} ref={tableContainerRef}>
             {showToolbar && (
@@ -460,7 +475,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                         )}
                         {toolBarOptions?.includes('add') && (
                             <Tooltip title={'Add'}>
-                                <Box>
+                                <Box data-testid="add-btn">
                                     <IconButton onClick={() => onAdd!()}>
                                         <AddIcon fontSize="medium" />
                                     </IconButton>
@@ -469,7 +484,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                         )}
                         {toolBarOptions?.includes('duplicate') && (
                             <Tooltip title={disabled ? 'Select Item(s) First' : 'Duplicate'}>
-                                <Box>
+                                <Box data-testid="duplicate-btn">
                                     <IconButton onClick={() => onAddDuplicates!(tableRef.current.getSelectedRecords())} disabled={disabled}>
                                         <ControlPointDuplicateIcon fontSize="medium" />
                                     </IconButton>
@@ -478,7 +493,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                         )}
                         {toolBarOptions?.includes('move') && (
                             <Tooltip title={disabled ? 'Select Item(s) First' : 'Change Section'}>
-                                <Box>
+                                <Box data-testid="move-btn">
                                     <IconButton onClick={() => onMove!(tableRef.current.getSelectedRecords())} disabled={disabled}>
                                         <MoveDownIcon fontSize="medium" />
                                     </IconButton>
@@ -487,7 +502,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                         )}
                         {toolBarOptions?.includes('hide') && (
                             <Tooltip title={disabled ? 'Select Item(s) First' : 'Hide / Unhide'}>
-                                <Box>
+                                <Box data-testid="hide-btn">
                                     <IconButton onClick={() => onHideUnhide!(tableRef.current.getSelectedRecords())} disabled={disabled}>
                                         <VisibilityOffIcon fontSize="medium" />
                                     </IconButton>
@@ -496,7 +511,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                         )}
                         {toolBarOptions?.includes('delete') && (
                             <Tooltip title={disabled ? 'Select Item(s) First' : 'Delete'}>
-                                <Box>
+                                <Box data-testid="delete-btn">
                                     <IconButton
                                         disabled={disabled}
                                         onClick={() => {
@@ -526,12 +541,13 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                 </Box>
             )}
             <Box className="control-pane">
-                <Box className="control-section">
+                <Box className="control-section" height={height || tableHeight}>
                     {data && (
                         <TreeGridComponent
                             // expanding={expanding}
                             // collapsing={collapsing}
                             // resizeStart={resizestart}
+                            load={onLoad}
                             rowSelecting={rowSelecting}
                             actionBegin={actionBegin}
                             dataBound={dataBound}
@@ -541,7 +557,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                             rowSelected={rowSelected}
                             rowDeselected={rowDeselected}
                             rowDataBound={rowDataBound}
-                            height={height || tableHeight}
+                            height="100%"
                             ref={tableRef}
                             dataSource={data}
                             treeColumnIndex={treeColumnIndex}

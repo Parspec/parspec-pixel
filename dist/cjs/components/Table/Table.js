@@ -87,57 +87,135 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
         }
     };
     const rowDrop = (args) => {
-        var _a;
-        let notAllowed = false;
-        const droppedData = (_a = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _a === void 0 ? void 0 : _a.getRowInfo(args.target.parentElement).rowData; //dropped data
-        let droppedId, draggedId;
-        //here collect the taskid value based on parent records
-        if (!(0, ej2_base_1.isNullOrUndefined)(droppedData)) {
-            if (!(0, ej2_base_1.isNullOrUndefined)(droppedData.parentItem) && args.data[0].parentItem != null) {
-                droppedId = droppedData.parentItem.taskID; //dropped data
-                draggedId = args.data[0].parentItem.taskID; // dragged data
-            }
-            else if (droppedData.hasChildRecords == true) {
-                droppedId = droppedData.taskID; //dropped data
-                draggedId = args.data[0].taskID; // dragged data
-            }
-        }
-        //Here we prevent for top / bottom position
-        if (droppedId != draggedId && args.data[0].level != droppedData.level) {
+        var _a, _b, _c, _d, _e;
+        if (!args.dropPosition.length || args.dropPosition === 'Invalid') {
             args.cancel = true;
-            notAllowed = true;
         }
-        else if (args.dropPosition == 'topSegment' || args.dropPosition == 'bottomSegment') {
-            //here prevent the drop for within child parent
-            if (args.data[0].level != droppedData.level) {
-                args.cancel = true;
-                notAllowed = true;
-            }
-            else if (args.data[0].level != 0 && droppedData.level != 0) {
-                if (args.data[0].level == droppedData.level &&
-                    ((0, ej2_base_1.isNullOrUndefined)(args.data[0].hasChildRecords) || (0, ej2_base_1.isNullOrUndefined)(droppedData.hasChildRecords) || args.data[0].hasChildRecords == true) &&
-                    droppedId != draggedId) {
-                    args.cancel = true; //here we prevent drop the record in top of another parent's child
-                    notAllowed = true;
-                }
-            }
-        }
-        //Here we prevent the drop for child position
-        if (args.dropPosition == 'middleSegment') {
-            if (!(0, ej2_base_1.isNullOrUndefined)(draggedId) && !(0, ej2_base_1.isNullOrUndefined)(droppedId)) {
-                if (droppedId == draggedId || args.data[0].level == droppedData.level) {
+        let notAllowed = false;
+        const targetData = (_c = (_a = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _a === void 0 ? void 0 : _a.getRowInfo((_b = args === null || args === void 0 ? void 0 : args.target) === null || _b === void 0 ? void 0 : _b.parentElement)) === null || _c === void 0 ? void 0 : _c.rowData; //dropped data
+        let data;
+        for (let i = 0; i < args.data.length; i++) {
+            data = args.data[i];
+            let error = '';
+            // const isProduct = data?.type === 'product';
+            const isMiddleSegment = args.dropPosition === 'middleSegment';
+            const parent = isMiddleSegment ? targetData : targetData === null || targetData === void 0 ? void 0 : targetData.parentItem;
+            // Check if selected records has child - PREVENT 2 Level Nesting
+            // if (data?.hasChildRecords && parent?.hasChildRecords) {
+            //     args.cancel = true;
+            //     notAllowed = true;
+            //     error += `Nested ${data.type} can not be a child of Nested ${parent.type}`;
+            // }
+            // if (parent?.parentItem) {
+            //     args.cancel = true;
+            //     notAllowed = true;
+            //     error += `${isProduct ? 'Product' : 'Nested accessories'} can not be a child of Nested ${parent.type}`;
+            // }
+            // if (isMiddleSegment) {
+            //     if (parent?.type === 'accessories') {
+            //         args.cancel = true;
+            //         notAllowed = true;
+            //         error += `${data.type} can not be a child of ${parent.type}`;
+            //     } else if (parent?.parentItem) {
+            //         args.cancel = true;
+            //         notAllowed = true;
+            //         error += `${isProduct ? 'Product' : 'Nested accessories'} can not be a child of Nested ${parent.type}`;
+            //     } else if (data?.hasChildRecords && parent?.hasChildRecords) {
+            //         args.cancel = true;
+            //         notAllowed = true;
+            //         error += `Nested ${isProduct ? 'Product' : data.type} can not be a child of Nested ${parent.type}`;
+            //     }
+            // } else if (isProduct && parent?.type === 'accessories') {
+            //     args.cancel = true;
+            //     notAllowed = true;
+            //     error += `${data.type} can not be a child of ${parent.type}`;
+            // }
+            if ((data === null || data === void 0 ? void 0 : data.type) === 'product') {
+                if ((parent === null || parent === void 0 ? void 0 : parent.type) === 'accessories' && (parent === null || parent === void 0 ? void 0 : parent.type) !== undefined) {
                     args.cancel = true;
                     notAllowed = true;
+                    error += `${data.type} can not be a child of ${parent === null || parent === void 0 ? void 0 : parent.type}`;
+                }
+                else if (((_d = data === null || data === void 0 ? void 0 : data.childRecords) === null || _d === void 0 ? void 0 : _d.length) > 1 && args.dropPosition === 'middleSegment') {
+                    // handle if selected item is a nested Product
+                    args.cancel = true;
+                    notAllowed = true;
+                    error += `Nested Product can not be a child of ${parent === null || parent === void 0 ? void 0 : parent.type}`;
+                }
+                else if ((parent === null || parent === void 0 ? void 0 : parent.parentItem) && args.dropPosition === 'middleSegment') {
+                    // Drop location is nested child .
+                    args.cancel = true;
+                    notAllowed = true;
+                    error += `Product can not be a child of Nested ${parent === null || parent === void 0 ? void 0 : parent.type}`;
+                }
+                else if ((data === null || data === void 0 ? void 0 : data.hasChildRecords) && (parent === null || parent === void 0 ? void 0 : parent.hasChildRecords)) {
+                    args.cancel = true;
+                    notAllowed = true;
+                    error += `Nested ${data.type} can not be a child of Nested ${parent === null || parent === void 0 ? void 0 : parent.type}`;
                 }
             }
-            else if (args.data[0].level == droppedData.level || (args.data[0].level != droppedData.level && (0, ej2_base_1.isNullOrUndefined)(draggedId) && (0, ej2_base_1.isNullOrUndefined)(droppedId))) {
-                args.cancel = true;
-                notAllowed = true;
+            else {
+                if ((parent === null || parent === void 0 ? void 0 : parent.type) === 'accessories' && (parent === null || parent === void 0 ? void 0 : parent.type) !== undefined) {
+                    args.cancel = true;
+                    notAllowed = true;
+                    error += `${data.type} can not be a child of ${parent === null || parent === void 0 ? void 0 : parent.type}`;
+                }
+                else if (((_e = data === null || data === void 0 ? void 0 : data.childRecords) === null || _e === void 0 ? void 0 : _e.length) > 1 && args.dropPosition === 'middleSegment') {
+                    // handle if selected item is a nested Product
+                    args.cancel = true;
+                    notAllowed = true;
+                    error += `Nested accessories can not be a child of ${parent === null || parent === void 0 ? void 0 : parent.type}`;
+                }
+                else if ((parent === null || parent === void 0 ? void 0 : parent.parentItem) && args.dropPosition === 'middleSegment') {
+                    // Drop location is nested child .
+                    args.cancel = true;
+                    notAllowed = true;
+                    error += `${data.type} can not be a child of Nested ${parent === null || parent === void 0 ? void 0 : parent.type}`;
+                }
+            }
+            if (notAllowed) {
+                if (args.data.length > 1) {
+                    alert('Please note accessories can only be a child of product, product can only be a child of section and section cannot be a child of a product or accessories, please make sure that all your selected items follow the mentioned criteria');
+                    break;
+                }
+                else {
+                    alert(error);
+                }
+            }
+            console.log('data=>', data, '\nparent=>', parent, '\narg=>', args, '\ntarget=>', targetData);
+            if (!notAllowed) {
+                onDragEnd({ fromIndex: args.fromIndex, dropIndex: args.dropIndex, data: args.data[0] });
             }
         }
-        if (!notAllowed) {
-            onDragEnd({ fromIndex: args.fromIndex, data: args.data[0] });
-        }
+        /** if (data?.type === 'section') {
+                if (parent?.type !== undefined) {
+                    args.cancel = true;
+                    notAllowed = true;
+                    error += `${data.type} can not be a child of ${parent?.type}`;
+                }
+            } else if (data?.type === 'product') {
+                if (parent?.type !== 'section' && parent?.type !== undefined) {
+                    args.cancel = true;
+                    notAllowed = true;
+                    error += `${data.type} can not be a child of ${parent?.type}`;
+                }
+            } else {
+                if (parent?.type !== 'product' && parent?.type !== undefined) {
+                    args.cancel = true;
+                    notAllowed = true;
+                    error += `${data.type} can not be a child of ${parent?.type}`;
+                }
+            }
+            if (data?.type === 'section') {
+                if (parent?.type !== undefined) {
+                    args.cancel = true;
+                    notAllowed = true;
+                    error += `${data.type} can not be a child of ${parent?.type}`;
+                }
+            }
+            if(data?.childRecords ){
+
+            } */
     };
     const checkboxChange = (args) => {
         var _a, _b, _c;

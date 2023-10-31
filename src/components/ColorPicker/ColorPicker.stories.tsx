@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { ColorPicker, TransitionsColorPicker } from './index';
+import { ColorPicker, TransitionsColorPicker, Color, ColorResult } from './index';
 
 export default {
     title: 'ColorPicker',
@@ -19,9 +19,9 @@ Hex.args = {
 };
 
 export const Rgb: ComponentStory<typeof ColorPicker> = ({ color, ...args }) => {
-    const [colorState, setColorState] = useState(color);
+    const [colorState, setColorState] = useState<Color | undefined>(color);
 
-    return <ColorPicker {...args} color={colorState} onChange={(color) => setColorState(color.rgb)} />;
+    return <ColorPicker {...args} color={colorState} onChange={(color: ColorResult) => setColorState(color.rgb)} />;
 };
 
 Rgb.args = {
@@ -36,5 +36,5 @@ Rgb.args = {
 export const Transition: ComponentStory<typeof TransitionsColorPicker> = () => {
     const [colorState, setColorState] = useState('#37d67a');
 
-    return <TransitionsColorPicker onClickAway={() => alert('disappearing now !!')} color={colorState} onChange={(color) => setColorState(color.hex)} />;
+    return <TransitionsColorPicker onClickAway={() => alert('disappearing now !!')} color={colorState} onChange={(color: ColorResult) => setColorState(color.hex)} />;
 };

@@ -7,12 +7,13 @@ import Popper from '../Popper';
 export const ColorPicker = (props) => {
     return _jsx(SketchPicker, Object.assign({}, props));
 };
-export const TransitionsColorPicker = ({ color, onChange, onClickAway = () => { } }) => {
+export const TransitionsColorPicker = ({ color, onChange, onClickAway = () => { }, onClick = () => { } }) => {
     const [open, setOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
         setOpen((previousOpen) => !previousOpen);
+        onClick(open);
     };
     function clickAwayHandler() {
         setOpen(false);

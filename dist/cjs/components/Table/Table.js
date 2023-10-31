@@ -227,7 +227,7 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
             const instan = tableRef.current;
             instan.grid.editModule.batchSave();
             var firstCell = parseInt((_a = args === null || args === void 0 ? void 0 : args.cell) === null || _a === void 0 ? void 0 : _a.getAttribute('index'));
-            var colName = (_b = instan.getColumns()[args.column.index + 1]) === null || _b === void 0 ? void 0 : _b.field;
+            var colName = (_b = instan.getVisibleColumns()[args.column.index + 1]) === null || _b === void 0 ? void 0 : _b.field;
             setTimeout(() => {
                 instan.editCell(firstCell, colName);
             }, 50);
@@ -397,12 +397,13 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
         // treegrid instance
         var instance = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current;
         // to check checkbox on mouse click
-        if (args.currentTarget.classList.contains('e-gridchkbox')) {
-            instance.selectionSettings.mode = 'Row';
-        }
-        else {
-            instance.selectionSettings.mode = 'Cell';
-        }
+        if ((instance === null || instance === void 0 ? void 0 : instance.selectionSettings.cellSelectionMode) === 'Box')
+            if (args.currentTarget.classList.contains('e-gridchkbox')) {
+                instance.selectionSettings.mode = 'Row';
+            }
+            else {
+                instance.selectionSettings.mode = 'Cell';
+            }
     }
     // const handleCellEdit = (args: any) => {
     //     var instance = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];

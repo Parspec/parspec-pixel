@@ -444,7 +444,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
             instan.grid.editModule.batchSave();
             var firstCell = parseInt(args?.cell?.getAttribute('index'));
 
-            var colName = instan.getColumns()[args.column.index + 1]?.field;
+            var colName = instan.getVisibleColumns()[args.column.index + 1]?.field;
 
             setTimeout(() => {
                 instan.editCell(firstCell, colName);
@@ -630,11 +630,12 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
         var instance = tableRef?.current;
 
         // to check checkbox on mouse click
-        if (args.currentTarget.classList.contains('e-gridchkbox')) {
-            instance.selectionSettings.mode = 'Row';
-        } else {
-            instance.selectionSettings.mode = 'Cell';
-        }
+        if (instance?.selectionSettings.cellSelectionMode === 'Box')
+            if (args.currentTarget.classList.contains('e-gridchkbox')) {
+                instance.selectionSettings.mode = 'Row';
+            } else {
+                instance.selectionSettings.mode = 'Cell';
+            }
     }
     // const handleCellEdit = (args: any) => {
     //     var instance = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];

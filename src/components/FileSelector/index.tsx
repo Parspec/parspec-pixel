@@ -8,9 +8,9 @@ import { getAcceptedFormats } from './fileFormats';
 import SelectedFile from './SelectedFile';
 import { validateImage } from 'image-validator';
 import WebViewer from '@pdftron/webviewer';
-import { PDFTRON_PATH, WEBVIEWER_FOLDER_NAME, pdftron_license_key } from '../../Shared/utils';
+import { WEBVIEWER_FOLDER_NAME, pdftron_license_key } from '../../Shared/utils';
 
-// import {} from '../../public';
+// import {} from '../../../wv-resources@8.11.0-20221120/public';
 
 console.log(WEBVIEWER_FOLDER_NAME);
 export interface FileSelectorFileType {
@@ -122,10 +122,11 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
 
             fileReader.onload = async (event: any) => {
                 console.log(event.target.result);
-                console.log('Path', PDFTRON_PATH);
+                // console.log('Path', PDFTRON_PATH);
                 WebViewer(
                     {
-                        path: `../../public`,
+                        path: `https://parspec-major-staging-main-frontend-us-east-2.s3.us-east-2.amazonaws.com/wv-resources%408.11.0-20221120/lib`,
+                        // path: 'lib',
                         initialDoc: event.target.result, // Replace with the path to your PDF
                         licenseKey: pdftron_license_key
                     },
@@ -141,6 +142,18 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
             };
         };
 
+        // useEffect(() => {
+        //     if (!files.length) return;
+        //     WebViewer(
+        //         {
+        //             path: `../../../public/lib`,
+        //             // path: 'lib',
+        //             initialDoc: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', // Replace with the path to your PDF
+        //             licenseKey: pdftron_license_key
+        //         },
+        //         document.getElementById('viewer')!
+        //     );
+        // }, [files]);
         //Function called when file is deleted
         const onDelete = (file: { name: string }) => {
             setFiles((old: any) => old.filter((item: { name: string }) => item.name !== file.name));

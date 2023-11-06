@@ -2,7 +2,7 @@
 import { TreeGridExcelExportProperties, TreeGridPdfExportProperties, PageSettingsModel, EditSettingsModel, SearchSettingsModel } from '@syncfusion/ej2-react-treegrid';
 import './styles.css';
 import { FilterSettingsModel, SelectionSettingsModel } from '@syncfusion/ej2-grids';
-type ToolbarT = 'delete' | 'search' | 'clearFilters' | 'hide' | 'unhide' | 'selectedItems' | 'duplicate' | 'add';
+type ToolbarT = 'delete' | 'search' | 'clearFilters' | 'hide' | 'unhide' | 'selectedItems' | 'duplicate' | 'add' | 'move';
 export type ToolbarType = ToolbarT[];
 export interface TableProps {
     children: React.ReactNode;
@@ -24,7 +24,7 @@ export interface TableProps {
     selectionSettings?: SelectionSettingsModel;
     editSettings?: EditSettingsModel;
     onHideUnhide?: (data: Object[]) => void;
-    onCheckboxChange?: (data: Object[]) => void;
+    onCheckboxChange?: (data: Object[], key?: string | number) => void;
     onAddDuplicates?: (data: Object[]) => void;
     onDragEnd?: (data: Object) => void;
     onAdd?: () => void;
@@ -34,6 +34,8 @@ export interface TableProps {
     onRowSelection?: (data: Object) => void;
     customFiltersFunction?: (data: Object) => void;
     dataBoundCallBack?: () => void;
+    onCellEdit?: (data: Object) => void;
+    onMove?: (data: Object) => void;
     loading?: boolean;
     toolbarRightSection?: React.ReactNode;
     searchSettings?: SearchSettingsModel;
@@ -42,6 +44,23 @@ export interface TableProps {
     rowHeight?: number;
     height?: number | string;
     tableKey?: number | string;
+    selectedItemsBelowSearch?: boolean;
+    title?: string;
+    aggregateChildren?: React.ReactNode;
+    queryCellInfo?: (args: any) => void;
 }
-export declare const Table: React.FC<TableProps>;
+export interface TableRefType {
+    clearSelection: () => void;
+    setSelectedForBanner: React.Dispatch<React.SetStateAction<number>>;
+    scrollTo: (id: number) => void;
+    clearFiltering: () => void;
+    setMultiSelectVal: (val: any) => void;
+    getMultiSelectVal: () => any;
+    refreshTable: () => void;
+    updateData: (data: Object[]) => void;
+    setRowData: (rowPrimaryKey: number, newRowData: Object) => void;
+    getData: () => Object[];
+    endEdit: () => void;
+}
+export declare const Table: import("react").ForwardRefExoticComponent<TableProps & import("react").RefAttributes<TableRefType>>;
 export {};

@@ -14,6 +14,13 @@ exports.theme = (0, styles_1.createTheme)({
                 }
             }
         },
+        MuiAccordionSummary: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: ' #fff !important'
+                }
+            }
+        },
         MuiButton: {
             styleOverrides: {
                 root: ({ ownerState }) => (Object.assign({}, (ownerState.size === 'xs' && {
@@ -81,9 +88,10 @@ exports.theme = (0, styles_1.createTheme)({
             light: '#DBEAFE',
             main: '#3B82F6'
         },
-        // warning: {
-        //     main: ''
-        // }
+        warning: {
+            main: '#ed6c02',
+            light: '#fff7ed'
+        },
         error: {
             light: '#FFE4E6',
             main: '#F43F5E'

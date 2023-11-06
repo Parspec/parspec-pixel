@@ -4,6 +4,7 @@ export { DatasheetSelectInfoIcon } from './SvgIcons/DatasheetSelectInfoIcon';
 export { TableHeaderMenuIcon } from './SvgIcons/TableHeaderMenuIcon';
 export {
     Close as CloseIcon,
+    Check as CheckIcon,
     Cancel as CancelIcon,
     DragIndicator as DragIndicatorIcon,
     Search as SearchIcon,
@@ -60,5 +61,22 @@ export {
     DocumentScanner as DocumentScannerIcon,
     CropFree as CropFreeIcon,
     SentimentVeryDissatisfied as SadFaceIcon,
-    Troubleshoot as TroubleshootIcon
+    Troubleshoot as TroubleshootIcon,
+    LocationOnOutlined as LocationOnOutlinedIcon,
+    DriveFileRenameOutline as DriveFileRenameOutlineIcon,
+    Help as HelpIcon,
+    FolderOffOutlined as NoProductFoundIcon,
+    PlagiarismOutlined as PlagiarismOutlinedIcon,
+    Lock as LockIcon,
+    LockOpen as LockOpenIcon,
+    WarningAmber as WarningOutlinedIcon,
+    Settings as SettingsIcon,
+    Logout as LogoutIcon,
+    Sort as SortIcon,
+    HistoryOutlined as HistoryOutlinedIcon,
+    InfoOutlined as InfoOutlinedIcon,
+    ThumbDownOffAlt as ThumbDownOffAltIcon,
+    MoveDown as MoveIcon,
+    FileUpload as FileUploadIcon,
+    MoveDown as MoveDownIcon
 } from '@mui/icons-material';

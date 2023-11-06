@@ -10,6 +10,13 @@ import { Tooltip } from '../Tooltip';
 const StyledMUITextField = styled(MUITextField)({
     '& .MuiFormHelperText-root': {
         marginLeft: '0px'
+    },
+    '& input[type=number]': {
+        '-moz-appearance': 'textfield',
+        '&::-webkit-outer-spin-button, &::-webkit-inner-spin-button': {
+            '-webkit-appearance': 'none',
+            margin: 0
+        }
     }
 });
 
@@ -21,12 +28,13 @@ export interface TextFieldProps extends Omit<MUITextFieldProps, 'margin' | 'clas
     size?: 'small' | 'medium';
     chips?: Array<string>;
     onChipDelete?: (index: number) => void;
-    helperText?: string;
-    icon?: React.ReactNode;
+    helperText?: string | React.ReactNode;
+    startIcon?: React.ReactNode;
+    endIcon?: React.ReactNode;
     scrollAreaHeight?: number;
 }
 
-export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(({ variant, color, error, size, label, chips, onChipDelete, helperText, icon, scrollAreaHeight, ...rest }, ref) => (
+export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(({ variant, color, error, size, label, chips, onChipDelete, helperText, endIcon, startIcon, scrollAreaHeight, ...rest }, ref) => (
     <>
         <StyledMUITextField
             fullWidth
@@ -38,7 +46,8 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(({ variant, 
             error={error}
             helperText={helperText}
             InputProps={{
-                endAdornment: icon && <InputAdornment position="end">{icon}</InputAdornment>
+                startAdornment: startIcon && <InputAdornment position="start">{startIcon}</InputAdornment>,
+                endAdornment: endIcon && <InputAdornment position="end">{endIcon}</InputAdornment>
             }}
             {...rest}
         />

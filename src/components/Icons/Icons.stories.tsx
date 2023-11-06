@@ -6,6 +6,7 @@ import {
     SearchIcon,
     UnfoldMoreIcon,
     CloseIcon,
+    CheckIcon,
     DragIndicatorIcon,
     FirstPageIcon,
     KeyboardArrowLeftIcon,
@@ -54,7 +55,18 @@ import {
     WarningIcon,
     ErrorIcon,
     SadFaceIcon,
-    TroubleshootIcon
+    TroubleshootIcon,
+    NoProductFoundIcon,
+    SettingsIcon,
+    LogoutIcon,
+    WarningOutlinedIcon,
+    SortIcon,
+    HistoryOutlinedIcon,
+    InfoOutlinedIcon,
+    ThumbDownOffAltIcon,
+    MoveIcon,
+    FileUploadIcon,
+    MoveDownIcon
 } from './index';
 import { Grid } from '../Grid';
 import { BodySmall } from '../Typography';
@@ -96,6 +108,7 @@ MUIImportedIcons.args = {
         { icon: SearchIcon, name: 'SearchIcon' },
         { icon: UnfoldMoreIcon, name: 'UnfoldMoreIcon' },
         { icon: CloseIcon, name: 'CloseIcon' },
+        { icon: CheckIcon, name: 'CheckIcon' },
         { icon: DragIndicatorIcon, name: 'DragIndicatorIcon' },
         { icon: KeyboardArrowLeftIcon, name: 'KeyboardArrowLeftIcon' },
         { icon: KeyboardArrowRightIcon, name: 'KeyboardArrowRightIcon' },
@@ -142,7 +155,18 @@ MUIImportedIcons.args = {
         { icon: WarningIcon, name: 'WarningIcon' },
         { icon: ErrorIcon, name: 'ErroIcon' },
         { icon: SadFaceIcon, name: 'SadFaceIcon' },
-        { icon: TroubleshootIcon, name: 'TroubleshootIcon' }
+        { icon: TroubleshootIcon, name: 'TroubleshootIcon' },
+        { icon: NoProductFoundIcon, name: 'NoProductFoundIcon' },
+        { icon: WarningOutlinedIcon, name: 'WarningOutlinedIcon' },
+        { icon: SettingsIcon, name: 'SettingsIcon' },
+        { icon: LogoutIcon, name: 'LogoutIcon' },
+        { icon: SortIcon, name: 'SortIcon' },
+        { icon: HistoryOutlinedIcon, name: 'HistoryOutlinedIcon' },
+        { icon: InfoOutlinedIcon, name: 'InfoOutlinedIcon' },
+        { icon: ThumbDownOffAltIcon, name: 'ThumbDownOffAltIcon' },
+        { icon: MoveIcon, name: 'MoveIcon' },
+        { icon: FileUploadIcon, name: 'FileUploadIcon' },
+        { icon: MoveDownIcon, name: 'MoveDownIcon' }
     ],
     fontSize: 'medium',
     color: 'tertiary'

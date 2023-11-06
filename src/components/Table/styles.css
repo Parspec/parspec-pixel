@@ -28449,7 +28449,6 @@ li.e-separator.e-menu-item.e-excel-separator {
     font-weight: bold;
     background-color: #f1f5f9;
     position: relative;
-    z-index: 999;
     padding-left: 2px;
     padding-right: 2px;
 }
@@ -28460,7 +28459,6 @@ li.e-separator.e-menu-item.e-excel-separator {
     font-weight: bold;
     background-color: #f1f5f9;
     position: relative;
-    z-index: 999;
     padding-left: 2px;
     padding-right: 2px;
 }
@@ -29015,7 +29013,6 @@ tr.e-highlightscroll {
     content: '\e666';
     padding-right: 3px;
     position: relative;
-    z-index: 999;
     background-color: #f1f5f9;
 }
 .e-grid .e-gridheader .e-icons:not(.e-icon-hide):not(.e-check):not(.e-stop):not(.e-icon-reorderuparrow):not(.e-icon-reorderdownarrow) {
@@ -29093,12 +29090,10 @@ tr.e-highlightscroll {
 .e-filtermenudiv.e-icons {
     background-color: #f1f5f9;
     position: relative;
-    z-index: 999;
 }
 
 .e-rcursor {
     position: relative;
-    z-index: 9999;
 }
 
 .e-grid .e-rowcell {
@@ -29114,6 +29109,6 @@ tr.e-row td.e-childborder {
     border-right-width: 0px !important;
 }
 /*  to be removed in V2 middle segment no border */
-.e-multi-select-wrapper{
+.e-multi-select-wrapper {
     margin-top: 10px;
 }

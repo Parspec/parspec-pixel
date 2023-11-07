@@ -28,7 +28,7 @@
         "@storybook/addons": "^6.5.16",
         "@storybook/theming": "^6.5.16",
         "@syncfusion/ej2-base": "~23.1.0",
-        "@syncfusion/ej2-grids": "~23.1.0",
+        "@syncfusion/ej2-grids": "~23.1.43",
         "@syncfusion/ej2-navigations": "~23.1.0",
         "@syncfusion/ej2-react-dropdowns": "~23.1.0",
         "@syncfusion/ej2-react-treegrid": "~23.1.0",

@@ -649,6 +649,18 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
     //     //     // instance.editCell(firstCell, rowIndex);
     //     // }, 50);
     // };
+    const clickHandler = (e: any) => {
+        if (tableRef?.current?.grid?.isEdit && !tableRef?.current?.grid?.element?.contains(e?.target)) {
+            // save the record if Grid in edit state
+            tableRef.current.endEdit();
+        }
+    };
+
+    const onLoad = () => {
+        // bind click event on outside click in body
+        window.addEventListener('click', clickHandler);
+    };
+
     return (
         <Box position={'relative'} height={'100%'} width={'100%'} ref={tableContainerRef}>
             {showToolbar && (
@@ -750,6 +762,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                             // collapsing={collapsing}
                             // resizeStart={resizestart}
                             enableImmutableMode={enableImmutableMode}
+                            load={onLoad}
                             rowSelecting={rowSelecting}
                             actionBegin={actionBegin}
                             dataBound={dataBound}

@@ -14,12 +14,13 @@ const ColorPicker = (props) => {
     return (0, jsx_runtime_1.jsx)(react_color_1.SketchPicker, Object.assign({}, props));
 };
 exports.ColorPicker = ColorPicker;
-const TransitionsColorPicker = ({ color, onChange, onClickAway = () => { } }) => {
+const TransitionsColorPicker = ({ color, onChange, onClickAway = () => { }, onClick = () => { } }) => {
     const [open, setOpen] = (0, react_1.useState)(false);
     const [anchorEl, setAnchorEl] = (0, react_1.useState)(null);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
         setOpen((previousOpen) => !previousOpen);
+        onClick(open);
     };
     function clickAwayHandler() {
         setOpen(false);

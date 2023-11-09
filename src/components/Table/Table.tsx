@@ -98,7 +98,7 @@ export interface TableProps {
     cellSave?: (data: Object) => void;
     batchSave?: (data: Object) => void;
     cellSaved?: (data: Object) => void;
-
+    toolbarClick?: (data: Object) => void;
     beforePaste?: (data: Object) => void;
     customQueryCellInfo?: (args: any) => void;
 }
@@ -568,6 +568,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
         // args.cell.addEventListener('keydown', keydownHandler);
         customQueryCellInfo?.(args);
     }
+    queryCellInfo;
     let eventTriggered = false;
     keydownHandler;
     function keydownHandler(args: any) {
@@ -660,6 +661,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
         // bind click event on outside click in body
         window.addEventListener('click', clickHandler);
     };
+
     return (
         <Box position={'relative'} height={'100%'} width={'100%'} ref={tableContainerRef}>
             {showToolbar && (
@@ -767,8 +769,8 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                                             tableRef.current.treeColumnIndex = 2;
                                             tableRef.current.allowRowDragAndDrop = true;
                                             tableRef.current.selectionSettings = {
-                                                type: 'Multiple',
-                                                mode: 'Row'
+                                                checkboxOnly: true,
+                                                persistSelection: true
                                             };
                                             let columnName = { type: 'checkbox', width: '50' };
                                             if (tableRef.current.getColumns()[0].type != 'checkbox') {
@@ -833,7 +835,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                             checkboxChange={checkboxChange}
                             rowHeight={rowHeight}
                             {...(tableKey && { key: tableKey })}
-                            queryCellInfo={queryCellInfo}
+                            // queryCellInfo={queryCellInfo}
                             // beforeBatchSave={beginEdit}
                             // batchAdd={beginEdit}
                             cellSaved={cellSaved}

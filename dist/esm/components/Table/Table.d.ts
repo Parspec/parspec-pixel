@@ -52,6 +52,7 @@ export interface TableProps {
     cellSave?: (data: Object) => void;
     batchSave?: (data: Object) => void;
     cellSaved?: (data: Object) => void;
+    toolbarClick?: (data: Object) => void;
     beforePaste?: (data: Object) => void;
     customQueryCellInfo?: (args: any) => void;
 }

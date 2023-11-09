@@ -245,7 +245,7 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
         console.log('onAddDuplicates (selected data)===>\n', data);
     };
     const getTableProps = (args: any) => {
-        const toolBarItems: ToolbarType = ['delete', 'search', 'clearFilters', 'hide', 'unhide', 'selectedItems', 'duplicate', 'move'];
+        const toolBarItems: ToolbarType = ['delete', 'search', 'clearFilters', 'hide', 'unhide', 'selectedItems', 'duplicate', 'move', 'copy/paste'];
         return {
             toolBarOptions: toolBarItems,
             toolbarRightSection: (
@@ -304,7 +304,7 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
 
 export const TableWithFooter: ComponentStory<typeof Table> = (props) => {
     const getTableProps = (args: any) => {
-        const toolBarItems: ToolbarType = ['delete', 'search', 'clearFilters', 'hide', 'unhide', 'selectedItems', 'duplicate'];
+        const toolBarItems: ToolbarType = ['delete', 'search', 'clearFilters', 'hide', 'unhide', 'selectedItems', 'duplicate', 'copy/paste'];
         return {
             toolBarOptions: toolBarItems,
             toolbarRightSection: (

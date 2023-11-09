@@ -20,6 +20,7 @@ export const Table = forwardRef((props, ref) => {
     customFiltersFunction, dataBoundCallBack, tableKey, selectedItemsBelowSearch, title, aggregateChildren, onMove, cellSave, beforePaste, cellSaved, customQueryCellInfo, enableImmutableMode } = props;
     const tableRef = useRef();
     const [selected, setSelectedForBanner] = useState(0);
+    const [isCopyPasteEnable, setCopyPasteEnable] = useState(false);
     useEffect(() => {
         var _a, _b, _c, _d, _e, _f, _g, _h;
         let obj = (_d = (_c = (_b = (_a = document.getElementsByClassName('e-grid')[0]) === null || _a === void 0 ? void 0 : _a.ej2_instances) === null || _b === void 0 ? void 0 : _b[0]) === null || _c === void 0 ? void 0 : _c.localeObj) === null || _d === void 0 ? void 0 : _d.localeStrings;
@@ -511,7 +512,38 @@ export const Table = forwardRef((props, ref) => {
                                     } }) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('add')) && (_jsx(Tooltip, Object.assign({ title: 'Add' }, { children: _jsx(Box, Object.assign({ "data-testid": "add-btn" }, { children: _jsx(IconButton, Object.assign({ onClick: () => onAdd() }, { children: _jsx(AddIcon, { fontSize: "medium" }) })) })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('duplicate')) && (_jsx(Tooltip, Object.assign({ title: disabled ? 'Select Item(s) First' : 'Duplicate' }, { children: _jsx(Box, Object.assign({ "data-testid": "duplicate-btn" }, { children: _jsx(IconButton, Object.assign({ onClick: () => onAddDuplicates(tableRef.current.getSelectedRecords()), disabled: disabled }, { children: _jsx(ControlPointDuplicateIcon, { fontSize: "medium" }) })) })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('move')) && (_jsx(Tooltip, Object.assign({ title: disabled ? 'Select Item(s) First' : 'Change Section' }, { children: _jsx(Box, Object.assign({ "data-testid": "move-btn" }, { children: _jsx(IconButton, Object.assign({ onClick: () => onMove(tableRef.current.getSelectedRecords()), disabled: disabled }, { children: _jsx(MoveDownIcon, { fontSize: "medium" }) })) })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('hide')) && (_jsx(Tooltip, Object.assign({ title: disabled ? 'Select Item(s) First' : 'Hide / Unhide' }, { children: _jsx(Box, Object.assign({ "data-testid": "hide-btn" }, { children: _jsx(IconButton, Object.assign({ onClick: () => onHideUnhide(tableRef.current.getSelectedRecords()), disabled: disabled }, { children: _jsx(VisibilityOffIcon, { fontSize: "medium" }) })) })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('delete')) && (_jsx(Tooltip, Object.assign({ title: disabled ? 'Select Item(s) First' : 'Delete' }, { children: _jsx(Box, Object.assign({ "data-testid": "delete-btn" }, { children: _jsx(IconButton, Object.assign({ disabled: disabled, onClick: () => {
                                             var _a;
                                             onDelete((_a = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _a === void 0 ? void 0 : _a.getSelectedRecords());
-                                        } }, { children: _jsx(DeleteOutlineIcon, { fontSize: "medium" }) })) })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('clearFilters')) && (_jsx(Tooltip, Object.assign({ title: "Clear Filter(s)" }, { children: _jsx(IconButton, Object.assign({ onClick: () => tableRef.current.clearFiltering() }, { children: _jsx(FilterAltOffIcon, { fontSize: "medium" }) })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('selectedItems')) && selected > 0 && !selectedItemsBelowSearch && _jsx(SelectedItemsCount, { count: selected, closeBanner: closeBanner })] })), _jsx(Box, { children: rightSection })] }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('selectedItems')) && selected > 0 && selectedItemsBelowSearch && (_jsx(Box, Object.assign({ mb: 2, width: 'max-content' }, { children: _jsx(SelectedItemsCount, { count: selected, closeBanner: closeBanner }) }))), _jsx(Box, Object.assign({ className: "control-pane" }, { children: _jsx(Box, Object.assign({ className: "control-section", height: height || tableHeight }, { children: data && (_jsxs(TreeGridComponent
+                                        } }, { children: _jsx(DeleteOutlineIcon, { fontSize: "medium" }) })) })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('clearFilters')) && (_jsx(Tooltip, Object.assign({ title: "Clear Filter(s)" }, { children: _jsx(IconButton, Object.assign({ onClick: () => tableRef.current.clearFiltering() }, { children: _jsx(FilterAltOffIcon, { fontSize: "medium" }) })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('copy/paste')) && (_jsx(Tooltip, Object.assign({ title: "Copy paste" }, { children: _jsx(IconButton, Object.assign({ onClick: (args) => {
+                                        setCopyPasteEnable(!isCopyPasteEnable);
+                                        console.log(args, 'args', args.target.value);
+                                        if (args.target.innerText === 'Enable') {
+                                            tableRef.current.allowRowDragAndDrop = false;
+                                            tableRef.current.selectionSettings = {
+                                                type: 'Multiple',
+                                                mode: 'Cell',
+                                                cellSelectionMode: 'Box'
+                                            };
+                                            tableRef.current.treeColumnIndex = 1;
+                                            if (tableRef.current.getColumns()[0].type == 'checkbox') {
+                                                tableRef.current.columns.splice(0, 1); //Add the columns
+                                                tableRef.current.refreshColumns();
+                                                tableRef.current.grid.freezeRefresh();
+                                            }
+                                        }
+                                        if (args.target.innerText === 'Disable') {
+                                            tableRef.current.treeColumnIndex = 2;
+                                            tableRef.current.allowRowDragAndDrop = true;
+                                            tableRef.current.selectionSettings = {
+                                                type: 'Multiple',
+                                                mode: 'Row'
+                                            };
+                                            let columnName = { type: 'checkbox', width: '50' };
+                                            if (tableRef.current.getColumns()[0].type != 'checkbox') {
+                                                tableRef.current.columns.splice(0, 0, columnName); //Add the columns
+                                                tableRef.current.refreshColumns();
+                                                tableRef.current.grid.freezeRefresh();
+                                            }
+                                        }
+                                    } }, { children: isCopyPasteEnable ? 'Disable' : 'Enable' })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('selectedItems')) && selected > 0 && !selectedItemsBelowSearch && _jsx(SelectedItemsCount, { count: selected, closeBanner: closeBanner })] })), _jsx(Box, { children: rightSection })] }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('selectedItems')) && selected > 0 && selectedItemsBelowSearch && (_jsx(Box, Object.assign({ mb: 2, width: 'max-content' }, { children: _jsx(SelectedItemsCount, { count: selected, closeBanner: closeBanner }) }))), _jsx(Box, Object.assign({ className: "control-pane" }, { children: _jsx(Box, Object.assign({ className: "control-section", height: height || tableHeight }, { children: data && (_jsxs(TreeGridComponent
                     // expanding={expanding}
                     // collapsing={collapsing}
                     // resizeStart={resizestart}

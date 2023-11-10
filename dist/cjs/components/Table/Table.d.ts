@@ -69,6 +69,7 @@ export interface TableRefType {
     endEdit: () => void;
     nextCell: (args: any) => void;
     getBatchChanges: () => Object[];
+    grid: any;
 }
 export declare const Table: import("react").ForwardRefExoticComponent<TableProps & import("react").RefAttributes<TableRefType>>;
 export {};

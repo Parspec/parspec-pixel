@@ -324,7 +324,8 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
             getData,
             endEdit,
             nextCell,
-            getBatchChanges
+            getBatchChanges,
+            grid: tableRef.current.grid
         };
     });
     const closeBanner = () => {

@@ -117,6 +117,7 @@ export interface TableRefType {
     endEdit: () => void;
     nextCell: (args: any) => void;
     getBatchChanges: () => Object[];
+    grid: any;
 }
 
 export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
@@ -464,7 +465,8 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
             getData,
             endEdit,
             nextCell,
-            getBatchChanges
+            getBatchChanges,
+            grid: tableRef.current.grid
         };
     });
 

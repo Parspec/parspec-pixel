@@ -321,7 +321,8 @@ export const Table = forwardRef((props, ref) => {
             getData,
             endEdit,
             nextCell,
-            getBatchChanges
+            getBatchChanges,
+            grid: tableRef.current.grid
         };
     });
     const closeBanner = () => {

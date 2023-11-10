@@ -23,6 +23,7 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
     customFiltersFunction, dataBoundCallBack, tableKey, selectedItemsBelowSearch, title, aggregateChildren, onMove, cellSave, beforePaste, cellSaved, customQueryCellInfo, enableImmutableMode } = props;
     const tableRef = (0, react_1.useRef)();
     const [selected, setSelectedForBanner] = (0, react_1.useState)(0);
+    const [isCopyPasteEnable, setCopyPasteEnable] = (0, react_1.useState)(false);
     (0, react_1.useEffect)(() => {
         var _a, _b, _c, _d, _e, _f, _g, _h;
         let obj = (_d = (_c = (_b = (_a = document.getElementsByClassName('e-grid')[0]) === null || _a === void 0 ? void 0 : _a.ej2_instances) === null || _b === void 0 ? void 0 : _b[0]) === null || _c === void 0 ? void 0 : _c.localeObj) === null || _d === void 0 ? void 0 : _d.localeStrings;
@@ -420,6 +421,7 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
         // args.cell.addEventListener('keydown', keydownHandler);
         customQueryCellInfo === null || customQueryCellInfo === void 0 ? void 0 : customQueryCellInfo(args);
     }
+    queryCellInfo;
     let eventTriggered = false;
     keydownHandler;
     function keydownHandler(args) {
@@ -495,6 +497,17 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
     //     //     // instance.editCell(firstCell, rowIndex);
     //     // }, 50);
     // };
+    const clickHandler = (e) => {
+        var _a, _b, _c, _d, _e;
+        if (((_b = (_a = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _a === void 0 ? void 0 : _a.grid) === null || _b === void 0 ? void 0 : _b.isEdit) && !((_e = (_d = (_c = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _c === void 0 ? void 0 : _c.grid) === null || _d === void 0 ? void 0 : _d.element) === null || _e === void 0 ? void 0 : _e.contains(e === null || e === void 0 ? void 0 : e.target))) {
+            // save the record if Grid in edit state
+            tableRef.current.endEdit();
+        }
+    };
+    const onLoad = () => {
+        // bind click event on outside click in body
+        window.addEventListener('click', clickHandler);
+    };
     return ((0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ position: 'relative', height: '100%', width: '100%', ref: tableContainerRef }, { children: [showToolbar && ((0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ display: 'flex', ref: toolbarContainerRef, justifyContent: "space-between", alignItems: 'flex-end', mb: 2, sx: loading ? { PointerEvent: 'none' } : {} }, { children: [(0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ display: "flex", alignItems: "center", gap: 1 }, { children: [title && (0, jsx_runtime_1.jsx)(Typography_1.BodySmall, Object.assign({ color: "neutral.dark" }, { children: title })), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('search')) && ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ width: 300 }, { children: (0, jsx_runtime_1.jsx)(TextField_1.TextField, { label: "", placeholder: "Search...", InputProps: {
                                         startAdornment: ((0, jsx_runtime_1.jsx)(InputAdornment_1.InputAdornment, Object.assign({ position: "start" }, { children: (0, jsx_runtime_1.jsx)(Icons_1.SearchIcon, { fontSize: "small" }) })))
                                     }, size: "small", onChange: (t) => {
@@ -504,7 +517,38 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
                                     } }) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('add')) && ((0, jsx_runtime_1.jsx)(Tooltip_1.Tooltip, Object.assign({ title: 'Add' }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ "data-testid": "add-btn" }, { children: (0, jsx_runtime_1.jsx)(IconButton_1.IconButton, Object.assign({ onClick: () => onAdd() }, { children: (0, jsx_runtime_1.jsx)(Icons_1.AddIcon, { fontSize: "medium" }) })) })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('duplicate')) && ((0, jsx_runtime_1.jsx)(Tooltip_1.Tooltip, Object.assign({ title: disabled ? 'Select Item(s) First' : 'Duplicate' }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ "data-testid": "duplicate-btn" }, { children: (0, jsx_runtime_1.jsx)(IconButton_1.IconButton, Object.assign({ onClick: () => onAddDuplicates(tableRef.current.getSelectedRecords()), disabled: disabled }, { children: (0, jsx_runtime_1.jsx)(Icons_1.ControlPointDuplicateIcon, { fontSize: "medium" }) })) })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('move')) && ((0, jsx_runtime_1.jsx)(Tooltip_1.Tooltip, Object.assign({ title: disabled ? 'Select Item(s) First' : 'Change Section' }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ "data-testid": "move-btn" }, { children: (0, jsx_runtime_1.jsx)(IconButton_1.IconButton, Object.assign({ onClick: () => onMove(tableRef.current.getSelectedRecords()), disabled: disabled }, { children: (0, jsx_runtime_1.jsx)(Icons_1.MoveDownIcon, { fontSize: "medium" }) })) })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('hide')) && ((0, jsx_runtime_1.jsx)(Tooltip_1.Tooltip, Object.assign({ title: disabled ? 'Select Item(s) First' : 'Hide / Unhide' }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ "data-testid": "hide-btn" }, { children: (0, jsx_runtime_1.jsx)(IconButton_1.IconButton, Object.assign({ onClick: () => onHideUnhide(tableRef.current.getSelectedRecords()), disabled: disabled }, { children: (0, jsx_runtime_1.jsx)(Icons_1.VisibilityOffIcon, { fontSize: "medium" }) })) })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('delete')) && ((0, jsx_runtime_1.jsx)(Tooltip_1.Tooltip, Object.assign({ title: disabled ? 'Select Item(s) First' : 'Delete' }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ "data-testid": "delete-btn" }, { children: (0, jsx_runtime_1.jsx)(IconButton_1.IconButton, Object.assign({ disabled: disabled, onClick: () => {
                                             var _a;
                                             onDelete((_a = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _a === void 0 ? void 0 : _a.getSelectedRecords());
-                                        } }, { children: (0, jsx_runtime_1.jsx)(Icons_1.DeleteOutlineIcon, { fontSize: "medium" }) })) })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('clearFilters')) && ((0, jsx_runtime_1.jsx)(Tooltip_1.Tooltip, Object.assign({ title: "Clear Filter(s)" }, { children: (0, jsx_runtime_1.jsx)(IconButton_1.IconButton, Object.assign({ onClick: () => tableRef.current.clearFiltering() }, { children: (0, jsx_runtime_1.jsx)(Icons_1.FilterAltOffIcon, { fontSize: "medium" }) })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('selectedItems')) && selected > 0 && !selectedItemsBelowSearch && (0, jsx_runtime_1.jsx)(SelectedItemsCount_1.SelectedItemsCount, { count: selected, closeBanner: closeBanner })] })), (0, jsx_runtime_1.jsx)(Box_1.Box, { children: rightSection })] }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('selectedItems')) && selected > 0 && selectedItemsBelowSearch && ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ mb: 2, width: 'max-content' }, { children: (0, jsx_runtime_1.jsx)(SelectedItemsCount_1.SelectedItemsCount, { count: selected, closeBanner: closeBanner }) }))), (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ className: "control-pane" }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ className: "control-section", height: height || tableHeight }, { children: data && ((0, jsx_runtime_1.jsxs)(ej2_react_treegrid_1.TreeGridComponent
+                                        } }, { children: (0, jsx_runtime_1.jsx)(Icons_1.DeleteOutlineIcon, { fontSize: "medium" }) })) })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('clearFilters')) && ((0, jsx_runtime_1.jsx)(Tooltip_1.Tooltip, Object.assign({ title: "Clear Filter(s)" }, { children: (0, jsx_runtime_1.jsx)(IconButton_1.IconButton, Object.assign({ onClick: () => tableRef.current.clearFiltering() }, { children: (0, jsx_runtime_1.jsx)(Icons_1.FilterAltOffIcon, { fontSize: "medium" }) })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('copy/paste')) && ((0, jsx_runtime_1.jsx)(Tooltip_1.Tooltip, Object.assign({ title: "Copy paste" }, { children: (0, jsx_runtime_1.jsx)(IconButton_1.IconButton, Object.assign({ onClick: (args) => {
+                                        setCopyPasteEnable(!isCopyPasteEnable);
+                                        console.log(args, 'args', args.target.value);
+                                        if (args.target.innerText === 'Enable') {
+                                            tableRef.current.allowRowDragAndDrop = false;
+                                            tableRef.current.selectionSettings = {
+                                                type: 'Multiple',
+                                                mode: 'Cell',
+                                                cellSelectionMode: 'Box'
+                                            };
+                                            tableRef.current.treeColumnIndex = 1;
+                                            if (tableRef.current.getColumns()[0].type == 'checkbox') {
+                                                tableRef.current.columns.splice(0, 1); //Add the columns
+                                                tableRef.current.refreshColumns();
+                                                tableRef.current.grid.freezeRefresh();
+                                            }
+                                        }
+                                        if (args.target.innerText === 'Disable') {
+                                            tableRef.current.treeColumnIndex = 2;
+                                            tableRef.current.allowRowDragAndDrop = true;
+                                            tableRef.current.selectionSettings = {
+                                                checkboxOnly: true,
+                                                persistSelection: true
+                                            };
+                                            let columnName = { type: 'checkbox', width: '50' };
+                                            if (tableRef.current.getColumns()[0].type != 'checkbox') {
+                                                tableRef.current.columns.splice(0, 0, columnName); //Add the columns
+                                                tableRef.current.refreshColumns();
+                                                tableRef.current.grid.freezeRefresh();
+                                            }
+                                        }
+                                    } }, { children: isCopyPasteEnable ? 'Disable' : 'Enable' })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('selectedItems')) && selected > 0 && !selectedItemsBelowSearch && (0, jsx_runtime_1.jsx)(SelectedItemsCount_1.SelectedItemsCount, { count: selected, closeBanner: closeBanner })] })), (0, jsx_runtime_1.jsx)(Box_1.Box, { children: rightSection })] }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('selectedItems')) && selected > 0 && selectedItemsBelowSearch && ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ mb: 2, width: 'max-content' }, { children: (0, jsx_runtime_1.jsx)(SelectedItemsCount_1.SelectedItemsCount, { count: selected, closeBanner: closeBanner }) }))), (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ className: "control-pane" }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ className: "control-section", height: height || tableHeight }, { children: data && ((0, jsx_runtime_1.jsxs)(ej2_react_treegrid_1.TreeGridComponent
                     // expanding={expanding}
                     // collapsing={collapsing}
                     // resizeStart={resizestart}
@@ -512,9 +556,10 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
                         // expanding={expanding}
                         // collapsing={collapsing}
                         // resizeStart={resizestart}
-                        enableImmutableMode: enableImmutableMode, rowSelecting: rowSelecting, actionBegin: actionBegin, dataBound: dataBound, actionComplete: actionComplete, 
+                        enableImmutableMode: enableImmutableMode, load: onLoad, rowSelecting: rowSelecting, actionBegin: actionBegin, dataBound: dataBound, actionComplete: actionComplete, 
                         // cellEdit={handleCellEdit}
-                        headerCellInfo: headerCellInfo, rowSelected: rowSelected, rowDeselected: rowDeselected, rowDataBound: rowDataBound, height: "100%", ref: tableRef, dataSource: data, treeColumnIndex: treeColumnIndex, childMapping: childMappingKey, allowPdfExport: allowExports, allowExcelExport: allowExports, allowRowDragAndDrop: allowRowDragAndDrop, allowResizing: allowResizing, selectionSettings: selectionSettings, rowDrop: rowDrop, frozenColumns: frozenColumns, allowSorting: allowSorting, editSettings: editSettings, searchSettings: searchSettings, pageSettings: getPageSettings, allowPaging: allowPaging, allowFiltering: allowFiltering, filterSettings: filterSettings, checkboxChange: checkboxChange, rowHeight: rowHeight }, (tableKey && { key: tableKey }), { queryCellInfo: queryCellInfo, 
+                        headerCellInfo: headerCellInfo, rowSelected: rowSelected, rowDeselected: rowDeselected, rowDataBound: rowDataBound, height: "100%", ref: tableRef, dataSource: data, treeColumnIndex: treeColumnIndex, childMapping: childMappingKey, allowPdfExport: allowExports, allowExcelExport: allowExports, allowRowDragAndDrop: allowRowDragAndDrop, allowResizing: allowResizing, selectionSettings: selectionSettings, rowDrop: rowDrop, frozenColumns: frozenColumns, allowSorting: allowSorting, editSettings: editSettings, searchSettings: searchSettings, pageSettings: getPageSettings, allowPaging: allowPaging, allowFiltering: allowFiltering, filterSettings: filterSettings, checkboxChange: checkboxChange, rowHeight: rowHeight }, (tableKey && { key: tableKey }), { 
+                        // queryCellInfo={queryCellInfo}
                         // beforeBatchSave={beginEdit}
                         // batchAdd={beginEdit}
                         cellSaved: cellSaved, cellSave: cellSave, beforePaste: beforePaste }, { children: [(0, jsx_runtime_1.jsx)(ej2_react_treegrid_1.ColumnsDirective, { children: children }), aggregateChildren && (0, jsx_runtime_1.jsx)(ej2_react_treegrid_1.AggregatesDirective, { children: aggregateChildren }), (0, jsx_runtime_1.jsx)(ej2_react_treegrid_1.Inject, { services: [ej2_react_treegrid_1.Freeze, ej2_react_treegrid_1.RowDD, ej2_react_treegrid_1.Selection, ej2_react_treegrid_1.Sort, ej2_react_treegrid_1.Edit, ej2_react_treegrid_1.Page, ej2_react_treegrid_1.ExcelExport, ej2_react_treegrid_1.PdfExport, ej2_react_treegrid_1.Resize, ej2_react_treegrid_1.Filter, ej2_react_treegrid_1.ContextMenu, ej2_react_treegrid_1.Aggregate] })] }))) })) }))] })));

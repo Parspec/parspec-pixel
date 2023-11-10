@@ -47,7 +47,7 @@ import { BodySmall } from '../Typography';
 const license = window.localStorage.getItem('syncfusionLicense');
 registerLicense(license!);
 
-type ToolbarT = 'delete' | 'search' | 'clearFilters' | 'hide' | 'unhide' | 'selectedItems' | 'duplicate' | 'add' | 'move';
+type ToolbarT = 'delete' | 'search' | 'clearFilters' | 'hide' | 'unhide' | 'selectedItems' | 'duplicate' | 'add' | 'move' | 'copy/paste';
 export type ToolbarType = ToolbarT[];
 export interface TableProps {
     children: React.ReactNode;
@@ -98,7 +98,7 @@ export interface TableProps {
     cellSave?: (data: Object) => void;
     batchSave?: (data: Object) => void;
     cellSaved?: (data: Object) => void;
-
+    toolbarClick?: (data: Object) => void;
     beforePaste?: (data: Object) => void;
     customQueryCellInfo?: (args: any) => void;
 }
@@ -171,7 +171,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
 
     const tableRef = useRef<any>();
     const [selected, setSelectedForBanner] = useState(0);
-
+    const [isCopyPasteEnable, setCopyPasteEnable] = useState(false);
     useEffect(() => {
         let obj = (document.getElementsByClassName('e-grid')[0] as any)?.ej2_instances?.[0]?.localeObj?.localeStrings;
         if (loading) {
@@ -570,6 +570,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
         // args.cell.addEventListener('keydown', keydownHandler);
         customQueryCellInfo?.(args);
     }
+    queryCellInfo;
     let eventTriggered = false;
     keydownHandler;
     function keydownHandler(args: any) {
@@ -651,6 +652,18 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
     //     //     // instance.editCell(firstCell, rowIndex);
     //     // }, 50);
     // };
+    const clickHandler = (e: any) => {
+        if (tableRef?.current?.grid?.isEdit && !tableRef?.current?.grid?.element?.contains(e?.target)) {
+            // save the record if Grid in edit state
+            tableRef.current.endEdit();
+        }
+    };
+
+    const onLoad = () => {
+        // bind click event on outside click in body
+        window.addEventListener('click', clickHandler);
+    };
+
     return (
         <Box position={'relative'} height={'100%'} width={'100%'} ref={tableContainerRef}>
             {showToolbar && (
@@ -734,6 +747,46 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                                 </IconButton>
                             </Tooltip>
                         )}
+                        {toolBarOptions?.includes('copy/paste') && (
+                            <Tooltip title="Copy paste">
+                                <IconButton
+                                    onClick={(args: any) => {
+                                        setCopyPasteEnable(!isCopyPasteEnable);
+                                        console.log(args, 'args', args.target.value);
+                                        if (args.target.innerText === 'Enable') {
+                                            tableRef.current.allowRowDragAndDrop = false;
+                                            tableRef.current.selectionSettings = {
+                                                type: 'Multiple',
+                                                mode: 'Cell',
+                                                cellSelectionMode: 'Box'
+                                            };
+                                            tableRef.current.treeColumnIndex = 1;
+                                            if (tableRef.current.getColumns()[0].type == 'checkbox') {
+                                                tableRef.current.columns.splice(0, 1); //Add the columns
+                                                tableRef.current.refreshColumns();
+                                                tableRef.current.grid.freezeRefresh();
+                                            }
+                                        }
+                                        if (args.target.innerText === 'Disable') {
+                                            tableRef.current.treeColumnIndex = 2;
+                                            tableRef.current.allowRowDragAndDrop = true;
+                                            tableRef.current.selectionSettings = {
+                                                checkboxOnly: true,
+                                                persistSelection: true
+                                            };
+                                            let columnName = { type: 'checkbox', width: '50' };
+                                            if (tableRef.current.getColumns()[0].type != 'checkbox') {
+                                                tableRef.current.columns.splice(0, 0, columnName); //Add the columns
+                                                tableRef.current.refreshColumns();
+                                                tableRef.current.grid.freezeRefresh();
+                                            }
+                                        }
+                                    }}
+                                >
+                                    {isCopyPasteEnable ? 'Disable' : 'Enable'}
+                                </IconButton>
+                            </Tooltip>
+                        )}
                         {toolBarOptions?.includes('selectedItems') && selected > 0 && !selectedItemsBelowSearch && <SelectedItemsCount count={selected} closeBanner={closeBanner} />}
                     </Box>
                     <Box>{rightSection}</Box>
@@ -752,6 +805,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                             // collapsing={collapsing}
                             // resizeStart={resizestart}
                             enableImmutableMode={enableImmutableMode}
+                            load={onLoad}
                             rowSelecting={rowSelecting}
                             actionBegin={actionBegin}
                             dataBound={dataBound}
@@ -783,7 +837,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                             checkboxChange={checkboxChange}
                             rowHeight={rowHeight}
                             {...(tableKey && { key: tableKey })}
-                            queryCellInfo={queryCellInfo}
+                            // queryCellInfo={queryCellInfo}
                             // beforeBatchSave={beginEdit}
                             // batchAdd={beginEdit}
                             cellSaved={cellSaved}

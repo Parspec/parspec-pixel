@@ -230,7 +230,8 @@ export const Table = forwardRef((props, ref) => {
             updateData,
             setRowData,
             getData,
-            endEdit
+            endEdit,
+            grid: tableRef.current.grid
         };
     });
     const closeBanner = () => {

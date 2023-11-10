@@ -108,6 +108,7 @@ export interface TableRefType {
     setRowData: (rowPrimaryKey: number, newRowData: Object) => void;
     getData: () => Object[];
     endEdit: () => void;
+    grid: any;
 }
 
 export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
@@ -359,7 +360,8 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
             updateData,
             setRowData,
             getData,
-            endEdit
+            endEdit,
+            grid: tableRef.current.grid
         };
     });
 

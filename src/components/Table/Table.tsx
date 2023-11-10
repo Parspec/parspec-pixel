@@ -570,7 +570,6 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
         // args.cell.addEventListener('keydown', keydownHandler);
         customQueryCellInfo?.(args);
     }
-    queryCellInfo;
     let eventTriggered = false;
     keydownHandler;
     function keydownHandler(args: any) {
@@ -837,7 +836,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                             checkboxChange={checkboxChange}
                             rowHeight={rowHeight}
                             {...(tableKey && { key: tableKey })}
-                            // queryCellInfo={queryCellInfo}
+                            queryCellInfo={queryCellInfo}
                             // beforeBatchSave={beginEdit}
                             // batchAdd={beginEdit}
                             cellSaved={cellSaved}

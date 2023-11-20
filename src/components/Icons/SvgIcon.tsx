@@ -2,11 +2,13 @@ import { SvgIcon as MUISvgIcon, SvgIconProps as MUISvgIconProps, PaletteColor } 
 import { theme } from '../../theme';
 import { ICON_SIZE_OPTIONS } from '../../Shared/utils';
 
-export function getFillColor(color: string) {
+type contrastType = 'dark' | 'main' | 'contrastText' | 'light';
+
+export function getFillColor(color: string, contrast?: contrastType) {
     if (!color) return theme.palette.primary.main;
     const [c0, c1] = color.split('.');
     const finalColor = theme.palette[c0 as keyof typeof theme.palette] as PaletteColor;
-    return c1 ? finalColor[c1 as keyof PaletteColor] : finalColor.main;
+    return c1 ? finalColor[c1 as keyof PaletteColor] : contrast ? finalColor[contrast] : finalColor.main;
 }
 
 export interface SvgIconProps extends Omit<MUISvgIconProps, 'fontSize'> {

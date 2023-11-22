@@ -13,9 +13,7 @@ export const ModalHeader: React.FC<ModalHeaderHeaderProps> = ({ title, onClose, 
     return (
         <Box>
             <Box display="flex" justifyContent="space-between" alignItems="center">
-                <BodyBig textTransform={'capitalize'} fontWeight={600}>
-                    {title}
-                </BodyBig>
+                <BodyBig fontWeight={600}>{title}</BodyBig>
                 <IconButton onClick={onClose}>
                     <CloseIcon fontSize="small" />
                 </IconButton>

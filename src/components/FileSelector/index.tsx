@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState, forwardRef } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Avatar } from '@mui/material';
 import { Box } from '../Box';
-import { BodySmall, BodyXS } from '../Typography';
+import { BodyXS } from '../Typography';
 import { UploadIcon } from '../Icons';
 import { getAcceptedFormats } from './fileFormats';
 import SelectedFile from './SelectedFile';

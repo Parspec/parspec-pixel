@@ -128,16 +128,16 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                                 alignItems="center"
                                 sx={{ cursor: 'pointer' }}
                             >
-                                <Box width={'100%'} textAlign="center" m={1}>
-                                    <BodySmall limit={false}>{placeholder}</BodySmall>
+                                <Box width={'100%'} textAlign="center" m={0.5}>
+                                    <BodyXS limit={false}>{placeholder}</BodyXS>
                                 </Box>
-                                <Box my={1}>
+                                <Box my={0.5}>
                                     <Avatar>
                                         <UploadIcon />
                                     </Avatar>
                                 </Box>
-                                <Box m={1}>
-                                    <BodySmall>Browse</BodySmall>
+                                <Box m={0.5}>
+                                    <BodyXS>Browse</BodyXS>
                                 </Box>
                             </Box>
 

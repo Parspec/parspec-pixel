@@ -10,7 +10,7 @@ export default {
 } as ComponentMeta<typeof FileSelector>;
 
 export const fileSelector: ComponentStory<typeof FileSelector> = (args) => (
-    <Box width={'217px'} height={'172px'}>
+    <Box width={'217px'} height={'82px'}>
         <FileSelector {...args} url="https://hotfix-staging.parspec.xyz/api/generate_signed_url/" error="Wrong format" maxFiles={2} onUpload={(data) => console.log('uploaded', data)} />
     </Box>
 );

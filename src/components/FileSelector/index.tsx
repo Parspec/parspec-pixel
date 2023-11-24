@@ -7,12 +7,7 @@ import { UploadIcon } from '../Icons';
 import { getAcceptedFormats } from './fileFormats';
 import SelectedFile from './SelectedFile';
 import { validateImage } from 'image-validator';
-import WebViewer from '@pdftron/webviewer';
-import { WEBVIEWER_FOLDER_NAME, pdftron_license_key } from '../../Shared/utils';
 
-// import {} from '../../../wv-resources@8.11.0-20221120/public';
-
-console.log(WEBVIEWER_FOLDER_NAME);
 export interface FileSelectorFileType {
     path?: string;
     lastModified?: number;
@@ -26,11 +21,11 @@ export interface FileSelectorFileType {
 interface FileSelectorProps {
     maxFiles?: number;
     acceptedFormats?: string[];
-    onUpload?: (args: { file: FileSelectorFileType | File | Blob; error?: string; progress?: number }[]) => void;
+    onUpload?: (args: { file: FileSelectorFileType | File; error?: string; progress?: number }[]) => void;
     url?: string;
     error?: string;
     helperText?: string;
-    onSelect?: (args: FileSelectorFileType[] | File[] | Blob) => void;
+    onSelect?: (args: FileSelectorFileType[] | File[]) => void;
     placeholder?: string | React.ReactNode;
     borderColor?: 'primary' | 'secondary' | 'tertiary';
     preSelectedFile?: FileSelectorFileType[] | File[];
@@ -102,7 +97,6 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
             const indexOfSlash = acceptedFiles[0].type.indexOf('/');
             const fileExtension = fileType.substring(indexOfSlash + 1);
             const acceptedFileType = ['jpg', 'png', 'jpeg'];
-            extractPdfText(acceptedFiles[0]);
             console.log(acceptedFiles);
             setIsFileCorrupted(false);
             const isFileCorrupted = await fileValidation(acceptedFiles[0]);
@@ -113,47 +107,6 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
             setFiles(acceptedFiles);
         };
 
-        const extractPdfText = async (url: any) => {
-            console.log('URL check=====>', url);
-            if (!url) return;
-
-            let fileReader = new FileReader();
-            const ans = fileReader.readAsDataURL(url);
-
-            fileReader.onload = async (event: any) => {
-                console.log(event.target.result);
-                // console.log('Path', PDFTRON_PATH);
-                WebViewer(
-                    {
-                        path: `https://parspec-major-staging-main-frontend-us-east-2.s3.us-east-2.amazonaws.com/wv-resources%408.11.0-20221120/lib`,
-                        // path: 'lib',
-                        initialDoc: event.target.result, // Replace with the path to your PDF
-                        licenseKey: pdftron_license_key
-                    },
-                    document.getElementById('viewer')!
-                ).then((instance) => {
-                    const { documentViewer } = instance.Core;
-                    documentViewer
-                        .loadDocument(event.target.result)
-                        .then((doc) => console.log('Loaded======>', doc))
-                        .catch((e) => console.log('Error=====>', e));
-                    console.log(ans);
-                });
-            };
-        };
-
-        // useEffect(() => {
-        //     if (!files.length) return;
-        //     WebViewer(
-        //         {
-        //             path: `../../../public/lib`,
-        //             // path: 'lib',
-        //             initialDoc: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', // Replace with the path to your PDF
-        //             licenseKey: pdftron_license_key
-        //         },
-        //         document.getElementById('viewer')!
-        //     );
-        // }, [files]);
         //Function called when file is deleted
         const onDelete = (file: { name: string }) => {
             setFiles((old: any) => old.filter((item: { name: string }) => item.name !== file.name));

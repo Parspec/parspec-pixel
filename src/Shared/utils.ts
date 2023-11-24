@@ -20,6 +20,3 @@ export const ICON_SIZE_OPTIONS = {
 
 export const WEBVIEWER_FOLDER_NAME = 'wv-resources@8.11.0-20221120';
 export const PDFTRON_PATH = `../Shared/${WEBVIEWER_FOLDER_NAME}/public`;
-
-// They are different for different env, check a wayout
-export const pdftron_license_key = 'Parspec, Inc. (parspec.io):OEM:Parspec::B+:AMS(20230428):DAA5F3CD0437480AF360B13AC9A2537160610FCDA9167A559B12ECC2C7FD38C0549231F5C7';

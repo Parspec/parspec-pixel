@@ -25,7 +25,6 @@
         "@mui/icons-material": "^5.11.0",
         "@mui/material": "5.11.2",
         "@mui/x-date-pickers": "^6.0.0",
-        "@pdftron/webviewer": "^8.11.0-20221120",
         "@storybook/addons": "^6.5.16",
         "@storybook/theming": "^6.5.16",
         "@syncfusion/ej2-base": "~21.2.9",

@@ -13,14 +13,14 @@ interface FileSelectorProps {
     maxFiles?: number;
     acceptedFormats?: string[];
     onUpload?: (args: {
-        file: FileSelectorFileType | File;
+        file: FileSelectorFileType | File | Blob;
         error?: string;
         progress?: number;
     }[]) => void;
     url?: string;
     error?: string;
     helperText?: string;
-    onSelect?: (args: FileSelectorFileType[] | File[]) => void;
+    onSelect?: (args: FileSelectorFileType[] | File[] | Blob) => void;
     placeholder?: string | React.ReactNode;
     borderColor?: 'primary' | 'secondary' | 'tertiary';
     preSelectedFile?: FileSelectorFileType[] | File[];

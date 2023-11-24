@@ -17,3 +17,6 @@ export const ICON_SIZE_OPTIONS = {
     xxl: 44,
     inherit: 'inherit'
 };
+
+export const WEBVIEWER_FOLDER_NAME = 'wv-resources@8.11.0-20221120';
+export const PDFTRON_PATH = `../Shared/${WEBVIEWER_FOLDER_NAME}/public`;

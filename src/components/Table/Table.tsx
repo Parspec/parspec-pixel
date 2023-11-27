@@ -101,6 +101,7 @@ export interface TableProps {
     toolbarClick?: (data: Object) => void;
     beforePaste?: (data: Object) => void;
     customQueryCellInfo?: (args: any) => void;
+    enableCopyPaste?: boolean;
 }
 
 export interface TableRefType {
@@ -166,7 +167,8 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
         beforePaste,
         cellSaved,
         customQueryCellInfo,
-        enableImmutableMode
+        enableImmutableMode,
+        enableCopyPaste
     } = props;
 
     const tableRef = useRef<any>();
@@ -570,6 +572,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
         // args.cell.addEventListener('keydown', keydownHandler);
         customQueryCellInfo?.(args);
     }
+    queryCellInfo;
     let eventTriggered = false;
     keydownHandler;
     function keydownHandler(args: any) {
@@ -629,28 +632,39 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
     // };
     function mouseDownHandler(args: any) {
         // treegrid instance
-        var instance = tableRef?.current;
-
-        // to check checkbox on mouse click
-        if (instance?.selectionSettings.cellSelectionMode === 'Box')
+        if (enableCopyPaste) {
             if (args.currentTarget.classList.contains('e-gridchkbox')) {
-                instance.selectionSettings.mode = 'Row';
+                tableRef.current.selectionSettings = {
+                    checkboxOnly: true,
+                    persistSelection: true,
+                    type: 'Multiple',
+                    mode: 'Row',
+                    cellSelectionMode: 'Flow'
+                };
+                // (args.currentTarget.classList
+                // let columnName = { type: 'checkbox', width: '50' };
+                if (!args.currentTarget.classList.contains('e-gridchkbox')) {
+                    // tableRef.current.columns.splice(0, 0, columnName); //Add the columns
+                    tableRef.current.refreshColumns();
+                    tableRef.current.grid.freezeRefresh();
+                }
             } else {
-                instance.selectionSettings.mode = 'Cell';
+                tableRef.current.selectionSettings = {
+                    type: 'Multiple',
+                    mode: 'Cell',
+                    cellSelectionMode: 'Box',
+                    checkboxOnly: false
+                };
+                // tableRef.current.treeColumnIndex = 1;
+                if (args.currentTarget.classList.contains('e-gridchkbox')) {
+                    // tableRef.current.columns.splice(0, 1); //Add the columns
+                    tableRef.current.refreshColumns();
+                    tableRef.current.grid.freezeRefresh();
+                }
             }
+        }
     }
-    // const handleCellEdit = (args: any) => {
-    //     var instance = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];
-    //     var closesttd = args.cell.closest('td');
 
-    //     var firstCell = parseInt(closesttd?.getAttribute('index'));
-    //     var rowIndex = instance?.getVisibleColumns()[args.cell.cellIndex - 1]?.field;
-    //     console.log(args, 'handleCellEdit', firstCell, rowIndex);
-    //     // instance.grid.editModule.batchSave();
-    //     // setTimeout(() => {
-    //     //     // instance.editCell(firstCell, rowIndex);
-    //     // }, 50);
-    // };
     const clickHandler = (e: any) => {
         if (tableRef?.current?.grid?.isEdit && !tableRef?.current?.grid?.element?.contains(e?.target)) {
             // save the record if Grid in edit state
@@ -662,6 +676,10 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
         // bind click event on outside click in body
         window.addEventListener('click', clickHandler);
     };
+    // function recurse(colIndex: number) {
+    //     colIndex = colIndex + 1;
+    //     return colIndex;
+    // }
 
     return (
         <Box position={'relative'} height={'100%'} width={'100%'} ref={tableContainerRef}>
@@ -753,13 +771,15 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                                         setCopyPasteEnable(!isCopyPasteEnable);
                                         console.log(args, 'args', args.target.value);
                                         if (args.target.innerText === 'Enable') {
-                                            tableRef.current.allowRowDragAndDrop = false;
+                                            // tableRef.current.allowRowDragAndDrop = false;
                                             tableRef.current.selectionSettings = {
                                                 type: 'Multiple',
                                                 mode: 'Cell',
-                                                cellSelectionMode: 'Box'
+                                                cellSelectionMode: 'Box',
+                                                checkboxOnly: false
                                             };
-                                            tableRef.current.treeColumnIndex = 1;
+
+                                            // tableRef.current.treeColumnIndex = 1;
                                             if (tableRef.current.getColumns()[0].type == 'checkbox') {
                                                 tableRef.current.columns.splice(0, 1); //Add the columns
                                                 tableRef.current.refreshColumns();
@@ -771,8 +791,12 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                                             tableRef.current.allowRowDragAndDrop = true;
                                             tableRef.current.selectionSettings = {
                                                 checkboxOnly: true,
-                                                persistSelection: true
+                                                persistSelection: true,
+                                                type: 'Multiple',
+                                                mode: 'Row',
+                                                cellSelectionMode: 'Flow'
                                             };
+
                                             let columnName = { type: 'checkbox', width: '50' };
                                             if (tableRef.current.getColumns()[0].type != 'checkbox') {
                                                 tableRef.current.columns.splice(0, 0, columnName); //Add the columns
@@ -803,6 +827,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                             // expanding={expanding}
                             // collapsing={collapsing}
                             // resizeStart={resizestart}
+
                             enableImmutableMode={enableImmutableMode}
                             load={onLoad}
                             rowSelecting={rowSelecting}
@@ -836,7 +861,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                             checkboxChange={checkboxChange}
                             rowHeight={rowHeight}
                             {...(tableKey && { key: tableKey })}
-                            queryCellInfo={queryCellInfo}
+                            // queryCellInfo={queryCellInfo}
                             // beforeBatchSave={beginEdit}
                             // batchAdd={beginEdit}
                             cellSaved={cellSaved}

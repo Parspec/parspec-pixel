@@ -17,7 +17,7 @@ registerLicense(license);
 export const Table = forwardRef((props, ref) => {
     const { children, data, childMappingKey, allowExports, allowRowDragAndDrop, frozenColumns, treeColumnIndex, allowPaging, pageSettings, allowResizing, allowSorting, showToolbar, toolBarOptions, height, allowFiltering, editSettings, filterSettings, onHideUnhide, onAdd, onAddDuplicates, onCheckboxChange, onDragEnd, onEdit, onSearch, onDelete, selectionSettings, onRowSelection, loading, toolbarRightSection, searchSettings, hiddenProperty, rowHeight, 
     // defaultFilter,
-    customFiltersFunction, dataBoundCallBack, tableKey, selectedItemsBelowSearch, title, aggregateChildren, onMove, cellSave, beforePaste, cellSaved, customQueryCellInfo, enableImmutableMode } = props;
+    customFiltersFunction, dataBoundCallBack, tableKey, selectedItemsBelowSearch, title, aggregateChildren, onMove, cellSave, beforePaste, cellSaved, customQueryCellInfo, enableImmutableMode, enableCopyPaste } = props;
     const tableRef = useRef();
     const [selected, setSelectedForBanner] = useState(0);
     const [isCopyPasteEnable, setCopyPasteEnable] = useState(false);
@@ -418,6 +418,7 @@ export const Table = forwardRef((props, ref) => {
         // args.cell.addEventListener('keydown', keydownHandler);
         customQueryCellInfo === null || customQueryCellInfo === void 0 ? void 0 : customQueryCellInfo(args);
     }
+    queryCellInfo;
     let eventTriggered = false;
     keydownHandler;
     function keydownHandler(args) {
@@ -472,27 +473,39 @@ export const Table = forwardRef((props, ref) => {
     // };
     function mouseDownHandler(args) {
         // treegrid instance
-        var instance = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current;
-        // to check checkbox on mouse click
-        if ((instance === null || instance === void 0 ? void 0 : instance.selectionSettings.cellSelectionMode) === 'Box')
+        if (enableCopyPaste) {
             if (args.currentTarget.classList.contains('e-gridchkbox')) {
-                instance.selectionSettings.mode = 'Row';
+                tableRef.current.selectionSettings = {
+                    checkboxOnly: true,
+                    persistSelection: true,
+                    type: 'Multiple',
+                    mode: 'Row',
+                    cellSelectionMode: 'Flow'
+                };
+                // (args.currentTarget.classList
+                // let columnName = { type: 'checkbox', width: '50' };
+                if (!args.currentTarget.classList.contains('e-gridchkbox')) {
+                    // tableRef.current.columns.splice(0, 0, columnName); //Add the columns
+                    tableRef.current.refreshColumns();
+                    tableRef.current.grid.freezeRefresh();
+                }
             }
             else {
-                instance.selectionSettings.mode = 'Cell';
+                tableRef.current.selectionSettings = {
+                    type: 'Multiple',
+                    mode: 'Cell',
+                    cellSelectionMode: 'Box',
+                    checkboxOnly: false
+                };
+                // tableRef.current.treeColumnIndex = 1;
+                if (args.currentTarget.classList.contains('e-gridchkbox')) {
+                    // tableRef.current.columns.splice(0, 1); //Add the columns
+                    tableRef.current.refreshColumns();
+                    tableRef.current.grid.freezeRefresh();
+                }
             }
+        }
     }
-    // const handleCellEdit = (args: any) => {
-    //     var instance = (document.getElementsByClassName('e-treegrid')[0] as any).ej2_instances[0];
-    //     var closesttd = args.cell.closest('td');
-    //     var firstCell = parseInt(closesttd?.getAttribute('index'));
-    //     var rowIndex = instance?.getVisibleColumns()[args.cell.cellIndex - 1]?.field;
-    //     console.log(args, 'handleCellEdit', firstCell, rowIndex);
-    //     // instance.grid.editModule.batchSave();
-    //     // setTimeout(() => {
-    //     //     // instance.editCell(firstCell, rowIndex);
-    //     // }, 50);
-    // };
     const clickHandler = (e) => {
         var _a, _b, _c, _d, _e;
         if (((_b = (_a = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _a === void 0 ? void 0 : _a.grid) === null || _b === void 0 ? void 0 : _b.isEdit) && !((_e = (_d = (_c = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _c === void 0 ? void 0 : _c.grid) === null || _d === void 0 ? void 0 : _d.element) === null || _e === void 0 ? void 0 : _e.contains(e === null || e === void 0 ? void 0 : e.target))) {
@@ -504,6 +517,10 @@ export const Table = forwardRef((props, ref) => {
         // bind click event on outside click in body
         window.addEventListener('click', clickHandler);
     };
+    // function recurse(colIndex: number) {
+    //     colIndex = colIndex + 1;
+    //     return colIndex;
+    // }
     return (_jsxs(Box, Object.assign({ position: 'relative', height: '100%', width: '100%', ref: tableContainerRef }, { children: [showToolbar && (_jsxs(Box, Object.assign({ display: 'flex', ref: toolbarContainerRef, justifyContent: "space-between", alignItems: 'flex-end', mb: 2, sx: loading ? { PointerEvent: 'none' } : {} }, { children: [_jsxs(Box, Object.assign({ display: "flex", alignItems: "center", gap: 1 }, { children: [title && _jsx(BodySmall, Object.assign({ color: "neutral.dark" }, { children: title })), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('search')) && (_jsx(Box, Object.assign({ width: 300 }, { children: _jsx(TextField, { label: "", placeholder: "Search...", InputProps: {
                                         startAdornment: (_jsx(InputAdornment, Object.assign({ position: "start" }, { children: _jsx(SearchIcon, { fontSize: "small" }) })))
                                     }, size: "small", onChange: (t) => {
@@ -517,13 +534,14 @@ export const Table = forwardRef((props, ref) => {
                                         setCopyPasteEnable(!isCopyPasteEnable);
                                         console.log(args, 'args', args.target.value);
                                         if (args.target.innerText === 'Enable') {
-                                            tableRef.current.allowRowDragAndDrop = false;
+                                            // tableRef.current.allowRowDragAndDrop = false;
                                             tableRef.current.selectionSettings = {
                                                 type: 'Multiple',
                                                 mode: 'Cell',
-                                                cellSelectionMode: 'Box'
+                                                cellSelectionMode: 'Box',
+                                                checkboxOnly: false
                                             };
-                                            tableRef.current.treeColumnIndex = 1;
+                                            // tableRef.current.treeColumnIndex = 1;
                                             if (tableRef.current.getColumns()[0].type == 'checkbox') {
                                                 tableRef.current.columns.splice(0, 1); //Add the columns
                                                 tableRef.current.refreshColumns();
@@ -535,7 +553,10 @@ export const Table = forwardRef((props, ref) => {
                                             tableRef.current.allowRowDragAndDrop = true;
                                             tableRef.current.selectionSettings = {
                                                 checkboxOnly: true,
-                                                persistSelection: true
+                                                persistSelection: true,
+                                                type: 'Multiple',
+                                                mode: 'Row',
+                                                cellSelectionMode: 'Flow'
                                             };
                                             let columnName = { type: 'checkbox', width: '50' };
                                             if (tableRef.current.getColumns()[0].type != 'checkbox') {
@@ -554,7 +575,8 @@ export const Table = forwardRef((props, ref) => {
                         // resizeStart={resizestart}
                         enableImmutableMode: enableImmutableMode, load: onLoad, rowSelecting: rowSelecting, actionBegin: actionBegin, dataBound: dataBound, actionComplete: actionComplete, 
                         // cellEdit={handleCellEdit}
-                        headerCellInfo: headerCellInfo, rowSelected: rowSelected, rowDeselected: rowDeselected, rowDataBound: rowDataBound, height: "100%", ref: tableRef, dataSource: data, treeColumnIndex: treeColumnIndex, childMapping: childMappingKey, allowPdfExport: allowExports, allowExcelExport: allowExports, allowRowDragAndDrop: allowRowDragAndDrop, allowResizing: allowResizing, selectionSettings: selectionSettings, rowDrop: rowDrop, frozenColumns: frozenColumns, allowSorting: allowSorting, editSettings: editSettings, searchSettings: searchSettings, pageSettings: getPageSettings, allowPaging: allowPaging, allowFiltering: allowFiltering, filterSettings: filterSettings, checkboxChange: checkboxChange, rowHeight: rowHeight }, (tableKey && { key: tableKey }), { queryCellInfo: queryCellInfo, 
+                        headerCellInfo: headerCellInfo, rowSelected: rowSelected, rowDeselected: rowDeselected, rowDataBound: rowDataBound, height: "100%", ref: tableRef, dataSource: data, treeColumnIndex: treeColumnIndex, childMapping: childMappingKey, allowPdfExport: allowExports, allowExcelExport: allowExports, allowRowDragAndDrop: allowRowDragAndDrop, allowResizing: allowResizing, selectionSettings: selectionSettings, rowDrop: rowDrop, frozenColumns: frozenColumns, allowSorting: allowSorting, editSettings: editSettings, searchSettings: searchSettings, pageSettings: getPageSettings, allowPaging: allowPaging, allowFiltering: allowFiltering, filterSettings: filterSettings, checkboxChange: checkboxChange, rowHeight: rowHeight }, (tableKey && { key: tableKey }), { 
+                        // queryCellInfo={queryCellInfo}
                         // beforeBatchSave={beginEdit}
                         // batchAdd={beginEdit}
                         cellSaved: cellSaved, cellSave: cellSave, beforePaste: beforePaste }, { children: [_jsx(ColumnsDirective, { children: children }), aggregateChildren && _jsx(AggregatesDirective, { children: aggregateChildren }), _jsx(Inject, { services: [Freeze, RowDD, Selection, Sort, Edit, Page, ExcelExport, PdfExport, Resize, Filter, ContextMenu, Aggregate] })] }))) })) }))] })));

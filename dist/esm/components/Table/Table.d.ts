@@ -55,6 +55,7 @@ export interface TableProps {
     toolbarClick?: (data: Object) => void;
     beforePaste?: (data: Object) => void;
     customQueryCellInfo?: (args: any) => void;
+    enableCopyPaste?: boolean;
 }
 export interface TableRefType {
     clearSelection: () => void;

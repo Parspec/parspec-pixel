@@ -787,8 +787,8 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                                             }
                                         }
                                         if (args.target.innerText === 'Disable') {
-                                            tableRef.current.treeColumnIndex = 2;
-                                            tableRef.current.allowRowDragAndDrop = true;
+                                            // tableRef.current.treeColumnIndex = 2;
+                                            // tableRef.current.allowRowDragAndDrop = true;
                                             tableRef.current.selectionSettings = {
                                                 checkboxOnly: true,
                                                 persistSelection: true,

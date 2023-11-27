@@ -417,7 +417,7 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
         isEscPressed = false;
     };
     function queryCellInfo(args) {
-        args.cell.addEventListener('mousedown', mouseDownHandler);
+        // args.cell.addEventListener('mousedown', mouseDownHandler);
         // args.cell.addEventListener('keydown', keydownHandler);
         customQueryCellInfo === null || customQueryCellInfo === void 0 ? void 0 : customQueryCellInfo(args);
     }
@@ -509,6 +509,7 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
             }
         }
     }
+    mouseDownHandler;
     const clickHandler = (e) => {
         var _a, _b, _c, _d, _e;
         if (((_b = (_a = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _a === void 0 ? void 0 : _a.grid) === null || _b === void 0 ? void 0 : _b.isEdit) && !((_e = (_d = (_c = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _c === void 0 ? void 0 : _c.grid) === null || _d === void 0 ? void 0 : _d.element) === null || _e === void 0 ? void 0 : _e.contains(e === null || e === void 0 ? void 0 : e.target))) {

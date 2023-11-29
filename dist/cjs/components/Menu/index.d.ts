@@ -4,6 +4,7 @@ interface MProps extends Pick<MenuProps, 'anchorOrigin' | 'transformOrigin'> {
         label: string;
         onClick: () => void;
         color?: string;
+        disabled?: boolean;
     }[];
     children?: any;
 }

@@ -233,7 +233,8 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
             updateData,
             setRowData,
             getData,
-            endEdit
+            endEdit,
+            grid: tableRef.current.grid
         };
     });
     const closeBanner = () => {

@@ -45,7 +45,7 @@ const StyledFormControl = styled(FormControl, {
 });
 export const Select = forwardRef((_a, ref) => {
     var { id, labelId, options, size, label, optionLabelKeyname = 'label', optionValueKeyname = 'value', borderColor } = _a, rest = __rest(_a, ["id", "labelId", "options", "size", "label", "optionLabelKeyname", "optionValueKeyname", "borderColor"]);
-    return (_jsxs(StyledFormControl, Object.assign({ fullWidth: true, ref: ref, size: size, borderColor: borderColor }, { children: [label && _jsx(InputLabel, Object.assign({ id: labelId }, { children: label })), _jsx(MUISelect, Object.assign({}, rest, { labelId: labelId, label: label, id: id }, { children: options.map((item, index) => (_jsx(MenuItem, Object.assign({ value: item[optionValueKeyname], sx: (item === null || item === void 0 ? void 0 : item.color) ? { color: item.color } : undefined }, { children: item[optionLabelKeyname] }), index))) }))] })));
+    return (_jsxs(StyledFormControl, Object.assign({ fullWidth: true, ref: ref, size: size, borderColor: borderColor }, { children: [label && _jsx(InputLabel, Object.assign({ id: labelId }, { children: label })), _jsx(MUISelect, Object.assign({}, rest, { labelId: labelId, label: label, id: id }, { children: options.map((item, index) => (_jsx(MenuItem, Object.assign({ value: item[optionValueKeyname], sx: (item === null || item === void 0 ? void 0 : item.color) ? { color: item.color } : undefined, disabled: item.disabled }, { children: item[optionLabelKeyname] }), index))) }))] })));
 });
 Select.defaultProps = {
     labelId: 'demo-simple-select-label',

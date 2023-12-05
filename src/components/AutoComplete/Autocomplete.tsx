@@ -65,6 +65,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
                 }
                 return filteredOptions;
             },
+            sx,
             ...props
         },
         ref
@@ -115,6 +116,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
                     {...props}
                     options={options}
                     ref={ref}
+                    sx={sx}
                     id={id}
                     onBlur={handleFocusOut}
                     onChange={handleOnChange}

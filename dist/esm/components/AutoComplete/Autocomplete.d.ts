@@ -5,7 +5,7 @@ export type OptionType<T = {}> = {
     [index: string]: string | number;
 } & T;
 export interface AutocompleteProps {
-    id: string;
+    id?: string;
     label: string;
     placeholder?: string;
     optionlabelkeyname: string;

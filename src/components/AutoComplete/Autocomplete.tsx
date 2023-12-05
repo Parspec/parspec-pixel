@@ -10,7 +10,7 @@ export type OptionType<T = {}> = {
 } & T;
 
 export interface AutocompleteProps {
-    id: string;
+    id?: string;
     label: string;
     placeholder?: string;
     optionlabelkeyname: string;

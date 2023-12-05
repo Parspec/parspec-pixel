@@ -3,6 +3,7 @@ import { forwardRef, useState, useEffect } from 'react';
 import { TextField } from '../TextField';
 import { default as MUIAutocomplete, createFilterOptions } from '@mui/material/Autocomplete';
 import { FilterOptionsState } from '@mui/material/useAutocomplete';
+import { SxProps } from '@mui/material';
 
 export type OptionType<T = {}> = {
     [index: string]: string | number;
@@ -31,6 +32,7 @@ export interface AutocompleteProps {
     clearOnBlur?: boolean;
     filterOptionsCallBack?: (options: OptionType[], params: FilterOptionsState<OptionType>) => OptionType[];
     maxLength?: number;
+    sx?: SxProps;
 }
 
 const filter = createFilterOptions<OptionType>();

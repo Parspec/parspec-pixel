@@ -30,6 +30,7 @@ export interface AutocompleteProps {
     disabled?: boolean;
     clearOnBlur?: boolean;
     filterOptionsCallBack?: (options: OptionType[], params: FilterOptionsState<OptionType>) => OptionType[];
+    maxLength?: number;
 }
 
 const filter = createFilterOptions<OptionType>();
@@ -54,6 +55,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
             limitTags,
             disabled,
             value,
+            maxLength = 255,
             filterOptionsCallBack = (options: OptionType[], params: FilterOptionsState<OptionType>) => {
                 let filteredOptions = filter(options, params);
                 if (typeof state === 'object' && state[optionlabelkeyname]) {
@@ -127,7 +129,17 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
                     onInputChange={handleOnInputChange}
                     freeSolo={freeSolo}
                     renderInput={({ size, ...params }) => (
-                        <TextField size={fieldSize} helperText={helperText} error={error} {...params} variant={variant} color={color} label={label} placeholder={placeholder} />
+                        <TextField
+                            size={fieldSize}
+                            helperText={helperText}
+                            error={error}
+                            {...params}
+                            variant={variant}
+                            color={color}
+                            label={label}
+                            placeholder={placeholder}
+                            inputProps={{ ...params.inputProps, maxLength }}
+                        />
                     )}
                     disabled={disabled}
                 />

@@ -35,7 +35,8 @@ Basic.args = {
         },
         {
             label: 'Two',
-            value: 'two'
+            value: 'two',
+            disabled: true
         },
         {
             label: 'Three',

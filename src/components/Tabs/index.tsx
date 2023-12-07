@@ -5,7 +5,7 @@ import { Box } from '../Box';
 
 interface TabsPropsCustom extends Omit<TabsProps, 'onChange'> {
     selectedTab: string;
-    options: { label: ReactNode; value: string }[];
+    options: { label: ReactNode; value: string; disabled?: boolean }[];
     onChange: (newValue: string) => void;
 }
 
@@ -18,7 +18,7 @@ export const Tabs: React.FC<TabsPropsCustom> = ({ selectedTab, options, onChange
             <Box>
                 <MUITabs value={selectedTab} onChange={handleChange}>
                     {options.map((item, index) => (
-                        <Tab label={item.label} value={item.value} key={index} />
+                        <Tab label={item.label} value={item.value} key={index} disabled={item.disabled} />
                     ))}
                 </MUITabs>
             </Box>

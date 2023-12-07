@@ -64,7 +64,8 @@ AutocompleteWithCreateOption.args = {
     label: 'Movies',
     optionlabelkeyname: 'title',
     freeSolo: true,
-    value: { title: 'The Shawshank Redemption', year: 1994 }
+    value: { title: 'The Shawshank Redemption', year: 1994 },
+    maxLength: 10
 };
 
 export const MultiSelectWithChipLimit: ComponentStory<typeof Autocomplete> = (args) => (

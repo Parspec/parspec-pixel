@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState, forwardRef } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Avatar } from '@mui/material';
 import { Box } from '../Box';
-import { BodySmall } from '../Typography';
+import { BodyXS } from '../Typography';
 import { UploadIcon } from '../Icons';
 import { getAcceptedFormats } from './fileFormats';
 import SelectedFile from './SelectedFile';
@@ -110,51 +110,69 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
         });
 
         return (
-            <Box ref={ref} height={'100%'}>
-                {!files.length ? (
-                    <Box {...getRootProps()} height={'100%'}>
-                        <input type="file" {...getInputProps()} />
-                        <Box
-                            p={6}
-                            width={1}
-                            border={'1px solid'}
-                            borderColor={borderColor}
-                            borderRadius={1}
-                            display="flex"
-                            flexDirection="column"
-                            justifyContent="center"
-                            alignItems="center"
-                            sx={{ cursor: 'pointer' }}
-                            height={'100%'}
-                            gap="16px"
-                        >
-                            <Box width={'100%'} textAlign="center">
-                                <BodySmall limit={false}>{placeholder}</BodySmall>
+            <>
+                <Box ref={ref} height={'100%'} width={'100%'}>
+                    {!files.length ? (
+                        <Box {...getRootProps()} height={'100%'} width={'100%'}>
+                            <input type="file" {...getInputProps()} />
+                            <Box
+                                p={2}
+                                height={'100%'}
+                                width={'100%'}
+                                border={'1px solid'}
+                                borderColor={borderColor}
+                                borderRadius={1}
+                                display="flex"
+                                flexDirection="column"
+                                justifyContent="center"
+                                alignItems="center"
+                                sx={{ cursor: 'pointer' }}
+                            >
+                                <Box width={'100%'} textAlign="center" m={0.5}>
+                                    <BodyXS limit={false}>{placeholder}</BodyXS>
+                                </Box>
+                                <Box my={0.5}>
+                                    <Avatar>
+                                        <UploadIcon />
+                                    </Avatar>
+                                </Box>
+                                <Box m={0.5}>
+                                    <BodyXS>Browse</BodyXS>
+                                </Box>
                             </Box>
-                            <Avatar>
-                                <UploadIcon />
-                            </Avatar>
-                            <BodySmall>Browse</BodySmall>
+
+                            {error && (
+                                <Box mt={1}>
+                                    <BodyXS color="error">{error}</BodyXS>
+                                </Box>
+                            )}
+                            {helperText && (
+                                <Box mt={1}>
+                                    <BodyXS color="secondary">{helperText}</BodyXS>
+                                </Box>
+                            )}
                         </Box>
-                    </Box>
-                ) : (
-                    <Box>
-                        {files.map((file: { name: string; size?: number }, index: number) => (
-                            <SelectedFile key={file.name} file={file} onDelete={onDelete} url={url} index={index} handleResults={handleResults} isLoading={isLoading} />
-                        ))}
-                    </Box>
-                )}
-                {error && (
-                    <Box mt={1}>
-                        <BodySmall color="error">{error}</BodySmall>
-                    </Box>
-                )}
-                {helperText && (
-                    <Box mt={2}>
-                        <BodySmall color="secondary">{helperText}</BodySmall>
-                    </Box>
-                )}
-            </Box>
+                    ) : (
+                        <Box>
+                            {files.map((file: { name: string; size?: number }, index: number) => (
+                                <Box my={1}>
+                                    <SelectedFile key={file.name} file={file} onDelete={onDelete} url={url} index={index} handleResults={handleResults} isLoading={isLoading} />
+                                </Box>
+                            ))}
+                            {error && (
+                                <Box mt={1}>
+                                    <BodyXS color="error">{error}</BodyXS>
+                                </Box>
+                            )}
+                            {helperText && (
+                                <Box mt={1}>
+                                    <BodyXS color="secondary">{helperText}</BodyXS>
+                                </Box>
+                            )}
+                        </Box>
+                    )}
+                </Box>
+            </>
         );
     }
 );

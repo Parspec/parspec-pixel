@@ -25,5 +25,6 @@ export interface AutocompleteProps {
     disabled?: boolean;
     clearOnBlur?: boolean;
     filterOptionsCallBack?: (options: OptionType[], params: FilterOptionsState<OptionType>) => OptionType[];
+    maxLength?: number;
 }
 export declare const Autocomplete: React.FC<AutocompleteProps>;

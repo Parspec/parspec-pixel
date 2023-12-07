@@ -5,6 +5,7 @@ interface TabsPropsCustom extends Omit<TabsProps, 'onChange'> {
     options: {
         label: ReactNode;
         value: string;
+        disabled?: boolean;
     }[];
     onChange: (newValue: string) => void;
 }

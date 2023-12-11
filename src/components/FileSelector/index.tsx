@@ -1,8 +1,11 @@
-import { useCallback, useEffect, useState, forwardRef } from 'react';
+import { useEffect, useState, forwardRef } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Avatar } from '@mui/material';
+
+import { validateImage } from 'image-validator';
+
 import { Box } from '../Box';
-import { BodyXS } from '../Typography';
+import { BodySmall, BodyXS } from '../Typography';
 import { UploadIcon } from '../Icons';
 import { getAcceptedFormats } from './fileFormats';
 import SelectedFile from './SelectedFile';
@@ -52,6 +55,7 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
     ) => {
         const [files, setFiles] = useState<any>([]);
         const [result, setResults] = useState([]);
+        const [isFileCorrupted, setIsFileCorrupted] = useState(false);
 
         useEffect(() => {
             if (preSelectedFile?.length) {
@@ -81,11 +85,27 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                 }
             }
         }, [result]);
-
+        // To validate a file
+        const fileValidation = async (file: File) => {
+            const isValidImage = await validateImage(file);
+            return isValidImage;
+            // expected output ==> true or false
+        };
         //Function called when file is selected
-        const onDrop = useCallback((acceptedFiles: any) => {
+        const onDrop = async (acceptedFiles: any) => {
+            const fileType = acceptedFiles[0].type;
+            const indexOfSlash = acceptedFiles[0].type.indexOf('/');
+            const fileExtension = fileType.substring(indexOfSlash + 1);
+            const acceptedFileType = ['jpg', 'png', 'jpeg'];
+            console.log(acceptedFiles);
+            setIsFileCorrupted(false);
+            const isFileCorrupted = await fileValidation(acceptedFiles[0]);
+            if (acceptedFileType.includes(fileExtension) && !isFileCorrupted) {
+                setIsFileCorrupted(true);
+                return;
+            }
             setFiles(acceptedFiles);
-        }, []);
+        };
 
         //Function called when file is deleted
         const onDelete = (file: { name: string }) => {
@@ -144,6 +164,12 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                             {error && (
                                 <Box mt={1}>
                                     <BodyXS color="error">{error}</BodyXS>
+                                </Box>
+                            )}
+
+                            {isFileCorrupted && (
+                                <Box mt={1}>
+                                    <BodySmall color="error">Uploaded file is corrupt.</BodySmall>
                                 </Box>
                             )}
                             {helperText && (

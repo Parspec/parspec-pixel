@@ -6,7 +6,6 @@ import { BodyXS } from '../Typography';
 import { UploadIcon } from '../Icons';
 import { getAcceptedFormats } from './fileFormats';
 import SelectedFile from './SelectedFile';
-
 export interface FileSelectorFileType {
     path?: string;
     lastModified?: number;

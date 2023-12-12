@@ -38,7 +38,8 @@
         "react-color": "^2.19.3",
         "react-dropzone": "^14.2.3",
         "react-router-dom": "^6.9.0",
-        "react-window": "^1.8.9"
+        "react-window": "^1.8.9",
+        "xlsx": "^0.18.5"
     },
     "devDependencies": {
         "@babel/core": "^7.20.7",

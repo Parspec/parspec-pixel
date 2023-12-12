@@ -10,7 +10,7 @@ import { Box } from '../Box';
 
 interface FormLabelParams {
     value: string;
-    label: string;
+    label: string | ReactNode;
     helper?: ReactNode;
 }
 

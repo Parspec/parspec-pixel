@@ -277,7 +277,8 @@ export const Table = forwardRef((props, ref) => {
     const toolbarContainerRef = useRef();
     const getPageSettings = useMemo(() => {
         const defaultRowHeight = rowHeight || 52;
-        const calculatedTableHeight = Number(height) || tableHeight;
+        // 108 is the height of header column and pagination area
+        const calculatedTableHeight = (Number(height) || tableHeight || 108) - 108;
         const settings = Object.assign({}, pageSettings);
         if (calculatedTableHeight && calculatedTableHeight >= defaultRowHeight) {
             const totalRows = Math.ceil(calculatedTableHeight / defaultRowHeight);

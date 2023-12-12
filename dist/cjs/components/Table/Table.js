@@ -280,7 +280,8 @@ exports.Table = (0, react_1.forwardRef)((props, ref) => {
     const toolbarContainerRef = (0, react_1.useRef)();
     const getPageSettings = (0, react_1.useMemo)(() => {
         const defaultRowHeight = rowHeight || 52;
-        const calculatedTableHeight = Number(height) || tableHeight;
+        // 108 is the height of header column and pagination area
+        const calculatedTableHeight = (Number(height) || tableHeight || 108) - 108;
         const settings = Object.assign({}, pageSettings);
         if (calculatedTableHeight && calculatedTableHeight >= defaultRowHeight) {
             const totalRows = Math.ceil(calculatedTableHeight / defaultRowHeight);

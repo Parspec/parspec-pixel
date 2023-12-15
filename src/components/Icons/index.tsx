@@ -40,6 +40,7 @@ export {
     VisibilityOff as VisibilityOffIcon,
     Visibility as VisibilityIcon,
     FilterAltOff as FilterAltOffIcon,
+    FilterAlt as FilterAltIcon,
     FileDownloadOutlined as FileDownloadOutlinedIcon,
     SyncProblem as SyncProblemIcon,
     ContentCopy as ContentCopyIcon,

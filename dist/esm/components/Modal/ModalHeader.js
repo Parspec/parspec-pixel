@@ -4,7 +4,7 @@ import { CloseIcon } from '../Icons';
 import { BodyBig } from '../Typography';
 import { Box } from '../Box';
 export const ModalHeader = ({ title, onClose, children }) => {
-    return (_jsxs(Box, { children: [_jsxs(Box, Object.assign({ display: "flex", justifyContent: "space-between", alignItems: "center" }, { children: [_jsx(BodyBig, Object.assign({ textTransform: 'capitalize', fontWeight: 600 }, { children: title })), _jsx(IconButton, Object.assign({ onClick: onClose }, { children: _jsx(CloseIcon, { fontSize: "small" }) }))] })), _jsx(Box, { children: children })] }));
+    return (_jsxs(Box, { children: [_jsxs(Box, Object.assign({ display: "flex", justifyContent: "space-between", alignItems: "center" }, { children: [_jsx(BodyBig, Object.assign({ fontWeight: 600 }, { children: title })), _jsx(IconButton, Object.assign({ onClick: onClose }, { children: _jsx(CloseIcon, { fontSize: "small" }) }))] })), _jsx(Box, { children: children })] }));
 };
 ModalHeader.defaultProps = {
     children: _jsx(_Fragment, {})

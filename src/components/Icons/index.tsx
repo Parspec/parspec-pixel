@@ -2,6 +2,7 @@ export { ParspecLogoIcon } from './SvgIcons/ParspecLogoIcon';
 export { ClockIcon } from './SvgIcons/ClockIcon';
 export { DatasheetSelectInfoIcon } from './SvgIcons/DatasheetSelectInfoIcon';
 export { TableHeaderMenuIcon } from './SvgIcons/TableHeaderMenuIcon';
+export { AddKitIcon } from './SvgIcons/AddKitIcon';
 export {
     Close as CloseIcon,
     Check as CheckIcon,

@@ -66,7 +66,8 @@ import {
     ThumbDownOffAltIcon,
     MoveIcon,
     FileUploadIcon,
-    MoveDownIcon
+    MoveDownIcon,
+    AddKitIcon
 } from './index';
 import { Grid } from '../Grid';
 import { BodySmall } from '../Typography';
@@ -193,7 +194,8 @@ SvgIcons.args = {
         { icon: ParspecLogoIcon, name: 'ParspecLogoIcon' },
         { icon: ClockIcon, name: 'ClockIcon' },
         { icon: DatasheetSelectInfoIcon, name: 'DatasheetSelectInfoIcon' },
-        { icon: TableHeaderMenuIcon, name: 'TableHeaderMenuIcon' }
+        { icon: TableHeaderMenuIcon, name: 'TableHeaderMenuIcon' },
+        { icon: AddKitIcon, name: 'AddKitIcon' }
     ],
     fontSize: 'xxl',
     color: 'tertiary'

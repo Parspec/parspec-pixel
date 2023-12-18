@@ -218,7 +218,7 @@ export const Basic: ComponentStory<typeof Table> = (props) => {
 
 export const TableWithFooter: ComponentStory<typeof Table> = (props) => {
     const getTableProps = (args: any) => {
-        const toolBarItems: ToolbarType = ['delete', 'search', 'clearFilters', 'hide', 'unhide', 'selectedItems', 'duplicate'];
+        const toolBarItems: ToolbarType = ['delete', 'search', 'clearFilters', 'hide', 'unhide', 'selectedItems', 'duplicate', 'createKit'];
         return {
             toolBarOptions: toolBarItems,
             toolbarRightSection: (

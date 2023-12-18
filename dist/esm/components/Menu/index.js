@@ -12,10 +12,10 @@ export const Menu = ({ options, children, anchorOrigin, transformOrigin }) => {
     const handleClose = () => {
         setAnchorEl(null);
     };
-    return (_jsxs(_Fragment, { children: [children ? (React.cloneElement(children, { onClick: handleClick })) : (_jsx(IconButton, Object.assign({ onClick: handleClick }, { children: _jsx(MoreVertIcon, {}) }))), _jsx(MuiMenu, Object.assign({ id: "basic-menu", anchorEl: anchorEl, open: open, onClose: handleClose, transformOrigin: transformOrigin, anchorOrigin: anchorOrigin }, { children: options.map(({ label, onClick, color }) => (_jsx(MenuItem, Object.assign({ sx: Object.assign({}, (color && { color })), onClick: () => {
+    return (_jsxs(_Fragment, { children: [children ? (React.cloneElement(children, { onClick: handleClick })) : (_jsx(IconButton, Object.assign({ onClick: handleClick }, { children: _jsx(MoreVertIcon, {}) }))), _jsx(MuiMenu, Object.assign({ id: "basic-menu", anchorEl: anchorEl, open: open, onClose: handleClose, transformOrigin: transformOrigin, anchorOrigin: anchorOrigin }, { children: options.map(({ label, onClick, color, disabled }) => (_jsx(MenuItem, Object.assign({ sx: Object.assign({}, (color && { color })), onClick: () => {
                         onClick();
                         handleClose();
-                    } }, { children: label }), label))) }))] }));
+                    }, disabled: disabled }, { children: label }), label))) }))] }));
 };
 Menu.defaultProps = {
     anchorOrigin: {

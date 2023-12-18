@@ -80,5 +80,8 @@ export {
     ThumbDownOffAlt as ThumbDownOffAltIcon,
     MoveDown as MoveIcon,
     FileUpload as FileUploadIcon,
-    MoveDown as MoveDownIcon
+    MoveDown as MoveDownIcon,
+    ImportExportOutlined as ImportExportOutlinedIcon,
+    FilterAltOutlined as FilterAltOutlinedIcon,
+    FilterAltOffOutlined as FilterAltOffOutlinedIcon
 } from '@mui/icons-material';

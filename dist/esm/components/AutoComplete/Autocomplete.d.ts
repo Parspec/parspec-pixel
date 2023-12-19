@@ -1,10 +1,11 @@
 import { ReactNode } from 'react';
 import { FilterOptionsState } from '@mui/material/useAutocomplete';
+import { SxProps } from '@mui/material';
 export type OptionType<T = {}> = {
     [index: string]: string | number;
 } & T;
 export interface AutocompleteProps {
-    id: string;
+    id?: string;
     label: string;
     placeholder?: string;
     optionlabelkeyname: string;
@@ -25,9 +26,7 @@ export interface AutocompleteProps {
     disabled?: boolean;
     clearOnBlur?: boolean;
     filterOptionsCallBack?: (options: OptionType[], params: FilterOptionsState<OptionType>) => OptionType[];
-    autoFocus?: boolean;
-    blurOnEmptyInput?: (inputValue: OptionType | string) => void;
-    renderOption?: (props: any, option: OptionType | string) => ReactNode;
-    open?: boolean;
+    maxLength?: number;
+    sx?: SxProps;
 }
 export declare const Autocomplete: React.FC<AutocompleteProps>;

@@ -40,7 +40,7 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = function ({ label, si
                     />
                 ))}
             </FormGroup>
-            {helperText && <FormHelperText>{helperText}</FormHelperText>}
+            {helperText && <FormHelperText sx={{ marginLeft: 0 }}>{helperText}</FormHelperText>}
         </FormControl>
     );
 };

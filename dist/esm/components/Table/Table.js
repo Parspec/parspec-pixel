@@ -7,7 +7,7 @@ import { getObject } from '@syncfusion/ej2-grids';
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState, useMemo, useCallback } from 'react';
 import { TextField } from '../TextField';
 import { IconButton } from '../IconButton';
-import { ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffIcon, FilterAltOffIcon, SearchIcon, AddIcon, MoveDownIcon } from '../Icons';
+import { ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffIcon, FilterAltOffIcon, SearchIcon, AddIcon, MoveDownIcon, AddKitIcon } from '../Icons';
 import { Tooltip } from '../Tooltip';
 import { InputAdornment } from '../InputAdornment';
 import { SelectedItemsCount } from './SelectedItemsCount';
@@ -17,7 +17,7 @@ registerLicense(license);
 export const Table = forwardRef((props, ref) => {
     const { children, data, childMappingKey, allowExports, allowRowDragAndDrop, frozenColumns, treeColumnIndex, allowPaging, pageSettings, allowResizing, allowSorting, showToolbar, toolBarOptions, height, allowFiltering, editSettings, filterSettings, onHideUnhide, onAdd, onAddDuplicates, onCheckboxChange, onDragEnd, onEdit, onSearch, onDelete, selectionSettings, onRowSelection, loading, toolbarRightSection, searchSettings, hiddenProperty, rowHeight, 
     // defaultFilter,
-    customFiltersFunction, dataBoundCallBack, tableKey, selectedItemsBelowSearch, title, aggregateChildren, onCellEdit: handleCellEdit, onMove, queryCellInfo } = props;
+    customFiltersFunction, dataBoundCallBack, tableKey, selectedItemsBelowSearch, title, aggregateChildren, onCellEdit: handleCellEdit, onMove, queryCellInfo, onCreateKit } = props;
     const tableRef = useRef();
     const [selected, setSelectedForBanner] = useState(0);
     useEffect(() => {
@@ -230,7 +230,8 @@ export const Table = forwardRef((props, ref) => {
             updateData,
             setRowData,
             getData,
-            endEdit
+            endEdit,
+            grid: tableRef.current.grid
         };
     });
     const closeBanner = () => {
@@ -276,7 +277,8 @@ export const Table = forwardRef((props, ref) => {
     const toolbarContainerRef = useRef();
     const getPageSettings = useMemo(() => {
         const defaultRowHeight = rowHeight || 52;
-        const calculatedTableHeight = Number(height) || tableHeight;
+        // 108 is the height of header column and pagination area
+        const calculatedTableHeight = (Number(height) || tableHeight || 108) - 108;
         const settings = Object.assign({}, pageSettings);
         if (calculatedTableHeight && calculatedTableHeight >= defaultRowHeight) {
             const totalRows = Math.ceil(calculatedTableHeight / defaultRowHeight);
@@ -301,13 +303,24 @@ export const Table = forwardRef((props, ref) => {
         }
         isEscPressed = false;
     };
+    const clickHandler = (e) => {
+        var _a, _b, _c, _d, _e;
+        if (((_b = (_a = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _a === void 0 ? void 0 : _a.grid) === null || _b === void 0 ? void 0 : _b.isEdit) && !((_e = (_d = (_c = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _c === void 0 ? void 0 : _c.grid) === null || _d === void 0 ? void 0 : _d.element) === null || _e === void 0 ? void 0 : _e.contains(e === null || e === void 0 ? void 0 : e.target))) {
+            // save the record if Grid in edit state
+            tableRef.current.endEdit();
+        }
+    };
+    const onLoad = () => {
+        // bind click event on outside click in body
+        window.addEventListener('click', clickHandler);
+    };
     return (_jsxs(Box, Object.assign({ position: 'relative', height: '100%', width: '100%', ref: tableContainerRef }, { children: [showToolbar && (_jsxs(Box, Object.assign({ display: 'flex', ref: toolbarContainerRef, justifyContent: "space-between", alignItems: 'flex-end', mb: 2, sx: loading ? { PointerEvent: 'none' } : {} }, { children: [_jsxs(Box, Object.assign({ display: "flex", alignItems: "center", gap: 1 }, { children: [title && _jsx(BodySmall, Object.assign({ color: "neutral.dark" }, { children: title })), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('search')) && (_jsx(Box, Object.assign({ width: 300 }, { children: _jsx(TextField, { label: "", placeholder: "Search...", InputProps: {
                                         startAdornment: (_jsx(InputAdornment, Object.assign({ position: "start" }, { children: _jsx(SearchIcon, { fontSize: "small" }) })))
                                     }, size: "small", onChange: (t) => {
                                         var _a, _b, _c, _d;
                                         t.target.value = (_b = (_a = t === null || t === void 0 ? void 0 : t.target) === null || _a === void 0 ? void 0 : _a.value) === null || _b === void 0 ? void 0 : _b.replace(/[^a-zA-Z0-9-_& ]/g, '');
                                         tableRef.current.search((_d = (_c = t === null || t === void 0 ? void 0 : t.target) === null || _c === void 0 ? void 0 : _c.value) === null || _d === void 0 ? void 0 : _d.replace(/[^a-zA-Z0-9-_& ]/g, '').trim());
-                                    } }) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('add')) && (_jsx(Tooltip, Object.assign({ title: 'Add' }, { children: _jsx(Box, Object.assign({ "data-testid": "add-btn" }, { children: _jsx(IconButton, Object.assign({ onClick: () => onAdd() }, { children: _jsx(AddIcon, { fontSize: "medium" }) })) })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('duplicate')) && (_jsx(Tooltip, Object.assign({ title: disabled ? 'Select Item(s) First' : 'Duplicate' }, { children: _jsx(Box, Object.assign({ "data-testid": "duplicate-btn" }, { children: _jsx(IconButton, Object.assign({ onClick: () => onAddDuplicates(tableRef.current.getSelectedRecords()), disabled: disabled }, { children: _jsx(ControlPointDuplicateIcon, { fontSize: "medium" }) })) })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('move')) && (_jsx(Tooltip, Object.assign({ title: disabled ? 'Select Item(s) First' : 'Change Section' }, { children: _jsx(Box, Object.assign({ "data-testid": "move-btn" }, { children: _jsx(IconButton, Object.assign({ onClick: () => onMove(tableRef.current.getSelectedRecords()), disabled: disabled }, { children: _jsx(MoveDownIcon, { fontSize: "medium" }) })) })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('hide')) && (_jsx(Tooltip, Object.assign({ title: disabled ? 'Select Item(s) First' : 'Hide / Unhide' }, { children: _jsx(Box, Object.assign({ "data-testid": "hide-btn" }, { children: _jsx(IconButton, Object.assign({ onClick: () => onHideUnhide(tableRef.current.getSelectedRecords()), disabled: disabled }, { children: _jsx(VisibilityOffIcon, { fontSize: "medium" }) })) })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('delete')) && (_jsx(Tooltip, Object.assign({ title: disabled ? 'Select Item(s) First' : 'Delete' }, { children: _jsx(Box, Object.assign({ "data-testid": "delete-btn" }, { children: _jsx(IconButton, Object.assign({ disabled: disabled, onClick: () => {
+                                    } }) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('add')) && (_jsx(Tooltip, Object.assign({ title: 'Add' }, { children: _jsx(Box, Object.assign({ "data-testid": "add-btn" }, { children: _jsx(IconButton, Object.assign({ onClick: () => onAdd() }, { children: _jsx(AddIcon, { fontSize: "medium" }) })) })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('createKit')) && (_jsx(Tooltip, Object.assign({ title: 'Create Kit' }, { children: _jsx(Box, Object.assign({ "data-testid": "create-kit-btn" }, { children: _jsx(IconButton, Object.assign({ onClick: () => onCreateKit() }, { children: _jsx(AddKitIcon, { fontSize: "medium" }) })) })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('duplicate')) && (_jsx(Tooltip, Object.assign({ title: disabled ? 'Select Item(s) First' : 'Duplicate' }, { children: _jsx(Box, Object.assign({ "data-testid": "duplicate-btn" }, { children: _jsx(IconButton, Object.assign({ onClick: () => onAddDuplicates(tableRef.current.getSelectedRecords()), disabled: disabled }, { children: _jsx(ControlPointDuplicateIcon, { fontSize: "medium" }) })) })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('move')) && (_jsx(Tooltip, Object.assign({ title: disabled ? 'Select Item(s) First' : 'Change Section' }, { children: _jsx(Box, Object.assign({ "data-testid": "move-btn" }, { children: _jsx(IconButton, Object.assign({ onClick: () => onMove(tableRef.current.getSelectedRecords()), disabled: disabled }, { children: _jsx(MoveDownIcon, { fontSize: "medium" }) })) })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('hide')) && (_jsx(Tooltip, Object.assign({ title: disabled ? 'Select Item(s) First' : 'Hide / Unhide' }, { children: _jsx(Box, Object.assign({ "data-testid": "hide-btn" }, { children: _jsx(IconButton, Object.assign({ onClick: () => onHideUnhide(tableRef.current.getSelectedRecords()), disabled: disabled }, { children: _jsx(VisibilityOffIcon, { fontSize: "medium" }) })) })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('delete')) && (_jsx(Tooltip, Object.assign({ title: disabled ? 'Select Item(s) First' : 'Delete' }, { children: _jsx(Box, Object.assign({ "data-testid": "delete-btn" }, { children: _jsx(IconButton, Object.assign({ disabled: disabled, onClick: () => {
                                             var _a;
                                             onDelete((_a = tableRef === null || tableRef === void 0 ? void 0 : tableRef.current) === null || _a === void 0 ? void 0 : _a.getSelectedRecords());
                                         } }, { children: _jsx(DeleteOutlineIcon, { fontSize: "medium" }) })) })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('clearFilters')) && (_jsx(Tooltip, Object.assign({ title: "Clear Filter(s)" }, { children: _jsx(IconButton, Object.assign({ onClick: () => tableRef.current.clearFiltering() }, { children: _jsx(FilterAltOffIcon, { fontSize: "medium" }) })) }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('selectedItems')) && selected > 0 && !selectedItemsBelowSearch && _jsx(SelectedItemsCount, { count: selected, closeBanner: closeBanner })] })), _jsx(Box, { children: rightSection })] }))), (toolBarOptions === null || toolBarOptions === void 0 ? void 0 : toolBarOptions.includes('selectedItems')) && selected > 0 && selectedItemsBelowSearch && (_jsx(Box, Object.assign({ mb: 2, width: 'max-content' }, { children: _jsx(SelectedItemsCount, { count: selected, closeBanner: closeBanner }) }))), _jsx(Box, Object.assign({ className: "control-pane" }, { children: _jsx(Box, Object.assign({ className: "control-section", height: height || tableHeight }, { children: data && (_jsxs(TreeGridComponent
@@ -318,7 +331,7 @@ export const Table = forwardRef((props, ref) => {
                         // expanding={expanding}
                         // collapsing={collapsing}
                         // resizeStart={resizestart}
-                        rowSelecting: rowSelecting, actionBegin: actionBegin, dataBound: dataBound, actionComplete: actionComplete, cellEdit: handleCellEdit, headerCellInfo: headerCellInfo, rowSelected: rowSelected, rowDeselected: rowDeselected, rowDataBound: rowDataBound, height: "100%", ref: tableRef, dataSource: data, treeColumnIndex: treeColumnIndex, childMapping: childMappingKey, allowPdfExport: allowExports, allowExcelExport: allowExports, allowRowDragAndDrop: allowRowDragAndDrop, allowResizing: allowResizing, selectionSettings: selectionSettings, rowDrop: rowDrop, frozenColumns: frozenColumns, allowSorting: allowSorting, editSettings: editSettings, searchSettings: searchSettings, pageSettings: getPageSettings, allowPaging: allowPaging, allowFiltering: allowFiltering, filterSettings: filterSettings, checkboxChange: checkboxChange, rowHeight: rowHeight, queryCellInfo: queryCellInfo }, (tableKey && { key: tableKey }), { children: [_jsx(ColumnsDirective, { children: children }), aggregateChildren && _jsx(AggregatesDirective, { children: aggregateChildren }), _jsx(Inject, { services: [Freeze, RowDD, Selection, Sort, Edit, Page, ExcelExport, PdfExport, Resize, Filter, ContextMenu, Aggregate] })] }))) })) }))] })));
+                        load: onLoad, rowSelecting: rowSelecting, actionBegin: actionBegin, dataBound: dataBound, actionComplete: actionComplete, cellEdit: handleCellEdit, headerCellInfo: headerCellInfo, rowSelected: rowSelected, rowDeselected: rowDeselected, rowDataBound: rowDataBound, height: "100%", ref: tableRef, dataSource: data, treeColumnIndex: treeColumnIndex, childMapping: childMappingKey, allowPdfExport: allowExports, allowExcelExport: allowExports, allowRowDragAndDrop: allowRowDragAndDrop, allowResizing: allowResizing, selectionSettings: selectionSettings, rowDrop: rowDrop, frozenColumns: frozenColumns, allowSorting: allowSorting, editSettings: editSettings, searchSettings: searchSettings, pageSettings: getPageSettings, allowPaging: allowPaging, allowFiltering: allowFiltering, filterSettings: filterSettings, checkboxChange: checkboxChange, rowHeight: rowHeight, queryCellInfo: queryCellInfo }, (tableKey && { key: tableKey }), { children: [_jsx(ColumnsDirective, { children: children }), aggregateChildren && _jsx(AggregatesDirective, { children: aggregateChildren }), _jsx(Inject, { services: [Freeze, RowDD, Selection, Sort, Edit, Page, ExcelExport, PdfExport, Resize, Filter, ContextMenu, Aggregate] })] }))) })) }))] })));
 });
 Table.defaultProps = {
     excelExportProperties: {

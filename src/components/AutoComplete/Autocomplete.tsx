@@ -3,13 +3,14 @@ import { forwardRef, useState, useEffect, ReactNode } from 'react';
 import { TextField } from '../TextField';
 import { default as MUIAutocomplete, createFilterOptions } from '@mui/material/Autocomplete';
 import { FilterOptionsState } from '@mui/material/useAutocomplete';
+import { SxProps } from '@mui/material';
 
 export type OptionType<T = {}> = {
     [index: string]: string | number;
 } & T;
 
 export interface AutocompleteProps {
-    id: string;
+    id?: string;
     label: string;
     placeholder?: string;
     optionlabelkeyname: string;
@@ -34,6 +35,8 @@ export interface AutocompleteProps {
     blurOnEmptyInput?: (inputValue: OptionType | string) => void;
     renderOption?: (props: any, option: OptionType | string) => ReactNode;
     open?: boolean;
+    maxLength?: number;
+    sx?: SxProps;
 }
 
 const filter = createFilterOptions<OptionType>();
@@ -60,6 +63,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
             value,
             autoFocus,
             blurOnEmptyInput,
+            maxLength = 255,
             filterOptionsCallBack = (options: OptionType[], params: FilterOptionsState<OptionType>) => {
                 let filteredOptions = filter(options, params);
                 if (typeof state === 'object' && state[optionlabelkeyname]) {
@@ -67,6 +71,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
                 }
                 return filteredOptions;
             },
+            sx,
             ...props
         },
         ref
@@ -119,6 +124,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
                     {...props}
                     options={options}
                     ref={ref}
+                    sx={sx}
                     id={id}
                     onBlur={handleFocusOut}
                     onChange={handleOnChange}
@@ -135,7 +141,18 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
                     onInputChange={handleOnInputChange}
                     freeSolo={freeSolo}
                     renderInput={({ size, ...params }) => (
-                        <TextField size={fieldSize} helperText={helperText} error={error} {...params} variant={variant} color={color} label={label} placeholder={placeholder} autoFocus={autoFocus} />
+                        <TextField
+                            size={fieldSize}
+                            helperText={helperText}
+                            error={error}
+                            {...params}
+                            variant={variant}
+                            color={color}
+                            label={label}
+                            placeholder={placeholder}
+                            autoFocus={autoFocus}
+                            inputProps={{ ...params.inputProps, maxLength }}
+                        />
                     )}
                     disabled={disabled}
                 />

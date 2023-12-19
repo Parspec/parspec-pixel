@@ -38,7 +38,7 @@ import {
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState, useMemo, useCallback } from 'react';
 import { TextField } from '../TextField';
 import { IconButton } from '../IconButton';
-import { ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffIcon, FilterAltOffIcon, SearchIcon, AddIcon, MoveDownIcon } from '../Icons';
+import { ControlPointDuplicateIcon, DeleteOutlineIcon, VisibilityOffIcon, FilterAltOffIcon, SearchIcon, AddIcon, MoveDownIcon, AddKitIcon } from '../Icons';
 import { Tooltip } from '../Tooltip';
 import { InputAdornment } from '../InputAdornment';
 import { SelectedItemsCount } from './SelectedItemsCount';
@@ -47,7 +47,7 @@ import { BodySmall } from '../Typography';
 const license = window.localStorage.getItem('syncfusionLicense');
 registerLicense(license!);
 
-type ToolbarT = 'delete' | 'search' | 'clearFilters' | 'hide' | 'unhide' | 'selectedItems' | 'duplicate' | 'add' | 'move';
+type ToolbarT = 'delete' | 'search' | 'clearFilters' | 'hide' | 'unhide' | 'selectedItems' | 'duplicate' | 'add' | 'move' | 'createKit';
 export type ToolbarType = ToolbarT[];
 export interface TableProps {
     children: React.ReactNode;
@@ -81,6 +81,7 @@ export interface TableProps {
     dataBoundCallBack?: () => void;
     onCellEdit?: (data: Object) => void;
     onMove?: (data: Object) => void;
+    onCreateKit?: () => void;
     loading?: boolean;
     toolbarRightSection?: React.ReactNode;
     searchSettings?: SearchSettingsModel;
@@ -108,6 +109,7 @@ export interface TableRefType {
     setRowData: (rowPrimaryKey: number, newRowData: Object) => void;
     getData: () => Object[];
     endEdit: () => void;
+    grid: any;
 }
 
 export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
@@ -153,7 +155,8 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
         aggregateChildren,
         onCellEdit: handleCellEdit,
         onMove,
-        queryCellInfo
+        queryCellInfo,
+        onCreateKit
     } = props;
 
     const tableRef = useRef<any>();
@@ -359,7 +362,8 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
             updateData,
             setRowData,
             getData,
-            endEdit
+            endEdit,
+            grid: tableRef.current.grid
         };
     });
 
@@ -407,7 +411,8 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
 
     const getPageSettings = useMemo(() => {
         const defaultRowHeight = rowHeight || 52;
-        const calculatedTableHeight = Number(height) || tableHeight;
+        // 108 is the height of header column and pagination area
+        const calculatedTableHeight = (Number(height) || tableHeight || 108) - 108;
         const settings = { ...pageSettings };
         if (calculatedTableHeight && calculatedTableHeight >= defaultRowHeight) {
             const totalRows = Math.ceil(calculatedTableHeight / defaultRowHeight);
@@ -433,6 +438,18 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
         }
 
         isEscPressed = false;
+    };
+
+    const clickHandler = (e: any) => {
+        if (tableRef?.current?.grid?.isEdit && !tableRef?.current?.grid?.element?.contains(e?.target)) {
+            // save the record if Grid in edit state
+            tableRef.current.endEdit();
+        }
+    };
+
+    const onLoad = () => {
+        // bind click event on outside click in body
+        window.addEventListener('click', clickHandler);
     };
 
     return (
@@ -466,6 +483,15 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                                 <Box data-testid="add-btn">
                                     <IconButton onClick={() => onAdd!()}>
                                         <AddIcon fontSize="medium" />
+                                    </IconButton>
+                                </Box>
+                            </Tooltip>
+                        )}
+                        {toolBarOptions?.includes('createKit') && (
+                            <Tooltip title={'Create Kit'}>
+                                <Box data-testid="create-kit-btn">
+                                    <IconButton onClick={() => onCreateKit!()}>
+                                        <AddKitIcon fontSize="medium" />
                                     </IconButton>
                                 </Box>
                             </Tooltip>
@@ -535,6 +561,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                             // expanding={expanding}
                             // collapsing={collapsing}
                             // resizeStart={resizestart}
+                            load={onLoad}
                             rowSelecting={rowSelecting}
                             actionBegin={actionBegin}
                             dataBound={dataBound}

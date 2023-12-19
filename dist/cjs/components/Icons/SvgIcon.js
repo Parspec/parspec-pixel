@@ -16,12 +16,12 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const material_1 = require("@mui/material");
 const theme_1 = require("../../theme");
 const utils_1 = require("../../Shared/utils");
-function getFillColor(color) {
+function getFillColor(color, contrast) {
     if (!color)
         return theme_1.theme.palette.primary.main;
     const [c0, c1] = color.split('.');
     const finalColor = theme_1.theme.palette[c0];
-    return c1 ? finalColor[c1] : finalColor.main;
+    return c1 ? finalColor[c1] : contrast ? finalColor[contrast] : finalColor.main;
 }
 exports.getFillColor = getFillColor;
 function SvgIcon(_a) {

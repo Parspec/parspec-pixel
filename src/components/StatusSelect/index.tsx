@@ -33,7 +33,7 @@ const StyledFormControl = styled(FormControl, {
     }
 })<FormControlProps>(({ theme, colorType }) => {
     const bgColorValFromTheme = theme.palette?.[colorType]?.light;
-    const colorValFromTheme = theme.palette?.[colorType]?.main;
+    const colorValFromTheme = theme.palette?.[colorType]?.dark;
 
     return {
         '& .MuiOutlinedInput-root': {

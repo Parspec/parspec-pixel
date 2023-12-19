@@ -37,7 +37,8 @@ const options = [
     { value: 10, label: 'Ten', type: 'primary' },
     { value: 20, label: 'Twenty', type: 'success' },
     { value: 30, label: 'Thirty', type: 'tertiary' },
-    { value: 40, label: 'Fourty', type: 'secondary' }
+    { value: 40, label: 'Fourty', type: 'secondary' },
+    { value: 50, label: 'fifty', type: 'neutral' }
 ];
 
 Basic.args = {

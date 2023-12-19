@@ -29,7 +29,7 @@ const StyledFormControl = (0, styled_1.default)(FormControl_1.default, {
 })(({ theme, colorType }) => {
     var _a, _b, _c, _d;
     const bgColorValFromTheme = (_b = (_a = theme.palette) === null || _a === void 0 ? void 0 : _a[colorType]) === null || _b === void 0 ? void 0 : _b.light;
-    const colorValFromTheme = (_d = (_c = theme.palette) === null || _c === void 0 ? void 0 : _c[colorType]) === null || _d === void 0 ? void 0 : _d.main;
+    const colorValFromTheme = (_d = (_c = theme.palette) === null || _c === void 0 ? void 0 : _c[colorType]) === null || _d === void 0 ? void 0 : _d.dark;
     return {
         '& .MuiOutlinedInput-root': {
             fontWeight: 400,

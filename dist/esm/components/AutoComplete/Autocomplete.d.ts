@@ -26,6 +26,10 @@ export interface AutocompleteProps {
     disabled?: boolean;
     clearOnBlur?: boolean;
     filterOptionsCallBack?: (options: OptionType[], params: FilterOptionsState<OptionType>) => OptionType[];
+    autoFocus?: boolean;
+    blurOnEmptyInput?: (inputValue: OptionType | string) => void;
+    renderOption?: (props: any, option: OptionType | string) => ReactNode;
+    open?: boolean;
     maxLength?: number;
     sx?: SxProps;
 }

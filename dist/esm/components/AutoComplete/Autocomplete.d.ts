@@ -32,5 +32,6 @@ export interface AutocompleteProps {
     open?: boolean;
     maxLength?: number;
     sx?: SxProps;
+    inputProps?: any;
 }
 export declare const Autocomplete: React.FC<AutocompleteProps>;

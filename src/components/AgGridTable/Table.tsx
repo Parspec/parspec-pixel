@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import { forwardRef, useImperativeHandle, useRef, useEffect } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import { ProcessCellForExportParams, GetRowIdParams, ColDef, ColGroupDef, CellValueChangedEvent, RowDragEvent, SelectionChangedEvent, TabToNextCellParams, CellPosition } from 'ag-grid-community';
 import { ClipboardModule } from '@ag-grid-enterprise/clipboard';
@@ -15,9 +15,10 @@ interface IAgGridTableProps {
     tableHeight: number | string;
     tableData: Object[];
     rowHeight: number;
+    isTableLoading: boolean;
     columnDefs: (ColDef | ColGroupDef)[] | null;
     defaultColDef: ColDef;
-    getRowId?: (params: GetRowIdParams<any, any>) => any;
+    getRowId: (params: GetRowIdParams<any, any>) => any;
     suppressRowClickSelection?: boolean;
     enableRangeSelection?: boolean;
     enableFillHandle?: boolean;
@@ -42,7 +43,7 @@ interface IAgGridTableProps {
     onGridReady?: () => void;
     processCellForClipboard?: (props: ProcessCellForExportParams) => any;
     quickFilterText?: string;
-    //custom toolbar interface
+    //custom toolbar panel interface
     showToolbarPanel: boolean;
     isToolbarLoading?: boolean;
     toolBarPanelOptions?: ToolBarT[];
@@ -60,12 +61,18 @@ interface IAgGridTableProps {
     toolbarRightSection?: React.ReactNode;
 }
 
+interface IAgGridTableMethods {
+    // Make the API property more flexible
+    api?: any;
+}
+
 const toolBarPanelDefaultOptions: ToolBarT[] = ['delete', 'search', 'clearFilters', 'hide', 'unhide', 'selectedItems', 'duplicate', 'add', 'createKit', 'move'];
 
-export const AgGridTable = forwardRef<any, IAgGridTableProps>((props, ref) => {
+export const AgGridTable = forwardRef<IAgGridTableMethods, IAgGridTableProps>((props, ref) => {
     const {
         tableHeight,
         tableData,
+        isTableLoading,
         getRowId,
         rowHeight,
         suppressRowClickSelection,
@@ -108,6 +115,36 @@ export const AgGridTable = forwardRef<any, IAgGridTableProps>((props, ref) => {
         onCloseBanner,
         onTextSearch
     } = props;
+
+    const gridRef = useRef<any>(null);
+
+    // Expose methods through the forwarded ref
+    useImperativeHandle(ref, () => ({
+        api: {
+            showLoadingOverlay: () => {
+                gridRef?.current?.api?.showLoadingOverlay();
+            },
+            showNoRowsOverlay: () => {
+                gridRef?.current?.api?.showNoRowsOverlay();
+            },
+            hideOverlay: () => {
+                gridRef?.current?.api?.hideOverlay();
+            }
+        }
+    }));
+
+    useEffect(() => {
+        if (isTableLoading) {
+            gridRef?.current?.api?.showLoadingOverlay();
+        } else if (tableData && tableData.length === 0) {
+            setTimeout(() => {
+                gridRef?.current?.api?.showNoRowsOverlay();
+            }, 0);
+        } else {
+            gridRef?.current?.api?.hideOverlay();
+        }
+    }, [isTableLoading, tableData]);
+
     return (
         <Box zIndex={1} width={'100%'} position={'relative'}>
             {showToolbarPanel && (
@@ -129,7 +166,7 @@ export const AgGridTable = forwardRef<any, IAgGridTableProps>((props, ref) => {
 
             <Box sx={{ height: tableHeight }} width="100%" className="ag-theme-alpine">
                 <AgGridReact
-                    ref={ref}
+                    ref={gridRef}
                     rowData={tableData}
                     getRowId={getRowId}
                     gridOptions={{

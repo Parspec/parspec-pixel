@@ -37,6 +37,7 @@ export interface AutocompleteProps {
     open?: boolean;
     maxLength?: number;
     sx?: SxProps;
+    inputProps?: any;
 }
 
 const filter = createFilterOptions<OptionType>();
@@ -72,6 +73,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
                 return filteredOptions;
             },
             sx,
+            inputProps,
             ...props
         },
         ref
@@ -151,7 +153,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
                             label={label}
                             placeholder={placeholder}
                             autoFocus={autoFocus}
-                            inputProps={{ ...params.inputProps, maxLength }}
+                            inputProps={{ ...params.inputProps, ...inputProps, maxLength }}
                         />
                     )}
                     disabled={disabled}

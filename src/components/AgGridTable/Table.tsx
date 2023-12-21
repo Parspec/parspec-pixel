@@ -113,7 +113,8 @@ export const AgGridTable = forwardRef<IAgGridTableMethods, IAgGridTableProps>((p
         onMove,
         onCreateKit,
         onCloseBanner,
-        onTextSearch
+        onTextSearch,
+        toolbarRightSection
     } = props;
 
     const gridRef = useRef<any>(null);
@@ -161,6 +162,7 @@ export const AgGridTable = forwardRef<IAgGridTableMethods, IAgGridTableProps>((p
                     onCloseBanner={onCloseBanner}
                     onTextSearch={onTextSearch}
                     isToolbarLoading={isToolbarLoading}
+                    toolbarRightSection={toolbarRightSection}
                 />
             )}
 

@@ -193,7 +193,7 @@ export const AgGridTable = forwardRef<IAgGridTableMethods, IAgGridTableProps>((p
                     onSelectionChanged={onSelectionChanged}
                     tabToNextCell={tabToNextCell}
                     processCellFromClipboard={processCellFromClipboard}
-                    loadingOverlayComponent={loadingOverlayComponent}
+                    loadingOverlayComponent={isTableLoading ? loadingOverlayComponent : null}
                     noRowsOverlayComponent={noRowsOverlayComponent}
                     noRowsOverlayComponentParams={{
                         isTableHaveFooter: isTableHaveFooter

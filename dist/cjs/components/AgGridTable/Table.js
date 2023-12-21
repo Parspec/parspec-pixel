@@ -59,7 +59,7 @@ exports.AgGridTable = (0, react_1.forwardRef)((props, ref) => {
                         suppressContextMenu,
                         rowClassRules,
                         getRowStyle
-                    }, context: context, pinnedBottomRowData: pinnedBottomRowData, columnDefs: columnDefs, modules: modules, defaultColDef: defaultColDef, onCellValueChanged: onCellValueChanged, onRowDragEnd: onRowDragEnd, onSelectionChanged: onSelectionChanged, tabToNextCell: tabToNextCell, processCellFromClipboard: processCellFromClipboard, loadingOverlayComponent: loadingOverlayComponent, noRowsOverlayComponent: noRowsOverlayComponent, noRowsOverlayComponentParams: {
+                    }, context: context, pinnedBottomRowData: pinnedBottomRowData, columnDefs: columnDefs, modules: modules, defaultColDef: defaultColDef, onCellValueChanged: onCellValueChanged, onRowDragEnd: onRowDragEnd, onSelectionChanged: onSelectionChanged, tabToNextCell: tabToNextCell, processCellFromClipboard: processCellFromClipboard, loadingOverlayComponent: isTableLoading ? loadingOverlayComponent : null, noRowsOverlayComponent: noRowsOverlayComponent, noRowsOverlayComponentParams: {
                         isTableHaveFooter: isTableHaveFooter
                     }, onGridReady: onGridReady, processCellForClipboard: processCellForClipboard, quickFilterText: quickFilterText }) }))] })));
 });

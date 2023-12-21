@@ -59,4 +59,5 @@ __exportStar(require("./Avatar"), exports);
 __exportStar(require("./Popper"), exports);
 __exportStar(require("./ColorPicker"), exports);
 __exportStar(require("./CheckboxGroup"), exports);
+__exportStar(require("./AgGridTable"), exports);
 //# sourceMappingURL=index.js.map

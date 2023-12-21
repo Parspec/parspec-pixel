@@ -43,4 +43,5 @@ export * from './Avatar';
 export * from './Popper';
 export * from './ColorPicker';
 export * from './CheckboxGroup';
+export * from './AgGridTable';
 //# sourceMappingURL=index.js.map

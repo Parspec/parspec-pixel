@@ -19,12 +19,13 @@ import { FormControl } from '../FormControl';
 import { Radio } from '../Radio';
 import { Box } from '../Box';
 export const RadioGroup = forwardRef((_a, ref) => {
-    var { options, label, name, size = 'small', error, helperText } = _a, rest = __rest(_a, ["options", "label", "name", "size", "error", "helperText"]);
-    return (_jsxs(FormControl, Object.assign({ error: error, ref: ref }, { children: [_jsx(FormLabel, { children: label }), _jsx(MUIRadioGroup, Object.assign({}, rest, { name: name }, { children: options.map((item, index) => (_jsxs(_Fragment, { children: [_jsx(FormControlLabel, { value: item.value, control: _jsx(Radio, { size: size }), label: item.label }, index), item.helper && !rest.row && _jsx(Box, Object.assign({ ml: 8 }, { children: item.helper }))] }))) })), error && _jsx(FormHelperText, { children: helperText })] })));
+    var { options, label, name, size = 'small', error, helperText, disabled } = _a, rest = __rest(_a, ["options", "label", "name", "size", "error", "helperText", "disabled"]);
+    return (_jsxs(FormControl, Object.assign({ error: error, ref: ref }, { children: [_jsx(FormLabel, { children: label }), _jsx(MUIRadioGroup, Object.assign({}, rest, { name: name }, { children: options.map((item, index) => (_jsxs(_Fragment, { children: [_jsx(FormControlLabel, { value: item.value, control: _jsx(Radio, { size: size, disabled: disabled }), label: item.label }, index), item.helper && !rest.row && _jsx(Box, Object.assign({ ml: 8 }, { children: item.helper }))] }))) })), error && _jsx(FormHelperText, { children: helperText })] })));
 });
 RadioGroup.defaultProps = {
     name: 'radio-group-name-control',
     error: false,
-    helperText: ''
+    helperText: '',
+    disabled: false
 };
 //# sourceMappingURL=index.js.map

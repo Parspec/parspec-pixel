@@ -1,5 +1,6 @@
 import { SvgIconProps as MUISvgIconProps } from '@mui/material';
-export declare function getFillColor(color: string): string;
+type contrastType = 'dark' | 'main' | 'contrastText' | 'light';
+export declare function getFillColor(color: string, contrast?: contrastType): string;
 export interface SvgIconProps extends Omit<MUISvgIconProps, 'fontSize'> {
     fontSize?: 'xs' | 'small' | 'medium' | 'large' | 'xl' | 'xxl' | 'inherit';
 }
@@ -10,3 +11,4 @@ export declare namespace SvgIcon {
         color: string;
     };
 }
+export {};

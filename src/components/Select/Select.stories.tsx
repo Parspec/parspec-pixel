@@ -25,7 +25,7 @@ export const Basic: ComponentStory<typeof Select> = (args) => {
 const options = [
     { value: 10, label: 'Ten' },
     { value: 20, label: 'Twenty' },
-    { value: 30, label: 'Thirty' }
+    { value: 30, label: 'Thirty', disabled: true }
 ];
 
 Basic.args = {

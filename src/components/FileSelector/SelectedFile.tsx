@@ -24,13 +24,14 @@ type SelectedFileProps = {
 const SelectedFile = (props: SelectedFileProps) => {
     const { file, onDelete, url, handleResults, index, isLoading } = props;
     const [progress, setProgress] = useState(0);
-    const [showProgress, setShowProgress] = useState(true);
+    const [showProgress, setShowProgress] = useState(false);
 
     let source = axios.CancelToken.source();
 
     useEffect(() => {
         const token = localStorage.getItem('token');
         const onUpload = async () => {
+            setShowProgress(true);
             try {
                 let response = await axios.post(
                     url,
@@ -57,6 +58,7 @@ const SelectedFile = (props: SelectedFileProps) => {
                 return handleResults({ file, progress: 100 }, index);
             } catch (err: any) {
                 if (err?.message !== 'canceled') return handleResults({ file, error: err.message }, index);
+                setShowProgress(false);
             }
         };
         if (url && !file.filepath) onUpload();

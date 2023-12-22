@@ -25,12 +25,13 @@ const CircularProgress_1 = require("../CircularProgress");
 const SelectedFile = (props) => {
     const { file, onDelete, url, handleResults, index, isLoading } = props;
     const [progress, setProgress] = (0, react_1.useState)(0);
-    const [showProgress, setShowProgress] = (0, react_1.useState)(true);
+    const [showProgress, setShowProgress] = (0, react_1.useState)(false);
     let source = axios_1.default.CancelToken.source();
     (0, react_1.useEffect)(() => {
         const token = localStorage.getItem('token');
         const onUpload = () => __awaiter(void 0, void 0, void 0, function* () {
             var _a;
+            setShowProgress(true);
             try {
                 let response = yield axios_1.default.post(url, {
                     file_name: file.name
@@ -55,6 +56,7 @@ const SelectedFile = (props) => {
             catch (err) {
                 if ((err === null || err === void 0 ? void 0 : err.message) !== 'canceled')
                     return handleResults({ file, error: err.message }, index);
+                setShowProgress(false);
             }
         });
         if (url && !file.filepath)

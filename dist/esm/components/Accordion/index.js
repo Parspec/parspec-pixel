@@ -26,8 +26,15 @@ export const Accordion = forwardRef((_a, ref) => {
             getPanel(panel);
         }
     };
+    const Icon = () => {
+        if (isExpandCollapsAllowed)
+            return (_jsx(IconButton, { children: _jsx(ExpandMoreIcon, { sx: {
+                        pointerEvents: 'auto'
+                    } }) }));
+        return _jsx(ExpandMoreIcon, {});
+    };
     return (_jsx(_Fragment, { children: options.map((item, index) => {
-            return (_jsxs(MUIAccordion, Object.assign({ ref: ref, TransitionProps: { unmountOnExit: true } }, rest, { expanded: expanded === item.labelId, onChange: handleAccordionOnChange(item.labelId) }, { children: [_jsx(AccordionSummary, Object.assign({ sx: Object.assign({ flexDirection: 'row-reverse', borderBottom: '1px solid', borderColor: 'neutral.main' }, (isExpandCollapsAllowed && { pointerEvents: 'none' })), expandIcon: _jsx(IconButton, { children: _jsx(ExpandMoreIcon, { sx: Object.assign({}, (isExpandCollapsAllowed && { pointerEvents: 'auto' })) }) }) }, { children: _jsx(Box, Object.assign({ sx: Object.assign({}, (isExpandCollapsAllowed && { pointerEvents: 'auto' })), onClick: (e) => e.stopPropagation() }, { children: item.summary })) })), _jsx(AccordionDetails, { children: item.details })] }), index));
+            return (_jsxs(MUIAccordion, Object.assign({ ref: ref, TransitionProps: { unmountOnExit: true } }, rest, { expanded: expanded === item.labelId, onChange: handleAccordionOnChange(item.labelId) }, { children: [_jsx(AccordionSummary, Object.assign({ sx: Object.assign({ flexDirection: 'row-reverse', borderBottom: '1px solid', borderColor: 'neutral.main' }, (isExpandCollapsAllowed && { pointerEvents: 'none' })), expandIcon: _jsx(Icon, {}) }, { children: _jsx(Box, Object.assign({ sx: Object.assign({}, (isExpandCollapsAllowed && { pointerEvents: 'auto' })), onClick: (e) => e.stopPropagation() }, { children: item.summary })) })), _jsx(AccordionDetails, { children: item.details })] }), index));
         }) }));
 });
 //# sourceMappingURL=index.js.map

@@ -28,7 +28,19 @@ export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, Ac
             getPanel(panel);
         }
     };
-
+    const Icon = () => {
+        if (isExpandCollapsAllowed)
+            return (
+                <IconButton>
+                    <ExpandMoreIcon
+                        sx={{
+                            pointerEvents: 'auto'
+                        }}
+                    />
+                </IconButton>
+            );
+        return <ExpandMoreIcon />;
+    };
     return (
         <>
             {options.map((item, index) => {
@@ -41,15 +53,7 @@ export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, Ac
                                 borderColor: 'neutral.main',
                                 ...(isExpandCollapsAllowed && { pointerEvents: 'none' })
                             }}
-                            expandIcon={
-                                <IconButton>
-                                    <ExpandMoreIcon
-                                        sx={{
-                                            ...(isExpandCollapsAllowed && { pointerEvents: 'auto' })
-                                        }}
-                                    />
-                                </IconButton>
-                            }
+                            expandIcon={<Icon />}
                         >
                             <Box
                                 sx={{

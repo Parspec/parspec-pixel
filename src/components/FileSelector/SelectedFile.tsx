@@ -19,10 +19,11 @@ type SelectedFileProps = {
     index: number;
     handleResults: (data: {}, index: number) => void;
     isLoading?: boolean;
+    modifiedFileName?: string;
 };
 
 const SelectedFile = (props: SelectedFileProps) => {
-    const { file, onDelete, url, handleResults, index, isLoading } = props;
+    const { file, onDelete, url, handleResults, index, isLoading, modifiedFileName } = props;
     const [progress, setProgress] = useState(0);
     const [showProgress, setShowProgress] = useState(true);
 
@@ -35,7 +36,7 @@ const SelectedFile = (props: SelectedFileProps) => {
                 let response = await axios.post(
                     url,
                     {
-                        file_name: file.name
+                        file_name: modifiedFileName ?? file.name
                     },
                     {
                         headers: {

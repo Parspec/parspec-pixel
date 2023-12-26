@@ -18,7 +18,7 @@ import ProgressBar from '../ProgressBar';
 import { Paper } from '../Paper';
 import { CircularProgress } from '../CircularProgress';
 const SelectedFile = (props) => {
-    const { file, onDelete, url, handleResults, index, isLoading } = props;
+    const { file, onDelete, url, handleResults, index, isLoading, modifiedFileName } = props;
     const [progress, setProgress] = useState(0);
     const [showProgress, setShowProgress] = useState(true);
     let source = axios.CancelToken.source();
@@ -28,7 +28,7 @@ const SelectedFile = (props) => {
             var _a;
             try {
                 let response = yield axios.post(url, {
-                    file_name: file.name
+                    file_name: modifiedFileName !== null && modifiedFileName !== void 0 ? modifiedFileName : file.name
                 }, {
                     headers: {
                         authorization: `Token ${token || 'f7f124dc2a0e40000022e91c557dd302d4eca195'}`,

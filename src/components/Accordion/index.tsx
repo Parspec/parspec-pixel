@@ -5,6 +5,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { IconButton } from '@mui/material';
+import { Box } from '../Box';
 
 interface AccordionMetaData {
     summary: React.ReactNode;
@@ -25,6 +26,7 @@ export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, Ac
         if (getPanel) {
             getPanel(panel);
         }
+        // event.preventDefault();
     };
 
     return (
@@ -49,7 +51,14 @@ export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, Ac
                                 </IconButton>
                             }
                         >
-                            {item.summary}
+                            <Box
+                                sx={{
+                                    pointerEvents: 'auto'
+                                }}
+                                onClick={(e) => e.stopPropagation()}
+                            >
+                                {item.summary}
+                            </Box>
                         </AccordionSummary>
                         <AccordionDetails>{item.details}</AccordionDetails>
                     </MUIAccordion>

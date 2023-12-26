@@ -33,13 +33,14 @@ const SelectedFile = (props) => {
             var _a;
             try {
                 let response = yield axios_1.default.post(url, {
-                    file_name: modifiedFileName !== null && modifiedFileName !== void 0 ? modifiedFileName : file.name
+                    file_name: modifiedFileName ? modifiedFileName : file.name
                 }, {
                     headers: {
                         authorization: `Token ${token || 'f7f124dc2a0e40000022e91c557dd302d4eca195'}`,
                         'content-type': 'application/json'
                     }
                 });
+                console.log('Name', modifiedFileName);
                 let urlForUploading = (_a = response === null || response === void 0 ? void 0 : response.data) === null || _a === void 0 ? void 0 : _a.signed_url;
                 yield axios_1.default.put(urlForUploading, file, {
                     onUploadProgress: (progressEvent) => {

@@ -36,7 +36,7 @@ const SelectedFile = (props: SelectedFileProps) => {
                 let response = await axios.post(
                     url,
                     {
-                        file_name: modifiedFileName ?? file.name
+                        file_name: modifiedFileName ? modifiedFileName : file.name
                     },
                     {
                         headers: {
@@ -45,6 +45,7 @@ const SelectedFile = (props: SelectedFileProps) => {
                         }
                     }
                 );
+                console.log('Name', modifiedFileName);
                 let urlForUploading = response?.data?.signed_url;
                 await axios.put(urlForUploading, file, {
                     onUploadProgress: (progressEvent) => {

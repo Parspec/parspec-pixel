@@ -16,7 +16,7 @@ interface AccordionMetaData {
 export interface AccordionProps extends Omit<MUIAccordionProps, 'classes' | 'children'> {
     options: AccordionMetaData[];
     getPanel?: (label: string) => void;
-    isExpandCollapsAllowed: boolean;
+    isExpandCollapsAllowed?: boolean;
 }
 
 export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, AccordionProps>(({ options, getPanel, isExpandCollapsAllowed, ...rest }, ref) => {

@@ -16,9 +16,10 @@ interface AccordionMetaData {
 export interface AccordionProps extends Omit<MUIAccordionProps, 'classes' | 'children'> {
     options: AccordionMetaData[];
     getPanel?: (label: string) => void;
+    isExpandCollapsAllowed: boolean;
 }
 
-export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, AccordionProps>(({ options, getPanel, ...rest }, ref) => {
+export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, AccordionProps>(({ options, getPanel, isExpandCollapsAllowed, ...rest }, ref) => {
     const [expanded, setExpanded] = useState<string | false>(options[0]['labelId']);
 
     const handleAccordionOnChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
@@ -26,7 +27,6 @@ export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, Ac
         if (getPanel) {
             getPanel(panel);
         }
-        // event.preventDefault();
     };
 
     return (
@@ -39,13 +39,13 @@ export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, Ac
                                 flexDirection: 'row-reverse',
                                 borderBottom: '1px solid',
                                 borderColor: 'neutral.main',
-                                pointerEvents: 'none'
+                                ...(isExpandCollapsAllowed && { pointerEvents: 'none' })
                             }}
                             expandIcon={
                                 <IconButton>
                                     <ExpandMoreIcon
                                         sx={{
-                                            pointerEvents: 'auto'
+                                            ...(isExpandCollapsAllowed && { pointerEvents: 'auto' })
                                         }}
                                     />
                                 </IconButton>
@@ -53,7 +53,7 @@ export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, Ac
                         >
                             <Box
                                 sx={{
-                                    pointerEvents: 'auto'
+                                    ...(isExpandCollapsAllowed && { pointerEvents: 'auto' })
                                 }}
                                 onClick={(e) => e.stopPropagation()}
                             >

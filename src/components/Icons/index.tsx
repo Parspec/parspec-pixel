@@ -79,5 +79,6 @@ export {
     ThumbDownOffAlt as ThumbDownOffAltIcon,
     MoveDown as MoveIcon,
     FileUpload as FileUploadIcon,
-    MoveDown as MoveDownIcon
+    MoveDown as MoveDownIcon,
+    PersonSearchOutlined as CMSIcon
 } from '@mui/icons-material';

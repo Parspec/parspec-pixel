@@ -19,7 +19,7 @@ type SelectedFileProps = {
     index: number;
     handleResults: (data: {}, index: number) => void;
     isLoading?: boolean;
-    modifiedFileName?: string;
+    modifiedFileName?: boolean;
 };
 
 const SelectedFile = (props: SelectedFileProps) => {
@@ -36,7 +36,7 @@ const SelectedFile = (props: SelectedFileProps) => {
                 let response = await axios.post(
                     url,
                     {
-                        file_name: modifiedFileName ? modifiedFileName : file.name
+                        file_name: modifiedFileName ? new Date().getTime() + file.name : file.name
                     },
                     {
                         headers: {
@@ -56,7 +56,9 @@ const SelectedFile = (props: SelectedFileProps) => {
                     cancelToken: source.token
                 });
                 setShowProgress(false);
-                return handleResults({ file, progress: 100 }, index);
+
+                let s3_file_path = response?.data?.s3_file_path;
+                return handleResults({ file, progress: 100, s3_file_path }, index);
             } catch (err: any) {
                 if (err?.message !== 'canceled') return handleResults({ file, error: err.message }, index);
             }

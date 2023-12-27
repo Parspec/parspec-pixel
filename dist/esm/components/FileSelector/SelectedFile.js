@@ -25,10 +25,10 @@ const SelectedFile = (props) => {
     useEffect(() => {
         const token = localStorage.getItem('token');
         const onUpload = () => __awaiter(void 0, void 0, void 0, function* () {
-            var _a;
+            var _a, _b;
             try {
                 let response = yield axios.post(url, {
-                    file_name: modifiedFileName ? modifiedFileName : file.name
+                    file_name: modifiedFileName ? new Date().getTime() + file.name : file.name
                 }, {
                     headers: {
                         authorization: `Token ${token || 'f7f124dc2a0e40000022e91c557dd302d4eca195'}`,
@@ -46,7 +46,8 @@ const SelectedFile = (props) => {
                     cancelToken: source.token
                 });
                 setShowProgress(false);
-                return handleResults({ file, progress: 100 }, index);
+                let s3_file_path = (_b = response === null || response === void 0 ? void 0 : response.data) === null || _b === void 0 ? void 0 : _b.s3_file_path;
+                return handleResults({ file, progress: 100, s3_file_path }, index);
             }
             catch (err) {
                 if ((err === null || err === void 0 ? void 0 : err.message) !== 'canceled')

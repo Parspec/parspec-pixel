@@ -30,7 +30,7 @@ interface FileSelectorProps {
     preSelectedFile?: FileSelectorFileType[] | File[];
     onDeleteFile?: () => void;
     isLoading?: boolean;
-    modifiedFileName?: string;
+    modifiedFileName?: boolean;
 }
 
 export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(

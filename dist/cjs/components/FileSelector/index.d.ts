@@ -26,7 +26,7 @@ interface FileSelectorProps {
     preSelectedFile?: FileSelectorFileType[] | File[];
     onDeleteFile?: () => void;
     isLoading?: boolean;
-    modifiedFileName?: string;
+    modifiedFileName?: boolean;
 }
 export declare const FileSelector: import("react").ForwardRefExoticComponent<FileSelectorProps & import("react").RefAttributes<HTMLDivElement>>;
 export {};

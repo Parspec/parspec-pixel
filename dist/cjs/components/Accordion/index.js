@@ -21,6 +21,8 @@ const Accordion_1 = __importDefault(require("@mui/material/Accordion"));
 const AccordionSummary_1 = __importDefault(require("@mui/material/AccordionSummary"));
 const AccordionDetails_1 = __importDefault(require("@mui/material/AccordionDetails"));
 const ExpandMore_1 = __importDefault(require("@mui/icons-material/ExpandMore"));
+const Box_1 = require("../Box");
+const IconButton_1 = require("../IconButton");
 exports.Accordion = (0, react_1.forwardRef)((_a, ref) => {
     var { options, getPanel } = _a, rest = __rest(_a, ["options", "getPanel"]);
     const [expanded, setExpanded] = (0, react_1.useState)(options[0]['labelId']);
@@ -34,8 +36,11 @@ exports.Accordion = (0, react_1.forwardRef)((_a, ref) => {
             return ((0, jsx_runtime_1.jsxs)(Accordion_1.default, Object.assign({ ref: ref, TransitionProps: { unmountOnExit: true } }, rest, { expanded: expanded === item.labelId, onChange: handleAccordionOnChange(item.labelId) }, { children: [(0, jsx_runtime_1.jsx)(AccordionSummary_1.default, Object.assign({ sx: {
                             flexDirection: 'row-reverse',
                             borderBottom: '1px solid',
-                            borderColor: 'neutral.main'
-                        }, expandIcon: (0, jsx_runtime_1.jsx)(ExpandMore_1.default, {}) }, { children: item.summary })), (0, jsx_runtime_1.jsx)(AccordionDetails_1.default, { children: item.details })] }), index));
+                            borderColor: 'neutral.main',
+                            pointerEvents: 'none'
+                        }, expandIcon: (0, jsx_runtime_1.jsx)(IconButton_1.IconButton, { children: (0, jsx_runtime_1.jsx)(ExpandMore_1.default, { sx: { pointerEvents: 'auto' } }) }) }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ sx: {
+                                pointerEvents: 'auto'
+                            }, onClick: (e) => e.stopPropagation() }, { children: item.summary })) })), (0, jsx_runtime_1.jsx)(AccordionDetails_1.default, { children: item.details })] }), index));
         }) }));
 });
 //# sourceMappingURL=index.js.map

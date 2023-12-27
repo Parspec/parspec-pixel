@@ -4,6 +4,8 @@ import { default as MUIAccordion, AccordionProps as MUIAccordionProps } from '@m
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Box } from '../Box';
+import { IconButton } from '../IconButton';
 
 interface AccordionMetaData {
     summary: React.ReactNode;
@@ -35,11 +37,23 @@ export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, Ac
                             sx={{
                                 flexDirection: 'row-reverse',
                                 borderBottom: '1px solid',
-                                borderColor: 'neutral.main'
+                                borderColor: 'neutral.main',
+                                pointerEvents: 'none'
                             }}
-                            expandIcon={<ExpandMoreIcon />}
+                            expandIcon={
+                                <IconButton>
+                                    <ExpandMoreIcon sx={{ pointerEvents: 'auto' }} />
+                                </IconButton>
+                            }
                         >
-                            {item.summary}
+                            <Box
+                                sx={{
+                                    pointerEvents: 'auto'
+                                }}
+                                onClick={(e) => e.stopPropagation()}
+                            >
+                                {item.summary}
+                            </Box>
                         </AccordionSummary>
                         <AccordionDetails>{item.details}</AccordionDetails>
                     </MUIAccordion>

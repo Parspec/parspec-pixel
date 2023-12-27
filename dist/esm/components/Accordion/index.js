@@ -16,6 +16,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Box } from '../Box';
+import { IconButton } from '../IconButton';
 export const Accordion = forwardRef((_a, ref) => {
     var { options, getPanel } = _a, rest = __rest(_a, ["options", "getPanel"]);
     const [expanded, setExpanded] = useState(options[0]['labelId']);
@@ -31,7 +32,7 @@ export const Accordion = forwardRef((_a, ref) => {
                             borderBottom: '1px solid',
                             borderColor: 'neutral.main',
                             pointerEvents: 'none'
-                        }, expandIcon: _jsx(ExpandMoreIcon, { sx: { pointerEvents: 'auto' } }) }, { children: _jsx(Box, Object.assign({ sx: {
+                        }, expandIcon: _jsx(IconButton, { children: _jsx(ExpandMoreIcon, { sx: { pointerEvents: 'auto' } }) }) }, { children: _jsx(Box, Object.assign({ sx: {
                                 pointerEvents: 'auto'
                             }, onClick: (e) => e.stopPropagation() }, { children: item.summary })) })), _jsx(AccordionDetails, { children: item.details })] }), index));
         }) }));

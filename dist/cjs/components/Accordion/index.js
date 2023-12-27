@@ -21,10 +21,9 @@ const Accordion_1 = __importDefault(require("@mui/material/Accordion"));
 const AccordionSummary_1 = __importDefault(require("@mui/material/AccordionSummary"));
 const AccordionDetails_1 = __importDefault(require("@mui/material/AccordionDetails"));
 const ExpandMore_1 = __importDefault(require("@mui/icons-material/ExpandMore"));
-const material_1 = require("@mui/material");
 const Box_1 = require("../Box");
 exports.Accordion = (0, react_1.forwardRef)((_a, ref) => {
-    var { options, getPanel, isIconExpandCollaps } = _a, rest = __rest(_a, ["options", "getPanel", "isIconExpandCollaps"]);
+    var { options, getPanel } = _a, rest = __rest(_a, ["options", "getPanel"]);
     const [expanded, setExpanded] = (0, react_1.useState)(options[0]['labelId']);
     const handleAccordionOnChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
@@ -32,13 +31,15 @@ exports.Accordion = (0, react_1.forwardRef)((_a, ref) => {
             getPanel(panel);
         }
     };
-    const Icon = () => {
-        return isIconExpandCollaps ? ((0, jsx_runtime_1.jsx)(material_1.IconButton, { children: (0, jsx_runtime_1.jsx)(ExpandMore_1.default, { sx: {
-                    pointerEvents: 'auto'
-                } }) })) : ((0, jsx_runtime_1.jsx)(ExpandMore_1.default, {}));
-    };
     return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: options.map((item, index) => {
-            return ((0, jsx_runtime_1.jsxs)(Accordion_1.default, Object.assign({ ref: ref, TransitionProps: { unmountOnExit: true } }, rest, { expanded: expanded === item.labelId, onChange: handleAccordionOnChange(item.labelId) }, { children: [(0, jsx_runtime_1.jsx)(AccordionSummary_1.default, Object.assign({ sx: Object.assign({ flexDirection: 'row-reverse', borderBottom: '1px solid', borderColor: 'neutral.main' }, (isIconExpandCollaps && { pointerEvents: 'none' })), expandIcon: (0, jsx_runtime_1.jsx)(Icon, {}) }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ sx: Object.assign({}, (isIconExpandCollaps && { pointerEvents: 'auto' })), onClick: (e) => e.stopPropagation() }, { children: item.summary })) })), (0, jsx_runtime_1.jsx)(AccordionDetails_1.default, { children: item.details })] }), index));
+            return ((0, jsx_runtime_1.jsxs)(Accordion_1.default, Object.assign({ ref: ref, TransitionProps: { unmountOnExit: true } }, rest, { expanded: expanded === item.labelId, onChange: handleAccordionOnChange(item.labelId) }, { children: [(0, jsx_runtime_1.jsx)(AccordionSummary_1.default, Object.assign({ sx: {
+                            flexDirection: 'row-reverse',
+                            borderBottom: '1px solid',
+                            borderColor: 'neutral.main',
+                            pointerEvents: 'none'
+                        }, expandIcon: (0, jsx_runtime_1.jsx)(ExpandMore_1.default, { sx: { pointerEvents: 'auto' } }) }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ sx: {
+                                pointerEvents: 'auto'
+                            }, onClick: (e) => e.stopPropagation() }, { children: item.summary })) })), (0, jsx_runtime_1.jsx)(AccordionDetails_1.default, { children: item.details })] }), index));
         }) }));
 });
 //# sourceMappingURL=index.js.map

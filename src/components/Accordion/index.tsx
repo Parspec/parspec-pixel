@@ -4,7 +4,6 @@ import { default as MUIAccordion, AccordionProps as MUIAccordionProps } from '@m
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { IconButton } from '@mui/material';
 import { Box } from '../Box';
 
 interface AccordionMetaData {
@@ -16,10 +15,9 @@ interface AccordionMetaData {
 export interface AccordionProps extends Omit<MUIAccordionProps, 'classes' | 'children'> {
     options: AccordionMetaData[];
     getPanel?: (label: string) => void;
-    isIconExpandCollaps?: boolean;
 }
 
-export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, AccordionProps>(({ options, getPanel, isIconExpandCollaps, ...rest }, ref) => {
+export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, AccordionProps>(({ options, getPanel, ...rest }, ref) => {
     const [expanded, setExpanded] = useState<string | false>(options[0]['labelId']);
 
     const handleAccordionOnChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
@@ -28,19 +26,7 @@ export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, Ac
             getPanel(panel);
         }
     };
-    const Icon = () => {
-        return isIconExpandCollaps ? (
-            <IconButton>
-                <ExpandMoreIcon
-                    sx={{
-                        pointerEvents: 'auto'
-                    }}
-                />
-            </IconButton>
-        ) : (
-            <ExpandMoreIcon />
-        );
-    };
+
     return (
         <>
             {options.map((item, index) => {
@@ -51,13 +37,13 @@ export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, Ac
                                 flexDirection: 'row-reverse',
                                 borderBottom: '1px solid',
                                 borderColor: 'neutral.main',
-                                ...(isIconExpandCollaps && { pointerEvents: 'none' })
+                                pointerEvents: 'none'
                             }}
-                            expandIcon={<Icon />}
+                            expandIcon={<ExpandMoreIcon sx={{ pointerEvents: 'auto' }} />}
                         >
                             <Box
                                 sx={{
-                                    ...(isIconExpandCollaps && { pointerEvents: 'auto' })
+                                    pointerEvents: 'auto'
                                 }}
                                 onClick={(e) => e.stopPropagation()}
                             >

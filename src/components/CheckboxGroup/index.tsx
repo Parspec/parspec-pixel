@@ -38,7 +38,7 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = function ({ label, si
                 </FormLabel>
                 {showSelectAll && (
                     <Box>
-                        <Button size="xs" variant="outlined" color="secondary" sx={{ height: '24px' }} onClick={onSelectAll}>
+                        <Button size="xs" variant="outlined" color="secondary" sx={{ height: '24px', whiteSpace: 'nowrap' }} onClick={onSelectAll}>
                             Select All
                         </Button>
                     </Box>

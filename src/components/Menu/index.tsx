@@ -8,6 +8,7 @@ interface MProps extends Pick<MenuProps, 'anchorOrigin' | 'transformOrigin'> {
         label: string;
         onClick: () => void;
         color?: string;
+        disabled?: boolean;
     }[];
     children?: any;
 }
@@ -34,7 +35,7 @@ export const Menu = ({ options, children, anchorOrigin, transformOrigin }: MProp
                 </IconButton>
             )}
             <MuiMenu id="basic-menu" anchorEl={anchorEl} open={open} onClose={handleClose} transformOrigin={transformOrigin} anchorOrigin={anchorOrigin}>
-                {options.map(({ label, onClick, color }) => (
+                {options.map(({ label, onClick, color, disabled }) => (
                     <MenuItem
                         sx={{ ...(color && { color }) }}
                         key={label}
@@ -42,6 +43,7 @@ export const Menu = ({ options, children, anchorOrigin, transformOrigin }: MProp
                             onClick();
                             handleClose();
                         }}
+                        disabled={disabled}
                     >
                         {label}
                     </MenuItem>

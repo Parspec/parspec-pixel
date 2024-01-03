@@ -10,7 +10,7 @@ import { Box } from '../Box';
 
 interface FormLabelParams {
     value: string;
-    label: string;
+    label: string | ReactNode;
     helper?: ReactNode;
 }
 
@@ -21,15 +21,16 @@ export interface RadioGroupProps extends MUIRadioGroupProps {
     size?: 'small' | 'medium';
     error?: boolean;
     helperText?: string;
+    disabled?: boolean;
 }
 
-export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(({ options, label, name, size = 'small', error, helperText, ...rest }, ref) => (
+export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(({ options, label, name, size = 'small', error, helperText, disabled, ...rest }, ref) => (
     <FormControl error={error} ref={ref}>
         <FormLabel>{label}</FormLabel>
         <MUIRadioGroup {...rest} name={name}>
             {options.map((item, index) => (
                 <>
-                    <FormControlLabel key={index} value={item.value} control={<Radio size={size} />} label={item.label} />
+                    <FormControlLabel key={index} value={item.value} control={<Radio size={size} disabled={disabled} />} label={item.label} />
                     {item.helper && !rest.row && <Box ml={8}>{item.helper}</Box>}
                 </>
             ))}
@@ -41,5 +42,6 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(({ options
 RadioGroup.defaultProps = {
     name: 'radio-group-name-control',
     error: false,
-    helperText: ''
+    helperText: '',
+    disabled: false
 };

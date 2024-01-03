@@ -11,6 +11,7 @@ type SelectedFileProps = {
     index: number;
     handleResults: (data: {}, index: number) => void;
     isLoading?: boolean;
+    modifiedFileName?: boolean;
 };
 declare const SelectedFile: (props: SelectedFileProps) => import("react/jsx-runtime").JSX.Element;
 export default SelectedFile;

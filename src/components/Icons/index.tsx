@@ -2,6 +2,7 @@ export { ParspecLogoIcon } from './SvgIcons/ParspecLogoIcon';
 export { ClockIcon } from './SvgIcons/ClockIcon';
 export { DatasheetSelectInfoIcon } from './SvgIcons/DatasheetSelectInfoIcon';
 export { TableHeaderMenuIcon } from './SvgIcons/TableHeaderMenuIcon';
+export { AddKitIcon } from './SvgIcons/AddKitIcon';
 export {
     Close as CloseIcon,
     Check as CheckIcon,
@@ -76,5 +77,7 @@ export {
     HistoryOutlined as HistoryOutlinedIcon,
     InfoOutlined as InfoOutlinedIcon,
     ThumbDownOffAlt as ThumbDownOffAltIcon,
-    FileUpload as FileUploadIcon
+    MoveDown as MoveIcon,
+    FileUpload as FileUploadIcon,
+    MoveDown as MoveDownIcon
 } from '@mui/icons-material';

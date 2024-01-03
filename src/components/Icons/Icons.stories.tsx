@@ -64,7 +64,10 @@ import {
     HistoryOutlinedIcon,
     InfoOutlinedIcon,
     ThumbDownOffAltIcon,
-    FileUploadIcon
+    MoveIcon,
+    FileUploadIcon,
+    MoveDownIcon,
+    AddKitIcon
 } from './index';
 import { Grid } from '../Grid';
 import { BodySmall } from '../Typography';
@@ -158,11 +161,13 @@ MUIImportedIcons.args = {
         { icon: WarningOutlinedIcon, name: 'WarningOutlinedIcon' },
         { icon: SettingsIcon, name: 'SettingsIcon' },
         { icon: LogoutIcon, name: 'LogoutIcon' },
-        {icon:SortIcon, name:'SortIcon'},
+        { icon: SortIcon, name: 'SortIcon' },
         { icon: HistoryOutlinedIcon, name: 'HistoryOutlinedIcon' },
         { icon: InfoOutlinedIcon, name: 'InfoOutlinedIcon' },
         { icon: ThumbDownOffAltIcon, name: 'ThumbDownOffAltIcon' },
-        { icon: FileUploadIcon, name: 'FileUploadIcon' }
+        { icon: MoveIcon, name: 'MoveIcon' },
+        { icon: FileUploadIcon, name: 'FileUploadIcon' },
+        { icon: MoveDownIcon, name: 'MoveDownIcon' }
     ],
     fontSize: 'medium',
     color: 'tertiary'
@@ -189,7 +194,8 @@ SvgIcons.args = {
         { icon: ParspecLogoIcon, name: 'ParspecLogoIcon' },
         { icon: ClockIcon, name: 'ClockIcon' },
         { icon: DatasheetSelectInfoIcon, name: 'DatasheetSelectInfoIcon' },
-        { icon: TableHeaderMenuIcon, name: 'TableHeaderMenuIcon' }
+        { icon: TableHeaderMenuIcon, name: 'TableHeaderMenuIcon' },
+        { icon: AddKitIcon, name: 'AddKitIcon' }
     ],
     fontSize: 'xxl',
     color: 'tertiary'

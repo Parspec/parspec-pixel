@@ -16,7 +16,6 @@ export interface FileSelectorFileType {
     type?: string;
     webkitRelativePath?: string;
     filepath?: string;
-    s3_file_path?: string;
 }
 interface FileSelectorProps {
     maxFiles?: number;

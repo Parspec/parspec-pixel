@@ -120,7 +120,7 @@ export const Basic: ComponentStory<typeof AgGridTable> = (props) => {
         return (
             <Box display="flex">
                 <Box margin="auto">
-                    <Switch color="primary" onChange={(e: React.ChangeEvent<HTMLInputElement>) => quotingAccessToggleHandler(e, data)} checked={data.user_details.quoting_enabled} />
+                    <Switch color="primary" onChange={(e: React.ChangeEvent<HTMLInputElement>) => alert('Toggled')} checked={data.user_details.quoting_enabled} />
                 </Box>
             </Box>
         );
@@ -128,17 +128,18 @@ export const Basic: ComponentStory<typeof AgGridTable> = (props) => {
 
     function menuTemplate(props: any) {
         const { data } = props;
+
         const options = [
             {
                 label: 'Edit Details',
                 onClick: () => {
-                    alert('Edit details clicked');
+                    alert(`Edit details clicked for user: ${data.user_details.id}`);
                 }
             },
             {
                 label: 'Remove User',
                 onClick: () => {
-                    alert('Remove user clicked');
+                    alert(`Removed user: ${data.user_details.id} `);
                 }
             }
         ];

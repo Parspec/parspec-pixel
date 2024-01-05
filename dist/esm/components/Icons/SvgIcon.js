@@ -13,12 +13,12 @@ import { jsx as _jsx } from "react/jsx-runtime";
 import { SvgIcon as MUISvgIcon } from '@mui/material';
 import { theme } from '../../theme';
 import { ICON_SIZE_OPTIONS } from '../../Shared/utils';
-export function getFillColor(color) {
+export function getFillColor(color, contrast) {
     if (!color)
         return theme.palette.primary.main;
     const [c0, c1] = color.split('.');
     const finalColor = theme.palette[c0];
-    return c1 ? finalColor[c1] : finalColor.main;
+    return c1 ? finalColor[c1] : contrast ? finalColor[contrast] : finalColor.main;
 }
 export function SvgIcon(_a) {
     var { children, fontSize, color } = _a, restProps = __rest(_a, ["children", "fontSize", "color"]);

@@ -6,7 +6,7 @@ import { GridChartsModule } from '@ag-grid-enterprise/charts';
 
 import { Box } from '../Box';
 
-import './styles.css';
+import './agGridStyles.css';
 import { CustomToolBarPanel, ToolBarT } from './CustomToolbarPanel';
 
 const modules = [ClipboardModule, GridChartsModule];
@@ -16,7 +16,8 @@ interface IAgGridTableProps {
     tableData: Object[];
     rowHeight: number;
     isTableLoading: boolean;
-    columnDefs: (ColDef | ColGroupDef)[] | null;
+    // columnDefs: (ColDef | ColGroupDef)[] | null;
+    columnDefs: any;
     defaultColDef: ColDef;
     getRowId: (params: GetRowIdParams<any, any>) => any;
     suppressRowClickSelection?: boolean;

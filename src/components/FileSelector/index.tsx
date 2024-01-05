@@ -30,7 +30,6 @@ interface FileSelectorProps {
     preSelectedFile?: FileSelectorFileType[] | File[];
     onDeleteFile?: () => void;
     isLoading?: boolean;
-    modifiedFileName?: boolean;
 }
 
 export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
@@ -47,8 +46,7 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
             borderColor,
             preSelectedFile,
             onDeleteFile = () => {},
-            isLoading = false,
-            modifiedFileName
+            isLoading = false
         },
         ref
     ) => {
@@ -158,16 +156,7 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                         <Box>
                             {files.map((file: { name: string; size?: number }, index: number) => (
                                 <Box my={1}>
-                                    <SelectedFile
-                                        key={file.name}
-                                        file={file}
-                                        onDelete={onDelete}
-                                        url={url}
-                                        index={index}
-                                        handleResults={handleResults}
-                                        isLoading={isLoading}
-                                        modifiedFileName={modifiedFileName}
-                                    />
+                                    <SelectedFile key={file.name} file={file} onDelete={onDelete} url={url} index={index} handleResults={handleResults} isLoading={isLoading} />
                                 </Box>
                             ))}
                             {error && (

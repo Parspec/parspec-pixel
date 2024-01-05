@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
+
 import axios from 'axios';
+import { v4 as uuidV4 } from 'uuid';
 import { IconButton } from '@mui/material';
+
 import { Box } from '../Box';
 import { BodySmall } from '../Typography';
 import { DeleteIcon } from '../Icons';
@@ -19,11 +22,10 @@ type SelectedFileProps = {
     index: number;
     handleResults: (data: {}, index: number) => void;
     isLoading?: boolean;
-    modifiedFileName?: boolean;
 };
 
 const SelectedFile = (props: SelectedFileProps) => {
-    const { file, onDelete, url, handleResults, index, isLoading, modifiedFileName } = props;
+    const { file, onDelete, url, handleResults, index, isLoading } = props;
     const [progress, setProgress] = useState(0);
     const [showProgress, setShowProgress] = useState(true);
 
@@ -36,7 +38,7 @@ const SelectedFile = (props: SelectedFileProps) => {
                 let response = await axios.post(
                     url,
                     {
-                        file_name: modifiedFileName ? new Date().getTime() + file.name : file.name
+                        file_name: uuidV4() + file.name
                     },
                     {
                         headers: {

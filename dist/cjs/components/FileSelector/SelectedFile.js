@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const jsx_runtime_1 = require("react/jsx-runtime");
 const react_1 = require("react");
 const axios_1 = __importDefault(require("axios"));
+const uuid_1 = require("uuid");
 const material_1 = require("@mui/material");
 const Box_1 = require("../Box");
 const Typography_1 = require("../Typography");
@@ -23,7 +24,7 @@ const ProgressBar_1 = __importDefault(require("../ProgressBar"));
 const Paper_1 = require("../Paper");
 const CircularProgress_1 = require("../CircularProgress");
 const SelectedFile = (props) => {
-    const { file, onDelete, url, handleResults, index, isLoading, modifiedFileName } = props;
+    const { file, onDelete, url, handleResults, index, isLoading } = props;
     const [progress, setProgress] = (0, react_1.useState)(0);
     const [showProgress, setShowProgress] = (0, react_1.useState)(true);
     let source = axios_1.default.CancelToken.source();
@@ -33,7 +34,7 @@ const SelectedFile = (props) => {
             var _a, _b;
             try {
                 let response = yield axios_1.default.post(url, {
-                    file_name: modifiedFileName ? new Date().getTime() + file.name : file.name
+                    file_name: (0, uuid_1.v4)() + file.name
                 }, {
                     headers: {
                         authorization: `Token ${token || 'f7f124dc2a0e40000022e91c557dd302d4eca195'}`,

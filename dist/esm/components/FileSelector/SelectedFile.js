@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { v4 as uuidV4 } from 'uuid';
 import { IconButton } from '@mui/material';
 import { Box } from '../Box';
 import { BodySmall } from '../Typography';
@@ -18,7 +19,7 @@ import ProgressBar from '../ProgressBar';
 import { Paper } from '../Paper';
 import { CircularProgress } from '../CircularProgress';
 const SelectedFile = (props) => {
-    const { file, onDelete, url, handleResults, index, isLoading, modifiedFileName } = props;
+    const { file, onDelete, url, handleResults, index, isLoading } = props;
     const [progress, setProgress] = useState(0);
     const [showProgress, setShowProgress] = useState(true);
     let source = axios.CancelToken.source();
@@ -28,7 +29,7 @@ const SelectedFile = (props) => {
             var _a, _b;
             try {
                 let response = yield axios.post(url, {
-                    file_name: modifiedFileName ? new Date().getTime() + file.name : file.name
+                    file_name: uuidV4() + file.name
                 }, {
                     headers: {
                         authorization: `Token ${token || 'f7f124dc2a0e40000022e91c557dd302d4eca195'}`,

@@ -17,6 +17,9 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Box } from '../Box';
 import { IconButton } from '../IconButton';
+const commonSxStyles = {
+    pointerEvents: 'auto'
+};
 export const Accordion = forwardRef((_a, ref) => {
     var { options, getPanel } = _a, rest = __rest(_a, ["options", "getPanel"]);
     const [expanded, setExpanded] = useState(options[0]['labelId']);
@@ -32,11 +35,7 @@ export const Accordion = forwardRef((_a, ref) => {
                             borderBottom: '1px solid',
                             borderColor: 'neutral.main',
                             pointerEvents: 'none'
-                        }, expandIcon: _jsx(IconButton, { children: _jsx(ExpandMoreIcon, { sx: { pointerEvents: 'auto' } }) }) }, { children: _jsxs(Box, Object.assign({ display: 'flex', justifyContent: 'space-between', width: '100%', onClick: (e) => e.stopPropagation() }, { children: [_jsx(Box, Object.assign({ sx: {
-                                        pointerEvents: 'auto'
-                                    } }, { children: item.summary })), _jsx(Box, Object.assign({ sx: {
-                                        pointerEvents: 'auto'
-                                    } }, { children: item.rightSummary }))] })) })), _jsx(AccordionDetails, { children: item.details })] }), index));
+                        }, expandIcon: _jsx(IconButton, { children: _jsx(ExpandMoreIcon, { sx: commonSxStyles }) }) }, { children: _jsxs(Box, Object.assign({ display: 'flex', justifyContent: 'space-between', width: '100%', onClick: (e) => e.stopPropagation() }, { children: [_jsx(Box, Object.assign({ sx: commonSxStyles }, { children: item.summary })), _jsx(Box, Object.assign({ sx: commonSxStyles }, { children: item.rightSummary }))] })) })), _jsx(AccordionDetails, { children: item.details })] }), index));
         }) }));
 });
 //# sourceMappingURL=index.js.map

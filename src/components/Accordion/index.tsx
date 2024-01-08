@@ -19,6 +19,10 @@ export interface AccordionProps extends Omit<MUIAccordionProps, 'classes' | 'chi
     getPanel?: (label: string) => void;
 }
 
+const commonSxStyles = {
+    pointerEvents: 'auto'
+};
+
 export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, AccordionProps>(({ options, getPanel, ...rest }, ref) => {
     const [expanded, setExpanded] = useState<string | false>(options[0]['labelId']);
 
@@ -28,7 +32,6 @@ export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, Ac
             getPanel(panel);
         }
     };
-
     return (
         <>
             {options.map((item, index) => {
@@ -43,25 +46,13 @@ export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, Ac
                             }}
                             expandIcon={
                                 <IconButton>
-                                    <ExpandMoreIcon sx={{ pointerEvents: 'auto' }} />
+                                    <ExpandMoreIcon sx={commonSxStyles} />
                                 </IconButton>
                             }
                         >
                             <Box display={'flex'} justifyContent={'space-between'} width={'100%'} onClick={(e) => e.stopPropagation()}>
-                                <Box
-                                    sx={{
-                                        pointerEvents: 'auto'
-                                    }}
-                                >
-                                    {item.summary}
-                                </Box>
-                                <Box
-                                    sx={{
-                                        pointerEvents: 'auto'
-                                    }}
-                                >
-                                    {item.rightSummary}
-                                </Box>
+                                <Box sx={commonSxStyles}>{item.summary}</Box>
+                                <Box sx={commonSxStyles}>{item.rightSummary}</Box>
                             </Box>
                         </AccordionSummary>
                         <AccordionDetails>{item.details}</AccordionDetails>

@@ -23,6 +23,9 @@ const AccordionDetails_1 = __importDefault(require("@mui/material/AccordionDetai
 const ExpandMore_1 = __importDefault(require("@mui/icons-material/ExpandMore"));
 const Box_1 = require("../Box");
 const IconButton_1 = require("../IconButton");
+const commonSxStyles = {
+    pointerEvents: 'auto'
+};
 exports.Accordion = (0, react_1.forwardRef)((_a, ref) => {
     var { options, getPanel } = _a, rest = __rest(_a, ["options", "getPanel"]);
     const [expanded, setExpanded] = (0, react_1.useState)(options[0]['labelId']);
@@ -38,11 +41,7 @@ exports.Accordion = (0, react_1.forwardRef)((_a, ref) => {
                             borderBottom: '1px solid',
                             borderColor: 'neutral.main',
                             pointerEvents: 'none'
-                        }, expandIcon: (0, jsx_runtime_1.jsx)(IconButton_1.IconButton, { children: (0, jsx_runtime_1.jsx)(ExpandMore_1.default, { sx: { pointerEvents: 'auto' } }) }) }, { children: (0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ display: 'flex', justifyContent: 'space-between', width: '100%', onClick: (e) => e.stopPropagation() }, { children: [(0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ sx: {
-                                        pointerEvents: 'auto'
-                                    } }, { children: item.summary })), (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ sx: {
-                                        pointerEvents: 'auto'
-                                    } }, { children: item.rightSummary }))] })) })), (0, jsx_runtime_1.jsx)(AccordionDetails_1.default, { children: item.details })] }), index));
+                        }, expandIcon: (0, jsx_runtime_1.jsx)(IconButton_1.IconButton, { children: (0, jsx_runtime_1.jsx)(ExpandMore_1.default, { sx: commonSxStyles }) }) }, { children: (0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ display: 'flex', justifyContent: 'space-between', width: '100%', onClick: (e) => e.stopPropagation() }, { children: [(0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ sx: commonSxStyles }, { children: item.summary })), (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ sx: commonSxStyles }, { children: item.rightSummary }))] })) })), (0, jsx_runtime_1.jsx)(AccordionDetails_1.default, { children: item.details })] }), index));
         }) }));
 });
 //# sourceMappingURL=index.js.map

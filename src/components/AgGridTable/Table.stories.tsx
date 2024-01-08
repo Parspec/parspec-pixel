@@ -5,7 +5,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { Button } from '../Button';
 import { TableHeaderMenuIcon } from '../Icons';
 import { Box } from '../Box';
-import { BodyXS, BodySmall, BodyMedium } from '../Typography';
+import { BodyXS, BodySmall } from '../Typography';
 import { Tooltip } from '../Tooltip';
 import { Menu } from '../Menu';
 import { Switch } from '../Switch';

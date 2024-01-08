@@ -2,10 +2,8 @@ import React, { useRef, useState, useCallback } from 'react';
 
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { CellStyle, ColDef } from 'ag-grid-community';
-
 import { Button } from '../Button';
-import { ViewArrayIcon, TableHeaderMenuIcon } from '../Icons';
+import { TableHeaderMenuIcon } from '../Icons';
 import { Box } from '../Box';
 import { BodyXS, BodySmall, BodyMedium } from '../Typography';
 import { Tooltip } from '../Tooltip';
@@ -14,6 +12,7 @@ import { Switch } from '../Switch';
 
 import { AgGridTable } from './Table';
 import { data } from './data';
+import { ToolBarT } from './CustomToolbarPanel';
 
 export default {
     title: 'AgGridTable',
@@ -25,15 +24,6 @@ export const Basic: ComponentStory<typeof AgGridTable> = (props) => {
 
     const getRowId = (params: any) => {
         return params?.data?.user_details.id;
-    };
-
-    const defaultColDef: ColDef | any = {
-        flex: 1,
-        sortable: false,
-        menuTabs: [],
-        resizable: true,
-        suppressFillHandle: true,
-        suppressMovable: true
     };
 
     const emailTemplate = useCallback((props: any) => {
@@ -225,7 +215,7 @@ export const Basic: ComponentStory<typeof AgGridTable> = (props) => {
                 </Box>
             ),
             cellRenderer: menuTemplate,
-            pinned: 'right',
+            pinned: 'right' as 'right',
             minWidth: 50,
             maxWidth: 50,
             resizable: false,
@@ -245,11 +235,10 @@ export const Basic: ComponentStory<typeof AgGridTable> = (props) => {
                 rowHeight={40}
                 columnDefs={columnDefs}
                 quickFilterText={searchText}
-                defaultColDef={defaultColDef}
                 isTableLoading={false}
                 tableHeight={'300px'}
                 showToolbarPanel={true}
-                toolBarPanelOptions={toolbarOptions as any}
+                toolBarPanelOptions={toolbarOptions as ToolBarT[]}
                 selectedRowCount={0}
                 disabledToolBarButton={true}
                 onTextSearch={(value) => setSearchText(value)}

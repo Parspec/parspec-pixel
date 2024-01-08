@@ -16,9 +16,8 @@ interface IAgGridTableProps {
     tableData: Object[];
     rowHeight: number;
     isTableLoading: boolean;
-    // columnDefs: (ColDef | ColGroupDef)[] | null;
-    columnDefs: any;
-    defaultColDef: ColDef;
+    columnDefs: (ColDef | ColGroupDef)[] | null;
+    defaultColDef?: ColDef;
     getRowId: (params: GetRowIdParams<any, any>) => any;
     suppressRowClickSelection?: boolean;
     enableRangeSelection?: boolean;
@@ -44,7 +43,9 @@ interface IAgGridTableProps {
     onGridReady?: () => void;
     processCellForClipboard?: (props: ProcessCellForExportParams) => any;
     quickFilterText?: string;
-    //custom toolbar panel interface
+    // ############################## //
+    // custom toolbar panel interface //
+    // ############################## //
     showToolbarPanel: boolean;
     isToolbarLoading?: boolean;
     toolBarPanelOptions?: ToolBarT[];
@@ -66,8 +67,6 @@ interface IAgGridTableMethods {
     // Make the API property more flexible
     api?: any;
 }
-
-const toolBarPanelDefaultOptions: ToolBarT[] = ['delete', 'search', 'clearFilters', 'hide', 'unhide', 'selectedItems', 'duplicate', 'add', 'createKit', 'move'];
 
 export const AgGridTable = forwardRef<IAgGridTableMethods, IAgGridTableProps>((props, ref) => {
     const {
@@ -104,7 +103,7 @@ export const AgGridTable = forwardRef<IAgGridTableMethods, IAgGridTableProps>((p
         quickFilterText,
         showToolbarPanel = false,
         isToolbarLoading = false,
-        toolBarPanelOptions = toolBarPanelDefaultOptions,
+        toolBarPanelOptions = [],
         selectedRowCount = 0,
         disabledToolBarButton = false,
         onAdd,
@@ -209,3 +208,16 @@ export const AgGridTable = forwardRef<IAgGridTableMethods, IAgGridTableProps>((p
         </Box>
     );
 });
+
+const defaultColDef: ColDef | any = {
+    flex: 1,
+    sortable: false,
+    menuTabs: [],
+    resizable: true,
+    suppressFillHandle: true,
+    suppressMovable: true
+};
+
+AgGridTable.defaultProps = {
+    defaultColDef: defaultColDef
+};

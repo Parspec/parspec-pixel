@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
+
 import axios from 'axios';
+import { v4 as uuidV4 } from 'uuid';
 import { IconButton } from '@mui/material';
+
 import { Box } from '../Box';
 import { BodySmall } from '../Typography';
 import { DeleteIcon } from '../Icons';
@@ -35,7 +38,7 @@ const SelectedFile = (props: SelectedFileProps) => {
                 let response = await axios.post(
                     url,
                     {
-                        file_name: file.name
+                        file_name: uuidV4() + file.name
                     },
                     {
                         headers: {
@@ -54,7 +57,8 @@ const SelectedFile = (props: SelectedFileProps) => {
                     cancelToken: source.token
                 });
                 setShowProgress(false);
-                return handleResults({ file, progress: 100 }, index);
+                let s3_file_path = response?.data?.s3_file_path;
+                return handleResults({ file, progress: 100, s3_file_path }, index);
             } catch (err: any) {
                 if (err?.message !== 'canceled') return handleResults({ file, error: err.message }, index);
             }

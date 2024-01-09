@@ -4,6 +4,7 @@ import { default as MUIAccordion, AccordionProps as MUIAccordionProps } from '@m
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
 import { Box } from '../Box';
 import { IconButton } from '../IconButton';
 
@@ -52,7 +53,7 @@ export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, Ac
                         >
                             <Box display={'flex'} justifyContent={'space-between'} width={'100%'} onClick={(e) => e.stopPropagation()}>
                                 <Box sx={commonSxStyles}>{item.summary}</Box>
-                                <Box sx={commonSxStyles}>{item.rightSummary}</Box>
+                                {item?.rightSummary && <Box sx={commonSxStyles}>{item.rightSummary}</Box>}
                             </Box>
                         </AccordionSummary>
                         <AccordionDetails>{item.details}</AccordionDetails>

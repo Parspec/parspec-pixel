@@ -636,7 +636,7 @@ Table.defaultProps = {
     },
     editSettings: {
         allowAdding: true,
-        allowDeleting: true,
+        allowDeleting: false,
         allowEditing: true,
         mode: 'Cell',
         showDeleteConfirmDialog: true,

@@ -25,7 +25,8 @@ const Chip_1 = require("../Chip");
 const Tooltip_1 = require("../Tooltip");
 const StyledMUITextField = (0, styled_1.default)(TextField_1.default)({
     '& .MuiFormHelperText-root': {
-        marginLeft: '0px'
+        marginLeft: '0px',
+        fontSize: '12px'
     },
     '& input[type=number]': {
         '-moz-appearance': 'textfield',

@@ -9,7 +9,8 @@ import { Tooltip } from '../Tooltip';
 
 const StyledMUITextField = styled(MUITextField)({
     '& .MuiFormHelperText-root': {
-        marginLeft: '0px'
+        marginLeft: '0px',
+        fontSize: '12px'
     },
     '& input[type=number]': {
         '-moz-appearance': 'textfield',

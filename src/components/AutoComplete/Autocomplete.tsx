@@ -33,6 +33,7 @@ export interface AutocompleteProps {
     filterOptionsCallBack?: (options: OptionType[], params: FilterOptionsState<OptionType>) => OptionType[];
     maxLength?: number;
     sx?: SxProps;
+    loading?: boolean;
 }
 
 const filter = createFilterOptions<OptionType>();
@@ -66,6 +67,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
                 return filteredOptions;
             },
             sx,
+            loading,
             ...props
         },
         ref
@@ -146,6 +148,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
                         />
                     )}
                     disabled={disabled}
+                    loading={loading}
                 />
             </>
         );

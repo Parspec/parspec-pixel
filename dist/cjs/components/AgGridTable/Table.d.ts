@@ -3,8 +3,7 @@ import { AgGridReact, AgGridReactProps, AgReactUiProps } from 'ag-grid-react';
 import './agGridStyles.css';
 import { ToolBarT } from './CustomToolbarPanel';
 interface IAgGridTableProps extends AgGridReactProps, AgReactUiProps {
-    tableHeight: number | string;
-    tableData: Object[] | null;
+    tableHeight?: number | string;
     isTableLoading: boolean;
     showToolbarPanel: boolean;
     isToolbarLoading?: boolean;

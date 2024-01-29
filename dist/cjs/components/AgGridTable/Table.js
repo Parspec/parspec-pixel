@@ -22,7 +22,7 @@ require("./agGridStyles.css");
 const CustomToolbarPanel_1 = require("./CustomToolbarPanel");
 const modules = [clipboard_1.ClipboardModule, charts_1.GridChartsModule];
 exports.AgGridTable = (0, react_1.forwardRef)((props, ref) => {
-    const { tableHeight, tableData, isTableLoading, showToolbarPanel = false, isToolbarLoading = false, toolBarPanelOptions = [], selectedRowCount = 0, disabledToolBarButton = false, onAdd, onDelete, onHideUnhide, onAddDuplicates, onMove, onCreateKit, onCloseBanner, onTextSearch, toolbarRightSection } = props, restTableProps = __rest(props, ["tableHeight", "tableData", "isTableLoading", "showToolbarPanel", "isToolbarLoading", "toolBarPanelOptions", "selectedRowCount", "disabledToolBarButton", "onAdd", "onDelete", "onHideUnhide", "onAddDuplicates", "onMove", "onCreateKit", "onCloseBanner", "onTextSearch", "toolbarRightSection"]);
+    const { tableHeight, isTableLoading, showToolbarPanel = false, isToolbarLoading = false, toolBarPanelOptions = [], selectedRowCount = 0, disabledToolBarButton = false, onAdd, onDelete, onHideUnhide, onAddDuplicates, onMove, onCreateKit, onCloseBanner, onTextSearch, toolbarRightSection, rowData } = props, restTableProps = __rest(props, ["tableHeight", "isTableLoading", "showToolbarPanel", "isToolbarLoading", "toolBarPanelOptions", "selectedRowCount", "disabledToolBarButton", "onAdd", "onDelete", "onHideUnhide", "onAddDuplicates", "onMove", "onCreateKit", "onCloseBanner", "onTextSearch", "toolbarRightSection", "rowData"]);
     const gridRef = (0, react_1.useRef)(null);
     // Expose methods through the forwarded ref
     (0, react_1.useImperativeHandle)(ref, () => gridRef.current);
@@ -31,7 +31,7 @@ exports.AgGridTable = (0, react_1.forwardRef)((props, ref) => {
         if (isTableLoading) {
             (_b = (_a = gridRef === null || gridRef === void 0 ? void 0 : gridRef.current) === null || _a === void 0 ? void 0 : _a.api) === null || _b === void 0 ? void 0 : _b.showLoadingOverlay();
         }
-        else if (tableData && tableData.length === 0) {
+        else if (rowData && rowData.length === 0) {
             setTimeout(() => {
                 var _a, _b;
                 (_b = (_a = gridRef === null || gridRef === void 0 ? void 0 : gridRef.current) === null || _a === void 0 ? void 0 : _a.api) === null || _b === void 0 ? void 0 : _b.showNoRowsOverlay();
@@ -40,8 +40,8 @@ exports.AgGridTable = (0, react_1.forwardRef)((props, ref) => {
         else {
             (_d = (_c = gridRef === null || gridRef === void 0 ? void 0 : gridRef.current) === null || _c === void 0 ? void 0 : _c.api) === null || _d === void 0 ? void 0 : _d.hideOverlay();
         }
-    }, [isTableLoading, tableData]);
-    return ((0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ zIndex: 1, width: '100%', position: 'relative' }, { children: [showToolbarPanel && ((0, jsx_runtime_1.jsx)(CustomToolbarPanel_1.CustomToolBarPanel, { toolBarPanelOptions: toolBarPanelOptions, selectedRowCount: selectedRowCount, disabledToolBarButton: disabledToolBarButton, onAdd: onAdd, onDelete: onDelete, onHideUnhide: onHideUnhide, onAddDuplicates: onAddDuplicates, onMove: onMove, onCreateKit: onCreateKit, onCloseBanner: onCloseBanner, onTextSearch: onTextSearch, isToolbarLoading: isToolbarLoading, toolbarRightSection: toolbarRightSection })), (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ sx: { height: tableHeight }, width: "100%", className: "ag-theme-alpine" }, { children: (0, jsx_runtime_1.jsx)(ag_grid_react_1.AgGridReact, Object.assign({ ref: gridRef, rowData: tableData }, restTableProps, { gridOptions: Object.assign(Object.assign({}, restTableProps.gridOptions), { rowClassRules: {
+    }, [isTableLoading, rowData]);
+    return ((0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ zIndex: 1, width: '100%', position: 'relative' }, { children: [showToolbarPanel && ((0, jsx_runtime_1.jsx)(CustomToolbarPanel_1.CustomToolBarPanel, { toolBarPanelOptions: toolBarPanelOptions, selectedRowCount: selectedRowCount, disabledToolBarButton: disabledToolBarButton, onAdd: onAdd, onDelete: onDelete, onHideUnhide: onHideUnhide, onAddDuplicates: onAddDuplicates, onMove: onMove, onCreateKit: onCreateKit, onCloseBanner: onCloseBanner, onTextSearch: onTextSearch, isToolbarLoading: isToolbarLoading, toolbarRightSection: toolbarRightSection })), (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ sx: { height: tableHeight }, width: "100%", className: "ag-theme-alpine" }, { children: (0, jsx_runtime_1.jsx)(ag_grid_react_1.AgGridReact, Object.assign({ ref: gridRef, rowData: rowData }, restTableProps, { gridOptions: Object.assign(Object.assign({}, restTableProps.gridOptions), { rowClassRules: {
                             'row-hide': (params) => { var _a; return (_a = params === null || params === void 0 ? void 0 : params.data) === null || _a === void 0 ? void 0 : _a.is_hidden; }
                         }, getRowStyle: (params) => {
                             if (params.node.rowPinned) {

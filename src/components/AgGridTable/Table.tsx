@@ -12,8 +12,7 @@ import { CustomToolBarPanel, ToolBarT } from './CustomToolbarPanel';
 const modules = [ClipboardModule, GridChartsModule];
 
 interface IAgGridTableProps extends AgGridReactProps, AgReactUiProps {
-    tableHeight: number | string;
-    tableData: Object[] | null;
+    tableHeight?: number | string;
     isTableLoading: boolean;
     // ############################## //
     // custom toolbar panel interface //
@@ -38,7 +37,6 @@ interface IAgGridTableProps extends AgGridReactProps, AgReactUiProps {
 export const AgGridTable = forwardRef<AgGridReact<any>, IAgGridTableProps>((props, ref) => {
     const {
         tableHeight,
-        tableData,
         isTableLoading,
         showToolbarPanel = false,
         isToolbarLoading = false,
@@ -54,6 +52,7 @@ export const AgGridTable = forwardRef<AgGridReact<any>, IAgGridTableProps>((prop
         onCloseBanner,
         onTextSearch,
         toolbarRightSection,
+        rowData,
         ...restTableProps
     } = props;
 
@@ -65,14 +64,14 @@ export const AgGridTable = forwardRef<AgGridReact<any>, IAgGridTableProps>((prop
     useEffect(() => {
         if (isTableLoading) {
             gridRef?.current?.api?.showLoadingOverlay();
-        } else if (tableData && tableData.length === 0) {
+        } else if (rowData && rowData.length === 0) {
             setTimeout(() => {
                 gridRef?.current?.api?.showNoRowsOverlay();
             }, 0);
         } else {
             gridRef?.current?.api?.hideOverlay();
         }
-    }, [isTableLoading, tableData]);
+    }, [isTableLoading, rowData]);
 
     return (
         <Box zIndex={1} width={'100%'} position={'relative'}>
@@ -97,7 +96,7 @@ export const AgGridTable = forwardRef<AgGridReact<any>, IAgGridTableProps>((prop
             <Box sx={{ height: tableHeight }} width="100%" className="ag-theme-alpine">
                 <AgGridReact
                     ref={gridRef}
-                    rowData={tableData}
+                    rowData={rowData}
                     {...restTableProps}
                     gridOptions={{
                         ...restTableProps.gridOptions,

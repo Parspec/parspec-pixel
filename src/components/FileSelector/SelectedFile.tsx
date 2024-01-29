@@ -47,6 +47,9 @@ const SelectedFile = (props: SelectedFileProps) => {
                         }
                     }
                 );
+
+                console.log('try block response-->', response);
+
                 let urlForUploading = response?.data?.signed_url;
                 await axios.put(urlForUploading, file, {
                     onUploadProgress: (progressEvent) => {

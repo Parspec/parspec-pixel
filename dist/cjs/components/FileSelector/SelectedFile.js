@@ -41,6 +41,7 @@ const SelectedFile = (props) => {
                         'content-type': 'application/json'
                     }
                 });
+                console.log('try block response-->', response);
                 let urlForUploading = (_a = response === null || response === void 0 ? void 0 : response.data) === null || _a === void 0 ? void 0 : _a.signed_url;
                 yield axios_1.default.put(urlForUploading, file, {
                     onUploadProgress: (progressEvent) => {

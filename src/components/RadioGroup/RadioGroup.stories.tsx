@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { RadioGroup } from './';
 import { Box } from '@mui/material';
+import { BodySmall } from '../Typography';
 
 export default {
     title: 'RadioGroup',
@@ -73,4 +74,51 @@ RadioGroupColumn.args = {
     options: options,
     label: 'Fruits',
     size: 'small'
+};
+
+export const BomModalExample: ComponentStory<typeof RadioGroup> = (args) => {
+    const [selectedValue, setSelectedValue] = useState('');
+
+    const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSelectedValue(() => event.target.value);
+    };
+
+    return <RadioGroup {...args} onChange={handleOnChange} value={selectedValue} />;
+};
+
+BomModalExample.args = {
+    name: 'error-feature',
+    options: [
+        {
+            value: 'schedule',
+            label: 'From a product list',
+            helper: (
+                <BodySmall fontWeight={400} sx={{ color: 'secondary.light', marginTop: -4, marginLeft: -2 }}>
+                    Schedule, Quote, Table of Contents, ...
+                </BodySmall>
+            )
+        },
+        {
+            value: 'package',
+            label: 'From an existing submittal package',
+            helper: (
+                <BodySmall
+                    fontWeight={400}
+                    sx={{
+                        color: 'secondary.light',
+                        marginTop: -4,
+                        marginLeft: -2,
+                        letterSpacing: 0
+                    }}
+                >
+                    Import a package with a product list and datasheets
+                </BodySmall>
+            )
+        },
+        { value: 'manual', label: 'Enter details manually' }
+    ],
+
+    label: 'How would you like to add products?',
+    size: 'small',
+    error: false
 };

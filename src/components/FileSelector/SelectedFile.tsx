@@ -51,6 +51,8 @@ const SelectedFile = (props: SelectedFileProps) => {
                 await axios.put(urlForUploading, file, {
                     onUploadProgress: (progressEvent) => {
                         let percentage = Math.ceil((progressEvent?.progress || 0) * 100);
+                        console.log('percentage-->', percentage);
+
                         setProgress(percentage);
                     },
                     // signal: controller?.signal,
@@ -73,6 +75,9 @@ const SelectedFile = (props: SelectedFileProps) => {
     const handleDelete = () => {
         onDelete(file);
     };
+
+    console.log('progress-->', progress);
+
     return (
         <Paper variant="outlined" sx={{ padding: 2 }}>
             <Box display="flex" justifyContent="space-between" alignItems="center">

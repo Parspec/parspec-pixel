@@ -63,9 +63,9 @@ const SelectedFile = (props: SelectedFileProps) => {
                         console.log('percentage-->', percentage);
 
                         setProgress(percentage);
-                    },
+                    }
                     // signal: controller?.signal,
-                    cancelToken: source.token
+                    // cancelToken: source.token
                 });
 
                 console.log('4 - resp-->', resp);

@@ -63,9 +63,9 @@ const SelectedFile = (props: SelectedFileProps) => {
                         console.log('percentage-->', percentage);
 
                         setProgress(percentage);
-                    }
+                    },
                     // signal: controller?.signal,
-                    // cancelToken: source.token
+                    cancelToken: source.token
                 });
 
                 console.log('4 - resp-->', resp);
@@ -90,7 +90,7 @@ const SelectedFile = (props: SelectedFileProps) => {
         onDelete(file);
     };
 
-    console.log('progress-->', progress, 'file-->', file);
+    console.log('selected file-->', 'progress-->', progress, 'file-->', file);
 
     return (
         <Paper variant="outlined" sx={{ padding: 2 }}>

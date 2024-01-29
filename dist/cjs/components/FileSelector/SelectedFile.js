@@ -29,13 +29,10 @@ const SelectedFile = (props) => {
     const [showProgress, setShowProgress] = (0, react_1.useState)(true);
     let source = axios_1.default.CancelToken.source();
     (0, react_1.useEffect)(() => {
-        console.log('0');
         const token = localStorage.getItem('token');
         const onUpload = () => __awaiter(void 0, void 0, void 0, function* () {
             var _a, _b;
-            console.log('1');
             try {
-                console.log('2');
                 let response = yield axios_1.default.post(url, {
                     file_name: (0, uuid_1.v4)() + file.name
                 }, {
@@ -44,24 +41,22 @@ const SelectedFile = (props) => {
                         'content-type': 'application/json'
                     }
                 });
-                console.log('3 - response-->', response);
                 let urlForUploading = (_a = response === null || response === void 0 ? void 0 : response.data) === null || _a === void 0 ? void 0 : _a.signed_url;
                 const resp = yield axios_1.default.put(urlForUploading, file, {
                     onUploadProgress: (progressEvent) => {
                         let percentage = Math.ceil(((progressEvent === null || progressEvent === void 0 ? void 0 : progressEvent.progress) || 0) * 100);
-                        console.log('percentage-->', percentage);
                         setProgress(percentage);
                     },
                     // signal: controller?.signal,
                     cancelToken: source.token
                 });
-                console.log('4 - resp-->', resp);
+                console.log('resp-->', resp, 'cancelToken-->', source.token);
                 setShowProgress(false);
                 let s3_file_path = (_b = response === null || response === void 0 ? void 0 : response.data) === null || _b === void 0 ? void 0 : _b.s3_file_path;
                 return handleResults({ file, progress: 100, s3_file_path }, index);
             }
             catch (err) {
-                console.log('5 - err-->', err);
+                console.log('err-->', err);
                 if ((err === null || err === void 0 ? void 0 : err.message) !== 'canceled')
                     return handleResults({ file, error: err.message }, index);
             }
@@ -71,6 +66,7 @@ const SelectedFile = (props) => {
         else
             handleResults({ file, progress: 100 }, index);
         return () => {
+            console.log('progress-->', progress);
             if (progress !== 1)
                 source.cancel();
         };
@@ -78,7 +74,6 @@ const SelectedFile = (props) => {
     const handleDelete = () => {
         onDelete(file);
     };
-    console.log('selected file-->', 'progress-->', progress, 'file-->', file);
     return ((0, jsx_runtime_1.jsx)(Paper_1.Paper, Object.assign({ variant: "outlined", sx: { padding: 2 } }, { children: (0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ display: "flex", justifyContent: "space-between", alignItems: "center" }, { children: [(0, jsx_runtime_1.jsxs)(Box_1.Box, { children: [(0, jsx_runtime_1.jsx)(Typography_1.BodySmall, Object.assign({ fontWeight: 600 }, { children: file.name })), (file === null || file === void 0 ? void 0 : file.size) && (0, jsx_runtime_1.jsxs)(Typography_1.BodySmall, { children: [(file.size / 1000).toFixed(2), " kb"] })] }), (0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ ml: "auto", display: "flex" }, { children: [url && showProgress ? (0, jsx_runtime_1.jsx)(ProgressBar_1.default, { progress: progress }) : null, (0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ ml: 2, display: "flex", alignItems: "center", gap: "8px" }, { children: [!url && isLoading ? (0, jsx_runtime_1.jsx)(CircularProgress_1.CircularProgress, { color: "primary" }) : null, !isLoading && ((0, jsx_runtime_1.jsx)(material_1.IconButton, Object.assign({ onClick: handleDelete, size: "small" }, { children: (0, jsx_runtime_1.jsx)(Icons_1.DeleteIcon, {}) })))] }))] }))] })) })));
 };
 exports.default = SelectedFile;

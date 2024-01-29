@@ -109,8 +109,6 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
             accept: acceptedFormats.length ? getAcceptedFormats(acceptedFormats) : {}
         });
 
-        console.log('file in fileselector-->', files);
-
         return (
             <>
                 <Box ref={ref} height={'100%'} width={'100%'}>

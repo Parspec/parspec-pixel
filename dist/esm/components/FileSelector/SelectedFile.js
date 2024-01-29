@@ -37,21 +37,19 @@ const SelectedFile = (props) => {
                     }
                 });
                 let urlForUploading = (_a = response === null || response === void 0 ? void 0 : response.data) === null || _a === void 0 ? void 0 : _a.signed_url;
-                const resp = yield axios.put(urlForUploading, file, {
+                yield axios.put(urlForUploading, file, {
                     onUploadProgress: (progressEvent) => {
                         let percentage = Math.ceil(((progressEvent === null || progressEvent === void 0 ? void 0 : progressEvent.progress) || 0) * 100);
                         setProgress(percentage);
-                    },
+                    }
                     // signal: controller?.signal,
-                    cancelToken: source.token
+                    // cancelToken: source.token
                 });
-                console.log('resp-->', resp, 'cancelToken-->', source.token);
                 setShowProgress(false);
                 let s3_file_path = (_b = response === null || response === void 0 ? void 0 : response.data) === null || _b === void 0 ? void 0 : _b.s3_file_path;
                 return handleResults({ file, progress: 100, s3_file_path }, index);
             }
             catch (err) {
-                console.log('err-->', err);
                 if ((err === null || err === void 0 ? void 0 : err.message) !== 'canceled')
                     return handleResults({ file, error: err.message }, index);
             }
@@ -61,7 +59,6 @@ const SelectedFile = (props) => {
         else
             handleResults({ file, progress: 100 }, index);
         return () => {
-            console.log('progress-->', progress);
             if (progress !== 1)
                 source.cancel();
         };

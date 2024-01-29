@@ -49,31 +49,26 @@ const SelectedFile = (props: SelectedFileProps) => {
                 );
 
                 let urlForUploading = response?.data?.signed_url;
-                const resp = await axios.put(urlForUploading, file, {
+                await axios.put(urlForUploading, file, {
                     onUploadProgress: (progressEvent) => {
                         let percentage = Math.ceil((progressEvent?.progress || 0) * 100);
 
                         setProgress(percentage);
-                    },
+                    }
                     // signal: controller?.signal,
-                    cancelToken: source.token
+                    // cancelToken: source.token
                 });
-
-                console.log('resp-->', resp, 'cancelToken-->', source.token);
 
                 setShowProgress(false);
                 let s3_file_path = response?.data?.s3_file_path;
                 return handleResults({ file, progress: 100, s3_file_path }, index);
             } catch (err: any) {
-                console.log('err-->', err);
-
                 if (err?.message !== 'canceled') return handleResults({ file, error: err.message }, index);
             }
         };
         if (url && !file.filepath) onUpload();
         else handleResults({ file, progress: 100 }, index);
         return () => {
-            console.log('progress-->', progress);
             if (progress !== 1) source.cancel();
         };
     }, []);

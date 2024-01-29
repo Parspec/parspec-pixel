@@ -90,7 +90,7 @@ const SelectedFile = (props: SelectedFileProps) => {
         onDelete(file);
     };
 
-    console.log('progress-->', progress);
+    console.log('progress-->', progress, 'file-->', file);
 
     return (
         <Paper variant="outlined" sx={{ padding: 2 }}>

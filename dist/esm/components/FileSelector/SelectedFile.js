@@ -73,7 +73,7 @@ const SelectedFile = (props) => {
     const handleDelete = () => {
         onDelete(file);
     };
-    console.log('progress-->', progress);
+    console.log('progress-->', progress, 'file-->', file);
     return (_jsx(Paper, Object.assign({ variant: "outlined", sx: { padding: 2 } }, { children: _jsxs(Box, Object.assign({ display: "flex", justifyContent: "space-between", alignItems: "center" }, { children: [_jsxs(Box, { children: [_jsx(BodySmall, Object.assign({ fontWeight: 600 }, { children: file.name })), (file === null || file === void 0 ? void 0 : file.size) && _jsxs(BodySmall, { children: [(file.size / 1000).toFixed(2), " kb"] })] }), _jsxs(Box, Object.assign({ ml: "auto", display: "flex" }, { children: [url && showProgress ? _jsx(ProgressBar, { progress: progress }) : null, _jsxs(Box, Object.assign({ ml: 2, display: "flex", alignItems: "center", gap: "8px" }, { children: [!url && isLoading ? _jsx(CircularProgress, { color: "primary" }) : null, !isLoading && (_jsx(IconButton, Object.assign({ onClick: handleDelete, size: "small" }, { children: _jsx(DeleteIcon, {}) })))] }))] }))] })) })));
 };
 export default SelectedFile;

@@ -35,7 +35,7 @@ interface IAgGridTableProps extends AgGridReactProps, AgReactUiProps {
     toolbarRightSection?: React.ReactNode;
 }
 
-export const AgGridTable = forwardRef<AgGridReact | null, IAgGridTableProps>((props, ref) => {
+export const AgGridTable = forwardRef<AgGridReact<any>, IAgGridTableProps>((props, ref) => {
     const {
         tableHeight,
         tableData,
@@ -57,7 +57,7 @@ export const AgGridTable = forwardRef<AgGridReact | null, IAgGridTableProps>((pr
         ...restTableProps
     } = props;
 
-    const gridRef = useRef<AgGridReact | null>(null);
+    const gridRef = useRef<AgGridReact<any>>(null);
 
     // Expose methods through the forwarded ref
     useImperativeHandle(ref, () => gridRef.current!);
@@ -95,7 +95,24 @@ export const AgGridTable = forwardRef<AgGridReact | null, IAgGridTableProps>((pr
             )}
 
             <Box sx={{ height: tableHeight }} width="100%" className="ag-theme-alpine">
-                <AgGridReact ref={gridRef} rowData={tableData} {...restTableProps} modules={modules} />
+                <AgGridReact
+                    ref={gridRef}
+                    rowData={tableData}
+                    {...restTableProps}
+                    gridOptions={{
+                        ...restTableProps.gridOptions,
+                        rowClassRules: {
+                            'row-hide': (params: any) => params?.data?.is_hidden
+                        },
+                        getRowStyle: (params) => {
+                            if (params.node.rowPinned) {
+                                return { backgroundColor: '#f8f8f8', fontWeight: 700 };
+                            }
+                            return undefined;
+                        }
+                    }}
+                    modules={modules}
+                />
             </Box>
         </Box>
     );

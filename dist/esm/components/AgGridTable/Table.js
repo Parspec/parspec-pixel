@@ -38,7 +38,14 @@ export const AgGridTable = forwardRef((props, ref) => {
             (_d = (_c = gridRef === null || gridRef === void 0 ? void 0 : gridRef.current) === null || _c === void 0 ? void 0 : _c.api) === null || _d === void 0 ? void 0 : _d.hideOverlay();
         }
     }, [isTableLoading, tableData]);
-    return (_jsxs(Box, Object.assign({ zIndex: 1, width: '100%', position: 'relative' }, { children: [showToolbarPanel && (_jsx(CustomToolBarPanel, { toolBarPanelOptions: toolBarPanelOptions, selectedRowCount: selectedRowCount, disabledToolBarButton: disabledToolBarButton, onAdd: onAdd, onDelete: onDelete, onHideUnhide: onHideUnhide, onAddDuplicates: onAddDuplicates, onMove: onMove, onCreateKit: onCreateKit, onCloseBanner: onCloseBanner, onTextSearch: onTextSearch, isToolbarLoading: isToolbarLoading, toolbarRightSection: toolbarRightSection })), _jsx(Box, Object.assign({ sx: { height: tableHeight }, width: "100%", className: "ag-theme-alpine" }, { children: _jsx(AgGridReact, Object.assign({ ref: gridRef, rowData: tableData }, restTableProps, { modules: modules })) }))] })));
+    return (_jsxs(Box, Object.assign({ zIndex: 1, width: '100%', position: 'relative' }, { children: [showToolbarPanel && (_jsx(CustomToolBarPanel, { toolBarPanelOptions: toolBarPanelOptions, selectedRowCount: selectedRowCount, disabledToolBarButton: disabledToolBarButton, onAdd: onAdd, onDelete: onDelete, onHideUnhide: onHideUnhide, onAddDuplicates: onAddDuplicates, onMove: onMove, onCreateKit: onCreateKit, onCloseBanner: onCloseBanner, onTextSearch: onTextSearch, isToolbarLoading: isToolbarLoading, toolbarRightSection: toolbarRightSection })), _jsx(Box, Object.assign({ sx: { height: tableHeight }, width: "100%", className: "ag-theme-alpine" }, { children: _jsx(AgGridReact, Object.assign({ ref: gridRef, rowData: tableData }, restTableProps, { gridOptions: Object.assign(Object.assign({}, restTableProps.gridOptions), { rowClassRules: {
+                            'row-hide': (params) => { var _a; return (_a = params === null || params === void 0 ? void 0 : params.data) === null || _a === void 0 ? void 0 : _a.is_hidden; }
+                        }, getRowStyle: (params) => {
+                            if (params.node.rowPinned) {
+                                return { backgroundColor: '#f8f8f8', fontWeight: 700 };
+                            }
+                            return undefined;
+                        } }), modules: modules })) }))] })));
 });
 const defaultColDef = {
     flex: 1,

@@ -22,5 +22,5 @@ interface IAgGridTableProps extends AgGridReactProps, AgReactUiProps {
     title?: string;
     toolbarRightSection?: React.ReactNode;
 }
-export declare const AgGridTable: import("react").ForwardRefExoticComponent<IAgGridTableProps & import("react").RefAttributes<AgGridReact<any> | null>>;
+export declare const AgGridTable: import("react").ForwardRefExoticComponent<IAgGridTableProps & import("react").RefAttributes<AgGridReact<any>>>;
 export {};

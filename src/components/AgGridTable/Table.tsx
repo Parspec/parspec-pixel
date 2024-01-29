@@ -13,7 +13,7 @@ const modules = [ClipboardModule, GridChartsModule];
 
 interface IAgGridTableProps {
     tableHeight: number | string;
-    tableData: Object[];
+    tableData: Object[] | null;
     rowHeight: number;
     isTableLoading: boolean;
     columnDefs: (ColDef | ColGroupDef)[] | null;

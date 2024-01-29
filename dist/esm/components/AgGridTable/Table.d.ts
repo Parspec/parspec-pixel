@@ -1,14 +1,14 @@
 /// <reference types="react" />
 import { ProcessCellForExportParams, GetRowIdParams, ColDef, ColGroupDef, CellValueChangedEvent, RowDragEvent, SelectionChangedEvent, TabToNextCellParams, CellPosition } from 'ag-grid-community';
-import './styles.css';
+import './agGridStyles.css';
 import { ToolBarT } from './CustomToolbarPanel';
 interface IAgGridTableProps {
     tableHeight: number | string;
-    tableData: Object[];
+    tableData: Object[] | null;
     rowHeight: number;
     isTableLoading: boolean;
     columnDefs: (ColDef | ColGroupDef)[] | null;
-    defaultColDef: ColDef;
+    defaultColDef?: ColDef;
     getRowId: (params: GetRowIdParams<any, any>) => any;
     suppressRowClickSelection?: boolean;
     enableRangeSelection?: boolean;

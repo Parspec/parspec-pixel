@@ -4,12 +4,11 @@ import { AgGridReact } from 'ag-grid-react';
 import { ClipboardModule } from '@ag-grid-enterprise/clipboard';
 import { GridChartsModule } from '@ag-grid-enterprise/charts';
 import { Box } from '../Box';
-import './styles.css';
+import './agGridStyles.css';
 import { CustomToolBarPanel } from './CustomToolbarPanel';
 const modules = [ClipboardModule, GridChartsModule];
-const toolBarPanelDefaultOptions = ['delete', 'search', 'clearFilters', 'hide', 'unhide', 'selectedItems', 'duplicate', 'add', 'createKit', 'move'];
 export const AgGridTable = forwardRef((props, ref) => {
-    const { tableHeight, tableData, isTableLoading, getRowId, rowHeight, suppressRowClickSelection, enableRangeSelection, enableFillHandle, undoRedoCellEditing, enterNavigatesVerticallyAfterEdit, enterNavigatesVertically, rowDragManaged, rowSelection, suppressContextMenu, rowClassRules, getRowStyle, context, pinnedBottomRowData, columnDefs, defaultColDef, onCellValueChanged, onRowDragEnd, onSelectionChanged, tabToNextCell, processCellFromClipboard, loadingOverlayComponent, noRowsOverlayComponent, isTableHaveFooter = false, onGridReady, processCellForClipboard, quickFilterText, showToolbarPanel = false, isToolbarLoading = false, toolBarPanelOptions = toolBarPanelDefaultOptions, selectedRowCount = 0, disabledToolBarButton = false, onAdd, onDelete, onHideUnhide, onAddDuplicates, onMove, onCreateKit, onCloseBanner, onTextSearch, toolbarRightSection } = props;
+    const { tableHeight, tableData, isTableLoading, getRowId, rowHeight, suppressRowClickSelection, enableRangeSelection, enableFillHandle, undoRedoCellEditing, enterNavigatesVerticallyAfterEdit, enterNavigatesVertically, rowDragManaged, rowSelection, suppressContextMenu, rowClassRules, getRowStyle, context, pinnedBottomRowData, columnDefs, defaultColDef, onCellValueChanged, onRowDragEnd, onSelectionChanged, tabToNextCell, processCellFromClipboard, loadingOverlayComponent, noRowsOverlayComponent, isTableHaveFooter = false, onGridReady, processCellForClipboard, quickFilterText, showToolbarPanel = false, isToolbarLoading = false, toolBarPanelOptions = [], selectedRowCount = 0, disabledToolBarButton = false, onAdd, onDelete, onHideUnhide, onAddDuplicates, onMove, onCreateKit, onCloseBanner, onTextSearch, toolbarRightSection } = props;
     const gridRef = useRef(null);
     // Expose methods through the forwarded ref
     useImperativeHandle(ref, () => ({
@@ -60,4 +59,15 @@ export const AgGridTable = forwardRef((props, ref) => {
                         isTableHaveFooter: isTableHaveFooter
                     }, onGridReady: onGridReady, processCellForClipboard: processCellForClipboard, quickFilterText: quickFilterText }) }))] })));
 });
+const defaultColDef = {
+    flex: 1,
+    sortable: false,
+    menuTabs: [],
+    resizable: true,
+    suppressFillHandle: true,
+    suppressMovable: true
+};
+AgGridTable.defaultProps = {
+    defaultColDef: defaultColDef
+};
 //# sourceMappingURL=Table.js.map

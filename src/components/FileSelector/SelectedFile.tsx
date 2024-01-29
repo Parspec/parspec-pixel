@@ -32,9 +32,15 @@ const SelectedFile = (props: SelectedFileProps) => {
     let source = axios.CancelToken.source();
 
     useEffect(() => {
+        console.log('0');
+
         const token = localStorage.getItem('token');
         const onUpload = async () => {
+            console.log('1');
+
             try {
+                console.log('2');
+
                 let response = await axios.post(
                     url,
                     {
@@ -48,10 +54,10 @@ const SelectedFile = (props: SelectedFileProps) => {
                     }
                 );
 
-                console.log('try block response-->', response);
+                console.log('3 - response-->', response);
 
                 let urlForUploading = response?.data?.signed_url;
-                await axios.put(urlForUploading, file, {
+                const resp = await axios.put(urlForUploading, file, {
                     onUploadProgress: (progressEvent) => {
                         let percentage = Math.ceil((progressEvent?.progress || 0) * 100);
                         console.log('percentage-->', percentage);
@@ -61,10 +67,15 @@ const SelectedFile = (props: SelectedFileProps) => {
                     // signal: controller?.signal,
                     cancelToken: source.token
                 });
+
+                console.log('4 - resp-->', resp);
+
                 setShowProgress(false);
                 let s3_file_path = response?.data?.s3_file_path;
                 return handleResults({ file, progress: 100, s3_file_path }, index);
             } catch (err: any) {
+                console.log('5 - err-->', err);
+
                 if (err?.message !== 'canceled') return handleResults({ file, error: err.message }, index);
             }
         };

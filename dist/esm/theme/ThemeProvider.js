@@ -70,9 +70,8 @@ export const theme = createTheme({
         },
         neutral: {
             light: '#F8FAFC',
-            // main: '#F1F5F9',
             main: '#E2E8F0',
-            dark: '#64748B',
+            dark: '#334155',
             contrastText: '#091535'
         },
         success: {

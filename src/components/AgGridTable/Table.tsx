@@ -71,7 +71,7 @@ export const AgGridTable = forwardRef<AgGridReact<any>, IAgGridTableProps>((prop
         } else if (rowData && rowData.length === 0) {
             setTimeout(() => {
                 gridRef?.current?.api?.showNoRowsOverlay();
-            }, 0);
+            });
         } else {
             gridRef?.current?.api?.hideOverlay();
         }

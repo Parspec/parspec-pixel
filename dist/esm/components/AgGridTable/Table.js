@@ -36,7 +36,7 @@ export const AgGridTable = forwardRef((props, ref) => {
             setTimeout(() => {
                 var _a, _b;
                 (_b = (_a = gridRef === null || gridRef === void 0 ? void 0 : gridRef.current) === null || _a === void 0 ? void 0 : _a.api) === null || _b === void 0 ? void 0 : _b.showNoRowsOverlay();
-            }, 0);
+            });
         }
         else {
             (_d = (_c = gridRef === null || gridRef === void 0 ? void 0 : gridRef.current) === null || _c === void 0 ? void 0 : _c.api) === null || _d === void 0 ? void 0 : _d.hideOverlay();

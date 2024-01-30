@@ -1,4 +1,4 @@
-import { forwardRef, useImperativeHandle, useRef, useEffect } from 'react';
+import { forwardRef, useImperativeHandle, useRef, useEffect, useState } from 'react';
 import { AgGridReact, AgGridReactProps, AgReactUiProps } from 'ag-grid-react';
 import { ColDef } from 'ag-grid-community';
 import { ClipboardModule } from '@ag-grid-enterprise/clipboard';
@@ -57,11 +57,15 @@ export const AgGridTable = forwardRef<AgGridReact<any>, IAgGridTableProps>((prop
     } = props;
 
     const gridRef = useRef<AgGridReact<any>>(null);
+    const [isGridReady, setGridReady] = useState(false);
 
     // Expose methods through the forwarded ref
     useImperativeHandle(ref, () => gridRef.current!);
 
     useEffect(() => {
+        if (isGridReady) {
+            return;
+        }
         if (isTableLoading) {
             gridRef?.current?.api?.showLoadingOverlay();
         } else if (rowData && rowData.length === 0) {
@@ -71,7 +75,7 @@ export const AgGridTable = forwardRef<AgGridReact<any>, IAgGridTableProps>((prop
         } else {
             gridRef?.current?.api?.hideOverlay();
         }
-    }, [isTableLoading, rowData]);
+    }, [isGridReady, isTableLoading, rowData]);
 
     return (
         <Box zIndex={1} width={'100%'} position={'relative'}>
@@ -111,6 +115,7 @@ export const AgGridTable = forwardRef<AgGridReact<any>, IAgGridTableProps>((prop
                         }
                     }}
                     modules={modules}
+                    onGridReady={() => setGridReady(true)}
                 />
             </Box>
         </Box>

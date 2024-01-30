@@ -10,7 +10,7 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { forwardRef, useImperativeHandle, useRef, useEffect } from 'react';
+import { forwardRef, useImperativeHandle, useRef, useEffect, useState } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import { ClipboardModule } from '@ag-grid-enterprise/clipboard';
 import { GridChartsModule } from '@ag-grid-enterprise/charts';
@@ -21,10 +21,14 @@ const modules = [ClipboardModule, GridChartsModule];
 export const AgGridTable = forwardRef((props, ref) => {
     const { tableHeight, isTableLoading, showToolbarPanel = false, isToolbarLoading = false, toolBarPanelOptions = [], selectedRowCount = 0, disabledToolBarButton = false, onAdd, onDelete, onHideUnhide, onAddDuplicates, onMove, onCreateKit, onCloseBanner, onTextSearch, toolbarRightSection, rowData } = props, restTableProps = __rest(props, ["tableHeight", "isTableLoading", "showToolbarPanel", "isToolbarLoading", "toolBarPanelOptions", "selectedRowCount", "disabledToolBarButton", "onAdd", "onDelete", "onHideUnhide", "onAddDuplicates", "onMove", "onCreateKit", "onCloseBanner", "onTextSearch", "toolbarRightSection", "rowData"]);
     const gridRef = useRef(null);
+    const [isGridReady, setGridReady] = useState(false);
     // Expose methods through the forwarded ref
     useImperativeHandle(ref, () => gridRef.current);
     useEffect(() => {
         var _a, _b, _c, _d;
+        if (isGridReady) {
+            return;
+        }
         if (isTableLoading) {
             (_b = (_a = gridRef === null || gridRef === void 0 ? void 0 : gridRef.current) === null || _a === void 0 ? void 0 : _a.api) === null || _b === void 0 ? void 0 : _b.showLoadingOverlay();
         }
@@ -37,7 +41,7 @@ export const AgGridTable = forwardRef((props, ref) => {
         else {
             (_d = (_c = gridRef === null || gridRef === void 0 ? void 0 : gridRef.current) === null || _c === void 0 ? void 0 : _c.api) === null || _d === void 0 ? void 0 : _d.hideOverlay();
         }
-    }, [isTableLoading, rowData]);
+    }, [isGridReady, isTableLoading, rowData]);
     return (_jsxs(Box, Object.assign({ zIndex: 1, width: '100%', position: 'relative' }, { children: [showToolbarPanel && (_jsx(CustomToolBarPanel, { toolBarPanelOptions: toolBarPanelOptions, selectedRowCount: selectedRowCount, disabledToolBarButton: disabledToolBarButton, onAdd: onAdd, onDelete: onDelete, onHideUnhide: onHideUnhide, onAddDuplicates: onAddDuplicates, onMove: onMove, onCreateKit: onCreateKit, onCloseBanner: onCloseBanner, onTextSearch: onTextSearch, isToolbarLoading: isToolbarLoading, toolbarRightSection: toolbarRightSection })), _jsx(Box, Object.assign({ sx: { height: tableHeight }, width: "100%", className: "ag-theme-alpine" }, { children: _jsx(AgGridReact, Object.assign({ ref: gridRef, rowData: rowData }, restTableProps, { gridOptions: Object.assign(Object.assign({}, restTableProps.gridOptions), { rowClassRules: {
                             'row-hide': (params) => { var _a; return (_a = params === null || params === void 0 ? void 0 : params.data) === null || _a === void 0 ? void 0 : _a.is_hidden; }
                         }, getRowStyle: (params) => {
@@ -45,7 +49,7 @@ export const AgGridTable = forwardRef((props, ref) => {
                                 return { backgroundColor: '#f8f8f8', fontWeight: 700 };
                             }
                             return undefined;
-                        } }), modules: modules })) }))] })));
+                        } }), modules: modules, onGridReady: () => setGridReady(true) })) }))] })));
 });
 const defaultColDef = {
     flex: 1,

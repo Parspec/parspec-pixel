@@ -26,7 +26,7 @@ export const AgGridTable = forwardRef((props, ref) => {
     useImperativeHandle(ref, () => gridRef.current);
     useEffect(() => {
         var _a, _b, _c, _d;
-        if (isGridReady) {
+        if (!isGridReady) {
             return;
         }
         if (isTableLoading) {

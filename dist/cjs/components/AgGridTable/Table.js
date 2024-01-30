@@ -29,7 +29,7 @@ exports.AgGridTable = (0, react_1.forwardRef)((props, ref) => {
     (0, react_1.useImperativeHandle)(ref, () => gridRef.current);
     (0, react_1.useEffect)(() => {
         var _a, _b, _c, _d;
-        if (isGridReady) {
+        if (!isGridReady) {
             return;
         }
         if (isTableLoading) {

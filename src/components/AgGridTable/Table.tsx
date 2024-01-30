@@ -63,7 +63,7 @@ export const AgGridTable = forwardRef<AgGridReact<any>, IAgGridTableProps>((prop
     useImperativeHandle(ref, () => gridRef.current!);
 
     useEffect(() => {
-        if (isGridReady) {
+        if (!isGridReady) {
             return;
         }
         if (isTableLoading) {

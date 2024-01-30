@@ -25,7 +25,7 @@ export const AgGridTable = forwardRef((props, ref) => {
     // Expose methods through the forwarded ref
     useImperativeHandle(ref, () => gridRef.current);
     useEffect(() => {
-        var _a, _b, _c, _d;
+        var _a, _b, _c, _d, _e, _f;
         if (!isGridReady) {
             return;
         }
@@ -33,13 +33,10 @@ export const AgGridTable = forwardRef((props, ref) => {
             (_b = (_a = gridRef === null || gridRef === void 0 ? void 0 : gridRef.current) === null || _a === void 0 ? void 0 : _a.api) === null || _b === void 0 ? void 0 : _b.showLoadingOverlay();
         }
         else if (rowData && rowData.length === 0) {
-            setTimeout(() => {
-                var _a, _b;
-                (_b = (_a = gridRef === null || gridRef === void 0 ? void 0 : gridRef.current) === null || _a === void 0 ? void 0 : _a.api) === null || _b === void 0 ? void 0 : _b.showNoRowsOverlay();
-            });
+            (_d = (_c = gridRef === null || gridRef === void 0 ? void 0 : gridRef.current) === null || _c === void 0 ? void 0 : _c.api) === null || _d === void 0 ? void 0 : _d.showNoRowsOverlay();
         }
         else {
-            (_d = (_c = gridRef === null || gridRef === void 0 ? void 0 : gridRef.current) === null || _c === void 0 ? void 0 : _c.api) === null || _d === void 0 ? void 0 : _d.hideOverlay();
+            (_f = (_e = gridRef === null || gridRef === void 0 ? void 0 : gridRef.current) === null || _e === void 0 ? void 0 : _e.api) === null || _f === void 0 ? void 0 : _f.hideOverlay();
         }
     }, [isGridReady, isTableLoading, rowData]);
     return (_jsxs(Box, Object.assign({ zIndex: 1, width: '100%', position: 'relative' }, { children: [showToolbarPanel && (_jsx(CustomToolBarPanel, { toolBarPanelOptions: toolBarPanelOptions, selectedRowCount: selectedRowCount, disabledToolBarButton: disabledToolBarButton, onAdd: onAdd, onDelete: onDelete, onHideUnhide: onHideUnhide, onAddDuplicates: onAddDuplicates, onMove: onMove, onCreateKit: onCreateKit, onCloseBanner: onCloseBanner, onTextSearch: onTextSearch, isToolbarLoading: isToolbarLoading, toolbarRightSection: toolbarRightSection })), _jsx(Box, Object.assign({ sx: { height: tableHeight }, width: "100%", className: "ag-theme-alpine" }, { children: _jsx(AgGridReact, Object.assign({ ref: gridRef, rowData: rowData }, restTableProps, { gridOptions: Object.assign(Object.assign({}, restTableProps.gridOptions), { rowClassRules: {

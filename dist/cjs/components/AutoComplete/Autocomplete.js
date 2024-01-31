@@ -47,7 +47,7 @@ exports.Autocomplete = (0, react_1.forwardRef)((_a, ref) => {
             filteredOptions = options.filter((option) => option[optionlabelkeyname] === state[optionlabelkeyname]);
         }
         return filteredOptions;
-    }, sx, inputProps, loading } = _a, props = __rest(_a, ["id", "label", "placeholder", "color", "variant", "onChange", "optionlabelkeyname", "freeSolo", "fieldSize", "onBlur", "helperText", "error", "options", "onTextFieldChange", "limitTags", "disabled", "value", "autoFocus", "blurOnEmptyInput", "maxLength", "filterOptionsCallBack", "sx", "inputProps", "loading"]);
+    }, sx, inputProps, loading, customOptionLabel, getOptionDisabled } = _a, props = __rest(_a, ["id", "label", "placeholder", "color", "variant", "onChange", "optionlabelkeyname", "freeSolo", "fieldSize", "onBlur", "helperText", "error", "options", "onTextFieldChange", "limitTags", "disabled", "value", "autoFocus", "blurOnEmptyInput", "maxLength", "filterOptionsCallBack", "sx", "inputProps", "loading", "customOptionLabel", "getOptionDisabled"]);
     const [state, setState] = (0, react_1.useState)(value || '');
     const handleOnChange = (event, newValue) => {
         onChange(Object.assign(Object.assign({}, event), { target: Object.assign(Object.assign({}, event.target), { value: newValue }) }));
@@ -85,7 +85,10 @@ exports.Autocomplete = (0, react_1.forwardRef)((_a, ref) => {
             onTextFieldChange(event, value);
         }
     };
-    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: (0, jsx_runtime_1.jsx)(Autocomplete_1.default, Object.assign({ fullWidth: true }, props, { options: options, ref: ref, sx: sx, id: id, onBlur: handleFocusOut, onChange: handleOnChange, getOptionLabel: (option) => {
+    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: (0, jsx_runtime_1.jsx)(Autocomplete_1.default, Object.assign({ fullWidth: true }, props, { options: options, ref: ref, sx: sx, id: id, getOptionDisabled: getOptionDisabled, onBlur: handleFocusOut, onChange: handleOnChange, getOptionLabel: (option) => {
+                if (customOptionLabel) {
+                    return customOptionLabel(option);
+                }
                 if (typeof option === 'object') {
                     return `${option[optionlabelkeyname]}`;
                 }

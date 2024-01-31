@@ -39,7 +39,7 @@ export interface AutocompleteProps {
     sx?: SxProps;
     inputProps?: any;
     loading?: boolean;
-    customOptionLabel?: (option: OptionType | string) => string;
+    getOptionLabel?: (option: OptionType | string) => string;
     getOptionDisabled?: (option: OptionType | string) => boolean;
 }
 
@@ -78,7 +78,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
             sx,
             inputProps,
             loading,
-            customOptionLabel,
+            getOptionLabel,
             getOptionDisabled,
             ...props
         },
@@ -138,8 +138,8 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
                     onBlur={handleFocusOut}
                     onChange={handleOnChange}
                     getOptionLabel={(option: OptionType | string): string => {
-                        if (customOptionLabel) {
-                            return customOptionLabel(option);
+                        if (getOptionLabel) {
+                            return getOptionLabel(option);
                         }
                         if (typeof option === 'object') {
                             return `${option[optionlabelkeyname]}`;

@@ -80,5 +80,6 @@ export {
     MoveDown as MoveIcon,
     FileUpload as FileUploadIcon,
     MoveDown as MoveDownIcon,
-    KeyboardArrowDown as KeyboardArrowDownIcon
+    KeyboardArrowDown as KeyboardArrowDownIcon,
+    PersonSearchOutlined as CMSIcon
 } from '@mui/icons-material';

@@ -34,7 +34,7 @@ export interface AutocompleteProps {
     sx?: SxProps;
     inputProps?: any;
     loading?: boolean;
-    customOptionLabel?: (option: OptionType | string) => string;
+    getOptionLabel?: (option: OptionType | string) => string;
     getOptionDisabled?: (option: OptionType | string) => boolean;
 }
 export declare const Autocomplete: React.FC<AutocompleteProps>;

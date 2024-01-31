@@ -39,6 +39,8 @@ export interface AutocompleteProps {
     sx?: SxProps;
     inputProps?: any;
     loading?: boolean;
+    customOptionLabel?: (option: OptionType | string) => string;
+    getOptionDisabled?: (option: OptionType | string) => boolean;
 }
 
 const filter = createFilterOptions<OptionType>();
@@ -76,6 +78,8 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
             sx,
             inputProps,
             loading,
+            customOptionLabel,
+            getOptionDisabled,
             ...props
         },
         ref
@@ -130,13 +134,16 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
                     ref={ref}
                     sx={sx}
                     id={id}
+                    getOptionDisabled={getOptionDisabled}
                     onBlur={handleFocusOut}
                     onChange={handleOnChange}
                     getOptionLabel={(option: OptionType | string): string => {
+                        if (customOptionLabel) {
+                            return customOptionLabel(option);
+                        }
                         if (typeof option === 'object') {
                             return `${option[optionlabelkeyname]}`;
                         }
-
                         return option;
                     }}
                     value={value}

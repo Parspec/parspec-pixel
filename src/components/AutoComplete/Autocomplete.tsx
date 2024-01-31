@@ -3,7 +3,8 @@ import { forwardRef, useState, useEffect, ReactNode } from 'react';
 import { TextField } from '../TextField';
 import { default as MUIAutocomplete, createFilterOptions } from '@mui/material/Autocomplete';
 import { FilterOptionsState } from '@mui/material/useAutocomplete';
-import { SxProps } from '@mui/material';
+import { InputAdornment, SxProps } from '@mui/material';
+import { SearchIcon } from '../Icons';
 
 export type OptionType<T = {}> = {
     [index: string]: string | number;
@@ -39,6 +40,7 @@ export interface AutocompleteProps {
     sx?: SxProps;
     inputProps?: any;
     loading?: boolean;
+    showSearchIcon?: boolean;
 }
 
 const filter = createFilterOptions<OptionType>();
@@ -76,6 +78,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
             sx,
             inputProps,
             loading,
+            showSearchIcon,
             ...props
         },
         ref
@@ -156,6 +159,15 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
                             placeholder={placeholder}
                             autoFocus={autoFocus}
                             inputProps={{ ...params.inputProps, ...inputProps, maxLength }}
+                            InputProps={{
+                                ...(showSearchIcon && {
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <SearchIcon />
+                                        </InputAdornment>
+                                    )
+                                })
+                            }}
                         />
                     )}
                     disabled={disabled}

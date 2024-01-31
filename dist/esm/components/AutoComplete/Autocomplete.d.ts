@@ -34,5 +34,6 @@ export interface AutocompleteProps {
     sx?: SxProps;
     inputProps?: any;
     loading?: boolean;
+    showSearchIcon?: boolean;
 }
 export declare const Autocomplete: React.FC<AutocompleteProps>;

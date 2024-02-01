@@ -35,6 +35,7 @@ export interface AutocompleteProps {
     blurOnEmptyInput?: (inputValue: OptionType | string) => void;
     renderOption?: (props: any, option: OptionType | string) => ReactNode;
     open?: boolean;
+    onOpen?: () => void;
     maxLength?: number;
     sx?: SxProps;
     inputProps?: any;

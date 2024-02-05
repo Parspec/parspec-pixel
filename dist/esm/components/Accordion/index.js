@@ -21,7 +21,7 @@ const commonSxStyles = {
     pointerEvents: 'auto'
 };
 export const Accordion = forwardRef((_a, ref) => {
-    var { options, getPanel } = _a, rest = __rest(_a, ["options", "getPanel"]);
+    var { options, getPanel, summaryPointerEvent } = _a, rest = __rest(_a, ["options", "getPanel", "summaryPointerEvent"]);
     const [expanded, setExpanded] = useState(options[0]['labelId']);
     const handleAccordionOnChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
@@ -35,7 +35,7 @@ export const Accordion = forwardRef((_a, ref) => {
                             borderBottom: '1px solid',
                             borderColor: 'neutral.main',
                             pointerEvents: 'none'
-                        }, expandIcon: _jsx(IconButton, { children: _jsx(ExpandMoreIcon, { sx: commonSxStyles }) }) }, { children: _jsxs(Box, Object.assign({ display: 'flex', justifyContent: 'space-between', width: '100%', onClick: (e) => e.stopPropagation() }, { children: [_jsx(Box, Object.assign({ sx: commonSxStyles }, { children: item.summary })), (item === null || item === void 0 ? void 0 : item.rightSummary) && _jsx(Box, Object.assign({ sx: commonSxStyles }, { children: item.rightSummary }))] })) })), _jsx(AccordionDetails, { children: item.details })] }), index));
+                        }, expandIcon: _jsx(IconButton, { children: _jsx(ExpandMoreIcon, { sx: commonSxStyles }) }) }, { children: _jsxs(Box, Object.assign({ display: 'flex', justifyContent: 'space-between', width: '100%', onClick: (e) => e.stopPropagation() }, { children: [_jsx(Box, Object.assign({ sx: { pointerEvents: summaryPointerEvent ? summaryPointerEvent : 'auto' } }, { children: item.summary })), (item === null || item === void 0 ? void 0 : item.rightSummary) && _jsx(Box, Object.assign({ sx: commonSxStyles }, { children: item.rightSummary }))] })) })), _jsx(AccordionDetails, { children: item.details })] }), index));
         }) }));
 });
 //# sourceMappingURL=index.js.map

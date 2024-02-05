@@ -9,6 +9,7 @@ interface AccordionMetaData {
 export interface AccordionProps extends Omit<MUIAccordionProps, 'classes' | 'children'> {
     options: AccordionMetaData[];
     getPanel?: (label: string) => void;
+    summaryPointerEvent?: string;
 }
 export declare const Accordion: React.FC<AccordionProps>;
 export {};

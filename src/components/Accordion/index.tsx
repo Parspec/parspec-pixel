@@ -18,13 +18,14 @@ interface AccordionMetaData {
 export interface AccordionProps extends Omit<MUIAccordionProps, 'classes' | 'children'> {
     options: AccordionMetaData[];
     getPanel?: (label: string) => void;
+    summaryPointerEvent?: string;
 }
 
 const commonSxStyles = {
     pointerEvents: 'auto'
 };
 
-export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, AccordionProps>(({ options, getPanel, ...rest }, ref) => {
+export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, AccordionProps>(({ options, getPanel, summaryPointerEvent, ...rest }, ref) => {
     const [expanded, setExpanded] = useState<string | false>(options[0]['labelId']);
 
     const handleAccordionOnChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
@@ -52,7 +53,7 @@ export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, Ac
                             }
                         >
                             <Box display={'flex'} justifyContent={'space-between'} width={'100%'} onClick={(e) => e.stopPropagation()}>
-                                <Box sx={commonSxStyles}>{item.summary}</Box>
+                                <Box sx={{ pointerEvents: summaryPointerEvent ? summaryPointerEvent : 'auto' }}>{item.summary}</Box>
                                 {item?.rightSummary && <Box sx={commonSxStyles}>{item.rightSummary}</Box>}
                             </Box>
                         </AccordionSummary>

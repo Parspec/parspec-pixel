@@ -40,7 +40,7 @@ export interface AutocompleteProps {
     sx?: SxProps;
     inputProps?: any;
     loading?: boolean;
-    onClose?: () => void;
+    onClose?: (event: any) => void;
     getOptionLabel?: (option: OptionType | string) => string;
     getOptionDisabled?: (option: OptionType | string) => boolean;
 }

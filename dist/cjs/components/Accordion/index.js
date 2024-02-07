@@ -21,8 +21,13 @@ const Accordion_1 = __importDefault(require("@mui/material/Accordion"));
 const AccordionSummary_1 = __importDefault(require("@mui/material/AccordionSummary"));
 const AccordionDetails_1 = __importDefault(require("@mui/material/AccordionDetails"));
 const ExpandMore_1 = __importDefault(require("@mui/icons-material/ExpandMore"));
+const Box_1 = require("../Box");
+const IconButton_1 = require("../IconButton");
+const commonSxStyles = {
+    pointerEvents: 'auto'
+};
 exports.Accordion = (0, react_1.forwardRef)((_a, ref) => {
-    var { options, getPanel } = _a, rest = __rest(_a, ["options", "getPanel"]);
+    var { options, getPanel, summaryPointerEvent } = _a, rest = __rest(_a, ["options", "getPanel", "summaryPointerEvent"]);
     const [expanded, setExpanded] = (0, react_1.useState)(options[0]['labelId']);
     const handleAccordionOnChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
@@ -34,8 +39,9 @@ exports.Accordion = (0, react_1.forwardRef)((_a, ref) => {
             return ((0, jsx_runtime_1.jsxs)(Accordion_1.default, Object.assign({ ref: ref, TransitionProps: { unmountOnExit: true } }, rest, { expanded: expanded === item.labelId, onChange: handleAccordionOnChange(item.labelId) }, { children: [(0, jsx_runtime_1.jsx)(AccordionSummary_1.default, Object.assign({ sx: {
                             flexDirection: 'row-reverse',
                             borderBottom: '1px solid',
-                            borderColor: 'neutral.main'
-                        }, expandIcon: (0, jsx_runtime_1.jsx)(ExpandMore_1.default, {}) }, { children: item.summary })), (0, jsx_runtime_1.jsx)(AccordionDetails_1.default, { children: item.details })] }), index));
+                            borderColor: 'neutral.main',
+                            pointerEvents: 'none'
+                        }, expandIcon: (0, jsx_runtime_1.jsx)(IconButton_1.IconButton, { children: (0, jsx_runtime_1.jsx)(ExpandMore_1.default, { sx: commonSxStyles }) }) }, { children: (0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ display: 'flex', justifyContent: 'space-between', width: '100%', onClick: (e) => e.stopPropagation() }, { children: [(0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ sx: { pointerEvents: summaryPointerEvent ? summaryPointerEvent : 'auto' } }, { children: item.summary })), (item === null || item === void 0 ? void 0 : item.rightSummary) && (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ sx: commonSxStyles }, { children: item.rightSummary }))] })) })), (0, jsx_runtime_1.jsx)(AccordionDetails_1.default, { children: item.details })] }), index));
         }) }));
 });
 //# sourceMappingURL=index.js.map

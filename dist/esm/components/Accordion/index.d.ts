@@ -4,10 +4,12 @@ interface AccordionMetaData {
     summary: React.ReactNode;
     details: React.ReactNode;
     labelId: string;
+    rightSummary?: React.ReactNode;
 }
 export interface AccordionProps extends Omit<MUIAccordionProps, 'classes' | 'children'> {
     options: AccordionMetaData[];
     getPanel?: (label: string) => void;
+    summaryPointerEvent?: string;
 }
 export declare const Accordion: React.FC<AccordionProps>;
 export {};

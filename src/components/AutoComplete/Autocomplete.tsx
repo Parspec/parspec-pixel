@@ -1,4 +1,4 @@
-import { forwardRef, useState, useEffect } from 'react';
+import { forwardRef, useState, useEffect, ReactNode } from 'react';
 
 import { TextField } from '../TextField';
 import { default as MUIAutocomplete, createFilterOptions } from '@mui/material/Autocomplete';
@@ -31,8 +31,13 @@ export interface AutocompleteProps {
     disabled?: boolean;
     clearOnBlur?: boolean;
     filterOptionsCallBack?: (options: OptionType[], params: FilterOptionsState<OptionType>) => OptionType[];
+    autoFocus?: boolean;
+    blurOnEmptyInput?: (inputValue: OptionType | string) => void;
+    renderOption?: (props: any, option: OptionType | string) => ReactNode;
+    open?: boolean;
     maxLength?: number;
     sx?: SxProps;
+    inputProps?: any;
 }
 
 const filter = createFilterOptions<OptionType>();
@@ -57,6 +62,8 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
             limitTags,
             disabled,
             value,
+            autoFocus,
+            blurOnEmptyInput,
             maxLength = 255,
             filterOptionsCallBack = (options: OptionType[], params: FilterOptionsState<OptionType>) => {
                 let filteredOptions = filter(options, params);
@@ -66,6 +73,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
                 return filteredOptions;
             },
             sx,
+            inputProps,
             ...props
         },
         ref
@@ -99,6 +107,8 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
                 }
                 setState(inputValue);
                 onBlur(inputValue);
+            } else {
+                if (blurOnEmptyInput) blurOnEmptyInput(inputValue);
             }
         };
 
@@ -142,7 +152,8 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
                             color={color}
                             label={label}
                             placeholder={placeholder}
-                            inputProps={{ ...params.inputProps, maxLength }}
+                            autoFocus={autoFocus}
+                            inputProps={{ ...params.inputProps, ...inputProps, maxLength }}
                         />
                     )}
                     disabled={disabled}
@@ -159,5 +170,6 @@ Autocomplete.defaultProps = {
     fieldSize: 'small',
     multiple: false,
     helperText: '',
-    error: false
+    error: false,
+    autoFocus: false
 };

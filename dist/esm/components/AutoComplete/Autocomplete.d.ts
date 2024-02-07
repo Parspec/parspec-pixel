@@ -30,8 +30,13 @@ export interface AutocompleteProps {
     blurOnEmptyInput?: (inputValue: OptionType | string) => void;
     renderOption?: (props: any, option: OptionType | string) => ReactNode;
     open?: boolean;
+    onOpen?: () => void;
     maxLength?: number;
     sx?: SxProps;
     inputProps?: any;
+    loading?: boolean;
+    forcePopupIcon?: boolean;
+    getOptionLabel?: (option: OptionType | string) => string;
+    getOptionDisabled?: (option: OptionType | string) => boolean;
 }
 export declare const Autocomplete: React.FC<AutocompleteProps>;

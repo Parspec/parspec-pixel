@@ -31,7 +31,11 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(({ options
             {options.map((item, index) => (
                 <>
                     <FormControlLabel key={index} value={item.value} control={<Radio size={size} disabled={disabled} />} label={item.label} />
-                    {item.helper && !rest.row && <Box ml={8}>{item.helper}</Box>}
+                    {item.helper && !rest.row && (
+                        <Box ml={8} mt={2}>
+                            {item.helper}
+                        </Box>
+                    )}
                 </>
             ))}
         </MUIRadioGroup>

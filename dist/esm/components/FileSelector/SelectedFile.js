@@ -41,9 +41,9 @@ const SelectedFile = (props) => {
                     onUploadProgress: (progressEvent) => {
                         let percentage = Math.ceil(((progressEvent === null || progressEvent === void 0 ? void 0 : progressEvent.progress) || 0) * 100);
                         setProgress(percentage);
-                    },
+                    }
                     // signal: controller?.signal,
-                    cancelToken: source.token
+                    // cancelToken: source.token
                 });
                 setShowProgress(false);
                 let s3_file_path = (_b = response === null || response === void 0 ? void 0 : response.data) === null || _b === void 0 ? void 0 : _b.s3_file_path;

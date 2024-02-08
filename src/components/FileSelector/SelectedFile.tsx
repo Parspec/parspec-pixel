@@ -47,15 +47,18 @@ const SelectedFile = (props: SelectedFileProps) => {
                         }
                     }
                 );
+
                 let urlForUploading = response?.data?.signed_url;
                 await axios.put(urlForUploading, file, {
                     onUploadProgress: (progressEvent) => {
                         let percentage = Math.ceil((progressEvent?.progress || 0) * 100);
+
                         setProgress(percentage);
-                    },
+                    }
                     // signal: controller?.signal,
-                    cancelToken: source.token
+                    // cancelToken: source.token
                 });
+
                 setShowProgress(false);
                 let s3_file_path = response?.data?.s3_file_path;
                 return handleResults({ file, progress: 100, s3_file_path }, index);
@@ -73,6 +76,7 @@ const SelectedFile = (props: SelectedFileProps) => {
     const handleDelete = () => {
         onDelete(file);
     };
+
     return (
         <Paper variant="outlined" sx={{ padding: 2 }}>
             <Box display="flex" justifyContent="space-between" alignItems="center">

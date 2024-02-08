@@ -31,7 +31,7 @@ const Breadcrumb = (_a) => {
             if (index === options.length - 1) {
                 return ((0, jsx_runtime_1.jsx)(MUIBreadCrumbText, Object.assign({ color: 'secondary' }, { children: item.displaytext }), index));
             }
-            return ((0, jsx_runtime_1.jsx)(Link_1.Link, Object.assign({ color: "secondary", underline: 'hover', to: item.href, component: component }, { children: (0, jsx_runtime_1.jsx)(MUIBreadCrumbText, Object.assign({ sx: { '&:hover': { color: 'inherit' } } }, { children: item.displaytext })) }), index));
+            return ((0, jsx_runtime_1.jsx)(Link_1.Link, Object.assign({ color: "secondary", underline: 'hover', href: item.href, component: component }, { children: (0, jsx_runtime_1.jsx)(MUIBreadCrumbText, Object.assign({ sx: { '&:hover': { color: 'inherit' } } }, { children: item.displaytext })) }), index));
         }) })));
 };
 exports.Breadcrumb = Breadcrumb;

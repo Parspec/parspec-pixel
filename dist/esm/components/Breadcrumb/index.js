@@ -25,7 +25,7 @@ export const Breadcrumb = (_a) => {
             if (index === options.length - 1) {
                 return (_jsx(MUIBreadCrumbText, Object.assign({ color: 'secondary' }, { children: item.displaytext }), index));
             }
-            return (_jsx(Link, Object.assign({ color: "secondary", underline: 'hover', to: item.href, component: component }, { children: _jsx(MUIBreadCrumbText, Object.assign({ sx: { '&:hover': { color: 'inherit' } } }, { children: item.displaytext })) }), index));
+            return (_jsx(Link, Object.assign({ color: "secondary", underline: 'hover', href: item.href, component: component }, { children: _jsx(MUIBreadCrumbText, Object.assign({ sx: { '&:hover': { color: 'inherit' } } }, { children: item.displaytext })) }), index));
         }) })));
 };
 //# sourceMappingURL=index.js.map

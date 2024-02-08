@@ -37,7 +37,7 @@ export const Breadcrumb: React.FC<BreadcrumbsProps> = ({ options, component, isL
                     );
                 }
                 return (
-                    <Link key={index} color="secondary" underline={'hover'} to={item.href} component={component}>
+                    <Link key={index} color="secondary" underline={'hover'} href={item.href} component={component}>
                         <MUIBreadCrumbText sx={{ '&:hover': { color: 'inherit' } }}>{item.displaytext}</MUIBreadCrumbText>
                     </Link>
                 );

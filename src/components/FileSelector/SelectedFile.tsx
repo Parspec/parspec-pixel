@@ -54,9 +54,9 @@ const SelectedFile = (props: SelectedFileProps) => {
                         let percentage = Math.ceil((progressEvent?.progress || 0) * 100);
 
                         setProgress(percentage);
-                    }
+                    },
                     // signal: controller?.signal,
-                    // cancelToken: source.token
+                    cancelToken: source.token
                 });
 
                 setShowProgress(false);

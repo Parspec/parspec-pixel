@@ -18,6 +18,7 @@ export const Basic: ComponentStory<typeof Autocomplete> = (args) => (
         onChange={(e: any) => {
             console.log(e.target.value);
         }}
+        getOptionDisabled={(option: any) => option?.year === 1994}
     />
 );
 

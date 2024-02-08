@@ -55,7 +55,7 @@ const SelectedFile = (props: SelectedFileProps) => {
 
                         setProgress(percentage);
                     },
-                    // signal: controller?.signal,
+                    // signal: controller?.signal, //can be deleted
                     cancelToken: source.token
                 });
 

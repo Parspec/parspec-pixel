@@ -83,5 +83,7 @@ export {
     MoveDown as MoveDownIcon,
     ImportExportOutlined as ImportExportOutlinedIcon,
     FilterAltOutlined as FilterAltOutlinedIcon,
-    FilterAltOffOutlined as FilterAltOffOutlinedIcon
+    FilterAltOffOutlined as FilterAltOffOutlinedIcon,
+    KeyboardArrowDown as KeyboardArrowDownIcon,
+    PersonSearchOutlined as CMSIcon
 } from '@mui/icons-material';

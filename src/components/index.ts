@@ -44,3 +44,4 @@ export * from './Popper';
 export * from './ColorPicker';
 export * from './CheckboxGroup';
 export * from './AgGridTable';
+export * from './Portal';

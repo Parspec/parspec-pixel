@@ -12,6 +12,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx } from "react/jsx-runtime";
 import { Dayjs } from 'dayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { DateTimePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import dayjs from 'dayjs';
@@ -19,6 +20,12 @@ export { Dayjs, dayjs };
 export const CustomDatePicker = (_a) => {
     var { size, color } = _a, props = __rest(_a, ["size", "color"]);
     return (_jsx(LocalizationProvider, Object.assign({ dateAdapter: AdapterDayjs }, { children: _jsx(DatePicker, Object.assign({ sx: {
+                width: '100%'
+            }, slotProps: { textField: { size, color } } }, props)) })));
+};
+export const CustomDateTimePicker = (_a) => {
+    var { size, color } = _a, props = __rest(_a, ["size", "color"]);
+    return (_jsx(LocalizationProvider, Object.assign({ dateAdapter: AdapterDayjs }, { children: _jsx(DateTimePicker, Object.assign({ sx: {
                 width: '100%'
             }, slotProps: { textField: { size, color } } }, props)) })));
 };

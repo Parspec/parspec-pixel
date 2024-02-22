@@ -31,6 +31,11 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps<Dayjs>> = ({ size,
     );
 };
 
+CustomDatePicker.defaultProps = {
+    size: 'small',
+    color: 'secondary'
+};
+
 export const CustomDateTimePicker: React.FC<CustomDateTimePickerProps<Dayjs>> = ({ size, color, ...props }) => {
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -45,7 +50,7 @@ export const CustomDateTimePicker: React.FC<CustomDateTimePickerProps<Dayjs>> = 
     );
 };
 
-CustomDatePicker.defaultProps = {
+CustomDateTimePicker.defaultProps = {
     size: 'small',
     color: 'secondary'
 };

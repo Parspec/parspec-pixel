@@ -2,6 +2,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 import { CheckboxGroup } from './index';
 import React, { useState } from 'react';
+import { Box } from '../Box';
 
 export default {
     title: 'CheckboxGroup',
@@ -17,6 +18,9 @@ export default {
         color: {
             control: 'radio',
             options: ['primary', 'secondary', 'tertiary']
+        },
+        showSelectAll: {
+            control: 'boolean'
         }
     }
 } as ComponentMeta<typeof CheckboxGroup>;
@@ -41,7 +45,11 @@ export const index: ComponentStory<typeof CheckboxGroup> = (args) => {
         setCheckboxOptions(newState);
     };
 
-    return <CheckboxGroup {...args} options={checkboxOptions} onChange={handleOnChange} />;
+    return (
+        <Box>
+            <CheckboxGroup {...args} options={checkboxOptions} onChange={handleOnChange} />
+        </Box>
+    );
 };
 
 index.args = {

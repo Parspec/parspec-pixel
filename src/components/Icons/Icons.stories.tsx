@@ -74,7 +74,8 @@ import {
     FormatItalicIcon,
     FormatListNumberedIcon,
     FormatListBulletedIcon,
-    FormatUnderlinedIcon
+    FormatUnderlinedIcon,
+    KeyboardArrowDownIcon
 } from './index';
 import { Grid } from '../Grid';
 import { BodySmall } from '../Typography';
@@ -190,7 +191,8 @@ MUIImportedIcons.args = {
         {
             icon: FormatUnderlinedIcon,
             name: 'FormatUnderlinedIcon'
-        }
+        },
+        { icon: KeyboardArrowDownIcon, name: 'KeyboardArrowDownIcon' }
     ],
     fontSize: 'medium',
     color: 'tertiary'

@@ -5,18 +5,27 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
+import { Box } from '../Box';
+import { IconButton } from '../IconButton';
+
 interface AccordionMetaData {
     summary: React.ReactNode;
     details: React.ReactNode;
     labelId: string;
+    rightSummary?: React.ReactNode;
 }
 
 export interface AccordionProps extends Omit<MUIAccordionProps, 'classes' | 'children'> {
     options: AccordionMetaData[];
     getPanel?: (label: string) => void;
+    summaryPointerEvent?: string;
 }
 
-export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, AccordionProps>(({ options, getPanel, ...rest }, ref) => {
+const commonSxStyles = {
+    pointerEvents: 'auto'
+};
+
+export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, AccordionProps>(({ options, getPanel, summaryPointerEvent, ...rest }, ref) => {
     const [expanded, setExpanded] = useState<string | false>(options[0]['labelId']);
 
     const handleAccordionOnChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
@@ -25,7 +34,6 @@ export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, Ac
             getPanel(panel);
         }
     };
-
     return (
         <>
             {options.map((item, index) => {
@@ -35,11 +43,19 @@ export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, Ac
                             sx={{
                                 flexDirection: 'row-reverse',
                                 borderBottom: '1px solid',
-                                borderColor: 'neutral.main'
+                                borderColor: 'neutral.main',
+                                pointerEvents: 'none'
                             }}
-                            expandIcon={<ExpandMoreIcon />}
+                            expandIcon={
+                                <IconButton>
+                                    <ExpandMoreIcon sx={commonSxStyles} />
+                                </IconButton>
+                            }
                         >
-                            {item.summary}
+                            <Box display={'flex'} justifyContent={'space-between'} width={'100%'} onClick={(e) => e.stopPropagation()}>
+                                <Box sx={{ pointerEvents: summaryPointerEvent ? summaryPointerEvent : 'auto' }}>{item.summary}</Box>
+                                {item?.rightSummary && <Box sx={commonSxStyles}>{item.rightSummary}</Box>}
+                            </Box>
                         </AccordionSummary>
                         <AccordionDetails>{item.details}</AccordionDetails>
                     </MUIAccordion>

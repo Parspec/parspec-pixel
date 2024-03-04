@@ -43,3 +43,4 @@ export * from './Avatar';
 export * from './Popper';
 export * from './ColorPicker';
 export * from './CheckboxGroup';
+export * from './RichTextEditor';

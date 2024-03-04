@@ -79,5 +79,10 @@ export {
     ThumbDownOffAlt as ThumbDownOffAltIcon,
     MoveDown as MoveIcon,
     FileUpload as FileUploadIcon,
-    MoveDown as MoveDownIcon
+    MoveDown as MoveDownIcon,
+    AttachFile as AttachFileIcon,
+    FormatBold as FormatBoldIcon,
+    FormatItalic as FormatItalicIcon,
+    FormatListNumbered as FormatListNumberedIcon,
+    FormatUnderlined as FormatUnderlinedIcon
 } from '@mui/icons-material';

@@ -7,6 +7,7 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 
 import './RichText.css';
 import { getSelectedNode, positionEditorElement, LOW_PRIORITY } from './utils';
+import { Box } from '../Box';
 
 export function FloatingLinkEditor() {
     const [editor] = useLexicalComposerContext();
@@ -100,7 +101,7 @@ export function FloatingLinkEditor() {
     }, [isEditMode]);
 
     return (
-        <div ref={editorRef} className="link-editor">
+        <Box ref={editorRef} className="link-editor">
             {isEditMode ? (
                 <input
                     ref={inputRef}
@@ -126,11 +127,11 @@ export function FloatingLinkEditor() {
                 />
             ) : (
                 <>
-                    <div className="link-input">
+                    <Box className="link-input">
                         <a href={linkUrl} target="_blank" rel="noopener noreferrer">
                             {linkUrl}
                         </a>
-                        <div
+                        <Box
                             className="link-edit"
                             role="button"
                             tabIndex={0}
@@ -139,9 +140,9 @@ export function FloatingLinkEditor() {
                                 setEditMode(true);
                             }}
                         />
-                    </div>
+                    </Box>
                 </>
             )}
-        </div>
+        </Box>
     );
 }

@@ -6,13 +6,15 @@ import { mergeRegister } from '@lexical/utils';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 
 import './RichText.css';
-import { getSelectedNode, positionEditorElement, LOW_PRIORITY } from './utils';
+import { getSelectedNode, positionEditorElement } from './utils';
+import { LOW_PRIORITY } from './constants';
 import { Box } from '../Box';
+import { TextField } from '../TextField';
 
 export function FloatingLinkEditor() {
     const [editor] = useLexicalComposerContext();
     const editorRef = useRef(null);
-    const inputRef = useRef<any>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
     const mouseDownRef = useRef(false);
     const [linkUrl, setLinkUrl] = useState('');
     const [isEditMode, setEditMode] = useState(false);
@@ -103,7 +105,8 @@ export function FloatingLinkEditor() {
     return (
         <Box ref={editorRef} className="link-editor">
             {isEditMode ? (
-                <input
+                <TextField
+                    label=""
                     ref={inputRef}
                     className="link-input"
                     value={linkUrl}

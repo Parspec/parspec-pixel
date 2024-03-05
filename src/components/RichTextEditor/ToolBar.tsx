@@ -4,7 +4,6 @@ import { createPortal } from 'react-dom';
 import { $getRoot, $getSelection, $createTextNode, $isRangeSelection, FORMAT_TEXT_COMMAND, TextFormatType, TextNode, SELECTION_CHANGE_COMMAND } from 'lexical';
 import { mergeRegister } from '@lexical/utils';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-
 import { HeadingNode, $createHeadingNode } from '@lexical/rich-text';
 import { $isLinkNode, TOGGLE_LINK_COMMAND } from '@lexical/link';
 import { $setBlocksType } from '@lexical/selection';
@@ -16,7 +15,8 @@ import { Box } from '../Box';
 import { LinkIcon, AttachFileIcon, FormatBoldIcon, FormatItalicIcon, FormatListBulletedIcon, FormatListNumberedIcon, FormatUnderlinedIcon } from '../Icons';
 import { IconButton } from '../IconButton';
 import { FloatingLinkEditor } from './FloatingLinkEditor';
-import { getSelectedNode, LOW_PRIORITY } from './utils';
+import { getSelectedNode } from './utils';
+import { LOW_PRIORITY } from './constants';
 import FontSize from './FontSize';
 import DropdownColorPicker from './DropDownColorPicker';
 import { ColorResult } from '../ColorPicker';
@@ -138,9 +138,7 @@ export default function ToolBar({ onFileUpload }: IToolbar): JSX.Element {
     const [isLink, setIsLink] = useState(false);
     const [fontSize, setFontSize] = useState<string>('15px');
     const [fontColor, setFontColor] = useState<string>('#000');
-    const [fontFamily, setFontFamily] = useState<string>('Arial');
     const [isEditable, setIsEditable] = useState(() => editor.isEditable());
-    const [colorDropdown, setColorDropdown] = useState(false);
 
     const updateToolbar = useCallback(() => {
         const selection = $getSelection();
@@ -157,7 +155,6 @@ export default function ToolBar({ onFileUpload }: IToolbar): JSX.Element {
 
             setFontSize($getSelectionStyleValueForProperty(selection, 'font-size', '15px'));
             setFontColor($getSelectionStyleValueForProperty(selection, 'color', '#000'));
-            setFontFamily($getSelectionStyleValueForProperty(selection, 'font-family', 'Arial'));
         }
     }, [editor]);
 
@@ -225,7 +222,7 @@ export default function ToolBar({ onFileUpload }: IToolbar): JSX.Element {
             </IconButton>
             {isLink && destinationNode && createPortal(<FloatingLinkEditor />, destinationNode)}
             <AttachmentsToobarPlugin onFileUpload={onFileUpload} />
-            <DropdownColorPicker onClick={() => setColorDropdown((prev) => !prev)} color={fontColor} onChange={onFontColorSelect} />
+            <DropdownColorPicker color={fontColor} onChange={onFontColorSelect} />
         </Box>
     );
 }

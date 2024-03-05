@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
-import { EditorState, LexicalEditor } from 'lexical';
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
@@ -11,6 +10,7 @@ import { ListPlugin } from '@lexical/react/LexicalListPlugin';
 import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin';
 import LexicalClickableLinkPlugin from '@lexical/react/LexicalClickableLinkPlugin';
 import AutoLinkPlugin from './AutoLinkPlugin';
+import HtmlPlugin from './HtmlPlugin';
 
 import './RichText.css';
 import Placeholder from './PlaceHolder';
@@ -31,19 +31,6 @@ const theme = {
 
 // When the editor changes, you can get notified via the
 // OnChangePlugin!
-function MyOnChangePlugin({ onChange }: { onChange: (editorState: EditorState, editor?: LexicalEditor, tags?: Set<string>) => void }) {
-    // Access the editor through the LexicalComposerContext
-    const [editor] = useLexicalComposerContext();
-    // Wrap our listener in useEffect to handle the teardown and avoid stale references.
-    useEffect(() => {
-        // most listeners return a teardown function that can be called to clean them up.
-        return editor.registerUpdateListener(({ editorState }) => {
-            // call onChange here to pass the latest state up to the parent.
-            onChange(editorState);
-        });
-    }, [editor, onChange]);
-    return null;
-}
 
 function MyCustomAutoFocusPlugin() {
     const [editor] = useLexicalComposerContext();
@@ -64,25 +51,20 @@ function onError(error: Error) {
 }
 
 interface IRichTextEditorProps {
-    contentEditableStyle: Record<string, string | number>;
     onFileUpload?: (params: FileList | null) => void;
+    initialHtml?: string;
+    onChange: (html: string) => void;
+    editorBgColor?: string;
+    contentEditableHeight?: string;
 }
 
-export default function RichTextEditor({ contentEditableStyle, onFileUpload }: IRichTextEditorProps) {
+export default function RichTextEditor({ onFileUpload, onChange, initialHtml = '', editorBgColor = 'white', contentEditableHeight = '300px' }: IRichTextEditorProps) {
     const initialConfig = {
-        namespace: 'MyEditor',
+        namespace: 'ParspecEditor',
         theme,
         onError,
         nodes: registeredNodes
     };
-
-    const [editorState, setEditorState] = useState<EditorState>();
-
-    function onChange(editorState: EditorState) {
-        setEditorState(editorState);
-    }
-
-    console.log(`[editorState]`, editorState);
 
     return (
         <Box id={'custom-rich-text-editor'}>
@@ -90,11 +72,27 @@ export default function RichTextEditor({ contentEditableStyle, onFileUpload }: I
                 <Box className="editor-container">
                     <ToolBar onFileUpload={onFileUpload} />
                     <Box className="editor-inner">
-                        <RichTextPlugin contentEditable={<ContentEditable style={{ ...contentEditableStyle }} />} placeholder={<Placeholder />} ErrorBoundary={LexicalErrorBoundary} />
+                        <RichTextPlugin
+                            contentEditable={
+                                <ContentEditable
+                                    style={{
+                                        width: '100%',
+                                        height: contentEditableHeight,
+                                        border: '1px solid #ccc',
+                                        padding: '8px',
+                                        backgroundColor: editorBgColor,
+                                        overflow: 'auto',
+                                        borderRadius: '5px'
+                                    }}
+                                />
+                            }
+                            placeholder={<Placeholder />}
+                            ErrorBoundary={LexicalErrorBoundary}
+                        />
                         <ListPlugin />
                         <HistoryPlugin />
                         <MyCustomAutoFocusPlugin />
-                        <MyOnChangePlugin onChange={onChange} />
+                        <HtmlPlugin initialHtml={initialHtml} onHtmlChanged={onChange} />
                         <AutoLinkPlugin />
                         <LinkPlugin />
                         <LexicalClickableLinkPlugin />

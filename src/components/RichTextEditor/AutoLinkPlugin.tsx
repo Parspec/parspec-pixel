@@ -1,29 +1,33 @@
 import { AutoLinkPlugin as AutoLink } from '@lexical/react/LexicalAutoLinkPlugin';
 
-import { URL_MATCHER, EMAIL_MATCHER } from './utils';
+import { URL_MATCHER, EMAIL_MATCHER } from './constants';
 
 const MATCHERS = [
     (text: string) => {
         const match = URL_MATCHER.exec(text);
-        return (
-            match && {
-                index: match.index,
-                length: match[0].length,
-                text: match[0],
-                url: match[0]
-            }
-        );
+        if (match === null) {
+            return null;
+        }
+        const fullMatch = match[0];
+        return {
+            index: match.index,
+            length: fullMatch.length,
+            text: fullMatch,
+            url: fullMatch.startsWith('http') ? fullMatch : `https://${fullMatch}`
+        };
     },
     (text: string) => {
         const match = EMAIL_MATCHER.exec(text);
-        return (
-            match && {
-                index: match.index,
-                length: match[0].length,
-                text: match[0],
-                url: `mailto:${match[0]}`
-            }
-        );
+        if (match === null) {
+            return null;
+        }
+        const fullMatch = match[0];
+        return {
+            index: match.index,
+            length: fullMatch.length,
+            text: fullMatch,
+            url: fullMatch.startsWith('http') ? fullMatch : `https://${fullMatch}`
+        };
     }
 ];
 

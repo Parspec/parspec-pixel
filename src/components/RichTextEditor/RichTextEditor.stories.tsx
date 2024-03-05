@@ -5,10 +5,10 @@ import { default as Editor } from './index';
 
 export default {
     title: 'Editor',
-    component: Editor
-    // argTypes: {
-    //     onChange: { action: 'onChange' }
-    // }
+    component: Editor,
+    argTypes: {
+        onChange: { action: 'onChange' }
+    }
 } as ComponentMeta<typeof Editor>;
 
 export const RichTextEditor: ComponentStory<typeof Editor> = (args) => {
@@ -16,15 +16,11 @@ export const RichTextEditor: ComponentStory<typeof Editor> = (args) => {
 };
 
 RichTextEditor.args = {
-    contentEditableStyle: {
-        width: '100%',
-        height: 300,
-        border: '1px solid #ccc',
-        padding: 4,
-        backgroundColor: '#fff',
-        overflow: 'auto'
-    },
     onFileUpload: (params: FileList | null) => {
-        console.log('Here are the files', params);
-    }
+        console.log(params);
+    },
+    onChange: (html: string) => console.log(html),
+    initialHtml: `<h1>Code is Poetry...</h1>`,
+    editorBgColor: '#fff',
+    contentEditableHeight: '300px'
 };

@@ -1,10 +1,10 @@
 import { ColorResult, TransitionsColorPicker } from '../ColorPicker';
 
-type Props = {
+interface IDropdownColorPicker {
     color: string;
     onChange: (color: ColorResult) => void;
-};
+}
 
-export default function DropdownColorPicker({ color, onChange }: Props) {
+export default function DropdownColorPicker({ color, onChange }: IDropdownColorPicker) {
     return <TransitionsColorPicker color={color} onChange={(color: ColorResult) => onChange(color)} />;
 }

@@ -13,9 +13,9 @@ const MAX_ALLOWED_FONT_SIZE = 72;
 const DEFAULT_FONT_SIZE = 15;
 
 // eslint-disable-next-line no-shadow
-enum updateFontSizeType {
-    increment = 1,
-    decrement
+enum UPDATE_FONT_SIZE_TYPE {
+    INCREMENT = 1,
+    DECREMENT
 }
 
 export default function FontSize({ selectionFontSize, disabled, editor }: { selectionFontSize: string; disabled: boolean; editor: LexicalEditor }) {
@@ -27,14 +27,14 @@ export default function FontSize({ selectionFontSize, disabled, editor }: { sele
      * @param updateType - The type of change, either increment or decrement
      * @returns the next font size
      */
-    const calculateNextFontSize = (currentFontSize: number, updateType: updateFontSizeType | null) => {
+    const calculateNextFontSize = (currentFontSize: number, updateType: UPDATE_FONT_SIZE_TYPE | null) => {
         if (!updateType) {
             return currentFontSize;
         }
 
         let updatedFontSize: number = currentFontSize;
         switch (updateType) {
-            case updateFontSizeType.decrement:
+            case UPDATE_FONT_SIZE_TYPE.DECREMENT:
                 switch (true) {
                     case currentFontSize > MAX_ALLOWED_FONT_SIZE:
                         updatedFontSize = MAX_ALLOWED_FONT_SIZE;
@@ -57,7 +57,7 @@ export default function FontSize({ selectionFontSize, disabled, editor }: { sele
                 }
                 break;
 
-            case updateFontSizeType.increment:
+            case UPDATE_FONT_SIZE_TYPE.INCREMENT:
                 switch (true) {
                     case currentFontSize < MIN_ALLOWED_FONT_SIZE:
                         updatedFontSize = MIN_ALLOWED_FONT_SIZE;
@@ -90,7 +90,7 @@ export default function FontSize({ selectionFontSize, disabled, editor }: { sele
      */
 
     const updateFontSizeInSelection = useCallback(
-        (newFontSize: string | null, updateType: updateFontSizeType | null) => {
+        (newFontSize: string | null, updateType: UPDATE_FONT_SIZE_TYPE | null) => {
             const getNextFontSize = (prevFontSize: string | null): string => {
                 if (!prevFontSize) {
                     prevFontSize = `${DEFAULT_FONT_SIZE}px`;
@@ -137,7 +137,7 @@ export default function FontSize({ selectionFontSize, disabled, editor }: { sele
         }
     };
 
-    const handleButtonClick = (updateType: updateFontSizeType) => {
+    const handleButtonClick = (updateType: UPDATE_FONT_SIZE_TYPE) => {
         if (inputValue !== '') {
             const nextFontSize = calculateNextFontSize(Number(inputValue), updateType);
             updateFontSizeInSelection(String(nextFontSize) + 'px', null);
@@ -152,7 +152,7 @@ export default function FontSize({ selectionFontSize, disabled, editor }: { sele
 
     return (
         <Box display="flex" justifyContent="center" alignItems="center" width="120px">
-            <IconButton disabled={disabled || (selectionFontSize !== '' && Number(inputValue) <= MIN_ALLOWED_FONT_SIZE)} onClick={() => handleButtonClick(updateFontSizeType.decrement)}>
+            <IconButton disabled={disabled || (selectionFontSize !== '' && Number(inputValue) <= MIN_ALLOWED_FONT_SIZE)} onClick={() => handleButtonClick(UPDATE_FONT_SIZE_TYPE.DECREMENT)}>
                 <RemoveIcon fontSize="small" color="secondary" />
             </IconButton>
 
@@ -170,7 +170,7 @@ export default function FontSize({ selectionFontSize, disabled, editor }: { sele
                 fullWidth
             />
 
-            <IconButton disabled={disabled || (selectionFontSize !== '' && Number(inputValue) >= MAX_ALLOWED_FONT_SIZE)} onClick={() => handleButtonClick(updateFontSizeType.increment)}>
+            <IconButton disabled={disabled || (selectionFontSize !== '' && Number(inputValue) >= MAX_ALLOWED_FONT_SIZE)} onClick={() => handleButtonClick(UPDATE_FONT_SIZE_TYPE.INCREMENT)}>
                 <AddIcon fontSize="small" color="secondary" />
             </IconButton>
         </Box>

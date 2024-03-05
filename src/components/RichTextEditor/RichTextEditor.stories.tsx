@@ -18,7 +18,7 @@ export const RichTextEditor: ComponentStory<typeof Editor> = (args) => {
 RichTextEditor.args = {
     contentEditableStyle: {
         width: '100%',
-        height: 300,
+        // height: 300,
         border: '1px solid #ccc',
         padding: 4,
         backgroundColor: '#fff',

@@ -2,6 +2,10 @@
     cursor: pointer;
 }
 
+.cursor-pointer:hover {
+    background-color: rgb(245, 245, 245);
+}
+
 .text-underline {
     text-decoration: underline;
 }

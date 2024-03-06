@@ -71,17 +71,3 @@
     position: relative;
     font-family: inherit;
 }
-
-.link-editor div.link-edit {
-    background-image: url(images/pencil-fill.svg);
-    background-size: 16px;
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 35px;
-    vertical-align: -0.25em;
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    cursor: pointer;
-}

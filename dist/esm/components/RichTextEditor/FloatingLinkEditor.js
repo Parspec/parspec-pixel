@@ -9,6 +9,8 @@ import { getSelectedNode, positionEditorElement } from './utils';
 import { LOW_PRIORITY } from './constants';
 import { Box } from '../Box';
 import { TextField } from '../TextField';
+import { IconButton } from '../IconButton';
+import { EditIcon } from '../Icons';
 export function FloatingLinkEditor() {
     const [editor] = useLexicalComposerContext();
     const editorRef = useRef(null);
@@ -104,8 +106,8 @@ export function FloatingLinkEditor() {
                     event.preventDefault();
                     setEditMode(false);
                 }
-            } })) : (_jsx(_Fragment, { children: _jsxs(Box, Object.assign({ className: "link-input" }, { children: [_jsx("a", Object.assign({ href: linkUrl, target: "_blank", rel: "noopener noreferrer" }, { children: linkUrl })), _jsx(Box, { className: "link-edit", role: "button", tabIndex: 0, onMouseDown: (event) => event.preventDefault(), onClick: () => {
+            } })) : (_jsx(_Fragment, { children: _jsxs(Box, Object.assign({ className: "link-input" }, { children: [_jsx("a", Object.assign({ href: linkUrl, target: "_blank", rel: "noopener noreferrer" }, { children: linkUrl })), _jsx(IconButton, Object.assign({ onMouseDown: (event) => event.preventDefault(), onClick: () => {
                             setEditMode(true);
-                        } })] })) })) })));
+                        } }, { children: _jsx(EditIcon, {}) }))] })) })) })));
 }
 //# sourceMappingURL=FloatingLinkEditor.js.map

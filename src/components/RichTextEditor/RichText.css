@@ -57,7 +57,9 @@
 }
 
 .link-editor .link-input {
-    display: block;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: calc(100% - 24px);
     box-sizing: border-box;
     margin: 8px 12px;

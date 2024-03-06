@@ -10,7 +10,7 @@ import { getSelectedNode, positionEditorElement } from './utils';
 import { LOW_PRIORITY } from './constants';
 import { Box } from '../Box';
 import { TextField } from '../TextField';
-import { IconButton } from '@mui/material';
+import { IconButton } from '../IconButton';
 import { EditIcon } from '../Icons';
 
 export function FloatingLinkEditor() {

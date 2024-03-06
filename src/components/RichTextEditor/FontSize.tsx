@@ -119,7 +119,6 @@ export default function FontSize({ selectionFontSize, disabled, editor }: { sele
 
         if (['e', 'E', '+', '-'].includes(e.key) || isNaN(inputValueNumber)) {
             e.preventDefault();
-            setInputValue('');
             return;
         }
 

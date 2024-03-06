@@ -107,7 +107,6 @@ function FontSize({ selectionFontSize, disabled, editor }) {
         const inputValueNumber = Number(inputValue);
         if (['e', 'E', '+', '-'].includes(e.key) || isNaN(inputValueNumber)) {
             e.preventDefault();
-            setInputValue('');
             return;
         }
         if (e.key === 'Enter') {

@@ -12,6 +12,8 @@ const utils_2 = require("./utils");
 const constants_1 = require("./constants");
 const Box_1 = require("../Box");
 const TextField_1 = require("../TextField");
+const material_1 = require("@mui/material");
+const Icons_1 = require("../Icons");
 function FloatingLinkEditor() {
     const [editor] = (0, LexicalComposerContext_1.useLexicalComposerContext)();
     const editorRef = (0, react_1.useRef)(null);
@@ -107,9 +109,9 @@ function FloatingLinkEditor() {
                     event.preventDefault();
                     setEditMode(false);
                 }
-            } })) : ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: (0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ className: "link-input" }, { children: [(0, jsx_runtime_1.jsx)("a", Object.assign({ href: linkUrl, target: "_blank", rel: "noopener noreferrer" }, { children: linkUrl })), (0, jsx_runtime_1.jsx)(Box_1.Box, { className: "link-edit", role: "button", tabIndex: 0, onMouseDown: (event) => event.preventDefault(), onClick: () => {
+            } })) : ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: (0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ className: "link-input" }, { children: [(0, jsx_runtime_1.jsx)("a", Object.assign({ href: linkUrl, target: "_blank", rel: "noopener noreferrer" }, { children: linkUrl })), (0, jsx_runtime_1.jsx)(material_1.IconButton, Object.assign({ onMouseDown: (event) => event.preventDefault(), onClick: () => {
                             setEditMode(true);
-                        } })] })) })) })));
+                        } }, { children: (0, jsx_runtime_1.jsx)(Icons_1.EditIcon, {}) }))] })) })) })));
 }
 exports.FloatingLinkEditor = FloatingLinkEditor;
 //# sourceMappingURL=FloatingLinkEditor.js.map

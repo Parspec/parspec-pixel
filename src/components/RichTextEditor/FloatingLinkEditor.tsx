@@ -10,6 +10,8 @@ import { getSelectedNode, positionEditorElement } from './utils';
 import { LOW_PRIORITY } from './constants';
 import { Box } from '../Box';
 import { TextField } from '../TextField';
+import { IconButton } from '@mui/material';
+import { EditIcon } from '../Icons';
 
 export function FloatingLinkEditor() {
     const [editor] = useLexicalComposerContext();
@@ -134,15 +136,14 @@ export function FloatingLinkEditor() {
                         <a href={linkUrl} target="_blank" rel="noopener noreferrer">
                             {linkUrl}
                         </a>
-                        <Box
-                            className="link-edit"
-                            role="button"
-                            tabIndex={0}
+                        <IconButton
                             onMouseDown={(event) => event.preventDefault()}
                             onClick={() => {
                                 setEditMode(true);
                             }}
-                        />
+                        >
+                            <EditIcon />
+                        </IconButton>
                     </Box>
                 </>
             )}

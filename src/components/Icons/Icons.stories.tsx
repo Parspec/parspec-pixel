@@ -67,8 +67,15 @@ import {
     MoveIcon,
     FileUploadIcon,
     MoveDownIcon,
-    KeyboardArrowDownIcon,
-    AddKitIcon
+    AddKitIcon,
+    LinkIcon,
+    AttachFileIcon,
+    FormatBoldIcon,
+    FormatItalicIcon,
+    FormatListNumberedIcon,
+    FormatListBulletedIcon,
+    FormatUnderlinedIcon,
+    KeyboardArrowDownIcon
 } from './index';
 import { Grid } from '../Grid';
 import { BodySmall } from '../Typography';
@@ -169,6 +176,22 @@ MUIImportedIcons.args = {
         { icon: MoveIcon, name: 'MoveIcon' },
         { icon: FileUploadIcon, name: 'FileUploadIcon' },
         { icon: MoveDownIcon, name: 'MoveDownIcon' },
+        { icon: LinkIcon, name: 'LinkIcon' },
+        { icon: AttachFileIcon, name: 'AttachFileIcon' },
+        { icon: FormatBoldIcon, name: 'FormatBoldIcon' },
+        { icon: FormatItalicIcon, name: 'FormatItalicIcon' },
+        {
+            icon: FormatListBulletedIcon,
+            name: 'FormatListBulletedIcon'
+        },
+        {
+            icon: FormatListNumberedIcon,
+            name: 'FormatListNumberedIcon'
+        },
+        {
+            icon: FormatUnderlinedIcon,
+            name: 'FormatUnderlinedIcon'
+        },
         { icon: KeyboardArrowDownIcon, name: 'KeyboardArrowDownIcon' }
     ],
     fontSize: 'medium',

@@ -230,7 +230,7 @@ export const Basic: ComponentStory<typeof AgGridTable> = (props) => {
         <Box width={'100%'} height={'500px'} my={4}>
             <AgGridTable
                 ref={gridRef}
-                tableData={data || []}
+                rowData={data || []}
                 getRowId={getRowId}
                 rowHeight={40}
                 columnDefs={columnDefs}

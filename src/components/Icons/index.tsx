@@ -41,6 +41,7 @@ export {
     VisibilityOff as VisibilityOffIcon,
     Visibility as VisibilityIcon,
     FilterAltOff as FilterAltOffIcon,
+    FilterAlt as FilterAltIcon,
     FileDownloadOutlined as FileDownloadOutlinedIcon,
     SyncProblem as SyncProblemIcon,
     ContentCopy as ContentCopyIcon,
@@ -80,6 +81,14 @@ export {
     MoveDown as MoveIcon,
     FileUpload as FileUploadIcon,
     MoveDown as MoveDownIcon,
+    AttachFile as AttachFileIcon,
+    FormatBold as FormatBoldIcon,
+    FormatItalic as FormatItalicIcon,
+    FormatListNumbered as FormatListNumberedIcon,
+    FormatUnderlined as FormatUnderlinedIcon,
+    ImportExportOutlined as ImportExportOutlinedIcon,
+    FilterAltOutlined as FilterAltOutlinedIcon,
+    FilterAltOffOutlined as FilterAltOffOutlinedIcon,
     KeyboardArrowDown as KeyboardArrowDownIcon,
     PersonSearchOutlined as CMSIcon
 } from '@mui/icons-material';

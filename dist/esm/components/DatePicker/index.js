@@ -23,13 +23,17 @@ export const CustomDatePicker = (_a) => {
                 width: '100%'
             }, slotProps: { textField: { size, color } } }, props)) })));
 };
+CustomDatePicker.defaultProps = {
+    size: 'small',
+    color: 'secondary'
+};
 export const CustomDateTimePicker = (_a) => {
     var { size, color } = _a, props = __rest(_a, ["size", "color"]);
     return (_jsx(LocalizationProvider, Object.assign({ dateAdapter: AdapterDayjs }, { children: _jsx(DateTimePicker, Object.assign({ sx: {
                 width: '100%'
             }, slotProps: { textField: { size, color } } }, props)) })));
 };
-CustomDatePicker.defaultProps = {
+CustomDateTimePicker.defaultProps = {
     size: 'small',
     color: 'secondary'
 };

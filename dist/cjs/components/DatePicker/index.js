@@ -31,6 +31,10 @@ const CustomDatePicker = (_a) => {
             }, slotProps: { textField: { size, color } } }, props)) })));
 };
 exports.CustomDatePicker = CustomDatePicker;
+exports.CustomDatePicker.defaultProps = {
+    size: 'small',
+    color: 'secondary'
+};
 const CustomDateTimePicker = (_a) => {
     var { size, color } = _a, props = __rest(_a, ["size", "color"]);
     return ((0, jsx_runtime_1.jsx)(LocalizationProvider_1.LocalizationProvider, Object.assign({ dateAdapter: AdapterDayjs_1.AdapterDayjs }, { children: (0, jsx_runtime_1.jsx)(x_date_pickers_1.DateTimePicker, Object.assign({ sx: {
@@ -38,7 +42,7 @@ const CustomDateTimePicker = (_a) => {
             }, slotProps: { textField: { size, color } } }, props)) })));
 };
 exports.CustomDateTimePicker = CustomDateTimePicker;
-exports.CustomDatePicker.defaultProps = {
+exports.CustomDateTimePicker.defaultProps = {
     size: 'small',
     color: 'secondary'
 };

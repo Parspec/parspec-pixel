@@ -61,7 +61,7 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
             if (preSelectedFile?.length) {
                 setFiles(preSelectedFile);
             }
-        }, []);
+        }, [preSelectedFile]);
 
         //To give the information of selected files to the main component.
         useEffect(() => {
@@ -88,7 +88,13 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
 
         //Function called when file is selected
         const onDrop = useCallback((acceptedFiles: any) => {
-            setFiles(acceptedFiles);
+            if (maxFiles > 1) {
+                const allFiles = [...files, ...acceptedFiles];
+                //check size
+                setFiles(allFiles);
+            } else {
+                setFiles(acceptedFiles);
+            }
         }, []);
 
         //Function called when file is deleted

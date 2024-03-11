@@ -17,12 +17,14 @@ export interface IFileType {
 
 export const fileSelector: ComponentStory<typeof FileSelector> = (args) => {
     const [restrictUpload, setRestrictUpload] = useState(false);
+    const [preSelectedFiles, setPreSelectedFiles] = useState<any>([]);
+
     const onFileUploadedToS3 = (files: IFileType[]) => {
-        console.log('onUpload: ', files);
+        const newFiles = files.map((item) => ({ name: item.file.name, size: item.file.size, filepath: item.s3_file_path }));
+        setPreSelectedFiles(newFiles);
     };
 
     const onSelect = (files: any) => {
-        console.log('onSelect: ', files);
         setRestrictUpload(true);
     };
 
@@ -30,13 +32,14 @@ export const fileSelector: ComponentStory<typeof FileSelector> = (args) => {
         <Box width={'217px'} height={'82px'}>
             <FileSelector
                 {...args}
-                url="https://hotfix-staging.parspec.xyz/api/generate_signed_url/"
+                url="https://minor-staging.parspec.xyz/api/generate_signed_url/"
                 error="Wrong format"
                 maxFiles={2}
                 onUpload={onFileUploadedToS3}
                 onSelect={onSelect}
                 showUploaderAlways={true}
                 restrictUpload={false}
+                preSelectedFile={preSelectedFiles}
             />
         </Box>
     );

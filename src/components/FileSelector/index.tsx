@@ -30,6 +30,8 @@ interface FileSelectorProps {
     preSelectedFile?: FileSelectorFileType[] | File[];
     onDeleteFile?: () => void;
     isLoading?: boolean;
+    showUploaderAlways?: boolean;
+    restrictUpload?: boolean;
 }
 
 export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
@@ -46,7 +48,9 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
             borderColor,
             preSelectedFile,
             onDeleteFile = () => {},
-            isLoading = false
+            isLoading = false,
+            showUploaderAlways = false,
+            restrictUpload = false
         },
         ref
     ) => {
@@ -153,12 +157,50 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                             )}
                         </Box>
                     ) : (
-                        <Box>
-                            {files.map((file: { name: string; size?: number }, index: number) => (
-                                <Box my={1}>
-                                    <SelectedFile key={file.name} file={file} onDelete={onDelete} url={url} index={index} handleResults={handleResults} isLoading={isLoading} />
+                        <Box height={'100%'} width={'100%'}>
+                            <Box>
+                                {!restrictUpload && (
+                                    <>
+                                        {files.map((file: { name: string; size?: number }, index: number) => (
+                                            <Box my={1}>
+                                                <SelectedFile key={file.name} file={file} onDelete={onDelete} url={url} index={index} handleResults={handleResults} isLoading={isLoading} />
+                                            </Box>
+                                        ))}
+                                    </>
+                                )}
+                            </Box>
+
+                            {showUploaderAlways && (
+                                <Box {...getRootProps()}>
+                                    <input type="file" {...getInputProps()} />
+                                    <Box
+                                        p={2}
+                                        height={'100%'}
+                                        width={'100%'}
+                                        border={'1px solid'}
+                                        borderColor={borderColor}
+                                        borderRadius={1}
+                                        display="flex"
+                                        flexDirection="column"
+                                        justifyContent="center"
+                                        alignItems="center"
+                                        sx={{ cursor: 'pointer' }}
+                                    >
+                                        <Box width={'100%'} textAlign="center" m={0.5}>
+                                            <BodyXS limit={false}>{placeholder}</BodyXS>
+                                        </Box>
+                                        <Box my={0.5}>
+                                            <Avatar>
+                                                <UploadIcon />
+                                            </Avatar>
+                                        </Box>
+                                        <Box m={0.5}>
+                                            <BodyXS>Browse</BodyXS>
+                                        </Box>
+                                    </Box>
                                 </Box>
-                            ))}
+                            )}
+
                             {error && (
                                 <Box mt={1}>
                                     <BodyXS color="error">{error}</BodyXS>

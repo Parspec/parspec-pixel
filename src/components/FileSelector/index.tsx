@@ -87,15 +87,19 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
         }, [result]);
 
         //Function called when file is selected
-        const onDrop = useCallback((acceptedFiles: any) => {
-            if (maxFiles > 1) {
-                const allFiles = [...files, ...acceptedFiles];
-                //check size
-                setFiles(allFiles);
-            } else {
-                setFiles(acceptedFiles);
-            }
-        }, []);
+        const onDrop = useCallback(
+            (acceptedFiles: any) => {
+                if (maxFiles > 1) {
+                    // const allFiles = [...files, ...acceptedFiles];
+                    //check size
+
+                    if (!restrictUpload) setFiles((old: any) => [...files, ...acceptedFiles]);
+                } else {
+                    if (!restrictUpload) setFiles(acceptedFiles);
+                }
+            },
+            [files]
+        );
 
         //Function called when file is deleted
         const onDelete = (file: { name: string }) => {
@@ -165,15 +169,11 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                     ) : (
                         <Box height={'100%'} width={'100%'}>
                             <Box>
-                                {!restrictUpload && (
-                                    <>
-                                        {files.map((file: { name: string; size?: number }, index: number) => (
-                                            <Box my={1}>
-                                                <SelectedFile key={file.name} file={file} onDelete={onDelete} url={url} index={index} handleResults={handleResults} isLoading={isLoading} />
-                                            </Box>
-                                        ))}
-                                    </>
-                                )}
+                                {files.map((file: { name: string; size?: number }, index: number) => (
+                                    <Box my={1}>
+                                        <SelectedFile key={file.name} file={file} onDelete={onDelete} url={url} index={index} handleResults={handleResults} isLoading={isLoading} />
+                                    </Box>
+                                ))}
                             </Box>
 
                             {showUploaderAlways && (

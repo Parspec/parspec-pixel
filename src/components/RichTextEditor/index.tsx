@@ -69,7 +69,7 @@ export default function RichTextEditor({ onFileUpload, onChange, initialHtml = '
     return (
         <Box id={'custom-rich-text-editor'}>
             <LexicalComposer initialConfig={initialConfig}>
-                <Box className="editor-container" position="relative">
+                <Box className="editor-container" position="relative" display="flex" flexDirection="column" alignItems="flex-start">
                     <ToolBar onFileUpload={onFileUpload} />
                     <Box className="editor-inner" position="relative">
                         <RichTextPlugin

@@ -48,7 +48,7 @@ export default function RichTextEditor({ onFileUpload, onChange, initialHtml = '
         onError,
         nodes: registeredNodes
     };
-    return (_jsx(Box, Object.assign({ id: 'custom-rich-text-editor' }, { children: _jsx(LexicalComposer, Object.assign({ initialConfig: initialConfig }, { children: _jsxs(Box, Object.assign({ className: "editor-container", position: "relative" }, { children: [_jsx(ToolBar, { onFileUpload: onFileUpload }), _jsxs(Box, Object.assign({ className: "editor-inner", position: "relative" }, { children: [_jsx(RichTextPlugin, { contentEditable: _jsx(ContentEditable, { style: {
+    return (_jsx(Box, Object.assign({ id: 'custom-rich-text-editor' }, { children: _jsx(LexicalComposer, Object.assign({ initialConfig: initialConfig }, { children: _jsxs(Box, Object.assign({ className: "editor-container", position: "relative", display: "flex", flexDirection: "column", alignItems: "flex-start" }, { children: [_jsx(ToolBar, { onFileUpload: onFileUpload }), _jsxs(Box, Object.assign({ className: "editor-inner", position: "relative" }, { children: [_jsx(RichTextPlugin, { contentEditable: _jsx(ContentEditable, { style: {
                                         width: '100%',
                                         height: contentEditableHeight,
                                         border: '1px solid #ccc',

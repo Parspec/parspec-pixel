@@ -14,7 +14,7 @@ export const FileSelector = forwardRef(({ maxFiles = 1, acceptedFormats = [], on
         if (preSelectedFile === null || preSelectedFile === void 0 ? void 0 : preSelectedFile.length) {
             setFiles(preSelectedFile);
         }
-    }, []);
+    }, [preSelectedFile]);
     //To give the information of selected files to the main component.
     useEffect(() => {
         onSelect(files);
@@ -38,8 +38,17 @@ export const FileSelector = forwardRef(({ maxFiles = 1, acceptedFormats = [], on
     }, [result]);
     //Function called when file is selected
     const onDrop = useCallback((acceptedFiles) => {
-        setFiles(acceptedFiles);
-    }, []);
+        if (maxFiles > 1) {
+            // const allFiles = [...files, ...acceptedFiles];
+            //check size
+            if (!restrictUpload)
+                setFiles((old) => [...files, ...acceptedFiles]);
+        }
+        else {
+            if (!restrictUpload)
+                setFiles(acceptedFiles);
+        }
+    }, [files]);
     //Function called when file is deleted
     const onDelete = (file) => {
         setFiles((old) => old.filter((item) => item.name !== file.name));
@@ -59,7 +68,7 @@ export const FileSelector = forwardRef(({ maxFiles = 1, acceptedFormats = [], on
         maxFiles,
         accept: acceptedFormats.length ? getAcceptedFormats(acceptedFormats) : {}
     });
-    return (_jsx(_Fragment, { children: _jsx(Box, Object.assign({ ref: ref, height: '100%', width: '100%' }, { children: !files.length ? (_jsxs(Box, Object.assign({}, getRootProps(), { height: '100%', width: '100%' }, { children: [_jsx("input", Object.assign({ type: "file" }, getInputProps())), _jsxs(Box, Object.assign({ p: 2, height: '100%', width: '100%', border: '1px solid', borderColor: borderColor, borderRadius: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", sx: { cursor: 'pointer' } }, { children: [_jsx(Box, Object.assign({ width: '100%', textAlign: "center", m: 0.5 }, { children: _jsx(BodyXS, Object.assign({ limit: false }, { children: placeholder })) })), _jsx(Box, Object.assign({ my: 0.5 }, { children: _jsx(Avatar, { children: _jsx(UploadIcon, {}) }) })), _jsx(Box, Object.assign({ m: 0.5 }, { children: _jsx(BodyXS, { children: "Browse" }) }))] })), error && (_jsx(Box, Object.assign({ mt: 1 }, { children: _jsx(BodyXS, Object.assign({ color: "error" }, { children: error })) }))), helperText && (_jsx(Box, Object.assign({ mt: 1 }, { children: _jsx(BodyXS, Object.assign({ color: "secondary" }, { children: helperText })) })))] }))) : (_jsxs(Box, Object.assign({ height: '100%', width: '100%' }, { children: [_jsx(Box, { children: !restrictUpload && (_jsx(_Fragment, { children: files.map((file, index) => (_jsx(Box, Object.assign({ my: 1 }, { children: _jsx(SelectedFile, { file: file, onDelete: onDelete, url: url, index: index, handleResults: handleResults, isLoading: isLoading }, file.name) })))) })) }), showUploaderAlways && (_jsxs(Box, Object.assign({}, getRootProps(), { children: [_jsx("input", Object.assign({ type: "file" }, getInputProps())), _jsxs(Box, Object.assign({ p: 2, height: '100%', width: '100%', border: '1px solid', borderColor: borderColor, borderRadius: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", sx: { cursor: 'pointer' } }, { children: [_jsx(Box, Object.assign({ width: '100%', textAlign: "center", m: 0.5 }, { children: _jsx(BodyXS, Object.assign({ limit: false }, { children: placeholder })) })), _jsx(Box, Object.assign({ my: 0.5 }, { children: _jsx(Avatar, { children: _jsx(UploadIcon, {}) }) })), _jsx(Box, Object.assign({ m: 0.5 }, { children: _jsx(BodyXS, { children: "Browse" }) }))] }))] }))), error && (_jsx(Box, Object.assign({ mt: 1 }, { children: _jsx(BodyXS, Object.assign({ color: "error" }, { children: error })) }))), helperText && (_jsx(Box, Object.assign({ mt: 1 }, { children: _jsx(BodyXS, Object.assign({ color: "secondary" }, { children: helperText })) })))] }))) })) }));
+    return (_jsx(_Fragment, { children: _jsx(Box, Object.assign({ ref: ref, height: '100%', width: '100%' }, { children: !files.length ? (_jsxs(Box, Object.assign({}, getRootProps(), { height: '100%', width: '100%' }, { children: [_jsx("input", Object.assign({ type: "file" }, getInputProps())), _jsxs(Box, Object.assign({ p: 2, height: '100%', width: '100%', border: '1px solid', borderColor: borderColor, borderRadius: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", sx: { cursor: 'pointer' } }, { children: [_jsx(Box, Object.assign({ width: '100%', textAlign: "center", m: 0.5 }, { children: _jsx(BodyXS, Object.assign({ limit: false }, { children: placeholder })) })), _jsx(Box, Object.assign({ my: 0.5 }, { children: _jsx(Avatar, { children: _jsx(UploadIcon, {}) }) })), _jsx(Box, Object.assign({ m: 0.5 }, { children: _jsx(BodyXS, { children: "Browse" }) }))] })), error && (_jsx(Box, Object.assign({ mt: 1 }, { children: _jsx(BodyXS, Object.assign({ color: "error" }, { children: error })) }))), helperText && (_jsx(Box, Object.assign({ mt: 1 }, { children: _jsx(BodyXS, Object.assign({ color: "secondary" }, { children: helperText })) })))] }))) : (_jsxs(Box, Object.assign({ height: '100%', width: '100%' }, { children: [_jsx(Box, { children: files.map((file, index) => (_jsx(Box, Object.assign({ my: 1 }, { children: _jsx(SelectedFile, { file: file, onDelete: onDelete, url: url, index: index, handleResults: handleResults, isLoading: isLoading }, file.name) })))) }), showUploaderAlways && (_jsxs(Box, Object.assign({}, getRootProps(), { children: [_jsx("input", Object.assign({ type: "file" }, getInputProps())), _jsxs(Box, Object.assign({ p: 2, height: '100%', width: '100%', border: '1px solid', borderColor: borderColor, borderRadius: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", sx: { cursor: 'pointer' } }, { children: [_jsx(Box, Object.assign({ width: '100%', textAlign: "center", m: 0.5 }, { children: _jsx(BodyXS, Object.assign({ limit: false }, { children: placeholder })) })), _jsx(Box, Object.assign({ my: 0.5 }, { children: _jsx(Avatar, { children: _jsx(UploadIcon, {}) }) })), _jsx(Box, Object.assign({ m: 0.5 }, { children: _jsx(BodyXS, { children: "Browse" }) }))] }))] }))), error && (_jsx(Box, Object.assign({ mt: 1 }, { children: _jsx(BodyXS, Object.assign({ color: "error" }, { children: error })) }))), helperText && (_jsx(Box, Object.assign({ mt: 1 }, { children: _jsx(BodyXS, Object.assign({ color: "secondary" }, { children: helperText })) })))] }))) })) }));
 });
 FileSelector.defaultProps = {
     borderColor: 'secondary'

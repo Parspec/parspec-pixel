@@ -69,9 +69,9 @@ export default function RichTextEditor({ onFileUpload, onChange, initialHtml = '
     return (
         <Box id={'custom-rich-text-editor'}>
             <LexicalComposer initialConfig={initialConfig}>
-                <Box className="editor-container">
+                <Box className="editor-container" position="relative">
                     <ToolBar onFileUpload={onFileUpload} />
-                    <Box className="editor-inner">
+                    <Box className="editor-inner" position="relative">
                         <RichTextPlugin
                             contentEditable={
                                 <ContentEditable

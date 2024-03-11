@@ -4,7 +4,7 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const Box_1 = require("../Box");
 require("./RichText.css");
 function Placeholder() {
-    return (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ className: "editor-placeholder" }, { children: "Enter text..." }));
+    return ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ className: "editor-placeholder", position: "absolute", top: "12px", left: "12px" }, { children: "Enter text..." })));
 }
 exports.default = Placeholder;
 //# sourceMappingURL=PlaceHolder.js.map

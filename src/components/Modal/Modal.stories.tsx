@@ -10,6 +10,8 @@ export default {
     component: Modal
 } as ComponentMeta<typeof Modal>;
 
+import RichTextEditor from '../RichTextEditor';
+
 export const DefaultModal: ComponentStory<typeof Modal> = ({ open }) => {
     const [openModal, setOpenModal] = useState(open);
     useEffect(() => {
@@ -27,9 +29,20 @@ export const DefaultModal: ComponentStory<typeof Modal> = ({ open }) => {
                 Open Modal
             </Button>
             <Modal onClose={onClose} header={header} footer={footer} open={openModal}>
-                <BodySmall>
-                    Size of Modal Body is flexible, set height and width of children prop element, passing isLoading prop to footer will disable the buttons with an added spinner icon
-                </BodySmall>
+                <Box display={'flex'} maxWidth={800} flexDirection={'column'} alignItems={'center'} justifyContent={'center'}>
+                    <BodySmall>
+                        Size of Modal Body is flexible, set height and width of children prop element, passing isLoading prop to footer will disable the buttons with an added spinner icon
+                    </BodySmall>
+                    <RichTextEditor
+                        onChange={(html: string) => console.log(html)}
+                        initialHtml=""
+                        editorBgColor="#fff"
+                        contentEditableHeight="300px"
+                        contentEditablePaddingLeft="16px"
+                        placeholderPositionBottomLeft="20px"
+                        placeholderPositionTop="70px"
+                    />
+                </Box>
             </Modal>
         </>
     );

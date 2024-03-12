@@ -11,12 +11,19 @@ const react_color_1 = require("react-color");
 const Box_1 = require("../Box");
 const Popper_1 = __importDefault(require("../Popper"));
 const ColorPicker = (props) => {
+    (0, react_1.useEffect)(() => {
+        const colorPickerContainerElement = document.querySelector('div[role="tooltip"]');
+        if (colorPickerContainerElement) {
+            colorPickerContainerElement.style.zIndex = '9999';
+        }
+    }, []);
     return (0, jsx_runtime_1.jsx)(react_color_1.SketchPicker, Object.assign({}, props));
 };
 exports.ColorPicker = ColorPicker;
 const TransitionsColorPicker = ({ color, onChange, onClickAway = () => { }, onClick = () => { } }) => {
     const [open, setOpen] = (0, react_1.useState)(false);
     const [anchorEl, setAnchorEl] = (0, react_1.useState)(null);
+    const colorPickerRef = (0, react_1.useRef)(null);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
         setOpen((previousOpen) => !previousOpen);
@@ -29,7 +36,7 @@ const TransitionsColorPicker = ({ color, onChange, onClickAway = () => { }, onCl
     function handleOnColorChange(color) {
         onChange(color);
     }
-    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(Box_1.Box, { sx: { cursor: 'pointer' }, onClick: handleClick, width: 24, height: 24, borderRadius: 100, bgcolor: color }), open && ((0, jsx_runtime_1.jsx)(material_1.ClickAwayListener, Object.assign({ onClickAway: clickAwayHandler }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, { children: (0, jsx_runtime_1.jsx)(Popper_1.default, Object.assign({ placement: "auto", open: open, anchorEl: anchorEl, transition: true }, { children: ({ TransitionProps }) => ((0, jsx_runtime_1.jsx)(material_1.Fade, Object.assign({}, TransitionProps, { timeout: 350 }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ m: 2 }, { children: (0, jsx_runtime_1.jsx)(exports.ColorPicker, { color: color, onChange: (color) => handleOnColorChange(color) }) })) }))) })) }) })))] }));
+    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(Box_1.Box, { sx: { cursor: 'pointer' }, onClick: handleClick, width: 24, height: 24, borderRadius: 100, bgcolor: color }), open && ((0, jsx_runtime_1.jsx)(material_1.ClickAwayListener, Object.assign({ onClickAway: clickAwayHandler }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, { children: (0, jsx_runtime_1.jsx)(Popper_1.default, Object.assign({ placement: "auto", open: open, anchorEl: anchorEl, transition: true }, { children: ({ TransitionProps }) => ((0, jsx_runtime_1.jsx)(material_1.Fade, Object.assign({}, TransitionProps, { timeout: 350 }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ m: 2 }, { children: (0, jsx_runtime_1.jsx)(exports.ColorPicker, { ref: colorPickerRef, color: color, onChange: (color) => handleOnColorChange(color) }) })) }))) })) }) })))] }));
 };
 exports.TransitionsColorPicker = TransitionsColorPicker;
 exports.TransitionsColorPicker.defaultProps = {

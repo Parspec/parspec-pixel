@@ -150,7 +150,7 @@ export default function FontSize({ selectionFontSize, disabled, editor }: { sele
     }, [selectionFontSize]);
 
     return (
-        <Box display="flex" justifyContent="center" alignItems="center" width="120px">
+        <Box display="flex" justifyContent="center" alignItems="center" width="130px">
             <IconButton disabled={disabled || (selectionFontSize !== '' && Number(inputValue) <= MIN_ALLOWED_FONT_SIZE)} onClick={() => handleButtonClick(UPDATE_FONT_SIZE_TYPE.DECREMENT)}>
                 <RemoveIcon fontSize="small" color="secondary" />
             </IconButton>

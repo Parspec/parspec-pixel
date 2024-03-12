@@ -37,6 +37,8 @@ const LexicalErrorBoundary_1 = __importDefault(require("@lexical/react/LexicalEr
 const LexicalListPlugin_1 = require("@lexical/react/LexicalListPlugin");
 const LexicalLinkPlugin_1 = require("@lexical/react/LexicalLinkPlugin");
 const LexicalClickableLinkPlugin_1 = __importDefault(require("@lexical/react/LexicalClickableLinkPlugin"));
+const LexicalMarkdownShortcutPlugin_1 = require("@lexical/react/LexicalMarkdownShortcutPlugin");
+const markdown_1 = require("@lexical/markdown");
 const AutoLinkPlugin_1 = __importDefault(require("./AutoLinkPlugin"));
 const HtmlPlugin_1 = __importDefault(require("./HtmlPlugin"));
 require("./RichText.css");
@@ -46,7 +48,9 @@ const ToolBar_1 = __importStar(require("./ToolBar"));
 const theme = {
     link: 'cursor-pointer',
     text: {
-        underline: 'text-underline'
+        bold: 'textBold',
+        italic: 'textItalic',
+        underline: 'textUnderline'
     }
 };
 // Lexical React plugins are React components, which makes them
@@ -69,22 +73,22 @@ function MyCustomAutoFocusPlugin() {
 function onError(error) {
     console.error(error);
 }
-function RichTextEditor({ onFileUpload, onChange, initialHtml = '', editorBgColor = 'white', contentEditableHeight = '300px' }) {
+function RichTextEditor({ onFileUpload, onChange, initialHtml = '', editorBgColor = 'white', contentEditableHeight = '300px', contentEditablePaddingLeft = '12px', placeholderPositionBottomLeft = '15px', placeholderPositionTop = '35px' }) {
     const initialConfig = {
         namespace: 'ParspecEditor',
         theme,
         onError,
         nodes: ToolBar_1.registeredNodes
     };
-    return ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ id: 'custom-rich-text-editor' }, { children: (0, jsx_runtime_1.jsx)(LexicalComposer_1.LexicalComposer, Object.assign({ initialConfig: initialConfig }, { children: (0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ className: "editor-container" }, { children: [(0, jsx_runtime_1.jsx)(ToolBar_1.default, { onFileUpload: onFileUpload }), (0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ className: "editor-inner" }, { children: [(0, jsx_runtime_1.jsx)(LexicalRichTextPlugin_1.RichTextPlugin, { contentEditable: (0, jsx_runtime_1.jsx)(LexicalContentEditable_1.ContentEditable, { style: {
-                                        width: '100%',
-                                        height: contentEditableHeight,
-                                        border: '1px solid #ccc',
-                                        padding: '8px',
-                                        backgroundColor: editorBgColor,
-                                        overflow: 'auto',
-                                        borderRadius: '5px'
-                                    } }), placeholder: (0, jsx_runtime_1.jsx)(PlaceHolder_1.default, {}), ErrorBoundary: LexicalErrorBoundary_1.default }), (0, jsx_runtime_1.jsx)(LexicalListPlugin_1.ListPlugin, {}), (0, jsx_runtime_1.jsx)(LexicalHistoryPlugin_1.HistoryPlugin, {}), (0, jsx_runtime_1.jsx)(MyCustomAutoFocusPlugin, {}), (0, jsx_runtime_1.jsx)(HtmlPlugin_1.default, { initialHtml: initialHtml, onHtmlChanged: onChange }), (0, jsx_runtime_1.jsx)(AutoLinkPlugin_1.default, {}), (0, jsx_runtime_1.jsx)(LexicalLinkPlugin_1.LinkPlugin, {}), (0, jsx_runtime_1.jsx)(LexicalClickableLinkPlugin_1.default, {})] }))] })) })) })));
+    return ((0, jsx_runtime_1.jsx)(LexicalComposer_1.LexicalComposer, Object.assign({ initialConfig: initialConfig }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ className: "editor-container" }, { children: (0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ className: "editor-inner" }, { children: [(0, jsx_runtime_1.jsx)(ToolBar_1.default, { onFileUpload: onFileUpload }), (0, jsx_runtime_1.jsx)(LexicalRichTextPlugin_1.RichTextPlugin, { contentEditable: (0, jsx_runtime_1.jsx)(LexicalContentEditable_1.ContentEditable, { style: {
+                                width: '100%',
+                                height: contentEditableHeight,
+                                border: '1px solid #ccc',
+                                backgroundColor: editorBgColor,
+                                paddingLeft: contentEditablePaddingLeft,
+                                overflow: 'auto',
+                                borderRadius: '5px'
+                            } }), placeholder: (0, jsx_runtime_1.jsx)(PlaceHolder_1.default, { placeholderPositionBottomLeft: placeholderPositionBottomLeft, placeholderPositionTop: placeholderPositionTop }), ErrorBoundary: LexicalErrorBoundary_1.default }), (0, jsx_runtime_1.jsx)(LexicalListPlugin_1.ListPlugin, {}), (0, jsx_runtime_1.jsx)(LexicalHistoryPlugin_1.HistoryPlugin, {}), (0, jsx_runtime_1.jsx)(MyCustomAutoFocusPlugin, {}), (0, jsx_runtime_1.jsx)(HtmlPlugin_1.default, { initialHtml: initialHtml, onHtmlChanged: onChange }), (0, jsx_runtime_1.jsx)(AutoLinkPlugin_1.default, {}), (0, jsx_runtime_1.jsx)(LexicalLinkPlugin_1.LinkPlugin, {}), (0, jsx_runtime_1.jsx)(LexicalClickableLinkPlugin_1.default, {}), (0, jsx_runtime_1.jsx)(LexicalMarkdownShortcutPlugin_1.MarkdownShortcutPlugin, { transformers: markdown_1.TRANSFORMERS })] })) })) })));
 }
 exports.default = RichTextEditor;
 //# sourceMappingURL=index.js.map

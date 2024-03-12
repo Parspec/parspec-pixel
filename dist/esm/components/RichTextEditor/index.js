@@ -9,6 +9,8 @@ import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
 import { ListPlugin } from '@lexical/react/LexicalListPlugin';
 import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin';
 import LexicalClickableLinkPlugin from '@lexical/react/LexicalClickableLinkPlugin';
+import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin';
+import { TRANSFORMERS } from '@lexical/markdown';
 import AutoLinkPlugin from './AutoLinkPlugin';
 import HtmlPlugin from './HtmlPlugin';
 import './RichText.css';
@@ -18,7 +20,9 @@ import { default as ToolBar, registeredNodes } from './ToolBar';
 const theme = {
     link: 'cursor-pointer',
     text: {
-        underline: 'text-underline'
+        bold: 'textBold',
+        italic: 'textItalic',
+        underline: 'textUnderline'
     }
 };
 // Lexical React plugins are React components, which makes them
@@ -41,21 +45,21 @@ function MyCustomAutoFocusPlugin() {
 function onError(error) {
     console.error(error);
 }
-export default function RichTextEditor({ onFileUpload, onChange, initialHtml = '', editorBgColor = 'white', contentEditableHeight = '300px' }) {
+export default function RichTextEditor({ onFileUpload, onChange, initialHtml = '', editorBgColor = 'white', contentEditableHeight = '300px', contentEditablePaddingLeft = '12px', placeholderPositionBottomLeft = '15px', placeholderPositionTop = '35px' }) {
     const initialConfig = {
         namespace: 'ParspecEditor',
         theme,
         onError,
         nodes: registeredNodes
     };
-    return (_jsx(Box, Object.assign({ id: 'custom-rich-text-editor' }, { children: _jsx(LexicalComposer, Object.assign({ initialConfig: initialConfig }, { children: _jsxs(Box, Object.assign({ className: "editor-container" }, { children: [_jsx(ToolBar, { onFileUpload: onFileUpload }), _jsxs(Box, Object.assign({ className: "editor-inner" }, { children: [_jsx(RichTextPlugin, { contentEditable: _jsx(ContentEditable, { style: {
-                                        width: '100%',
-                                        height: contentEditableHeight,
-                                        border: '1px solid #ccc',
-                                        padding: '8px',
-                                        backgroundColor: editorBgColor,
-                                        overflow: 'auto',
-                                        borderRadius: '5px'
-                                    } }), placeholder: _jsx(Placeholder, {}), ErrorBoundary: LexicalErrorBoundary }), _jsx(ListPlugin, {}), _jsx(HistoryPlugin, {}), _jsx(MyCustomAutoFocusPlugin, {}), _jsx(HtmlPlugin, { initialHtml: initialHtml, onHtmlChanged: onChange }), _jsx(AutoLinkPlugin, {}), _jsx(LinkPlugin, {}), _jsx(LexicalClickableLinkPlugin, {})] }))] })) })) })));
+    return (_jsx(LexicalComposer, Object.assign({ initialConfig: initialConfig }, { children: _jsx(Box, Object.assign({ className: "editor-container" }, { children: _jsxs(Box, Object.assign({ className: "editor-inner" }, { children: [_jsx(ToolBar, { onFileUpload: onFileUpload }), _jsx(RichTextPlugin, { contentEditable: _jsx(ContentEditable, { style: {
+                                width: '100%',
+                                height: contentEditableHeight,
+                                border: '1px solid #ccc',
+                                backgroundColor: editorBgColor,
+                                paddingLeft: contentEditablePaddingLeft,
+                                overflow: 'auto',
+                                borderRadius: '5px'
+                            } }), placeholder: _jsx(Placeholder, { placeholderPositionBottomLeft: placeholderPositionBottomLeft, placeholderPositionTop: placeholderPositionTop }), ErrorBoundary: LexicalErrorBoundary }), _jsx(ListPlugin, {}), _jsx(HistoryPlugin, {}), _jsx(MyCustomAutoFocusPlugin, {}), _jsx(HtmlPlugin, { initialHtml: initialHtml, onHtmlChanged: onChange }), _jsx(AutoLinkPlugin, {}), _jsx(LinkPlugin, {}), _jsx(LexicalClickableLinkPlugin, {}), _jsx(MarkdownShortcutPlugin, { transformers: TRANSFORMERS })] })) })) })));
 }
 //# sourceMappingURL=index.js.map

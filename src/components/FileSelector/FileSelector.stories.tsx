@@ -43,7 +43,14 @@ export const fileSelector: ComponentStory<typeof FileSelector> = (args) => {
 
     return (
         <Box width={'217px'} height={'82px'}>
-            <FileSelector {...args} url="https://minor-staging.parspec.xyz/api/generate_signed_url/" error="Wrong format" onUpload={onFileUploadedToS3} onSelect={onSelect} />
+            <FileSelector
+                {...args}
+                url="https://minor-staging.parspec.xyz/api/generate_signed_url/"
+                error="Wrong format"
+                onUpload={onFileUploadedToS3}
+                onSelect={onSelect}
+                maxTotalFileSizeAllowed={{ size_in_bytes: 1, helperText: 'error text 2gb' }}
+            />
         </Box>
     );
 };
@@ -51,7 +58,6 @@ export const fileSelector: ComponentStory<typeof FileSelector> = (args) => {
 fileSelector.args = {
     placeholder: 'Drag and drop files here, or:',
     error: 'Wrong format',
-    maxFiles: 5,
     borderColor: 'secondary'
 };
 
@@ -59,12 +65,14 @@ export const multiSelect: ComponentStory<typeof FileSelector> = (args) => {
     const [preSelectedFiles, setPreSelectedFiles] = useState<any>(filesData);
 
     const onFileUploadedToS3 = (files: IFileType[]) => {
+        console.log('onFileUploadedToS3', files);
         const newFiles = files.map((item) => ({ name: item.file.name, size: item.file.size, filepath: item.s3_file_path }));
         setPreSelectedFiles(newFiles);
-        console.log('onFileUploadedToS3', newFiles);
     };
 
-    const onSelect = (files: any) => {};
+    const onSelect = (files: any) => {
+        console.log('onSelect', files);
+    };
 
     return (
         <Box width={'217px'} height={'82px'}>
@@ -76,7 +84,7 @@ export const multiSelect: ComponentStory<typeof FileSelector> = (args) => {
                 onUpload={onFileUploadedToS3}
                 onSelect={onSelect}
                 showUploaderAlways={true}
-                restrictUpload={true}
+                maxTotalFileSizeAllowed={{ size_in_bytes: 3670651, helperText: 'error text 2gb' }}
                 preSelectedFile={preSelectedFiles}
             />
         </Box>

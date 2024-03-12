@@ -31,7 +31,7 @@ interface FileSelectorProps {
     onDeleteFile?: () => void;
     isLoading?: boolean;
     showUploaderAlways?: boolean;
-    restrictUpload?: boolean;
+    maxTotalFileSizeAllowed?: { size_in_bytes: number; helperText: string };
 }
 
 export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
@@ -50,12 +50,13 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
             onDeleteFile = () => {},
             isLoading = false,
             showUploaderAlways = false,
-            restrictUpload = false
+            maxTotalFileSizeAllowed = { size_in_bytes: Infinity, helperText: '' }
         },
         ref
     ) => {
         const [files, setFiles] = useState<any>([]);
         const [result, setResults] = useState([]);
+        const [maxFileSizeExceededError, setMaxFileSizeExceededError] = useState(false);
 
         useEffect(() => {
             if (preSelectedFile?.length) {
@@ -89,13 +90,37 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
         //Function called when file is selected
         const onDrop = useCallback(
             (acceptedFiles: any) => {
+                setMaxFileSizeExceededError(false);
                 if (maxFiles > 1) {
-                    // const allFiles = [...files, ...acceptedFiles];
-                    //check size
+                    const allFiles = [...files, ...acceptedFiles];
 
-                    if (!restrictUpload) setFiles((old: any) => [...files, ...acceptedFiles]);
+                    let currTotalFilesSize = 0;
+                    if (allFiles.length > 0) {
+                        for (let doc of allFiles) {
+                            currTotalFilesSize = currTotalFilesSize + doc.size;
+                        }
+                    }
+
+                    //check size
+                    if (currTotalFilesSize < maxTotalFileSizeAllowed.size_in_bytes) {
+                        setFiles((old: any) => [...files, ...acceptedFiles]);
+                    } else {
+                        setMaxFileSizeExceededError(true);
+                    }
                 } else {
-                    if (!restrictUpload) setFiles(acceptedFiles);
+                    let currTotalFilesSize = 0;
+
+                    if (acceptedFiles.length > 0) {
+                        for (let doc of acceptedFiles) {
+                            currTotalFilesSize = currTotalFilesSize + doc.size;
+                        }
+                    }
+
+                    if (currTotalFilesSize < maxTotalFileSizeAllowed.size_in_bytes) {
+                        setFiles(acceptedFiles);
+                    } else {
+                        setMaxFileSizeExceededError(true);
+                    }
                 }
             },
             [files]
@@ -165,6 +190,11 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                                     <BodyXS color="secondary">{helperText}</BodyXS>
                                 </Box>
                             )}
+                            {maxFileSizeExceededError && (
+                                <Box mt={1}>
+                                    <BodyXS color="error">{maxTotalFileSizeAllowed.helperText}</BodyXS>
+                                </Box>
+                            )}
                         </Box>
                     ) : (
                         <Box height={'100%'} width={'100%'}>
@@ -215,6 +245,11 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                             {helperText && (
                                 <Box mt={1}>
                                     <BodyXS color="secondary">{helperText}</BodyXS>
+                                </Box>
+                            )}
+                            {maxFileSizeExceededError && (
+                                <Box mt={1}>
+                                    <BodyXS color="error">{maxTotalFileSizeAllowed.helperText}</BodyXS>
                                 </Box>
                             )}
                         </Box>

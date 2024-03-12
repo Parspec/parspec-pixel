@@ -1,26 +1,28 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { default as Editor } from './index';
+import { default as TextEditor } from './index';
+import { Box } from '../Box';
 
 export default {
-    title: 'Editor',
-    component: Editor,
+    title: 'TextEditor',
+    component: TextEditor,
     argTypes: {
         onChange: { action: 'onChange' }
     }
-} as ComponentMeta<typeof Editor>;
+} as ComponentMeta<typeof TextEditor>;
 
-export const RichTextEditor: ComponentStory<typeof Editor> = (args) => {
-    return <Editor {...args} />;
-};
-
-RichTextEditor.args = {
-    onFileUpload: (params: FileList | null) => {
-        console.log(params);
-    },
-    onChange: (html: string) => console.log(html),
-    initialHtml: `<h1>Code is Poetry...</h1>`,
-    editorBgColor: '#fff',
-    contentEditableHeight: '300px'
+export const Basic: ComponentStory<typeof TextEditor> = () => {
+    return (
+        <Box maxWidth={600}>
+            <TextEditor
+                onFileUpload={(params: FileList | null) => {
+                    console.log(params);
+                }}
+                onChange={(html: string) => console.log(html)}
+                initialHtml={``}
+                editorBgColor="#fff"
+            />
+        </Box>
+    );
 };

@@ -132,7 +132,7 @@ export default function FontSize({ selectionFontSize, disabled, editor }) {
     useEffect(() => {
         setInputValue(selectionFontSize);
     }, [selectionFontSize]);
-    return (_jsxs(Box, Object.assign({ display: "flex", justifyContent: "center", alignItems: "center", width: "120px" }, { children: [_jsx(IconButton, Object.assign({ disabled: disabled || (selectionFontSize !== '' && Number(inputValue) <= MIN_ALLOWED_FONT_SIZE), onClick: () => handleButtonClick(UPDATE_FONT_SIZE_TYPE.DECREMENT) }, { children: _jsx(RemoveIcon, { fontSize: "small", color: "secondary" }) })), _jsx(TextField, { type: "number", value: inputValue, disabled: disabled, inputProps: {
+    return (_jsxs(Box, Object.assign({ display: "flex", justifyContent: "center", alignItems: "center", width: "136px" }, { children: [_jsx(IconButton, Object.assign({ disabled: disabled || (selectionFontSize !== '' && Number(inputValue) <= MIN_ALLOWED_FONT_SIZE), onClick: () => handleButtonClick(UPDATE_FONT_SIZE_TYPE.DECREMENT) }, { children: _jsx(RemoveIcon, { fontSize: "small", color: "secondary" }) })), _jsx(TextField, { type: "number", value: inputValue, disabled: disabled, inputProps: {
                     min: MIN_ALLOWED_FONT_SIZE,
                     max: MAX_ALLOWED_FONT_SIZE
                 }, onChange: (e) => setInputValue(e.target.value), onKeyDown: handleKeyPress, label: '', fullWidth: true }), _jsx(IconButton, Object.assign({ disabled: disabled || (selectionFontSize !== '' && Number(inputValue) >= MAX_ALLOWED_FONT_SIZE), onClick: () => handleButtonClick(UPDATE_FONT_SIZE_TYPE.INCREMENT) }, { children: _jsx(AddIcon, { fontSize: "small", color: "secondary" }) }))] })));

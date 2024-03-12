@@ -4,12 +4,14 @@ import { createPortal } from 'react-dom';
 import { $getRoot, $getSelection, $createTextNode, $isRangeSelection, FORMAT_TEXT_COMMAND, TextFormatType, TextNode, SELECTION_CHANGE_COMMAND } from 'lexical';
 import { mergeRegister } from '@lexical/utils';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { HeadingNode, $createHeadingNode } from '@lexical/rich-text';
+import { HeadingNode, $createHeadingNode, QuoteNode } from '@lexical/rich-text';
 import { $isLinkNode, TOGGLE_LINK_COMMAND } from '@lexical/link';
 import { $setBlocksType } from '@lexical/selection';
 import { INSERT_ORDERED_LIST_COMMAND, INSERT_UNORDERED_LIST_COMMAND, ListNode, ListItemNode } from '@lexical/list';
 import { LinkNode, AutoLinkNode } from '@lexical/link';
 import { $getSelectionStyleValueForProperty, $patchStyleText } from '@lexical/selection';
+import { CodeHighlightNode, CodeNode } from '@lexical/code';
+import { TableCellNode, TableNode, TableRowNode } from '@lexical/table';
 
 import { Box } from '../Box';
 import { LinkIcon, AttachFileIcon, FormatBoldIcon, FormatItalicIcon, FormatListBulletedIcon, FormatListNumberedIcon, FormatUnderlinedIcon } from '../Icons';
@@ -20,16 +22,16 @@ import { LOW_PRIORITY } from './constants';
 import FontSize from './FontSize';
 import DropdownColorPicker from './DropDownColorPicker';
 import { ColorResult } from '../ColorPicker';
+import { BodySmall } from '../Typography';
 
 const DEFAULT_TEXT = 'Hello World';
 
 type HeadingType = 'h1' | 'h2' | 'h3';
 const HEADING_TAGS: HeadingType[] = ['h1', 'h2', 'h3'];
-const TEXT_FORMATS: TextFormatType[] = ['bold', 'italic', 'underline'];
 type ListType = 'ol' | 'ul';
 const ListTags: ListType[] = ['ol', 'ul'];
 
-const TextToolbarPlugin = (): JSX.Element => {
+const TextStyleToolbarPlugin = ({ isBold, isItalic, isUnderline }: { isBold: boolean; isItalic: boolean; isUnderline: boolean }): JSX.Element => {
     const [editor] = useLexicalComposerContext();
 
     const onClick = (tag: TextFormatType) => {
@@ -38,15 +40,17 @@ const TextToolbarPlugin = (): JSX.Element => {
 
     return (
         <>
-            {TEXT_FORMATS.map((tag) => {
-                return (
-                    <IconButton key={tag} onClick={() => onClick(tag)}>
-                        {tag === 'bold' && <FormatBoldIcon color="secondary" />}
-                        {tag === 'italic' && <FormatItalicIcon color="secondary" />}
-                        {tag === 'underline' && <FormatUnderlinedIcon color="secondary" />}
-                    </IconButton>
-                );
-            })}
+            <IconButton sx={{ background: isBold ? 'rgba(223, 232, 250, 0.3)' : null }} onClick={() => onClick('bold')}>
+                <FormatBoldIcon color="secondary" />
+            </IconButton>
+
+            <IconButton sx={{ background: isItalic ? 'rgba(223, 232, 250, 0.3)' : null }} onClick={() => onClick('italic')}>
+                <FormatItalicIcon color="secondary" />
+            </IconButton>
+
+            <IconButton sx={{ background: isUnderline ? 'rgba(223, 232, 250, 0.3)' : null }} onClick={() => onClick('underline')}>
+                <FormatUnderlinedIcon color="secondary" />
+            </IconButton>
         </>
     );
 };
@@ -72,7 +76,7 @@ const HeadingToolbarPlugin = (): JSX.Element => {
             {HEADING_TAGS.map((tag) => {
                 return (
                     <IconButton key={tag} onClick={() => onClick(tag)}>
-                        {tag.toUpperCase()}
+                        <BodySmall fontWeight={800}>{tag.toUpperCase()}</BodySmall>
                     </IconButton>
                 );
             })}
@@ -139,11 +143,19 @@ export default function ToolBar({ onFileUpload }: IToolbar): JSX.Element {
     const [fontSize, setFontSize] = useState<string>('15px');
     const [fontColor, setFontColor] = useState<string>('#000');
     const [isEditable, setIsEditable] = useState(() => editor.isEditable());
+    const [isBold, setIsBold] = useState(false);
+    const [isItalic, setIsItalic] = useState(false);
+    const [isUnderline, setIsUnderline] = useState(false);
 
     const updateToolbar = useCallback(() => {
         const selection = $getSelection();
 
         if ($isRangeSelection(selection)) {
+            // update text format
+            setIsBold(selection.hasFormat('bold'));
+            setIsItalic(selection.hasFormat('italic'));
+            setIsUnderline(selection.hasFormat('underline'));
+
             // Update links
             const node = getSelectedNode(selection);
             const parent = node.getParent();
@@ -187,8 +199,6 @@ export default function ToolBar({ onFileUpload }: IToolbar): JSX.Element {
         }
     }, [editor, isLink]);
 
-    const destinationNode = document.getElementById('custom-rich-text-editor');
-
     const applyStyleText = useCallback(
         (styles: Record<string, string>, skipHistoryStack?: boolean) => {
             editor.update(
@@ -212,19 +222,24 @@ export default function ToolBar({ onFileUpload }: IToolbar): JSX.Element {
     );
 
     return (
-        <Box display="flex" justifyContent="center" alignItems="center" padding={2} gap={1} flexWrap="wrap">
-            <HeadingToolbarPlugin />
-            <ListToolbarPlugin />
-            <TextToolbarPlugin />
-            <FontSize selectionFontSize={fontSize.slice(0, -2)} editor={editor} disabled={!isEditable} />
-            <IconButton onClick={insertLink}>
-                <LinkIcon color="secondary" />
-            </IconButton>
-            {isLink && destinationNode && createPortal(<FloatingLinkEditor />, destinationNode)}
-            <AttachmentsToobarPlugin onFileUpload={onFileUpload} />
-            <DropdownColorPicker color={fontColor} onChange={onFontColorSelect} />
+        <Box display={'flex'} justifyContent="space-between" alignItems="center" paddingTop={2} paddingBottom={2}>
+            <Box width={1} display={'flex'} alignItems={'center'} justifyContent={'flex-start'} gap={1}>
+                <HeadingToolbarPlugin />
+                <FontSize selectionFontSize={fontSize.slice(0, -2)} editor={editor} disabled={!isEditable} />
+                <DropdownColorPicker color={fontColor} onChange={onFontColorSelect} />
+                <TextStyleToolbarPlugin isBold={isBold} isItalic={isItalic} isUnderline={isUnderline} />
+                <ListToolbarPlugin />
+            </Box>
+
+            <Box width={1} display={'flex'} alignItems={'center'} justifyContent="flex-end" gap={1}>
+                <IconButton onClick={insertLink}>
+                    <LinkIcon color="secondary" />
+                </IconButton>
+                {isLink && createPortal(<FloatingLinkEditor />, document.body)}
+                <AttachmentsToobarPlugin onFileUpload={onFileUpload} />
+            </Box>
         </Box>
     );
 }
 
-export const registeredNodes = [HeadingNode, ListNode, ListItemNode, LinkNode, AutoLinkNode, TextNode];
+export const registeredNodes = [HeadingNode, ListNode, ListItemNode, LinkNode, AutoLinkNode, TextNode, QuoteNode, CodeNode, TableCellNode, CodeHighlightNode, TableRowNode, TableNode];

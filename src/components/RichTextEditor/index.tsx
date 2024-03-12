@@ -9,9 +9,11 @@ import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
 import { ListPlugin } from '@lexical/react/LexicalListPlugin';
 import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin';
 import LexicalClickableLinkPlugin from '@lexical/react/LexicalClickableLinkPlugin';
+import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin';
+import { TRANSFORMERS } from '@lexical/markdown';
+
 import AutoLinkPlugin from './AutoLinkPlugin';
 import HtmlPlugin from './HtmlPlugin';
-
 import './RichText.css';
 import Placeholder from './PlaceHolder';
 import { Box } from '../Box';
@@ -20,7 +22,9 @@ import { default as ToolBar, registeredNodes } from './ToolBar';
 const theme = {
     link: 'cursor-pointer',
     text: {
-        underline: 'text-underline'
+        bold: 'textBold',
+        italic: 'textItalic',
+        underline: 'textUnderline'
     }
 };
 
@@ -67,38 +71,38 @@ export default function RichTextEditor({ onFileUpload, onChange, initialHtml = '
     };
 
     return (
-        <Box id={'custom-rich-text-editor'}>
-            <LexicalComposer initialConfig={initialConfig}>
-                <Box className="editor-container" position="relative" display="flex" flexDirection="column" alignItems="flex-start">
+        <LexicalComposer initialConfig={initialConfig}>
+            <Box className="editor-container">
+                <Box className="editor-inner">
                     <ToolBar onFileUpload={onFileUpload} />
-                    <Box className="editor-inner" position="relative">
-                        <RichTextPlugin
-                            contentEditable={
-                                <ContentEditable
-                                    style={{
-                                        width: '100%',
-                                        height: contentEditableHeight,
-                                        border: '1px solid #ccc',
-                                        padding: '8px',
-                                        backgroundColor: editorBgColor,
-                                        overflow: 'auto',
-                                        borderRadius: '5px'
-                                    }}
-                                />
-                            }
-                            placeholder={<Placeholder />}
-                            ErrorBoundary={LexicalErrorBoundary}
-                        />
-                        <ListPlugin />
-                        <HistoryPlugin />
-                        <MyCustomAutoFocusPlugin />
-                        <HtmlPlugin initialHtml={initialHtml} onHtmlChanged={onChange} />
-                        <AutoLinkPlugin />
-                        <LinkPlugin />
-                        <LexicalClickableLinkPlugin />
-                    </Box>
+                    <RichTextPlugin
+                        contentEditable={
+                            <ContentEditable
+                                style={{
+                                    width: '100%',
+                                    height: contentEditableHeight,
+                                    border: '1px solid #ccc',
+                                    backgroundColor: editorBgColor,
+                                    paddingLeft: '32px',
+                                    paddingTop: '12px',
+                                    overflow: 'auto',
+                                    borderRadius: '5px'
+                                }}
+                            />
+                        }
+                        placeholder={<Placeholder />}
+                        ErrorBoundary={LexicalErrorBoundary}
+                    />
+                    <ListPlugin />
+                    <HistoryPlugin />
+                    <MyCustomAutoFocusPlugin />
+                    <HtmlPlugin initialHtml={initialHtml} onHtmlChanged={onChange} />
+                    <AutoLinkPlugin />
+                    <LinkPlugin />
+                    <LexicalClickableLinkPlugin />
+                    <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
                 </Box>
-            </LexicalComposer>
-        </Box>
+            </Box>
+        </LexicalComposer>
     );
 }

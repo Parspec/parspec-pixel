@@ -11,9 +11,9 @@ export default {
     }
 } as ComponentMeta<typeof CustomDatePicker>;
 
-export const Basic: ComponentStory<typeof CustomDatePicker> = (args) => <CustomDatePicker {...args} />;
+export const datePicker: ComponentStory<typeof CustomDatePicker> = (args) => <CustomDatePicker {...args} />;
 
-Basic.args = {
+datePicker.args = {
     defaultValue: dayjs(new Date()),
     label: 'DatePicker',
     size: 'small',

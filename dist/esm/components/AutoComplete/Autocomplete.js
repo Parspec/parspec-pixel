@@ -12,7 +12,6 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx, Fragment as _Fragment } from "react/jsx-runtime";
 import { forwardRef, useState, useEffect } from 'react';
 import { TextField } from '../TextField';
-import InputAdornment from '@mui/material/InputAdornment';
 import { default as MUIAutocomplete, createFilterOptions } from '@mui/material/Autocomplete';
 const filter = createFilterOptions();
 export const Autocomplete = forwardRef((_a, ref) => {
@@ -70,7 +69,7 @@ export const Autocomplete = forwardRef((_a, ref) => {
                 return option;
             }, value: value, limitTags: limitTags, filterOptions: filterOptions, onInputChange: handleOnInputChange, freeSolo: freeSolo, renderInput: (_a) => {
                 var { size } = _a, params = __rest(_a, ["size"]);
-                return (_jsx(TextField, Object.assign({ size: fieldSize, helperText: helperText, error: error }, params, { variant: variant, color: color, label: label, placeholder: placeholder, autoFocus: autoFocus, inputProps: Object.assign(Object.assign(Object.assign({}, params.inputProps), inputProps), { maxLength, startAdornment: startIcon && _jsx(InputAdornment, Object.assign({ position: "start" }, { children: startIcon })), endAdornment: endIcon && _jsx(InputAdornment, Object.assign({ position: "end" }, { children: endIcon })) }) })));
+                return (_jsx(TextField, Object.assign({ size: fieldSize, helperText: helperText, error: error }, params, { variant: variant, color: color, label: label, placeholder: placeholder, autoFocus: autoFocus, startIcon: startIcon, endIcon: endIcon, inputProps: Object.assign(Object.assign(Object.assign({}, params.inputProps), inputProps), { maxLength }) })));
             }, disabled: disabled, loading: loading })) }));
 });
 Autocomplete.defaultProps = {

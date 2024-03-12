@@ -33,15 +33,11 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Autocomplete = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const react_1 = require("react");
 const TextField_1 = require("../TextField");
-const InputAdornment_1 = __importDefault(require("@mui/material/InputAdornment"));
 const Autocomplete_1 = __importStar(require("@mui/material/Autocomplete"));
 const filter = (0, Autocomplete_1.createFilterOptions)();
 exports.Autocomplete = (0, react_1.forwardRef)((_a, ref) => {
@@ -99,7 +95,7 @@ exports.Autocomplete = (0, react_1.forwardRef)((_a, ref) => {
                 return option;
             }, value: value, limitTags: limitTags, filterOptions: filterOptions, onInputChange: handleOnInputChange, freeSolo: freeSolo, renderInput: (_a) => {
                 var { size } = _a, params = __rest(_a, ["size"]);
-                return ((0, jsx_runtime_1.jsx)(TextField_1.TextField, Object.assign({ size: fieldSize, helperText: helperText, error: error }, params, { variant: variant, color: color, label: label, placeholder: placeholder, autoFocus: autoFocus, inputProps: Object.assign(Object.assign(Object.assign({}, params.inputProps), inputProps), { maxLength, startAdornment: startIcon && (0, jsx_runtime_1.jsx)(InputAdornment_1.default, Object.assign({ position: "start" }, { children: startIcon })), endAdornment: endIcon && (0, jsx_runtime_1.jsx)(InputAdornment_1.default, Object.assign({ position: "end" }, { children: endIcon })) }) })));
+                return ((0, jsx_runtime_1.jsx)(TextField_1.TextField, Object.assign({ size: fieldSize, helperText: helperText, error: error }, params, { variant: variant, color: color, label: label, placeholder: placeholder, autoFocus: autoFocus, startIcon: startIcon, endIcon: endIcon, inputProps: Object.assign(Object.assign(Object.assign({}, params.inputProps), inputProps), { maxLength }) })));
             }, disabled: disabled, loading: loading })) }));
 });
 exports.Autocomplete.defaultProps = {

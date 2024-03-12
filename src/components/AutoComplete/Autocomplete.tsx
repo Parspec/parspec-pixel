@@ -1,7 +1,6 @@
 import { forwardRef, useState, useEffect, ReactNode } from 'react';
 
 import { TextField } from '../TextField';
-import InputAdornment from '@mui/material/InputAdornment';
 import { default as MUIAutocomplete, createFilterOptions } from '@mui/material/Autocomplete';
 import { FilterOptionsState } from '@mui/material/useAutocomplete';
 import { SxProps } from '@mui/material';
@@ -169,12 +168,12 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
                             label={label}
                             placeholder={placeholder}
                             autoFocus={autoFocus}
+                            startIcon={startIcon}
+                            endIcon={endIcon}
                             inputProps={{
                                 ...params.inputProps,
                                 ...inputProps,
-                                maxLength,
-                                startAdornment: startIcon && <InputAdornment position="start">{startIcon}</InputAdornment>,
-                                endAdornment: endIcon && <InputAdornment position="end">{endIcon}</InputAdornment>
+                                maxLength
                             }}
                         />
                     )}

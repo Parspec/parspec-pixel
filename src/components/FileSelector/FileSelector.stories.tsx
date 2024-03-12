@@ -58,26 +58,23 @@ export const multiSelect: ComponentStory<typeof FileSelector> = (args) => {
     const [preSelectedFiles, setPreSelectedFiles] = useState<any>(filesData);
 
     const onFileUploadedToS3 = (files: IFileType[]) => {
-        console.log('onFileUploadedToS3', files);
         const newFiles = files.map((item) => ({ name: item.file.name, size: item.file.size, filepath: item.s3_file_path }));
         setPreSelectedFiles(newFiles);
     };
 
-    const onSelect = (files: any) => {
-        console.log('onSelect', files);
-    };
-
     return (
-        <Box width={'217px'} height={'82px'}>
+        <Box width={'350px'} height={'82px'}>
             <FileSelector
                 {...args}
                 url="https://minor-staging.parspec.xyz/api/generate_signed_url/"
                 error="Wrong format"
-                maxFiles={2}
+                maxFiles={Infinity}
                 onUpload={onFileUploadedToS3}
-                onSelect={onSelect}
                 showUploaderAlways={true}
-                maxTotalFileSizeAllowed={{ size_in_bytes: 3670651, helperText: 'error text 2gb' }}
+                maxTotalFileSizeAllowed={{
+                    size_in_bytes: 1,
+                    helperText: 'The total size of uploaded files cannot exceed 2GB, upload a file with a smaller size or delete existing uploads, if any.'
+                }}
                 preSelectedFile={preSelectedFiles}
             />
         </Box>
@@ -87,6 +84,5 @@ export const multiSelect: ComponentStory<typeof FileSelector> = (args) => {
 multiSelect.args = {
     placeholder: 'Drag and drop files here, or:',
     error: 'Wrong format',
-    maxFiles: 5,
     borderColor: 'secondary'
 };

@@ -62,7 +62,7 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
             if (preSelectedFile?.length) {
                 setFiles(preSelectedFile);
             }
-        }, [preSelectedFile]);
+        }, []);
 
         //To give the information of selected files to the main component.
         useEffect(() => {
@@ -192,7 +192,9 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                             )}
                             {maxFileSizeExceededError && (
                                 <Box mt={1}>
-                                    <BodyXS color="error">{maxTotalFileSizeAllowed.helperText}</BodyXS>
+                                    <BodyXS color="error" limit={false} lines={2}>
+                                        {maxTotalFileSizeAllowed.helperText}
+                                    </BodyXS>
                                 </Box>
                             )}
                         </Box>
@@ -249,7 +251,9 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                             )}
                             {maxFileSizeExceededError && (
                                 <Box mt={1}>
-                                    <BodyXS color="error">{maxTotalFileSizeAllowed.helperText}</BodyXS>
+                                    <BodyXS color="error" limit={false} lines={2}>
+                                        {maxTotalFileSizeAllowed.helperText}
+                                    </BodyXS>
                                 </Box>
                             )}
                         </Box>

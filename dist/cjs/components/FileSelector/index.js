@@ -21,7 +21,7 @@ exports.FileSelector = (0, react_1.forwardRef)(({ maxFiles = 1, acceptedFormats 
         if (preSelectedFile === null || preSelectedFile === void 0 ? void 0 : preSelectedFile.length) {
             setFiles(preSelectedFile);
         }
-    }, []);
+    }, [preSelectedFile]);
     //To give the information of selected files to the main component.
     (0, react_1.useEffect)(() => {
         onSelect(files);

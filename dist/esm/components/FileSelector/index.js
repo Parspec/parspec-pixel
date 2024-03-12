@@ -15,7 +15,7 @@ export const FileSelector = forwardRef(({ maxFiles = 1, acceptedFormats = [], on
         if (preSelectedFile === null || preSelectedFile === void 0 ? void 0 : preSelectedFile.length) {
             setFiles(preSelectedFile);
         }
-    }, []);
+    }, [preSelectedFile]);
     //To give the information of selected files to the main component.
     useEffect(() => {
         onSelect(files);

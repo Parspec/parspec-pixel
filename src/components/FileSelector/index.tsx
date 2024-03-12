@@ -62,7 +62,7 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
             if (preSelectedFile?.length) {
                 setFiles(preSelectedFile);
             }
-        }, []);
+        }, [preSelectedFile]);
 
         //To give the information of selected files to the main component.
         useEffect(() => {

@@ -73,7 +73,7 @@ function MyCustomAutoFocusPlugin() {
 function onError(error) {
     console.error(error);
 }
-function RichTextEditor({ onFileUpload, onChange, initialHtml = '', editorBgColor = 'white', contentEditableHeight = '300px', contentEditablePaddingLeft = '12px', placeholderPositionBottomLeft = '15px', placeholderPositionTop = '35px' }) {
+function RichTextEditor({ onFileUpload, onChange, initialHtml = '', editorBgColor = 'white', contentEditableHeight = '300px' }) {
     const initialConfig = {
         namespace: 'ParspecEditor',
         theme,
@@ -85,10 +85,10 @@ function RichTextEditor({ onFileUpload, onChange, initialHtml = '', editorBgColo
                                 height: contentEditableHeight,
                                 border: '1px solid #ccc',
                                 backgroundColor: editorBgColor,
-                                paddingLeft: contentEditablePaddingLeft,
+                                paddingLeft: '12px',
                                 overflow: 'auto',
                                 borderRadius: '5px'
-                            } }), placeholder: (0, jsx_runtime_1.jsx)(PlaceHolder_1.default, { placeholderPositionBottomLeft: placeholderPositionBottomLeft, placeholderPositionTop: placeholderPositionTop }), ErrorBoundary: LexicalErrorBoundary_1.default }), (0, jsx_runtime_1.jsx)(LexicalListPlugin_1.ListPlugin, {}), (0, jsx_runtime_1.jsx)(LexicalHistoryPlugin_1.HistoryPlugin, {}), (0, jsx_runtime_1.jsx)(MyCustomAutoFocusPlugin, {}), (0, jsx_runtime_1.jsx)(HtmlPlugin_1.default, { initialHtml: initialHtml, onHtmlChanged: onChange }), (0, jsx_runtime_1.jsx)(AutoLinkPlugin_1.default, {}), (0, jsx_runtime_1.jsx)(LexicalLinkPlugin_1.LinkPlugin, {}), (0, jsx_runtime_1.jsx)(LexicalClickableLinkPlugin_1.default, {}), (0, jsx_runtime_1.jsx)(LexicalMarkdownShortcutPlugin_1.MarkdownShortcutPlugin, { transformers: markdown_1.TRANSFORMERS })] })) })) })));
+                            } }), placeholder: (0, jsx_runtime_1.jsx)(PlaceHolder_1.default, {}), ErrorBoundary: LexicalErrorBoundary_1.default }), (0, jsx_runtime_1.jsx)(LexicalListPlugin_1.ListPlugin, {}), (0, jsx_runtime_1.jsx)(LexicalHistoryPlugin_1.HistoryPlugin, {}), (0, jsx_runtime_1.jsx)(MyCustomAutoFocusPlugin, {}), (0, jsx_runtime_1.jsx)(HtmlPlugin_1.default, { initialHtml: initialHtml, onHtmlChanged: onChange }), (0, jsx_runtime_1.jsx)(AutoLinkPlugin_1.default, {}), (0, jsx_runtime_1.jsx)(LexicalLinkPlugin_1.LinkPlugin, {}), (0, jsx_runtime_1.jsx)(LexicalClickableLinkPlugin_1.default, {}), (0, jsx_runtime_1.jsx)(LexicalMarkdownShortcutPlugin_1.MarkdownShortcutPlugin, { transformers: markdown_1.TRANSFORMERS })] })) })) })));
 }
 exports.default = RichTextEditor;
 //# sourceMappingURL=index.js.map

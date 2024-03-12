@@ -60,21 +60,9 @@ interface IRichTextEditorProps {
     onChange: (html: string) => void;
     editorBgColor?: string;
     contentEditableHeight?: string;
-    contentEditablePaddingLeft?: string;
-    placeholderPositionTop?: string;
-    placeholderPositionBottomLeft?: string;
 }
 
-export default function RichTextEditor({
-    onFileUpload,
-    onChange,
-    initialHtml = '',
-    editorBgColor = 'white',
-    contentEditableHeight = '300px',
-    contentEditablePaddingLeft = '12px',
-    placeholderPositionBottomLeft = '15px',
-    placeholderPositionTop = '35px'
-}: IRichTextEditorProps) {
+export default function RichTextEditor({ onFileUpload, onChange, initialHtml = '', editorBgColor = 'white', contentEditableHeight = '300px' }: IRichTextEditorProps) {
     const initialConfig = {
         namespace: 'ParspecEditor',
         theme,
@@ -95,13 +83,13 @@ export default function RichTextEditor({
                                     height: contentEditableHeight,
                                     border: '1px solid #ccc',
                                     backgroundColor: editorBgColor,
-                                    paddingLeft: contentEditablePaddingLeft,
+                                    paddingLeft: '12px',
                                     overflow: 'auto',
                                     borderRadius: '5px'
                                 }}
                             />
                         }
-                        placeholder={<Placeholder placeholderPositionBottomLeft={placeholderPositionBottomLeft} placeholderPositionTop={placeholderPositionTop} />}
+                        placeholder={<Placeholder />}
                         ErrorBoundary={LexicalErrorBoundary}
                     />
                     <ListPlugin />

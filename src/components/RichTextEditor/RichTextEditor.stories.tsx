@@ -26,9 +26,5 @@ Basic.args = {
     },
     onChange: (html: string) => console.log(html),
     initialHtml: ``,
-    editorBgColor: '#fff',
-    contentEditableHeight: '300px',
-    contentEditablePaddingLeft: '16px',
-    placeholderPositionBottomLeft: '20px',
-    placeholderPositionTop: '70px'
+    editorBgColor: '#fff'
 };

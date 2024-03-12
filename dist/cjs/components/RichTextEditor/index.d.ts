@@ -5,9 +5,6 @@ interface IRichTextEditorProps {
     onChange: (html: string) => void;
     editorBgColor?: string;
     contentEditableHeight?: string;
-    contentEditablePaddingLeft?: string;
-    placeholderPositionTop?: string;
-    placeholderPositionBottomLeft?: string;
 }
-export default function RichTextEditor({ onFileUpload, onChange, initialHtml, editorBgColor, contentEditableHeight, contentEditablePaddingLeft, placeholderPositionBottomLeft, placeholderPositionTop }: IRichTextEditorProps): import("react/jsx-runtime").JSX.Element;
+export default function RichTextEditor({ onFileUpload, onChange, initialHtml, editorBgColor, contentEditableHeight }: IRichTextEditorProps): import("react/jsx-runtime").JSX.Element;
 export {};

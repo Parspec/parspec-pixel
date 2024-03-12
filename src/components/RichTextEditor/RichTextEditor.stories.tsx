@@ -25,6 +25,6 @@ Basic.args = {
         console.log(params);
     },
     onChange: (html: string) => console.log(html),
-    initialHtml: ``,
+    initialHtml: `<p dir="ltr"><u><i><b><strong style="font-size: 33px; color: rgb(80, 227, 194); white-space: pre-wrap;">Let's build something today</strong></b></i></u></p>`,
     editorBgColor: '#fff'
 };

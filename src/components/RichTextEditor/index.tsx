@@ -25,6 +25,12 @@ const theme = {
         bold: 'textBold',
         italic: 'textItalic',
         underline: 'textUnderline'
+    },
+    paragraph: 'richTextParagraph',
+    list: {
+        listitem: 'richTextListItem',
+        ul: 'richTextList',
+        ol: 'richTextList'
     }
 };
 
@@ -83,8 +89,8 @@ export default function RichTextEditor({ onFileUpload, onChange, initialHtml = '
                                     height: contentEditableHeight,
                                     border: '1px solid #ccc',
                                     backgroundColor: editorBgColor,
-                                    paddingLeft: '32px',
                                     paddingTop: '12px',
+                                    paddingLeft: '12px',
                                     overflow: 'auto',
                                     borderRadius: '5px'
                                 }}

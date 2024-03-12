@@ -20,7 +20,7 @@ export const Basic: ComponentStory<typeof TextEditor> = () => {
                     console.log(params);
                 }}
                 onChange={(html: string) => console.log(html)}
-                initialHtml={``}
+                initialHtml={`<p class="richTextParagraph" dir="ltr"><span style="white-space: pre-wrap;">This is common miss conception that thissjiocsjiihbdhibuwsi  cjn hi sk hjna cihsbvjshb ishab  jab chaji sj h asjhc hab ujahbscusdbyhcv  uhs bushbj suhb shu vsudh sdj sj sj ushb sd buhsuhb su b bsuhvujhsdhxvsusjvsdjvsdujvsdhjhsdvushbvusdybvubh  auc bsduicbvsbyuhvvuhsdbvsuhbvsdhujbvsdjhvubsdbvujh</span></p>`}
                 editorBgColor="#fff"
             />
         </Box>

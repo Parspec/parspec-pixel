@@ -6,6 +6,21 @@
     color: rgb(233, 23, 23);
 }
 
+.richTextParagraph {
+    margin: 0;
+    position: relative;
+}
+
+.richTextListItem {
+    margin: 0 32px;
+}
+
+.richTextList {
+    padding: 0;
+    margin: 0;
+    list-style-position: outside;
+}
+
 .textUnderline {
     text-decoration: underline;
 }
@@ -22,6 +37,7 @@
     border-radius: 2px;
     width: 100%;
     color: #000;
+    line-height: 20px;
     position: relative;
     font-weight: 400;
     text-align: left;

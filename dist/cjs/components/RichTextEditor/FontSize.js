@@ -97,7 +97,8 @@ function FontSize({ selectionFontSize, disabled, editor }) {
                 const selection = (0, lexical_1.$getSelection)();
                 if (selection !== null) {
                     (0, selection_1.$patchStyleText)(selection, {
-                        'font-size': newFontSize || getNextFontSize
+                        'font-size': newFontSize || getNextFontSize,
+                        'line-height': '1.2'
                     });
                 }
             }

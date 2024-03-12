@@ -83,7 +83,8 @@ export default function RichTextEditor({ onFileUpload, onChange, initialHtml = '
                                     height: contentEditableHeight,
                                     border: '1px solid #ccc',
                                     backgroundColor: editorBgColor,
-                                    paddingLeft: '12px',
+                                    paddingLeft: '32px',
+                                    paddingTop: '12px',
                                     overflow: 'auto',
                                     borderRadius: '5px'
                                 }}

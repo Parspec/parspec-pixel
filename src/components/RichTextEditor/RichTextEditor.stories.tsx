@@ -12,19 +12,17 @@ export default {
     }
 } as ComponentMeta<typeof TextEditor>;
 
-export const Basic: ComponentStory<typeof TextEditor> = (args) => {
+export const Basic: ComponentStory<typeof TextEditor> = () => {
     return (
         <Box maxWidth={600}>
-            <TextEditor {...args} />
+            <TextEditor
+                onFileUpload={(params: FileList | null) => {
+                    console.log(params);
+                }}
+                onChange={(html: string) => console.log(html)}
+                initialHtml={``}
+                editorBgColor="#fff"
+            />
         </Box>
     );
-};
-
-Basic.args = {
-    onFileUpload: (params: FileList | null) => {
-        console.log(params);
-    },
-    onChange: (html: string) => console.log(html),
-    initialHtml: `<p dir="ltr"><u><i><b><strong style="font-size: 33px; color: rgb(80, 227, 194); white-space: pre-wrap;">Let's build something today</strong></b></i></u></p>`,
-    editorBgColor: '#fff'
 };

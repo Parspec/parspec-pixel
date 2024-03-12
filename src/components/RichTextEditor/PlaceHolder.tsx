@@ -4,7 +4,7 @@ import './RichText.css';
 
 export default function Placeholder() {
     return (
-        <Box className="editor-placeholder" sx={{ top: '72px', left: '13px' }}>
+        <Box className="editor-placeholder" sx={{ top: '83px', left: '34px' }}>
             Enter text...
         </Box>
     );

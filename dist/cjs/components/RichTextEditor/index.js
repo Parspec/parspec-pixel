@@ -85,7 +85,8 @@ function RichTextEditor({ onFileUpload, onChange, initialHtml = '', editorBgColo
                                 height: contentEditableHeight,
                                 border: '1px solid #ccc',
                                 backgroundColor: editorBgColor,
-                                paddingLeft: '12px',
+                                paddingLeft: '32px',
+                                paddingTop: '12px',
                                 overflow: 'auto',
                                 borderRadius: '5px'
                             } }), placeholder: (0, jsx_runtime_1.jsx)(PlaceHolder_1.default, {}), ErrorBoundary: LexicalErrorBoundary_1.default }), (0, jsx_runtime_1.jsx)(LexicalListPlugin_1.ListPlugin, {}), (0, jsx_runtime_1.jsx)(LexicalHistoryPlugin_1.HistoryPlugin, {}), (0, jsx_runtime_1.jsx)(MyCustomAutoFocusPlugin, {}), (0, jsx_runtime_1.jsx)(HtmlPlugin_1.default, { initialHtml: initialHtml, onHtmlChanged: onChange }), (0, jsx_runtime_1.jsx)(AutoLinkPlugin_1.default, {}), (0, jsx_runtime_1.jsx)(LexicalLinkPlugin_1.LinkPlugin, {}), (0, jsx_runtime_1.jsx)(LexicalClickableLinkPlugin_1.default, {}), (0, jsx_runtime_1.jsx)(LexicalMarkdownShortcutPlugin_1.MarkdownShortcutPlugin, { transformers: markdown_1.TRANSFORMERS })] })) })) })));

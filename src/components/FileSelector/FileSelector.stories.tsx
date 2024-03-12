@@ -43,14 +43,7 @@ export const fileSelector: ComponentStory<typeof FileSelector> = (args) => {
 
     return (
         <Box width={'217px'} height={'82px'}>
-            <FileSelector
-                {...args}
-                url="https://minor-staging.parspec.xyz/api/generate_signed_url/"
-                error="Wrong format"
-                onUpload={onFileUploadedToS3}
-                onSelect={onSelect}
-                maxTotalFileSizeAllowed={{ size_in_bytes: 1, helperText: 'error text 2gb' }}
-            />
+            <FileSelector {...args} url="https://minor-staging.parspec.xyz/api/generate_signed_url/" error="Wrong format" onUpload={onFileUploadedToS3} onSelect={onSelect} />
         </Box>
     );
 };

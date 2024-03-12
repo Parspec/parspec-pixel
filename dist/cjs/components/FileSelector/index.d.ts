@@ -27,7 +27,10 @@ interface FileSelectorProps {
     onDeleteFile?: () => void;
     isLoading?: boolean;
     showUploaderAlways?: boolean;
-    restrictUpload?: boolean;
+    maxTotalFileSizeAllowed?: {
+        size_in_bytes: number;
+        helperText: string;
+    };
 }
 export declare const FileSelector: import("react").ForwardRefExoticComponent<FileSelectorProps & import("react").RefAttributes<HTMLDivElement>>;
 export {};

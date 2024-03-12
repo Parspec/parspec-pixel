@@ -12,6 +12,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx, Fragment as _Fragment } from "react/jsx-runtime";
 import { forwardRef, useState, useEffect } from 'react';
 import { TextField } from '../TextField';
+import InputAdornment from '@mui/material/InputAdornment';
 import { default as MUIAutocomplete, createFilterOptions } from '@mui/material/Autocomplete';
 const filter = createFilterOptions();
 export const Autocomplete = forwardRef((_a, ref) => {
@@ -21,7 +22,7 @@ export const Autocomplete = forwardRef((_a, ref) => {
             filteredOptions = options.filter((option) => option[optionlabelkeyname] === state[optionlabelkeyname]);
         }
         return filteredOptions;
-    }, sx, inputProps, loading, getOptionLabel, getOptionDisabled } = _a, props = __rest(_a, ["id", "label", "placeholder", "color", "variant", "onChange", "optionlabelkeyname", "freeSolo", "fieldSize", "onBlur", "helperText", "error", "options", "onTextFieldChange", "limitTags", "disabled", "value", "autoFocus", "blurOnEmptyInput", "maxLength", "filterOptionsCallBack", "sx", "inputProps", "loading", "getOptionLabel", "getOptionDisabled"]);
+    }, sx, inputProps, loading, getOptionLabel, getOptionDisabled, startIcon, endIcon } = _a, props = __rest(_a, ["id", "label", "placeholder", "color", "variant", "onChange", "optionlabelkeyname", "freeSolo", "fieldSize", "onBlur", "helperText", "error", "options", "onTextFieldChange", "limitTags", "disabled", "value", "autoFocus", "blurOnEmptyInput", "maxLength", "filterOptionsCallBack", "sx", "inputProps", "loading", "getOptionLabel", "getOptionDisabled", "startIcon", "endIcon"]);
     const [state, setState] = useState(value || '');
     const handleOnChange = (event, newValue) => {
         onChange(Object.assign(Object.assign({}, event), { target: Object.assign(Object.assign({}, event.target), { value: newValue }) }));
@@ -69,7 +70,7 @@ export const Autocomplete = forwardRef((_a, ref) => {
                 return option;
             }, value: value, limitTags: limitTags, filterOptions: filterOptions, onInputChange: handleOnInputChange, freeSolo: freeSolo, renderInput: (_a) => {
                 var { size } = _a, params = __rest(_a, ["size"]);
-                return (_jsx(TextField, Object.assign({ size: fieldSize, helperText: helperText, error: error }, params, { variant: variant, color: color, label: label, placeholder: placeholder, autoFocus: autoFocus, inputProps: Object.assign(Object.assign(Object.assign({}, params.inputProps), inputProps), { maxLength }) })));
+                return (_jsx(TextField, Object.assign({ size: fieldSize, helperText: helperText, error: error }, params, { variant: variant, color: color, label: label, placeholder: placeholder, autoFocus: autoFocus, inputProps: Object.assign(Object.assign(Object.assign({}, params.inputProps), inputProps), { maxLength, startAdornment: startIcon && _jsx(InputAdornment, Object.assign({ position: "start" }, { children: startIcon })), endAdornment: endIcon && _jsx(InputAdornment, Object.assign({ position: "end" }, { children: endIcon })) }) })));
             }, disabled: disabled, loading: loading })) }));
 });
 Autocomplete.defaultProps = {

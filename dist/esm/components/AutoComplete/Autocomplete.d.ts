@@ -38,5 +38,7 @@ export interface AutocompleteProps {
     forcePopupIcon?: boolean;
     getOptionLabel?: (option: OptionType | string) => string;
     getOptionDisabled?: (option: OptionType | string) => boolean;
+    startIcon?: React.ReactNode;
+    endIcon?: React.ReactNode;
 }
 export declare const Autocomplete: React.FC<AutocompleteProps>;

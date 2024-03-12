@@ -1,6 +1,7 @@
 import { forwardRef, useState, useEffect, ReactNode } from 'react';
 
 import { TextField } from '../TextField';
+import InputAdornment from '@mui/material/InputAdornment';
 import { default as MUIAutocomplete, createFilterOptions } from '@mui/material/Autocomplete';
 import { FilterOptionsState } from '@mui/material/useAutocomplete';
 import { SxProps } from '@mui/material';
@@ -43,6 +44,8 @@ export interface AutocompleteProps {
     forcePopupIcon?: boolean;
     getOptionLabel?: (option: OptionType | string) => string;
     getOptionDisabled?: (option: OptionType | string) => boolean;
+    startIcon?: React.ReactNode;
+    endIcon?: React.ReactNode;
 }
 
 const filter = createFilterOptions<OptionType>();
@@ -82,6 +85,8 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
             loading,
             getOptionLabel,
             getOptionDisabled,
+            startIcon,
+            endIcon,
             ...props
         },
         ref
@@ -167,7 +172,9 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
                             inputProps={{
                                 ...params.inputProps,
                                 ...inputProps,
-                                maxLength
+                                maxLength,
+                                startAdornment: startIcon && <InputAdornment position="start">{startIcon}</InputAdornment>,
+                                endAdornment: endIcon && <InputAdornment position="end">{endIcon}</InputAdornment>
                             }}
                         />
                     )}

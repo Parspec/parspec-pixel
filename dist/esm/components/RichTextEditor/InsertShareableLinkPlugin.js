@@ -1,6 +1,6 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { $createTextNode, $insertNodes, $createLineBreakNode } from 'lexical';
+import { $createTextNode, $insertNodes, $createLineBreakNode, $getRoot } from 'lexical';
 import { $createLinkNode } from '@lexical/link';
 import { Button } from '../Button';
 export default function InsertShareableLinkPlugin({ href, title }) {
@@ -8,6 +8,10 @@ export default function InsertShareableLinkPlugin({ href, title }) {
     const [editor] = useLexicalComposerContext();
     function handleOnClick() {
         editor.update(() => {
+            const textContent = $getRoot().getTextContent();
+            if (textContent.includes(title)) {
+                return;
+            }
             const linkNode = $createLinkNode(href, { target: '_blank' });
             linkNode.append($createTextNode(title));
             $insertNodes([$createLineBreakNode(), linkNode]);

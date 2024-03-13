@@ -47,9 +47,18 @@ interface IRichTextEditorProps {
     editorBgColor?: string;
     contentEditableHeight?: string;
     isDisableEditorState?: boolean;
+    placeHolderText?: string;
 }
 
-export default function RichTextEditor({ onFileUpload, onChange, initialHtml = '', editorBgColor = 'white', contentEditableHeight = '300px', isDisableEditorState = false }: IRichTextEditorProps) {
+export default function RichTextEditor({
+    onFileUpload,
+    onChange,
+    initialHtml = '',
+    editorBgColor = 'white',
+    contentEditableHeight = '300px',
+    isDisableEditorState = false,
+    placeHolderText = 'Enter text...'
+}: IRichTextEditorProps) {
     const initialConfig = {
         namespace: 'ParspecEditor',
         theme,
@@ -77,7 +86,7 @@ export default function RichTextEditor({ onFileUpload, onChange, initialHtml = '
                                 }}
                             />
                         }
-                        placeholder={<Placeholder />}
+                        placeholder={<Placeholder placeHolderText={placeHolderText} />}
                         ErrorBoundary={LexicalErrorBoundary}
                     />
                     <ListPlugin />

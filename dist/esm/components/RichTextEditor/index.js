@@ -37,7 +37,7 @@ const theme = {
 function onError(error) {
     console.error(error);
 }
-export default function RichTextEditor({ onFileUpload, onChange, initialHtml = '', editorBgColor = 'white', contentEditableHeight = '300px', isDisableEditorState = false }) {
+export default function RichTextEditor({ onFileUpload, onChange, initialHtml = '', editorBgColor = 'white', contentEditableHeight = '300px', isDisableEditorState = false, placeHolderText = 'Enter text...' }) {
     const initialConfig = {
         namespace: 'ParspecEditor',
         theme,
@@ -53,6 +53,6 @@ export default function RichTextEditor({ onFileUpload, onChange, initialHtml = '
                                 paddingLeft: '12px',
                                 overflow: 'auto',
                                 borderRadius: '5px'
-                            } }), placeholder: _jsx(Placeholder, {}), ErrorBoundary: LexicalErrorBoundary }), _jsx(ListPlugin, {}), _jsx(HistoryPlugin, {}), _jsx(AutoFocusPlugin, {}), _jsx(HtmlPlugin, { initialHtml: initialHtml, onHtmlChanged: onChange }), _jsx(AutoLinkPlugin, {}), _jsx(LinkPlugin, {}), _jsx(LexicalClickableLinkPlugin, {}), _jsx(DisableEditorPlugin, { isDisableEditorState: isDisableEditorState }), _jsx(MarkdownShortcutPlugin, { transformers: TRANSFORMERS })] })) })) })));
+                            } }), placeholder: _jsx(Placeholder, { placeHolderText: placeHolderText }), ErrorBoundary: LexicalErrorBoundary }), _jsx(ListPlugin, {}), _jsx(HistoryPlugin, {}), _jsx(AutoFocusPlugin, {}), _jsx(HtmlPlugin, { initialHtml: initialHtml, onHtmlChanged: onChange }), _jsx(AutoLinkPlugin, {}), _jsx(LinkPlugin, {}), _jsx(LexicalClickableLinkPlugin, {}), _jsx(DisableEditorPlugin, { isDisableEditorState: isDisableEditorState }), _jsx(MarkdownShortcutPlugin, { transformers: TRANSFORMERS })] })) })) })));
 }
 //# sourceMappingURL=index.js.map

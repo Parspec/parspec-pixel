@@ -24,6 +24,7 @@ export const Basic: ComponentStory<typeof TextEditor> = () => {
                 editorBgColor="#fff"
                 isDisableEditorState={false}
                 contentEditableHeight="100px"
+                placeHolderText="Tell us your story..."
             />
         </Box>
     );

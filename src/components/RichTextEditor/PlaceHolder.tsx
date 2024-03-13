@@ -2,10 +2,10 @@ import { Box } from '../Box';
 
 import './RichText.css';
 
-export default function Placeholder() {
+export default function Placeholder({ placeHolderText }: { placeHolderText: string }) {
     return (
         <Box className="editor-placeholder" sx={{ top: '66px', left: '15px' }}>
-            Enter text...
+            {placeHolderText}
         </Box>
     );
 }

@@ -29,7 +29,6 @@ const DropDownColorPicker_1 = __importDefault(require("./DropDownColorPicker"));
 const Typography_1 = require("../Typography");
 const DEFAULT_TEXT = 'Hello World';
 const HEADING_TAGS = ['h1', 'h2', 'h3'];
-const ListTags = ['ol', 'ul'];
 const TextStyleToolbarPlugin = ({ isBold, isItalic, isUnderline }) => {
     const [editor] = (0, LexicalComposerContext_1.useLexicalComposerContext)();
     const onClick = (tag) => {
@@ -56,19 +55,37 @@ const HeadingToolbarPlugin = () => {
             return ((0, jsx_runtime_1.jsx)(IconButton_1.IconButton, Object.assign({ onClick: () => onClick(tag) }, { children: (0, jsx_runtime_1.jsx)(Typography_1.BodySmall, Object.assign({ fontWeight: 800 }, { children: tag.toUpperCase() })) }), tag));
         }) }));
 };
+const formatParagraph = (editor) => {
+    editor.update(() => {
+        const selection = (0, lexical_1.$getSelection)();
+        (0, selection_1.$setBlocksType)(selection, () => (0, lexical_1.$createParagraphNode)());
+    });
+};
 const ListToolbarPlugin = () => {
     const [editor] = (0, LexicalComposerContext_1.useLexicalComposerContext)();
-    const onClick = (tag) => {
-        if (tag === 'ol') {
+    const [bulletListCount, setBulletListCount] = (0, react_1.useState)(0);
+    const [orderedListCount, setOrderedListCount] = (0, react_1.useState)(0);
+    function formatNumberedList() {
+        if (orderedListCount === 0) {
             editor.dispatchCommand(list_1.INSERT_ORDERED_LIST_COMMAND, undefined);
+            setOrderedListCount(1);
         }
-        else if (tag === 'ul') {
+        else {
+            formatParagraph(editor);
+            setOrderedListCount(0);
+        }
+    }
+    function formatUnOrderedList() {
+        if (bulletListCount === 0) {
             editor.dispatchCommand(list_1.INSERT_UNORDERED_LIST_COMMAND, undefined);
+            setBulletListCount(1);
         }
-    };
-    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: ListTags.map((tag) => {
-            return ((0, jsx_runtime_1.jsxs)(IconButton_1.IconButton, Object.assign({ onClick: () => onClick(tag) }, { children: [tag === 'ol' && (0, jsx_runtime_1.jsx)(Icons_1.FormatListNumberedIcon, { color: "secondary" }), tag === 'ul' && (0, jsx_runtime_1.jsx)(Icons_1.FormatListBulletedIcon, { color: "secondary" })] }), tag));
-        }) }));
+        else {
+            formatParagraph(editor);
+            setBulletListCount(0);
+        }
+    }
+    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(IconButton_1.IconButton, Object.assign({ onClick: formatNumberedList }, { children: (0, jsx_runtime_1.jsx)(Icons_1.FormatListNumberedIcon, { color: "secondary" }) })), ";", (0, jsx_runtime_1.jsx)(IconButton_1.IconButton, Object.assign({ onClick: formatUnOrderedList }, { children: (0, jsx_runtime_1.jsx)(Icons_1.FormatListBulletedIcon, { color: "secondary" }) })), ";"] }));
 };
 const AttachmentsToobarPlugin = ({ onFileUpload }) => {
     const fileInputRef = (0, react_1.useRef)(null);

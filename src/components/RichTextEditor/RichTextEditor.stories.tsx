@@ -27,8 +27,8 @@ export const Basic: ComponentStory<typeof TextEditor> = () => {
                 placeHolderText="Tell us your story..."
                 showAttachements
                 showShareableLinkButton
-                shareableLinkTitle="Google"
-                shareableLinkUrl="https://www.google.com"
+                shareableLinkTitle="Awesome !!"
+                shareableLinkUrl="https://iamawesome.com"
             />
         </Box>
     );

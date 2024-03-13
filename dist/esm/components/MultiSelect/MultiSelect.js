@@ -21,13 +21,13 @@ const icon = _jsx(CheckBoxOutlineBlankIcon, { fontSize: "small" });
 const checkedIcon = _jsx(CheckBoxIcon, { fontSize: "small" });
 const LISTBOX_PADDING = 8;
 function renderRow(props) {
-    const { data, index, style } = props;
+    const { data, index, style, customRow } = props;
     const currentRowData = data[index];
     const _a = currentRowData[0], { color, optionlabelkeyname } = _a, rowProp = __rest(_a, ["color", "optionlabelkeyname"]);
     const option = currentRowData[1];
     const optionState = currentRowData[2];
     const inlineStyle = Object.assign(Object.assign({}, style), { top: style.top + LISTBOX_PADDING });
-    return (_jsxs(Typography, Object.assign({ component: "li" }, rowProp, { noWrap: true, style: inlineStyle, fontSize: "14px" }, { children: [_jsx(Checkbox, { size: "small", sx: { marginRight: 2 }, icon: icon, checked: optionState.selected, checkedIcon: checkedIcon, color: rowProp.color }), option[optionlabelkeyname]] })));
+    return (_jsxs(Typography, Object.assign({ component: "li" }, rowProp, { noWrap: true, style: inlineStyle, fontSize: "14px" }, { children: [_jsx(Checkbox, { size: "small", sx: { marginRight: 2 }, icon: icon, checked: optionState.selected, checkedIcon: checkedIcon, color: rowProp.color }), customRow ? customRow(Object.assign(Object.assign({}, props), { label: option[optionlabelkeyname] })) : option[optionlabelkeyname]] })));
 }
 const OuterElementContext = createContext({});
 const OuterElementType = forwardRef((props, ref) => {
@@ -45,7 +45,7 @@ function useResetCache(data) {
 }
 // Adapter for react-window
 const ListboxComponent = forwardRef(function ListboxComponent(props, ref) {
-    const { children } = props, other = __rest(props, ["children"]);
+    const { children, customRow } = props, other = __rest(props, ["children", "customRow"]);
     const itemData = [];
     children.forEach((item) => {
         itemData.push(item);
@@ -67,7 +67,7 @@ const ListboxComponent = forwardRef(function ListboxComponent(props, ref) {
         return itemData.map(getChildSize).reduce((a, b) => a + b, 0);
     };
     const gridRef = useResetCache(itemCount);
-    return (_jsx("div", Object.assign({ ref: ref }, { children: _jsx(OuterElementContext.Provider, Object.assign({ value: other }, { children: _jsx(VariableSizeList, Object.assign({ itemData: itemData, height: getHeight() + 2 * LISTBOX_PADDING, width: "100%", ref: gridRef, outerElementType: OuterElementType, innerElementType: "ul", itemSize: getChildSize, overscanCount: 5, itemCount: itemCount }, { children: renderRow })) })) })));
+    return (_jsx("div", Object.assign({ ref: ref }, { children: _jsx(OuterElementContext.Provider, Object.assign({ value: other }, { children: _jsx(VariableSizeList, Object.assign({ itemData: itemData, height: getHeight() + 2 * LISTBOX_PADDING, width: "100%", ref: gridRef, outerElementType: OuterElementType, innerElementType: "ul", itemSize: getChildSize, overscanCount: 5, itemCount: itemCount }, { children: (newProps) => renderRow(Object.assign(Object.assign({}, newProps), { customRow })) })) })) })));
 });
 const StyledPopper = styled(Popper)({
     [`& .${autocompleteClasses.listbox}`]: {
@@ -79,12 +79,12 @@ const StyledPopper = styled(Popper)({
     }
 });
 export const MultiSelect = forwardRef(function (_a, ref) {
-    var { value, size, helperText, error, options, variant, color, placeholder, id, filterOptions, label, optionlabelkeyname = 'label' } = _a, restParams = __rest(_a, ["value", "size", "helperText", "error", "options", "variant", "color", "placeholder", "id", "filterOptions", "label", "optionlabelkeyname"]);
+    var { value, size, helperText, error, options, variant, color, placeholder, id, filterOptions, label, optionlabelkeyname = 'label', customRow } = _a, restParams = __rest(_a, ["value", "size", "helperText", "error", "options", "variant", "color", "placeholder", "id", "filterOptions", "label", "optionlabelkeyname", "customRow"]);
     const sortedOptions = useMemo(() => sortOptions(options, optionlabelkeyname, value), [options, value]);
     function getDefaultFilterOption(options, state) {
         return createFilterOptions()(options, state);
     }
-    return (_jsx(Autocomplete, Object.assign({}, restParams, { fullWidth: true, value: value, options: sortedOptions, multiple: true, size: size, ref: ref, disableCloseOnSelect: true, filterOptions: filterOptions ? filterOptions : getDefaultFilterOption, getOptionLabel: (option) => option[optionlabelkeyname], isOptionEqualToValue: (option, value) => option[optionlabelkeyname] === value[optionlabelkeyname], ListboxComponent: ListboxComponent, PopperComponent: StyledPopper, renderInput: (_a) => {
+    return (_jsx(Autocomplete, Object.assign({}, restParams, { fullWidth: true, value: value, options: sortedOptions, multiple: true, size: size, ref: ref, disableCloseOnSelect: true, filterOptions: filterOptions ? filterOptions : getDefaultFilterOption, getOptionLabel: (option) => option[optionlabelkeyname], isOptionEqualToValue: (option, value) => option[optionlabelkeyname] === value[optionlabelkeyname], ListboxComponent: (listboxProps) => _jsx(ListboxComponent, Object.assign({}, listboxProps, { customRow: customRow })), PopperComponent: StyledPopper, renderInput: (_a) => {
             var { size: _fieldSize } = _a, params = __rest(_a, ["size"]);
             const { InputProps: _InputProps } = params, restParams = __rest(params, ["InputProps"]);
             const { startAdornment } = _InputProps, restInputProps = __rest(_InputProps, ["startAdornment"]);

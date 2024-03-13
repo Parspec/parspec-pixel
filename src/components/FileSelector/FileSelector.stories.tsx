@@ -72,8 +72,8 @@ export const multiSelect: ComponentStory<typeof FileSelector> = (args) => {
                 onUpload={onFileUploadedToS3}
                 showUploaderAlways={true}
                 maxTotalFileSizeAllowed={{
-                    size_in_bytes: 1,
-                    helperText: 'The total size of uploaded files cannot exceed 2GB, upload a file with a smaller size or delete existing uploads, if any.'
+                    size_in_bytes: Infinity,
+                    errorText: 'The total size of uploaded files cannot exceed 2GB, upload a file with a smaller size or delete existing uploads, if any.'
                 }}
                 preSelectedFile={preSelectedFiles}
             />

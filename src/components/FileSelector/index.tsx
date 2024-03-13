@@ -31,7 +31,7 @@ interface FileSelectorProps {
     onDeleteFile?: () => void;
     isLoading?: boolean;
     showUploaderAlways?: boolean;
-    maxTotalFileSizeAllowed?: { size_in_bytes: number; helperText: string };
+    maxTotalFileSizeAllowed?: { size_in_bytes: number; errorText: string };
 }
 
 export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
@@ -50,7 +50,7 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
             onDeleteFile = () => {},
             isLoading = false,
             showUploaderAlways = false,
-            maxTotalFileSizeAllowed = { size_in_bytes: Infinity, helperText: '' }
+            maxTotalFileSizeAllowed = { size_in_bytes: Infinity, errorText: '' }
         },
         ref
     ) => {
@@ -81,7 +81,7 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                     onUpload(uploadedFiles);
                 }
                 if (files.length < uploadedFiles.length) {
-                    let uploadedData = uploadedFiles.filter((item: { file: { name: string } }) => files.map((file: { name: string }) => file.name).includes(item.file.name));
+                    let uploadedData = uploadedFiles.filter((item: { file: { name: string } }) => files.map((file: { name: string }) => file?.name)?.includes(item?.file?.name));
                     onUpload(uploadedData);
                 }
             }
@@ -91,36 +91,27 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
         const onDrop = useCallback(
             (acceptedFiles: any) => {
                 setMaxFileSizeExceededError(false);
+
+                let allFiles: any[] = [];
+
                 if (maxFiles > 1) {
-                    const allFiles = [...files, ...acceptedFiles];
-
-                    let currTotalFilesSize = 0;
-                    if (allFiles.length > 0) {
-                        for (let doc of allFiles) {
-                            currTotalFilesSize = currTotalFilesSize + doc.size;
-                        }
-                    }
-
-                    //check size
-                    if (currTotalFilesSize < maxTotalFileSizeAllowed.size_in_bytes) {
-                        setFiles((old: any) => [...files, ...acceptedFiles]);
-                    } else {
-                        setMaxFileSizeExceededError(true);
-                    }
+                    allFiles = [...files, ...acceptedFiles];
                 } else {
-                    let currTotalFilesSize = 0;
+                    allFiles = [...acceptedFiles];
+                }
 
-                    if (acceptedFiles.length > 0) {
-                        for (let doc of acceptedFiles) {
-                            currTotalFilesSize = currTotalFilesSize + doc.size;
-                        }
+                let currTotalFilesSize = 0;
+                if (allFiles.length > 0) {
+                    for (let doc of allFiles) {
+                        currTotalFilesSize = currTotalFilesSize + doc.size;
                     }
+                }
 
-                    if (currTotalFilesSize < maxTotalFileSizeAllowed.size_in_bytes) {
-                        setFiles(acceptedFiles);
-                    } else {
-                        setMaxFileSizeExceededError(true);
-                    }
+                //check size
+                if (currTotalFilesSize < maxTotalFileSizeAllowed.size_in_bytes) {
+                    setFiles((old: any) => [...allFiles]);
+                } else {
+                    setMaxFileSizeExceededError(true);
                 }
             },
             [files]
@@ -128,8 +119,12 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
 
         //Function called when file is deleted
         const onDelete = (file: { name: string }) => {
-            setFiles((old: any) => old.filter((item: { name: string }) => item.name !== file.name));
-            setResults((old) => old.filter((item: { file: { name: string } }) => item.file.name !== file.name));
+            if (maxFileSizeExceededError) {
+                setMaxFileSizeExceededError(false);
+            }
+
+            setFiles((old: any) => old.filter((item: { name: string }) => item?.name !== file?.name));
+            setResults((old) => old.filter((item: { file: { name: string } }) => item?.file?.name !== file?.name));
             onDeleteFile();
         };
 
@@ -193,7 +188,7 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                             {maxFileSizeExceededError && (
                                 <Box mt={1}>
                                     <BodyXS color="error" limit={false} lines={2}>
-                                        {maxTotalFileSizeAllowed.helperText}
+                                        {maxTotalFileSizeAllowed.errorText}
                                     </BodyXS>
                                 </Box>
                             )}
@@ -252,7 +247,7 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                             {maxFileSizeExceededError && (
                                 <Box mt={1}>
                                     <BodyXS color="error" limit={false} lines={2}>
-                                        {maxTotalFileSizeAllowed.helperText}
+                                        {maxTotalFileSizeAllowed.errorText}
                                     </BodyXS>
                                 </Box>
                             )}

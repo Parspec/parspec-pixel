@@ -1,7 +1,7 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { useRef, useState, useCallback, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { $getRoot, $getSelection, $createTextNode, $isRangeSelection, FORMAT_TEXT_COMMAND, TextNode, SELECTION_CHANGE_COMMAND } from 'lexical';
+import { $getRoot, $getSelection, $createTextNode, $isRangeSelection, FORMAT_TEXT_COMMAND, TextNode, SELECTION_CHANGE_COMMAND, $createParagraphNode } from 'lexical';
 import { mergeRegister } from '@lexical/utils';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { HeadingNode, $createHeadingNode, QuoteNode } from '@lexical/rich-text';
@@ -23,7 +23,6 @@ import DropdownColorPicker from './DropDownColorPicker';
 import { BodySmall } from '../Typography';
 const DEFAULT_TEXT = 'Hello World';
 const HEADING_TAGS = ['h1', 'h2', 'h3'];
-const ListTags = ['ol', 'ul'];
 const TextStyleToolbarPlugin = ({ isBold, isItalic, isUnderline }) => {
     const [editor] = useLexicalComposerContext();
     const onClick = (tag) => {
@@ -50,19 +49,37 @@ const HeadingToolbarPlugin = () => {
             return (_jsx(IconButton, Object.assign({ onClick: () => onClick(tag) }, { children: _jsx(BodySmall, Object.assign({ fontWeight: 800 }, { children: tag.toUpperCase() })) }), tag));
         }) }));
 };
+const formatParagraph = (editor) => {
+    editor.update(() => {
+        const selection = $getSelection();
+        $setBlocksType(selection, () => $createParagraphNode());
+    });
+};
 const ListToolbarPlugin = () => {
     const [editor] = useLexicalComposerContext();
-    const onClick = (tag) => {
-        if (tag === 'ol') {
+    const [bulletListCount, setBulletListCount] = useState(0);
+    const [orderedListCount, setOrderedListCount] = useState(0);
+    function formatNumberedList() {
+        if (orderedListCount === 0) {
             editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, undefined);
+            setOrderedListCount(1);
         }
-        else if (tag === 'ul') {
+        else {
+            formatParagraph(editor);
+            setOrderedListCount(0);
+        }
+    }
+    function formatUnOrderedList() {
+        if (bulletListCount === 0) {
             editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined);
+            setBulletListCount(1);
         }
-    };
-    return (_jsx(_Fragment, { children: ListTags.map((tag) => {
-            return (_jsxs(IconButton, Object.assign({ onClick: () => onClick(tag) }, { children: [tag === 'ol' && _jsx(FormatListNumberedIcon, { color: "secondary" }), tag === 'ul' && _jsx(FormatListBulletedIcon, { color: "secondary" })] }), tag));
-        }) }));
+        else {
+            formatParagraph(editor);
+            setBulletListCount(0);
+        }
+    }
+    return (_jsxs(_Fragment, { children: [_jsx(IconButton, Object.assign({ onClick: formatNumberedList }, { children: _jsx(FormatListNumberedIcon, { color: "secondary" }) })), ";", _jsx(IconButton, Object.assign({ onClick: formatUnOrderedList }, { children: _jsx(FormatListBulletedIcon, { color: "secondary" }) })), ";"] }));
 };
 const AttachmentsToobarPlugin = ({ onFileUpload }) => {
     const fileInputRef = useRef(null);
@@ -78,7 +95,7 @@ const AttachmentsToobarPlugin = ({ onFileUpload }) => {
     };
     return (_jsxs(_Fragment, { children: [_jsx("input", { multiple: true, type: "file", ref: fileInputRef, onChange: handleFileChange, style: { display: 'none' }, accept: "image/*,.pdf" }), _jsx(IconButton, Object.assign({ onClick: handleAttachmentClick }, { children: _jsx(AttachFileIcon, { color: "secondary" }) }))] }));
 };
-export default function ToolBar({ onFileUpload }) {
+export default function ToolBar({ onFileUpload, isDisableEditorState }) {
     const [editor] = useLexicalComposerContext();
     const [isLink, setIsLink] = useState(false);
     const [fontSize, setFontSize] = useState('15px');
@@ -138,7 +155,7 @@ export default function ToolBar({ onFileUpload }) {
     const onFontColorSelect = useCallback((value) => {
         applyStyleText({ color: value.hex }, false);
     }, [applyStyleText]);
-    return (_jsxs(Box, Object.assign({ display: 'flex', justifyContent: "space-between", alignItems: "center", paddingTop: 2, paddingBottom: 2 }, { children: [_jsxs(Box, Object.assign({ width: 1, display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: 1 }, { children: [_jsx(HeadingToolbarPlugin, {}), _jsx(FontSize, { selectionFontSize: fontSize.slice(0, -2), editor: editor, disabled: !isEditable }), _jsx(DropdownColorPicker, { color: fontColor, onChange: onFontColorSelect }), _jsx(TextStyleToolbarPlugin, { isBold: isBold, isItalic: isItalic, isUnderline: isUnderline }), _jsx(ListToolbarPlugin, {})] })), _jsxs(Box, Object.assign({ width: 1, display: 'flex', alignItems: 'center', justifyContent: "flex-end", gap: 1 }, { children: [_jsx(IconButton, Object.assign({ onClick: insertLink }, { children: _jsx(LinkIcon, { color: "secondary" }) })), isLink && createPortal(_jsx(FloatingLinkEditor, {}), document.body), _jsx(AttachmentsToobarPlugin, { onFileUpload: onFileUpload })] }))] })));
+    return (_jsxs(Box, Object.assign({ sx: isDisableEditorState ? { opacity: '0.4', pointerEvents: 'none' } : null, display: 'flex', justifyContent: "space-between", alignItems: "center", paddingTop: 2, paddingBottom: 2 }, { children: [_jsxs(Box, Object.assign({ width: 1, display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: 1 }, { children: [_jsx(HeadingToolbarPlugin, {}), _jsx(FontSize, { selectionFontSize: fontSize.slice(0, -2), editor: editor, disabled: !isEditable }), _jsx(DropdownColorPicker, { color: fontColor, onChange: onFontColorSelect }), _jsx(TextStyleToolbarPlugin, { isBold: isBold, isItalic: isItalic, isUnderline: isUnderline }), _jsx(ListToolbarPlugin, {})] })), _jsxs(Box, Object.assign({ width: 1, display: 'flex', alignItems: 'center', justifyContent: "flex-end", gap: 1 }, { children: [_jsx(IconButton, Object.assign({ onClick: insertLink }, { children: _jsx(LinkIcon, { color: "secondary" }) })), isLink && createPortal(_jsx(FloatingLinkEditor, {}), document.body), _jsx(AttachmentsToobarPlugin, { onFileUpload: onFileUpload })] }))] })));
 }
 export const registeredNodes = [HeadingNode, ListNode, ListItemNode, LinkNode, AutoLinkNode, TextNode, QuoteNode, CodeNode, TableCellNode, CodeHighlightNode, TableRowNode, TableNode];
 //# sourceMappingURL=ToolBar.js.map

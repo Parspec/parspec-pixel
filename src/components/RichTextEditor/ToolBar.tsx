@@ -1,7 +1,7 @@
 import { useRef, useState, useCallback, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
-import { $getRoot, $getSelection, $createTextNode, $isRangeSelection, FORMAT_TEXT_COMMAND, TextFormatType, TextNode, SELECTION_CHANGE_COMMAND } from 'lexical';
+import { $getRoot, $getSelection, $createTextNode, $isRangeSelection, FORMAT_TEXT_COMMAND, TextFormatType, TextNode, SELECTION_CHANGE_COMMAND, $createParagraphNode, LexicalEditor } from 'lexical';
 import { mergeRegister } from '@lexical/utils';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { HeadingNode, $createHeadingNode, QuoteNode } from '@lexical/rich-text';
@@ -28,8 +28,6 @@ const DEFAULT_TEXT = 'Hello World';
 
 type HeadingType = 'h1' | 'h2' | 'h3';
 const HEADING_TAGS: HeadingType[] = ['h1', 'h2', 'h3'];
-type ListType = 'ol' | 'ul';
-const ListTags: ListType[] = ['ol', 'ul'];
 
 const TextStyleToolbarPlugin = ({ isBold, isItalic, isUnderline }: { isBold: boolean; isItalic: boolean; isUnderline: boolean }): JSX.Element => {
     const [editor] = useLexicalComposerContext();
@@ -84,26 +82,48 @@ const HeadingToolbarPlugin = (): JSX.Element => {
     );
 };
 
+const formatParagraph = (editor: LexicalEditor) => {
+    editor.update(() => {
+        const selection = $getSelection();
+        $setBlocksType(selection, () => $createParagraphNode());
+    });
+};
+
 const ListToolbarPlugin = (): JSX.Element => {
     const [editor] = useLexicalComposerContext();
-    const onClick = (tag: ListType) => {
-        if (tag === 'ol') {
+    const [bulletListCount, setBulletListCount] = useState(0);
+    const [orderedListCount, setOrderedListCount] = useState(0);
+
+    function formatNumberedList() {
+        if (orderedListCount === 0) {
             editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, undefined);
-        } else if (tag === 'ul') {
-            editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined);
+            setOrderedListCount(1);
+        } else {
+            formatParagraph(editor);
+            setOrderedListCount(0);
         }
-    };
+    }
+
+    function formatUnOrderedList() {
+        if (bulletListCount === 0) {
+            editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined);
+            setBulletListCount(1);
+        } else {
+            formatParagraph(editor);
+            setBulletListCount(0);
+        }
+    }
 
     return (
         <>
-            {ListTags.map((tag) => {
-                return (
-                    <IconButton key={tag} onClick={() => onClick(tag)}>
-                        {tag === 'ol' && <FormatListNumberedIcon color="secondary" />}
-                        {tag === 'ul' && <FormatListBulletedIcon color="secondary" />}
-                    </IconButton>
-                );
-            })}
+            <IconButton onClick={formatNumberedList}>
+                <FormatListNumberedIcon color="secondary" />
+            </IconButton>
+            ;
+            <IconButton onClick={formatUnOrderedList}>
+                <FormatListBulletedIcon color="secondary" />
+            </IconButton>
+            ;
         </>
     );
 };
@@ -136,8 +156,9 @@ const AttachmentsToobarPlugin = ({ onFileUpload }: IAttachmentsToobarPlugin): JS
 
 interface IToolbar {
     onFileUpload?: (params: FileList | null) => void;
+    isDisableEditorState?: boolean;
 }
-export default function ToolBar({ onFileUpload }: IToolbar): JSX.Element {
+export default function ToolBar({ onFileUpload, isDisableEditorState }: IToolbar): JSX.Element {
     const [editor] = useLexicalComposerContext();
     const [isLink, setIsLink] = useState(false);
     const [fontSize, setFontSize] = useState<string>('15px');
@@ -222,7 +243,7 @@ export default function ToolBar({ onFileUpload }: IToolbar): JSX.Element {
     );
 
     return (
-        <Box display={'flex'} justifyContent="space-between" alignItems="center" paddingTop={2} paddingBottom={2}>
+        <Box sx={isDisableEditorState ? { opacity: '0.4', pointerEvents: 'none' } : null} display={'flex'} justifyContent="space-between" alignItems="center" paddingTop={2} paddingBottom={2}>
             <Box width={1} display={'flex'} alignItems={'center'} justifyContent={'flex-start'} gap={1}>
                 <HeadingToolbarPlugin />
                 <FontSize selectionFontSize={fontSize.slice(0, -2)} editor={editor} disabled={!isEditable} />

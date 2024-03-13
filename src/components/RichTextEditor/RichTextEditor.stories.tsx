@@ -20,8 +20,11 @@ export const Basic: ComponentStory<typeof TextEditor> = () => {
                     console.log(params);
                 }}
                 onChange={(html: string) => console.log(html)}
-                initialHtml={``}
+                initialHtml={`<p class="richTextParagraph" dir="ltr"><span style="white-space: pre-wrap;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Suspendisse sed nisi lacus sed viverra tellus in hac habitasse. Adipiscing elit duis tristique sollicitudin nibh. Nullam eget felis eget nunc lobortis mattis aliquam faucibus purus. Amet nisl suscipit</span></p>`}
                 editorBgColor="#fff"
+                isDisableEditorState={false}
+                contentEditableHeight="100px"
+                placeHolderText="Tell us your story..."
             />
         </Box>
     );

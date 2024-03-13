@@ -1,10 +1,7 @@
-import { useEffect } from 'react';
-
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
 import { ListPlugin } from '@lexical/react/LexicalListPlugin';
 import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin';
@@ -18,6 +15,8 @@ import './RichText.css';
 import Placeholder from './PlaceHolder';
 import { Box } from '../Box';
 import { default as ToolBar, registeredNodes } from './ToolBar';
+import AutoFocusPlugin from './AutoFocusPlugin';
+import DisableEditorPlugin from './DisableEditorPlugin';
 
 const theme = {
     link: 'cursor-pointer',
@@ -25,27 +24,14 @@ const theme = {
         bold: 'textBold',
         italic: 'textItalic',
         underline: 'textUnderline'
+    },
+    paragraph: 'richTextParagraph',
+    list: {
+        listitem: 'richTextListItem',
+        ul: 'richTextList',
+        ol: 'richTextList'
     }
 };
-
-// Lexical React plugins are React components, which makes them
-// highly composable. Furthermore, you can lazy load plugins if
-// desired, so you don't pay the cost for plugins until you
-// actually use them.
-
-// When the editor changes, you can get notified via the
-// OnChangePlugin!
-
-function MyCustomAutoFocusPlugin() {
-    const [editor] = useLexicalComposerContext();
-
-    useEffect(() => {
-        // Focus the editor when the effect fires!
-        editor.focus();
-    }, [editor]);
-
-    return null;
-}
 
 // Catch any errors that occur during Lexical updates and log them
 // or throw them as needed. If you don't throw them, Lexical will
@@ -60,9 +46,19 @@ interface IRichTextEditorProps {
     onChange: (html: string) => void;
     editorBgColor?: string;
     contentEditableHeight?: string;
+    isDisableEditorState?: boolean;
+    placeHolderText?: string;
 }
 
-export default function RichTextEditor({ onFileUpload, onChange, initialHtml = '', editorBgColor = 'white', contentEditableHeight = '300px' }: IRichTextEditorProps) {
+export default function RichTextEditor({
+    onFileUpload,
+    onChange,
+    initialHtml = '',
+    editorBgColor = 'white',
+    contentEditableHeight = '300px',
+    isDisableEditorState = false,
+    placeHolderText = 'Enter text...'
+}: IRichTextEditorProps) {
     const initialConfig = {
         namespace: 'ParspecEditor',
         theme,
@@ -74,7 +70,7 @@ export default function RichTextEditor({ onFileUpload, onChange, initialHtml = '
         <LexicalComposer initialConfig={initialConfig}>
             <Box className="editor-container">
                 <Box className="editor-inner">
-                    <ToolBar onFileUpload={onFileUpload} />
+                    <ToolBar onFileUpload={onFileUpload} isDisableEditorState={isDisableEditorState} />
                     <RichTextPlugin
                         contentEditable={
                             <ContentEditable
@@ -83,23 +79,24 @@ export default function RichTextEditor({ onFileUpload, onChange, initialHtml = '
                                     height: contentEditableHeight,
                                     border: '1px solid #ccc',
                                     backgroundColor: editorBgColor,
-                                    paddingLeft: '32px',
                                     paddingTop: '12px',
+                                    paddingLeft: '12px',
                                     overflow: 'auto',
                                     borderRadius: '5px'
                                 }}
                             />
                         }
-                        placeholder={<Placeholder />}
+                        placeholder={<Placeholder placeHolderText={placeHolderText} />}
                         ErrorBoundary={LexicalErrorBoundary}
                     />
                     <ListPlugin />
                     <HistoryPlugin />
-                    <MyCustomAutoFocusPlugin />
+                    <AutoFocusPlugin />
                     <HtmlPlugin initialHtml={initialHtml} onHtmlChanged={onChange} />
                     <AutoLinkPlugin />
                     <LinkPlugin />
                     <LexicalClickableLinkPlugin />
+                    <DisableEditorPlugin isDisableEditorState={isDisableEditorState} />
                     <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
                 </Box>
             </Box>

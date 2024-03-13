@@ -7,7 +7,7 @@ import { BodyXS } from '../Typography';
 import { UploadIcon } from '../Icons';
 import { getAcceptedFormats } from './fileFormats';
 import SelectedFile from './SelectedFile';
-export const FileSelector = forwardRef(({ maxFiles = 1, acceptedFormats = [], onUpload = () => { }, url = '', error = '', helperText = '', onSelect = () => { }, placeholder = '', borderColor, preSelectedFile, onDeleteFile = () => { }, isLoading = false, showUploaderAlways = false, maxTotalFileSizeAllowed = { size_in_bytes: Infinity, helperText: '' } }, ref) => {
+export const FileSelector = forwardRef(({ maxFiles = 1, acceptedFormats = [], onUpload = () => { }, url = '', error = '', helperText = '', onSelect = () => { }, placeholder = '', borderColor, preSelectedFile, onDeleteFile = () => { }, isLoading = false, showUploaderAlways = false, maxTotalFileSizeAllowed = { size_in_bytes: Infinity, errorText: '' } }, ref) => {
     const [files, setFiles] = useState([]);
     const [result, setResults] = useState([]);
     const [maxFileSizeExceededError, setMaxFileSizeExceededError] = useState(false);
@@ -32,7 +32,7 @@ export const FileSelector = forwardRef(({ maxFiles = 1, acceptedFormats = [], on
                 onUpload(uploadedFiles);
             }
             if (files.length < uploadedFiles.length) {
-                let uploadedData = uploadedFiles.filter((item) => files.map((file) => file.name).includes(item.file.name));
+                let uploadedData = uploadedFiles.filter((item) => { var _a, _b; return (_a = files.map((file) => file === null || file === void 0 ? void 0 : file.name)) === null || _a === void 0 ? void 0 : _a.includes((_b = item === null || item === void 0 ? void 0 : item.file) === null || _b === void 0 ? void 0 : _b.name); });
                 onUpload(uploadedData);
             }
         }
@@ -40,41 +40,34 @@ export const FileSelector = forwardRef(({ maxFiles = 1, acceptedFormats = [], on
     //Function called when file is selected
     const onDrop = useCallback((acceptedFiles) => {
         setMaxFileSizeExceededError(false);
+        let allFiles = [];
         if (maxFiles > 1) {
-            const allFiles = [...files, ...acceptedFiles];
-            let currTotalFilesSize = 0;
-            if (allFiles.length > 0) {
-                for (let doc of allFiles) {
-                    currTotalFilesSize = currTotalFilesSize + doc.size;
-                }
-            }
-            //check size
-            if (currTotalFilesSize < maxTotalFileSizeAllowed.size_in_bytes) {
-                setFiles((old) => [...files, ...acceptedFiles]);
-            }
-            else {
-                setMaxFileSizeExceededError(true);
-            }
+            allFiles = [...files, ...acceptedFiles];
         }
         else {
-            let currTotalFilesSize = 0;
-            if (acceptedFiles.length > 0) {
-                for (let doc of acceptedFiles) {
-                    currTotalFilesSize = currTotalFilesSize + doc.size;
-                }
+            allFiles = [...acceptedFiles];
+        }
+        let currTotalFilesSize = 0;
+        if (allFiles.length > 0) {
+            for (let doc of allFiles) {
+                currTotalFilesSize = currTotalFilesSize + doc.size;
             }
-            if (currTotalFilesSize < maxTotalFileSizeAllowed.size_in_bytes) {
-                setFiles(acceptedFiles);
-            }
-            else {
-                setMaxFileSizeExceededError(true);
-            }
+        }
+        //check size
+        if (currTotalFilesSize < maxTotalFileSizeAllowed.size_in_bytes) {
+            setFiles((old) => [...allFiles]);
+        }
+        else {
+            setMaxFileSizeExceededError(true);
         }
     }, [files]);
     //Function called when file is deleted
     const onDelete = (file) => {
-        setFiles((old) => old.filter((item) => item.name !== file.name));
-        setResults((old) => old.filter((item) => item.file.name !== file.name));
+        if (maxFileSizeExceededError) {
+            setMaxFileSizeExceededError(false);
+        }
+        setFiles((old) => old.filter((item) => (item === null || item === void 0 ? void 0 : item.name) !== (file === null || file === void 0 ? void 0 : file.name)));
+        setResults((old) => old.filter((item) => { var _a; return ((_a = item === null || item === void 0 ? void 0 : item.file) === null || _a === void 0 ? void 0 : _a.name) !== (file === null || file === void 0 ? void 0 : file.name); }));
         onDeleteFile();
     };
     //Callback function to get the result of file uplaod
@@ -90,7 +83,7 @@ export const FileSelector = forwardRef(({ maxFiles = 1, acceptedFormats = [], on
         maxFiles,
         accept: acceptedFormats.length ? getAcceptedFormats(acceptedFormats) : {}
     });
-    return (_jsx(_Fragment, { children: _jsx(Box, Object.assign({ ref: ref, height: '100%', width: '100%' }, { children: !files.length ? (_jsxs(Box, Object.assign({}, getRootProps(), { height: '100%', width: '100%' }, { children: [_jsx("input", Object.assign({ type: "file" }, getInputProps())), _jsxs(Box, Object.assign({ p: 2, height: '100%', width: '100%', border: '1px solid', borderColor: borderColor, borderRadius: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", sx: { cursor: 'pointer' } }, { children: [_jsx(Box, Object.assign({ width: '100%', textAlign: "center", m: 0.5 }, { children: _jsx(BodyXS, Object.assign({ limit: false }, { children: placeholder })) })), _jsx(Box, Object.assign({ my: 0.5 }, { children: _jsx(Avatar, { children: _jsx(UploadIcon, {}) }) })), _jsx(Box, Object.assign({ m: 0.5 }, { children: _jsx(BodyXS, { children: "Browse" }) }))] })), error && (_jsx(Box, Object.assign({ mt: 1 }, { children: _jsx(BodyXS, Object.assign({ color: "error" }, { children: error })) }))), helperText && (_jsx(Box, Object.assign({ mt: 1 }, { children: _jsx(BodyXS, Object.assign({ color: "secondary" }, { children: helperText })) }))), maxFileSizeExceededError && (_jsx(Box, Object.assign({ mt: 1 }, { children: _jsx(BodyXS, Object.assign({ color: "error", limit: false, lines: 2 }, { children: maxTotalFileSizeAllowed.helperText })) })))] }))) : (_jsxs(Box, Object.assign({ height: '100%', width: '100%' }, { children: [_jsx(Box, { children: files.map((file, index) => (_jsx(Box, Object.assign({ my: 1 }, { children: _jsx(SelectedFile, { file: file, onDelete: onDelete, url: url, index: index, handleResults: handleResults, isLoading: isLoading }, file.name) })))) }), showUploaderAlways && (_jsxs(Box, Object.assign({}, getRootProps(), { children: [_jsx("input", Object.assign({ type: "file" }, getInputProps())), _jsxs(Box, Object.assign({ p: 2, height: '100%', width: '100%', border: '1px solid', borderColor: borderColor, borderRadius: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", sx: { cursor: 'pointer' } }, { children: [_jsx(Box, Object.assign({ width: '100%', textAlign: "center", m: 0.5 }, { children: _jsx(BodyXS, Object.assign({ limit: false }, { children: placeholder })) })), _jsx(Box, Object.assign({ my: 0.5 }, { children: _jsx(Avatar, { children: _jsx(UploadIcon, {}) }) })), _jsx(Box, Object.assign({ m: 0.5 }, { children: _jsx(BodyXS, { children: "Browse" }) }))] }))] }))), error && (_jsx(Box, Object.assign({ mt: 1 }, { children: _jsx(BodyXS, Object.assign({ color: "error" }, { children: error })) }))), helperText && (_jsx(Box, Object.assign({ mt: 1 }, { children: _jsx(BodyXS, Object.assign({ color: "secondary" }, { children: helperText })) }))), maxFileSizeExceededError && (_jsx(Box, Object.assign({ mt: 1 }, { children: _jsx(BodyXS, Object.assign({ color: "error", limit: false, lines: 2 }, { children: maxTotalFileSizeAllowed.helperText })) })))] }))) })) }));
+    return (_jsx(_Fragment, { children: _jsx(Box, Object.assign({ ref: ref, height: '100%', width: '100%' }, { children: !files.length ? (_jsxs(Box, Object.assign({}, getRootProps(), { height: '100%', width: '100%' }, { children: [_jsx("input", Object.assign({ type: "file" }, getInputProps())), _jsxs(Box, Object.assign({ p: 2, height: '100%', width: '100%', border: '1px solid', borderColor: borderColor, borderRadius: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", sx: { cursor: 'pointer' } }, { children: [_jsx(Box, Object.assign({ width: '100%', textAlign: "center", m: 0.5 }, { children: _jsx(BodyXS, Object.assign({ limit: false }, { children: placeholder })) })), _jsx(Box, Object.assign({ my: 0.5 }, { children: _jsx(Avatar, { children: _jsx(UploadIcon, {}) }) })), _jsx(Box, Object.assign({ m: 0.5 }, { children: _jsx(BodyXS, { children: "Browse" }) }))] })), error && (_jsx(Box, Object.assign({ mt: 1 }, { children: _jsx(BodyXS, Object.assign({ color: "error" }, { children: error })) }))), helperText && (_jsx(Box, Object.assign({ mt: 1 }, { children: _jsx(BodyXS, Object.assign({ color: "secondary" }, { children: helperText })) }))), maxFileSizeExceededError && (_jsx(Box, Object.assign({ mt: 1 }, { children: _jsx(BodyXS, Object.assign({ color: "error", limit: false, lines: 2 }, { children: maxTotalFileSizeAllowed.errorText })) })))] }))) : (_jsxs(Box, Object.assign({ height: '100%', width: '100%' }, { children: [_jsx(Box, { children: files.map((file, index) => (_jsx(Box, Object.assign({ my: 1 }, { children: _jsx(SelectedFile, { file: file, onDelete: onDelete, url: url, index: index, handleResults: handleResults, isLoading: isLoading }, file.name) })))) }), showUploaderAlways && (_jsxs(Box, Object.assign({}, getRootProps(), { children: [_jsx("input", Object.assign({ type: "file" }, getInputProps())), _jsxs(Box, Object.assign({ p: 2, height: '100%', width: '100%', border: '1px solid', borderColor: borderColor, borderRadius: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", sx: { cursor: 'pointer' } }, { children: [_jsx(Box, Object.assign({ width: '100%', textAlign: "center", m: 0.5 }, { children: _jsx(BodyXS, Object.assign({ limit: false }, { children: placeholder })) })), _jsx(Box, Object.assign({ my: 0.5 }, { children: _jsx(Avatar, { children: _jsx(UploadIcon, {}) }) })), _jsx(Box, Object.assign({ m: 0.5 }, { children: _jsx(BodyXS, { children: "Browse" }) }))] }))] }))), error && (_jsx(Box, Object.assign({ mt: 1 }, { children: _jsx(BodyXS, Object.assign({ color: "error" }, { children: error })) }))), helperText && (_jsx(Box, Object.assign({ mt: 1 }, { children: _jsx(BodyXS, Object.assign({ color: "secondary" }, { children: helperText })) }))), maxFileSizeExceededError && (_jsx(Box, Object.assign({ mt: 1 }, { children: _jsx(BodyXS, Object.assign({ color: "error", limit: false, lines: 2 }, { children: maxTotalFileSizeAllowed.errorText })) })))] }))) })) }));
 });
 FileSelector.defaultProps = {
     borderColor: 'secondary'

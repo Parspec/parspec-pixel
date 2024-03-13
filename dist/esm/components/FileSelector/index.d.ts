@@ -29,7 +29,7 @@ interface FileSelectorProps {
     showUploaderAlways?: boolean;
     maxTotalFileSizeAllowed?: {
         size_in_bytes: number;
-        helperText: string;
+        errorText: string;
     };
 }
 export declare const FileSelector: import("react").ForwardRefExoticComponent<FileSelectorProps & import("react").RefAttributes<HTMLDivElement>>;

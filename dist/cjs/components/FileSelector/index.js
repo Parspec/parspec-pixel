@@ -13,7 +13,7 @@ const Typography_1 = require("../Typography");
 const Icons_1 = require("../Icons");
 const fileFormats_1 = require("./fileFormats");
 const SelectedFile_1 = __importDefault(require("./SelectedFile"));
-exports.FileSelector = (0, react_1.forwardRef)(({ maxFiles = 1, acceptedFormats = [], onUpload = () => { }, url = '', error = '', helperText = '', onSelect = () => { }, placeholder = '', borderColor, preSelectedFile, onDeleteFile = () => { }, isLoading = false, showUploaderAlways = false, maxTotalFileSizeAllowed = { size_in_bytes: Infinity, helperText: '' } }, ref) => {
+exports.FileSelector = (0, react_1.forwardRef)(({ maxFiles = 1, acceptedFormats = [], onUpload = () => { }, url = '', error = '', helperText = '', onSelect = () => { }, placeholder = '', borderColor, preSelectedFile, onDeleteFile = () => { }, isLoading = false, showUploaderAlways = false, maxTotalFileSizeAllowed = { size_in_bytes: Infinity, errorText: '' } }, ref) => {
     const [files, setFiles] = (0, react_1.useState)([]);
     const [result, setResults] = (0, react_1.useState)([]);
     const [maxFileSizeExceededError, setMaxFileSizeExceededError] = (0, react_1.useState)(false);
@@ -38,7 +38,7 @@ exports.FileSelector = (0, react_1.forwardRef)(({ maxFiles = 1, acceptedFormats 
                 onUpload(uploadedFiles);
             }
             if (files.length < uploadedFiles.length) {
-                let uploadedData = uploadedFiles.filter((item) => files.map((file) => file.name).includes(item.file.name));
+                let uploadedData = uploadedFiles.filter((item) => { var _a, _b; return (_a = files.map((file) => file === null || file === void 0 ? void 0 : file.name)) === null || _a === void 0 ? void 0 : _a.includes((_b = item === null || item === void 0 ? void 0 : item.file) === null || _b === void 0 ? void 0 : _b.name); });
                 onUpload(uploadedData);
             }
         }
@@ -46,41 +46,34 @@ exports.FileSelector = (0, react_1.forwardRef)(({ maxFiles = 1, acceptedFormats 
     //Function called when file is selected
     const onDrop = (0, react_1.useCallback)((acceptedFiles) => {
         setMaxFileSizeExceededError(false);
+        let allFiles = [];
         if (maxFiles > 1) {
-            const allFiles = [...files, ...acceptedFiles];
-            let currTotalFilesSize = 0;
-            if (allFiles.length > 0) {
-                for (let doc of allFiles) {
-                    currTotalFilesSize = currTotalFilesSize + doc.size;
-                }
-            }
-            //check size
-            if (currTotalFilesSize < maxTotalFileSizeAllowed.size_in_bytes) {
-                setFiles((old) => [...files, ...acceptedFiles]);
-            }
-            else {
-                setMaxFileSizeExceededError(true);
-            }
+            allFiles = [...files, ...acceptedFiles];
         }
         else {
-            let currTotalFilesSize = 0;
-            if (acceptedFiles.length > 0) {
-                for (let doc of acceptedFiles) {
-                    currTotalFilesSize = currTotalFilesSize + doc.size;
-                }
+            allFiles = [...acceptedFiles];
+        }
+        let currTotalFilesSize = 0;
+        if (allFiles.length > 0) {
+            for (let doc of allFiles) {
+                currTotalFilesSize = currTotalFilesSize + doc.size;
             }
-            if (currTotalFilesSize < maxTotalFileSizeAllowed.size_in_bytes) {
-                setFiles(acceptedFiles);
-            }
-            else {
-                setMaxFileSizeExceededError(true);
-            }
+        }
+        //check size
+        if (currTotalFilesSize < maxTotalFileSizeAllowed.size_in_bytes) {
+            setFiles((old) => [...allFiles]);
+        }
+        else {
+            setMaxFileSizeExceededError(true);
         }
     }, [files]);
     //Function called when file is deleted
     const onDelete = (file) => {
-        setFiles((old) => old.filter((item) => item.name !== file.name));
-        setResults((old) => old.filter((item) => item.file.name !== file.name));
+        if (maxFileSizeExceededError) {
+            setMaxFileSizeExceededError(false);
+        }
+        setFiles((old) => old.filter((item) => (item === null || item === void 0 ? void 0 : item.name) !== (file === null || file === void 0 ? void 0 : file.name)));
+        setResults((old) => old.filter((item) => { var _a; return ((_a = item === null || item === void 0 ? void 0 : item.file) === null || _a === void 0 ? void 0 : _a.name) !== (file === null || file === void 0 ? void 0 : file.name); }));
         onDeleteFile();
     };
     //Callback function to get the result of file uplaod
@@ -96,7 +89,7 @@ exports.FileSelector = (0, react_1.forwardRef)(({ maxFiles = 1, acceptedFormats 
         maxFiles,
         accept: acceptedFormats.length ? (0, fileFormats_1.getAcceptedFormats)(acceptedFormats) : {}
     });
-    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ ref: ref, height: '100%', width: '100%' }, { children: !files.length ? ((0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({}, getRootProps(), { height: '100%', width: '100%' }, { children: [(0, jsx_runtime_1.jsx)("input", Object.assign({ type: "file" }, getInputProps())), (0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ p: 2, height: '100%', width: '100%', border: '1px solid', borderColor: borderColor, borderRadius: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", sx: { cursor: 'pointer' } }, { children: [(0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ width: '100%', textAlign: "center", m: 0.5 }, { children: (0, jsx_runtime_1.jsx)(Typography_1.BodyXS, Object.assign({ limit: false }, { children: placeholder })) })), (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ my: 0.5 }, { children: (0, jsx_runtime_1.jsx)(material_1.Avatar, { children: (0, jsx_runtime_1.jsx)(Icons_1.UploadIcon, {}) }) })), (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ m: 0.5 }, { children: (0, jsx_runtime_1.jsx)(Typography_1.BodyXS, { children: "Browse" }) }))] })), error && ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ mt: 1 }, { children: (0, jsx_runtime_1.jsx)(Typography_1.BodyXS, Object.assign({ color: "error" }, { children: error })) }))), helperText && ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ mt: 1 }, { children: (0, jsx_runtime_1.jsx)(Typography_1.BodyXS, Object.assign({ color: "secondary" }, { children: helperText })) }))), maxFileSizeExceededError && ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ mt: 1 }, { children: (0, jsx_runtime_1.jsx)(Typography_1.BodyXS, Object.assign({ color: "error", limit: false, lines: 2 }, { children: maxTotalFileSizeAllowed.helperText })) })))] }))) : ((0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ height: '100%', width: '100%' }, { children: [(0, jsx_runtime_1.jsx)(Box_1.Box, { children: files.map((file, index) => ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ my: 1 }, { children: (0, jsx_runtime_1.jsx)(SelectedFile_1.default, { file: file, onDelete: onDelete, url: url, index: index, handleResults: handleResults, isLoading: isLoading }, file.name) })))) }), showUploaderAlways && ((0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({}, getRootProps(), { children: [(0, jsx_runtime_1.jsx)("input", Object.assign({ type: "file" }, getInputProps())), (0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ p: 2, height: '100%', width: '100%', border: '1px solid', borderColor: borderColor, borderRadius: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", sx: { cursor: 'pointer' } }, { children: [(0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ width: '100%', textAlign: "center", m: 0.5 }, { children: (0, jsx_runtime_1.jsx)(Typography_1.BodyXS, Object.assign({ limit: false }, { children: placeholder })) })), (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ my: 0.5 }, { children: (0, jsx_runtime_1.jsx)(material_1.Avatar, { children: (0, jsx_runtime_1.jsx)(Icons_1.UploadIcon, {}) }) })), (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ m: 0.5 }, { children: (0, jsx_runtime_1.jsx)(Typography_1.BodyXS, { children: "Browse" }) }))] }))] }))), error && ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ mt: 1 }, { children: (0, jsx_runtime_1.jsx)(Typography_1.BodyXS, Object.assign({ color: "error" }, { children: error })) }))), helperText && ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ mt: 1 }, { children: (0, jsx_runtime_1.jsx)(Typography_1.BodyXS, Object.assign({ color: "secondary" }, { children: helperText })) }))), maxFileSizeExceededError && ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ mt: 1 }, { children: (0, jsx_runtime_1.jsx)(Typography_1.BodyXS, Object.assign({ color: "error", limit: false, lines: 2 }, { children: maxTotalFileSizeAllowed.helperText })) })))] }))) })) }));
+    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ ref: ref, height: '100%', width: '100%' }, { children: !files.length ? ((0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({}, getRootProps(), { height: '100%', width: '100%' }, { children: [(0, jsx_runtime_1.jsx)("input", Object.assign({ type: "file" }, getInputProps())), (0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ p: 2, height: '100%', width: '100%', border: '1px solid', borderColor: borderColor, borderRadius: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", sx: { cursor: 'pointer' } }, { children: [(0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ width: '100%', textAlign: "center", m: 0.5 }, { children: (0, jsx_runtime_1.jsx)(Typography_1.BodyXS, Object.assign({ limit: false }, { children: placeholder })) })), (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ my: 0.5 }, { children: (0, jsx_runtime_1.jsx)(material_1.Avatar, { children: (0, jsx_runtime_1.jsx)(Icons_1.UploadIcon, {}) }) })), (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ m: 0.5 }, { children: (0, jsx_runtime_1.jsx)(Typography_1.BodyXS, { children: "Browse" }) }))] })), error && ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ mt: 1 }, { children: (0, jsx_runtime_1.jsx)(Typography_1.BodyXS, Object.assign({ color: "error" }, { children: error })) }))), helperText && ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ mt: 1 }, { children: (0, jsx_runtime_1.jsx)(Typography_1.BodyXS, Object.assign({ color: "secondary" }, { children: helperText })) }))), maxFileSizeExceededError && ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ mt: 1 }, { children: (0, jsx_runtime_1.jsx)(Typography_1.BodyXS, Object.assign({ color: "error", limit: false, lines: 2 }, { children: maxTotalFileSizeAllowed.errorText })) })))] }))) : ((0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ height: '100%', width: '100%' }, { children: [(0, jsx_runtime_1.jsx)(Box_1.Box, { children: files.map((file, index) => ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ my: 1 }, { children: (0, jsx_runtime_1.jsx)(SelectedFile_1.default, { file: file, onDelete: onDelete, url: url, index: index, handleResults: handleResults, isLoading: isLoading }, file.name) })))) }), showUploaderAlways && ((0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({}, getRootProps(), { children: [(0, jsx_runtime_1.jsx)("input", Object.assign({ type: "file" }, getInputProps())), (0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ p: 2, height: '100%', width: '100%', border: '1px solid', borderColor: borderColor, borderRadius: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", sx: { cursor: 'pointer' } }, { children: [(0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ width: '100%', textAlign: "center", m: 0.5 }, { children: (0, jsx_runtime_1.jsx)(Typography_1.BodyXS, Object.assign({ limit: false }, { children: placeholder })) })), (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ my: 0.5 }, { children: (0, jsx_runtime_1.jsx)(material_1.Avatar, { children: (0, jsx_runtime_1.jsx)(Icons_1.UploadIcon, {}) }) })), (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ m: 0.5 }, { children: (0, jsx_runtime_1.jsx)(Typography_1.BodyXS, { children: "Browse" }) }))] }))] }))), error && ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ mt: 1 }, { children: (0, jsx_runtime_1.jsx)(Typography_1.BodyXS, Object.assign({ color: "error" }, { children: error })) }))), helperText && ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ mt: 1 }, { children: (0, jsx_runtime_1.jsx)(Typography_1.BodyXS, Object.assign({ color: "secondary" }, { children: helperText })) }))), maxFileSizeExceededError && ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ mt: 1 }, { children: (0, jsx_runtime_1.jsx)(Typography_1.BodyXS, Object.assign({ color: "error", limit: false, lines: 2 }, { children: maxTotalFileSizeAllowed.errorText })) })))] }))) })) }));
 });
 exports.FileSelector.defaultProps = {
     borderColor: 'secondary'

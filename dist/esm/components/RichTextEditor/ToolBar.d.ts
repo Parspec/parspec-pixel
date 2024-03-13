@@ -5,10 +5,6 @@ import { ListNode, ListItemNode } from '@lexical/list';
 import { LinkNode } from '@lexical/link';
 import { CodeHighlightNode, CodeNode } from '@lexical/code';
 import { TableCellNode, TableNode, TableRowNode } from '@lexical/table';
-interface IToolbar {
-    onFileUpload?: (params: FileList | null) => void;
-    isDisableEditorState?: boolean;
-}
-export default function ToolBar({ onFileUpload, isDisableEditorState }: IToolbar): JSX.Element;
+import { IRichTextEditorProps } from './types';
+export default function ToolBar({ onFileUpload, isDisableEditorState, showAttachements, showShareableLinkButton, shareableLinkTitle, shareableLinkUrl }: Partial<IRichTextEditorProps>): JSX.Element;
 export declare const registeredNodes: (typeof TextNode | typeof LinkNode | typeof QuoteNode | typeof HeadingNode | typeof ListItemNode | typeof ListNode | typeof CodeHighlightNode | typeof CodeNode | typeof TableCellNode | typeof TableNode | typeof TableRowNode)[];
-export {};

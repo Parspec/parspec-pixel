@@ -14,7 +14,7 @@ export default {
 
 export const Basic: ComponentStory<typeof TextEditor> = () => {
     return (
-        <Box maxWidth={600}>
+        <Box maxWidth={800}>
             <TextEditor
                 onFileUpload={(params: FileList | null) => {
                     console.log(params);
@@ -25,6 +25,10 @@ export const Basic: ComponentStory<typeof TextEditor> = () => {
                 isDisableEditorState={false}
                 contentEditableHeight="100px"
                 placeHolderText="Tell us your story..."
+                showAttachements
+                showShareableLinkButton
+                shareableLinkTitle="Google"
+                shareableLinkUrl="https://www.google.com"
             />
         </Box>
     );

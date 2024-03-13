@@ -27,6 +27,7 @@ const constants_1 = require("./constants");
 const FontSize_1 = __importDefault(require("./FontSize"));
 const DropDownColorPicker_1 = __importDefault(require("./DropDownColorPicker"));
 const Typography_1 = require("../Typography");
+const InsertShareableLinkPlugin_1 = __importDefault(require("./InsertShareableLinkPlugin"));
 const DEFAULT_TEXT = 'Hello World';
 const HEADING_TAGS = ['h1', 'h2', 'h3'];
 const TextStyleToolbarPlugin = ({ isBold, isItalic, isUnderline }) => {
@@ -101,7 +102,7 @@ const AttachmentsToobarPlugin = ({ onFileUpload }) => {
     };
     return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("input", { multiple: true, type: "file", ref: fileInputRef, onChange: handleFileChange, style: { display: 'none' }, accept: "image/*,.pdf" }), (0, jsx_runtime_1.jsx)(IconButton_1.IconButton, Object.assign({ onClick: handleAttachmentClick }, { children: (0, jsx_runtime_1.jsx)(Icons_1.AttachFileIcon, { color: "secondary" }) }))] }));
 };
-function ToolBar({ onFileUpload, isDisableEditorState }) {
+function ToolBar({ onFileUpload, isDisableEditorState, showAttachements, showShareableLinkButton, shareableLinkTitle = '', shareableLinkUrl = '#' }) {
     const [editor] = (0, LexicalComposerContext_1.useLexicalComposerContext)();
     const [isLink, setIsLink] = (0, react_1.useState)(false);
     const [fontSize, setFontSize] = (0, react_1.useState)('15px');
@@ -161,7 +162,7 @@ function ToolBar({ onFileUpload, isDisableEditorState }) {
     const onFontColorSelect = (0, react_1.useCallback)((value) => {
         applyStyleText({ color: value.hex }, false);
     }, [applyStyleText]);
-    return ((0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ sx: isDisableEditorState ? { opacity: '0.4', pointerEvents: 'none' } : null, display: 'flex', justifyContent: "space-between", alignItems: "center", paddingTop: 2, paddingBottom: 2 }, { children: [(0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ width: 1, display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: 1 }, { children: [(0, jsx_runtime_1.jsx)(HeadingToolbarPlugin, {}), (0, jsx_runtime_1.jsx)(FontSize_1.default, { selectionFontSize: fontSize.slice(0, -2), editor: editor, disabled: !isEditable }), (0, jsx_runtime_1.jsx)(DropDownColorPicker_1.default, { color: fontColor, onChange: onFontColorSelect }), (0, jsx_runtime_1.jsx)(TextStyleToolbarPlugin, { isBold: isBold, isItalic: isItalic, isUnderline: isUnderline }), (0, jsx_runtime_1.jsx)(ListToolbarPlugin, {})] })), (0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ width: 1, display: 'flex', alignItems: 'center', justifyContent: "flex-end", gap: 1 }, { children: [(0, jsx_runtime_1.jsx)(IconButton_1.IconButton, Object.assign({ onClick: insertLink }, { children: (0, jsx_runtime_1.jsx)(Icons_1.LinkIcon, { color: "secondary" }) })), isLink && (0, react_dom_1.createPortal)((0, jsx_runtime_1.jsx)(FloatingLinkEditor_1.FloatingLinkEditor, {}), document.body), (0, jsx_runtime_1.jsx)(AttachmentsToobarPlugin, { onFileUpload: onFileUpload })] }))] })));
+    return ((0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ sx: isDisableEditorState ? { opacity: '0.4', pointerEvents: 'none' } : null, display: 'flex', justifyContent: "space-between", alignItems: "center", paddingTop: 2, paddingBottom: 2 }, { children: [(0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ width: 1, display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: 1 }, { children: [(0, jsx_runtime_1.jsx)(HeadingToolbarPlugin, {}), (0, jsx_runtime_1.jsx)(FontSize_1.default, { selectionFontSize: fontSize.slice(0, -2), editor: editor, disabled: !isEditable }), (0, jsx_runtime_1.jsx)(DropDownColorPicker_1.default, { color: fontColor, onChange: onFontColorSelect }), (0, jsx_runtime_1.jsx)(TextStyleToolbarPlugin, { isBold: isBold, isItalic: isItalic, isUnderline: isUnderline }), (0, jsx_runtime_1.jsx)(ListToolbarPlugin, {})] })), (0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ width: 1, display: 'flex', alignItems: 'center', justifyContent: "flex-end", gap: 1 }, { children: [(0, jsx_runtime_1.jsx)(IconButton_1.IconButton, Object.assign({ onClick: insertLink }, { children: (0, jsx_runtime_1.jsx)(Icons_1.LinkIcon, { color: "secondary" }) })), isLink && (0, react_dom_1.createPortal)((0, jsx_runtime_1.jsx)(FloatingLinkEditor_1.FloatingLinkEditor, {}), document.body), showAttachements && (0, jsx_runtime_1.jsx)(AttachmentsToobarPlugin, { onFileUpload: onFileUpload }), showShareableLinkButton && (0, jsx_runtime_1.jsx)(InsertShareableLinkPlugin_1.default, { href: shareableLinkUrl, title: shareableLinkTitle })] }))] })));
 }
 exports.default = ToolBar;
 exports.registeredNodes = [rich_text_1.HeadingNode, list_1.ListNode, list_1.ListItemNode, link_2.LinkNode, link_2.AutoLinkNode, lexical_1.TextNode, rich_text_1.QuoteNode, code_1.CodeNode, table_1.TableCellNode, code_1.CodeHighlightNode, table_1.TableRowNode, table_1.TableNode];

@@ -23,6 +23,8 @@ import FontSize from './FontSize';
 import DropdownColorPicker from './DropDownColorPicker';
 import { ColorResult } from '../ColorPicker';
 import { BodySmall } from '../Typography';
+import InsertShareableLinkPlugin from './InsertShareableLinkPlugin';
+import { IRichTextEditorProps } from './types';
 
 const DEFAULT_TEXT = 'Hello World';
 
@@ -127,7 +129,7 @@ const ListToolbarPlugin = (): JSX.Element => {
     );
 };
 
-interface IAttachmentsToobarPlugin extends Pick<IToolbar, 'onFileUpload'> {}
+interface IAttachmentsToobarPlugin extends Pick<IRichTextEditorProps, 'onFileUpload'> {}
 const AttachmentsToobarPlugin = ({ onFileUpload }: IAttachmentsToobarPlugin): JSX.Element => {
     const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -153,11 +155,14 @@ const AttachmentsToobarPlugin = ({ onFileUpload }: IAttachmentsToobarPlugin): JS
     );
 };
 
-interface IToolbar {
-    onFileUpload?: (params: FileList | null) => void;
-    isDisableEditorState?: boolean;
-}
-export default function ToolBar({ onFileUpload, isDisableEditorState }: IToolbar): JSX.Element {
+export default function ToolBar({
+    onFileUpload,
+    isDisableEditorState,
+    showAttachements,
+    showShareableLinkButton,
+    shareableLinkTitle = '',
+    shareableLinkUrl = '#'
+}: Partial<IRichTextEditorProps>): JSX.Element {
     const [editor] = useLexicalComposerContext();
     const [isLink, setIsLink] = useState(false);
     const [fontSize, setFontSize] = useState<string>('15px');
@@ -256,7 +261,8 @@ export default function ToolBar({ onFileUpload, isDisableEditorState }: IToolbar
                     <LinkIcon color="secondary" />
                 </IconButton>
                 {isLink && createPortal(<FloatingLinkEditor />, document.body)}
-                <AttachmentsToobarPlugin onFileUpload={onFileUpload} />
+                {showAttachements && <AttachmentsToobarPlugin onFileUpload={onFileUpload} />}
+                {showShareableLinkButton && <InsertShareableLinkPlugin href={shareableLinkUrl} title={shareableLinkTitle} />}
             </Box>
         </Box>
     );

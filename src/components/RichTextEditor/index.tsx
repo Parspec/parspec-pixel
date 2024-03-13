@@ -17,6 +17,7 @@ import { Box } from '../Box';
 import { default as ToolBar, registeredNodes } from './ToolBar';
 import AutoFocusPlugin from './AutoFocusPlugin';
 import DisableEditorPlugin from './DisableEditorPlugin';
+import { IRichTextEditorProps } from './types';
 
 const theme = {
     link: 'cursor-pointer',
@@ -40,16 +41,6 @@ function onError(error: Error) {
     console.error(error);
 }
 
-interface IRichTextEditorProps {
-    onFileUpload?: (params: FileList | null) => void;
-    initialHtml?: string;
-    onChange: (html: string) => void;
-    editorBgColor?: string;
-    contentEditableHeight?: string;
-    isDisableEditorState?: boolean;
-    placeHolderText?: string;
-}
-
 export default function RichTextEditor({
     onFileUpload,
     onChange,
@@ -57,7 +48,11 @@ export default function RichTextEditor({
     editorBgColor = 'white',
     contentEditableHeight = '300px',
     isDisableEditorState = false,
-    placeHolderText = 'Enter text...'
+    placeHolderText = 'Enter text...',
+    showAttachements = false,
+    showShareableLinkButton = false,
+    shareableLinkUrl = '#',
+    shareableLinkTitle = ''
 }: IRichTextEditorProps) {
     const initialConfig = {
         namespace: 'ParspecEditor',
@@ -70,7 +65,14 @@ export default function RichTextEditor({
         <LexicalComposer initialConfig={initialConfig}>
             <Box className="editor-container">
                 <Box className="editor-inner">
-                    <ToolBar onFileUpload={onFileUpload} isDisableEditorState={isDisableEditorState} />
+                    <ToolBar
+                        onFileUpload={onFileUpload}
+                        isDisableEditorState={isDisableEditorState}
+                        showAttachements={showAttachements}
+                        showShareableLinkButton={showShareableLinkButton}
+                        shareableLinkTitle={shareableLinkTitle}
+                        shareableLinkUrl={shareableLinkUrl}
+                    />
                     <RichTextPlugin
                         contentEditable={
                             <ContentEditable

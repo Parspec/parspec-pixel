@@ -26,14 +26,22 @@ import { sortOptions } from '../GroupedAutoComplete/Virtualisation';
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
+export interface CustomRowProps extends ListChildComponentProps {
+    label: string;
+}
+
 export interface MultiSelectOptionType {
     [index: string]: string | number;
 }
 
+interface RenderRowProps extends ListChildComponentProps {
+    customRow?: (props: CustomRowProps) => JSX.Element;
+}
+
 const LISTBOX_PADDING = 8;
 
-function renderRow(props: ListChildComponentProps) {
-    const { data, index, style } = props;
+function renderRow(props: RenderRowProps) {
+    const { data, index, style, customRow } = props;
     const currentRowData = data[index];
     const { color, optionlabelkeyname, ...rowProp } = currentRowData[0];
     const option = currentRowData[1];
@@ -47,7 +55,7 @@ function renderRow(props: ListChildComponentProps) {
     return (
         <Typography component="li" {...rowProp} noWrap style={inlineStyle} fontSize="14px">
             <Checkbox size="small" sx={{ marginRight: 2 }} icon={icon} checked={optionState.selected} checkedIcon={checkedIcon} color={rowProp.color} />
-            {option[optionlabelkeyname]}
+            {customRow ? customRow({ ...props, label: option[optionlabelkeyname] }) : option[optionlabelkeyname]}
         </Typography>
     );
 }
@@ -69,9 +77,13 @@ function useResetCache(data: any) {
     return ref;
 }
 
+interface ListboxComponentProps extends React.HTMLAttributes<HTMLElement> {
+    customRow?: (props: CustomRowProps) => JSX.Element;
+}
+
 // Adapter for react-window
-const ListboxComponent = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLElement>>(function ListboxComponent(props, ref) {
-    const { children, ...other } = props;
+const ListboxComponent = forwardRef<HTMLDivElement, ListboxComponentProps>(function ListboxComponent(props, ref) {
+    const { children, customRow, ...other } = props;
     const itemData: React.ReactChild[] = [];
     (children as React.ReactChild[]).forEach((item: React.ReactChild & { children?: React.ReactChild[] }) => {
         itemData.push(item);
@@ -111,7 +123,7 @@ const ListboxComponent = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLEle
                     overscanCount={5}
                     itemCount={itemCount}
                 >
-                    {renderRow}
+                    {(newProps: ListChildComponentProps) => renderRow({ ...newProps, customRow })}
                 </VariableSizeList>
             </OuterElementContext.Provider>
         </div>
@@ -136,10 +148,11 @@ interface MultiSelectProps extends Omit<AutocompleteProps<MultiSelectOptionType,
     label: string;
     placeholder?: TextFieldProps['placeholder'];
     optionlabelkeyname?: string;
+    customRow?: (props: CustomRowProps) => JSX.Element;
 }
 
 export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(function (
-    { value, size, helperText, error, options, variant, color, placeholder, id, filterOptions, label, optionlabelkeyname = 'label', ...restParams },
+    { value, size, helperText, error, options, variant, color, placeholder, id, filterOptions, label, optionlabelkeyname = 'label', customRow, ...restParams },
     ref
 ) {
     const sortedOptions = useMemo(() => sortOptions(options, optionlabelkeyname, value), [options, value]);
@@ -161,7 +174,7 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(function
             filterOptions={filterOptions ? filterOptions : getDefaultFilterOption}
             getOptionLabel={(option: MultiSelectOptionType) => option[optionlabelkeyname] as string}
             isOptionEqualToValue={(option: MultiSelectOptionType, value: MultiSelectOptionType) => option[optionlabelkeyname] === value[optionlabelkeyname]}
-            ListboxComponent={ListboxComponent}
+            ListboxComponent={(listboxProps) => <ListboxComponent {...listboxProps} customRow={customRow} />}
             PopperComponent={StyledPopper}
             renderInput={({ size: _fieldSize, ...params }) => {
                 const { InputProps: _InputProps, ...restParams } = params;

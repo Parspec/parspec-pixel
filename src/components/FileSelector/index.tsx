@@ -34,6 +34,10 @@ interface FileSelectorProps {
     maxTotalFileSizeAllowed?: { size_in_bytes: number; errorText: string };
 }
 
+interface IFileObj {
+    [key: string]: any;
+}
+
 export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
     (
         {
@@ -95,7 +99,15 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                 let allFiles: any[] = [];
 
                 if (maxFiles > 1) {
-                    allFiles = [...files, ...acceptedFiles];
+                    let prevFileObj: IFileObj = {};
+                    for (let item of files) {
+                        prevFileObj[item.name] = item;
+                    }
+
+                    const prevFileNamesArr = Object.keys(prevFileObj);
+                    const filteredAcceptedFiles = acceptedFiles.filter((item: any) => !prevFileNamesArr?.includes(item?.name));
+
+                    allFiles = [...files, ...filteredAcceptedFiles];
                 } else {
                     allFiles = [...acceptedFiles];
                 }

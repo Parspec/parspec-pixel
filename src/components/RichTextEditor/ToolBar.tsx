@@ -136,8 +136,9 @@ const AttachmentsToobarPlugin = ({ onFileUpload }: IAttachmentsToobarPlugin): JS
 
 interface IToolbar {
     onFileUpload?: (params: FileList | null) => void;
+    isDisableEditorState?: boolean;
 }
-export default function ToolBar({ onFileUpload }: IToolbar): JSX.Element {
+export default function ToolBar({ onFileUpload, isDisableEditorState }: IToolbar): JSX.Element {
     const [editor] = useLexicalComposerContext();
     const [isLink, setIsLink] = useState(false);
     const [fontSize, setFontSize] = useState<string>('15px');
@@ -222,7 +223,7 @@ export default function ToolBar({ onFileUpload }: IToolbar): JSX.Element {
     );
 
     return (
-        <Box display={'flex'} justifyContent="space-between" alignItems="center" paddingTop={2} paddingBottom={2}>
+        <Box sx={isDisableEditorState ? { opacity: '0.4', pointerEvents: 'none' } : null} display={'flex'} justifyContent="space-between" alignItems="center" paddingTop={2} paddingBottom={2}>
             <Box width={1} display={'flex'} alignItems={'center'} justifyContent={'flex-start'} gap={1}>
                 <HeadingToolbarPlugin />
                 <FontSize selectionFontSize={fontSize.slice(0, -2)} editor={editor} disabled={!isEditable} />

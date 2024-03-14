@@ -149,10 +149,11 @@ interface MultiSelectProps extends Omit<AutocompleteProps<MultiSelectOptionType,
     placeholder?: TextFieldProps['placeholder'];
     optionlabelkeyname?: string;
     customRow?: (props: CustomRowProps) => JSX.Element;
+    shouldSortOptions?: boolean;
 }
 
 export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(function (
-    { value, size, helperText, error, options, variant, color, placeholder, id, filterOptions, label, optionlabelkeyname = 'label', customRow, ...restParams },
+    { value, size, helperText, error, options, variant, color, placeholder, id, filterOptions, label, optionlabelkeyname = 'label', customRow, shouldSortOptions = true, ...restParams },
     ref
 ) {
     const sortedOptions = useMemo(() => sortOptions(options, optionlabelkeyname, value), [options, value]);
@@ -166,7 +167,7 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(function
             {...restParams}
             fullWidth
             value={value}
-            options={sortedOptions}
+            options={shouldSortOptions ? sortedOptions : options}
             multiple
             size={size}
             ref={ref}

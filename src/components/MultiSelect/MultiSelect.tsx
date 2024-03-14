@@ -27,7 +27,10 @@ const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 export interface CustomRowProps extends ListChildComponentProps {
-    label: string;
+    option: {
+        label: string;
+        value: string | number;
+    };
 }
 
 export interface MultiSelectOptionType {
@@ -55,7 +58,7 @@ function renderRow(props: RenderRowProps) {
     return (
         <Typography component="li" {...rowProp} noWrap style={inlineStyle} fontSize="14px">
             <Checkbox size="small" sx={{ marginRight: 2 }} icon={icon} checked={optionState.selected} checkedIcon={checkedIcon} color={rowProp.color} />
-            {customRow ? customRow({ ...props, label: option[optionlabelkeyname] }) : option[optionlabelkeyname]}
+            {customRow ? customRow({ ...props, option: { label: option[optionlabelkeyname], value: option.value } }) : option[optionlabelkeyname]}
         </Typography>
     );
 }

@@ -27,7 +27,7 @@ function renderRow(props) {
     const option = currentRowData[1];
     const optionState = currentRowData[2];
     const inlineStyle = Object.assign(Object.assign({}, style), { top: style.top + LISTBOX_PADDING });
-    return (_jsxs(Typography, Object.assign({ component: "li" }, rowProp, { noWrap: true, style: inlineStyle, fontSize: "14px" }, { children: [_jsx(Checkbox, { size: "small", sx: { marginRight: 2 }, icon: icon, checked: optionState.selected, checkedIcon: checkedIcon, color: rowProp.color }), customRow ? customRow(Object.assign(Object.assign({}, props), { label: option[optionlabelkeyname] })) : option[optionlabelkeyname]] })));
+    return (_jsxs(Typography, Object.assign({ component: "li" }, rowProp, { noWrap: true, style: inlineStyle, fontSize: "14px" }, { children: [_jsx(Checkbox, { size: "small", sx: { marginRight: 2 }, icon: icon, checked: optionState.selected, checkedIcon: checkedIcon, color: rowProp.color }), customRow ? customRow(Object.assign(Object.assign({}, props), { option: { label: option[optionlabelkeyname], value: option.value } })) : option[optionlabelkeyname]] })));
 }
 const OuterElementContext = createContext({});
 const OuterElementType = forwardRef((props, ref) => {

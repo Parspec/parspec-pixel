@@ -2,7 +2,10 @@
 import { AutocompleteProps, TextFieldProps } from '@mui/material';
 import { ListChildComponentProps } from 'react-window';
 export interface CustomRowProps extends ListChildComponentProps {
-    label: string;
+    option: {
+        label: string;
+        value: string | number;
+    };
 }
 export interface MultiSelectOptionType {
     [index: string]: string | number;

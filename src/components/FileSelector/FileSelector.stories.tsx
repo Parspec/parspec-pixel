@@ -59,11 +59,12 @@ export const multiSelect: ComponentStory<typeof FileSelector> = (args) => {
 
     const onFileUploadedToS3 = (files: IFileType[]) => {
         const newFiles = files.map((item) => ({ name: item.file.name, size: item.file.size, filepath: item.s3_file_path }));
+        console.log('newFiles: ', newFiles);
         setPreSelectedFiles(newFiles);
     };
 
     return (
-        <Box width={'350px'} height={'82px'}>
+        <Box width={'550px'} height={'82px'}>
             <FileSelector
                 {...args}
                 url="https://minor-staging.parspec.xyz/api/generate_signed_url/"

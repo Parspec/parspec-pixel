@@ -105,9 +105,23 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                     }
 
                     const prevFileNamesArr = Object.keys(prevFileObj);
-                    const filteredAcceptedFiles = acceptedFiles.filter((item: any) => !prevFileNamesArr?.includes(item?.name));
+                    const modifiedAcceptedFiles = acceptedFiles.map((item: any) => {
+                        if (prevFileNamesArr?.includes(item?.name)) {
+                            const currDateTime = new Date().toISOString();
 
-                    allFiles = [...files, ...filteredAcceptedFiles];
+                            const extractName = item.name.split('.');
+
+                            const newName: string = extractName.slice(0, extractName.length - 1).join('.') + '_' + `${currDateTime}` + '.' + extractName.slice(-1).join('.');
+
+                            const myNewFile = new File([item], newName, { type: item.type });
+
+                            return myNewFile;
+                        } else {
+                            return item;
+                        }
+                    });
+
+                    allFiles = [...files, ...modifiedAcceptedFiles];
                 } else {
                     allFiles = [...acceptedFiles];
                 }

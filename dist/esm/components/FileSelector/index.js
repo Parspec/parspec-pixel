@@ -42,7 +42,24 @@ export const FileSelector = forwardRef(({ maxFiles = 1, acceptedFormats = [], on
         setMaxFileSizeExceededError(false);
         let allFiles = [];
         if (maxFiles > 1) {
-            allFiles = [...files, ...acceptedFiles];
+            let prevFileObj = {};
+            for (let item of files) {
+                prevFileObj[item.name] = item;
+            }
+            const prevFileNamesArr = Object.keys(prevFileObj);
+            const modifiedAcceptedFiles = acceptedFiles.map((item) => {
+                if (prevFileNamesArr === null || prevFileNamesArr === void 0 ? void 0 : prevFileNamesArr.includes(item === null || item === void 0 ? void 0 : item.name)) {
+                    const currDateTime = new Date().toISOString();
+                    const extractName = item.name.split('.');
+                    const newName = extractName.slice(0, extractName.length - 1).join('.') + '_' + `${currDateTime}` + '.' + extractName.slice(-1).join('.');
+                    const myNewFile = new File([item], newName, { type: item.type });
+                    return myNewFile;
+                }
+                else {
+                    return item;
+                }
+            });
+            allFiles = [...files, ...modifiedAcceptedFiles];
         }
         else {
             allFiles = [...acceptedFiles];

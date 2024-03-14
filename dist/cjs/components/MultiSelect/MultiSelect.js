@@ -82,12 +82,12 @@ const StyledPopper = (0, material_1.styled)(material_1.Popper)({
     }
 });
 exports.MultiSelect = (0, react_1.forwardRef)(function (_a, ref) {
-    var { value, size, helperText, error, options, variant, color, placeholder, id, filterOptions, label, optionlabelkeyname = 'label', customRow } = _a, restParams = __rest(_a, ["value", "size", "helperText", "error", "options", "variant", "color", "placeholder", "id", "filterOptions", "label", "optionlabelkeyname", "customRow"]);
+    var { value, size, helperText, error, options, variant, color, placeholder, id, filterOptions, label, optionlabelkeyname = 'label', customRow, shouldSortOptions = true } = _a, restParams = __rest(_a, ["value", "size", "helperText", "error", "options", "variant", "color", "placeholder", "id", "filterOptions", "label", "optionlabelkeyname", "customRow", "shouldSortOptions"]);
     const sortedOptions = (0, react_1.useMemo)(() => (0, Virtualisation_1.sortOptions)(options, optionlabelkeyname, value), [options, value]);
     function getDefaultFilterOption(options, state) {
         return (0, material_1.createFilterOptions)()(options, state);
     }
-    return ((0, jsx_runtime_1.jsx)(material_1.Autocomplete, Object.assign({}, restParams, { fullWidth: true, value: value, options: sortedOptions, multiple: true, size: size, ref: ref, disableCloseOnSelect: true, filterOptions: filterOptions ? filterOptions : getDefaultFilterOption, getOptionLabel: (option) => option[optionlabelkeyname], isOptionEqualToValue: (option, value) => option[optionlabelkeyname] === value[optionlabelkeyname], ListboxComponent: (listboxProps) => (0, jsx_runtime_1.jsx)(ListboxComponent, Object.assign({}, listboxProps, { customRow: customRow })), PopperComponent: StyledPopper, renderInput: (_a) => {
+    return ((0, jsx_runtime_1.jsx)(material_1.Autocomplete, Object.assign({}, restParams, { fullWidth: true, value: value, options: shouldSortOptions ? sortedOptions : options, multiple: true, size: size, ref: ref, disableCloseOnSelect: true, filterOptions: filterOptions ? filterOptions : getDefaultFilterOption, getOptionLabel: (option) => option[optionlabelkeyname], isOptionEqualToValue: (option, value) => option[optionlabelkeyname] === value[optionlabelkeyname], ListboxComponent: (listboxProps) => (0, jsx_runtime_1.jsx)(ListboxComponent, Object.assign({}, listboxProps, { customRow: customRow })), PopperComponent: StyledPopper, renderInput: (_a) => {
             var { size: _fieldSize } = _a, params = __rest(_a, ["size"]);
             const { InputProps: _InputProps } = params, restParams = __rest(params, ["InputProps"]);
             const { startAdornment } = _InputProps, restInputProps = __rest(_InputProps, ["startAdornment"]);

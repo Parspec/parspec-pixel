@@ -16,6 +16,7 @@ interface MultiSelectProps extends Omit<AutocompleteProps<MultiSelectOptionType,
     placeholder?: TextFieldProps['placeholder'];
     optionlabelkeyname?: string;
     customRow?: (props: CustomRowProps) => JSX.Element;
+    shouldSortOptions?: boolean;
 }
 export declare const MultiSelect: import("react").ForwardRefExoticComponent<Omit<MultiSelectProps, "ref"> & import("react").RefAttributes<HTMLDivElement>>;
 export {};

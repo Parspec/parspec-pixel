@@ -1,5 +1,5 @@
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { $createTextNode, $insertNodes, $createLineBreakNode, $getRoot } from 'lexical';
+import { $createTextNode, $insertNodes, $getRoot } from 'lexical';
 import { $createLinkNode } from '@lexical/link';
 
 import { Button } from '../Button';
@@ -15,8 +15,9 @@ export default function InsertShareableLinkPlugin({ href, title }: { href: strin
                 return;
             }
             const linkNode = $createLinkNode(href, { target: '_blank' });
+            const emptyNode = $createTextNode(' ');
             linkNode.append($createTextNode(title));
-            $insertNodes([$createLineBreakNode(), linkNode]);
+            $insertNodes([emptyNode, linkNode]);
         });
     }
 

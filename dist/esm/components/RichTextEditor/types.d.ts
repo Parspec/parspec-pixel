@@ -11,4 +11,5 @@ export interface IRichTextEditorProps {
     shareableLinkUrl?: string;
     shareableLinkTitle?: string;
     onBlur?: () => void;
+    onFocus?: () => void;
 }

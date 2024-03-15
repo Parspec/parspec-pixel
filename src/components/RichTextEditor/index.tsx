@@ -46,14 +46,15 @@ export default function RichTextEditor({
     onChange,
     initialHtml = '',
     editorBgColor = 'white',
-    contentEditableHeight = '300px',
+    contentEditableHeight = '150px',
     isDisableEditorState = false,
     placeHolderText = 'Enter text...',
     showAttachements = false,
     showShareableLinkButton = false,
     shareableLinkUrl = '#',
     shareableLinkTitle = '',
-    onBlur = () => {}
+    onBlur = () => {},
+    onFocus = () => {}
 }: IRichTextEditorProps) {
     const initialConfig = {
         namespace: 'ParspecEditor',
@@ -78,6 +79,7 @@ export default function RichTextEditor({
                         contentEditable={
                             <ContentEditable
                                 onBlur={onBlur}
+                                onFocus={onFocus}
                                 style={{
                                     width: '100%',
                                     height: contentEditableHeight,

@@ -11,12 +11,14 @@ function InsertShareableLinkPlugin({ href, title }) {
     function handleOnClick() {
         editor.update(() => {
             const textContent = (0, lexical_1.$getRoot)().getTextContent();
-            if (textContent.includes(title)) {
-                return;
-            }
             const linkNode = (0, link_1.$createLinkNode)(href, { target: '_blank' });
             const emptyNode = (0, lexical_1.$createTextNode)(' ');
             linkNode.append((0, lexical_1.$createTextNode)(title));
+            if (textContent.includes(title)) {
+                if (href !== '#')
+                    linkNode.setURL(href);
+                return;
+            }
             (0, lexical_1.$insertNodes)([emptyNode, linkNode]);
         });
     }

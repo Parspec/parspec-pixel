@@ -11,12 +11,15 @@ export default function InsertShareableLinkPlugin({ href, title }: { href: strin
     function handleOnClick() {
         editor.update(() => {
             const textContent = $getRoot().getTextContent();
-            if (textContent.includes(title)) {
-                return;
-            }
             const linkNode = $createLinkNode(href, { target: '_blank' });
             const emptyNode = $createTextNode(' ');
             linkNode.append($createTextNode(title));
+            if (textContent.includes(title)) {
+                if (href !== '#') linkNode.setURL(href);
+
+                return;
+            }
+
             $insertNodes([emptyNode, linkNode]);
         });
     }

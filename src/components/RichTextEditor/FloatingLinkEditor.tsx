@@ -1,6 +1,6 @@
 import { useRef, useState, useCallback, useEffect } from 'react';
 
-import { $getSelection, $isRangeSelection, BaseSelection, SELECTION_CHANGE_COMMAND } from 'lexical';
+import { $getSelection, $isRangeSelection, BLUR_COMMAND, BaseSelection, SELECTION_CHANGE_COMMAND } from 'lexical';
 import { $isLinkNode, TOGGLE_LINK_COMMAND } from '@lexical/link';
 import { mergeRegister } from '@lexical/utils';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
@@ -12,6 +12,7 @@ import { Box } from '../Box';
 import { TextField } from '../TextField';
 import { IconButton } from '../IconButton';
 import { EditIcon } from '../Icons';
+import { dispatchCommand } from 'lexical/LexicalUtils';
 
 export function FloatingLinkEditor() {
     const [editor] = useLexicalComposerContext();

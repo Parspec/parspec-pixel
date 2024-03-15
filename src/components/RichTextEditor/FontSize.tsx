@@ -105,7 +105,8 @@ export default function FontSize({ selectionFontSize, disabled, editor }: { sele
                     const selection = $getSelection();
                     if (selection !== null) {
                         $patchStyleText(selection, {
-                            'font-size': newFontSize || getNextFontSize
+                            'font-size': newFontSize || getNextFontSize,
+                            'line-height': '1.2'
                         });
                     }
                 }
@@ -150,7 +151,7 @@ export default function FontSize({ selectionFontSize, disabled, editor }: { sele
     }, [selectionFontSize]);
 
     return (
-        <Box display="flex" justifyContent="center" alignItems="center" width="120px">
+        <Box display="flex" justifyContent="center" alignItems="center" width="136px">
             <IconButton disabled={disabled || (selectionFontSize !== '' && Number(inputValue) <= MIN_ALLOWED_FONT_SIZE)} onClick={() => handleButtonClick(UPDATE_FONT_SIZE_TYPE.DECREMENT)}>
                 <RemoveIcon fontSize="small" color="secondary" />
             </IconButton>

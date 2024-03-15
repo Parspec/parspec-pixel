@@ -1,26 +1,38 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { default as Editor } from './index';
+import { default as TextEditor } from './index';
+import { Box } from '../Box';
 
 export default {
-    title: 'Editor',
-    component: Editor,
+    title: 'TextEditor',
+    component: TextEditor,
     argTypes: {
         onChange: { action: 'onChange' }
     }
-} as ComponentMeta<typeof Editor>;
+} as ComponentMeta<typeof TextEditor>;
 
-export const RichTextEditor: ComponentStory<typeof Editor> = (args) => {
-    return <Editor {...args} />;
-};
+export const Basic: ComponentStory<typeof TextEditor> = () => {
+    const [html, setHtml] = React.useState('');
 
-RichTextEditor.args = {
-    onFileUpload: (params: FileList | null) => {
-        console.log(params);
-    },
-    onChange: (html: string) => console.log(html),
-    initialHtml: `<h1>Code is Poetry...</h1>`,
-    editorBgColor: '#fff',
-    contentEditableHeight: '300px'
+    return (
+        <Box maxWidth={800}>
+            <TextEditor
+                onFileUpload={(params: FileList | null) => {
+                    console.log(params);
+                }}
+                onChange={(html: string) => setHtml(html)}
+                initialHtml={``}
+                editorBgColor="#fff"
+                isDisableEditorState={false}
+                contentEditableHeight="100px"
+                placeHolderText="Tell us your story..."
+                showAttachements
+                showShareableLinkButton
+                shareableLinkTitle="Awesome !!"
+                shareableLinkUrl="https://iamawesome.com"
+                onBlur={() => console.log(html)}
+            />
+        </Box>
+    );
 };

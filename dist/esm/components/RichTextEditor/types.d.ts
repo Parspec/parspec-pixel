@@ -2,7 +2,7 @@ import { EditorState } from 'lexical';
 export interface IRichTextEditorProps {
     onFileUpload?: (params: FileList | null) => void;
     initialHtml?: string;
-    onChange: (editorState: EditorState) => void;
+    onChange?: (editorState: EditorState) => void;
     editorBgColor?: string;
     contentEditableHeight?: string;
     isDisableEditorState?: boolean;
@@ -11,6 +11,6 @@ export interface IRichTextEditorProps {
     showShareableLinkButton?: boolean;
     shareableLinkUrl?: string;
     shareableLinkTitle?: string;
-    onBlur?: (html: string) => void;
+    onBlur: (html: string) => void;
     onFocus?: () => void;
 }

@@ -43,7 +43,7 @@ function onError(error: Error) {
 
 export default function RichTextEditor({
     onFileUpload,
-    onChange,
+    onChange = () => {},
     initialHtml = '',
     editorBgColor = 'white',
     contentEditableHeight = '300px',

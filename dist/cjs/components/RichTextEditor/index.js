@@ -65,7 +65,7 @@ const theme = {
 function onError(error) {
     console.error(error);
 }
-function RichTextEditor({ onFileUpload, onChange, initialHtml = '', editorBgColor = 'white', contentEditableHeight = '300px', isDisableEditorState = false, placeHolderText = 'Enter text...', showAttachements = false, showShareableLinkButton = false, shareableLinkUrl = '#', shareableLinkTitle = '', onBlur = () => { } }) {
+function RichTextEditor({ onFileUpload, onChange = () => { }, initialHtml = '', editorBgColor = 'white', contentEditableHeight = '300px', isDisableEditorState = false, placeHolderText = 'Enter text...', showAttachements = false, showShareableLinkButton = false, shareableLinkUrl = '#', shareableLinkTitle = '', onBlur = () => { } }) {
     const initialConfig = {
         namespace: 'ParspecEditor',
         theme,

@@ -8,7 +8,6 @@ import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin';
 import LexicalClickableLinkPlugin from '@lexical/react/LexicalClickableLinkPlugin';
 import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin';
 import { TRANSFORMERS } from '@lexical/markdown';
-import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 
 import AutoLinkPlugin from './AutoLinkPlugin';
 import HtmlPlugin from './HtmlPlugin';
@@ -43,7 +42,6 @@ function onError(error: Error) {
 
 export default function RichTextEditor({
     onFileUpload,
-    onChange = () => {},
     initialHtml = '',
     editorBgColor = 'white',
     contentEditableHeight = '300px',
@@ -94,7 +92,6 @@ export default function RichTextEditor({
                     />
                     <ListPlugin />
                     <HistoryPlugin />
-                    <OnChangePlugin onChange={onChange} />
                     <HtmlPlugin initialHtml={initialHtml} convertToHtml={onBlur} />
                     <AutoLinkPlugin />
                     <LinkPlugin />

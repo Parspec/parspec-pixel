@@ -1,9 +1,6 @@
-import { EditorState } from 'lexical';
-
 export interface IRichTextEditorProps {
     onFileUpload?: (params: FileList | null) => void;
     initialHtml?: string;
-    onChange?: (editorState: EditorState) => void;
     editorBgColor?: string;
     contentEditableHeight?: string;
     isDisableEditorState?: boolean;

@@ -51,7 +51,8 @@ export default function RichTextEditor({
     showShareableLinkButton = false,
     shareableLinkUrl = '#',
     shareableLinkTitle = '',
-    onBlur = () => {}
+    onBlur = () => {},
+    onChange
 }: IRichTextEditorProps) {
     const initialConfig = {
         namespace: 'ParspecEditor',
@@ -75,6 +76,7 @@ export default function RichTextEditor({
                     <RichTextPlugin
                         contentEditable={
                             <ContentEditable
+                                onFocus={() => console.log('Focusing...')}
                                 style={{
                                     width: '100%',
                                     height: contentEditableHeight,
@@ -92,7 +94,7 @@ export default function RichTextEditor({
                     />
                     <ListPlugin />
                     <HistoryPlugin />
-                    <HtmlPlugin initialHtml={initialHtml} convertToHtml={onBlur} />
+                    <HtmlPlugin initialHtml={initialHtml} onBlur={onBlur} onChange={onChange} />
                     <AutoLinkPlugin />
                     <LinkPlugin />
                     <LexicalClickableLinkPlugin />

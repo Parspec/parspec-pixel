@@ -1,10 +1,11 @@
-import { jsx as _jsx } from "react/jsx-runtime";
+import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState, useEffect } from 'react';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { $generateHtmlFromNodes, $generateNodesFromDOM } from '@lexical/html';
 import { $insertNodes } from 'lexical';
+import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { OnBlurPlugin } from './onBlurPlugin';
-const HtmlPlugin = ({ initialHtml, convertToHtml }) => {
+const HtmlPlugin = ({ initialHtml, onBlur, onChange }) => {
     const [editor] = useLexicalComposerContext();
     const [isFirstRender, setIsFirstRender] = useState(true);
     useEffect(() => {
@@ -18,11 +19,17 @@ const HtmlPlugin = ({ initialHtml, convertToHtml }) => {
             $insertNodes(nodes);
         });
     }, []);
-    return (_jsx(OnBlurPlugin, { onBlur: (editorState) => {
-            editorState.read(() => {
-                convertToHtml($generateHtmlFromNodes(editor));
-            });
-        } }));
+    function handleOnBlur(editorState) {
+        editorState.read(() => {
+            onBlur($generateHtmlFromNodes(editor));
+        });
+    }
+    function handleOnChange(editorState) {
+        editorState.read(() => {
+            onChange === null || onChange === void 0 ? void 0 : onChange($generateHtmlFromNodes(editor));
+        });
+    }
+    return (_jsxs(_Fragment, { children: [_jsx(OnBlurPlugin, { onBlur: handleOnBlur }), onChange && _jsx(OnChangePlugin, { onChange: handleOnChange })] }));
 };
 export default HtmlPlugin;
 //# sourceMappingURL=HtmlPlugin.js.map

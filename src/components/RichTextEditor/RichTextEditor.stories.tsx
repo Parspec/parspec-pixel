@@ -29,6 +29,7 @@ export const Basic: ComponentStory<typeof TextEditor> = () => {
                 shareableLinkTitle="Awesome !!"
                 shareableLinkUrl="https://iamawesome.com"
                 onBlur={(html) => console.log(`[onBlur]`, html)}
+                onChange={(html) => console.log(`[onChange]`, html)}
             />
         </Box>
     );

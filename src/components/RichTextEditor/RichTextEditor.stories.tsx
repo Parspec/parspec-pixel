@@ -22,7 +22,7 @@ export const Basic: ComponentStory<typeof TextEditor> = () => {
                     console.log(params);
                 }}
                 onChange={(html: string) => setHtml(html)}
-                initialHtml={``}
+                initialHtml={`<ol class=\"richTextList\"><li value=\"1\" class=\"richTextListItem\"><u><i><b><strong class=\"textBold textItalic textUnderline\" style=\"font-size: 37px; line-height: 1.2; white-space: pre-wrap;\">Hello </strong></b></i></u><u><i><b><strong class=\"textBold textItalic textUnderline\" style=\"font-size: 37px; line-height: 1.2; color: rgb(126, 211, 33); white-space: pre-wrap;\">sorld</strong></b></i></u></li><li value=\"2\" class=\"richTextListItem\"><u><i><b><strong class=\"textBold textItalic textUnderline\" style=\"font-size: 37px; line-height: 1.2; white-space: pre-wrap;\">AWesome </strong></b></i></u><u><i><b><strong class=\"textBold textItalic textUnderline\" style=\"font-size: 37px; line-height: 1.2; color: rgb(189, 16, 224); white-space: pre-wrap;\">world</strong></b></i></u></li></ol>`}
                 editorBgColor="#fff"
                 isDisableEditorState={false}
                 contentEditableHeight="100px"

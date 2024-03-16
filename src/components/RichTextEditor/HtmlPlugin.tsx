@@ -24,6 +24,9 @@ const HtmlPlugin = ({ initialHtml, onHtmlChanged }: Props) => {
             const parser = new DOMParser();
             const dom = parser.parseFromString(initialHtml, 'text/html');
             const nodes = $generateNodesFromDOM(editor, dom);
+            nodes.forEach((node) => {
+                console.log(`test-node`, node);
+            });
             $insertNodes(nodes);
         });
     }, []);

@@ -12,6 +12,7 @@ import { LinkNode, AutoLinkNode } from '@lexical/link';
 import { $getSelectionStyleValueForProperty, $patchStyleText } from '@lexical/selection';
 import { CodeHighlightNode, CodeNode } from '@lexical/code';
 import { TableCellNode, TableNode, TableRowNode } from '@lexical/table';
+import { ExtendedTextNode } from './ExtentedTextNode';
 
 import { Box } from '../Box';
 import { LinkIcon, AttachFileIcon, FormatBoldIcon, FormatItalicIcon, FormatListBulletedIcon, FormatListNumberedIcon, FormatUnderlinedIcon } from '../Icons';
@@ -268,4 +269,18 @@ export default function ToolBar({
     );
 }
 
-export const registeredNodes = [HeadingNode, ListNode, ListItemNode, LinkNode, AutoLinkNode, TextNode, QuoteNode, CodeNode, TableCellNode, CodeHighlightNode, TableRowNode, TableNode];
+export const registeredNodes = [
+    HeadingNode,
+    ListNode,
+    ListItemNode,
+    LinkNode,
+    AutoLinkNode,
+    ExtendedTextNode,
+    { replace: TextNode, with: (node: TextNode) => new ExtendedTextNode(node.__text) },
+    QuoteNode,
+    CodeNode,
+    TableCellNode,
+    CodeHighlightNode,
+    TableRowNode,
+    TableNode
+];

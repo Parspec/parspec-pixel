@@ -8,6 +8,7 @@ import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin';
 import LexicalClickableLinkPlugin from '@lexical/react/LexicalClickableLinkPlugin';
 import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin';
 import { TRANSFORMERS } from '@lexical/markdown';
+import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 
 import AutoLinkPlugin from './AutoLinkPlugin';
 import HtmlPlugin from './HtmlPlugin';
@@ -15,7 +16,6 @@ import './RichText.css';
 import Placeholder from './PlaceHolder';
 import { Box } from '../Box';
 import { default as ToolBar, registeredNodes } from './ToolBar';
-import AutoFocusPlugin from './AutoFocusPlugin';
 import DisableEditorPlugin from './DisableEditorPlugin';
 import { IRichTextEditorProps } from './types';
 
@@ -46,15 +46,14 @@ export default function RichTextEditor({
     onChange,
     initialHtml = '',
     editorBgColor = 'white',
-    contentEditableHeight = '150px',
+    contentEditableHeight = '300px',
     isDisableEditorState = false,
     placeHolderText = 'Enter text...',
     showAttachements = false,
     showShareableLinkButton = false,
     shareableLinkUrl = '#',
     shareableLinkTitle = '',
-    onBlur = () => {},
-    onFocus = () => {}
+    onBlur = () => {}
 }: IRichTextEditorProps) {
     const initialConfig = {
         namespace: 'ParspecEditor',
@@ -78,8 +77,6 @@ export default function RichTextEditor({
                     <RichTextPlugin
                         contentEditable={
                             <ContentEditable
-                                onBlur={onBlur}
-                                onFocus={onFocus}
                                 style={{
                                     width: '100%',
                                     height: contentEditableHeight,
@@ -97,8 +94,8 @@ export default function RichTextEditor({
                     />
                     <ListPlugin />
                     <HistoryPlugin />
-                    <AutoFocusPlugin />
-                    <HtmlPlugin initialHtml={initialHtml} onHtmlChanged={onChange} />
+                    <OnChangePlugin onChange={onChange} />
+                    <HtmlPlugin initialHtml={initialHtml} convertToHtml={onBlur} />
                     <AutoLinkPlugin />
                     <LinkPlugin />
                     <LexicalClickableLinkPlugin />

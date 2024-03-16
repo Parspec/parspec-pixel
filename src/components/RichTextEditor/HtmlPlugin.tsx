@@ -1,16 +1,17 @@
 import { useState, useEffect } from 'react';
 
-import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { $generateHtmlFromNodes, $generateNodesFromDOM } from '@lexical/html';
 import { $insertNodes } from 'lexical';
 
+import { OnBlurPlugin } from './onBlurPlugin';
+
 interface Props {
     initialHtml?: string;
-    onHtmlChanged: (html: string) => void;
+    convertToHtml: (html: string) => void;
 }
 
-const HtmlPlugin = ({ initialHtml, onHtmlChanged }: Props) => {
+const HtmlPlugin = ({ initialHtml, convertToHtml }: Props) => {
     const [editor] = useLexicalComposerContext();
 
     const [isFirstRender, setIsFirstRender] = useState(true);
@@ -24,18 +25,15 @@ const HtmlPlugin = ({ initialHtml, onHtmlChanged }: Props) => {
             const parser = new DOMParser();
             const dom = parser.parseFromString(initialHtml, 'text/html');
             const nodes = $generateNodesFromDOM(editor, dom);
-            nodes.forEach((node) => {
-                console.log(`test-node`, node);
-            });
             $insertNodes(nodes);
         });
     }, []);
 
     return (
-        <OnChangePlugin
-            onChange={(editorState) => {
+        <OnBlurPlugin
+            onBlur={(editorState) => {
                 editorState.read(() => {
-                    onHtmlChanged($generateHtmlFromNodes(editor));
+                    convertToHtml($generateHtmlFromNodes(editor));
                 });
             }}
         />

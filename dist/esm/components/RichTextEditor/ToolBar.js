@@ -155,7 +155,7 @@ export default function ToolBar({ onFileUpload, isDisableEditorState, showAttach
         }, skipHistoryStack ? { tag: 'historic' } : {});
     }, [editor]);
     const onFontColorSelect = useCallback((value) => {
-        applyStyleText({ color: value.hex }, false);
+        applyStyleText({ color: value.hex }, true);
     }, [applyStyleText]);
     return (_jsxs(Box, Object.assign({ sx: isDisableEditorState ? { opacity: '0.4', pointerEvents: 'none' } : null, display: 'flex', justifyContent: "space-between", alignItems: "center", paddingTop: 2, paddingBottom: 2 }, { children: [_jsxs(Box, Object.assign({ width: 1, display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: 1 }, { children: [_jsx(HeadingToolbarPlugin, {}), _jsx(FontSize, { selectionFontSize: fontSize.slice(0, -2), editor: editor, disabled: !isEditable }), _jsx(DropdownColorPicker, { color: fontColor, onChange: onFontColorSelect }), _jsx(TextStyleToolbarPlugin, { isBold: isBold, isItalic: isItalic, isUnderline: isUnderline }), _jsx(ListToolbarPlugin, {})] })), _jsxs(Box, Object.assign({ width: 1, display: 'flex', alignItems: 'center', justifyContent: "flex-end", gap: 1 }, { children: [_jsx(IconButton, Object.assign({ onClick: insertLink }, { children: _jsx(LinkIcon, { color: "secondary" }) })), isLink && createPortal(_jsx(FloatingLinkEditor, {}), document.body), showAttachements && _jsx(AttachmentsToobarPlugin, { onFileUpload: onFileUpload }), showShareableLinkButton && _jsx(InsertShareableLinkPlugin, { href: shareableLinkUrl, title: shareableLinkTitle })] }))] })));
 }

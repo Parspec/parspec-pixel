@@ -242,7 +242,7 @@ export default function ToolBar({
 
     const onFontColorSelect = useCallback(
         (value: ColorResult) => {
-            applyStyleText({ color: value.hex }, false);
+            applyStyleText({ color: value.hex }, true);
         },
         [applyStyleText]
     );

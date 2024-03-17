@@ -44,7 +44,7 @@ export default function RichTextEditor({
     onFileUpload,
     initialHtml = '',
     editorBgColor = 'white',
-    contentEditableHeight = '300px',
+    contentEditableHeight = '150px',
     isDisableEditorState = false,
     placeHolderText = 'Enter text...',
     showAttachements = false,

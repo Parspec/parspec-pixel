@@ -22,7 +22,7 @@ export const Basic: ComponentStory<typeof TextEditor> = () => {
                 initialHtml={`<p class="richTextParagraph" dir="ltr"><b><strong class="textBold" style="font-size: 29px; line-height: 1.2; color: rgb(208, 2, 27); white-space: pre-wrap;">Create</strong></b><b><strong class="textBold" style="font-size: 29px; line-height: 1.2; white-space: pre-wrap;">  </strong></b><u><b><strong class="textBold textUnderline" style="font-size: 29px; line-height: 1.2; color: rgb(80, 227, 194); white-space: pre-wrap;">Something</strong></b></u></p>`}
                 editorBgColor="#fff"
                 isDisableEditorState={false}
-                contentEditableHeight="100px"
+                contentEditableHeight="150px"
                 placeHolderText="Tell us your story..."
                 showAttachements
                 showShareableLinkButton

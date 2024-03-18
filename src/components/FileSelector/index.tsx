@@ -59,12 +59,15 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
         ref
     ) => {
         const [files, setFiles] = useState<any>([]);
-        const [result, setResults] = useState([]);
+        const [result, setResults] = useState<any>([]);
         const [maxFileSizeExceededError, setMaxFileSizeExceededError] = useState(false);
 
         useEffect(() => {
             if (preSelectedFile?.length) {
                 setFiles(preSelectedFile);
+                if (maxFiles > 1) {
+                    setResults(() => preSelectedFile.map((item: any) => ({ file: item, progress: 100, s3_file_path: item.filepath })));
+                }
             }
         }, [preSelectedFile]);
 
@@ -80,7 +83,7 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
         //To call the callback when uploading of all files is done
         useEffect(() => {
             if (files.length) {
-                let uploadedFiles = result.filter((file) => file);
+                let uploadedFiles = result.filter((file: any) => file);
                 if (uploadedFiles.length === files.length) {
                     onUpload(uploadedFiles);
                 }
@@ -150,13 +153,13 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
             }
 
             setFiles((old: any) => old.filter((item: { name: string }) => item?.name !== file?.name));
-            setResults((old) => old.filter((item: { file: { name: string } }) => item?.file?.name !== file?.name));
+            setResults((old: any) => old.filter((item: { file: { name: string } }) => item?.file?.name !== file?.name));
             onDeleteFile();
         };
 
         //Callback function to get the result of file uplaod
         const handleResults = (data: {}, index: number) => {
-            setResults((old) => {
+            setResults((old: any) => {
                 let output: any = [...old];
                 output[index] = data;
                 return output;

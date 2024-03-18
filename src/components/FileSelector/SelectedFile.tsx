@@ -88,7 +88,7 @@ const SelectedFile = (props: SelectedFileProps) => {
 
                     <Box ml={2} display="flex" alignItems="center" gap="8px">
                         {!url && isLoading ? <CircularProgress color="primary" /> : null}
-                        {!isLoading && (
+                        {!isLoading && ((url && file.filepath) || !url) && (
                             <IconButton onClick={handleDelete} size="small">
                                 <DeleteIcon />
                             </IconButton>

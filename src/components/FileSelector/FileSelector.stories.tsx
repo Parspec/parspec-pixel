@@ -60,7 +60,7 @@ export const multiSelect: ComponentStory<typeof FileSelector> = (args) => {
     const onFileUploadedToS3 = (files: IFileType[]) => {
         const newFiles = files.map((item) => ({ name: item.file.name, size: item.file.size, filepath: item.s3_file_path }));
         console.log('newFiles: ', newFiles);
-        setPreSelectedFiles(newFiles);
+        // setPreSelectedFiles(newFiles);
     };
 
     return (

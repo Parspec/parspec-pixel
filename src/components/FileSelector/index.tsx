@@ -66,7 +66,7 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
             if (preSelectedFile?.length) {
                 setFiles(preSelectedFile);
                 if (maxFiles > 1) {
-                    setResults(() => preSelectedFile.map((item: any) => ({ file: item, progress: 100, s3_file_path: item.filepath })));
+                    setResults(() => preSelectedFile.map((item: any) => ({ file: item, progress: 100, s3_file_path: item.filepath, filepath: item.filepath })));
                 }
             }
         }, [preSelectedFile]);

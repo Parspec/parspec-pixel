@@ -16,11 +16,13 @@ interface Props {
 const HtmlPlugin = ({ initialHtml, onBlur, onChange }: Props) => {
     const [editor] = useLexicalComposerContext();
 
+    const [isEditable, setIsEditable] = useState(false);
+
     const [isFirstRender, setIsFirstRender] = useState(true);
 
     useEffect(() => {
         if (!initialHtml || !isFirstRender) return;
-
+        setIsEditable(true);
         setIsFirstRender(false);
 
         editor.update(() => {
@@ -45,8 +47,8 @@ const HtmlPlugin = ({ initialHtml, onBlur, onChange }: Props) => {
 
     return (
         <>
-            <OnBlurPlugin onBlur={handleOnBlur} />
-            {onChange && <OnChangePlugin onChange={handleOnChange} />}
+            {isEditable && <OnBlurPlugin onBlur={handleOnBlur} />}
+            {isEditable && <OnChangePlugin onChange={handleOnChange} />}
         </>
     );
 };

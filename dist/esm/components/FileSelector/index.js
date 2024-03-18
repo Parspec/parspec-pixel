@@ -14,6 +14,9 @@ export const FileSelector = forwardRef(({ maxFiles = 1, acceptedFormats = [], on
     useEffect(() => {
         if (preSelectedFile === null || preSelectedFile === void 0 ? void 0 : preSelectedFile.length) {
             setFiles(preSelectedFile);
+            if (maxFiles > 1) {
+                setResults(() => preSelectedFile.map((item) => ({ file: item, progress: 100, s3_file_path: item.filepath })));
+            }
         }
     }, [preSelectedFile]);
     //To give the information of selected files to the main component.

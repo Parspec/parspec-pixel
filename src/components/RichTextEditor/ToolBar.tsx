@@ -26,6 +26,8 @@ import { ColorResult } from '../ColorPicker';
 import { BodySmall } from '../Typography';
 import InsertShareableLinkPlugin from './InsertShareableLinkPlugin';
 import { IRichTextEditorProps } from './types';
+import FontDropDown from './FontFamilyDropDown';
+import { SelectChangeEvent } from '../Select';
 
 const DEFAULT_TEXT = 'Hello World';
 
@@ -172,6 +174,7 @@ export default function ToolBar({
     const [isBold, setIsBold] = useState(false);
     const [isItalic, setIsItalic] = useState(false);
     const [isUnderline, setIsUnderline] = useState(false);
+    const [fontFamily, setFontFamily] = useState<string>('Arial');
 
     const updateToolbar = useCallback(() => {
         const selection = $getSelection();
@@ -193,6 +196,8 @@ export default function ToolBar({
 
             setFontSize($getSelectionStyleValueForProperty(selection, 'font-size', '15px'));
             setFontColor($getSelectionStyleValueForProperty(selection, 'color', '#000'));
+            const selectedFontFamily = $getSelectionStyleValueForProperty(selection, 'font-family', 'Arial');
+            setFontFamily(`${selectedFontFamily.replace(/"([^"]+(?="))"/g, '$1')}`);
         }
     }, [editor]);
 
@@ -247,6 +252,19 @@ export default function ToolBar({
         [applyStyleText]
     );
 
+    function handleOnChange(e: SelectChangeEvent<unknown>) {
+        const value = String(e.target.value);
+        setFontFamily(value);
+        editor.update(() => {
+            const selection = $getSelection();
+            if (selection !== null) {
+                $patchStyleText(selection, {
+                    ['font-family']: value
+                });
+            }
+        });
+    }
+
     return (
         <Box sx={isDisableEditorState ? { opacity: '0.4', pointerEvents: 'none' } : null} display={'flex'} justifyContent="space-between" alignItems="center" paddingTop={2} paddingBottom={2}>
             <Box width={1} display={'flex'} alignItems={'center'} justifyContent={'flex-start'} gap={1}>
@@ -254,6 +272,7 @@ export default function ToolBar({
                 <FontSize selectionFontSize={fontSize.slice(0, -2)} editor={editor} disabled={!isEditable} />
                 <DropdownColorPicker color={fontColor} onChange={onFontColorSelect} />
                 <TextStyleToolbarPlugin isBold={isBold} isItalic={isItalic} isUnderline={isUnderline} />
+                <FontDropDown disabled={!isEditable} onChange={handleOnChange} value={fontFamily} />
                 <ListToolbarPlugin />
             </Box>
 

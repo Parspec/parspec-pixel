@@ -42,3 +42,8 @@ export function positionEditorElement(editor: any, rect: any) {
         editor.style.left = `${rect.left + window.scrollX - editor.offsetWidth / 2 + rect.width / 2}px`;
     }
 }
+
+export function dropDownActiveClass(active: boolean) {
+    if (active) return 'active dropdown-item-active';
+    else return '';
+}

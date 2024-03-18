@@ -23,6 +23,7 @@ import FontSize from './FontSize';
 import DropdownColorPicker from './DropDownColorPicker';
 import { BodySmall } from '../Typography';
 import InsertShareableLinkPlugin from './InsertShareableLinkPlugin';
+import FontDropDown from './FontFamilyDropDown';
 const DEFAULT_TEXT = 'Hello World';
 const HEADING_TAGS = ['h1', 'h2', 'h3'];
 const TextStyleToolbarPlugin = ({ isBold, isItalic, isUnderline }) => {
@@ -106,6 +107,7 @@ export default function ToolBar({ onFileUpload, isDisableEditorState, showAttach
     const [isBold, setIsBold] = useState(false);
     const [isItalic, setIsItalic] = useState(false);
     const [isUnderline, setIsUnderline] = useState(false);
+    const [fontFamily, setFontFamily] = useState('Arial');
     const updateToolbar = useCallback(() => {
         const selection = $getSelection();
         if ($isRangeSelection(selection)) {
@@ -124,6 +126,8 @@ export default function ToolBar({ onFileUpload, isDisableEditorState, showAttach
             }
             setFontSize($getSelectionStyleValueForProperty(selection, 'font-size', '15px'));
             setFontColor($getSelectionStyleValueForProperty(selection, 'color', '#000'));
+            const selectedFontFamily = $getSelectionStyleValueForProperty(selection, 'font-family', 'Arial');
+            setFontFamily(`${selectedFontFamily.replace(/"([^"]+(?="))"/g, '$1')}`);
         }
     }, [editor]);
     useEffect(() => {
@@ -157,7 +161,19 @@ export default function ToolBar({ onFileUpload, isDisableEditorState, showAttach
     const onFontColorSelect = useCallback((value) => {
         applyStyleText({ color: value.hex }, true);
     }, [applyStyleText]);
-    return (_jsxs(Box, Object.assign({ sx: isDisableEditorState ? { opacity: '0.4', pointerEvents: 'none' } : null, display: 'flex', justifyContent: "space-between", alignItems: "center", paddingTop: 2, paddingBottom: 2 }, { children: [_jsxs(Box, Object.assign({ width: 1, display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: 1 }, { children: [_jsx(HeadingToolbarPlugin, {}), _jsx(FontSize, { selectionFontSize: fontSize.slice(0, -2), editor: editor, disabled: !isEditable }), _jsx(DropdownColorPicker, { color: fontColor, onChange: onFontColorSelect }), _jsx(TextStyleToolbarPlugin, { isBold: isBold, isItalic: isItalic, isUnderline: isUnderline }), _jsx(ListToolbarPlugin, {})] })), _jsxs(Box, Object.assign({ width: 1, display: 'flex', alignItems: 'center', justifyContent: "flex-end", gap: 1 }, { children: [_jsx(IconButton, Object.assign({ onClick: insertLink }, { children: _jsx(LinkIcon, { color: "secondary" }) })), isLink && createPortal(_jsx(FloatingLinkEditor, {}), document.body), showAttachements && _jsx(AttachmentsToobarPlugin, { onFileUpload: onFileUpload }), showShareableLinkButton && _jsx(InsertShareableLinkPlugin, { href: shareableLinkUrl, title: shareableLinkTitle })] }))] })));
+    function handleOnChange(e) {
+        const value = String(e.target.value);
+        setFontFamily(value);
+        editor.update(() => {
+            const selection = $getSelection();
+            if (selection !== null) {
+                $patchStyleText(selection, {
+                    ['font-family']: value
+                });
+            }
+        });
+    }
+    return (_jsxs(Box, Object.assign({ sx: isDisableEditorState ? { opacity: '0.4', pointerEvents: 'none' } : null, display: 'flex', justifyContent: "space-between", alignItems: "center", paddingTop: 2, paddingBottom: 2 }, { children: [_jsxs(Box, Object.assign({ width: 1, display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: 1 }, { children: [_jsx(HeadingToolbarPlugin, {}), _jsx(FontSize, { selectionFontSize: fontSize.slice(0, -2), editor: editor, disabled: !isEditable }), _jsx(DropdownColorPicker, { color: fontColor, onChange: onFontColorSelect }), _jsx(TextStyleToolbarPlugin, { isBold: isBold, isItalic: isItalic, isUnderline: isUnderline }), _jsx(FontDropDown, { disabled: !isEditable, onChange: handleOnChange, value: fontFamily }), _jsx(ListToolbarPlugin, {})] })), _jsxs(Box, Object.assign({ width: 1, display: 'flex', alignItems: 'center', justifyContent: "flex-end", gap: 1 }, { children: [_jsx(IconButton, Object.assign({ onClick: insertLink }, { children: _jsx(LinkIcon, { color: "secondary" }) })), isLink && createPortal(_jsx(FloatingLinkEditor, {}), document.body), showAttachements && _jsx(AttachmentsToobarPlugin, { onFileUpload: onFileUpload }), showShareableLinkButton && _jsx(InsertShareableLinkPlugin, { href: shareableLinkUrl, title: shareableLinkTitle })] }))] })));
 }
 export const registeredNodes = [
     HeadingNode,

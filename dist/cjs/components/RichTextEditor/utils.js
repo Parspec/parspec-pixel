@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.positionEditorElement = exports.getSelectedNode = exports.validateURL = void 0;
+exports.dropDownActiveClass = exports.positionEditorElement = exports.getSelectedNode = exports.validateURL = void 0;
 const selection_1 = require("@lexical/selection");
 function validateURL(url) {
     var urlPattern = new RegExp('^(https?:\\/\\/)?' + // Protocol
@@ -42,4 +42,11 @@ function positionEditorElement(editor, rect) {
     }
 }
 exports.positionEditorElement = positionEditorElement;
+function dropDownActiveClass(active) {
+    if (active)
+        return 'active dropdown-item-active';
+    else
+        return '';
+}
+exports.dropDownActiveClass = dropDownActiveClass;
 //# sourceMappingURL=utils.js.map

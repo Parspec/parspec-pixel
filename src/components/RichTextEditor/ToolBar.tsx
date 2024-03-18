@@ -174,7 +174,7 @@ export default function ToolBar({
     const [isBold, setIsBold] = useState(false);
     const [isItalic, setIsItalic] = useState(false);
     const [isUnderline, setIsUnderline] = useState(false);
-    const [fontFamily, setFontFamily] = useState<string>('Arial');
+    const [fontFamily, setFontFamily] = useState<string>('Times New Roman');
 
     const updateToolbar = useCallback(() => {
         const selection = $getSelection();
@@ -196,7 +196,7 @@ export default function ToolBar({
 
             setFontSize($getSelectionStyleValueForProperty(selection, 'font-size', '15px'));
             setFontColor($getSelectionStyleValueForProperty(selection, 'color', '#000'));
-            const selectedFontFamily = $getSelectionStyleValueForProperty(selection, 'font-family', 'Arial');
+            const selectedFontFamily = $getSelectionStyleValueForProperty(selection, 'font-family', 'Times New Roman');
             setFontFamily(`${selectedFontFamily.replace(/"([^"]+(?="))"/g, '$1')}`);
         }
     }, [editor]);

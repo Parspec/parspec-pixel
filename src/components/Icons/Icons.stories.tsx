@@ -76,7 +76,8 @@ import {
     FormatListBulletedIcon,
     FormatUnderlinedIcon,
     KeyboardArrowDownIcon,
-    CalendarIcon
+    CalendarIcon,
+    KeyboardArrowUpIcon
 } from './index';
 import { Grid } from '../Grid';
 import { BodySmall } from '../Typography';
@@ -194,7 +195,8 @@ MUIImportedIcons.args = {
             name: 'FormatUnderlinedIcon'
         },
         { icon: KeyboardArrowDownIcon, name: 'KeyboardArrowDownIcon' },
-        { icon: CalendarIcon, name: 'CalendarIcon' }
+        { icon: CalendarIcon, name: 'CalendarIcon' },
+        { icon: KeyboardArrowUpIcon, name: 'KeyboardArrowUpIcon' }
     ],
     fontSize: 'medium',
     color: 'tertiary'

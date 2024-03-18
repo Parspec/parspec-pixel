@@ -36,14 +36,14 @@ const theme = {
 function onError(error) {
     console.error(error);
 }
-export default function RichTextEditor({ onFileUpload, initialHtml = '', editorBgColor = 'white', contentEditableHeight = '150px', isDisableEditorState = false, placeHolderText = 'Enter text...', showAttachements = false, showShareableLinkButton = false, shareableLinkUrl = '#', shareableLinkTitle = '', onBlur = () => { }, onChange }) {
+export default function RichTextEditor({ onFileUpload, initialHtml = '', editorBgColor = 'white', contentEditableHeight = '150px', isDisableEditorState = false, placeHolderText = 'Enter text...', showAttachements = false, showShareableLinkButton = false, shareableLinkUrl = '#', shareableLinkTitle = '', onBlur = () => { }, onChange = () => { }, onFocus = () => { } }) {
     const initialConfig = {
         namespace: 'ParspecEditor',
         theme,
         onError,
         nodes: registeredNodes
     };
-    return (_jsx(LexicalComposer, Object.assign({ initialConfig: initialConfig }, { children: _jsx(Box, Object.assign({ className: "editor-container" }, { children: _jsxs(Box, Object.assign({ className: "editor-inner" }, { children: [_jsx(ToolBar, { onFileUpload: onFileUpload, isDisableEditorState: isDisableEditorState, showAttachements: showAttachements, showShareableLinkButton: showShareableLinkButton, shareableLinkTitle: shareableLinkTitle, shareableLinkUrl: shareableLinkUrl }), _jsx(RichTextPlugin, { contentEditable: _jsx(ContentEditable, { onFocus: () => console.log('Focusing...'), style: {
+    return (_jsx(LexicalComposer, Object.assign({ initialConfig: initialConfig }, { children: _jsx(Box, Object.assign({ className: "editor-container" }, { children: _jsxs(Box, Object.assign({ className: "editor-inner" }, { children: [_jsx(ToolBar, { onFileUpload: onFileUpload, isDisableEditorState: isDisableEditorState, showAttachements: showAttachements, showShareableLinkButton: showShareableLinkButton, shareableLinkTitle: shareableLinkTitle, shareableLinkUrl: shareableLinkUrl }), _jsx(RichTextPlugin, { contentEditable: _jsx(ContentEditable, { onFocus: onFocus, style: {
                                 width: '100%',
                                 height: contentEditableHeight,
                                 border: '1px solid #ccc',

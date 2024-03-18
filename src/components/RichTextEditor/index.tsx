@@ -52,7 +52,8 @@ export default function RichTextEditor({
     shareableLinkUrl = '#',
     shareableLinkTitle = '',
     onBlur = () => {},
-    onChange
+    onChange = () => {},
+    onFocus = () => {}
 }: IRichTextEditorProps) {
     const initialConfig = {
         namespace: 'ParspecEditor',
@@ -76,7 +77,7 @@ export default function RichTextEditor({
                     <RichTextPlugin
                         contentEditable={
                             <ContentEditable
-                                onFocus={() => console.log('Focusing...')}
+                                onFocus={onFocus}
                                 style={{
                                     width: '100%',
                                     height: contentEditableHeight,

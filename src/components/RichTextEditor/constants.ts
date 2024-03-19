@@ -5,7 +5,10 @@ export const EMAIL_MATCHER = /(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)
 export const LOW_PRIORITY = 1;
 
 export const FONT_FAMILY_OPTIONS: { [index: string]: string }[] = [
-    { id: 'monospace', name: 'Courier' },
-    { id: 'sans-serif', name: 'Halvetica' },
-    { id: 'serif', name: 'Times New Roman' }
+    { id: 'Arial', name: 'Arial' },
+    { id: 'Courier New', name: 'Courier New' },
+    { id: 'Georgia', name: 'Georgia' },
+    { id: 'Trebuchet MS', name: 'Trebuchet MS' },
+    { id: 'Times New Roman', name: 'Times New Roman' },
+    { id: 'Verdana', name: 'Verdana' }
 ];

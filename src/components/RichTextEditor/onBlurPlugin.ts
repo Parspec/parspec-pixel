@@ -14,7 +14,7 @@ export const OnBlurPlugin = ({ onBlur }: { onBlur: (edittorState: EditorState) =
             },
             COMMAND_PRIORITY_EDITOR
         );
-    }, [editor]);
+    }, []);
 
     return null;
 };

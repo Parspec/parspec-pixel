@@ -7,12 +7,10 @@ import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { OnBlurPlugin } from './onBlurPlugin';
 const HtmlPlugin = ({ initialHtml, onBlur, onChange }) => {
     const [editor] = useLexicalComposerContext();
-    const [isEditable, setIsEditable] = useState(false);
     const [isFirstRender, setIsFirstRender] = useState(true);
     useEffect(() => {
         if (!initialHtml || !isFirstRender)
             return;
-        setIsEditable(true);
         setIsFirstRender(false);
         editor.update(() => {
             const parser = new DOMParser();
@@ -31,7 +29,7 @@ const HtmlPlugin = ({ initialHtml, onBlur, onChange }) => {
             onChange === null || onChange === void 0 ? void 0 : onChange($generateHtmlFromNodes(editor));
         });
     }
-    return (_jsxs(_Fragment, { children: [isEditable && _jsx(OnBlurPlugin, { onBlur: handleOnBlur }), isEditable && _jsx(OnChangePlugin, { onChange: handleOnChange })] }));
+    return (_jsxs(_Fragment, { children: [_jsx(OnBlurPlugin, { onBlur: handleOnBlur }), _jsx(OnChangePlugin, { onChange: handleOnChange })] }));
 };
 export default HtmlPlugin;
 //# sourceMappingURL=HtmlPlugin.js.map

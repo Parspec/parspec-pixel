@@ -11,7 +11,7 @@ const OnBlurPlugin = ({ onBlur }) => {
             onBlur(editor.getEditorState());
             return false;
         }, lexical_1.COMMAND_PRIORITY_EDITOR);
-    }, [editor]);
+    }, []);
     return null;
 };
 exports.OnBlurPlugin = OnBlurPlugin;

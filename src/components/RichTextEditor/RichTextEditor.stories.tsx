@@ -21,7 +21,7 @@ export const Basic: ComponentStory<typeof TextEditor> = () => {
                 }}
                 initialHtml={` <p class="richTextParagraph" dir="ltr"><b><strong class="textBold" style="color: rgb(208, 2, 27); font-family: Arial; font-size: 29px; white-space: pre-wrap;">Create</strong></b><b><strong class="textBold" style="font-family: Arial; font-size: 29px; white-space: pre-wrap;">  </strong></b><u><b><strong class="textBold textUnderline" style="color: rgb(80, 227, 194); font-family: Arial; font-size: 29px; white-space: pre-wrap;">Something</strong></b></u></p>`}
                 editorBgColor="#fff"
-                isDisableEditorState={false}
+                isDisable={false}
                 contentEditableHeight="150px"
                 placeHolderText="Tell us your story..."
                 showAttachements
@@ -31,6 +31,7 @@ export const Basic: ComponentStory<typeof TextEditor> = () => {
                 onBlur={(html) => console.log(`[onBlur]`, html)}
                 onChange={(html) => console.log(`[onChange]`, html)}
                 onFocus={() => console.log(`[onFocus]`)}
+                showFontFamiliy
             />
         </Box>
     );

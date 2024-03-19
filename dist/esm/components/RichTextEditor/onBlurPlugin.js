@@ -8,7 +8,7 @@ export const OnBlurPlugin = ({ onBlur }) => {
             onBlur(editor.getEditorState());
             return false;
         }, COMMAND_PRIORITY_EDITOR);
-    }, [editor]);
+    }, []);
     return null;
 };
 //# sourceMappingURL=onBlurPlugin.js.map

@@ -45,12 +45,13 @@ export default function RichTextEditor({
     initialHtml = '',
     editorBgColor = 'white',
     contentEditableHeight = '150px',
-    isDisableEditorState = false,
+    isDisable = false,
     placeHolderText = 'Enter text...',
     showAttachements = false,
     showShareableLinkButton = false,
     shareableLinkUrl = '#',
     shareableLinkTitle = '',
+    showFontFamiliy = false,
     onBlur = () => {},
     onChange = () => {},
     onFocus = () => {}
@@ -68,11 +69,12 @@ export default function RichTextEditor({
                 <Box className="editor-inner">
                     <ToolBar
                         onFileUpload={onFileUpload}
-                        isDisableEditorState={isDisableEditorState}
+                        isDisable={isDisable}
                         showAttachements={showAttachements}
                         showShareableLinkButton={showShareableLinkButton}
                         shareableLinkTitle={shareableLinkTitle}
                         shareableLinkUrl={shareableLinkUrl}
+                        showFontFamiliy={showFontFamiliy}
                     />
                     <RichTextPlugin
                         contentEditable={
@@ -99,7 +101,7 @@ export default function RichTextEditor({
                     <AutoLinkPlugin />
                     <LinkPlugin />
                     <LexicalClickableLinkPlugin />
-                    <DisableEditorPlugin isDisableEditorState={isDisableEditorState} />
+                    <DisableEditorPlugin isDisable={isDisable} />
                     <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
                 </Box>
             </Box>

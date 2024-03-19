@@ -9,12 +9,10 @@ const LexicalOnChangePlugin_1 = require("@lexical/react/LexicalOnChangePlugin");
 const onBlurPlugin_1 = require("./onBlurPlugin");
 const HtmlPlugin = ({ initialHtml, onBlur, onChange }) => {
     const [editor] = (0, LexicalComposerContext_1.useLexicalComposerContext)();
-    const [isEditable, setIsEditable] = (0, react_1.useState)(false);
     const [isFirstRender, setIsFirstRender] = (0, react_1.useState)(true);
     (0, react_1.useEffect)(() => {
         if (!initialHtml || !isFirstRender)
             return;
-        setIsEditable(true);
         setIsFirstRender(false);
         editor.update(() => {
             const parser = new DOMParser();
@@ -33,7 +31,7 @@ const HtmlPlugin = ({ initialHtml, onBlur, onChange }) => {
             onChange === null || onChange === void 0 ? void 0 : onChange((0, html_1.$generateHtmlFromNodes)(editor));
         });
     }
-    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [isEditable && (0, jsx_runtime_1.jsx)(onBlurPlugin_1.OnBlurPlugin, { onBlur: handleOnBlur }), isEditable && (0, jsx_runtime_1.jsx)(LexicalOnChangePlugin_1.OnChangePlugin, { onChange: handleOnChange })] }));
+    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(onBlurPlugin_1.OnBlurPlugin, { onBlur: handleOnBlur }), (0, jsx_runtime_1.jsx)(LexicalOnChangePlugin_1.OnChangePlugin, { onChange: handleOnChange })] }));
 };
 exports.default = HtmlPlugin;
 //# sourceMappingURL=HtmlPlugin.js.map

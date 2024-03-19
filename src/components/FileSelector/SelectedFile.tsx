@@ -77,7 +77,7 @@ const SelectedFile = (props: SelectedFileProps) => {
         <Paper variant="outlined" sx={{ padding: 2 }}>
             <Box display="flex" justifyContent="space-between" alignItems="center">
                 <Box>
-                    <BodySmall fontWeight={600} limit={false}>
+                    <BodySmall fontWeight={600} display="flex" textOverflow="ellipsis" whiteSpace="normal" overflow="hidden">
                         {file.name}
                     </BodySmall>
                     {file?.size && <BodySmall>{(file.size! / 1000).toFixed(2)} kb</BodySmall>}

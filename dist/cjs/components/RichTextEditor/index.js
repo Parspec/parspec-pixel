@@ -64,14 +64,14 @@ const theme = {
 function onError(error) {
     console.error(error);
 }
-function RichTextEditor({ onFileUpload, initialHtml = '', editorBgColor = 'white', contentEditableHeight = '150px', isDisableEditorState = false, placeHolderText = 'Enter text...', showAttachements = false, showShareableLinkButton = false, shareableLinkUrl = '#', shareableLinkTitle = '', onBlur = () => { }, onChange = () => { }, onFocus = () => { } }) {
+function RichTextEditor({ onFileUpload, initialHtml = '', editorBgColor = 'white', contentEditableHeight = '150px', isDisable = false, placeHolderText = 'Enter text...', showAttachements = false, showShareableLinkButton = false, shareableLinkUrl = '#', shareableLinkTitle = '', showFontFamiliy = false, onBlur = () => { }, onChange = () => { }, onFocus = () => { } }) {
     const initialConfig = {
         namespace: 'ParspecEditor',
         theme,
         onError,
         nodes: ToolBar_1.registeredNodes
     };
-    return ((0, jsx_runtime_1.jsx)(LexicalComposer_1.LexicalComposer, Object.assign({ initialConfig: initialConfig }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ className: "editor-container" }, { children: (0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ className: "editor-inner" }, { children: [(0, jsx_runtime_1.jsx)(ToolBar_1.default, { onFileUpload: onFileUpload, isDisableEditorState: isDisableEditorState, showAttachements: showAttachements, showShareableLinkButton: showShareableLinkButton, shareableLinkTitle: shareableLinkTitle, shareableLinkUrl: shareableLinkUrl }), (0, jsx_runtime_1.jsx)(LexicalRichTextPlugin_1.RichTextPlugin, { contentEditable: (0, jsx_runtime_1.jsx)(LexicalContentEditable_1.ContentEditable, { onFocus: onFocus, style: {
+    return ((0, jsx_runtime_1.jsx)(LexicalComposer_1.LexicalComposer, Object.assign({ initialConfig: initialConfig }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ className: "editor-container" }, { children: (0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ className: "editor-inner" }, { children: [(0, jsx_runtime_1.jsx)(ToolBar_1.default, { onFileUpload: onFileUpload, isDisable: isDisable, showAttachements: showAttachements, showShareableLinkButton: showShareableLinkButton, shareableLinkTitle: shareableLinkTitle, shareableLinkUrl: shareableLinkUrl, showFontFamiliy: showFontFamiliy }), (0, jsx_runtime_1.jsx)(LexicalRichTextPlugin_1.RichTextPlugin, { contentEditable: (0, jsx_runtime_1.jsx)(LexicalContentEditable_1.ContentEditable, { onFocus: onFocus, style: {
                                 width: '100%',
                                 height: contentEditableHeight,
                                 border: '1px solid #ccc',
@@ -80,7 +80,7 @@ function RichTextEditor({ onFileUpload, initialHtml = '', editorBgColor = 'white
                                 paddingLeft: '12px',
                                 overflow: 'auto',
                                 borderRadius: '5px'
-                            } }), placeholder: (0, jsx_runtime_1.jsx)(PlaceHolder_1.default, { placeHolderText: placeHolderText }), ErrorBoundary: LexicalErrorBoundary_1.default }), (0, jsx_runtime_1.jsx)(LexicalListPlugin_1.ListPlugin, {}), (0, jsx_runtime_1.jsx)(LexicalHistoryPlugin_1.HistoryPlugin, {}), (0, jsx_runtime_1.jsx)(HtmlPlugin_1.default, { initialHtml: initialHtml, onBlur: onBlur, onChange: onChange }), (0, jsx_runtime_1.jsx)(AutoLinkPlugin_1.default, {}), (0, jsx_runtime_1.jsx)(LexicalLinkPlugin_1.LinkPlugin, {}), (0, jsx_runtime_1.jsx)(LexicalClickableLinkPlugin_1.default, {}), (0, jsx_runtime_1.jsx)(DisableEditorPlugin_1.default, { isDisableEditorState: isDisableEditorState }), (0, jsx_runtime_1.jsx)(LexicalMarkdownShortcutPlugin_1.MarkdownShortcutPlugin, { transformers: markdown_1.TRANSFORMERS })] })) })) })));
+                            } }), placeholder: (0, jsx_runtime_1.jsx)(PlaceHolder_1.default, { placeHolderText: placeHolderText }), ErrorBoundary: LexicalErrorBoundary_1.default }), (0, jsx_runtime_1.jsx)(LexicalListPlugin_1.ListPlugin, {}), (0, jsx_runtime_1.jsx)(LexicalHistoryPlugin_1.HistoryPlugin, {}), (0, jsx_runtime_1.jsx)(HtmlPlugin_1.default, { initialHtml: initialHtml, onBlur: onBlur, onChange: onChange }), (0, jsx_runtime_1.jsx)(AutoLinkPlugin_1.default, {}), (0, jsx_runtime_1.jsx)(LexicalLinkPlugin_1.LinkPlugin, {}), (0, jsx_runtime_1.jsx)(LexicalClickableLinkPlugin_1.default, {}), (0, jsx_runtime_1.jsx)(DisableEditorPlugin_1.default, { isDisable: isDisable }), (0, jsx_runtime_1.jsx)(LexicalMarkdownShortcutPlugin_1.MarkdownShortcutPlugin, { transformers: markdown_1.TRANSFORMERS })] })) })) })));
 }
 exports.default = RichTextEditor;
 //# sourceMappingURL=index.js.map

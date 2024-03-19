@@ -20,7 +20,6 @@ const HtmlPlugin = ({ initialHtml, onBlur, onChange }: Props) => {
 
     useEffect(() => {
         if (!initialHtml || !isFirstRender) return;
-
         setIsFirstRender(false);
 
         editor.update(() => {
@@ -46,7 +45,7 @@ const HtmlPlugin = ({ initialHtml, onBlur, onChange }: Props) => {
     return (
         <>
             <OnBlurPlugin onBlur={handleOnBlur} />
-            {onChange && <OnChangePlugin onChange={handleOnChange} />}
+            <OnChangePlugin onChange={handleOnChange} />
         </>
     );
 };

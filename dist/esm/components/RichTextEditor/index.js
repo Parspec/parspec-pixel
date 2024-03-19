@@ -36,14 +36,14 @@ const theme = {
 function onError(error) {
     console.error(error);
 }
-export default function RichTextEditor({ onFileUpload, initialHtml = '', editorBgColor = 'white', contentEditableHeight = '150px', isDisableEditorState = false, placeHolderText = 'Enter text...', showAttachements = false, showShareableLinkButton = false, shareableLinkUrl = '#', shareableLinkTitle = '', onBlur = () => { }, onChange = () => { }, onFocus = () => { } }) {
+export default function RichTextEditor({ onFileUpload, initialHtml = '', editorBgColor = 'white', contentEditableHeight = '150px', isDisable = false, placeHolderText = 'Enter text...', showAttachements = false, showShareableLinkButton = false, shareableLinkUrl = '#', shareableLinkTitle = '', showFontFamiliy = false, onBlur = () => { }, onChange = () => { }, onFocus = () => { } }) {
     const initialConfig = {
         namespace: 'ParspecEditor',
         theme,
         onError,
         nodes: registeredNodes
     };
-    return (_jsx(LexicalComposer, Object.assign({ initialConfig: initialConfig }, { children: _jsx(Box, Object.assign({ className: "editor-container" }, { children: _jsxs(Box, Object.assign({ className: "editor-inner" }, { children: [_jsx(ToolBar, { onFileUpload: onFileUpload, isDisableEditorState: isDisableEditorState, showAttachements: showAttachements, showShareableLinkButton: showShareableLinkButton, shareableLinkTitle: shareableLinkTitle, shareableLinkUrl: shareableLinkUrl }), _jsx(RichTextPlugin, { contentEditable: _jsx(ContentEditable, { onFocus: onFocus, style: {
+    return (_jsx(LexicalComposer, Object.assign({ initialConfig: initialConfig }, { children: _jsx(Box, Object.assign({ className: "editor-container" }, { children: _jsxs(Box, Object.assign({ className: "editor-inner" }, { children: [_jsx(ToolBar, { onFileUpload: onFileUpload, isDisable: isDisable, showAttachements: showAttachements, showShareableLinkButton: showShareableLinkButton, shareableLinkTitle: shareableLinkTitle, shareableLinkUrl: shareableLinkUrl, showFontFamiliy: showFontFamiliy }), _jsx(RichTextPlugin, { contentEditable: _jsx(ContentEditable, { onFocus: onFocus, style: {
                                 width: '100%',
                                 height: contentEditableHeight,
                                 border: '1px solid #ccc',
@@ -52,6 +52,6 @@ export default function RichTextEditor({ onFileUpload, initialHtml = '', editorB
                                 paddingLeft: '12px',
                                 overflow: 'auto',
                                 borderRadius: '5px'
-                            } }), placeholder: _jsx(Placeholder, { placeHolderText: placeHolderText }), ErrorBoundary: LexicalErrorBoundary }), _jsx(ListPlugin, {}), _jsx(HistoryPlugin, {}), _jsx(HtmlPlugin, { initialHtml: initialHtml, onBlur: onBlur, onChange: onChange }), _jsx(AutoLinkPlugin, {}), _jsx(LinkPlugin, {}), _jsx(LexicalClickableLinkPlugin, {}), _jsx(DisableEditorPlugin, { isDisableEditorState: isDisableEditorState }), _jsx(MarkdownShortcutPlugin, { transformers: TRANSFORMERS })] })) })) })));
+                            } }), placeholder: _jsx(Placeholder, { placeHolderText: placeHolderText }), ErrorBoundary: LexicalErrorBoundary }), _jsx(ListPlugin, {}), _jsx(HistoryPlugin, {}), _jsx(HtmlPlugin, { initialHtml: initialHtml, onBlur: onBlur, onChange: onChange }), _jsx(AutoLinkPlugin, {}), _jsx(LinkPlugin, {}), _jsx(LexicalClickableLinkPlugin, {}), _jsx(DisableEditorPlugin, { isDisable: isDisable }), _jsx(MarkdownShortcutPlugin, { transformers: TRANSFORMERS })] })) })) })));
 }
 //# sourceMappingURL=index.js.map

@@ -10,11 +10,11 @@ export const OnBlurPlugin = ({ onBlur }: { onBlur: (edittorState: EditorState) =
             BLUR_COMMAND,
             (): boolean => {
                 onBlur(editor.getEditorState());
-                return true;
+                return false;
             },
             COMMAND_PRIORITY_EDITOR
         );
-    }, [editor]);
+    }, []);
 
     return null;
 };

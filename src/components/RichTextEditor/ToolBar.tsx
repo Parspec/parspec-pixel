@@ -160,11 +160,12 @@ const AttachmentsToobarPlugin = ({ onFileUpload }: IAttachmentsToobarPlugin): JS
 
 export default function ToolBar({
     onFileUpload,
-    isDisableEditorState,
+    isDisable,
     showAttachements,
     showShareableLinkButton,
     shareableLinkTitle = '',
-    shareableLinkUrl = '#'
+    shareableLinkUrl = '#',
+    showFontFamiliy = false
 }: Partial<IRichTextEditorProps>): JSX.Element {
     const [editor] = useLexicalComposerContext();
     const [isLink, setIsLink] = useState(false);
@@ -266,13 +267,13 @@ export default function ToolBar({
     }
 
     return (
-        <Box sx={isDisableEditorState ? { opacity: '0.4', pointerEvents: 'none' } : null} display={'flex'} justifyContent="space-between" alignItems="center" paddingTop={2} paddingBottom={2}>
+        <Box sx={isDisable ? { opacity: '0.4', pointerEvents: 'none' } : null} display={'flex'} justifyContent="space-between" alignItems="center" paddingTop={2} paddingBottom={2}>
             <Box width={1} display={'flex'} alignItems={'center'} justifyContent={'flex-start'} gap={1}>
                 <HeadingToolbarPlugin />
                 <FontSize selectionFontSize={fontSize.slice(0, -2)} editor={editor} disabled={!isEditable} />
                 <DropdownColorPicker color={fontColor} onChange={onFontColorSelect} />
                 <TextStyleToolbarPlugin isBold={isBold} isItalic={isItalic} isUnderline={isUnderline} />
-                <FontDropDown disabled={!isEditable} onChange={handleOnChange} value={fontFamily} />
+                {showFontFamiliy && <FontDropDown disabled={!isEditable} onChange={handleOnChange} value={fontFamily} />}
                 <ListToolbarPlugin />
             </Box>
 

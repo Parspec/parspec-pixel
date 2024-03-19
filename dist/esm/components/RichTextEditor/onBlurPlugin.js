@@ -6,9 +6,9 @@ export const OnBlurPlugin = ({ onBlur }) => {
     useEffect(() => {
         return editor.registerCommand(BLUR_COMMAND, () => {
             onBlur(editor.getEditorState());
-            return true;
+            return false;
         }, COMMAND_PRIORITY_EDITOR);
-    }, [editor]);
+    }, []);
     return null;
 };
 //# sourceMappingURL=onBlurPlugin.js.map

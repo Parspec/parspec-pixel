@@ -31,7 +31,7 @@ const HtmlPlugin = ({ initialHtml, onBlur, onChange }) => {
             onChange === null || onChange === void 0 ? void 0 : onChange((0, html_1.$generateHtmlFromNodes)(editor));
         });
     }
-    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(onBlurPlugin_1.OnBlurPlugin, { onBlur: handleOnBlur }), onChange && (0, jsx_runtime_1.jsx)(LexicalOnChangePlugin_1.OnChangePlugin, { onChange: handleOnChange })] }));
+    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(onBlurPlugin_1.OnBlurPlugin, { onBlur: handleOnBlur }), (0, jsx_runtime_1.jsx)(LexicalOnChangePlugin_1.OnChangePlugin, { onChange: handleOnChange })] }));
 };
 exports.default = HtmlPlugin;
 //# sourceMappingURL=HtmlPlugin.js.map

@@ -36,10 +36,4 @@ export function positionEditorElement(editor, rect) {
         editor.style.left = `${rect.left + window.scrollX - editor.offsetWidth / 2 + rect.width / 2}px`;
     }
 }
-export function dropDownActiveClass(active) {
-    if (active)
-        return 'active dropdown-item-active';
-    else
-        return '';
-}
 //# sourceMappingURL=utils.js.map

@@ -9,9 +9,9 @@ const OnBlurPlugin = ({ onBlur }) => {
     (0, react_1.useEffect)(() => {
         return editor.registerCommand(lexical_1.BLUR_COMMAND, () => {
             onBlur(editor.getEditorState());
-            return true;
+            return false;
         }, lexical_1.COMMAND_PRIORITY_EDITOR);
-    }, [editor]);
+    }, []);
     return null;
 };
 exports.OnBlurPlugin = OnBlurPlugin;

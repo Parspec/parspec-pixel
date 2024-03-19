@@ -5,8 +5,8 @@ export const FONT_FAMILY_OPTIONS = [
     { id: 'Arial', name: 'Arial' },
     { id: 'Courier New', name: 'Courier New' },
     { id: 'Georgia', name: 'Georgia' },
-    { id: 'Times New Roman', name: 'Times New Roman' },
     { id: 'Trebuchet MS', name: 'Trebuchet MS' },
+    { id: 'Times New Roman', name: 'Times New Roman' },
     { id: 'Verdana', name: 'Verdana' }
 ];
 //# sourceMappingURL=constants.js.map

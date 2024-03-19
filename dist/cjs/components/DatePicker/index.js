@@ -14,11 +14,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CustomDatePicker = exports.dayjs = exports.Dayjs = void 0;
+exports.CustomDateTimePicker = exports.CustomDatePicker = exports.dayjs = exports.Dayjs = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const dayjs_1 = require("dayjs");
 Object.defineProperty(exports, "Dayjs", { enumerable: true, get: function () { return dayjs_1.Dayjs; } });
 const DatePicker_1 = require("@mui/x-date-pickers/DatePicker");
+const x_date_pickers_1 = require("@mui/x-date-pickers");
 const AdapterDayjs_1 = require("@mui/x-date-pickers/AdapterDayjs");
 const LocalizationProvider_1 = require("@mui/x-date-pickers/LocalizationProvider");
 const dayjs_2 = __importDefault(require("dayjs"));
@@ -31,6 +32,17 @@ const CustomDatePicker = (_a) => {
 };
 exports.CustomDatePicker = CustomDatePicker;
 exports.CustomDatePicker.defaultProps = {
+    size: 'small',
+    color: 'secondary'
+};
+const CustomDateTimePicker = (_a) => {
+    var { size, color } = _a, props = __rest(_a, ["size", "color"]);
+    return ((0, jsx_runtime_1.jsx)(LocalizationProvider_1.LocalizationProvider, Object.assign({ dateAdapter: AdapterDayjs_1.AdapterDayjs }, { children: (0, jsx_runtime_1.jsx)(x_date_pickers_1.DateTimePicker, Object.assign({ sx: {
+                width: '100%'
+            }, slotProps: { textField: { size, color } } }, props)) })));
+};
+exports.CustomDateTimePicker = CustomDateTimePicker;
+exports.CustomDateTimePicker.defaultProps = {
     size: 'small',
     color: 'secondary'
 };

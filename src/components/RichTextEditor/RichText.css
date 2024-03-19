@@ -3,7 +3,7 @@
 }
 
 .cursor-pointer:hover {
-    color: rgb(233, 23, 23);
+    text-decoration: underline;
 }
 
 .richTextParagraph {

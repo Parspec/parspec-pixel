@@ -14,8 +14,8 @@ export default function InsertShareableLinkPlugin({ href, title }: { href: strin
             if (textContent.includes(title)) {
                 return;
             }
-            const linkNode = $createLinkNode(href, { target: '_blank', title: title });
-            // linkNode.append($createTextNode(title));
+            const linkNode = $createLinkNode(href, { target: '_blank', title: 'shearableLink' });
+            linkNode.append($createTextNode(title));
             $insertNodes([$createTextNode(' '), linkNode]);
         });
     }

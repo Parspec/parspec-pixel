@@ -14,8 +14,8 @@ function InsertShareableLinkPlugin({ href, title }) {
             if (textContent.includes(title)) {
                 return;
             }
-            const linkNode = (0, link_1.$createLinkNode)(href, { target: '_blank', title: title });
-            // linkNode.append($createTextNode(title));
+            const linkNode = (0, link_1.$createLinkNode)(href, { target: '_blank', title: 'shearableLink' });
+            linkNode.append((0, lexical_1.$createTextNode)(title));
             (0, lexical_1.$insertNodes)([(0, lexical_1.$createTextNode)(' '), linkNode]);
         });
     }

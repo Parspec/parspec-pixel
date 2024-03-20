@@ -12,19 +12,18 @@ interface ITextInput {
 
 export default function TextInput({ label, value, onChange, placeholder = '', type = 'text' }: ITextInput): JSX.Element {
     return (
-        <Box display="flex" alignItems="center" justifyContent={'space-between'} mb="10px">
-            <Box>
-                <TextField
-                    size="small"
-                    type={type}
-                    label={label}
-                    placeholder={placeholder}
-                    value={value}
-                    onChange={(e) => {
-                        onChange(e.target.value);
-                    }}
-                />
-            </Box>
+        <Box width="100%" display="flex" alignItems="center" justifyContent={'space-between'} mb="10px">
+            <TextField
+                fullWidth
+                size="small"
+                type={type}
+                label={label}
+                placeholder={placeholder}
+                value={value}
+                onChange={(e) => {
+                    onChange(e.target.value);
+                }}
+            />
         </Box>
     );
 }

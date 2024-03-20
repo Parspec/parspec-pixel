@@ -11,7 +11,7 @@ const TextInput_1 = __importDefault(require("./TextInput"));
 const Box_1 = require("../../Box");
 let skipAddingToHistoryStack = false;
 const basicColors = ['#d0021b', '#f5a623', '#f8e71c', '#8b572a', '#7ed321', '#417505', '#bd10e0', '#9013fe', '#4a90e2', '#50e3c2', '#b8e986', '#000000', '#4a4a4a', '#9b9b9b', '#ffffff'];
-const WIDTH = 214;
+const WIDTH = 250;
 const HEIGHT = 150;
 function ColorPicker({ color, onChange }) {
     const [selfColor, setSelfColor] = (0, react_1.useState)(transformColor('hex', color));

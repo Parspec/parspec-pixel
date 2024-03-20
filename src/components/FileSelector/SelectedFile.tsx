@@ -64,7 +64,7 @@ const SelectedFile = (props: SelectedFileProps) => {
             }
         };
         if (url && !file.filepath) onUpload();
-        else handleResults({ file, progress: 100 }, index);
+        else handleResults({ file, progress: 100, s3_file_path: file.filepath }, index);
         return () => {
             if (progress !== 1) source.cancel();
         };
@@ -77,12 +77,14 @@ const SelectedFile = (props: SelectedFileProps) => {
         <Paper variant="outlined" sx={{ padding: 2 }}>
             <Box display="flex" justifyContent="space-between" alignItems="center">
                 <Box>
-                    <BodySmall fontWeight={600}>{file.name}</BodySmall>
+                    <BodySmall fontWeight={600} display="flex" textOverflow="ellipsis" whiteSpace="normal" overflow="hidden">
+                        {file.name}
+                    </BodySmall>
                     {file?.size && <BodySmall>{(file.size! / 1000).toFixed(2)} kb</BodySmall>}
                 </Box>
 
                 <Box ml="auto" display="flex">
-                    {url && showProgress ? <ProgressBar progress={progress} /> : null}
+                    {url && showProgress && !file.filepath ? <ProgressBar progress={progress} /> : null}
 
                     <Box ml={2} display="flex" alignItems="center" gap="8px">
                         {!url && isLoading ? <CircularProgress color="primary" /> : null}

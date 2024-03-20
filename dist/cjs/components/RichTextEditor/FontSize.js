@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.FontSize = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const react_1 = require("react");
 const selection_1 = require("@lexical/selection");
@@ -140,5 +141,5 @@ function FontSize({ selectionFontSize, disabled, editor }) {
                     max: MAX_ALLOWED_FONT_SIZE
                 }, onChange: (e) => setInputValue(e.target.value), onKeyDown: handleKeyPress, label: '', fullWidth: true }), (0, jsx_runtime_1.jsx)(IconButton_1.IconButton, Object.assign({ disabled: disabled || (selectionFontSize !== '' && Number(inputValue) >= MAX_ALLOWED_FONT_SIZE), onClick: () => handleButtonClick(UPDATE_FONT_SIZE_TYPE.INCREMENT) }, { children: (0, jsx_runtime_1.jsx)(Icons_1.AddIcon, { fontSize: "small", color: "secondary" }) }))] })));
 }
-exports.default = FontSize;
+exports.FontSize = FontSize;
 //# sourceMappingURL=FontSize.js.map

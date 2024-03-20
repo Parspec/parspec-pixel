@@ -5,7 +5,7 @@ import { $generateHtmlFromNodes, $generateNodesFromDOM } from '@lexical/html';
 import { $insertNodes } from 'lexical';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { OnBlurPlugin } from './onBlurPlugin';
-const HtmlPlugin = ({ initialHtml, onBlur, onChange }) => {
+export const HtmlPlugin = ({ initialHtml, onBlur, onChange }) => {
     const [editor] = useLexicalComposerContext();
     const [isFirstRender, setIsFirstRender] = useState(true);
     useEffect(() => {
@@ -31,5 +31,4 @@ const HtmlPlugin = ({ initialHtml, onBlur, onChange }) => {
     }
     return (_jsxs(_Fragment, { children: [_jsx(OnBlurPlugin, { onBlur: handleOnBlur }), _jsx(OnChangePlugin, { onChange: handleOnChange })] }));
 };
-export default HtmlPlugin;
 //# sourceMappingURL=HtmlPlugin.js.map

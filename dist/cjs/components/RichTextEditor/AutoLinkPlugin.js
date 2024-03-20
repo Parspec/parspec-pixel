@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.AutoLinkPlugin = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const LexicalAutoLinkPlugin_1 = require("@lexical/react/LexicalAutoLinkPlugin");
 const constants_1 = require("./constants");
@@ -34,5 +35,5 @@ const MATCHERS = [
 function AutoLinkPlugin() {
     return (0, jsx_runtime_1.jsx)(LexicalAutoLinkPlugin_1.AutoLinkPlugin, { matchers: MATCHERS });
 }
-exports.default = AutoLinkPlugin;
+exports.AutoLinkPlugin = AutoLinkPlugin;
 //# sourceMappingURL=AutoLinkPlugin.js.map

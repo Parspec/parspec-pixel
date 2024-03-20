@@ -11,7 +11,7 @@ interface IDropdownColorPickerProps {
     onChange?: (color: string, skipHistoryStack: boolean) => void;
 }
 
-export default function DropdownColorPicker({ color, onChange }: IDropdownColorPickerProps) {
+export function DropdownColorPicker({ color, onChange }: IDropdownColorPickerProps) {
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {

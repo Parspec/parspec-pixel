@@ -1,1 +1,1 @@
-export default function AutoLinkPlugin(): import("react/jsx-runtime").JSX.Element;
+export declare function AutoLinkPlugin(): import("react/jsx-runtime").JSX.Element;

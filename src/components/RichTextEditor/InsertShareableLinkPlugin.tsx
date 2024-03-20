@@ -4,7 +4,7 @@ import { $createLinkNode } from '@lexical/link';
 
 import { Button } from '../Button';
 
-export default function InsertShareableLinkPlugin({ href, title }: { href: string; title: string }): JSX.Element {
+export function InsertShareableLinkPlugin({ href, title }: { href: string; title: string }): JSX.Element {
     // get accesss to editor instance
     const [editor] = useLexicalComposerContext();
 

@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.DropdownColorPicker = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const react_1 = require("react");
 const ColorPicker_1 = __importDefault(require("./ColorPicker/ColorPicker"));
@@ -26,5 +27,5 @@ function DropdownColorPicker({ color, onChange }) {
                     horizontal: 'left'
                 } }, { children: (0, jsx_runtime_1.jsx)(ColorPicker_1.default, { color: color, onChange: onChange }) }))] }));
 }
-exports.default = DropdownColorPicker;
+exports.DropdownColorPicker = DropdownColorPicker;
 //# sourceMappingURL=DropDownColorPicker.js.map

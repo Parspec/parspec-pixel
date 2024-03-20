@@ -9,13 +9,13 @@ import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin';
 import LexicalClickableLinkPlugin from '@lexical/react/LexicalClickableLinkPlugin';
 import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin';
 import { TRANSFORMERS } from '@lexical/markdown';
-import AutoLinkPlugin from './AutoLinkPlugin';
-import HtmlPlugin from './HtmlPlugin';
+import { AutoLinkPlugin } from './AutoLinkPlugin';
+import { HtmlPlugin } from './HtmlPlugin';
 import './RichText.css';
-import Placeholder from './PlaceHolder';
+import { Placeholder } from './PlaceHolder';
 import { Box } from '../Box';
-import { default as ToolBar, registeredNodes } from './ToolBar';
-import DisableEditorPlugin from './DisableEditorPlugin';
+import { ToolBar, registeredNodes } from './ToolBar';
+import { DisableEditorPlugin } from './DisableEditorPlugin';
 const theme = {
     link: 'cursor-pointer',
     text: {
@@ -36,7 +36,7 @@ const theme = {
 function onError(error) {
     console.error(error);
 }
-export default function RichTextEditor({ onFileUpload, initialHtml = '', editorBgColor = 'white', contentEditableHeight = '150px', isDisable = false, placeHolderText = 'Enter text...', showAttachements = false, showShareableLinkButton = false, shareableLinkUrl = '#', shareableLinkTitle = '', showFontFamiliy = false, onBlur = () => { }, onChange = () => { }, onFocus = () => { } }) {
+export function RichTextEditor({ onFileUpload, initialHtml = '', editorBgColor = 'white', contentEditableHeight = '150px', isDisable = false, placeHolderText = 'Enter text...', showAttachements = false, showShareableLinkButton = false, shareableLinkUrl = '#', shareableLinkTitle = '', showFontFamiliy = false, onBlur = () => { }, onChange = () => { }, onFocus = () => { } }) {
     const initialConfig = {
         namespace: 'ParspecEditor',
         theme,

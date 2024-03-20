@@ -1,4 +1,4 @@
 import './RichText.css';
-export default function Placeholder({ placeHolderText }: {
+export declare function Placeholder({ placeHolderText }: {
     placeHolderText: string;
 }): import("react/jsx-runtime").JSX.Element;

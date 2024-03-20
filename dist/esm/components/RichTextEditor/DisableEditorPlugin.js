@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-export default function DisableEditorPlugin({ isDisable }) {
+export function DisableEditorPlugin({ isDisable }) {
     const [editor] = useLexicalComposerContext();
     useEffect(() => {
         editor.setEditable(!isDisable);

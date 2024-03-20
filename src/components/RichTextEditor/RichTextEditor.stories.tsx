@@ -1,7 +1,7 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { default as TextEditor } from './index';
+import { RichTextEditor as TextEditor } from './index';
 import { Box } from '../Box';
 
 export default {

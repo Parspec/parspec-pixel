@@ -19,11 +19,11 @@ import { IconButton } from '../IconButton';
 import { FloatingLinkEditor } from './FloatingLinkEditor';
 import { getSelectedNode } from './utils';
 import { LOW_PRIORITY } from './constants';
-import FontSize from './FontSize';
+import { FontSize } from './FontSize';
 import { BodySmall } from '../Typography';
-import InsertShareableLinkPlugin from './InsertShareableLinkPlugin';
-import FontDropDown from './FontFamilyDropDown';
-import DropdownColorPicker from './DropDownColorPicker';
+import { InsertShareableLinkPlugin } from './InsertShareableLinkPlugin';
+import { FontDropDown } from './FontFamilyDropDown';
+import { DropdownColorPicker } from './DropDownColorPicker';
 const HEADING_TAGS = ['h1', 'h2', 'h3'];
 const TextStyleToolbarPlugin = ({ isBold, isItalic, isUnderline }) => {
     const [editor] = useLexicalComposerContext();
@@ -92,7 +92,7 @@ const AttachmentsToobarPlugin = ({ onFileUpload }) => {
     };
     return (_jsxs(_Fragment, { children: [_jsx("input", { multiple: true, type: "file", ref: fileInputRef, onChange: handleFileChange, style: { display: 'none' }, accept: "image/*,.pdf" }), _jsx(IconButton, Object.assign({ onClick: handleAttachmentClick }, { children: _jsx(AttachFileIcon, { color: "secondary" }) }))] }));
 };
-export default function ToolBar({ onFileUpload, isDisable, showAttachements, showShareableLinkButton, shareableLinkTitle = '', shareableLinkUrl = '#', showFontFamiliy = false }) {
+export function ToolBar({ onFileUpload, isDisable, showAttachements, showShareableLinkButton, shareableLinkTitle = '', shareableLinkUrl = '#', showFontFamiliy = false }) {
     const [editor] = useLexicalComposerContext();
     const [isLink, setIsLink] = useState(false);
     const [fontSize, setFontSize] = useState('15px');

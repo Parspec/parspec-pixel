@@ -9,13 +9,13 @@ import LexicalClickableLinkPlugin from '@lexical/react/LexicalClickableLinkPlugi
 import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin';
 import { TRANSFORMERS } from '@lexical/markdown';
 
-import AutoLinkPlugin from './AutoLinkPlugin';
-import HtmlPlugin from './HtmlPlugin';
+import { AutoLinkPlugin } from './AutoLinkPlugin';
+import { HtmlPlugin } from './HtmlPlugin';
 import './RichText.css';
-import Placeholder from './PlaceHolder';
+import { Placeholder } from './PlaceHolder';
 import { Box } from '../Box';
-import { default as ToolBar, registeredNodes } from './ToolBar';
-import DisableEditorPlugin from './DisableEditorPlugin';
+import { ToolBar, registeredNodes } from './ToolBar';
+import { DisableEditorPlugin } from './DisableEditorPlugin';
 import { IRichTextEditorProps } from './types';
 
 const theme = {
@@ -40,7 +40,7 @@ function onError(error: Error) {
     console.error(error);
 }
 
-export default function RichTextEditor({
+export function RichTextEditor({
     onFileUpload,
     initialHtml = '',
     editorBgColor = 'white',

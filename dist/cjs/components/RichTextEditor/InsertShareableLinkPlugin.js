@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.InsertShareableLinkPlugin = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const LexicalComposerContext_1 = require("@lexical/react/LexicalComposerContext");
 const lexical_1 = require("lexical");
@@ -21,5 +22,5 @@ function InsertShareableLinkPlugin({ href, title }) {
     }
     return ((0, jsx_runtime_1.jsx)(Button_1.Button, Object.assign({ onClick: handleOnClick, variant: "outlined", color: "secondary" }, { children: "Insert Shareable Link" })));
 }
-exports.default = InsertShareableLinkPlugin;
+exports.InsertShareableLinkPlugin = InsertShareableLinkPlugin;
 //# sourceMappingURL=InsertShareableLinkPlugin.js.map

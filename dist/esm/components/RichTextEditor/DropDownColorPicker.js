@@ -5,7 +5,7 @@ import { IconButton } from '../IconButton';
 import { Popover } from '@mui/material';
 import { Box } from '../Box';
 import { FormatTextColorIcon } from '../Icons';
-export default function DropdownColorPicker({ color, onChange }) {
+export function DropdownColorPicker({ color, onChange }) {
     const [anchorEl, setAnchorEl] = useState(null);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);

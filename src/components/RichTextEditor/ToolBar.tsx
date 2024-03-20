@@ -20,13 +20,13 @@ import { IconButton } from '../IconButton';
 import { FloatingLinkEditor } from './FloatingLinkEditor';
 import { getSelectedNode } from './utils';
 import { LOW_PRIORITY } from './constants';
-import FontSize from './FontSize';
+import { FontSize } from './FontSize';
 import { BodySmall } from '../Typography';
-import InsertShareableLinkPlugin from './InsertShareableLinkPlugin';
+import { InsertShareableLinkPlugin } from './InsertShareableLinkPlugin';
 import { IRichTextEditorProps } from './types';
-import FontDropDown from './FontFamilyDropDown';
+import { FontDropDown } from './FontFamilyDropDown';
 import { SelectChangeEvent } from '../Select';
-import DropdownColorPicker from './DropDownColorPicker';
+import { DropdownColorPicker } from './DropDownColorPicker';
 
 type HeadingType = 'h1' | 'h2' | 'h3';
 const HEADING_TAGS: HeadingType[] = ['h1', 'h2', 'h3'];
@@ -151,7 +151,7 @@ const AttachmentsToobarPlugin = ({ onFileUpload }: IAttachmentsToobarPlugin): JS
     );
 };
 
-export default function ToolBar({
+export function ToolBar({
     onFileUpload,
     isDisable,
     showAttachements,

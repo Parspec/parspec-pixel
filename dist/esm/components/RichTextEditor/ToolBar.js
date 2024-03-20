@@ -1,7 +1,7 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { useRef, useState, useCallback, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { $getRoot, $getSelection, $createTextNode, $isRangeSelection, FORMAT_TEXT_COMMAND, TextNode, SELECTION_CHANGE_COMMAND, $createParagraphNode } from 'lexical';
+import { $getSelection, $isRangeSelection, FORMAT_TEXT_COMMAND, TextNode, SELECTION_CHANGE_COMMAND, $createParagraphNode } from 'lexical';
 import { mergeRegister } from '@lexical/utils';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { HeadingNode, $createHeadingNode, QuoteNode } from '@lexical/rich-text';
@@ -20,11 +20,10 @@ import { FloatingLinkEditor } from './FloatingLinkEditor';
 import { getSelectedNode } from './utils';
 import { LOW_PRIORITY } from './constants';
 import FontSize from './FontSize';
-import DropdownColorPicker from './DropDownColorPicker';
 import { BodySmall } from '../Typography';
 import InsertShareableLinkPlugin from './InsertShareableLinkPlugin';
 import FontDropDown from './FontFamilyDropDown';
-const DEFAULT_TEXT = 'Hello World';
+import DropdownColorPicker from './DropDownColorPicker';
 const HEADING_TAGS = ['h1', 'h2', 'h3'];
 const TextStyleToolbarPlugin = ({ isBold, isItalic, isUnderline }) => {
     const [editor] = useLexicalComposerContext();
@@ -38,13 +37,8 @@ const HeadingToolbarPlugin = () => {
     const onClick = (tag) => {
         editor.update(() => {
             const selection = $getSelection();
-            const textContent = selection === null || selection === void 0 ? void 0 : selection.getTextContent();
-            if ((textContent === null || textContent === void 0 ? void 0 : textContent.length) && $isRangeSelection(selection)) {
+            if ($isRangeSelection(selection)) {
                 $setBlocksType(selection, () => $createHeadingNode(tag));
-            }
-            else {
-                const root = $getRoot();
-                root.append($createHeadingNode(tag).append($createTextNode(DEFAULT_TEXT)));
             }
         });
     };
@@ -158,8 +152,8 @@ export default function ToolBar({ onFileUpload, isDisable, showAttachements, sho
             }
         }, skipHistoryStack ? { tag: 'historic' } : {});
     }, [editor]);
-    const onFontColorSelect = useCallback((value) => {
-        applyStyleText({ color: value.hex }, true);
+    const onFontColorSelect = useCallback((value, skipHistoryStack) => {
+        applyStyleText({ color: value }, skipHistoryStack);
     }, [applyStyleText]);
     function handleOnChange(e) {
         const value = String(e.target.value);

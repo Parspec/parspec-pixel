@@ -26,11 +26,10 @@ const FloatingLinkEditor_1 = require("./FloatingLinkEditor");
 const utils_2 = require("./utils");
 const constants_1 = require("./constants");
 const FontSize_1 = __importDefault(require("./FontSize"));
-const DropDownColorPicker_1 = __importDefault(require("./DropDownColorPicker"));
 const Typography_1 = require("../Typography");
 const InsertShareableLinkPlugin_1 = __importDefault(require("./InsertShareableLinkPlugin"));
 const FontFamilyDropDown_1 = __importDefault(require("./FontFamilyDropDown"));
-const DEFAULT_TEXT = 'Hello World';
+const DropDownColorPicker_1 = __importDefault(require("./DropDownColorPicker"));
 const HEADING_TAGS = ['h1', 'h2', 'h3'];
 const TextStyleToolbarPlugin = ({ isBold, isItalic, isUnderline }) => {
     const [editor] = (0, LexicalComposerContext_1.useLexicalComposerContext)();
@@ -44,13 +43,8 @@ const HeadingToolbarPlugin = () => {
     const onClick = (tag) => {
         editor.update(() => {
             const selection = (0, lexical_1.$getSelection)();
-            const textContent = selection === null || selection === void 0 ? void 0 : selection.getTextContent();
-            if ((textContent === null || textContent === void 0 ? void 0 : textContent.length) && (0, lexical_1.$isRangeSelection)(selection)) {
+            if ((0, lexical_1.$isRangeSelection)(selection)) {
                 (0, selection_1.$setBlocksType)(selection, () => (0, rich_text_1.$createHeadingNode)(tag));
-            }
-            else {
-                const root = (0, lexical_1.$getRoot)();
-                root.append((0, rich_text_1.$createHeadingNode)(tag).append((0, lexical_1.$createTextNode)(DEFAULT_TEXT)));
             }
         });
     };
@@ -164,8 +158,8 @@ function ToolBar({ onFileUpload, isDisable, showAttachements, showShareableLinkB
             }
         }, skipHistoryStack ? { tag: 'historic' } : {});
     }, [editor]);
-    const onFontColorSelect = (0, react_1.useCallback)((value) => {
-        applyStyleText({ color: value.hex }, true);
+    const onFontColorSelect = (0, react_1.useCallback)((value, skipHistoryStack) => {
+        applyStyleText({ color: value }, skipHistoryStack);
     }, [applyStyleText]);
     function handleOnChange(e) {
         const value = String(e.target.value);

@@ -31,7 +31,7 @@ export const Basic: ComponentStory<typeof TextEditor> = () => {
                 onBlur={(html) => console.log(`[onBlur]`, html)}
                 onChange={(html) => console.log(`[onChange]`, html)}
                 onFocus={() => console.log(`[onFocus]`)}
-                showFontFamiliy
+                showFontFamiliy={false}
             />
         </Box>
     );

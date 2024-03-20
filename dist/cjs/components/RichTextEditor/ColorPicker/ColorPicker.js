@@ -57,7 +57,7 @@ function ColorPicker({ color, onChange }) {
         setSelfColor(newColor);
         setInputColor(newColor.hex);
     }, [color]);
-    return ((0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ className: "color-picker-wrapper", width: WIDTH, height: "306px", ref: innerDivRef }, { children: [(0, jsx_runtime_1.jsx)(TextInput_1.default, { label: "Hex", onChange: onSetHex, value: inputColor }), (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ className: "color-picker-basic-color" }, { children: basicColors.map((basicColor) => ((0, jsx_runtime_1.jsx)("button", { className: basicColor === selfColor.hex ? ' active' : '', style: { backgroundColor: basicColor }, onClick: () => {
+    return ((0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ className: "color-picker-wrapper", width: WIDTH, ref: innerDivRef }, { children: [(0, jsx_runtime_1.jsx)(TextInput_1.default, { label: "Hex", onChange: onSetHex, value: inputColor }), (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ className: "color-picker-basic-color" }, { children: basicColors.map((basicColor) => ((0, jsx_runtime_1.jsx)("button", { className: basicColor === selfColor.hex ? ' active' : '', style: { backgroundColor: basicColor }, onClick: () => {
                         setInputColor(basicColor);
                         setSelfColor(transformColor('hex', basicColor));
                     } }, basicColor))) })), (0, jsx_runtime_1.jsx)(MoveWrapper, Object.assign({ className: "color-picker-saturation", style: { backgroundColor: `hsl(${selfColor.hsv.h}, 100%, 50%)` }, onChange: onMoveSaturation }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, { className: "color-picker-saturation_cursor", style: {

@@ -81,7 +81,7 @@ export default function ColorPicker({ color, onChange }: Readonly<ColorPickerPro
     }, [color]);
 
     return (
-        <Box className="color-picker-wrapper" width={WIDTH} height="306px" ref={innerDivRef}>
+        <Box className="color-picker-wrapper" width={WIDTH} ref={innerDivRef}>
             <TextInput label="Hex" onChange={onSetHex} value={inputColor} />
             <Box className="color-picker-basic-color">
                 {basicColors.map((basicColor) => (

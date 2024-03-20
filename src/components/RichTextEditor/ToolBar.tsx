@@ -12,8 +12,8 @@ import { LinkNode, AutoLinkNode } from '@lexical/link';
 import { $getSelectionStyleValueForProperty, $patchStyleText } from '@lexical/selection';
 import { CodeHighlightNode, CodeNode } from '@lexical/code';
 import { TableCellNode, TableNode, TableRowNode } from '@lexical/table';
-import { ExtendedTextNode } from './ExtentedTextNode';
 
+import { ExtendedTextNode } from './ExtentedTextNode';
 import { Box } from '../Box';
 import { LinkIcon, AttachFileIcon, FormatBoldIcon, FormatItalicIcon, FormatListBulletedIcon, FormatListNumberedIcon, FormatUnderlinedIcon } from '../Icons';
 import { IconButton } from '../IconButton';

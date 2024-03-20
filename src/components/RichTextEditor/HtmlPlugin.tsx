@@ -13,7 +13,7 @@ interface Props {
     onChange?: (html: string) => void;
 }
 
-const HtmlPlugin = ({ initialHtml, onBlur, onChange }: Props) => {
+export const HtmlPlugin = ({ initialHtml, onBlur, onChange }: Props) => {
     const [editor] = useLexicalComposerContext();
 
     const [isFirstRender, setIsFirstRender] = useState(true);
@@ -49,5 +49,3 @@ const HtmlPlugin = ({ initialHtml, onBlur, onChange }: Props) => {
         </>
     );
 };
-
-export default HtmlPlugin;

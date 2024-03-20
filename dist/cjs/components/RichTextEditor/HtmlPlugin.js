@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.HtmlPlugin = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const react_1 = require("react");
 const LexicalComposerContext_1 = require("@lexical/react/LexicalComposerContext");
@@ -33,5 +34,5 @@ const HtmlPlugin = ({ initialHtml, onBlur, onChange }) => {
     }
     return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(onBlurPlugin_1.OnBlurPlugin, { onBlur: handleOnBlur }), (0, jsx_runtime_1.jsx)(LexicalOnChangePlugin_1.OnChangePlugin, { onChange: handleOnChange })] }));
 };
-exports.default = HtmlPlugin;
+exports.HtmlPlugin = HtmlPlugin;
 //# sourceMappingURL=HtmlPlugin.js.map

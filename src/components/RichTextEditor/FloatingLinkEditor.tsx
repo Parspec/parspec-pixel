@@ -14,6 +14,7 @@ import { IconButton } from '../IconButton';
 import { EditIcon } from '../Icons';
 
 export function FloatingLinkEditor() {
+    console.log('come here...');
     const [editor] = useLexicalComposerContext();
     const editorRef = useRef(null);
     const inputRef = useRef<HTMLInputElement>(null);
@@ -27,6 +28,7 @@ export function FloatingLinkEditor() {
         if ($isRangeSelection(selection)) {
             const node = getSelectedNode(selection);
             const parent = node.getParent();
+            console.log(`test`, node, parent);
             if ($isLinkNode(parent)) {
                 setLinkUrl(parent.getURL());
             } else if ($isLinkNode(node)) {

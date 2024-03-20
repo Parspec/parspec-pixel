@@ -1,7 +1,7 @@
 import { useRef, useState, useCallback, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
-import { $getRoot, $getSelection, $createTextNode, $isRangeSelection, FORMAT_TEXT_COMMAND, TextFormatType, TextNode, SELECTION_CHANGE_COMMAND, $createParagraphNode, LexicalEditor } from 'lexical';
+import { $getSelection, $isRangeSelection, FORMAT_TEXT_COMMAND, TextFormatType, TextNode, SELECTION_CHANGE_COMMAND, $createParagraphNode, LexicalEditor } from 'lexical';
 import { mergeRegister } from '@lexical/utils';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { HeadingNode, $createHeadingNode, QuoteNode } from '@lexical/rich-text';
@@ -12,24 +12,21 @@ import { LinkNode, AutoLinkNode } from '@lexical/link';
 import { $getSelectionStyleValueForProperty, $patchStyleText } from '@lexical/selection';
 import { CodeHighlightNode, CodeNode } from '@lexical/code';
 import { TableCellNode, TableNode, TableRowNode } from '@lexical/table';
-import { ExtendedTextNode } from './ExtentedTextNode';
 
+import { ExtendedTextNode } from './ExtentedTextNode';
 import { Box } from '../Box';
 import { LinkIcon, AttachFileIcon, FormatBoldIcon, FormatItalicIcon, FormatListBulletedIcon, FormatListNumberedIcon, FormatUnderlinedIcon } from '../Icons';
 import { IconButton } from '../IconButton';
 import { FloatingLinkEditor } from './FloatingLinkEditor';
 import { getSelectedNode } from './utils';
 import { LOW_PRIORITY } from './constants';
-import FontSize from './FontSize';
-import DropdownColorPicker from './DropDownColorPicker';
-import { ColorResult } from '../ColorPicker';
+import { FontSize } from './FontSize';
 import { BodySmall } from '../Typography';
-import InsertShareableLinkPlugin from './InsertShareableLinkPlugin';
+import { InsertShareableLinkPlugin } from './InsertShareableLinkPlugin';
 import { IRichTextEditorProps } from './types';
-import FontDropDown from './FontFamilyDropDown';
+import { FontDropDown } from './FontFamilyDropDown';
 import { SelectChangeEvent } from '../Select';
-
-const DEFAULT_TEXT = 'Hello World';
+import { DropdownColorPicker } from './DropDownColorPicker';
 
 type HeadingType = 'h1' | 'h2' | 'h3';
 const HEADING_TAGS: HeadingType[] = ['h1', 'h2', 'h3'];
@@ -64,12 +61,8 @@ const HeadingToolbarPlugin = (): JSX.Element => {
     const onClick = (tag: HeadingType): void => {
         editor.update(() => {
             const selection = $getSelection();
-            const textContent = selection?.getTextContent();
-            if (textContent?.length && $isRangeSelection(selection)) {
+            if ($isRangeSelection(selection)) {
                 $setBlocksType(selection, () => $createHeadingNode(tag));
-            } else {
-                const root = $getRoot();
-                root.append($createHeadingNode(tag).append($createTextNode(DEFAULT_TEXT)));
             }
         });
     };
@@ -158,7 +151,7 @@ const AttachmentsToobarPlugin = ({ onFileUpload }: IAttachmentsToobarPlugin): JS
     );
 };
 
-export default function ToolBar({
+export function ToolBar({
     onFileUpload,
     isDisable,
     showAttachements,
@@ -247,8 +240,8 @@ export default function ToolBar({
     );
 
     const onFontColorSelect = useCallback(
-        (value: ColorResult) => {
-            applyStyleText({ color: value.hex }, true);
+        (value: string, skipHistoryStack: boolean) => {
+            applyStyleText({ color: value }, skipHistoryStack);
         },
         [applyStyleText]
     );

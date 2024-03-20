@@ -31,6 +31,6 @@ const MATCHERS = [
     }
 ];
 
-export default function AutoLinkPlugin() {
+export function AutoLinkPlugin() {
     return <AutoLink matchers={MATCHERS} />;
 }

@@ -15,6 +15,7 @@ const TextField_1 = require("../TextField");
 const IconButton_1 = require("../IconButton");
 const Icons_1 = require("../Icons");
 function FloatingLinkEditor() {
+    console.log('come here...');
     const [editor] = (0, LexicalComposerContext_1.useLexicalComposerContext)();
     const editorRef = (0, react_1.useRef)(null);
     const inputRef = (0, react_1.useRef)(null);
@@ -27,6 +28,7 @@ function FloatingLinkEditor() {
         if ((0, lexical_1.$isRangeSelection)(selection)) {
             const node = (0, utils_2.getSelectedNode)(selection);
             const parent = node.getParent();
+            console.log(`test`, node, parent);
             if ((0, link_1.$isLinkNode)(parent)) {
                 setLinkUrl(parent.getURL());
             }

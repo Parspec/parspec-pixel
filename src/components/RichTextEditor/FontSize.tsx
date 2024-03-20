@@ -18,7 +18,7 @@ enum UPDATE_FONT_SIZE_TYPE {
     DECREMENT
 }
 
-export default function FontSize({ selectionFontSize, disabled, editor }: { selectionFontSize: string; disabled: boolean; editor: LexicalEditor }) {
+export function FontSize({ selectionFontSize, disabled, editor }: { selectionFontSize: string; disabled: boolean; editor: LexicalEditor }) {
     const [inputValue, setInputValue] = useState<string>(selectionFontSize);
 
     /**

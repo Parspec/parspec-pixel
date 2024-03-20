@@ -3,7 +3,7 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 import { $createTextNode, $insertNodes, $getRoot } from 'lexical';
 import { $createLinkNode } from '@lexical/link';
 import { Button } from '../Button';
-export default function InsertShareableLinkPlugin({ href, title }) {
+export function InsertShareableLinkPlugin({ href, title }) {
     // get accesss to editor instance
     const [editor] = useLexicalComposerContext();
     function handleOnClick() {

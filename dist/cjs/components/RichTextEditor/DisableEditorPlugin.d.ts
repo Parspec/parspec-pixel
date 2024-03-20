@@ -1,3 +1,3 @@
-export default function DisableEditorPlugin({ isDisable }: {
+export declare function DisableEditorPlugin({ isDisable }: {
     isDisable: boolean;
 }): null;

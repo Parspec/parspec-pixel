@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.DisableEditorPlugin = void 0;
 const react_1 = require("react");
 const LexicalComposerContext_1 = require("@lexical/react/LexicalComposerContext");
 function DisableEditorPlugin({ isDisable }) {
@@ -9,5 +10,5 @@ function DisableEditorPlugin({ isDisable }) {
     }, [editor, isDisable]);
     return null;
 }
-exports.default = DisableEditorPlugin;
+exports.DisableEditorPlugin = DisableEditorPlugin;
 //# sourceMappingURL=DisableEditorPlugin.js.map

@@ -29,7 +29,7 @@ const MATCHERS = [
         };
     }
 ];
-export default function AutoLinkPlugin() {
+export function AutoLinkPlugin() {
     return _jsx(AutoLink, { matchers: MATCHERS });
 }
 //# sourceMappingURL=AutoLinkPlugin.js.map

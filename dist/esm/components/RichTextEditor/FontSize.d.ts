@@ -1,5 +1,5 @@
 import { LexicalEditor } from 'lexical';
-export default function FontSize({ selectionFontSize, disabled, editor }: {
+export declare function FontSize({ selectionFontSize, disabled, editor }: {
     selectionFontSize: string;
     disabled: boolean;
     editor: LexicalEditor;

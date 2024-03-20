@@ -15,7 +15,7 @@ var UPDATE_FONT_SIZE_TYPE;
     UPDATE_FONT_SIZE_TYPE[UPDATE_FONT_SIZE_TYPE["INCREMENT"] = 1] = "INCREMENT";
     UPDATE_FONT_SIZE_TYPE[UPDATE_FONT_SIZE_TYPE["DECREMENT"] = 2] = "DECREMENT";
 })(UPDATE_FONT_SIZE_TYPE || (UPDATE_FONT_SIZE_TYPE = {}));
-export default function FontSize({ selectionFontSize, disabled, editor }) {
+export function FontSize({ selectionFontSize, disabled, editor }) {
     const [inputValue, setInputValue] = useState(selectionFontSize);
     /**
      * Calculates the new font size based on the update type.

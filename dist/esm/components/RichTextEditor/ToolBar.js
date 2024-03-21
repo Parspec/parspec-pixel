@@ -76,7 +76,7 @@ const ListToolbarPlugin = () => {
             setBulletListCount(0);
         }
     }
-    return (_jsxs(_Fragment, { children: [_jsx(IconButton, Object.assign({ onClick: formatNumberedList }, { children: _jsx(FormatListNumberedIcon, { color: "secondary" }) })), _jsx(IconButton, Object.assign({ onClick: formatUnOrderedList }, { children: _jsx(FormatListBulletedIcon, { color: "secondary" }) }))] }));
+    return (_jsxs(_Fragment, { children: [_jsx(IconButton, Object.assign({ onClick: formatUnOrderedList }, { children: _jsx(FormatListBulletedIcon, { color: "secondary" }) })), _jsx(IconButton, Object.assign({ onClick: formatNumberedList }, { children: _jsx(FormatListNumberedIcon, { color: "secondary" }) }))] }));
 };
 const AttachmentsToobarPlugin = ({ onFileUpload }) => {
     const fileInputRef = useRef(null);

@@ -79,7 +79,7 @@ const ListToolbarPlugin = () => {
             setBulletListCount(0);
         }
     }
-    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(IconButton_1.IconButton, Object.assign({ onClick: formatNumberedList }, { children: (0, jsx_runtime_1.jsx)(Icons_1.FormatListNumberedIcon, { color: "secondary" }) })), (0, jsx_runtime_1.jsx)(IconButton_1.IconButton, Object.assign({ onClick: formatUnOrderedList }, { children: (0, jsx_runtime_1.jsx)(Icons_1.FormatListBulletedIcon, { color: "secondary" }) }))] }));
+    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(IconButton_1.IconButton, Object.assign({ onClick: formatUnOrderedList }, { children: (0, jsx_runtime_1.jsx)(Icons_1.FormatListBulletedIcon, { color: "secondary" }) })), (0, jsx_runtime_1.jsx)(IconButton_1.IconButton, Object.assign({ onClick: formatNumberedList }, { children: (0, jsx_runtime_1.jsx)(Icons_1.FormatListNumberedIcon, { color: "secondary" }) }))] }));
 };
 const AttachmentsToobarPlugin = ({ onFileUpload }) => {
     const fileInputRef = (0, react_1.useRef)(null);

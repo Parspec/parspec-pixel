@@ -140,9 +140,11 @@ export function FloatingLinkEditor() {
             ) : (
                 <>
                     <Box className="link-input">
-                        <a href={linkUrl} target="_blank" rel="noopener noreferrer">
-                            {linkUrl}
-                        </a>
+                        <Box overflow="hidden" textOverflow={'ellipsis'} whiteSpace={'nowrap'}>
+                            <a href={linkUrl} target="_blank" rel="noopener noreferrer">
+                                {linkUrl}
+                            </a>
+                        </Box>
                         <IconButton
                             onMouseDown={(event) => event.preventDefault()}
                             onClick={() => {

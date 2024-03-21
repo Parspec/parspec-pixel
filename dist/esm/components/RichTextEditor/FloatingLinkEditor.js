@@ -12,7 +12,6 @@ import { TextField } from '../TextField';
 import { IconButton } from '../IconButton';
 import { EditIcon } from '../Icons';
 export function FloatingLinkEditor() {
-    console.log('come here...');
     const [editor] = useLexicalComposerContext();
     const editorRef = useRef(null);
     const inputRef = useRef(null);
@@ -25,7 +24,6 @@ export function FloatingLinkEditor() {
         if ($isRangeSelection(selection)) {
             const node = getSelectedNode(selection);
             const parent = node.getParent();
-            console.log(`test`, node, parent);
             if ($isLinkNode(parent)) {
                 setLinkUrl(parent.getURL());
             }
@@ -94,6 +92,12 @@ export function FloatingLinkEditor() {
     }, [isEditMode]);
     return (_jsx(Box, Object.assign({ ref: editorRef, className: "link-editor" }, { children: isEditMode ? (_jsx(TextField, { label: "", ref: inputRef, className: "link-input", value: linkUrl, onChange: (event) => {
                 setLinkUrl(event.target.value);
+            }, onBlur: (event) => {
+                event.preventDefault();
+                if (linkUrl !== '') {
+                    editor.dispatchCommand(TOGGLE_LINK_COMMAND, linkUrl);
+                }
+                setEditMode(false);
             }, onKeyDown: (event) => {
                 if (event.key === 'Enter') {
                     event.preventDefault();
@@ -108,7 +112,7 @@ export function FloatingLinkEditor() {
                     event.preventDefault();
                     setEditMode(false);
                 }
-            } })) : (_jsx(_Fragment, { children: _jsxs(Box, Object.assign({ className: "link-input" }, { children: [_jsx("a", Object.assign({ href: linkUrl, target: "_blank", rel: "noopener noreferrer" }, { children: linkUrl })), _jsx(IconButton, Object.assign({ onMouseDown: (event) => event.preventDefault(), onClick: () => {
+            } })) : (_jsx(_Fragment, { children: _jsxs(Box, Object.assign({ className: "link-input" }, { children: [_jsx(Box, Object.assign({ overflow: "hidden", textOverflow: 'ellipsis', whiteSpace: 'nowrap' }, { children: _jsx("a", Object.assign({ href: linkUrl, target: "_blank", rel: "noopener noreferrer" }, { children: linkUrl })) })), _jsx(IconButton, Object.assign({ onMouseDown: (event) => event.preventDefault(), onClick: () => {
                             setEditMode(true);
                         } }, { children: _jsx(EditIcon, {}) }))] })) })) })));
 }

@@ -15,7 +15,6 @@ const TextField_1 = require("../TextField");
 const IconButton_1 = require("../IconButton");
 const Icons_1 = require("../Icons");
 function FloatingLinkEditor() {
-    console.log('come here...');
     const [editor] = (0, LexicalComposerContext_1.useLexicalComposerContext)();
     const editorRef = (0, react_1.useRef)(null);
     const inputRef = (0, react_1.useRef)(null);
@@ -28,7 +27,6 @@ function FloatingLinkEditor() {
         if ((0, lexical_1.$isRangeSelection)(selection)) {
             const node = (0, utils_2.getSelectedNode)(selection);
             const parent = node.getParent();
-            console.log(`test`, node, parent);
             if ((0, link_1.$isLinkNode)(parent)) {
                 setLinkUrl(parent.getURL());
             }
@@ -97,6 +95,12 @@ function FloatingLinkEditor() {
     }, [isEditMode]);
     return ((0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ ref: editorRef, className: "link-editor" }, { children: isEditMode ? ((0, jsx_runtime_1.jsx)(TextField_1.TextField, { label: "", ref: inputRef, className: "link-input", value: linkUrl, onChange: (event) => {
                 setLinkUrl(event.target.value);
+            }, onBlur: (event) => {
+                event.preventDefault();
+                if (linkUrl !== '') {
+                    editor.dispatchCommand(link_1.TOGGLE_LINK_COMMAND, linkUrl);
+                }
+                setEditMode(false);
             }, onKeyDown: (event) => {
                 if (event.key === 'Enter') {
                     event.preventDefault();
@@ -111,7 +115,7 @@ function FloatingLinkEditor() {
                     event.preventDefault();
                     setEditMode(false);
                 }
-            } })) : ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: (0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ className: "link-input" }, { children: [(0, jsx_runtime_1.jsx)("a", Object.assign({ href: linkUrl, target: "_blank", rel: "noopener noreferrer" }, { children: linkUrl })), (0, jsx_runtime_1.jsx)(IconButton_1.IconButton, Object.assign({ onMouseDown: (event) => event.preventDefault(), onClick: () => {
+            } })) : ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: (0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ className: "link-input" }, { children: [(0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ overflow: "hidden", textOverflow: 'ellipsis', whiteSpace: 'nowrap' }, { children: (0, jsx_runtime_1.jsx)("a", Object.assign({ href: linkUrl, target: "_blank", rel: "noopener noreferrer" }, { children: linkUrl })) })), (0, jsx_runtime_1.jsx)(IconButton_1.IconButton, Object.assign({ onMouseDown: (event) => event.preventDefault(), onClick: () => {
                             setEditMode(true);
                         } }, { children: (0, jsx_runtime_1.jsx)(Icons_1.EditIcon, {}) }))] })) })) })));
 }

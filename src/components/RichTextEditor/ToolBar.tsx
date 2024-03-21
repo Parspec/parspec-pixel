@@ -114,12 +114,11 @@ const ListToolbarPlugin = (): JSX.Element => {
 
     return (
         <>
-            <IconButton onClick={formatNumberedList}>
-                <FormatListNumberedIcon color="secondary" />
-            </IconButton>
-
             <IconButton onClick={formatUnOrderedList}>
                 <FormatListBulletedIcon color="secondary" />
+            </IconButton>
+            <IconButton onClick={formatNumberedList}>
+                <FormatListNumberedIcon color="secondary" />
             </IconButton>
         </>
     );

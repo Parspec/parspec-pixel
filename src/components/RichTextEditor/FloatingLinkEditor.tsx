@@ -14,7 +14,6 @@ import { IconButton } from '../IconButton';
 import { EditIcon } from '../Icons';
 
 export function FloatingLinkEditor() {
-    console.log('come here...');
     const [editor] = useLexicalComposerContext();
     const editorRef = useRef(null);
     const inputRef = useRef<HTMLInputElement>(null);
@@ -28,7 +27,6 @@ export function FloatingLinkEditor() {
         if ($isRangeSelection(selection)) {
             const node = getSelectedNode(selection);
             const parent = node.getParent();
-            console.log(`test`, node, parent);
             if ($isLinkNode(parent)) {
                 setLinkUrl(parent.getURL());
             } else if ($isLinkNode(node)) {
@@ -116,6 +114,13 @@ export function FloatingLinkEditor() {
                     value={linkUrl}
                     onChange={(event) => {
                         setLinkUrl(event.target.value);
+                    }}
+                    onBlur={(event) => {
+                        event.preventDefault();
+                        if (linkUrl !== '') {
+                            editor.dispatchCommand(TOGGLE_LINK_COMMAND, linkUrl);
+                        }
+                        setEditMode(false);
                     }}
                     onKeyDown={(event) => {
                         if (event.key === 'Enter') {

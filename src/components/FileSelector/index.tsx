@@ -30,6 +30,12 @@ interface FileSelectorProps {
     preSelectedFile?: FileSelectorFileType[] | File[];
     onDeleteFile?: () => void;
     isLoading?: boolean;
+    showUploaderAlways?: boolean;
+    maxTotalFileSizeAllowed?: { size_in_bytes: number; errorText: string };
+}
+
+interface IFileObj {
+    [key: string]: any;
 }
 
 export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
@@ -46,18 +52,21 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
             borderColor,
             preSelectedFile,
             onDeleteFile = () => {},
-            isLoading = false
+            isLoading = false,
+            showUploaderAlways = false,
+            maxTotalFileSizeAllowed = { size_in_bytes: Infinity, errorText: '' }
         },
         ref
     ) => {
         const [files, setFiles] = useState<any>([]);
-        const [result, setResults] = useState([]);
+        const [result, setResults] = useState<any>([]);
+        const [maxFileSizeExceededError, setMaxFileSizeExceededError] = useState(false);
 
         useEffect(() => {
             if (preSelectedFile?.length) {
                 setFiles(preSelectedFile);
             }
-        }, []);
+        }, [preSelectedFile]);
 
         //To give the information of selected files to the main component.
         useEffect(() => {
@@ -71,32 +80,83 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
         //To call the callback when uploading of all files is done
         useEffect(() => {
             if (files.length) {
-                let uploadedFiles = result.filter((file) => file);
+                let uploadedFiles = result.filter((file: any) => file);
                 if (uploadedFiles.length === files.length) {
                     onUpload(uploadedFiles);
                 }
                 if (files.length < uploadedFiles.length) {
-                    let uploadedData = uploadedFiles.filter((item: { file: { name: string } }) => files.map((file: { name: string }) => file.name).includes(item.file.name));
+                    let uploadedData = uploadedFiles.filter((item: { file: { name: string } }) => files.map((file: { name: string }) => file?.name)?.includes(item?.file?.name));
                     onUpload(uploadedData);
                 }
             }
         }, [result]);
 
         //Function called when file is selected
-        const onDrop = useCallback((acceptedFiles: any) => {
-            setFiles(acceptedFiles);
-        }, []);
+        const onDrop = useCallback(
+            (acceptedFiles: any) => {
+                setMaxFileSizeExceededError(false);
+
+                let allFiles: any[] = [];
+
+                if (maxFiles > 1) {
+                    let prevFileObj: IFileObj = {};
+                    for (let item of files) {
+                        prevFileObj[item.name] = item;
+                    }
+
+                    const prevFileNamesArr = Object.keys(prevFileObj);
+                    const modifiedAcceptedFiles = acceptedFiles.map((item: any) => {
+                        if (prevFileNamesArr?.includes(item?.name)) {
+                            const currDateTime = new Date().toISOString();
+
+                            const extractName = item.name.split('.');
+
+                            const newName: string = extractName.slice(0, extractName.length - 1).join('.') + '_' + `${currDateTime}` + '.' + extractName.slice(-1).join('.');
+
+                            const myNewFile = new File([item], newName, { type: item.type });
+
+                            return myNewFile;
+                        } else {
+                            return item;
+                        }
+                    });
+
+                    allFiles = [...files, ...modifiedAcceptedFiles];
+                } else {
+                    allFiles = [...acceptedFiles];
+                }
+
+                let currTotalFilesSize = 0;
+                if (allFiles.length > 0) {
+                    for (let doc of allFiles) {
+                        currTotalFilesSize = currTotalFilesSize + doc.size;
+                    }
+                }
+
+                //check size
+                if (currTotalFilesSize < maxTotalFileSizeAllowed.size_in_bytes) {
+                    setFiles((old: any) => [...allFiles]);
+                } else {
+                    setMaxFileSizeExceededError(true);
+                }
+            },
+            [files]
+        );
 
         //Function called when file is deleted
         const onDelete = (file: { name: string }) => {
-            setFiles((old: any) => old.filter((item: { name: string }) => item.name !== file.name));
-            setResults((old) => old.filter((item: { file: { name: string } }) => item.file.name !== file.name));
+            if (maxFileSizeExceededError) {
+                setMaxFileSizeExceededError(false);
+            }
+
+            setFiles((old: any) => old.filter((item: { name: string }) => item?.name !== file?.name));
+            setResults((old: any) => old.filter((item: { file: { name: string } }) => item?.file?.name !== file?.name));
             onDeleteFile();
         };
 
         //Callback function to get the result of file uplaod
         const handleResults = (data: {}, index: number) => {
-            setResults((old) => {
+            setResults((old: any) => {
                 let output: any = [...old];
                 output[index] = data;
                 return output;
@@ -151,14 +211,55 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                                     <BodyXS color="secondary">{helperText}</BodyXS>
                                 </Box>
                             )}
+                            {maxFileSizeExceededError && (
+                                <Box mt={1}>
+                                    <BodyXS color="error" limit={false} lines={2}>
+                                        {maxTotalFileSizeAllowed.errorText}
+                                    </BodyXS>
+                                </Box>
+                            )}
                         </Box>
                     ) : (
-                        <Box>
-                            {files.map((file: { name: string; size?: number }, index: number) => (
-                                <Box my={1}>
-                                    <SelectedFile key={file.name} file={file} onDelete={onDelete} url={url} index={index} handleResults={handleResults} isLoading={isLoading} />
+                        <Box height={'100%'} width={'100%'}>
+                            <Box>
+                                {files.map((file: { name: string; size?: number }, index: number) => (
+                                    <Box my={1}>
+                                        <SelectedFile key={file.name} file={file} onDelete={onDelete} url={url} index={index} handleResults={handleResults} isLoading={isLoading} />
+                                    </Box>
+                                ))}
+                            </Box>
+
+                            {showUploaderAlways && (
+                                <Box {...getRootProps()}>
+                                    <input type="file" {...getInputProps()} />
+                                    <Box
+                                        p={2}
+                                        height={'100%'}
+                                        width={'100%'}
+                                        border={'1px solid'}
+                                        borderColor={borderColor}
+                                        borderRadius={1}
+                                        display="flex"
+                                        flexDirection="column"
+                                        justifyContent="center"
+                                        alignItems="center"
+                                        sx={{ cursor: 'pointer' }}
+                                    >
+                                        <Box width={'100%'} textAlign="center" m={0.5}>
+                                            <BodyXS limit={false}>{placeholder}</BodyXS>
+                                        </Box>
+                                        <Box my={0.5}>
+                                            <Avatar>
+                                                <UploadIcon />
+                                            </Avatar>
+                                        </Box>
+                                        <Box m={0.5}>
+                                            <BodyXS>Browse</BodyXS>
+                                        </Box>
+                                    </Box>
                                 </Box>
-                            ))}
+                            )}
+
                             {error && (
                                 <Box mt={1}>
                                     <BodyXS color="error">{error}</BodyXS>
@@ -167,6 +268,13 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                             {helperText && (
                                 <Box mt={1}>
                                     <BodyXS color="secondary">{helperText}</BodyXS>
+                                </Box>
+                            )}
+                            {maxFileSizeExceededError && (
+                                <Box mt={1}>
+                                    <BodyXS color="error" limit={false} lines={2}>
+                                        {maxTotalFileSizeAllowed.errorText}
+                                    </BodyXS>
                                 </Box>
                             )}
                         </Box>

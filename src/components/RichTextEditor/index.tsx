@@ -88,7 +88,8 @@ export function RichTextEditor({
                                     paddingTop: '12px',
                                     paddingLeft: '12px',
                                     overflow: 'auto',
-                                    borderRadius: '5px'
+                                    borderRadius: '5px',
+                                    opacity: isDisable ? '0.4' : '1'
                                 }}
                             />
                         }

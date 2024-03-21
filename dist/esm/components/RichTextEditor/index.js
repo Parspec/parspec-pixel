@@ -51,7 +51,8 @@ export function RichTextEditor({ onFileUpload, initialHtml = '', editorBgColor =
                                 paddingTop: '12px',
                                 paddingLeft: '12px',
                                 overflow: 'auto',
-                                borderRadius: '5px'
+                                borderRadius: '5px',
+                                opacity: isDisable ? '0.4' : '1'
                             } }), placeholder: _jsx(Placeholder, { placeHolderText: placeHolderText }), ErrorBoundary: LexicalErrorBoundary }), _jsx(ListPlugin, {}), _jsx(HistoryPlugin, {}), _jsx(HtmlPlugin, { initialHtml: initialHtml, onBlur: onBlur, onChange: onChange }), _jsx(AutoLinkPlugin, {}), _jsx(LinkPlugin, {}), _jsx(LexicalClickableLinkPlugin, {}), _jsx(DisableEditorPlugin, { isDisable: isDisable }), _jsx(MarkdownShortcutPlugin, { transformers: TRANSFORMERS })] })) })) })));
 }
 //# sourceMappingURL=index.js.map

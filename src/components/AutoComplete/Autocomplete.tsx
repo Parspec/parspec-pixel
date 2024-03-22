@@ -1,4 +1,4 @@
-import { forwardRef, useState, ReactNode } from 'react';
+import { forwardRef, useState, useEffect, ReactNode } from 'react';
 
 import { TextField } from '../TextField';
 import { default as MUIAutocomplete, createFilterOptions } from '@mui/material/Autocomplete';
@@ -21,7 +21,7 @@ export interface AutocompleteProps {
     freeSolo?: boolean;
     fieldSize?: 'small' | 'medium';
     multiple?: boolean;
-    value?: string | OptionType | string[] | OptionType[] | null;
+    value?: string | OptionType | null;
     defaultValue?: string | OptionType | (string | OptionType)[] | null;
     onBlur?: (params: OptionType | string) => void;
     helperText?: string | React.ReactNode;
@@ -45,136 +45,141 @@ export interface AutocompleteProps {
     getOptionDisabled?: (option: OptionType | string) => boolean;
 }
 
-export const Autocomplete = forwardRef((props: AutocompleteProps, ref: any) => {
-    const {
-        id,
-        label,
-        placeholder,
-        color,
-        variant,
-        onChange,
-        optionlabelkeyname,
-        freeSolo,
-        fieldSize,
-        onBlur = () => {},
-        helperText,
-        error,
-        options,
-        onTextFieldChange,
-        limitTags,
-        disabled,
-        value,
-        autoFocus,
-        blurOnEmptyInput,
-        maxLength = 255,
-        sx,
-        inputProps,
-        loading,
-        getOptionLabel,
-        getOptionDisabled
-    } = props;
+const filter = createFilterOptions<OptionType>();
 
-    const [state, setState] = useState<OptionType | string | (string | OptionType)[] | null>(value || '');
-
-    const handleOnChange = (event: any, newValue: OptionType | string | (string | OptionType)[] | null) => {
-        setState(newValue);
-        onChange({ ...event, target: { ...event.target, value: newValue } });
-    };
-
-    function getDefaultFilterOption(options: OptionType[], state: FilterOptionsState<OptionType>): OptionType[] {
-        return createFilterOptions<OptionType>()(options, state);
-    }
-
-    const handleFocusOut = (event: any) => {
-        let inputValue = event?.target?.value;
-
-        if (inputValue) {
-            for (let item of options) {
-                if (item[optionlabelkeyname] === inputValue) {
-                    setState(item);
-                    onBlur(item);
-                    return;
+export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivElement, AutocompleteProps>(
+    (
+        {
+            id,
+            label,
+            placeholder,
+            color,
+            variant,
+            onChange,
+            optionlabelkeyname,
+            freeSolo,
+            fieldSize,
+            onBlur = () => {},
+            helperText,
+            error,
+            options,
+            onTextFieldChange,
+            limitTags,
+            disabled,
+            value,
+            autoFocus,
+            blurOnEmptyInput,
+            maxLength = 255,
+            filterOptionsCallBack = (options: OptionType[], params: FilterOptionsState<OptionType>) => {
+                let filteredOptions = filter(options, params);
+                if (typeof state === 'object' && state[optionlabelkeyname]) {
+                    filteredOptions = options.filter((option) => option[optionlabelkeyname] === state[optionlabelkeyname]);
                 }
-            }
-            if (Array.isArray(state)) {
-                setState([...state, inputValue]);
-            } else {
-                setState(inputValue);
-            }
-            onBlur(inputValue);
-        } else {
-            if (blurOnEmptyInput) blurOnEmptyInput(inputValue);
-        }
-    };
+                return filteredOptions;
+            },
+            sx,
+            inputProps,
+            loading,
+            getOptionLabel,
+            getOptionDisabled,
+            defaultValue,
+            ...props
+        },
+        ref
+    ) => {
+        const [state, setState] = useState<OptionType | string>(value || '');
 
-    const handleOnInputChange = (event: React.SyntheticEvent<Element, Event>, value: string) => {
-        if (onTextFieldChange) {
-            onTextFieldChange(event, value);
-        }
-    };
+        const handleOnChange = (event: any, newValue: string | OptionType | (string | OptionType)[] | null) => {
+            onChange({ ...event, target: { ...event.target, value: newValue } });
+        };
 
-    const handleKeyDown = (e: any) => {
-        let inputValue = e?.target?.value;
-        if (e.key === 'Enter') {
-            if (Array.isArray(state)) {
-                setState([...state, inputValue]);
-            } else {
-                setState(inputValue);
+        useEffect(() => {
+            if (value) {
+                setState(value);
             }
-        }
-    };
+        }, [value]);
 
-    return (
-        <>
-            <MUIAutocomplete
-                fullWidth
-                {...props}
-                options={options}
-                ref={ref}
-                sx={sx}
-                id={id}
-                getOptionDisabled={getOptionDisabled}
-                onBlur={handleFocusOut}
-                onKeyDown={handleKeyDown}
-                onChange={handleOnChange}
-                getOptionLabel={(option: OptionType | string): string => {
-                    if (getOptionLabel) {
-                        return getOptionLabel(option);
+        const filterOptions = (options: OptionType[], params: FilterOptionsState<OptionType>) => {
+            return filterOptionsCallBack(options, params);
+        };
+
+        const handleFocusOut = (event: any) => {
+            let inputValue = event?.target?.value;
+
+            if (inputValue) {
+                for (let item of options) {
+                    if (item[optionlabelkeyname] === inputValue) {
+                        setState(item);
+                        onBlur(item);
+                        return;
                     }
-                    if (typeof option === 'object') {
-                        return `${option[optionlabelkeyname]}`;
-                    }
-                    return option;
-                }}
-                value={state}
-                limitTags={limitTags}
-                filterOptions={getDefaultFilterOption}
-                onInputChange={handleOnInputChange}
-                freeSolo={freeSolo}
-                renderInput={({ size, ...params }) => (
-                    <TextField
-                        size={fieldSize}
-                        helperText={helperText}
-                        error={error}
-                        {...params}
-                        variant={variant}
-                        color={color}
-                        label={label}
-                        placeholder={placeholder}
-                        autoFocus={autoFocus}
-                        inputProps={{
-                            ...params.inputProps,
-                            ...inputProps,
-                            maxLength
-                        }}
-                    />
-                )}
-                disabled={disabled}
-                loading={loading}
-            />
-        </>
-    );
-});
+                }
+                setState(inputValue);
+                onBlur(inputValue);
+            } else {
+                if (blurOnEmptyInput) blurOnEmptyInput(inputValue);
+            }
+        };
+
+        const handleOnInputChange = (event: React.SyntheticEvent<Element, Event>, value: string) => {
+            setState(value);
+            if (onTextFieldChange) {
+                onTextFieldChange(event, value);
+            }
+        };
+
+        return (
+            <>
+                <MUIAutocomplete
+                    fullWidth
+                    {...props}
+                    options={options}
+                    ref={ref}
+                    sx={sx}
+                    id={id}
+                    getOptionDisabled={getOptionDisabled}
+                    onBlur={handleFocusOut}
+                    onChange={handleOnChange}
+                    getOptionLabel={(option: OptionType | string): string => {
+                        if (getOptionLabel) {
+                            return getOptionLabel(option);
+                        }
+                        if (typeof option === 'object') {
+                            return `${option[optionlabelkeyname]}`;
+                        }
+                        return option;
+                    }}
+                    value={value}
+                    limitTags={limitTags}
+                    filterOptions={filterOptions}
+                    defaultValue={defaultValue}
+                    onInputChange={handleOnInputChange}
+                    freeSolo={freeSolo}
+                    renderInput={({ size, ...params }) => (
+                        <TextField
+                            size={fieldSize}
+                            helperText={helperText}
+                            error={error}
+                            {...params}
+                            variant={variant}
+                            color={color}
+                            label={label}
+                            placeholder={placeholder}
+                            autoFocus={autoFocus}
+                            inputProps={{
+                                ...params.inputProps,
+                                ...inputProps,
+                                maxLength
+                            }}
+                        />
+                    )}
+                    disabled={disabled}
+                    loading={loading}
+                />
+            </>
+        );
+    }
+);
 
 Autocomplete.defaultProps = {
     color: 'primary',

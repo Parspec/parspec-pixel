@@ -82,6 +82,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
             loading,
             getOptionLabel,
             getOptionDisabled,
+            defaultValue,
             ...props
         },
         ref
@@ -151,6 +152,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
                     value={value}
                     limitTags={limitTags}
                     filterOptions={filterOptions}
+                    defaultValue={defaultValue}
                     onInputChange={handleOnInputChange}
                     freeSolo={freeSolo}
                     renderInput={({ size, ...params }) => (

@@ -63,6 +63,7 @@ function patchStyleConversion(originalDOMConverter) {
         const fontWeight = node.style.fontWeight;
         const fontSize = node.style.fontSize;
         const textDecoration = node.style.textDecoration;
+        const lineHeight = node.style.lineHeight;
         return Object.assign(Object.assign({}, originalOutput), { forChild: (lexicalNode, parent) => {
                 var _a;
                 const originalForChild = (_a = originalOutput === null || originalOutput === void 0 ? void 0 : originalOutput.forChild) !== null && _a !== void 0 ? _a : ((x) => x);
@@ -74,7 +75,8 @@ function patchStyleConversion(originalDOMConverter) {
                         fontFamily ? `font-family: ${fontFamily}` : null,
                         fontWeight ? `font-weight: ${fontWeight}` : null,
                         fontSize ? `font-size: ${fontSize}` : null,
-                        textDecoration ? `text-decoration: ${textDecoration}` : null
+                        textDecoration ? `text-decoration: ${textDecoration}` : null,
+                        lineHeight ? `line-height: ${lineHeight}` : null
                     ]
                         .filter((value) => value != null)
                         .join('; ');

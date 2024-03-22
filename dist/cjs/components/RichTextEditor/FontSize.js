@@ -99,7 +99,7 @@ function FontSize({ selectionFontSize, disabled, editor }) {
                 if (selection !== null) {
                     (0, selection_1.$patchStyleText)(selection, {
                         'font-size': newFontSize || getNextFontSize,
-                        'line-height': '1.2'
+                        'line-height': '1.125'
                     });
                 }
             }

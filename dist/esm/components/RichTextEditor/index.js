@@ -43,16 +43,16 @@ export function RichTextEditor({ onFileUpload, initialHtml = '', editorBgColor =
         onError,
         nodes: registeredNodes
     };
-    return (_jsx(LexicalComposer, Object.assign({ initialConfig: initialConfig }, { children: _jsx(Box, Object.assign({ className: "editor-container" }, { children: _jsxs(Box, Object.assign({ className: "editor-inner" }, { children: [_jsx(ToolBar, { onFileUpload: onFileUpload, isDisable: isDisable, showAttachements: showAttachements, showShareableLinkButton: showShareableLinkButton, shareableLinkTitle: shareableLinkTitle, shareableLinkUrl: shareableLinkUrl, showFontFamiliy: showFontFamiliy }), _jsx(RichTextPlugin, { contentEditable: _jsx(ContentEditable, { onFocus: onFocus, style: {
+    return (_jsx(LexicalComposer, Object.assign({ initialConfig: initialConfig }, { children: _jsx(Box, Object.assign({ className: "editor-container" }, { children: _jsxs(Box, Object.assign({ className: "editor-inner" }, { children: [_jsx(ToolBar, { onFileUpload: onFileUpload, isDisable: isDisable, showAttachements: showAttachements, showShareableLinkButton: showShareableLinkButton, shareableLinkTitle: shareableLinkTitle, shareableLinkUrl: shareableLinkUrl, showFontFamiliy: showFontFamiliy }), _jsx(RichTextPlugin, { contentEditable: _jsx(ContentEditable, { id: "content-editable", onFocus: onFocus, style: {
                                 width: '100%',
                                 height: contentEditableHeight,
                                 border: '1px solid #ccc',
+                                // outline: 0,
                                 backgroundColor: editorBgColor,
                                 paddingTop: '12px',
                                 paddingLeft: '12px',
                                 overflow: 'auto',
-                                borderRadius: '5px',
-                                opacity: isDisable ? '0.4' : '1'
+                                borderRadius: '5px'
                             } }), placeholder: _jsx(Placeholder, { placeHolderText: placeHolderText }), ErrorBoundary: LexicalErrorBoundary }), _jsx(ListPlugin, {}), _jsx(HistoryPlugin, {}), _jsx(HtmlPlugin, { initialHtml: initialHtml, onBlur: onBlur, onChange: onChange }), _jsx(AutoLinkPlugin, {}), _jsx(LinkPlugin, {}), _jsx(LexicalClickableLinkPlugin, {}), _jsx(DisableEditorPlugin, { isDisable: isDisable }), _jsx(MarkdownShortcutPlugin, { transformers: TRANSFORMERS })] })) })) })));
 }
 //# sourceMappingURL=index.js.map

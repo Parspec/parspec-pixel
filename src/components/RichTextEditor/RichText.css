@@ -42,6 +42,10 @@
     border-top-right-radius: 10px;
 }
 
+#content-editable:focus-within {
+    outline-color: #6467f2;
+}
+
 .editor-inner {
     background: #fff;
     position: relative;

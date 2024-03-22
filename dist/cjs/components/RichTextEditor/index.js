@@ -49,16 +49,16 @@ function RichTextEditor({ onFileUpload, initialHtml = '', editorBgColor = 'white
         onError,
         nodes: ToolBar_1.registeredNodes
     };
-    return ((0, jsx_runtime_1.jsx)(LexicalComposer_1.LexicalComposer, Object.assign({ initialConfig: initialConfig }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ className: "editor-container" }, { children: (0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ className: "editor-inner" }, { children: [(0, jsx_runtime_1.jsx)(ToolBar_1.ToolBar, { onFileUpload: onFileUpload, isDisable: isDisable, showAttachements: showAttachements, showShareableLinkButton: showShareableLinkButton, shareableLinkTitle: shareableLinkTitle, shareableLinkUrl: shareableLinkUrl, showFontFamiliy: showFontFamiliy }), (0, jsx_runtime_1.jsx)(LexicalRichTextPlugin_1.RichTextPlugin, { contentEditable: (0, jsx_runtime_1.jsx)(LexicalContentEditable_1.ContentEditable, { onFocus: onFocus, style: {
+    return ((0, jsx_runtime_1.jsx)(LexicalComposer_1.LexicalComposer, Object.assign({ initialConfig: initialConfig }, { children: (0, jsx_runtime_1.jsx)(Box_1.Box, Object.assign({ className: "editor-container" }, { children: (0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ className: "editor-inner" }, { children: [(0, jsx_runtime_1.jsx)(ToolBar_1.ToolBar, { onFileUpload: onFileUpload, isDisable: isDisable, showAttachements: showAttachements, showShareableLinkButton: showShareableLinkButton, shareableLinkTitle: shareableLinkTitle, shareableLinkUrl: shareableLinkUrl, showFontFamiliy: showFontFamiliy }), (0, jsx_runtime_1.jsx)(LexicalRichTextPlugin_1.RichTextPlugin, { contentEditable: (0, jsx_runtime_1.jsx)(LexicalContentEditable_1.ContentEditable, { id: "content-editable", onFocus: onFocus, style: {
                                 width: '100%',
                                 height: contentEditableHeight,
                                 border: '1px solid #ccc',
+                                // outline: 0,
                                 backgroundColor: editorBgColor,
                                 paddingTop: '12px',
                                 paddingLeft: '12px',
                                 overflow: 'auto',
-                                borderRadius: '5px',
-                                opacity: isDisable ? '0.4' : '1'
+                                borderRadius: '5px'
                             } }), placeholder: (0, jsx_runtime_1.jsx)(PlaceHolder_1.Placeholder, { placeHolderText: placeHolderText }), ErrorBoundary: LexicalErrorBoundary_1.default }), (0, jsx_runtime_1.jsx)(LexicalListPlugin_1.ListPlugin, {}), (0, jsx_runtime_1.jsx)(LexicalHistoryPlugin_1.HistoryPlugin, {}), (0, jsx_runtime_1.jsx)(HtmlPlugin_1.HtmlPlugin, { initialHtml: initialHtml, onBlur: onBlur, onChange: onChange }), (0, jsx_runtime_1.jsx)(AutoLinkPlugin_1.AutoLinkPlugin, {}), (0, jsx_runtime_1.jsx)(LexicalLinkPlugin_1.LinkPlugin, {}), (0, jsx_runtime_1.jsx)(LexicalClickableLinkPlugin_1.default, {}), (0, jsx_runtime_1.jsx)(DisableEditorPlugin_1.DisableEditorPlugin, { isDisable: isDisable }), (0, jsx_runtime_1.jsx)(LexicalMarkdownShortcutPlugin_1.MarkdownShortcutPlugin, { transformers: markdown_1.TRANSFORMERS })] })) })) })));
 }
 exports.RichTextEditor = RichTextEditor;

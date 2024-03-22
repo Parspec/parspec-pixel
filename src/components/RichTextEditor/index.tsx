@@ -79,17 +79,18 @@ export function RichTextEditor({
                     <RichTextPlugin
                         contentEditable={
                             <ContentEditable
+                                id="content-editable"
                                 onFocus={onFocus}
                                 style={{
                                     width: '100%',
                                     height: contentEditableHeight,
                                     border: '1px solid #ccc',
+                                    // outline: 0,
                                     backgroundColor: editorBgColor,
                                     paddingTop: '12px',
                                     paddingLeft: '12px',
                                     overflow: 'auto',
-                                    borderRadius: '5px',
-                                    opacity: isDisable ? '0.4' : '1'
+                                    borderRadius: '5px'
                                 }}
                             />
                         }

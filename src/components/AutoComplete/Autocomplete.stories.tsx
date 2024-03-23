@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { topFilms as top100Films } from './topfilm';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
@@ -28,7 +28,7 @@ Basic.args = {
     label: 'Movies',
     optionlabelkeyname: 'title',
     fieldSize: 'small',
-    defaultValue: 'I am default'
+    value: 'I am default'
 };
 
 export const MultiSelect: ComponentStory<typeof Autocomplete> = (args) => (
@@ -46,7 +46,7 @@ MultiSelect.args = {
     multiple: true,
     options: top100Films,
     optionlabelkeyname: 'title',
-    defaultValue: ['Hello']
+    value: ['Hello']
 };
 
 export const AutocompleteWithCreateOption: ComponentStory<typeof Autocomplete> = (args) => (
@@ -69,14 +69,16 @@ AutocompleteWithCreateOption.args = {
     maxLength: 10
 };
 
-export const MultiSelectWithChipLimit: ComponentStory<typeof Autocomplete> = (args) => (
-    <Autocomplete
-        {...args}
-        onChange={(e: any) => {
-            console.log(e.target.value);
-        }}
-    />
-);
+export const MultiSelectWithChipLimit: ComponentStory<typeof Autocomplete> = (args) => {
+    return (
+        <Autocomplete
+            {...args}
+            onChange={(e: any) => {
+                console.log(e.target.value);
+            }}
+        />
+    );
+};
 
 MultiSelectWithChipLimit.args = {
     id: 'multiselect-demo',
@@ -84,6 +86,6 @@ MultiSelectWithChipLimit.args = {
     multiple: true,
     options: top100Films,
     optionlabelkeyname: 'title',
-    defaultValue: ['Hello'],
+    value: ['Hello'],
     limitTags: 1
 };

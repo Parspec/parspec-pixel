@@ -10,28 +10,22 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 import { jsx as _jsx, Fragment as _Fragment } from "react/jsx-runtime";
-import { forwardRef, useState, useEffect } from 'react';
+import { forwardRef, useState } from 'react';
 import { TextField } from '../TextField';
 import { default as MUIAutocomplete, createFilterOptions } from '@mui/material/Autocomplete';
-export const Autocomplete = forwardRef((_a, ref) => {
-    var { id, label, placeholder, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur = () => { }, helperText, error, options, onTextFieldChange, limitTags, disabled, value, autoFocus, blurOnEmptyInput, maxLength = 255, filterOptionsCallBack, sx, inputProps, loading, getOptionLabel, getOptionDisabled } = _a, props = __rest(_a, ["id", "label", "placeholder", "color", "variant", "onChange", "optionlabelkeyname", "freeSolo", "fieldSize", "onBlur", "helperText", "error", "options", "onTextFieldChange", "limitTags", "disabled", "value", "autoFocus", "blurOnEmptyInput", "maxLength", "filterOptionsCallBack", "sx", "inputProps", "loading", "getOptionLabel", "getOptionDisabled"]);
+export const Autocomplete = forwardRef((props, ref) => {
+    const { id, label, placeholder, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur = () => { }, helperText, error, options, onTextFieldChange, limitTags, disabled, value, autoFocus, blurOnEmptyInput, maxLength = 255, sx, inputProps, loading, getOptionLabel, getOptionDisabled } = props;
     const [state, setState] = useState(value || '');
     const handleOnChange = (event, newValue) => {
         setState(newValue);
         onChange(Object.assign(Object.assign({}, event), { target: Object.assign(Object.assign({}, event.target), { value: newValue }) }));
     };
-    useEffect(() => {
-        if (value) {
-            setState(value);
-        }
-    }, [value]);
     function getDefaultFilterOption(options, state) {
         return createFilterOptions()(options, state);
     }
     const handleFocusOut = (event) => {
         var _a;
         let inputValue = (_a = event === null || event === void 0 ? void 0 : event.target) === null || _a === void 0 ? void 0 : _a.value;
-        console.log(inputValue);
         if (inputValue) {
             for (let item of options) {
                 if (item[optionlabelkeyname] === inputValue) {
@@ -58,7 +52,19 @@ export const Autocomplete = forwardRef((_a, ref) => {
             onTextFieldChange(event, value);
         }
     };
-    return (_jsx(_Fragment, { children: _jsx(MUIAutocomplete, Object.assign({ fullWidth: true }, props, { options: options, ref: ref, sx: sx, id: id, getOptionDisabled: getOptionDisabled, onBlur: handleFocusOut, onChange: handleOnChange, getOptionLabel: (option) => {
+    const handleKeyDown = (e) => {
+        var _a;
+        let inputValue = (_a = e === null || e === void 0 ? void 0 : e.target) === null || _a === void 0 ? void 0 : _a.value;
+        if (e.key === 'Enter') {
+            if (Array.isArray(state)) {
+                setState([...state, inputValue]);
+            }
+            else {
+                setState(inputValue);
+            }
+        }
+    };
+    return (_jsx(_Fragment, { children: _jsx(MUIAutocomplete, Object.assign({ fullWidth: true }, props, { options: options, ref: ref, sx: sx, id: id, getOptionDisabled: getOptionDisabled, onBlur: handleFocusOut, onKeyDown: handleKeyDown, onChange: handleOnChange, getOptionLabel: (option) => {
                 if (getOptionLabel) {
                     return getOptionLabel(option);
                 }

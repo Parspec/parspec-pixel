@@ -39,25 +39,19 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const react_1 = require("react");
 const TextField_1 = require("../TextField");
 const Autocomplete_1 = __importStar(require("@mui/material/Autocomplete"));
-exports.Autocomplete = (0, react_1.forwardRef)((_a, ref) => {
-    var { id, label, placeholder, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur = () => { }, helperText, error, options, onTextFieldChange, limitTags, disabled, value, autoFocus, blurOnEmptyInput, maxLength = 255, filterOptionsCallBack, sx, inputProps, loading, getOptionLabel, getOptionDisabled } = _a, props = __rest(_a, ["id", "label", "placeholder", "color", "variant", "onChange", "optionlabelkeyname", "freeSolo", "fieldSize", "onBlur", "helperText", "error", "options", "onTextFieldChange", "limitTags", "disabled", "value", "autoFocus", "blurOnEmptyInput", "maxLength", "filterOptionsCallBack", "sx", "inputProps", "loading", "getOptionLabel", "getOptionDisabled"]);
+exports.Autocomplete = (0, react_1.forwardRef)((props, ref) => {
+    const { id, label, placeholder, color, variant, onChange, optionlabelkeyname, freeSolo, fieldSize, onBlur = () => { }, helperText, error, options, onTextFieldChange, limitTags, disabled, value, autoFocus, blurOnEmptyInput, maxLength = 255, sx, inputProps, loading, getOptionLabel, getOptionDisabled } = props;
     const [state, setState] = (0, react_1.useState)(value || '');
     const handleOnChange = (event, newValue) => {
         setState(newValue);
         onChange(Object.assign(Object.assign({}, event), { target: Object.assign(Object.assign({}, event.target), { value: newValue }) }));
     };
-    (0, react_1.useEffect)(() => {
-        if (value) {
-            setState(value);
-        }
-    }, [value]);
     function getDefaultFilterOption(options, state) {
         return (0, Autocomplete_1.createFilterOptions)()(options, state);
     }
     const handleFocusOut = (event) => {
         var _a;
         let inputValue = (_a = event === null || event === void 0 ? void 0 : event.target) === null || _a === void 0 ? void 0 : _a.value;
-        console.log(inputValue);
         if (inputValue) {
             for (let item of options) {
                 if (item[optionlabelkeyname] === inputValue) {
@@ -84,7 +78,19 @@ exports.Autocomplete = (0, react_1.forwardRef)((_a, ref) => {
             onTextFieldChange(event, value);
         }
     };
-    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: (0, jsx_runtime_1.jsx)(Autocomplete_1.default, Object.assign({ fullWidth: true }, props, { options: options, ref: ref, sx: sx, id: id, getOptionDisabled: getOptionDisabled, onBlur: handleFocusOut, onChange: handleOnChange, getOptionLabel: (option) => {
+    const handleKeyDown = (e) => {
+        var _a;
+        let inputValue = (_a = e === null || e === void 0 ? void 0 : e.target) === null || _a === void 0 ? void 0 : _a.value;
+        if (e.key === 'Enter') {
+            if (Array.isArray(state)) {
+                setState([...state, inputValue]);
+            }
+            else {
+                setState(inputValue);
+            }
+        }
+    };
+    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: (0, jsx_runtime_1.jsx)(Autocomplete_1.default, Object.assign({ fullWidth: true }, props, { options: options, ref: ref, sx: sx, id: id, getOptionDisabled: getOptionDisabled, onBlur: handleFocusOut, onKeyDown: handleKeyDown, onChange: handleOnChange, getOptionLabel: (option) => {
                 if (getOptionLabel) {
                     return getOptionLabel(option);
                 }

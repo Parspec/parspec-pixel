@@ -39,4 +39,4 @@ export interface AutocompleteProps {
     getOptionLabel?: (option: OptionType | string) => string;
     getOptionDisabled?: (option: OptionType | string) => boolean;
 }
-export declare const Autocomplete: React.FC<AutocompleteProps>;
+export declare const Autocomplete: import("react").ForwardRefExoticComponent<AutocompleteProps & import("react").RefAttributes<unknown>>;

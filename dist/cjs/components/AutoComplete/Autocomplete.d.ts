@@ -16,7 +16,7 @@ export interface AutocompleteProps {
     freeSolo?: boolean;
     fieldSize?: 'small' | 'medium';
     multiple?: boolean;
-    value?: string | OptionType | null;
+    value?: string | OptionType | string[] | OptionType[] | null;
     defaultValue?: string | OptionType | (string | OptionType)[] | null;
     onBlur?: (params: OptionType | string) => void;
     helperText?: string | React.ReactNode;

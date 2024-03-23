@@ -150,6 +150,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
                         return option;
                     }}
                     value={value}
+                    size={fieldSize}
                     limitTags={limitTags}
                     filterOptions={filterOptions}
                     defaultValue={defaultValue}
@@ -157,7 +158,6 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
                     freeSolo={freeSolo}
                     renderInput={({ size, ...params }) => (
                         <TextField
-                            size={fieldSize}
                             helperText={helperText}
                             error={error}
                             {...params}

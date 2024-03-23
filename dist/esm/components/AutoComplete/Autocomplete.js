@@ -67,9 +67,9 @@ export const Autocomplete = forwardRef((_a, ref) => {
                     return `${option[optionlabelkeyname]}`;
                 }
                 return option;
-            }, value: value, limitTags: limitTags, filterOptions: filterOptions, defaultValue: defaultValue, onInputChange: handleOnInputChange, freeSolo: freeSolo, renderInput: (_a) => {
+            }, value: value, size: fieldSize, limitTags: limitTags, filterOptions: filterOptions, defaultValue: defaultValue, onInputChange: handleOnInputChange, freeSolo: freeSolo, renderInput: (_a) => {
                 var { size } = _a, params = __rest(_a, ["size"]);
-                return (_jsx(TextField, Object.assign({ size: fieldSize, helperText: helperText, error: error }, params, { variant: variant, color: color, label: label, placeholder: placeholder, autoFocus: autoFocus, inputProps: Object.assign(Object.assign(Object.assign({}, params.inputProps), inputProps), { maxLength }) })));
+                return (_jsx(TextField, Object.assign({ helperText: helperText, error: error }, params, { variant: variant, color: color, label: label, placeholder: placeholder, autoFocus: autoFocus, inputProps: Object.assign(Object.assign(Object.assign({}, params.inputProps), inputProps), { maxLength }) })));
             }, disabled: disabled, loading: loading })) }));
 });
 Autocomplete.defaultProps = {

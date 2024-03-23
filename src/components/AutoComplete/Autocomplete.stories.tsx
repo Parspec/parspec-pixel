@@ -46,7 +46,7 @@ MultiSelect.args = {
     multiple: true,
     options: top100Films,
     optionlabelkeyname: 'title',
-    value: ['Hello']
+    defaultValue: ['Hello']
 };
 
 export const AutocompleteWithCreateOption: ComponentStory<typeof Autocomplete> = (args) => (
@@ -86,6 +86,6 @@ MultiSelectWithChipLimit.args = {
     multiple: true,
     options: top100Films,
     optionlabelkeyname: 'title',
-    value: ['Hello'],
+    defaultValue: ['Hello'],
     limitTags: 1
 };

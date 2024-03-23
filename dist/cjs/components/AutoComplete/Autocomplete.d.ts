@@ -16,7 +16,7 @@ export interface AutocompleteProps {
     freeSolo?: boolean;
     fieldSize?: 'small' | 'medium';
     multiple?: boolean;
-    value?: string | OptionType | string[] | OptionType[] | null;
+    value?: string | OptionType | null;
     defaultValue?: string | OptionType | (string | OptionType)[] | null;
     onBlur?: (params: OptionType | string) => void;
     helperText?: string | React.ReactNode;
@@ -39,4 +39,4 @@ export interface AutocompleteProps {
     getOptionLabel?: (option: OptionType | string) => string;
     getOptionDisabled?: (option: OptionType | string) => boolean;
 }
-export declare const Autocomplete: import("react").ForwardRefExoticComponent<AutocompleteProps & import("react").RefAttributes<unknown>>;
+export declare const Autocomplete: React.FC<AutocompleteProps>;

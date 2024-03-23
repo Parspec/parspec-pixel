@@ -21,7 +21,7 @@ export interface AutocompleteProps {
     freeSolo?: boolean;
     fieldSize?: 'small' | 'medium';
     multiple?: boolean;
-    value?: string | OptionType | null;
+    value?: string | OptionType | string[] | OptionType[] | null;
     defaultValue?: string | OptionType | (string | OptionType)[] | null;
     onBlur?: (params: OptionType | string) => void;
     helperText?: string | React.ReactNode;
@@ -44,8 +44,6 @@ export interface AutocompleteProps {
     getOptionLabel?: (option: OptionType | string) => string;
     getOptionDisabled?: (option: OptionType | string) => boolean;
 }
-
-const filter = createFilterOptions<OptionType>();
 
 export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivElement, AutocompleteProps>(
     (
@@ -70,26 +68,20 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
             autoFocus,
             blurOnEmptyInput,
             maxLength = 255,
-            filterOptionsCallBack = (options: OptionType[], params: FilterOptionsState<OptionType>) => {
-                let filteredOptions = filter(options, params);
-                if (typeof state === 'object' && state[optionlabelkeyname]) {
-                    filteredOptions = options.filter((option) => option[optionlabelkeyname] === state[optionlabelkeyname]);
-                }
-                return filteredOptions;
-            },
+            filterOptionsCallBack,
             sx,
             inputProps,
             loading,
             getOptionLabel,
             getOptionDisabled,
-            defaultValue,
             ...props
         },
         ref
     ) => {
-        const [state, setState] = useState<OptionType | string>(value || '');
+        const [state, setState] = useState<OptionType | string | (string | OptionType)[] | null>(value || '');
 
-        const handleOnChange = (event: any, newValue: string | OptionType | (string | OptionType)[] | null) => {
+        const handleOnChange = (event: any, newValue: OptionType | string | (string | OptionType)[] | null) => {
+            setState(newValue);
             onChange({ ...event, target: { ...event.target, value: newValue } });
         };
 
@@ -99,13 +91,13 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
             }
         }, [value]);
 
-        const filterOptions = (options: OptionType[], params: FilterOptionsState<OptionType>) => {
-            return filterOptionsCallBack(options, params);
-        };
+        function getDefaultFilterOption(options: OptionType[], state: FilterOptionsState<OptionType>): OptionType[] {
+            return createFilterOptions<OptionType>()(options, state);
+        }
 
         const handleFocusOut = (event: any) => {
             let inputValue = event?.target?.value;
-
+            console.log(inputValue);
             if (inputValue) {
                 for (let item of options) {
                     if (item[optionlabelkeyname] === inputValue) {
@@ -114,7 +106,11 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
                         return;
                     }
                 }
-                setState(inputValue);
+                if (Array.isArray(state)) {
+                    setState([...state, inputValue]);
+                } else {
+                    setState(inputValue);
+                }
                 onBlur(inputValue);
             } else {
                 if (blurOnEmptyInput) blurOnEmptyInput(inputValue);
@@ -122,7 +118,6 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
         };
 
         const handleOnInputChange = (event: React.SyntheticEvent<Element, Event>, value: string) => {
-            setState(value);
             if (onTextFieldChange) {
                 onTextFieldChange(event, value);
             }
@@ -149,10 +144,9 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
                         }
                         return option;
                     }}
-                    value={value}
+                    value={state}
                     limitTags={limitTags}
-                    filterOptions={filterOptions}
-                    defaultValue={defaultValue}
+                    filterOptions={getDefaultFilterOption}
                     onInputChange={handleOnInputChange}
                     freeSolo={freeSolo}
                     renderInput={({ size, ...params }) => (

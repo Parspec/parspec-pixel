@@ -25,11 +25,11 @@ const commonSxStyles = {
     pointerEvents: 'auto'
 };
 
-export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, AccordionProps>(({ options, getPanel, summaryPointerEvent, ...rest }, ref) => {
-    const [expanded, setExpanded] = useState<string | false>(options[0]['labelId']);
+export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, AccordionProps>(({ options, getPanel, summaryPointerEvent, expanded, ...rest }, ref) => {
+    const [isAccExpanded, setIsAccExpanded] = useState<string | false>(options[0]['labelId']);
 
     const handleAccordionOnChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-        setExpanded(isExpanded ? panel : false);
+        setIsAccExpanded(isExpanded ? panel : false);
         if (getPanel) {
             getPanel(panel);
         }
@@ -38,7 +38,14 @@ export const Accordion: React.FC<AccordionProps> = forwardRef<HTMLDivElement, Ac
         <>
             {options.map((item, index) => {
                 return (
-                    <MUIAccordion key={index} ref={ref} TransitionProps={{ unmountOnExit: true }} {...rest} expanded={expanded === item.labelId} onChange={handleAccordionOnChange(item.labelId)}>
+                    <MUIAccordion
+                        key={index}
+                        ref={ref}
+                        TransitionProps={{ unmountOnExit: true }}
+                        {...rest}
+                        expanded={isAccExpanded === item.labelId && expanded}
+                        onChange={handleAccordionOnChange(item.labelId)}
+                    >
                         <AccordionSummary
                             sx={{
                                 flexDirection: 'row-reverse',

@@ -21,16 +21,16 @@ const commonSxStyles = {
     pointerEvents: 'auto'
 };
 export const Accordion = forwardRef((_a, ref) => {
-    var { options, getPanel, summaryPointerEvent } = _a, rest = __rest(_a, ["options", "getPanel", "summaryPointerEvent"]);
-    const [expanded, setExpanded] = useState(options[0]['labelId']);
+    var { options, getPanel, summaryPointerEvent, expanded } = _a, rest = __rest(_a, ["options", "getPanel", "summaryPointerEvent", "expanded"]);
+    const [isAccExpanded, setIsAccExpanded] = useState(options[0]['labelId']);
     const handleAccordionOnChange = (panel) => (event, isExpanded) => {
-        setExpanded(isExpanded ? panel : false);
+        setIsAccExpanded(isExpanded ? panel : false);
         if (getPanel) {
             getPanel(panel);
         }
     };
     return (_jsx(_Fragment, { children: options.map((item, index) => {
-            return (_jsxs(MUIAccordion, Object.assign({ ref: ref, TransitionProps: { unmountOnExit: true } }, rest, { expanded: expanded === item.labelId, onChange: handleAccordionOnChange(item.labelId) }, { children: [_jsx(AccordionSummary, Object.assign({ sx: {
+            return (_jsxs(MUIAccordion, Object.assign({ ref: ref, TransitionProps: { unmountOnExit: true } }, rest, { expanded: isAccExpanded === item.labelId && expanded, onChange: handleAccordionOnChange(item.labelId) }, { children: [_jsx(AccordionSummary, Object.assign({ sx: {
                             flexDirection: 'row-reverse',
                             borderBottom: '1px solid',
                             borderColor: 'neutral.main',

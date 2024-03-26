@@ -14,10 +14,11 @@ import { forwardRef, useImperativeHandle, useRef, useEffect, useState } from 're
 import { AgGridReact } from 'ag-grid-react';
 import { ClipboardModule } from '@ag-grid-enterprise/clipboard';
 import { GridChartsModule } from '@ag-grid-enterprise/charts';
+import { ExcelExportModule } from '@ag-grid-enterprise/excel-export';
 import { Box } from '../Box';
 import './agGridStyles.css';
 import { CustomToolBarPanel } from './CustomToolbarPanel';
-const modules = [ClipboardModule, GridChartsModule];
+const modules = [ClipboardModule, GridChartsModule, ExcelExportModule];
 export const AgGridTable = forwardRef((props, ref) => {
     const { tableHeight, isTableLoading, showToolbarPanel = false, isToolbarLoading = false, toolBarPanelOptions = [], selectedRowCount = 0, disabledToolBarButton = false, onAdd, onDelete, onHideUnhide, onAddDuplicates, onMove, onCreateKit, onCloseBanner, onTextSearch, toolbarRightSection, rowData } = props, restTableProps = __rest(props, ["tableHeight", "isTableLoading", "showToolbarPanel", "isToolbarLoading", "toolBarPanelOptions", "selectedRowCount", "disabledToolBarButton", "onAdd", "onDelete", "onHideUnhide", "onAddDuplicates", "onMove", "onCreateKit", "onCloseBanner", "onTextSearch", "toolbarRightSection", "rowData"]);
     const gridRef = useRef(null);

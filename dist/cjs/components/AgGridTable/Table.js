@@ -17,10 +17,11 @@ const react_1 = require("react");
 const ag_grid_react_1 = require("ag-grid-react");
 const clipboard_1 = require("@ag-grid-enterprise/clipboard");
 const charts_1 = require("@ag-grid-enterprise/charts");
+const excel_export_1 = require("@ag-grid-enterprise/excel-export");
 const Box_1 = require("../Box");
 require("./agGridStyles.css");
 const CustomToolbarPanel_1 = require("./CustomToolbarPanel");
-const modules = [clipboard_1.ClipboardModule, charts_1.GridChartsModule];
+const modules = [clipboard_1.ClipboardModule, charts_1.GridChartsModule, excel_export_1.ExcelExportModule];
 exports.AgGridTable = (0, react_1.forwardRef)((props, ref) => {
     const { tableHeight, isTableLoading, showToolbarPanel = false, isToolbarLoading = false, toolBarPanelOptions = [], selectedRowCount = 0, disabledToolBarButton = false, onAdd, onDelete, onHideUnhide, onAddDuplicates, onMove, onCreateKit, onCloseBanner, onTextSearch, toolbarRightSection, rowData } = props, restTableProps = __rest(props, ["tableHeight", "isTableLoading", "showToolbarPanel", "isToolbarLoading", "toolBarPanelOptions", "selectedRowCount", "disabledToolBarButton", "onAdd", "onDelete", "onHideUnhide", "onAddDuplicates", "onMove", "onCreateKit", "onCloseBanner", "onTextSearch", "toolbarRightSection", "rowData"]);
     const gridRef = (0, react_1.useRef)(null);

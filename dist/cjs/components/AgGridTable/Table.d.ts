@@ -8,8 +8,8 @@ interface IAgGridTableProps extends AgGridReactProps, AgReactUiProps {
     showToolbarPanel: boolean;
     isToolbarLoading?: boolean;
     toolBarPanelOptions?: ToolBarT[];
-    selectedRowCount: number;
-    disabledToolBarButton: boolean;
+    selectedRowCount?: number;
+    disabledToolBarButton?: boolean;
     onAdd?: () => void;
     onDelete?: () => void;
     onHideUnhide?: () => void;

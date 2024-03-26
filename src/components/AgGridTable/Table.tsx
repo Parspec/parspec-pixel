@@ -1,15 +1,17 @@
 import { forwardRef, useImperativeHandle, useRef, useEffect, useState } from 'react';
 import { AgGridReact, AgGridReactProps, AgReactUiProps } from 'ag-grid-react';
+
 import { ColDef } from 'ag-grid-community';
 import { ClipboardModule } from '@ag-grid-enterprise/clipboard';
 import { GridChartsModule } from '@ag-grid-enterprise/charts';
+import { ExcelExportModule } from '@ag-grid-enterprise/excel-export';
 
 import { Box } from '../Box';
 
 import './agGridStyles.css';
 import { CustomToolBarPanel, ToolBarT } from './CustomToolbarPanel';
 
-const modules = [ClipboardModule, GridChartsModule];
+const modules = [ClipboardModule, GridChartsModule, ExcelExportModule];
 
 interface IAgGridTableProps extends AgGridReactProps, AgReactUiProps {
     tableHeight?: number | string;
@@ -20,8 +22,8 @@ interface IAgGridTableProps extends AgGridReactProps, AgReactUiProps {
     showToolbarPanel: boolean;
     isToolbarLoading?: boolean;
     toolBarPanelOptions?: ToolBarT[];
-    selectedRowCount: number;
-    disabledToolBarButton: boolean;
+    selectedRowCount?: number;
+    disabledToolBarButton?: boolean;
     onAdd?: () => void;
     onDelete?: () => void;
     onHideUnhide?: () => void;

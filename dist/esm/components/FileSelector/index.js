@@ -15,6 +15,7 @@ export const FileSelector = forwardRef(({ maxFiles = 1, acceptedFormats = [], on
         if (preSelectedFile === null || preSelectedFile === void 0 ? void 0 : preSelectedFile.length) {
             setFiles(preSelectedFile);
         }
+        setResults([]);
     }, [preSelectedFile]);
     //To give the information of selected files to the main component.
     useEffect(() => {
@@ -35,7 +36,6 @@ export const FileSelector = forwardRef(({ maxFiles = 1, acceptedFormats = [], on
                 let uploadedData = uploadedFiles.filter((item) => { var _a, _b; return (_a = files.map((file) => file === null || file === void 0 ? void 0 : file.name)) === null || _a === void 0 ? void 0 : _a.includes((_b = item === null || item === void 0 ? void 0 : item.file) === null || _b === void 0 ? void 0 : _b.name); });
                 onUpload(uploadedData);
             }
-            setResults([]);
         }
     }, [result]);
     //Function called when file is selected

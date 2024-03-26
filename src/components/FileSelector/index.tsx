@@ -64,6 +64,7 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
             if (preSelectedFile?.length) {
                 setFiles(preSelectedFile);
             }
+            setResults([]);
         }, [preSelectedFile]);
 
         //To give the information of selected files to the main component.
@@ -86,7 +87,6 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                     let uploadedData = uploadedFiles.filter((item: { file: { name: string } }) => files.map((file: { name: string }) => file?.name)?.includes(item?.file?.name));
                     onUpload(uploadedData);
                 }
-                setResults([]);
             }
         }, [result]);
 

@@ -127,9 +127,9 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                 let currTotalFilesSize = 0;
                 if (allFiles.length > 0) {
                     for (let doc of allFiles) {
-                        if (doc.size > maxSizeLimitPerFile) {
-                            break;
-                        }
+                        // if (doc.size > maxSizeLimitPerFile) {
+                        //     break;
+                        // }
                         currTotalFilesSize = currTotalFilesSize + doc.size;
                     }
                 }

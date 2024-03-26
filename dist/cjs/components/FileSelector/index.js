@@ -73,9 +73,9 @@ exports.FileSelector = (0, react_1.forwardRef)(({ maxFiles = 1, acceptedFormats 
         let currTotalFilesSize = 0;
         if (allFiles.length > 0) {
             for (let doc of allFiles) {
-                if (doc.size > maxSizeLimitPerFile) {
-                    break;
-                }
+                // if (doc.size > maxSizeLimitPerFile) {
+                //     break;
+                // }
                 currTotalFilesSize = currTotalFilesSize + doc.size;
             }
         }

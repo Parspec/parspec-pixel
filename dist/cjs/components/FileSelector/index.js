@@ -13,7 +13,7 @@ const Typography_1 = require("../Typography");
 const Icons_1 = require("../Icons");
 const fileFormats_1 = require("./fileFormats");
 const SelectedFile_1 = __importDefault(require("./SelectedFile"));
-exports.FileSelector = (0, react_1.forwardRef)(({ maxFiles = 1, acceptedFormats = [], onUpload = () => { }, url = '', error = '', helperText = '', onSelect = () => { }, placeholder = '', borderColor, preSelectedFile, onDeleteFile = () => { }, isLoading = false, showUploaderAlways = false, maxTotalFileSizeAllowed = { size_in_bytes: Infinity, errorText: '' } }, ref) => {
+exports.FileSelector = (0, react_1.forwardRef)(({ maxFiles = 1, acceptedFormats = [], onUpload = () => { }, url = '', error = '', helperText = '', onSelect = () => { }, placeholder = '', borderColor, preSelectedFile, onDeleteFile = () => { }, isLoading = false, showUploaderAlways = false, maxTotalFileSizeAllowed = { size_in_bytes: Infinity, errorText: '' }, maxSizeLimitPerFile = Infinity }, ref) => {
     const [files, setFiles] = (0, react_1.useState)([]);
     const [result, setResults] = (0, react_1.useState)([]);
     const [maxFileSizeExceededError, setMaxFileSizeExceededError] = (0, react_1.useState)(false);
@@ -41,6 +41,7 @@ exports.FileSelector = (0, react_1.forwardRef)(({ maxFiles = 1, acceptedFormats 
                 let uploadedData = uploadedFiles.filter((item) => { var _a, _b; return (_a = files.map((file) => file === null || file === void 0 ? void 0 : file.name)) === null || _a === void 0 ? void 0 : _a.includes((_b = item === null || item === void 0 ? void 0 : item.file) === null || _b === void 0 ? void 0 : _b.name); });
                 onUpload(uploadedData);
             }
+            setResults([]);
         }
     }, [result]);
     //Function called when file is selected
@@ -48,13 +49,12 @@ exports.FileSelector = (0, react_1.forwardRef)(({ maxFiles = 1, acceptedFormats 
         setMaxFileSizeExceededError(false);
         let allFiles = [];
         if (maxFiles > 1) {
-            let prevFileObj = {};
+            const prevFileObj = new Set();
             for (let item of files) {
-                prevFileObj[item.name] = item;
+                prevFileObj.add(item.name);
             }
-            const prevFileNamesArr = Object.keys(prevFileObj);
             const modifiedAcceptedFiles = acceptedFiles.map((item) => {
-                if (prevFileNamesArr === null || prevFileNamesArr === void 0 ? void 0 : prevFileNamesArr.includes(item === null || item === void 0 ? void 0 : item.name)) {
+                if (prevFileObj.has(item === null || item === void 0 ? void 0 : item.name)) {
                     const currDateTime = new Date().toISOString();
                     const extractName = item.name.split('.');
                     const newName = extractName.slice(0, extractName.length - 1).join('.') + '_' + `${currDateTime}` + '.' + extractName.slice(-1).join('.');
@@ -73,6 +73,9 @@ exports.FileSelector = (0, react_1.forwardRef)(({ maxFiles = 1, acceptedFormats 
         let currTotalFilesSize = 0;
         if (allFiles.length > 0) {
             for (let doc of allFiles) {
+                if (doc.size > maxSizeLimitPerFile) {
+                    break;
+                }
                 currTotalFilesSize = currTotalFilesSize + doc.size;
             }
         }

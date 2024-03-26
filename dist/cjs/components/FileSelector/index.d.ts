@@ -31,6 +31,7 @@ interface FileSelectorProps {
         size_in_bytes: number;
         errorText: string;
     };
+    maxSizeLimitPerFile?: number;
 }
 export declare const FileSelector: import("react").ForwardRefExoticComponent<FileSelectorProps & import("react").RefAttributes<HTMLDivElement>>;
 export {};

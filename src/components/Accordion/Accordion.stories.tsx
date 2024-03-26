@@ -44,5 +44,6 @@ Basic.args = {
             labelId: 'panel3'
         }
     ],
+    summaryPointerEvent: 'none',
     getPanel: (panel: string) => console.log(panel)
 };

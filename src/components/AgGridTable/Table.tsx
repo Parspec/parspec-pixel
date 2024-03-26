@@ -78,7 +78,7 @@ export const AgGridTable = forwardRef<AgGridReact<any>, IAgGridTableProps>((prop
     }, [isGridReady, isTableLoading, rowData]);
 
     return (
-        <Box zIndex={1} width={'100%'} position={'relative'}>
+        <Box zIndex={1} width={'100%'} position={'relative'} height={tableHeight ? undefined : '100%'}>
             {showToolbarPanel && (
                 <CustomToolBarPanel
                     toolBarPanelOptions={toolBarPanelOptions}
@@ -97,7 +97,7 @@ export const AgGridTable = forwardRef<AgGridReact<any>, IAgGridTableProps>((prop
                 />
             )}
 
-            <Box sx={{ height: tableHeight }} width="100%" className="ag-theme-alpine">
+            <Box sx={{ height: tableHeight || 'calc(100% - 45px)' }} width="100%" className="ag-theme-alpine">
                 <AgGridReact
                     ref={gridRef}
                     rowData={rowData}

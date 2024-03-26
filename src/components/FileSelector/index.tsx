@@ -32,10 +32,7 @@ interface FileSelectorProps {
     isLoading?: boolean;
     showUploaderAlways?: boolean;
     maxTotalFileSizeAllowed?: { size_in_bytes: number; errorText: string };
-}
-
-interface IFileObj {
-    [key: string]: any;
+    maxSizeLimitPerFile?: number;
 }
 
 export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
@@ -54,7 +51,8 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
             onDeleteFile = () => {},
             isLoading = false,
             showUploaderAlways = false,
-            maxTotalFileSizeAllowed = { size_in_bytes: Infinity, errorText: '' }
+            maxTotalFileSizeAllowed = { size_in_bytes: Infinity, errorText: '' },
+            maxSizeLimitPerFile = Infinity
         },
         ref
     ) => {
@@ -88,6 +86,7 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                     let uploadedData = uploadedFiles.filter((item: { file: { name: string } }) => files.map((file: { name: string }) => file?.name)?.includes(item?.file?.name));
                     onUpload(uploadedData);
                 }
+                setResults([]);
             }
         }, [result]);
 
@@ -99,14 +98,13 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                 let allFiles: any[] = [];
 
                 if (maxFiles > 1) {
-                    let prevFileObj: IFileObj = {};
+                    const prevFileObj = new Set();
                     for (let item of files) {
-                        prevFileObj[item.name] = item;
+                        prevFileObj.add(item.name);
                     }
 
-                    const prevFileNamesArr = Object.keys(prevFileObj);
                     const modifiedAcceptedFiles = acceptedFiles.map((item: any) => {
-                        if (prevFileNamesArr?.includes(item?.name)) {
+                        if (prevFileObj.has(item?.name)) {
                             const currDateTime = new Date().toISOString();
 
                             const extractName = item.name.split('.');
@@ -129,6 +127,9 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                 let currTotalFilesSize = 0;
                 if (allFiles.length > 0) {
                     for (let doc of allFiles) {
+                        if (doc.size > maxSizeLimitPerFile) {
+                            break;
+                        }
                         currTotalFilesSize = currTotalFilesSize + doc.size;
                     }
                 }

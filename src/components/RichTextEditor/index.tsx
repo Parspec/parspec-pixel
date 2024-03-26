@@ -49,7 +49,7 @@ export function RichTextEditor({
     placeHolderText = 'Enter text...',
     showAttachements = false,
     showShareableLinkButton = false,
-    shareableLinkUrl = '#',
+    shareableLinkUrl = 'https://',
     shareableLinkTitle = '',
     showFontFamiliy = false,
     onBlur = () => {},

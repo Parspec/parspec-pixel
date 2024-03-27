@@ -23,7 +23,7 @@ require("./agGridStyles.css");
 const CustomToolbarPanel_1 = require("./CustomToolbarPanel");
 const modules = [clipboard_1.ClipboardModule, charts_1.GridChartsModule, excel_export_1.ExcelExportModule];
 exports.AgGridTable = (0, react_1.forwardRef)((props, ref) => {
-    const { tableHeight, isTableLoading, showToolbarPanel = false, isToolbarLoading = false, toolBarPanelOptions = [], selectedRowCount = 0, disabledToolBarButton = false, onAdd, onDelete, onHideUnhide, onAddDuplicates, onMove, onCreateKit, onCloseBanner, onTextSearch, toolbarRightSection, rowData } = props, restTableProps = __rest(props, ["tableHeight", "isTableLoading", "showToolbarPanel", "isToolbarLoading", "toolBarPanelOptions", "selectedRowCount", "disabledToolBarButton", "onAdd", "onDelete", "onHideUnhide", "onAddDuplicates", "onMove", "onCreateKit", "onCloseBanner", "onTextSearch", "toolbarRightSection", "rowData"]);
+    const { tableHeight, isTableLoading, showToolbarPanel = false, isToolbarLoading = false, toolBarPanelOptions = [], selectedRowCount = 0, disabledToolBarButton = false, onAdd, onDelete, onHideUnhide, onAddDuplicates, onMove, onCreateKit, onCloseBanner, onTextSearch, toolbarRightSection, rowData, pagination } = props, restTableProps = __rest(props, ["tableHeight", "isTableLoading", "showToolbarPanel", "isToolbarLoading", "toolBarPanelOptions", "selectedRowCount", "disabledToolBarButton", "onAdd", "onDelete", "onHideUnhide", "onAddDuplicates", "onMove", "onCreateKit", "onCloseBanner", "onTextSearch", "toolbarRightSection", "rowData", "pagination"]);
     const gridRef = (0, react_1.useRef)(null);
     const [isGridReady, setGridReady] = (0, react_1.useState)(false);
     // Expose methods through the forwarded ref
@@ -50,7 +50,7 @@ exports.AgGridTable = (0, react_1.forwardRef)((props, ref) => {
                                 return { backgroundColor: '#f8f8f8', fontWeight: 700 };
                             }
                             return undefined;
-                        } }), modules: modules, onGridReady: () => setGridReady(true) })) }))] })));
+                        } }), modules: modules, onGridReady: () => setGridReady(true), paginationAutoPageSize: pagination })) }))] })));
 });
 const defaultColDef = {
     flex: 1,

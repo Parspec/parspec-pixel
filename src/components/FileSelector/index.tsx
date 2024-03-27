@@ -32,7 +32,7 @@ interface FileSelectorProps {
     isLoading?: boolean;
     showUploaderAlways?: boolean;
     maxTotalFileSizeAllowed?: { size_in_bytes: number; errorText: string };
-    maxSizeLimitPerFile?: number;
+    maxSizeLimitPerFile?: { size_in_bytes: number; errorText: string };
 }
 
 export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
@@ -52,13 +52,14 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
             isLoading = false,
             showUploaderAlways = false,
             maxTotalFileSizeAllowed = { size_in_bytes: Infinity, errorText: '' },
-            maxSizeLimitPerFile = Infinity
+            maxSizeLimitPerFile = { size_in_bytes: Infinity, errorText: '' }
         },
         ref
     ) => {
         const [files, setFiles] = useState<any>([]);
         const [result, setResults] = useState<any>([]);
-        const [maxFileSizeExceededError, setMaxFileSizeExceededError] = useState(false);
+        const [maxTotalFileSizeExceededError, setMaxTotalFileSizeExceededError] = useState(false);
+        const [maxIndividualFileSizeExceededError, setMaxIndividualFileSizeExceededError] = useState(false);
 
         useEffect(() => {
             if (preSelectedFile?.length) {
@@ -93,7 +94,8 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
         //Function called when file is selected
         const onDrop = useCallback(
             (acceptedFiles: any) => {
-                setMaxFileSizeExceededError(false);
+                setMaxTotalFileSizeExceededError(false);
+                setMaxIndividualFileSizeExceededError(false);
 
                 let allFiles: any[] = [];
 
@@ -127,9 +129,10 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                 let currTotalFilesSize = 0;
                 if (allFiles.length > 0) {
                     for (let doc of allFiles) {
-                        // if (doc.size > maxSizeLimitPerFile) {
-                        //     break;
-                        // }
+                        if (doc.size > maxSizeLimitPerFile) {
+                            setMaxIndividualFileSizeExceededError(true);
+                            // break;
+                        }
                         currTotalFilesSize = currTotalFilesSize + doc.size;
                     }
                 }
@@ -138,7 +141,7 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                 if (currTotalFilesSize < maxTotalFileSizeAllowed.size_in_bytes) {
                     setFiles((old: any) => [...allFiles]);
                 } else {
-                    setMaxFileSizeExceededError(true);
+                    setMaxTotalFileSizeExceededError(true);
                 }
             },
             [files]
@@ -146,8 +149,8 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
 
         //Function called when file is deleted
         const onDelete = (file: { name: string }) => {
-            if (maxFileSizeExceededError) {
-                setMaxFileSizeExceededError(false);
+            if (maxTotalFileSizeExceededError) {
+                setMaxTotalFileSizeExceededError(false);
             }
 
             setFiles((old: any) => old.filter((item: { name: string }) => item?.name !== file?.name));
@@ -212,7 +215,7 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                                     <BodyXS color="secondary">{helperText}</BodyXS>
                                 </Box>
                             )}
-                            {maxFileSizeExceededError && (
+                            {maxTotalFileSizeExceededError && (
                                 <Box mt={1}>
                                     <BodyXS color="error" limit={false} lines={2}>
                                         {maxTotalFileSizeAllowed.errorText}
@@ -271,7 +274,7 @@ export const FileSelector = forwardRef<HTMLDivElement, FileSelectorProps>(
                                     <BodyXS color="secondary">{helperText}</BodyXS>
                                 </Box>
                             )}
-                            {maxFileSizeExceededError && (
+                            {maxTotalFileSizeExceededError && (
                                 <Box mt={1}>
                                     <BodyXS color="error" limit={false} lines={2}>
                                         {maxTotalFileSizeAllowed.errorText}

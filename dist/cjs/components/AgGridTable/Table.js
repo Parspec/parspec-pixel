@@ -50,7 +50,7 @@ exports.AgGridTable = (0, react_1.forwardRef)((props, ref) => {
                                 return { backgroundColor: '#f8f8f8', fontWeight: 700 };
                             }
                             return undefined;
-                        } }), modules: modules, onGridReady: () => setGridReady(true), paginationAutoPageSize: pagination })) }))] })));
+                        } }), modules: modules, onGridReady: () => setGridReady(true), pagination: pagination, paginationAutoPageSize: pagination })) }))] })));
 });
 const defaultColDef = {
     flex: 1,

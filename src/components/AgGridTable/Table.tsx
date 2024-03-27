@@ -117,6 +117,7 @@ export const AgGridTable = forwardRef<AgGridReact<any>, IAgGridTableProps>((prop
                     }}
                     modules={modules}
                     onGridReady={() => setGridReady(true)}
+                    pagination={pagination}
                     paginationAutoPageSize={pagination}
                 />
             </Box>

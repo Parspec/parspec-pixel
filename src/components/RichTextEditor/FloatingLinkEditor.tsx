@@ -115,6 +115,13 @@ export function FloatingLinkEditor() {
                     onChange={(event) => {
                         setLinkUrl(event.target.value);
                     }}
+                    onBlur={(event) => {
+                        event.preventDefault();
+                        if (linkUrl !== '') {
+                            editor.dispatchCommand(TOGGLE_LINK_COMMAND, linkUrl);
+                        }
+                        setEditMode(false);
+                    }}
                     onKeyDown={(event) => {
                         if (event.key === 'Enter') {
                             event.preventDefault();
@@ -133,9 +140,11 @@ export function FloatingLinkEditor() {
             ) : (
                 <>
                     <Box className="link-input">
-                        <a href={linkUrl} target="_blank" rel="noopener noreferrer">
-                            {linkUrl}
-                        </a>
+                        <Box overflow="hidden" textOverflow={'ellipsis'} whiteSpace={'nowrap'}>
+                            <a href={linkUrl} target="_blank" rel="noopener noreferrer">
+                                {linkUrl}
+                            </a>
+                        </Box>
                         <IconButton
                             onMouseDown={(event) => event.preventDefault()}
                             onClick={() => {

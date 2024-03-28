@@ -82,6 +82,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
             loading,
             getOptionLabel,
             getOptionDisabled,
+            defaultValue,
             ...props
         },
         ref
@@ -149,13 +150,14 @@ export const Autocomplete: React.FC<AutocompleteProps> = forwardRef<HTMLDivEleme
                         return option;
                     }}
                     value={value}
+                    size={fieldSize}
                     limitTags={limitTags}
                     filterOptions={filterOptions}
+                    defaultValue={defaultValue}
                     onInputChange={handleOnInputChange}
                     freeSolo={freeSolo}
                     renderInput={({ size, ...params }) => (
                         <TextField
-                            size={fieldSize}
                             helperText={helperText}
                             error={error}
                             {...params}

@@ -1,6 +1,7 @@
 interface Props {
     initialHtml?: string;
-    onHtmlChanged: (html: string) => void;
+    onBlur: (html: string) => void;
+    onChange?: (html: string) => void;
 }
-declare const HtmlPlugin: ({ initialHtml, onHtmlChanged }: Props) => import("react/jsx-runtime").JSX.Element;
-export default HtmlPlugin;
+export declare const HtmlPlugin: ({ initialHtml, onBlur, onChange }: Props) => import("react/jsx-runtime").JSX.Element;
+export {};

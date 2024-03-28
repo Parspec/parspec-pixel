@@ -1,26 +1,49 @@
 .cursor-pointer {
     cursor: pointer;
-}
-
-.cursor-pointer:hover {
-    color: rgb(233, 23, 23);
-}
-
-.text-underline {
     text-decoration: underline;
 }
 
-.editor-container {
-    margin: 20px auto 20px auto;
-    border-radius: 2px;
-    max-width: 600px;
-    color: #000;
+.richTextParagraph {
+    margin: 0;
     position: relative;
+}
+
+.richTextListItem {
+    margin: 0 32px;
+}
+
+.richTextList {
+    padding: 0;
+    margin: 0;
+    list-style-position: outside;
+}
+
+.textUnderline {
+    text-decoration: underline;
+}
+
+.textBold {
+    font-weight: bold;
+}
+
+.textItalic {
+    font-style: italic;
+}
+
+.editor-container {
+    border-radius: 2px;
+    width: 100%;
+    color: #000;
     line-height: 20px;
+    position: relative;
     font-weight: 400;
     text-align: left;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+}
+
+#content-editable:focus-within {
+    outline-color: #6467f2;
 }
 
 .editor-inner {
@@ -33,8 +56,6 @@
     overflow: hidden;
     position: absolute;
     text-overflow: ellipsis;
-    top: 25px;
-    left: 12px;
     font-size: 15px;
     user-select: none;
     display: inline-block;
@@ -43,7 +64,7 @@
 
 .link-editor {
     position: absolute;
-    z-index: 100;
+    z-index: 9999;
     top: -10000px;
     left: -10000px;
     margin-top: -6px;

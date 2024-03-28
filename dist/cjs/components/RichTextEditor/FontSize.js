@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.FontSize = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const react_1 = require("react");
 const selection_1 = require("@lexical/selection");
@@ -97,7 +98,8 @@ function FontSize({ selectionFontSize, disabled, editor }) {
                 const selection = (0, lexical_1.$getSelection)();
                 if (selection !== null) {
                     (0, selection_1.$patchStyleText)(selection, {
-                        'font-size': newFontSize || getNextFontSize
+                        'font-size': newFontSize || getNextFontSize,
+                        'line-height': '1.125'
                     });
                 }
             }
@@ -134,10 +136,10 @@ function FontSize({ selectionFontSize, disabled, editor }) {
     (0, react_1.useEffect)(() => {
         setInputValue(selectionFontSize);
     }, [selectionFontSize]);
-    return ((0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ display: "flex", justifyContent: "center", alignItems: "center", width: "120px" }, { children: [(0, jsx_runtime_1.jsx)(IconButton_1.IconButton, Object.assign({ disabled: disabled || (selectionFontSize !== '' && Number(inputValue) <= MIN_ALLOWED_FONT_SIZE), onClick: () => handleButtonClick(UPDATE_FONT_SIZE_TYPE.DECREMENT) }, { children: (0, jsx_runtime_1.jsx)(Icons_1.RemoveIcon, { fontSize: "small", color: "secondary" }) })), (0, jsx_runtime_1.jsx)(TextField_1.TextField, { type: "number", value: inputValue, disabled: disabled, inputProps: {
+    return ((0, jsx_runtime_1.jsxs)(Box_1.Box, Object.assign({ display: "flex", justifyContent: "center", alignItems: "center", width: "136px" }, { children: [(0, jsx_runtime_1.jsx)(IconButton_1.IconButton, Object.assign({ disabled: disabled || (selectionFontSize !== '' && Number(inputValue) <= MIN_ALLOWED_FONT_SIZE), onClick: () => handleButtonClick(UPDATE_FONT_SIZE_TYPE.DECREMENT) }, { children: (0, jsx_runtime_1.jsx)(Icons_1.RemoveIcon, { fontSize: "small", color: "secondary" }) })), (0, jsx_runtime_1.jsx)(TextField_1.TextField, { type: "number", value: inputValue, disabled: disabled, inputProps: {
                     min: MIN_ALLOWED_FONT_SIZE,
                     max: MAX_ALLOWED_FONT_SIZE
                 }, onChange: (e) => setInputValue(e.target.value), onKeyDown: handleKeyPress, label: '', fullWidth: true }), (0, jsx_runtime_1.jsx)(IconButton_1.IconButton, Object.assign({ disabled: disabled || (selectionFontSize !== '' && Number(inputValue) >= MAX_ALLOWED_FONT_SIZE), onClick: () => handleButtonClick(UPDATE_FONT_SIZE_TYPE.INCREMENT) }, { children: (0, jsx_runtime_1.jsx)(Icons_1.AddIcon, { fontSize: "small", color: "secondary" }) }))] })));
 }
-exports.default = FontSize;
+exports.FontSize = FontSize;
 //# sourceMappingURL=FontSize.js.map

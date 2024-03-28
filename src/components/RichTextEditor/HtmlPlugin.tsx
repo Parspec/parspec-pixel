@@ -1,23 +1,25 @@
 import { useState, useEffect } from 'react';
 
-import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { $generateHtmlFromNodes, $generateNodesFromDOM } from '@lexical/html';
-import { $insertNodes } from 'lexical';
+import { $insertNodes, EditorState } from 'lexical';
+import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
+
+import { OnBlurPlugin } from './onBlurPlugin';
 
 interface Props {
     initialHtml?: string;
-    onHtmlChanged: (html: string) => void;
+    onBlur: (html: string) => void;
+    onChange?: (html: string) => void;
 }
 
-const HtmlPlugin = ({ initialHtml, onHtmlChanged }: Props) => {
+export const HtmlPlugin = ({ initialHtml, onBlur, onChange }: Props) => {
     const [editor] = useLexicalComposerContext();
 
     const [isFirstRender, setIsFirstRender] = useState(true);
 
     useEffect(() => {
         if (!initialHtml || !isFirstRender) return;
-
         setIsFirstRender(false);
 
         editor.update(() => {
@@ -28,15 +30,22 @@ const HtmlPlugin = ({ initialHtml, onHtmlChanged }: Props) => {
         });
     }, []);
 
+    function handleOnBlur(editorState: EditorState) {
+        editorState.read(() => {
+            onBlur($generateHtmlFromNodes(editor));
+        });
+    }
+
+    function handleOnChange(editorState: EditorState) {
+        editorState.read(() => {
+            onChange?.($generateHtmlFromNodes(editor));
+        });
+    }
+
     return (
-        <OnChangePlugin
-            onChange={(editorState) => {
-                editorState.read(() => {
-                    onHtmlChanged($generateHtmlFromNodes(editor));
-                });
-            }}
-        />
+        <>
+            <OnBlurPlugin onBlur={handleOnBlur} />
+            <OnChangePlugin onChange={handleOnChange} />
+        </>
     );
 };
-
-export default HtmlPlugin;

@@ -47,7 +47,7 @@ import { BodySmall } from '../Typography';
 const license = window.localStorage.getItem('syncfusionLicense');
 registerLicense(license!);
 
-type ToolbarT = 'delete' | 'search' | 'clearFilters' | 'hide' | 'unhide' | 'selectedItems' | 'duplicate' | 'add' | 'move' | 'createKit';
+type ToolbarT = 'delete' | 'search' | 'clearFilters' | 'hide' | 'unhide' | 'selectedItems' | 'duplicate' | 'add' | 'move' | 'createKit' | 'highlight';
 export type ToolbarType = ToolbarT[];
 export interface TableProps {
     children: React.ReactNode;
@@ -342,7 +342,7 @@ export const Table = forwardRef<TableRefType, TableProps>((props, ref) => {
                 tableRef.current.dataSource = data;
             }
         };
-        const setRowData = (orderID: number, newRowData: typeof data[0]) => {
+        const setRowData = (orderID: number, newRowData: (typeof data)[0]) => {
             tableRef?.current?.setRowData(orderID, newRowData);
         };
         const getData = () => {

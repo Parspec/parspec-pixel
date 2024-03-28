@@ -90,7 +90,7 @@ const AttachmentsToobarPlugin = ({ onFileUpload }) => {
             fileInputRef.current.click();
         }
     };
-    return (_jsxs(_Fragment, { children: [_jsx("input", { multiple: true, type: "file", ref: fileInputRef, onChange: handleFileChange, style: { display: 'none' }, accept: "image/*,.pdf" }), _jsx(IconButton, Object.assign({ onClick: handleAttachmentClick }, { children: _jsx(AttachFileIcon, { color: "secondary" }) }))] }));
+    return (_jsxs(_Fragment, { children: [_jsx("input", { multiple: true, type: "file", ref: fileInputRef, onChange: handleFileChange, style: { display: 'none' }, accept: "image/*,.pdf" }, Math.random()), _jsx(IconButton, Object.assign({ onClick: handleAttachmentClick }, { children: _jsx(AttachFileIcon, { color: "secondary" }) }))] }));
 };
 export function ToolBar({ onFileUpload, isDisable, showAttachements, showShareableLinkButton, shareableLinkTitle = '', shareableLinkUrl = '#', showFontFamiliy = false }) {
     const [editor] = useLexicalComposerContext();

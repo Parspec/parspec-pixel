@@ -142,7 +142,7 @@ const AttachmentsToobarPlugin = ({ onFileUpload }: IAttachmentsToobarPlugin): JS
 
     return (
         <>
-            <input multiple type="file" ref={fileInputRef} onChange={handleFileChange} style={{ display: 'none' }} accept="image/*,.pdf" />
+            <input key={Math.random()} multiple type="file" ref={fileInputRef} onChange={handleFileChange} style={{ display: 'none' }} accept="image/*,.pdf" />
             <IconButton onClick={handleAttachmentClick}>
                 <AttachFileIcon color="secondary" />
             </IconButton>

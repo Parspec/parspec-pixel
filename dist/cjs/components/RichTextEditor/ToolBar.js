@@ -93,7 +93,7 @@ const AttachmentsToobarPlugin = ({ onFileUpload }) => {
             fileInputRef.current.click();
         }
     };
-    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("input", { multiple: true, type: "file", ref: fileInputRef, onChange: handleFileChange, style: { display: 'none' }, accept: "image/*,.pdf" }), (0, jsx_runtime_1.jsx)(IconButton_1.IconButton, Object.assign({ onClick: handleAttachmentClick }, { children: (0, jsx_runtime_1.jsx)(Icons_1.AttachFileIcon, { color: "secondary" }) }))] }));
+    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("input", { multiple: true, type: "file", ref: fileInputRef, onChange: handleFileChange, style: { display: 'none' }, accept: "image/*,.pdf" }, Math.random()), (0, jsx_runtime_1.jsx)(IconButton_1.IconButton, Object.assign({ onClick: handleAttachmentClick }, { children: (0, jsx_runtime_1.jsx)(Icons_1.AttachFileIcon, { color: "secondary" }) }))] }));
 };
 function ToolBar({ onFileUpload, isDisable, showAttachements, showShareableLinkButton, shareableLinkTitle = '', shareableLinkUrl = '#', showFontFamiliy = false }) {
     const [editor] = (0, LexicalComposerContext_1.useLexicalComposerContext)();
